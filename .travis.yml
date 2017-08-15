@@ -1,0 +1,21 @@
+# use the Python 3.5 language
+language: python
+python:
+  - "3.5"
+
+# cache to improve build speed
+cache:
+  directories:
+    - $HOME/.pip-cache/
+
+# command to install dependencies
+install:
+  - pip install --upgrade pip
+  - pip install -r requirements.txt --cache-dir $HOME/.pip-cache
+
+# set GATORGRADER_HOME environment variable
+before_script:
+  - export GATORGRADER_HOME="/home/travis/build/gkapfham/gatorgrader"
+
+# command to run tests
+script: pytest tests
