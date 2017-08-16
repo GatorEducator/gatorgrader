@@ -9,8 +9,8 @@ CHECKFILE = "checkfile"
 TRIPLE_BACKUP = "/../../../"
 
 # main GatorGrader files are TRIPLE_BACKUP from here
-mypath = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(mypath + TRIPLE_BACKUP)
+gatorgrader_path = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, gatorgrader_path + TRIPLE_BACKUP)
 
 
 def pytest_addoption(parser):
