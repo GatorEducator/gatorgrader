@@ -25,12 +25,30 @@ def verify_gatorgrader_arguments(args):
         verified_arguments = False
     elif args.directories is not None and args.checkfiles is None:
         verified_arguments = False
+    elif len(args.directories) != len(args.checkfiles):
+        verified_arguments = False
     return verified_arguments
+    print(len(args.directories))
+
+
+def display_welcome_message():
+    """ Display a welcome message """
+    print()
+    print("GatorGrader: Automatically Check Files of Programmers and Writers")
+    print("https://github.com/gkapfham/gatorgrader")
+    print()
+
 
 
 if __name__ == '__main__':
+    display_welcome_message()
     # parse and verify the arguments
     gg_arguments = parse_gatorgrader_arguments(sys.argv[1:])
     did_verify_arguments = verify_gatorgrader_arguments(gg_arguments)
     if did_verify_arguments is False:
-        sys.exit(1)
+        print("Incorrect command-line arguments.")
+        sys.exit(2)
+    else:
+        print("Valid command-line arguments")
+        print("Running the specified checks!")
+        print()
