@@ -6,8 +6,8 @@ mypath = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, mypath + '/../')
 
 
-# define the viable command-line arguments when running tests
 def pytest_addoption(parser):
+    """define the viable command-line arguments when running tests"""
     # define command-line argument for including slow tests
     parser.addoption(
         "--runslow", action="store_true", help="Run the slow test cases")
