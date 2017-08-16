@@ -28,7 +28,6 @@ def verify_gatorgrader_arguments(args):
     elif len(args.directories) != len(args.checkfiles):
         verified_arguments = False
     return verified_arguments
-    print(len(args.directories))
 
 
 def display_welcome_message():
