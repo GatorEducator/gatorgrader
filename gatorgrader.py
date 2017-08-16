@@ -46,7 +46,6 @@ if __name__ == '__main__':
     # parse and verify the arguments
     print(sys.argv[1:])
     gg_arguments = parse_gatorgrader_arguments(sys.argv[1:])
-    print(gg_arguments)
     did_verify_arguments = verify_gatorgrader_arguments(gg_arguments)
     if did_verify_arguments is False:
         print("Incorrect command-line arguments.")
@@ -54,7 +53,4 @@ if __name__ == '__main__':
     else:
         print("Valid command-line arguments.")
         print("Running the specified checks!")
-        print("Running pytest.")
-        # pytest -s --runfiles --directory="directory1" --checkfile="README.md"
-        os.chdir("courses/all/")
-        pytest.main(['-s', '--runfiles'])
+
