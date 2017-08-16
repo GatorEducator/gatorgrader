@@ -1,6 +1,6 @@
 """ GatorGrader tests for files """
 
-# import gatorgrader_files
+import gatorgrader_files
 
 
 def test_file_exists_in_directory(checkfile, directory):
