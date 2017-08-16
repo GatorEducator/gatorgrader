@@ -39,7 +39,6 @@ def display_welcome_message():
     print()
 
 
-
 if __name__ == '__main__':
     display_welcome_message()
     # parse and verify the arguments
@@ -49,6 +48,6 @@ if __name__ == '__main__':
         print("Incorrect command-line arguments.")
         sys.exit(2)
     else:
-        print("Valid command-line arguments")
+        print("Valid command-line arguments.")
         print("Running the specified checks!")
         print()
