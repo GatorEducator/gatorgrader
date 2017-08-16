@@ -25,6 +25,8 @@ def pytest_addoption(parser):
         action="append",
         default=[],
         help="file for GatorGrader to check")
+    parser.addoption(
+        "--runfiles", action="store_true", help="Run the file test cases")
 
 
 def pytest_generate_tests(metafunc):
