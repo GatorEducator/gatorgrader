@@ -3,7 +3,7 @@
 import gatorgrader_files
 
 
-def test_create_file(tmpdir):
+def test_one_file_found_in_subdirectory(tmpdir):
     """ file_in_directory can file one file in a subdirectory """
     p = tmpdir.mkdir("sub").join("hello.txt")
     p.write("content")
