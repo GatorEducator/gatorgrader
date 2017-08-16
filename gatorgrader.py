@@ -25,8 +25,9 @@ def verify_gatorgrader_arguments(args):
         verified_arguments = False
     elif args.directories is not None and args.checkfiles is None:
         verified_arguments = False
-    elif len(args.directories) != len(args.checkfiles):
-        verified_arguments = False
+    elif args.directories is not None and args.checkfiles is not None:
+        if len(args.directories) != len(args.checkfiles):
+            verified_arguments = False
     return verified_arguments
 
 
@@ -41,7 +42,9 @@ def display_welcome_message():
 if __name__ == '__main__':
     display_welcome_message()
     # parse and verify the arguments
+    print(sys.argv[1:])
     gg_arguments = parse_gatorgrader_arguments(sys.argv[1:])
+    print(gg_arguments)
     did_verify_arguments = verify_gatorgrader_arguments(gg_arguments)
     if did_verify_arguments is False:
         print("Incorrect command-line arguments.")
