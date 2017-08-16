@@ -1,6 +1,8 @@
 """ GatorGrader checks the files of programmers and writers """
 
 import argparse
+import os
+import pytest
 import sys
 
 import gatorgrader_files
@@ -52,4 +54,7 @@ if __name__ == '__main__':
     else:
         print("Valid command-line arguments.")
         print("Running the specified checks!")
-        print()
+        print("Running pytest.")
+        # pytest -s --runfiles --directory="directory1" --checkfile="README.md"
+        os.chdir("courses/all/")
+        pytest.main(['-s', '--runfiles'])
