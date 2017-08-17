@@ -10,16 +10,13 @@ SEPARATOR = "/"
 
 def invoke_all_file_in_directory_checks(files, directories):
     """ Repeatedly run function that runs pytest """
-    print("Invoke all files!")
+    os.chdir(COURSES + SEPARATOR + ALL)
     for filecheck, directory in zip(files, directories):
         invoke_file_in_directory(filecheck, directory)
 
 
 def invoke_file_in_directory(filecheck, directory):
     """ Runs pytest to check if the file is in a directory """
-    print("file:", filecheck)
-    print("directory:", directory)
-    os.chdir(COURSES + SEPARATOR + ALL)
     pytest.main([
         '-s', '--runfiles', '--directory', directory, '--checkfile', filecheck
     ])
