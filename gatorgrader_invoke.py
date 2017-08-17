@@ -20,6 +20,11 @@ def invoke_all_file_in_directory_checks(files, directories):
 
 def invoke_file_in_directory(filecheck, directory):
     """ Runs pytest to check if the file is in a directory """
+    print("getting read to call pytest!")
+    gatorgrader_home, had_to_set_gatorgrader_home = gatorgrader.get_gatorgrader_home()
+    print("grtpytest gg home", gatorgrader_home)
+    print("grtpytest had to set", had_to_set_gatorgrader_home)
+    os.environ["DEBUSSY"] = "1"
     pytest.main([
         '--runfiles', '--directory', directory, '--checkfile', filecheck
     ])
