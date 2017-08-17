@@ -17,7 +17,9 @@ install:
 before_script:
   - export GATORGRADER_HOME="/home/travis/build/gkapfham/gatorgrader"
 
-# command to run tests
+# perform testing:
+# --> run the internal test suite with pytest
+# --> demonstrate the use of gatorgrader.py on itself
 script:
   - pytest tests
   - python3 gatorgrader.py --directories tests tests --checkfiles conftest.py test_gatorgrader_submit_files.py
