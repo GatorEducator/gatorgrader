@@ -15,3 +15,5 @@ def test_file_exists_in_directory(checkfile, directory):
     """ Check that the file exists in the directory """
     print("file", checkfile)
     print("directory", directory)
+    was_file_found = gatorgrader_files.check_file_in_directory(checkfile, directory)
+    assert was_file_found is True
