@@ -74,7 +74,6 @@ def display_welcome_message():
 if __name__ == '__main__':
     display_welcome_message()
     # parse and verify the arguments
-    print(sys.argv[1:])
     gg_arguments = parse_gatorgrader_arguments(sys.argv[1:])
     did_verify_arguments = verify_gatorgrader_arguments(gg_arguments)
     if did_verify_arguments is False:
@@ -83,6 +82,7 @@ if __name__ == '__main__':
     else:
         print("Valid command-line arguments.")
         print("Running the specified checks!")
+        print()
         # CHECK: all of the files exist in their directories
         if gg_arguments.directories is not None and gg_arguments.checkfiles is not None:
             gatorgrader_invoke.invoke_all_file_in_directory_checks(
