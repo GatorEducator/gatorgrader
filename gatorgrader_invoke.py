@@ -26,5 +26,5 @@ def invoke_file_in_directory(filecheck, directory):
     print("grtpytest had to set", had_to_set_gatorgrader_home)
     os.environ["DEBUSSY"] = "1"
     pytest.main([
-        '--runfiles', '--directory', directory, '--checkfile', filecheck
+        '-s', '--runfiles', '--directory', directory, '--checkfile', filecheck
     ])
