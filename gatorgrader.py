@@ -6,6 +6,7 @@ import pytest
 import sys
 
 import gatorgrader_files
+import gatorgrader_invoke
 
 
 def parse_gatorgrader_arguments(args):
@@ -53,4 +54,7 @@ if __name__ == '__main__':
     else:
         print("Valid command-line arguments.")
         print("Running the specified checks!")
-
+        # CHECK: the files exist in the directories
+        if gg_arguments.directories is not None and gg_arguments.checkfiles is not None:
+            gatorgrader_invoke.invoke_all_file_in_directory_checks(
+                gg_arguments.checkfiles, gg_arguments.directories)
