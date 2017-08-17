@@ -47,3 +47,23 @@ def test_gatorgrader_not_verified(not_verifiable_gg_args):
         not_verifiable_gg_args)
     gg_args_verified = gatorgrader.verify_gatorgrader_arguments(gg_arguments)
     assert gg_args_verified == NOT_VERIFIED
+
+
+def test_gatorgrader_home_is_set():
+    """ Ensure that the gatorgrader_HOME environment variable is set"""
+    gatorgrader_home = gatorgrader.get_gatorgrader_home()
+    assert gatorgrader_home is not None
+
+
+def test_gatorgrader_home_verification_working_verified():
+    """Run gatorgrader and checks that gatorgrader_HOME verification is working """
+    gatorgrader_home_verified = gatorgrader.verify_gatorgrader_home(
+        "/home/gkapfham/")
+    assert gatorgrader_home_verified == VERIFIED
+
+
+def test_gatorgrader_home_verification_working_notverified():
+    """Run gatorgrader and checks that gatorgrader_HOME verification is working """
+    gatorgrader_home_verified = gatorgrader.verify_gatorgrader_home(
+        "/home/gkapfham")
+    assert gatorgrader_home_verified == NOT_VERIFIED
