@@ -1,11 +1,9 @@
 """ GatorGrader checks the files of programmers and writers """
 
-import argparse
-import os
-import pytest
-import sys
 
-import gatorgrader_files
+import sys
+import argparse
+
 import gatorgrader_invoke
 
 
