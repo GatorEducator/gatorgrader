@@ -13,7 +13,7 @@ SEPARATOR = "/"
 def invoke_all_file_in_directory_checks(files, directories):
     """ Repeatedly run function that runs pytest """
     gatorgrader_home, had_to_set_gatorgrader_home = gatorgrader.get_gatorgrader_home()
-    os.environ["GATORGRADER_HOME"] = gatorgrader_home
+    # os.environ["GATORGRADER_HOME"] = gatorgrader_home
     os.chdir(gatorgrader_home + COURSES + SEPARATOR + ALL)
     for filecheck, directory in zip(files, directories):
         invoke_file_in_directory(filecheck, directory)
