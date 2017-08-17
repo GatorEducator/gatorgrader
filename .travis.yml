@@ -20,3 +20,4 @@ before_script:
 # command to run tests
 script:
   - pytest tests
+  - python3 gatorgrader.py --directories tests tests --checkfiles conftest.py test_gatorgrader_submit_files.py
