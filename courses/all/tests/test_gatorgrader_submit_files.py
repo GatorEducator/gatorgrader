@@ -16,11 +16,12 @@ files = pytest.mark.skipif(
 @files
 def test_file_exists_in_directory(checkfile, directory):
     """ Check that the file exists in the directory """
-    print("file", checkfile)
-    print("directory", directory)
+    print("test file", checkfile)
+    print("test directory", directory)
     gatorgrader_home, had_to_set_gatorgrader_home = gatorgrader.get_gatorgrader_home(
     )
-    print("gg home", gatorgrader_home)
+    print("test gg home", gatorgrader_home)
+    print("test gg home had to set", had_to_set_gatorgrader_home)
     was_file_found = gatorgrader_files.check_file_in_directory(
         checkfile, gatorgrader_home + directory)
     assert was_file_found is True
