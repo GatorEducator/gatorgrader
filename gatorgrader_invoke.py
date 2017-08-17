@@ -18,5 +18,5 @@ def invoke_all_file_in_directory_checks(files, directories):
 def invoke_file_in_directory(filecheck, directory):
     """ Runs pytest to check if the file is in a directory """
     pytest.main([
-        '-s', '--runfiles', '--directory', directory, '--checkfile', filecheck
+        '--runfiles', '--directory', directory, '--checkfile', filecheck
     ])
