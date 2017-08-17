@@ -1,10 +1,14 @@
 """ GatorGrader checks the files of programmers and writers """
 
-
+import os
 import sys
+
 import argparse
 
 import gatorgrader_invoke
+
+SLASH = "/"
+GATORGRADER_HOME = "GATORGRADER_HOME"
 
 
 def parse_gatorgrader_arguments(args):
@@ -32,10 +36,35 @@ def verify_gatorgrader_arguments(args):
     return verified_arguments
 
 
+def verify_gatorgrader_home(current_gatorgrader_home):
+    """ Verifies that the GATORGRADER_HOME environment variable is set correctly """
+    verified_gatorgrader_home = False
+    if current_gatorgrader_home is not None and current_gatorgrader_home.endswith(
+            SLASH) is True:
+        verified_gatorgrader_home = True
+    return verified_gatorgrader_home
+
+
+def get_gatorgrader_home():
+    """ Returns the GATORGRADER_HOME """
+    current_gatorgrader_home = os.environ.get(GATORGRADER_HOME)
+    had_to_set = False
+    # the current gatorgrader_home is acceptable, so use it
+    if verify_gatorgrader_home(current_gatorgrader_home) is not False:
+        gatorgrader_home = current_gatorgrader_home
+    # the current gatorgrader_home is not okay, so guess at one
+    else:
+        gatorgrader_home = os.getcwd() + SLASH
+        had_to_set = True
+    return gatorgrader_home, had_to_set
+
+
 def display_welcome_message():
     """ Display a welcome message """
     print()
-    print("GatorGrader: Automatically Check the Files of Programmers and Writers")
+    print(
+        "GatorGrader: Automatically Check the Files of Programmers and Writers"
+    )
     print("https://github.com/gkapfham/gatorgrader")
     print()
 
