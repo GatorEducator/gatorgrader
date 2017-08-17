@@ -3,6 +3,7 @@
 import os
 import pytest
 
+import gatorgrader
 import gatorgrader_files
 
 CWD = "."
@@ -17,7 +18,9 @@ def test_file_exists_in_directory(checkfile, directory):
     """ Check that the file exists in the directory """
     print("file", checkfile)
     print("directory", directory)
-    # if directory == CWD:
-        # directory = os.path.basename(os.getcwd()) + ".." + "/" + ".." + "/"
-    was_file_found = gatorgrader_files.check_file_in_directory(checkfile, directory)
+    gatorgrader_home, had_to_set_gatorgrader_home = gatorgrader.get_gatorgrader_home(
+    )
+    print("gg home", gatorgrader_home)
+    was_file_found = gatorgrader_files.check_file_in_directory(
+        checkfile, gatorgrader_home + directory)
     assert was_file_found is True
