@@ -18,4 +18,5 @@ before_script:
   - export GATORGRADER_HOME="/home/travis/build/gkapfham/gatorgrader"
 
 # command to run tests
-script: pytest tests
+script:
+  - pytest tests
