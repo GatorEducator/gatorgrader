@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """ GatorGrader checks the files of programmers and writers """
 
 import os
