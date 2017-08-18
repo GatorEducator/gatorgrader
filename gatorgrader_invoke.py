@@ -14,14 +14,14 @@ SEPARATOR = "/"
 
 def invoke_all_file_in_directory_checks(files, directories):
     """ Repeatedly perform the check and return the results """
-    print("Checking if files are in expected directories ...")
+    print("Checking if files are in the expected directories ...")
     print()
     was_file_found_list = []
     for filecheck, directory in zip(files, directories):
         was_file_found = invoke_file_in_directory(filecheck, directory)
         was_file_found_list.append(was_file_found)
     print()
-    print("... Done checking if files are in expected directories")
+    print("... Done checking if files are in the expected directories")
     return was_file_found_list
 
 
