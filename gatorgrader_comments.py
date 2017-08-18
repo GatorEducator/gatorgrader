@@ -17,6 +17,6 @@ def check_file_in_directory(given_file, containing_directory):
 
 def count_singleline_java_comment(contents):
     """ Counts the number of singleline Java comments in the code """
-    pattern = re.compile(SINGLELINECOMMENT_RE)
+    pattern = re.compile(SINGLELINECOMMENT_RE, re.MULTILINE)
     matches = pattern.findall(contents)
     return len(matches)
