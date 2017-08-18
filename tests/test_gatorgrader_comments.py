@@ -77,3 +77,37 @@ def test_singleline_comments_many(code_string, expected_count):
 def test_multiline_comments_zero_or_one(code_string, expected_count):
     assert gatorgrader_comments.count_multiline_java_comment(
         code_string) == expected_count
+
+
+@pytest.mark.parametrize("code_string,expected_count", [
+    ('/* hello world */ \n /* hello world */', 2),
+    ('/* hello */ \n world \n /* hello world */', 2),
+    ('/* hello */ world \n /* hello world */', 2),
+    ('/** hello world */ \n /* hello world */', 2),
+    ('/** hello */ \n world \n /* hello world */', 2),
+    ('/** hello @author me */ world \n /* hello world */', 2),
+    ('/** hello @author me **/ world \n /* hello world */', 2),
+])
+def test_multiline_comments_zero_or_one(code_string, expected_count):
+    assert gatorgrader_comments.count_multiline_java_comment(
+        code_string) == expected_count
+
+
+@pytest.mark.parametrize("code_string,expected_count", [
+    ('// hello world /** hello */', 1),
+    ('// hello world /** hello */ \n /** hello */', 2),
+    ('// hello world hello ', 0),
+])
+def test_multiline_comments_mixed(code_string, expected_count):
+    assert gatorgrader_comments.count_multiline_java_comment(
+        code_string) == expected_count
+
+
+@pytest.mark.parametrize("code_string,expected_count", [
+    ('// hello world /** hello */', 1),
+    ('// hello world /** hello */ \n /** hello */', 1),
+    ('/** hi */ \n // hello world hello ', 1),
+])
+def test_singleline_comments_mixed(code_string, expected_count):
+    assert gatorgrader_comments.count_singleline_java_comment(
+        code_string) == expected_count
