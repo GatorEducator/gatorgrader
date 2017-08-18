@@ -20,8 +20,8 @@ def parse_gatorgrader_arguments(args):
     gg_parser.add_argument('--checkfiles', nargs='+', type=str)
     gg_parser.add_argument('--directories', nargs='+', type=str)
 
-    gg_arguments = gg_parser.parse_args(args)
-    return gg_arguments
+    gg_arguments_finished = gg_parser.parse_args(args)
+    return gg_arguments_finished
 
 
 def verify_gatorgrader_arguments(args):
