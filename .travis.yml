@@ -22,4 +22,4 @@ before_script:
 # --> demonstrate the use of gatorgrader.py on itself
 script:
   - pytest tests
-  - python3 gatorgrader.py --directories tests tests --checkfiles conftest.py test_gatorgrader_submit_files.py
+  # - python3 gatorgrader.py --directories tests tests --checkfiles conftest.py test_gatorgrader_submit_files.py
