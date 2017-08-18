@@ -1,15 +1,8 @@
 """ Invokes programs on the command-line on behalf of GatorGrader """
 
-import os
-import pytest
-
 import gatorgrader
 import gatorgrader_files
 import gatorgrader_util
-
-COURSES = "courses"
-ALL = "all"
-SEPARATOR = "/"
 
 
 def invoke_all_file_in_directory_checks(files, directories):
