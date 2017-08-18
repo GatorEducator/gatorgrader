@@ -8,6 +8,7 @@ FILE_SEPARATOR = "/"
 SINGLELINECOMMENT_RE = r'^(?:[^"/\\]|\"(?:[^\"\\]|\\.)*\"|/(?:[^/"\\]|\\.)|/\"(?:[^\"\\]|\\.)*\"|\\.)*//(.*)$'
 MULTILINECOMMENT_RE = r'/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/'
 
+
 def check_file_in_directory(given_file, containing_directory):
     """ Returns true if the specified file is in the directory """
     file_for_checking = Path(containing_directory + FILE_SEPARATOR +
