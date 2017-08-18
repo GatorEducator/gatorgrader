@@ -8,6 +8,7 @@ import sys
 import argparse
 
 import gatorgrader_invoke
+import gatorgrader_exit
 
 SLASH = "/"
 GATORGRADER_HOME = "GATORGRADER_HOME"
@@ -76,14 +77,21 @@ if __name__ == '__main__':
     # parse and verify the arguments
     gg_arguments = parse_gatorgrader_arguments(sys.argv[1:])
     did_verify_arguments = verify_gatorgrader_arguments(gg_arguments)
+    # incorrect arguments, exit program
     if did_verify_arguments is False:
         print("Incorrect command-line arguments.")
         sys.exit(2)
+    # correct arguments, so perform the checks
     else:
         print("Valid command-line arguments.")
         print("Running the specified checks!")
         print()
+        check_return_values = []
         # CHECK: all of the files exist in their directories
         if gg_arguments.directories is not None and gg_arguments.checkfiles is not None:
-            gatorgrader_invoke.invoke_all_file_in_directory_checks(
+            current_invoke_return_values = gatorgrader_invoke.invoke_all_file_in_directory_checks(
                 gg_arguments.checkfiles, gg_arguments.directories)
+            check_return_values.extend(current_invoke_return_values)
+        # DONE: Determine the correct exit code for the checks
+        correct_exit_code = gatorgrader_exit.get_code(check_return_values)
+        sys.exit(correct_exit_code)
