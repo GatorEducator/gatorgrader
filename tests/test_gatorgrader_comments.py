@@ -48,3 +48,14 @@ def test_singleline_comments_zero_or_one(code_string, expected_count):
 def test_singleline_comments_many(code_string, expected_count):
     assert gatorgrader_comments.count_singleline_java_comment(
         code_string) == expected_count
+
+
+@pytest.mark.parametrize("code_string,expected_count", [
+    ('/* hello world */', 1),
+    ('/** hello world */', 1),
+    ('', 0),
+    ("", 0),
+])
+def test_multiline_comments_zero_or_one(code_string, expected_count):
+    assert gatorgrader_comments.count_multiline_java_comment(
+        code_string) == expected_count
