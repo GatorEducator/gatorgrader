@@ -14,8 +14,13 @@ import gatorgrader_fragments
     ('hello world!!%^(@after)writing a lot\n\n', 1),
     ('', 0),
     ("", 0),
-    # (' ', 0),
-    # SHOULD WORK! (" ", 0),
+    (' ', 0),
+    (" ", 0),
+    ("     ", 0),
+    ('     ', 0),
+    ('a     ', 1),
+    ("a     ", 1),
+    ("a\n     ", 1),
 ])
 def test_singleline_comments_zero_or_one(writing_string, expected_count):
     assert gatorgrader_fragments.count_paragraphs(
