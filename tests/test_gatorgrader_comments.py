@@ -1,4 +1,4 @@
-""" test cases for the gatorgrader_utils module """
+""" Test cases for the gatorgrader_utils module """
 
 import os
 import pytest
