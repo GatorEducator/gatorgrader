@@ -48,6 +48,9 @@ def verify_gatorgrader_arguments(args):
     elif args.singlecomments != 0:
         if args.checkfiles is None or args.directories is None:
             verified_arguments = False
+    elif args.multicomments != 0:
+        if args.checkfiles is None or args.directories is None:
+            verified_arguments = False
     return verified_arguments
 
 
