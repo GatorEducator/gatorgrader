@@ -1,6 +1,7 @@
 """ Invokes programs on the command-line on behalf of GatorGrader """
 
 import gatorgrader
+import gatorgrader_comments
 import gatorgrader_files
 import gatorgrader_util
 
@@ -33,3 +34,30 @@ def invoke_file_in_directory_check(filecheck, directory):
         gatorgrader_util.get_human_answer(was_file_found),
         sep="")
     return was_file_found
+
+
+def invoke_all_singleline_comment_checks(files, directories, expected_counts):
+    """ Repeatedly perform the check and return the results """
+    print("Checking if singleline comments...")
+    print()
+    was_exceeded_list = []
+    for filecheck, directory, expected_count in zip(files, directories,
+                                                    expected_counts):
+        met_or_exceeded_count = gatorgrader_comments.entity_greater_than_count(
+            filecheck, directory, expected_count,
+            gatorgrader_comments.count_singleline_java_comment)
+        was_exceeded_list.append(met_or_exceeded_count)
+        print(
+            "Did ",
+            filecheck,
+            " in ",
+            directory,
+            " have ",
+            expected_count,
+            " comments? ",
+            gatorgrader_util.get_human_answer(met_or_exceeded_count),
+            sep="")
+
+    print()
+    print("... Done checking singleline comments")
+    return was_exceeded_list
