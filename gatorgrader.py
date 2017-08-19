@@ -11,7 +11,7 @@ import gatorgrader_exit
 SLASH = "/"
 GATORGRADER_HOME = "GATORGRADER_HOME"
 
-DEFAULT_COMMENT_COUNT = 0
+DEFAULT_COUNT = 0
 
 SINGLE = "single-line"
 MULTIPLE = "multiple-line"
@@ -26,13 +26,13 @@ def parse_gatorgrader_arguments(args):
     gg_parser.add_argument('--directories', nargs='+', type=str)
 
     gg_parser.add_argument(
-        '--singlecomments', nargs='+', type=int, default=DEFAULT_COMMENT_COUNT)
+        '--singlecomments', nargs='+', type=int, default=DEFAULT_COUNT)
 
     gg_parser.add_argument(
-        '--multicomments', nargs='+', type=int, default=DEFAULT_COMMENT_COUNT)
+        '--multicomments', nargs='+', type=int, default=DEFAULT_COUNT)
 
     gg_parser.add_argument(
-        '--paragraphs', nargs='+', type=int, default=DEFAULT_COMMENT_COUNT)
+        '--paragraphs', nargs='+', type=int, default=DEFAULT_COUNT)
 
     gg_arguments_finished = gg_parser.parse_args(args)
     return gg_arguments_finished
@@ -124,6 +124,12 @@ if __name__ == '__main__':
                 current_invoke_return_values = gatorgrader_invoke.invoke_all_comment_checks(
                     gg_arguments.checkfiles, gg_arguments.directories,
                     gg_arguments.singlecomments, MULTIPLE)
+                check_return_values.extend(current_invoke_return_values)
+            # CHECK: Writing contains 'k' paragraphs
+            if gg_arguments.paragraphs != 0:
+                current_invoke_return_values = gatorgrader_invoke.invoke_all_paragraph_checks(
+                    gg_arguments.checkfiles, gg_arguments.directories,
+                    gg_arguments.paragraphs)
                 check_return_values.extend(current_invoke_return_values)
 
         # DONE: Determine the correct exit code for the checks
