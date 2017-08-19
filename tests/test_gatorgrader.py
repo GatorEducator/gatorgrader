@@ -22,7 +22,7 @@ def verifiable_gg_args():
 
 @pytest.fixture
 def not_verifiable_gg_args():
-    """Return arguments that are verifiable"""
+    """Return arguments that are not verifiable"""
     return ['--directories', 'D', 'F', 'G', '--checkfiles', 'a', 'b']
 
 
