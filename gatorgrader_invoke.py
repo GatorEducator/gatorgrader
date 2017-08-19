@@ -50,7 +50,7 @@ def invoke_all_comment_checks(files, directories, expected_counts,
     for filecheck, directory, expected_count in zip(files, directories,
                                                     expected_counts):
         if comment_type == SINGLE:
-            met_or_exceeded_count = gatorgrader_comments.entity_greater_than_count(
+            met_or_exceeded_count = gatorgrader_entities.entity_greater_than_count(
                 filecheck, directory, expected_count,
                 gatorgrader_comments.count_singleline_java_comment)
         elif comment_type == MULTIPLE:
