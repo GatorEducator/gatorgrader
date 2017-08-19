@@ -13,6 +13,8 @@ GATORGRADER_HOME = "GATORGRADER_HOME"
 
 DEFAULT_COMMENT_COUNT = 0
 
+SINGLE = "single-line"
+MULTIPLE = "multiple-line"
 
 def parse_gatorgrader_arguments(args):
     """ Parses the arguments provided on the command-line """
@@ -100,14 +102,16 @@ if __name__ == '__main__':
             check_return_values.extend(current_invoke_return_values)
             # CHECK: Java code contains 'k' single-line comments
             if gg_arguments.singlecomments != 0:
-                current_invoke_return_values = gatorgrader_invoke.invoke_all_singleline_comment_checks(
+                current_invoke_return_values = gatorgrader_invoke.invoke_all_comment_checks(
                     gg_arguments.checkfiles, gg_arguments.directories,
-                    gg_arguments.singlecomments)
+                    gg_arguments.singlecomments, SINGLE)
                 check_return_values.extend(current_invoke_return_values)
-
             # CHECK: Java code contains 'k' multiple-line comments
             if gg_arguments.multicomments != 0:
-                print("multiple comments checking!")
+                current_invoke_return_values = gatorgrader_invoke.invoke_all_comment_checks(
+                    gg_arguments.checkfiles, gg_arguments.directories,
+                    gg_arguments.singlecomments, MULTIPLE)
+                check_return_values.extend(current_invoke_return_values)
 
         # DONE: Determine the correct exit code for the checks
         correct_exit_code = gatorgrader_exit.get_code(check_return_values)

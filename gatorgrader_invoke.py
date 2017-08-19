@@ -5,6 +5,9 @@ import gatorgrader_comments
 import gatorgrader_files
 import gatorgrader_util
 
+SINGLE = "single-line"
+MULTIPLE = "multiple-line"
+
 
 def invoke_all_file_in_directory_checks(files, directories):
     """ Repeatedly perform the check and return the results """
@@ -36,16 +39,25 @@ def invoke_file_in_directory_check(filecheck, directory):
     return was_file_found
 
 
-def invoke_all_singleline_comment_checks(files, directories, expected_counts):
+def invoke_all_comment_checks(files, directories, expected_counts,
+                              comment_type):
     """ Repeatedly perform the check and return the results """
-    print("Checking if singleline comments...")
+    print("Checking for", comment_type, "comments...")
     print()
     was_exceeded_list = []
+    met_or_exceeded_count = 0
+    print("COMMENT TYPE = ", comment_type)
     for filecheck, directory, expected_count in zip(files, directories,
                                                     expected_counts):
-        met_or_exceeded_count = gatorgrader_comments.entity_greater_than_count(
-            filecheck, directory, expected_count,
-            gatorgrader_comments.count_singleline_java_comment)
+        if comment_type == SINGLE:
+            met_or_exceeded_count = gatorgrader_comments.entity_greater_than_count(
+                filecheck, directory, expected_count,
+                gatorgrader_comments.count_singleline_java_comment)
+        elif comment_type == MULTIPLE:
+            met_or_exceeded_count = gatorgrader_comments.entity_greater_than_count(
+                filecheck, directory, expected_count,
+                gatorgrader_comments.count_multiline_java_comment)
+
         was_exceeded_list.append(met_or_exceeded_count)
         print(
             "Did ",
@@ -54,10 +66,12 @@ def invoke_all_singleline_comment_checks(files, directories, expected_counts):
             directory,
             " have ",
             expected_count,
+            " ",
+            comment_type,
             " comments? ",
             gatorgrader_util.get_human_answer(met_or_exceeded_count),
             sep="")
 
     print()
-    print("... Done checking singleline comments")
+    print("... Done checking for", comment_type, "comments")
     return was_exceeded_list
