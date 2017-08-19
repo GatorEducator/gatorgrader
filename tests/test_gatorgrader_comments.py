@@ -1,8 +1,25 @@
 """ test cases for the gatorgrader_utils module """
 
+import os
 import pytest
 
 import gatorgrader_comments
+
+
+def test_file_contains_singleline_comment(tmpdir):
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
+    hello_file.write('//// hello world')
+    assert hello_file.read() == "//// hello world"
+    assert len(tmpdir.listdir()) == 1
+    print()
+    print("tmpdir:", tmpdir)
+    print("hello_file bn:", hello_file.basename)
+    print("type of hello_file:", type(hello_file))
+    comment_count = gatorgrader_comments.count_entities(
+        hello_file.basename,
+        hello_file.dirname,
+        gatorgrader_comments.count_singleline_java_comment)
+    assert comment_count == 1
 
 
 @pytest.mark.parametrize("code_string,expected_count", [
