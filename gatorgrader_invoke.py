@@ -2,6 +2,7 @@
 
 import gatorgrader
 import gatorgrader_comments
+import gatorgrader_entities
 import gatorgrader_files
 import gatorgrader_util
 
@@ -46,7 +47,6 @@ def invoke_all_comment_checks(files, directories, expected_counts,
     print()
     was_exceeded_list = []
     met_or_exceeded_count = 0
-    print("COMMENT TYPE = ", comment_type)
     for filecheck, directory, expected_count in zip(files, directories,
                                                     expected_counts):
         if comment_type == SINGLE:
