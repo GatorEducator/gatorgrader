@@ -18,6 +18,19 @@ def test_file_contains_singleline_comment(tmpdir):
     assert comment_count == 1
 
 
+def test_file_contains_multiline_comment(tmpdir):
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
+    hello_file.write('/* hello world */')
+    assert hello_file.read() == "/* hello world */"
+    assert len(tmpdir.listdir()) == 1
+    comment_count = gatorgrader_comments.count_entities(
+        hello_file.basename,
+        hello_file.dirname,
+        gatorgrader_comments.count_multiline_java_comment)
+    assert comment_count == 1
+
+
+
 def test_file_contains_singleline_comment_greater(tmpdir):
     """Checks that the file is above the check level"""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
