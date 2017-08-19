@@ -31,6 +31,9 @@ def parse_gatorgrader_arguments(args):
     gg_parser.add_argument(
         '--multicomments', nargs='+', type=int, default=DEFAULT_COMMENT_COUNT)
 
+    gg_parser.add_argument(
+        '--paragraphs', nargs='+', type=int, default=DEFAULT_COMMENT_COUNT)
+
     gg_arguments_finished = gg_parser.parse_args(args)
     return gg_arguments_finished
 
@@ -49,6 +52,9 @@ def verify_gatorgrader_arguments(args):
         if args.checkfiles is None or args.directories is None:
             verified_arguments = False
     elif args.multicomments != 0:
+        if args.checkfiles is None or args.directories is None:
+            verified_arguments = False
+    elif args.paragraphs != 0:
         if args.checkfiles is None or args.directories is None:
             verified_arguments = False
     return verified_arguments
