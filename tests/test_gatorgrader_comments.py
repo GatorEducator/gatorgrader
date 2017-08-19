@@ -13,8 +13,7 @@ def test_file_contains_singleline_comment_count(tmpdir):
     assert hello_file.read() == "//// hello world"
     assert len(tmpdir.listdir()) == 1
     comment_count = gatorgrader_comments.count_entities(
-        hello_file.basename,
-        hello_file.dirname,
+        hello_file.basename, hello_file.dirname,
         gatorgrader_comments.count_singleline_java_comment)
     assert comment_count == 1
 
@@ -26,8 +25,7 @@ def test_file_contains_multiline_comment_count(tmpdir):
     assert hello_file.read() == "/* hello world */"
     assert len(tmpdir.listdir()) == 1
     comment_count = gatorgrader_comments.count_entities(
-        hello_file.basename,
-        hello_file.dirname,
+        hello_file.basename, hello_file.dirname,
         gatorgrader_comments.count_multiline_java_comment)
     assert comment_count == 1
 
@@ -38,10 +36,8 @@ def test_file_contains_singleline_comment_greater(tmpdir):
     hello_file.write('//// hello world')
     assert hello_file.read() == "//// hello world"
     assert len(tmpdir.listdir()) == 1
-    greater_than_count = gatorgrader_comments.entities_greater_than_count(
-        hello_file.basename,
-        hello_file.dirname,
-        1,
+    greater_than_count = gatorgrader_comments.entity_greater_than_count(
+        hello_file.basename, hello_file.dirname, 1,
         gatorgrader_comments.count_singleline_java_comment)
     assert greater_than_count is True
 
@@ -52,10 +48,8 @@ def test_file_contains_multiline_comment_greater(tmpdir):
     hello_file.write('/* hello world */')
     assert hello_file.read() == "/* hello world */"
     assert len(tmpdir.listdir()) == 1
-    greater_than_count = gatorgrader_comments.entities_greater_than_count(
-        hello_file.basename,
-        hello_file.dirname,
-        1,
+    greater_than_count = gatorgrader_comments.entity_greater_than_count(
+        hello_file.basename, hello_file.dirname, 1,
         gatorgrader_comments.count_multiline_java_comment)
     assert greater_than_count is True
 
@@ -66,10 +60,8 @@ def test_file_contains_singleline_comment_not_greater(tmpdir):
     hello_file.write('/ hello world')
     assert hello_file.read() == "/ hello world"
     assert len(tmpdir.listdir()) == 1
-    greater_than_count = gatorgrader_comments.entities_greater_than_count(
-        hello_file.basename,
-        hello_file.dirname,
-        1,
+    greater_than_count = gatorgrader_comments.entity_greater_than_count(
+        hello_file.basename, hello_file.dirname, 1,
         gatorgrader_comments.count_singleline_java_comment)
     assert greater_than_count is False
 
@@ -80,10 +72,8 @@ def test_file_contains_multiline_comment_not_greater(tmpdir):
     hello_file.write('/ hello world')
     assert hello_file.read() == "/ hello world"
     assert len(tmpdir.listdir()) == 1
-    greater_than_count = gatorgrader_comments.entities_greater_than_count(
-        hello_file.basename,
-        hello_file.dirname,
-        1,
+    greater_than_count = gatorgrader_comments.entity_greater_than_count(
+        hello_file.basename, hello_file.dirname, 1,
         gatorgrader_comments.count_multiline_java_comment)
     assert greater_than_count is False
 
