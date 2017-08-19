@@ -18,6 +18,35 @@ def test_file_contains_singleline_comment(tmpdir):
     assert comment_count == 1
 
 
+def test_file_contains_singleline_comment_greater(tmpdir):
+    """Checks that the file is above the check level"""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
+    hello_file.write('//// hello world')
+    assert hello_file.read() == "//// hello world"
+    assert len(tmpdir.listdir()) == 1
+    greater_than_count = gatorgrader_comments.entities_greater_than_count(
+        hello_file.basename,
+        hello_file.dirname,
+        1,
+        gatorgrader_comments.count_singleline_java_comment)
+    assert greater_than_count is True
+
+
+def test_file_contains_singleline_comment_not_greater(tmpdir):
+    """Checks that the file is not above the check level"""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
+    hello_file.write('/ hello world')
+    assert hello_file.read() == "/ hello world"
+    assert len(tmpdir.listdir()) == 1
+    greater_than_count = gatorgrader_comments.entities_greater_than_count(
+        hello_file.basename,
+        hello_file.dirname,
+        1,
+        gatorgrader_comments.count_singleline_java_comment)
+    assert greater_than_count is False
+
+
+
 @pytest.mark.parametrize("code_string,expected_count", [
     ('//// hello world', 1),
     ('//// hello // world', 1),
