@@ -11,6 +11,8 @@ PARAGRAH_RE = r'(.+?\n\n|.+?$)'
 
 def count_paragraphs(contents):
     """ Counts the number of paragraphs in the writing """
+    # NOTE: the replacement is needed to handle string with just spaces
+    contents = contents.replace(" ", "")
     pattern = re.compile(PARAGRAH_RE)
     matches = pattern.findall(contents)
     return len(matches)
