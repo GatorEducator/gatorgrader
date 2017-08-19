@@ -1,10 +1,10 @@
 """ Test cases for the gatorgrader_utils module """
 
-import os
 import pytest
 
 import gatorgrader_comments
 import gatorgrader_entities
+
 
 def test_file_contains_singleline_comment_count(tmpdir):
     """Checks that the singleline comment count works"""
