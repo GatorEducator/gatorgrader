@@ -121,6 +121,7 @@ def test_singleline_comments_zero_or_one(code_string, expected_count):
     ('\n // hi \n //hi', 2),
 ])
 def test_singleline_comments_many(code_string, expected_count):
+    """Checks that it finds many singleline comments"""
     assert gatorgrader_comments.count_singleline_java_comment(
         code_string) == expected_count
 
@@ -148,6 +149,7 @@ def test_singleline_comments_many(code_string, expected_count):
     ("", 0),
 ])
 def test_multiline_comments_zero_or_one(code_string, expected_count):
+    """Checks that it finds zero or one multiline comments"""
     assert gatorgrader_comments.count_multiline_java_comment(
         code_string) == expected_count
 
@@ -161,7 +163,8 @@ def test_multiline_comments_zero_or_one(code_string, expected_count):
     ('/** hello @author me */ world \n /* hello world */', 2),
     ('/** hello @author me **/ world \n /* hello world */', 2),
 ])
-def test_multiline_comments_zero_or_one(code_string, expected_count):
+def test_multiline_comments_two(code_string, expected_count):
+    """Checks that it has two or more multiline comments"""
     assert gatorgrader_comments.count_multiline_java_comment(
         code_string) == expected_count
 
@@ -174,6 +177,7 @@ def test_multiline_comments_zero_or_one(code_string, expected_count):
     ('/** hi */ \n // whoa /** hi again */', 2),
 ])
 def test_multiline_comments_mixed(code_string, expected_count):
+    """Checks that it can find multiline comments in mixtures"""
     assert gatorgrader_comments.count_multiline_java_comment(
         code_string) == expected_count
 
@@ -185,5 +189,6 @@ def test_multiline_comments_mixed(code_string, expected_count):
     ('/** hi */ \n // hello world hello \n // hi again', 2),
 ])
 def test_singleline_comments_mixed(code_string, expected_count):
+    """Checks that it can find singleline comments in mixtures"""
     assert gatorgrader_comments.count_singleline_java_comment(
         code_string) == expected_count
