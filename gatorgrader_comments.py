@@ -14,10 +14,7 @@ def count_entities(given_file, containing_directory, checking_function):
     file_for_checking = Path(containing_directory + FILE_SEPARATOR +
                              given_file)
     file_contents_count = 0
-    print("count file:", file_for_checking)
-    print("count directory:", containing_directory)
     if file_for_checking.is_file():
-        print("It is a file!")
         file_contents = file_for_checking.read_text()
         file_contents_count = checking_function(file_contents)
     return file_contents_count
