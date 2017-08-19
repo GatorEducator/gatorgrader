@@ -9,8 +9,8 @@ FILE_SEPARATOR = "/"
 # https://stackoverflow.com/questions/15423658/regular-expression-for-single-line-comments
 # https://blog.ostermiller.org/find-comment
 
-SINGLELINECOMMENT_RE = r'^(?:[^"/\\]|\"(?:[^\"\\]|\\.)*\"|/(?:[^/"\\]|\\.)|/\"(?:[^\"\\]|\\.)*\"|\\.)*//(.*)$'
 MULTILINECOMMENT_RE = r'/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/'
+SINGLELINECOMMENT_RE = r'^(?:[^"/\\]|\"(?:[^\"\\]|\\.)*\"|/(?:[^/"\\]|\\.)|/\"(?:[^\"\\]|\\.)*\"|\\.)*//(.*)$'
 
 
 def entity_greater_than_count(given_file, containing_directory,
