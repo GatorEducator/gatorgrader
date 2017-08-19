@@ -5,6 +5,10 @@ import re
 
 FILE_SEPARATOR = "/"
 
+# References:
+# https://stackoverflow.com/questions/15423658/regular-expression-for-single-line-comments
+# https://blog.ostermiller.org/find-comment
+
 SINGLELINECOMMENT_RE = r'^(?:[^"/\\]|\"(?:[^\"\\]|\\.)*\"|/(?:[^/"\\]|\\.)|/\"(?:[^\"\\]|\\.)*\"|\\.)*//(.*)$'
 MULTILINECOMMENT_RE = r'/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/'
 
