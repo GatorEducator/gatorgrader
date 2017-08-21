@@ -28,21 +28,16 @@ def parse_gatorgrader_arguments(args):
     gg_parser.add_argument('--checkfiles', nargs='+', type=str)
     gg_parser.add_argument('--directories', nargs='+', type=str)
 
-    gg_parser.add_argument(
-        '--singlecomments', nargs='+', type=int, default=DEFAULT_COUNT)
+    gg_parser.add_argument('--singlecomments', nargs='+', type=int)
 
-    gg_parser.add_argument(
-        '--multicomments', nargs='+', type=int, default=DEFAULT_COUNT)
+    gg_parser.add_argument('--multicomments', nargs='+', type=int)
 
-    gg_parser.add_argument(
-        '--paragraphs', nargs='+', type=int, default=DEFAULT_COUNT)
+    gg_parser.add_argument('--paragraphs', nargs='+', type=int)
 
     gg_parser.add_argument('--fragments', nargs='+', type=str)
-    gg_parser.add_argument(
-        '--fragmentcounts', nargs='+', type=int, default=DEFAULT_COUNT)
+    gg_parser.add_argument('--fragmentcounts', nargs='+', type=int)
 
-    gg_parser.add_argument(
-        '--languages', nargs="+", type=str, default=DEFAULT_LANGUAGE)
+    gg_parser.add_argument('--languages', nargs="+", type=str)
 
     gg_arguments_finished = gg_parser.parse_args(args)
     return gg_arguments_finished
@@ -59,21 +54,21 @@ def verify_gatorgrader_arguments(args):
     elif args.directories is not None and args.checkfiles is not None:
         if len(args.directories) != len(args.checkfiles):
             verified_arguments = False
-    elif args.singlecomments != 0:
+    elif args.singlecomments is not None:
         if args.checkfiles is None or args.directories is None:
             verified_arguments = False
-    elif args.multicomments != 0:
+    elif args.multicomments is not None:
         if args.checkfiles is None or args.directories is None:
             verified_arguments = False
-    elif args.paragraphs != 0:
+    elif args.paragraphs is not None:
         if args.checkfiles is None or args.directories is None:
             verified_arguments = False
-    elif args.fragments is not None or args.fragmentcounts != 0:
+    elif args.fragments is not None or args.fragmentcounts is not None:
         if args.checkfiles is None or args.directories is None:
             verified_arguments = False
-    elif args.fragments is None and args.fragmentcounts != 0:
+    elif args.fragments is None and args.fragmentcounts is not None:
         verified_arguments = False
-    elif args.fragments is not None and args.fragmentcounts == 0:
+    elif args.fragments is not None and args.fragmentcounts is None:
         verified_arguments = False
     return verified_arguments
 
@@ -135,23 +130,24 @@ if __name__ == '__main__':
             if gg_arguments.singlecomments != 0:
                 current_invoke_return_values = gatorgrader_invoke.invoke_all_comment_checks(
                     gg_arguments.checkfiles, gg_arguments.directories,
-                    gg_arguments.singlecomments, SINGLE, gg_arguments.languages)
+                    gg_arguments.singlecomments, SINGLE,
+                    gg_arguments.languages)
                 check_return_values.extend(current_invoke_return_values)
             # CHECK: Java code contains 'k' multiple-line comments
-            if gg_arguments.multicomments != 0:
+            if gg_arguments.multicomments is not None:
                 current_invoke_return_values = gatorgrader_invoke.invoke_all_comment_checks(
                     gg_arguments.checkfiles, gg_arguments.directories,
                     gg_arguments.singlecomments, MULTIPLE,
                     gg_arguments.languages)
                 check_return_values.extend(current_invoke_return_values)
             # CHECK: Writing contains 'k' paragraphs
-            if gg_arguments.paragraphs != 0:
+            if gg_arguments.paragraphs is not None:
                 current_invoke_return_values = gatorgrader_invoke.invoke_all_paragraph_checks(
                     gg_arguments.checkfiles, gg_arguments.directories,
                     gg_arguments.paragraphs)
                 check_return_values.extend(current_invoke_return_values)
             # CHECK: Content contains 'k' specified fragments
-            if gg_arguments.fragments != 0 and gg_arguments.fragmentcounts != 0:
+            if gg_arguments.fragments is not None and gg_arguments.fragmentcounts is not None:
                 current_invoke_return_values = gatorgrader_invoke.invoke_all_fragment_checks(
                     gg_arguments.checkfiles, gg_arguments.directories,
                     gg_arguments.fragments, gg_arguments.fragmentcounts)
