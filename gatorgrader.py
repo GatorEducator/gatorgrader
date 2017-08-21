@@ -39,6 +39,9 @@ def parse_gatorgrader_arguments(args):
 
     gg_parser.add_argument('--languages', nargs="+", type=str)
 
+    gg_parser.add_argument('--commands', nargs='+', type=str)
+    gg_parser.add_argument('--outputlines', nargs='+', type=int)
+
     gg_arguments_finished = gg_parser.parse_args(args)
     return gg_arguments_finished
 
