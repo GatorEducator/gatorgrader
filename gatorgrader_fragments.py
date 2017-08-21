@@ -32,7 +32,7 @@ def specified_fragment_greater_than_count(given_file, containing_directory,
                                           checking_function):
     """ Determines if the fragment count is greater than expected for a given fragment"""
     file_fragment_count = count_fragments(given_file, containing_directory,
-                                        chosen_fragment, checking_function)
+                                          chosen_fragment, checking_function)
     if file_fragment_count >= expected_count:
         return True
     return False
