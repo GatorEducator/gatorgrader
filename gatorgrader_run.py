@@ -10,12 +10,14 @@ TASK_MARKER = "Task :run"
 def specified_command_output_equals_count(command, expected_count, language):
     """ Determines if the output is exactly equal to the count """
     output, error = run_command(command)
-    print("output:", output)
+    print("***starting output:", output)
     if language == JAVA:
         actual_output = get_actual_java_output(output)
     else:
         actual_output = get_actual_output(output)
     actual_line_count = count_outpupt_lines(actual_output)
+    print("*** actual output:", actual_output)
+    print("*** line count:", len(actual_output))
     if expected_count == actual_line_count:
         return True
     return False
@@ -30,11 +32,7 @@ def get_actual_java_output(output):
     """ Returns the actual lines from the command's output """
     actual_output = []
     capture_output = False
-    print("output: ", output)
-    print(" type of output: ", type(output))
     for line in output.splitlines(keepends=True):
-        print("line: ", line)
-        # line.decode('utf-8')
         try:
             line = line.decode()
         except AttributeError:
