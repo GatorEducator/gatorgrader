@@ -46,6 +46,7 @@ def test_singleline_comments_many(writing_string, expected_count):
     ('System.out.println(new Date())', 'new Date()', 1),
     ('System.out.println(new Date())', 'new Date', 1),
 ])
-def test_chosen_fragment_zero_or_one(writing_string, chosen_fragment, expected_count):
+def test_chosen_fragment_zero_or_one(writing_string, chosen_fragment,
+                                     expected_count):
     assert gatorgrader_fragments.count_specified_fragment(
         writing_string, chosen_fragment) == expected_count
