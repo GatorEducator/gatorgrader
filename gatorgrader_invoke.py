@@ -105,3 +105,35 @@ def invoke_all_paragraph_checks(files, directories, expected_counts):
     print()
     print("... Done checking for paragraphs")
     return was_exceeded_list
+
+
+def invoke_all_fragment_checks(files, directories, fragments, expected_counts):
+    """ Repeatedly perform the check and return the results """
+    print("Checking for fragments...")
+    print()
+    was_exceeded_list = []
+    met_or_exceeded_count = 0
+    for filecheck, directory, fragment, expected_count in zip(files, directories, fragments,
+                                                              expected_counts):
+        met_or_exceeded_count = gatorgrader_entities.specified_fragment_greater_than_count(
+            filecheck, directory, fragment, expected_count,
+            gatorgrader_fragments.count_specified_fragment)
+
+        was_exceeded_list.append(met_or_exceeded_count)
+        print(
+            "Did ",
+            filecheck,
+            " in ",
+            directory,
+            " have ",
+            expected_count,
+            " of the fragment \"",
+            fragment,
+            "\" fragment? ",
+            gatorgrader_util.get_human_answer(met_or_exceeded_count),
+            sep="")
+
+    print()
+    print("... Done checking for fragments")
+    return was_exceeded_list
+
