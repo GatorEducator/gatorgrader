@@ -127,7 +127,7 @@ if __name__ == '__main__':
                 gg_arguments.checkfiles, gg_arguments.directories)
             check_return_values.extend(current_invoke_return_values)
             # CHECK: Java code contains 'k' single-line comments
-            if gg_arguments.singlecomments != 0:
+            if gg_arguments.singlecomments is not None:
                 current_invoke_return_values = gatorgrader_invoke.invoke_all_comment_checks(
                     gg_arguments.checkfiles, gg_arguments.directories,
                     gg_arguments.singlecomments, SINGLE,
