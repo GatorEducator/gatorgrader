@@ -34,6 +34,7 @@ def get_actual_java_output(output):
     print(" type of output: ", type(output))
     for line in output.splitlines(keepends=True):
         print("line: ", line)
+        line.decode('utf-8')
         if BLANK_LINE == line:
             capture_output = False
         if capture_output is True:
