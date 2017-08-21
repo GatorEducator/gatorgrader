@@ -4,7 +4,7 @@ import subprocess
 
 BLANK_LINE = "\n"
 JAVA = "Java"
-TASK_MARKER = "Task :run"
+TASK_MARKER = ":run"
 
 
 def specified_command_output_equals_count(command, expected_count, language):
