@@ -127,7 +127,7 @@ def invoke_all_fragment_checks(files, directories, fragments, expected_counts):
             directory,
             " have ",
             expected_count,
-            " of the fragment \"",
+            " of the \"",
             fragment,
             "\" fragment? ",
             gatorgrader_util.get_human_answer(met_or_exceeded_count),
