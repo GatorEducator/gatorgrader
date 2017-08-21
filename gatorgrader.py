@@ -13,6 +13,7 @@ GATORGRADER_HOME = "GATORGRADER_HOME"
 
 DEFAULT_COUNT = 0
 DEFAULT_LANGUAGE = "Java"
+INCORRECT_ARGUMENTS = 2
 JAVA = "Java"
 PYTHON = "Python"
 
@@ -117,7 +118,7 @@ if __name__ == '__main__':
     # incorrect arguments, exit program
     if did_verify_arguments is False:
         print("Incorrect command-line arguments.")
-        sys.exit(2)
+        sys.exit(INCORRECT_ARGUMENTS)
     # correct arguments, so perform the checks
     else:
         print("Valid command-line arguments.")
