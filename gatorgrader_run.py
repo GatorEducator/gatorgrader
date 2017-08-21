@@ -31,6 +31,7 @@ def get_actual_java_output(output):
     actual_output = []
     capture_output = False
     print("output: ", output)
+    print(" type of output: ", type(output))
     for line in output.splitlines(keepends=True):
         print("line: ", line)
         if BLANK_LINE == line:
@@ -44,7 +45,6 @@ def get_actual_java_output(output):
 def get_actual_output(output):
     """ Returns the actual lines from the command's output """
     actual_output = []
-    print(" nj output: ", output)
     for line in output.splitlines(keepends=False):
         actual_output.append(line)
     return actual_output
