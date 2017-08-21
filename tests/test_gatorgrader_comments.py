@@ -82,7 +82,7 @@ def test_file_contains_multiline_comment_not_greater(tmpdir):
     ('//// hello world', 1),
     ('//// hello // world', 1),
     ('//// hello //// world', 1),
-    ('// hello world', 1),
+    ('// hello world ff', 1),
     ('// hello world && --', 1),
     ('// hello world  __ --', 1),
     ('System.out.println("Hello, World!\n"); // prints hello world', 1),
@@ -99,6 +99,30 @@ def test_file_contains_multiline_comment_not_greater(tmpdir):
 ])
 def test_singleline_comments_zero_or_one(code_string, expected_count):
     assert gatorgrader_comments.count_singleline_java_comment(
+        code_string) == expected_count
+
+
+@pytest.mark.parametrize("code_string,expected_count", [
+    ('# hello world', 1),
+    ('# hello # world', 1),
+    ('# hello //// world', 1),
+    ('# hello world ff', 1),
+    ('# hello world && --', 1),
+    ('# hello world  __ --', 1),
+    ('print("Hello, World!\n"); # prints hello world', 1),
+    ('String url = "http://www.example.com"', 0),
+    (r'#\\', 1),
+    ('# "some comment"', 1),
+    ('new URI("http://www.google.com")', 0),
+    (r'System.out.println("Escaped quote\""); # Comment', 1),
+    ('hello world', 0),
+    ('', 0),
+    ("", 0),
+    (' ', 0),
+    (" ", 0),
+])
+def test_singleline_comments_zero_or_one_python(code_string, expected_count):
+    assert gatorgrader_comments.count_singleline_python_comment(
         code_string) == expected_count
 
 
