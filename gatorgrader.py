@@ -160,8 +160,9 @@ if __name__ == '__main__':
             current_invoke_return_values = gatorgrader_invoke.invoke_all_command_checks(
                 gg_arguments.commands, gg_arguments.outputlines,
                 gg_arguments.languages)
+        # The requested check is not available
         else:
-            print("Specified non-existent checking.")
+            print("Requested non-existent checking.")
 
         # DONE: Determine the correct exit code for the checks
         correct_exit_code = gatorgrader_exit.get_code(check_return_values)
