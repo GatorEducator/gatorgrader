@@ -7,6 +7,11 @@ TASK_MARKER = "Task :run"
 BLANK_LINE = "\n"
 
 
+def count_outpupt_lines(output):
+    """ Counts the lines of program output """
+    return len(output)
+
+
 def get_actual_java_output(output):
     """ Returns the actual lines from the command's output """
     actual_output = []
