@@ -51,6 +51,7 @@ def parse_gatorgrader_arguments(args):
 def verify_gatorgrader_arguments(args):
     """ Checks if the arguments are correct """
     verified_arguments = True
+    # TODO: This verification is not complete and/or incorrect
     if args.checkfiles is not None and args.directories is None:
         verified_arguments = False
     elif args.directories is not None and args.checkfiles is None:
@@ -67,6 +68,13 @@ def verify_gatorgrader_arguments(args):
     elif args.paragraphs != 0:
         if args.checkfiles is None or args.directories is None:
             verified_arguments = False
+    elif args.fragments is not None or args.fragmentcounts != 0:
+        if args.checkfiles is None or args.directories is None:
+            verified_arguments = False
+    elif args.fragments is None and args.fragmentcounts != 0:
+        verified_arguments = False
+    elif args.fragments is not None and args.fragmentcounts == 0:
+        verified_arguments = False
     return verified_arguments
 
 
