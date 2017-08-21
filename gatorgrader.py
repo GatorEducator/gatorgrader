@@ -113,7 +113,6 @@ if __name__ == '__main__':
     display_welcome_message()
     # parse and verify the arguments
     gg_arguments = parse_gatorgrader_arguments(sys.argv[1:])
-    print(gg_arguments)
     did_verify_arguments = verify_gatorgrader_arguments(gg_arguments)
     # incorrect arguments, exit program
     if did_verify_arguments is False:
