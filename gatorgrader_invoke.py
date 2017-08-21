@@ -113,9 +113,9 @@ def invoke_all_fragment_checks(files, directories, fragments, expected_counts):
     print()
     was_exceeded_list = []
     met_or_exceeded_count = 0
-    for filecheck, directory, fragment, expected_count in zip(files, directories, fragments,
-                                                              expected_counts):
-        met_or_exceeded_count = gatorgrader_entities.specified_fragment_greater_than_count(
+    for filecheck, directory, fragment, expected_count in zip(
+            files, directories, fragments, expected_counts):
+        met_or_exceeded_count = gatorgrader_fragments.specified_fragment_greater_than_count(
             filecheck, directory, fragment, expected_count,
             gatorgrader_fragments.count_specified_fragment)
 
@@ -136,4 +136,3 @@ def invoke_all_fragment_checks(files, directories, fragments, expected_counts):
     print()
     print("... Done checking for fragments")
     return was_exceeded_list
-
