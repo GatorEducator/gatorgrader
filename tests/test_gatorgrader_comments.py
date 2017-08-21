@@ -151,6 +151,31 @@ def test_singleline_comments_many(code_string, expected_count):
 
 
 @pytest.mark.parametrize("code_string,expected_count", [
+    ('# hello world \n#hello world', 2),
+    ('# hello world \n#hello world\n#hello world', 3),
+    ('### hello world\n##hello', 2),
+    ('#### hello ## world\n##hello', 2),
+    ('### hello # world\n##hello\n', 2),
+    ('# hello world\n #hello', 2),
+    ('# hello world && --\n #hello', 2),
+    ('# hello world  __ --\n#hello', 2),
+    ('print("Hello, World!\n"); # prints hello world \n #hello',
+     2),
+    ('# hello \n System.out.println("Hello, World!\n"); \n #hello', 2),
+    ('String url = "http://www.example.com"; \n #hello', 1),
+    ('#h \n #hi', 2),
+    ('# "some comment"', 1),
+    ('new URI("http://www.google.com") \n # hi', 1),
+    ('\n # hi \n #hi', 2),
+
+])
+def test_singleline_comments_many_python(code_string, expected_count):
+    """Checks that it finds many singleline comments"""
+    assert gatorgrader_comments.count_singleline_python_comment(
+        code_string) == expected_count
+
+
+@pytest.mark.parametrize("code_string,expected_count", [
     ('/* hello world */', 1),
     ('/** hello world */', 1),
     ('/* hello */ \n world', 1),
