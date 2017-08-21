@@ -76,9 +76,9 @@ def invoke_all_comment_checks(files, directories, expected_counts,
             expected_count,
             " ",
             comment_type,
-            " comments in ",
+            " comments in the ",
             language,
-            "? ",
+            " format? ",
             gatorgrader_util.get_human_answer(met_or_exceeded_count),
             sep="")
 
