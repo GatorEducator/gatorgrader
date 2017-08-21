@@ -2,8 +2,6 @@
 
 import re
 
-import gatorgrader_entities
-
 FILE_SEPARATOR = "/"
 
 # References:
