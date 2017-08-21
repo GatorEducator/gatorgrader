@@ -140,7 +140,7 @@ if __name__ == '__main__':
             if gg_arguments.multicomments is not None:
                 current_invoke_return_values = gatorgrader_invoke.invoke_all_comment_checks(
                     gg_arguments.checkfiles, gg_arguments.directories,
-                    gg_arguments.singlecomments, MULTIPLE,
+                    gg_arguments.multicomments, MULTIPLE,
                     gg_arguments.languages)
                 check_return_values.extend(current_invoke_return_values)
             # CHECK: Writing contains 'k' paragraphs
