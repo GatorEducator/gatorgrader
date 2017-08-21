@@ -2,9 +2,10 @@
 
 import gatorgrader
 import gatorgrader_comments
-import gatorgrader_fragments
 import gatorgrader_entities
 import gatorgrader_files
+import gatorgrader_fragments
+import gatorgrader_run
 import gatorgrader_util
 
 JAVA = "Java"
@@ -61,10 +62,10 @@ def invoke_all_comment_checks(files, directories, expected_counts,
                 met_or_exceeded_count = gatorgrader_entities.entity_greater_than_count(
                     filecheck, directory, expected_count,
                     gatorgrader_comments.count_singleline_python_comment)
-        elif comment_type == MULTIPLE:
-            met_or_exceeded_count = gatorgrader_entities.entity_greater_than_count(
-                filecheck, directory, expected_count,
-                gatorgrader_comments.count_multiline_java_comment)
+            elif comment_type == MULTIPLE:
+                met_or_exceeded_count = gatorgrader_entities.entity_greater_than_count(
+                    filecheck, directory, expected_count,
+                    gatorgrader_comments.count_multiline_java_comment)
 
         was_exceeded_list.append(met_or_exceeded_count)
         print(
@@ -145,3 +146,29 @@ def invoke_all_fragment_checks(files, directories, fragments, expected_counts):
     print()
     print("... Done checking for fragments")
     return was_exceeded_list
+
+
+def invoke_all_command_checks(commands, expected_counts, languages):
+    """ Repeatedly perform the check and return the results """
+    print("Checking the output of commands ...")
+    print()
+    was_exactly_equal_list = []
+    was_exactly_count = 0
+    for command, expected_count, language in zip(commands, expected_counts,
+                                                 languages):
+        was_exactly_count = gatorgrader_run.specified_command_output_equals_count(
+            command, expected_count, language)
+
+        was_exactly_equal_list.append(was_exactly_count)
+        print(
+            "Did the command \'",
+            command,
+            "\' produce exactly ",
+            expected_count,
+            " lines of output? ",
+            gatorgrader_util.get_human_answer(was_exactly_count),
+            sep="")
+
+    print()
+    print("... Done checking the output of commands")
+    return was_exactly_equal_list
