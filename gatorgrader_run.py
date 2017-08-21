@@ -7,7 +7,7 @@ TASK_MARKER = "Task :run"
 BLANK_LINE = "\n"
 
 
-def get_actual_output(output):
+def get_actual_java_output(output):
     """ Returns the actual lines from the command's output """
     actual_output = []
     capture_output = False
