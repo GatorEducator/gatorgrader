@@ -34,6 +34,10 @@ def parse_gatorgrader_arguments(args):
     gg_parser.add_argument(
         '--paragraphs', nargs='+', type=int, default=DEFAULT_COUNT)
 
+    gg_parser.add_argument('--fragments', nargs='+', type=str)
+    gg_parser.add_argument(
+        '--fragmentcounts', nargs='+', type=int, default=DEFAULT_COUNT)
+
     gg_arguments_finished = gg_parser.parse_args(args)
     return gg_arguments_finished
 
@@ -130,6 +134,12 @@ if __name__ == '__main__':
                 current_invoke_return_values = gatorgrader_invoke.invoke_all_paragraph_checks(
                     gg_arguments.checkfiles, gg_arguments.directories,
                     gg_arguments.paragraphs)
+                check_return_values.extend(current_invoke_return_values)
+            # CHECK: Content contains 'k' specified fragments
+            if gg_arguments.fragments != 0 and gg_arguments.fragmentcounts != 0:
+                current_invoke_return_values = gatorgrader_invoke.invoke_all_fragment_checks(
+                    gg_arguments.checkfiles, gg_arguments.directories,
+                    gg_arguments.fragments, gg_arguments.fragmentcounts)
                 check_return_values.extend(current_invoke_return_values)
 
         # DONE: Determine the correct exit code for the checks
