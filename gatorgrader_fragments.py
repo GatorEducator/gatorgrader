@@ -16,3 +16,9 @@ def count_paragraphs(contents):
     pattern = re.compile(PARAGRAH_RE)
     matches = pattern.findall(contents)
     return len(matches)
+
+
+def count_specified_fragment(contents, fragment):
+    """ Counts the specified string fragment in the writing """
+    fragment_count = contents.count(fragment)
+    return fragment_count
