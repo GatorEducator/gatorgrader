@@ -13,5 +13,5 @@ def test_run_command_returns_ls():
 def test_capture_output_count():
     """Checks that the count is correct"""
     sample_output = "\n\n> Task :run\nGregory M. Kapfhammer Mon Aug 21 15:08:38 EDT 2017\nHello world.\nGradle is great.\nTravis is tremendous.\n\nBUILD SUCCESSFUL in 0s\n2 actionable tasks: 1 executed, 1 up-to-date"
-    actual_output= gatorgrader_run.get_actual_output(sample_output)
+    actual_output= gatorgrader_run.get_actual_java_output(sample_output)
     assert len(actual_output) == 4
