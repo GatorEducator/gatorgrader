@@ -7,8 +7,10 @@ import gatorgrader_entities
 import gatorgrader_files
 import gatorgrader_util
 
-SINGLE = "single-line"
+JAVA = "Java"
 MULTIPLE = "multiple-line"
+PYTHON = "Python"
+SINGLE = "single-line"
 
 
 def invoke_all_file_in_directory_checks(files, directories):
@@ -42,18 +44,23 @@ def invoke_file_in_directory_check(filecheck, directory):
 
 
 def invoke_all_comment_checks(files, directories, expected_counts,
-                              comment_type):
+                              comment_type, languages):
     """ Repeatedly perform the check and return the results """
     print("Checking for", comment_type, "comments...")
     print()
     was_exceeded_list = []
     met_or_exceeded_count = 0
-    for filecheck, directory, expected_count in zip(files, directories,
-                                                    expected_counts):
+    for filecheck, directory, expected_count, language in zip(
+            files, directories, expected_counts, languages):
         if comment_type == SINGLE:
-            met_or_exceeded_count = gatorgrader_entities.entity_greater_than_count(
-                filecheck, directory, expected_count,
-                gatorgrader_comments.count_singleline_java_comment)
+            if language == JAVA:
+                met_or_exceeded_count = gatorgrader_entities.entity_greater_than_count(
+                    filecheck, directory, expected_count,
+                    gatorgrader_comments.count_singleline_java_comment)
+            if language == PYTHON:
+                met_or_exceeded_count = gatorgrader_entities.entity_greater_than_count(
+                    filecheck, directory, expected_count,
+                    gatorgrader_comments.count_singleline_python_comment)
         elif comment_type == MULTIPLE:
             met_or_exceeded_count = gatorgrader_entities.entity_greater_than_count(
                 filecheck, directory, expected_count,
@@ -65,11 +72,13 @@ def invoke_all_comment_checks(files, directories, expected_counts,
             filecheck,
             " in ",
             directory,
-            " have ",
+            " have at least ",
             expected_count,
             " ",
             comment_type,
-            " comments? ",
+            " comments in ",
+            language,
+            "? ",
             gatorgrader_util.get_human_answer(met_or_exceeded_count),
             sep="")
 
@@ -96,7 +105,7 @@ def invoke_all_paragraph_checks(files, directories, expected_counts):
             filecheck,
             " in ",
             directory,
-            " have ",
+            " have at least ",
             expected_count,
             " paragraphs? ",
             gatorgrader_util.get_human_answer(met_or_exceeded_count),
@@ -125,7 +134,7 @@ def invoke_all_fragment_checks(files, directories, fragments, expected_counts):
             filecheck,
             " in ",
             directory,
-            " have ",
+            " have at least ",
             expected_count,
             " of the \"",
             fragment,
