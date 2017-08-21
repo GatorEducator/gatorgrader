@@ -10,7 +10,7 @@ FILE_SEPARATOR = "/"
 
 MULTILINECOMMENT_RE = r'/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/'
 SINGLELINECOMMENT_RE_JAVA = r'^(?:[^"/\\]|\"(?:[^\"\\]|\\.)*\"|/(?:[^/"\\]|\\.)|/\"(?:[^\"\\]|\\.)*\"|\\.)*//(.*)$'
-SINGLELINECOMMENT_RE_PYTHON = r'^(?:[^"/\\]|\"(?:[^\"\\]|\\.)*\"|/(?:[^/"\\]|\\.)|/\"(?:[^\"\\]|\\.)*\"|\\.)*#(.*)$'
+SINGLELINECOMMENT_RE_PYTHON = r'^(?:[^"#\\]|\"(?:[^\"\\]|\\.)*\"|/(?:[^#"\\]|\\.)|/\"(?:[^\"\\]|\\.)*\"|\\.)*#(.*)$'
 
 
 def count_singleline_java_comment(contents):
