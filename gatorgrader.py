@@ -113,6 +113,7 @@ if __name__ == '__main__':
     display_welcome_message()
     # parse and verify the arguments
     gg_arguments = parse_gatorgrader_arguments(sys.argv[1:])
+    print(gg_arguments)
     did_verify_arguments = verify_gatorgrader_arguments(gg_arguments)
     # incorrect arguments, exit program
     if did_verify_arguments is False:
@@ -155,6 +156,13 @@ if __name__ == '__main__':
                     gg_arguments.checkfiles, gg_arguments.directories,
                     gg_arguments.fragments, gg_arguments.fragmentcounts)
                 check_return_values.extend(current_invoke_return_values)
+        # CHECK: Command produces 'k' lines of output
+        elif gg_arguments.commands is not None and gg_arguments.outputlines is not None:
+            current_invoke_return_values = gatorgrader_invoke.invoke_all_command_checks(
+                gg_arguments.commands, gg_arguments.outputlines,
+                gg_arguments.languages)
+        else:
+            print("Specified non-existent checking.")
 
         # DONE: Determine the correct exit code for the checks
         correct_exit_code = gatorgrader_exit.get_code(check_return_values)
