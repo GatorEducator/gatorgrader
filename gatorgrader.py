@@ -12,6 +12,9 @@ SLASH = "/"
 GATORGRADER_HOME = "GATORGRADER_HOME"
 
 DEFAULT_COUNT = 0
+DEFAULT_LANGUAGE = "Java"
+JAVA = "Java"
+PYTHON = "Python"
 
 SINGLE = "single-line"
 MULTIPLE = "multiple-line"
@@ -37,6 +40,9 @@ def parse_gatorgrader_arguments(args):
     gg_parser.add_argument('--fragments', nargs='+', type=str)
     gg_parser.add_argument(
         '--fragmentcounts', nargs='+', type=int, default=DEFAULT_COUNT)
+
+    gg_parser.add_argument(
+        '--languages', nargs="+", type=str, default=DEFAULT_LANGUAGE)
 
     gg_arguments_finished = gg_parser.parse_args(args)
     return gg_arguments_finished
@@ -121,13 +127,14 @@ if __name__ == '__main__':
             if gg_arguments.singlecomments != 0:
                 current_invoke_return_values = gatorgrader_invoke.invoke_all_comment_checks(
                     gg_arguments.checkfiles, gg_arguments.directories,
-                    gg_arguments.singlecomments, SINGLE)
+                    gg_arguments.singlecomments, SINGLE, gg_arguments.languages)
                 check_return_values.extend(current_invoke_return_values)
             # CHECK: Java code contains 'k' multiple-line comments
             if gg_arguments.multicomments != 0:
                 current_invoke_return_values = gatorgrader_invoke.invoke_all_comment_checks(
                     gg_arguments.checkfiles, gg_arguments.directories,
-                    gg_arguments.singlecomments, MULTIPLE)
+                    gg_arguments.singlecomments, MULTIPLE,
+                    gg_arguments.languages)
                 check_return_values.extend(current_invoke_return_values)
             # CHECK: Writing contains 'k' paragraphs
             if gg_arguments.paragraphs != 0:
