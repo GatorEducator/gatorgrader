@@ -9,7 +9,7 @@ cache:
     - $HOME/.pip-cache/
 
 before_install:
-- gem install mdl
+  - gem install mdl
 
 # command to install dependencies
 install:
