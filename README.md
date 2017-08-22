@@ -25,7 +25,7 @@ Note that you may have Python 3 setup in different ways on your computer. For
 instance, you may prefer to install GatorGrader's dependencies in a site-wide
 location and then you would have to type, for instance, `sudo pip install -r
 requirements.txt`. Alternatively, you may choose to install the dependencies by
-typing `pip install --use -r requirements.txt`.
+typing `pip install --user -r requirements.txt`.
 
 ## Testing GatorGrader
 
