@@ -22,3 +22,5 @@ before_script:
 # --> demonstrate the use of gatorgrader.py on itself
 script:
   - pytest tests
+  - mdl README.md
+  - proselint README.md
