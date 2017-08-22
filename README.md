@@ -16,10 +16,24 @@ checking tools.
 As a Python 3 program, GatorGrader relies on
 [pip](https://pip.pypa.io/en/stable/installing/) for installation. To ensure
 that all of the dependencies are installed correctly, please type
-the following commands to install GatorGrader.
+the following commands before running GatorGrader.
 
 - `pip install --upgrade pip`
 - `pip install -r requirements.txt`
+
+Note that you may have Python 3 setup in different ways on your computer. For
+instance, you may prefer to install GatorGrader's dependencies in a site-wide
+location and then you would have to type, for instance, `sudo pip install -r
+requirements.txt`. Alternatively, you may choose to install the dependencies by
+typing `pip install --use -r requirements.txt`.
+
+## Testing GatorGrader
+
+GatorGrader uses [Pytest](https://docs.pytest.org/en/latest/) for testing. To
+run GatorGrader's comprehensive test suite of over 150 test cases, please type
+`pytest tests` in the root of the project's repository. If any of the test cases
+fail in your development environment, please please raise an issue in
+GatorGrader's issue tracker.
 
 ## Running GatorGrader
 
@@ -44,8 +58,40 @@ python3 gatorgrader.py \
         --checkfiles DisplayOutput.java \
         --singlecomments 2 \
         --multicomments 2 \
-        --languages Java \
+        --languages Java
 ```
+
+Since introductory courses at Allegheny College commonly use the Java
+programming language and compile and run programs using
+[Gradle](https://gradle.org/), the following commands shows how to use
+GatorGrader to ensure that running the program yields exactly four lines of
+output.
+
+```
+python3 gatorgrader/gatorgrader.py \
+        --commands "gradle run" \
+        --outputlines 4 \
+        --languages Java
+```
+
+Since many computer science courses at Allegheny College require students to
+write, GatorGrader also provides a feature to check how many paragraphs of
+writing are in a file. The following example shows how to use GatorGrader to
+ensure that the `README.md` file in the root of this repository contains at
+least four paragraphs of writing.
+
+```
+python3 gatorgrader.py \
+        --directories . \
+        --checkfiles README.md \
+        --paragraphs 4
+```
+
+Each of the previous commands were run on an Ubuntu 16.04 workstation running
+Python 3.5.2. However, GatorGrader should run correctly on a wide variety of
+operating systems that support Python version 3.
+
+## GatorGrader in Action
 
 ## Problems or Praise
 
