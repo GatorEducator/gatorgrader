@@ -27,13 +27,11 @@ If your environment supports it, then please set the `GATORGRADER_HOME`
 environment variable. For instance, typing the command `export
 GATORGRADER_HOME="/home/travis/build/gkapfham/gatorgrader"` would set
 `GATORGRADER_HOME` so that [Gregory M.
-Kapfhammer](http://www.cs.allegheny.edu/sites/gkapfham) Travis CI could run
-GatorGrader. You should set this environment variable so that it points to the
+Kapfhammer](http://www.cs.allegheny.edu/sites/gkapfham) could run GatorGrader on
+Travis CI. You should set this environment variable so that it points to the
 directory that contains the file called `gatorgrader.py`.
 
-
-
-## Problems or Praise?
+## Problems or Praise
 
 If you have any problems with installing or using GatorGrader, then please
 create an issue associated with this Git repository using the "Issues" link at
