@@ -7,7 +7,31 @@ commonly used by faculty in the [Department of Computer Science at Allegheny
 College](https://github.com/Allegheny-Computer-Science) as a Git submodule in a
 Git repository for a specific assignment. Since it is a Python 3 program that
 can easily be run on the command-line, GatorGrader also works nicely with
-[Travis CI](https://travis-ci.com/).
+[Travis CI](https://travis-ci.com/) &mdash; which is again how faculty members
+at Allegheny College commonly use it in conjunction with other automated
+checking tools.
+
+## Installation
+
+As a Python 3 program, GatorGrader relies on
+[pip](https://pip.pypa.io/en/stable/installing/) for installation. To ensure
+that all of the dependencies are installed correctly, please type
+the following commands to install GatorGrader.
+
+- `pip install --upgrade pip`
+- `pip install -r requirements.txt`
+
+## Running GatorGrader
+
+If your environment supports it, then please set the `GATORGRADER_HOME`
+environment variable. For instance, typing the command `export
+GATORGRADER_HOME="/home/travis/build/gkapfham/gatorgrader"` would set
+`GATORGRADER_HOME` so that [Gregory M.
+Kapfhammer](http://www.cs.allegheny.edu/sites/gkapfham) Travis CI could run
+GatorGrader. You should set this environment variable so that it points to the
+directory that contains the file called `gatorgrader.py`.
+
+
 
 ## Problems or Praise?
 
