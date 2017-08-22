@@ -8,6 +8,9 @@ cache:
   directories:
     - $HOME/.pip-cache/
 
+before_install:
+- gem install mdl
+
 # command to install dependencies
 install:
   - pip install --upgrade pip
