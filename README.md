@@ -43,7 +43,9 @@ GATORGRADER_HOME="/home/travis/build/gkapfham/gatorgrader"` would set
 `GATORGRADER_HOME` so that [Gregory M.
 Kapfhammer](http://www.cs.allegheny.edu/sites/gkapfham) could run GatorGrader on
 Travis CI. You should set this environment variable so that it points to the
-directory that contains the file called `gatorgrader.py`.
+directory that contains the file called `gatorgrader.py`. If you do not set your
+`GATORGRADER_HOME` environment variable, GatorGrader will attempt to guess the
+best setting for it.
 
 GatorGrader can perform simple checks on both writing and source code. For
 instance, the following command uses GatorGrader to ensure that the
@@ -92,6 +94,20 @@ Python 3.5.2. However, GatorGrader should run correctly on a wide variety of
 operating systems that support Python version 3.
 
 ## GatorGrader in Action
+
+GatorGrader is commonly used in conjunction with other tools that check source
+code. For instance, in the introductory computer science classes at Allegheny
+College, the submissions are verified by
+[Checkstyle](https://github.com/checkstyle/checkstyle) and thus the Java source
+code for adhere to all of the requirements in the [Google Java Style
+Guide](https://google.github.io/styleguide/javaguide.html). Moreover, Markdown
+files that contain writing must adhere to the standards described in the
+[Markdown Syntax Guide](https://guides.github.com/features/mastering-markdown/).
+Finally, don't the writing in Markdown files must adhere to the standards
+established by the [Markdown linting
+tool](https://github.com/markdownlint/markdownlint) and the writing standards
+set by the [Proselint tool](http://proselint.com/).
+
 
 ## Problems or Praise
 
