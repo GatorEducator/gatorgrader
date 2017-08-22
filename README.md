@@ -103,12 +103,13 @@ the writing in Markdown files must adhere to the standards established by
 the [Markdown linting tool](https://github.com/markdownlint/markdownlint) and
 the writing standards set by the [Proselint tool](http://proselint.com/).
 
-The solution repositories for the laboratory assignments in courses at Allegheny
-are kept private. However, the "starter" repositories for assignments are
-publicly available so as to support their integration into [GitHub
-Classroom](https://classroom.github.com/). As GatorGrader continues to be
-adopted by more courses, we will expand this list of GitHub repositories that
-provide starting code templates and furnish GatorGrader as a Git submodule.
+The solution repositories for the laboratory assignments in Computer Science
+courses at Allegheny College are kept private. However, the "starter"
+repositories for assignments are publicly available so as to support their
+integration into [GitHub Classroom](https://classroom.github.com/). As
+GatorGrader continues to be adopted by more courses, we will expand this list of
+GitHub repositories that provide starting code templates and furnish GatorGrader
+as a Git submodule.
 
 - [Computer Science 111 Laboratory #1](https://github.com/Allegheny-Computer-Science-111-F2017/cs111-F2017-lab1-starter)
 
@@ -116,6 +117,6 @@ provide starting code templates and furnish GatorGrader as a Git submodule.
 
 If you have any problems with installing or using GatorGrader, then please
 create an issue associated with this Git repository using the "Issues" link at
-the top of this site. The contributors to the GatorGrader will do all that they
-can to resolve your issue and ensure that the entire tool works well in your
+the top of this site. The contributors to GatorGrader will do all that they can
+to resolve your issue and ensure that the entire tool works well in your
 teaching and development environment.
