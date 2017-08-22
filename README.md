@@ -40,11 +40,7 @@ GatorGrader's issue tracker.
 If your environment supports it, then please set the `GATORGRADER_HOME`
 environment variable. For instance, typing the command `export
 GATORGRADER_HOME="/home/travis/build/gkapfham/gatorgrader"` would set
-`GATORGRADER_HOME` so that [Gregory M.
-Kapfhammer](http://www.cs.allegheny.edu/sites/gkapfham) could run GatorGrader on
-Travis CI. You should set this environment variable so that it points to the
-directory that contains the file called `gatorgrader.py`. If you do not set your
-`GATORGRADER_HOME` environment variable, GatorGrader will attempt to guess the
+`GATORGRADER__HOME` environment variable, GatorGrader will attempt to guess the
 best setting for it.
 
 GatorGrader can perform simple checks on both writing and source code. For
@@ -99,15 +95,22 @@ GatorGrader is commonly used in conjunction with other tools that check source
 code. For instance, in the introductory computer science classes at Allegheny
 College, the submissions are verified by
 [Checkstyle](https://github.com/checkstyle/checkstyle) and thus the Java source
-code for adhere to all of the requirements in the [Google Java Style
+code must adhere to all of the requirements in the [Google Java Style
 Guide](https://google.github.io/styleguide/javaguide.html). Moreover, Markdown
-files that contain writing must adhere to the standards described in the
-[Markdown Syntax Guide](https://guides.github.com/features/mastering-markdown/).
-Finally, don't the writing in Markdown files must adhere to the standards
-established by the [Markdown linting
-tool](https://github.com/markdownlint/markdownlint) and the writing standards
-set by the [Proselint tool](http://proselint.com/).
+files that contain writing must meet the standards described in the [Markdown
+Syntax Guide](https://guides.github.com/features/mastering-markdown/). Finally,
+the writing in Markdown files must adhere to the standards established by
+the [Markdown linting tool](https://github.com/markdownlint/markdownlint) and
+the writing standards set by the [Proselint tool](http://proselint.com/).
 
+The solution repositories for the laboratory assignments in courses at Allegheny
+are kept private. However, the "starter" repositories for assignments are
+publicly available so as to support their integration into [GitHub
+Classroom](https://classroom.github.com/). As GatorGrader continues to be
+adopted by more courses, we will expand this list of GitHub repositories that
+provide starting code templates and furnish GatorGrader as a Git submodule.
+
+- [Computer Science 111 Laboratory #1](https://github.com/Allegheny-Computer-Science-111-F2017/cs111-F2017-lab1-starter)
 
 ## Problems or Praise
 
