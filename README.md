@@ -31,6 +31,22 @@ Kapfhammer](http://www.cs.allegheny.edu/sites/gkapfham) could run GatorGrader on
 Travis CI. You should set this environment variable so that it points to the
 directory that contains the file called `gatorgrader.py`.
 
+GatorGrader can perform simple checks on both writing and source code. For
+instance, the following command uses GatorGrader to ensure that the
+`internal/java` directory contains the file called `DisplayOutput.java` and that
+this file contains at least two single-line comments (e.g., those lines that
+start with `//`) and two multiple-line comments (e.g., content that is
+surrounded by `/** */`).
+
+```
+python3 gatorgrader.py \
+        --directories internal/java \
+        --checkfiles DisplayOutput.java \
+        --singlecomments 2 \
+        --multicomments 2 \
+        --languages Java \
+```
+
 ## Problems or Praise
 
 If you have any problems with installing or using GatorGrader, then please
