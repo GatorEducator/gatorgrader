@@ -26,6 +26,11 @@ def parse_gatorgrader_arguments(args):
     gg_parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
+    gg_parser.add_argument(
+        "--nowelcome",
+        help="Do not display the welcome message",
+        action="store_true")
+
     gg_parser.add_argument('--checkfiles', nargs='+', type=str)
     gg_parser.add_argument('--directories', nargs='+', type=str)
 
@@ -118,7 +123,6 @@ def display_checking_message():
 
 
 if __name__ == '__main__':
-    display_welcome_message()
     # parse and verify the arguments
     gg_arguments = parse_gatorgrader_arguments(sys.argv[1:])
     did_verify_arguments = verify_gatorgrader_arguments(gg_arguments)
@@ -128,9 +132,9 @@ if __name__ == '__main__':
         sys.exit(INCORRECT_ARGUMENTS)
     # correct arguments, so perform the checks
     else:
-        print("Valid command-line arguments.")
-        print("Running the specified checks!")
-        print()
+        if gg_arguments.nowelcome is not True:
+            display_welcome_message()
+            display_checking_message()
         check_return_values = []
         # CHECK: all of the files exist in their directories
         if gg_arguments.directories is not None and gg_arguments.checkfiles is not None:
