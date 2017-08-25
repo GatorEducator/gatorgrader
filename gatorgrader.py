@@ -110,6 +110,13 @@ def display_welcome_message():
     print()
 
 
+def display_checking_message():
+    """ Display the checking message """
+    print("Valid command-line arguments.")
+    print("Running the specified checks!")
+    print()
+
+
 if __name__ == '__main__':
     display_welcome_message()
     # parse and verify the arguments
