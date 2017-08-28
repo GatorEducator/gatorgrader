@@ -2,7 +2,7 @@
 
 Designed for use with [GitHub Classroom](https://classroom.github.com/),
 GatorGrader is an automated grading tool that checks the work of programmers and
-writers. Although it can be used independently of a containing project,
+Writers. Although it can be used independently of a containing project,
 GatorGrader is commonly used by faculty in the [Department of Computer Science
 at Allegheny College](https://github.com/Allegheny-Computer-Science) as a Git
 submodule in a Git repository for a specific assignment. Since it is a Python 3
@@ -75,10 +75,10 @@ python3 gatorgrader/gatorgrader.py \
 ```
 
 Since many computer science courses at Allegheny College require students to
-write, GatorGrader also provides a feature to check how many paragraphs of
-writing are in a file. The following example shows how to use GatorGrader to
-ensure that the `README.md` file in the root of this repository contains at
-least four paragraphs of writing.
+write technical documents, GatorGrader also provides a feature to check how many
+paragraphs of writing are in a file. The following example shows how to use
+GatorGrader to ensure that the `README.md` file in the root of this repository
+contains at least four paragraphs of writing.
 
 ```
 python3 gatorgrader.py \
