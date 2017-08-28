@@ -40,8 +40,10 @@ GatorGrader's issue tracker.
 If your environment supports it, then please set the `GATORGRADER_HOME`
 environment variable. For instance, typing the command `export
 GATORGRADER_HOME="/home/travis/build/gkapfham/gatorgrader"` would set
-`GATORGRADER__HOME` environment variable, GatorGrader will attempt to guess the
-best setting for it.
+`GATORGRADER__HOME` environment variable to appropriate directory for building
+it on Travis CI under the `gkapfham` account. If you do not set the
+`GATORGRADER__HOME` environment variable, then GatorGrader will attempt to guess
+the best setting for it.
 
 GatorGrader can perform simple checks on both writing and source code. For
 instance, the following command uses GatorGrader to ensure that the
