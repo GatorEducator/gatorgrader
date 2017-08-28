@@ -100,10 +100,11 @@ College, the submissions are verified by
 code must adhere to all of the requirements in the [Google Java Style
 Guide](https://google.github.io/styleguide/javaguide.html). Moreover, Markdown
 files that contain writing must meet the standards described in the [Markdown
-Syntax Guide](https://guides.github.com/features/mastering-markdown/). Finally,
-the writing in Markdown files must adhere to the standards established by
-the [Markdown linting tool](https://github.com/markdownlint/markdownlint) and
-the writing standards set by the [Proselint tool](http://proselint.com/).
+Syntax Guide](https://guides.github.com/features/mastering-markdown/), meaning
+that all Markdown files must pass the checks performed by the [Markdown linting
+tool](https://github.com/markdownlint/markdownlint). Finally, all submitted
+technical writing must adhere to the writing standards set by the [Proselint
+tool](http://proselint.com/).
 
 The solution repositories for the laboratory assignments in Computer Science
 courses at Allegheny College are kept private. However, the "starter"
