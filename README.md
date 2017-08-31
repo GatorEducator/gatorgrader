@@ -2,7 +2,7 @@
 
 Designed for use with [GitHub Classroom](https://classroom.github.com/),
 GatorGrader is an automated grading tool that checks the work of programmers and
-Writers. Although it can be used independently of a containing project,
+writers. Although it can be used independently of a containing project,
 GatorGrader is commonly used by faculty in the [Department of Computer Science
 at Allegheny College](https://github.com/Allegheny-Computer-Science) as a Git
 submodule in a Git repository for a specific assignment. Since it is a Python 3
