@@ -116,6 +116,12 @@ as a Git submodule.
 
 - [Computer Science 111 Laboratory #1](https://github.com/Allegheny-Computer-Science-111-F2017/cs111-F2017-lab1-starter)
 
+## Acknowledgements
+
+We gratefully acknowledge Nicholas Tocci and Race Mahoney for pointing out that
+the GatorGrader submodule did not have a `.gitignore` file, thus causing the
+derived Python files and directories to seem to be untracked.
+
 ## Problems or Praise
 
 If you have any problems with installing or using GatorGrader, then please
