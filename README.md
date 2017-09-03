@@ -40,7 +40,7 @@ to further develop your understanding of this topic.
 
 ## Testing GatorGrader
 
-GatorGrader uses [Pytest](https://docs.pytest.org/en/latest/) for testing. To
+GatorGrader uses [pytest](https://docs.pytest.org/en/latest/) for testing. To
 run GatorGrader's comprehensive test suite of over 150 test cases, please type
 `pytest tests` in the root of the project's repository. If any of the test cases
 fail in your development environment, please please raise an issue in
