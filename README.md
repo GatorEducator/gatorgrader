@@ -32,7 +32,7 @@ GatorGrader was developed to easily run in conjunction with a [venv-based Python
 that if you are in the directory that contains the `gatorgrader` directory then
 you could type `python3 -m venv gatorgrader` to create all of the components of
 a venv-based virtual environment in the `gatorgrader` directory. Once you
-complete this step, you can type the command `source /gatorgrader/bin/activate`
+complete this step, you can type the command `source gatorgrader/bin/activate`
 to activate the venv-based virtual environment. Interested in learning more
 about the basics of virtual environments in Python 3? You can read this
 [article](http://www.cs.allegheny.edu/sites/gkapfham/programming/research/idea/2017/07/14/Virtual-Environments/)
