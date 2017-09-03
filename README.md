@@ -11,7 +11,7 @@ nicely with [Travis CI](https://travis-ci.com/) &mdash; which is again how
 faculty members at Allegheny College commonly use it in conjunction with other
 automated checking tools.
 
-## Installation
+## Installing GatorGrader
 
 As a Python 3 program, GatorGrader relies on
 [pip](https://pip.pypa.io/en/stable/installing/) for installation. To ensure
@@ -26,6 +26,17 @@ instance, you may prefer to install GatorGrader's dependencies in a site-wide
 location and then you would have to type, for instance, `sudo pip install -r
 requirements.txt`. Alternatively, you may choose to install the dependencies by
 typing `pip install --user -r requirements.txt`.
+
+GatorGrader was developed to easily run in conjunction with a [venv-based Python
+3 virtual environment](https://docs.python.org/3/library/venv.html). This means
+that if you are in the directory that contains the `gatorgrader` directory then
+you could type `python3 -m venv gatorgrader` to create all of the components of
+a venv-based virtual environment in the `gatorgrader` directory. Once you
+complete this step, you can type the command `source /gatorgrader/bin/activate`
+to activate the venv-based virtual environment. Interested in learning more
+about the basics of virtual environments in Python 3? You can read this
+[article](http://www.cs.allegheny.edu/sites/gkapfham/programming/research/idea/2017/07/14/Virtual-Environments/)
+to further develop your understanding of this topic.
 
 ## Testing GatorGrader
 
