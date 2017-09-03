@@ -8,6 +8,7 @@ cache:
   directories:
     - $HOME/.pip-cache/
 
+# install mdl for checking Markdown
 before_install:
   - gem install mdl
 
