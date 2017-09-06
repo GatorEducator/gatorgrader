@@ -20,7 +20,7 @@ def specified_command_output_equals_count(command, expected_count, language):
     return False
 
 
-def count_outpupt_lines(output):
+def count_output_lines(output):
     """ Counts the lines of program output """
     return len(output)
 
