@@ -25,22 +25,33 @@ def count_output_lines(output):
     return len(output)
 
 
-def specified_command_output_contains_fragment(command, expected_fragment, language):
+def specified_command_output_contains_fragment(command, expected_fragment,
+                                               language):
     """ Determines if the output is exactly equal to the count """
     output, error = run_command(command)
     if language == JAVA:
         actual_output = get_actual_java_output(output)
     else:
         actual_output = get_actual_output(output)
-    fragment_exists = check_fragment_exists(expected_fragment, actual_output)
-    return fragment_exists
+    fragment_exists_output = check_fragment_exists(expected_fragment,
+                                                   actual_output)
+
+    print("expected_fragment:", expected_fragment)
+    print("actual output", actual_output)
+    print("exists output!", fragment_exists_output)
+    return fragment_exists_output
 
 
 def check_fragment_exists(expected_fragment, output_list):
     """ Checks if a fragment exists in the list of output lines """
     found_fragment = False
+    print(output_list)
     for current_line in output_list:
-        if expected_fragment in current_line:
+        try:
+            current_line_decoded = current_line.decode()
+        except AttributeError:
+            pass
+        if expected_fragment in current_line_decoded:
             found_fragment = True
     return found_fragment
 
