@@ -47,11 +47,7 @@ def check_fragment_exists(expected_fragment, output_list):
     found_fragment = False
     print(output_list)
     for current_line in output_list:
-        try:
-            current_line_decoded = current_line.decode()
-        except AttributeError:
-            pass
-        if expected_fragment in current_line_decoded:
+        if expected_fragment in current_line:
             found_fragment = True
     return found_fragment
 
@@ -78,7 +74,11 @@ def get_actual_output(output):
     """ Returns the actual lines from the command's output """
     actual_output = []
     for line in output.splitlines(keepends=False):
-        actual_output.append(line)
+        try:
+            current_line_decoded = line.decode()
+        except AttributeError:
+            pass
+    actual_output.append(current_line_decoded)
     return actual_output
 
 
