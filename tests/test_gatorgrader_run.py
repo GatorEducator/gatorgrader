@@ -23,3 +23,11 @@ def test_capture_output_actual_count():
     actual_output = gatorgrader_run.get_actual_java_output(sample_output)
     assert gatorgrader_run.count_output_lines(actual_output) == len(
         actual_output)
+
+
+def test_check_fragment_exists():
+    """Checks that the fragment detector works"""
+    sample_output = "\n\n> Task :run\nGregory M. Kapfhammer Mon Aug 21 15:08:38 EDT 2017\nHello world.\nGradle is great.\nTravis is tremendous.\n\nBUILD SUCCESSFUL in 0s\n2 actionable tasks: 1 executed, 1 up-to-date"
+    actual_output = gatorgrader_run.get_actual_java_output(sample_output)
+    assert gatorgrader_run.check_fragment_exists("Gradle is great",
+                                                 actual_output) is True
