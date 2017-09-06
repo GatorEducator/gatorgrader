@@ -72,13 +72,13 @@ def verify_gatorgrader_arguments(args):
     elif args.paragraphs is not None:
         if args.checkfiles is None or args.directories is None:
             verified_arguments = False
-    elif args.fragments is not None or args.fragmentcounts is not None:
-        if args.checkfiles is None or args.directories is None:
-            verified_arguments = False
+    # elif args.fragments is not None or args.fragmentcounts is not None:
+        # if args.checkfiles is None or args.directories is None or args.commands is None:
+            # verified_arguments = False
     elif args.fragments is None and args.fragmentcounts is not None:
         verified_arguments = False
-    elif args.fragments is not None and args.fragmentcounts is None:
-        verified_arguments = False
+    # elif args.fragments is not None and (args.fragmentcounts is None and args.commands is None):
+        # verified_arguments = False
     return verified_arguments
 
 
@@ -171,6 +171,11 @@ if __name__ == '__main__':
         elif gg_arguments.commands is not None and gg_arguments.outputlines is not None:
             current_invoke_return_values = gatorgrader_invoke.invoke_all_command_checks(
                 gg_arguments.commands, gg_arguments.outputlines,
+                gg_arguments.languages)
+        # CHECK: Command produces lines of output with the specified fragment
+        elif gg_arguments.commands is not None and gg_arguments.fragments is not None:
+            current_invoke_return_values = gatorgrader_invoke.invoke_all_command_fragment_checks(
+                gg_arguments.commands, gg_arguments.fragments,
                 gg_arguments.languages)
         # The requested check is not available
         else:
