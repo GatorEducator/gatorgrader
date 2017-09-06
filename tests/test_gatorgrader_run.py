@@ -36,6 +36,6 @@ def test_check_fragment_exists_build():
 def test_check_fragment_exists_hello():
     """Checks that the fragment detector works"""
     sample_output = "Hello"
-    actual_output = gatorgrader_run.get_actual_java_output(sample_output)
+    actual_output = gatorgrader_run.get_actual_output(sample_output)
     assert gatorgrader_run.check_fragment_exists("Hello",
                                                  actual_output) is True
