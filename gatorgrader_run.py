@@ -14,7 +14,7 @@ def specified_command_output_equals_count(command, expected_count, language):
         actual_output = get_actual_java_output(output)
     else:
         actual_output = get_actual_output(output)
-    actual_line_count = count_outpupt_lines(actual_output)
+    actual_line_count = count_output_lines(actual_output)
     if expected_count == actual_line_count:
         return True
     return False
@@ -23,6 +23,26 @@ def specified_command_output_equals_count(command, expected_count, language):
 def count_output_lines(output):
     """ Counts the lines of program output """
     return len(output)
+
+
+def specified_command_output_contains_fragment(command, expected_fragment, language):
+    """ Determines if the output is exactly equal to the count """
+    output, error = run_command(command)
+    if language == JAVA:
+        actual_output = get_actual_java_output(output)
+    else:
+        actual_output = get_actual_output(output)
+    fragment_exists = check_fragment_exists(expected_fragment, actual_output)
+    return fragment_exists
+
+
+def check_fragment_exists(expected_fragment, output_list):
+    """ Checks if a fragment exists in the list of output lines """
+    found_fragment = False
+    for current_line in output_list:
+        if expected_fragment in current_line:
+            found_fragment = True
+    return found_fragment
 
 
 def get_actual_java_output(output):
