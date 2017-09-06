@@ -172,3 +172,28 @@ def invoke_all_command_checks(commands, expected_counts, languages):
     print()
     print("... Done checking the output of commands")
     return was_exactly_equal_list
+
+
+def invoke_all_command_fragment_checks(commands, expected_fragment, languages):
+    """ Repeatedly perform the check and return the results """
+    print("Checking the output of commands ...")
+    print()
+    was_contained_list = []
+    for command, expected_fragment, language in zip(
+            commands, expected_fragment, languages):
+        was_contained = gatorgrader_run.specified_command_output_contains_fragment(
+            command, expected_fragment, language)
+
+        was_contained_list.append(was_contained)
+        print(
+            "Did the command \'",
+            command,
+            "\' contain the fragment ",
+            expected_fragment,
+            " ? ",
+            gatorgrader_util.get_human_answer(was_contained),
+            sep="")
+
+    print()
+    print("... Done checking the output of commands")
+    return was_contained_list
