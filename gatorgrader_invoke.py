@@ -188,9 +188,9 @@ def invoke_all_command_fragment_checks(commands, expected_fragment, languages):
         print(
             "Did the command \'",
             command,
-            "\' contain the fragment ",
+            "\' output the fragment \'",
             expected_fragment,
-            " ? ",
+            "\'? ",
             gatorgrader_util.get_human_answer(was_contained),
             sep="")
 
