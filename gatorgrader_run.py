@@ -42,6 +42,7 @@ def get_actual_java_output(output):
             capture_output = True
     return actual_output
 
+
 def get_actual_output(output):
     """ Returns the actual lines from the command's output """
     actual_output = []
