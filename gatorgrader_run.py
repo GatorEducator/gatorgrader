@@ -35,10 +35,6 @@ def specified_command_output_contains_fragment(command, expected_fragment,
         actual_output = get_actual_output(output)
     fragment_exists_output = check_fragment_exists(expected_fragment,
                                                    actual_output)
-
-    print("expected_fragment:", expected_fragment)
-    print("actual output", actual_output)
-    print("exists output!", fragment_exists_output)
     return fragment_exists_output
 
 
