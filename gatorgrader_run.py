@@ -41,7 +41,6 @@ def specified_command_output_contains_fragment(command, expected_fragment,
 def check_fragment_exists(expected_fragment, output_list):
     """ Checks if a fragment exists in the list of output lines """
     found_fragment = False
-    print(output_list)
     for current_line in output_list:
         if expected_fragment in current_line:
             found_fragment = True
