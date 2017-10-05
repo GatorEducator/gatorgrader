@@ -24,9 +24,6 @@ def specified_command_output_equals_count(command, expected_count, language):
 
 def count_output_lines(output):
     """ Counts the lines of program output """
-    print("This is the output")
-    print(output)
-    print("Found a total of ", len(output), "lines!")
     return len(output)
 
 
@@ -61,7 +58,6 @@ def get_actual_java_output(output):
             line = line.decode()
         except AttributeError:
             pass
-        print("This is the line", line)
         if BLANK_LINE == line:
             capture_output = False
         if capture_output is True and BUILD_MARKER not in line and ACTIONABLE_MARKER not in line:
