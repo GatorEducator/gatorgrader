@@ -22,6 +22,7 @@ def specified_command_output_equals_count(command, expected_count, language):
 
 def count_output_lines(output):
     """ Counts the lines of program output """
+    print("Found a total of ", len(output), "lines!")
     return len(output)
 
 
