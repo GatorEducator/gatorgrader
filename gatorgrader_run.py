@@ -8,6 +8,7 @@ TASK_MARKER = ":run"
 BUILD_MARKER = "BUILD SUCCESSFUL"
 ACTIONABLE_MARKER = "actionable tasks:"
 
+
 def specified_command_output_equals_count(command, expected_count, language):
     """ Determines if the output is exactly equal to the count """
     output, error = run_command(command)
@@ -60,16 +61,18 @@ def get_actual_java_output(output):
             line = line.decode()
         except AttributeError:
             pass
+        print("This is the line", line)
         if BLANK_LINE == line:
             capture_output = False
-        if capture_output is True:
+        if capture_output is True and BUILD_MARKER not in line and ACTIONABLE_MARKER not in line:
             actual_output.append(line)
         if TASK_MARKER in line:
             capture_output = True
-        if BUILD_MARKER in line:
-            capture_output = True
-        if ACTIONABLE_MARKER in line:
-            capture_output = True
+        # if BUILD_MARKER in line:
+        #     capture_output = True
+        # if ACTIONABLE_MARKER in line:
+        #     capture_output = True
+
     return actual_output
 
 
