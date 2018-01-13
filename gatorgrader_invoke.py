@@ -15,7 +15,7 @@ SINGLE = "single-line"
 
 
 def invoke_all_file_in_directory_checks(files, directories):
-    """ Repeatedly perform the check and return the results """
+    """Repeatedly perform the check and return the results"""
     print("Checking if files are in the expected directories ...")
     print()
     was_file_found_list = []
@@ -28,7 +28,7 @@ def invoke_all_file_in_directory_checks(files, directories):
 
 
 def invoke_file_in_directory_check(filecheck, directory):
-    """ Check to see if the file is in the directory """
+    """Check to see if the file is in the directory"""
     gatorgrader_home, had_to_set_gatorgrader_home = gatorgrader.get_gatorgrader_home(
     )
     was_file_found = gatorgrader_files.check_file_in_directory(
@@ -46,7 +46,7 @@ def invoke_file_in_directory_check(filecheck, directory):
 
 def invoke_all_comment_checks(files, directories, expected_counts,
                               comment_type, languages):
-    """ Repeatedly perform the check and return the results """
+    """Repeatedly perform the check and return the results"""
     print("Checking for", comment_type, "comments...")
     print()
     was_exceeded_list = []
@@ -89,7 +89,7 @@ def invoke_all_comment_checks(files, directories, expected_counts,
 
 
 def invoke_all_paragraph_checks(files, directories, expected_counts):
-    """ Repeatedly perform the check and return the results """
+    """Repeatedly perform the check and return the results"""
     print("Checking for paragraphs...")
     print()
     was_exceeded_list = []
@@ -118,7 +118,7 @@ def invoke_all_paragraph_checks(files, directories, expected_counts):
 
 
 def invoke_all_fragment_checks(files, directories, fragments, expected_counts):
-    """ Repeatedly perform the check and return the results """
+    """Repeatedly perform the check and return the results"""
     print("Checking for fragments...")
     print()
     was_exceeded_list = []
@@ -150,7 +150,7 @@ def invoke_all_fragment_checks(files, directories, fragments, expected_counts):
 
 
 def invoke_all_command_checks(commands, expected_counts):
-    """ Repeatedly perform the check and return the results """
+    """Repeatedly perform the check and return the results"""
     print("Checking the output of commands ...")
     print()
     was_exactly_equal_list = []
@@ -176,7 +176,7 @@ def invoke_all_command_checks(commands, expected_counts):
 
 
 def invoke_all_command_fragment_checks(commands, expected_fragment):
-    """ Repeatedly perform the check and return the results """
+    """Repeatedly perform the check and return the results"""
     print("Checking the output of commands ...")
     print()
     was_contained_list = []
