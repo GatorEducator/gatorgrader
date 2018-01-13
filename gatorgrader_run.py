@@ -11,7 +11,7 @@ ACTIONABLE_MARKER = "actionable tasks:"
 
 def specified_command_output_equals_count(command, expected_count, language):
     """ Determines if the output is exactly equal to the count """
-    output = run_command(command)
+    output, error = run_command(command)
     # if language == JAVA:
     # actual_output = get_actual_java_output(output)
     # else:
