@@ -1,4 +1,4 @@
-""" Count entities with provided functions """
+"""Count entities with provided functions"""
 
 from pathlib import Path
 
