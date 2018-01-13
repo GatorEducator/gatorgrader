@@ -1,7 +1,3 @@
-# use Ubuntu and require sudo for pylint3
-# dist: trusty
-# sudo: required
-
 # use the Python 3.5 language
 language: python
 python:
@@ -35,4 +31,5 @@ before_script:
 script:
   - pytest tests
   - flake8 gatorgrader.py
+  - flake8 gatorgrader_comments.py
   - mdl README.md
