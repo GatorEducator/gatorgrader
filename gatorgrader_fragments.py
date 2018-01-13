@@ -13,8 +13,8 @@ PARAGRAH_RE = r'(.+?\n\n|.+?$)'
 
 
 def count_paragraphs(contents):
-    """ Counts the number of paragraphs in the writing """
-    # NOTE: the replacement is needed to handle string with just spaces
+    """Counts the number of paragraphs in the writing"""
+    # use a replacement to handle a string with just spaces
     contents = contents.replace(" ", "")
     pattern = re.compile(PARAGRAH_RE)
     matches = pattern.findall(contents)
@@ -22,7 +22,7 @@ def count_paragraphs(contents):
 
 
 def count_specified_fragment(contents, fragment):
-    """ Counts the specified string fragment in the writing """
+    """Counts the specified string fragment in the writing"""
     fragment_count = contents.count(fragment)
     return fragment_count
 
@@ -30,7 +30,7 @@ def count_specified_fragment(contents, fragment):
 def specified_fragment_greater_than_count(given_file, containing_directory,
                                           chosen_fragment, expected_count,
                                           checking_function):
-    """ Determines if the fragment count is greater than expected for a given fragment"""
+    """Determines if the fragment count is greater than expected"""
     file_fragment_count = count_fragments(given_file, containing_directory,
                                           chosen_fragment, checking_function)
     if file_fragment_count >= expected_count:
@@ -40,7 +40,7 @@ def specified_fragment_greater_than_count(given_file, containing_directory,
 
 def count_fragments(given_file, containing_directory, chosen_fragment,
                     checking_function):
-    """ Counts the number of fragments for the file in the directory and a fragment """
+    """Counts fragments for the file in the directory and a fragment"""
     file_for_checking = Path(containing_directory + FILE_SEPARATOR +
                              given_file)
     file_contents_count = 0
