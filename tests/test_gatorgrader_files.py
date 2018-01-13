@@ -4,7 +4,7 @@ import gatorgrader_files
 
 
 def test_one_file_found_in_subdirectory(tmpdir):
-    """ check_file_in_directory can find one file file in a subdirectory """
+    """check_file_in_directory can find one file file in a subdirectory"""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
     hello_file.write("content")
     assert hello_file.read() == "content"
@@ -15,7 +15,7 @@ def test_one_file_found_in_subdirectory(tmpdir):
 
 
 def test_many_files_found_in_subdirectory(tmpdir):
-    """ check_file_in_directory can find many files file in a subdirectory """
+    """check_file_in_directory can find many files file in a subdirectory"""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
     hello_file.write("content")
     assert hello_file.read() == "content"
@@ -31,7 +31,7 @@ def test_many_files_found_in_subdirectory(tmpdir):
 
 
 def test_one_file_not_found_in_subdirectory(tmpdir):
-    """ check_file_in_directory cannot find one file file in a subdirectory """
+    """check_file_in_directory cannot find one file file in a subdirectory"""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
     hello_file.write("content")
     assert hello_file.read() == "content"
@@ -43,7 +43,7 @@ def test_one_file_not_found_in_subdirectory(tmpdir):
 
 
 def test_many_files_not_found_in_subdirectory(tmpdir):
-    """ check_file_in_directory cannot find many files file in a subdirectory """
+    """check_file_in_directory cannot find many files file in a subdirectory"""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
     hello_file.write("content")
     assert hello_file.read() == "content"
