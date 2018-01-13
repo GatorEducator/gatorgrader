@@ -13,7 +13,7 @@ def test_failing_exit():
 
 
 def test_failing_exit_different():
-    """that true input returns yes"""
+    """Check that true input returns yes"""
     failing_exit = [True, True, False]
     failing_code = gatorgrader_exit.get_code(failing_exit)
     assert failing_code == 1
@@ -30,4 +30,5 @@ def test_failing_exit_different():
     ([True, True, True], 0),
 ])
 def test_exit_codes_parameterized(return_values, expected_codes):
+    """Check that multiple outputs lead to correct exit codes"""
     assert gatorgrader_exit.get_code(return_values) == expected_codes
