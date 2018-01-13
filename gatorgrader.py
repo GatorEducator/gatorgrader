@@ -80,8 +80,8 @@ def verify_gatorgrader_arguments(args):
 def verify_gatorgrader_home(current_gatorgrader_home):
     """ Verifies that the GATORGRADER_HOME variable is set correctly """
     verified_gatorgrader_home = False
-    if (current_gatorgrader_home is not None and
-            current_gatorgrader_home.endswith(SLASH) is True):
+    if (current_gatorgrader_home is not None
+            and current_gatorgrader_home.endswith(SLASH) is True):
         verified_gatorgrader_home = True
     return verified_gatorgrader_home
 
@@ -132,48 +132,55 @@ if __name__ == '__main__':
             display_checking_message()
         check_return_values = []
         # CHECK: all of the files exist in their directories
-        if (gg_arguments.directories is not None and
-                gg_arguments.checkfiles is not None):
+        if (gg_arguments.directories is not None
+                and gg_arguments.checkfiles is not None):
             current_invoke_return_values =\
                 gatorgrader_invoke.invoke_all_file_in_directory_checks(
                     gg_arguments.checkfiles, gg_arguments.directories)
             check_return_values.extend(current_invoke_return_values)
             # CHECK: Java code contains 'k' single-line comments
             if gg_arguments.singlecomments is not None:
-                current_invoke_return_values = gatorgrader_invoke.invoke_all_comment_checks(
-                    gg_arguments.checkfiles, gg_arguments.directories,
-                    gg_arguments.singlecomments, SINGLE,
-                    gg_arguments.languages)
+                current_invoke_return_values =\
+                    gatorgrader_invoke.invoke_all_comment_checks(
+                        gg_arguments.checkfiles, gg_arguments.directories,
+                        gg_arguments.singlecomments, SINGLE,
+                        gg_arguments.languages)
                 check_return_values.extend(current_invoke_return_values)
             # CHECK: Java code contains 'k' multiple-line comments
             if gg_arguments.multicomments is not None:
-                current_invoke_return_values = gatorgrader_invoke.invoke_all_comment_checks(
-                    gg_arguments.checkfiles, gg_arguments.directories,
-                    gg_arguments.multicomments, MULTIPLE,
-                    gg_arguments.languages)
+                current_invoke_return_values =\
+                    gatorgrader_invoke.invoke_all_comment_checks(
+                        gg_arguments.checkfiles, gg_arguments.directories,
+                        gg_arguments.multicomments, MULTIPLE,
+                        gg_arguments.languages)
                 check_return_values.extend(current_invoke_return_values)
             # CHECK: Writing contains 'k' paragraphs
             if gg_arguments.paragraphs is not None:
-                current_invoke_return_values = gatorgrader_invoke.invoke_all_paragraph_checks(
-                    gg_arguments.checkfiles, gg_arguments.directories,
-                    gg_arguments.paragraphs)
+                current_invoke_return_values =\
+                    gatorgrader_invoke.invoke_all_paragraph_checks(
+                        gg_arguments.checkfiles, gg_arguments.directories,
+                        gg_arguments.paragraphs)
                 check_return_values.extend(current_invoke_return_values)
             # CHECK: Content contains 'k' specified fragments
-            if gg_arguments.fragments is not None and gg_arguments.fragmentcounts is not None:
-                current_invoke_return_values = gatorgrader_invoke.invoke_all_fragment_checks(
-                    gg_arguments.checkfiles, gg_arguments.directories,
-                    gg_arguments.fragments, gg_arguments.fragmentcounts)
+            if (gg_arguments.fragments is not None and
+                    gg_arguments.fragmentcounts is not None):
+                current_invoke_return_values =\
+                    gatorgrader_invoke.invoke_all_fragment_checks(
+                        gg_arguments.checkfiles, gg_arguments.directories,
+                        gg_arguments.fragments, gg_arguments.fragmentcounts)
                 check_return_values.extend(current_invoke_return_values)
         # CHECK: Command produces 'k' lines of output
-        elif (gg_arguments.commands is not None and
-              gg_arguments.outputlines is not None):
-            current_invoke_return_values = gatorgrader_invoke.invoke_all_command_checks(
-                gg_arguments.commands, gg_arguments.outputlines)
+        elif (gg_arguments.commands is not None
+              and gg_arguments.outputlines is not None):
+            current_invoke_return_values =\
+                gatorgrader_invoke.invoke_all_command_checks(
+                    gg_arguments.commands, gg_arguments.outputlines)
         # CHECK: Command produces lines of output with the specified fragment
-        elif (gg_arguments.commands is not None and
-              gg_arguments.fragments is not None):
-            current_invoke_return_values = gatorgrader_invoke.invoke_all_command_fragment_checks(
-                gg_arguments.commands, gg_arguments.fragment)
+        elif (gg_arguments.commands is not None
+              and gg_arguments.fragments is not None):
+            current_invoke_return_values =\
+                gatorgrader_invoke.invoke_all_command_fragment_checks(
+                    gg_arguments.commands, gg_arguments.fragment)
         # The requested check is not available
         else:
             print("Requested non-existent checking.")
