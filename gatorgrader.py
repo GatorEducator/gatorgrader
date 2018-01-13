@@ -73,12 +73,12 @@ def verify_gatorgrader_arguments(args):
         if args.checkfiles is None or args.directories is None:
             verified_arguments = False
     # elif args.fragments is not None or args.fragmentcounts is not None:
-        # if args.checkfiles is None or args.directories is None or args.commands is None:
-            # verified_arguments = False
+    # if args.checkfiles is None or args.directories is None or args.commands is None:
+    # verified_arguments = False
     elif args.fragments is None and args.fragmentcounts is not None:
         verified_arguments = False
     # elif args.fragments is not None and (args.fragmentcounts is None and args.commands is None):
-        # verified_arguments = False
+    # verified_arguments = False
     return verified_arguments
 
 
