@@ -32,4 +32,5 @@ script:
   - pytest tests
   - flake8 gatorgrader.py
   - flake8 gatorgrader_comments.py
+  - flake8 tests*
   - mdl README.md
