@@ -1,6 +1,6 @@
 # use Ubuntu and require sudo for pylint3
-dist: trusty
-sudo: required
+# dist: trusty
+# sudo: required
 
 # use the Python 3.5 language
 language: python
@@ -21,8 +21,7 @@ install:
   - pip install --upgrade pip
   - pip3 install --upgrade pip
   - pip install -r requirements.txt --cache-dir $HOME/.pip-cache
-  - pip3 install pylint
-  # - sudo apt install pylint3
+  - pip3 install flake8
 
 # set GATORGRADER_HOME environment variable
 before_script:
@@ -31,9 +30,9 @@ before_script:
 # perform testing:
 # --> run the internal test suite with pytest
 # --> perform linting with
-#     --> Python: pylint3
+#     --> Python: flake8
 #     --> Markdown: mdl
 script:
   - pytest tests
-  - pylint3 gatorgrader.py
+  - flake8 gatorgrader.py
   - mdl README.md
