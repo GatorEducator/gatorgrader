@@ -6,7 +6,7 @@ BLANK_LINE = "\n"
 
 
 def specified_command_output_equals_count(command, expected_count):
-    """ Determines if the output is exactly equal to the count """
+    """Determines if the output is exactly equal to the count"""
     output, error = run_command(command)
     actual_output = get_actual_output(output)
     actual_line_count = count_output_lines(actual_output)
@@ -21,7 +21,7 @@ def count_output_lines(output):
 
 
 def specified_command_output_contains_fragment(command, expected_fragment):
-    """ Determines if the output is exactly equal to the count """
+    """Determines if the output is exactly equal to the count"""
     output, error = run_command(command)
     actual_output = get_actual_output(output)
     fragment_exists_output = check_fragment_exists(expected_fragment,
@@ -30,7 +30,7 @@ def specified_command_output_contains_fragment(command, expected_fragment):
 
 
 def check_fragment_exists(expected_fragment, output_list):
-    """ Checks if a fragment exists in the list of output lines """
+    """Checks if a fragment exists in the list of output lines"""
     found_fragment = False
     for current_line in output_list:
         if expected_fragment in current_line:
@@ -39,7 +39,7 @@ def check_fragment_exists(expected_fragment, output_list):
 
 
 def get_actual_output(output):
-    """ Returns the actual lines from the command's output """
+    """Returns the actual lines from the command's output"""
     actual_output = []
     for line in output.splitlines(keepends=False):
         try:
@@ -51,7 +51,7 @@ def get_actual_output(output):
 
 
 def run_command(command):
-    """ Run a command and return the output and error code """
+    """Run a command and return the output and error code"""
     process = subprocess.Popen(
         command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     output, error = process.communicate()
