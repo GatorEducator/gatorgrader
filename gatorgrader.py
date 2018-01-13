@@ -1,4 +1,4 @@
-""" GatorGrader checks the files of programmers and writers """
+"""GatorGrader checks the files of programmers and writers"""
 
 import os
 import sys
@@ -22,7 +22,7 @@ MULTIPLE = "multiple-line"
 
 
 def parse_gatorgrader_arguments(args):
-    """ Parses the arguments provided on the command-line """
+    """Parses the arguments provided on the command-line"""
     gg_parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
@@ -53,7 +53,7 @@ def parse_gatorgrader_arguments(args):
 
 
 def verify_gatorgrader_arguments(args):
-    """ Checks if the arguments are correct """
+    """Checks if the arguments are correct"""
     verified_arguments = True
     # TODO: This verification is not complete and/or incorrect
     if args.checkfiles is not None and args.directories is None:
@@ -78,7 +78,7 @@ def verify_gatorgrader_arguments(args):
 
 
 def verify_gatorgrader_home(current_gatorgrader_home):
-    """ Verifies that the GATORGRADER_HOME variable is set correctly """
+    """Verifies that the GATORGRADER_HOME variable is set correctly"""
     verified_gatorgrader_home = False
     if (current_gatorgrader_home is not None
             and current_gatorgrader_home.endswith(SLASH) is True):
@@ -87,7 +87,7 @@ def verify_gatorgrader_home(current_gatorgrader_home):
 
 
 def get_gatorgrader_home():
-    """ Returns the GATORGRADER_HOME """
+    """Returns the GATORGRADER_HOME"""
     current_gatorgrader_home = os.environ.get(GATORGRADER_HOME)
     had_to_set = False
     # the current gatorgrader_home is acceptable, so use it
@@ -101,7 +101,7 @@ def get_gatorgrader_home():
 
 
 def display_welcome_message():
-    """ Display a welcome message """
+    """Display a welcome message"""
     print()
     print(
         "GatorGrader: Automatically Check the Files of Programmers and Writers"
@@ -111,7 +111,7 @@ def display_welcome_message():
 
 
 def display_checking_message():
-    """ Display the checking message """
+    """Display the checking message"""
     print("Valid command-line arguments.")
     print("Running the specified checks!")
     print()
