@@ -156,8 +156,9 @@ def invoke_all_command_checks(commands, expected_counts, languages):
     was_exactly_count = 0
     for command, expected_count, language in zip(commands, expected_counts,
                                                  languages):
-        was_exactly_count = gatorgrader_run.specified_command_output_equals_count(
-            command, expected_count, language)
+        was_exactly_count =\
+            gatorgrader_run.specified_command_output_equals_count(
+                command, expected_count, language)
 
         was_exactly_equal_list.append(was_exactly_count)
         print(
