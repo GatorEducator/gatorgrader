@@ -72,21 +72,16 @@ def verify_gatorgrader_arguments(args):
     elif args.paragraphs is not None:
         if args.checkfiles is None or args.directories is None:
             verified_arguments = False
-    # elif args.fragments is not None or args.fragmentcounts is not None:
-    # if args.checkfiles is None or args.directories is None or args.commands is None:
-    # verified_arguments = False
     elif args.fragments is None and args.fragmentcounts is not None:
         verified_arguments = False
-    # elif args.fragments is not None and (args.fragmentcounts is None and args.commands is None):
-    # verified_arguments = False
     return verified_arguments
 
 
 def verify_gatorgrader_home(current_gatorgrader_home):
-    """ Verifies that the GATORGRADER_HOME environment variable is set correctly """
+    """ Verifies that the GATORGRADER_HOME variable is set correctly """
     verified_gatorgrader_home = False
-    if current_gatorgrader_home is not None and current_gatorgrader_home.endswith(
-            SLASH) is True:
+    if (current_gatorgrader_home is not None and
+            current_gatorgrader_home.endswith(SLASH) is True):
         verified_gatorgrader_home = True
     return verified_gatorgrader_home
 
@@ -137,9 +132,11 @@ if __name__ == '__main__':
             display_checking_message()
         check_return_values = []
         # CHECK: all of the files exist in their directories
-        if gg_arguments.directories is not None and gg_arguments.checkfiles is not None:
-            current_invoke_return_values = gatorgrader_invoke.invoke_all_file_in_directory_checks(
-                gg_arguments.checkfiles, gg_arguments.directories)
+        if (gg_arguments.directories is not None and
+                gg_arguments.checkfiles is not None):
+            current_invoke_return_values =\
+                gatorgrader_invoke.invoke_all_file_in_directory_checks(
+                    gg_arguments.checkfiles, gg_arguments.directories)
             check_return_values.extend(current_invoke_return_values)
             # CHECK: Java code contains 'k' single-line comments
             if gg_arguments.singlecomments is not None:
