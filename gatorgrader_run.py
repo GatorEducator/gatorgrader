@@ -12,11 +12,10 @@ ACTIONABLE_MARKER = "actionable tasks:"
 def specified_command_output_equals_count(command, expected_count, language):
     """ Determines if the output is exactly equal to the count """
     output, error = run_command(command)
-    # if language == JAVA:
-    # actual_output = get_actual_java_output(output)
-    # else:
     actual_output = get_actual_output(output)
+    print(actual_output)
     actual_line_count = count_output_lines(actual_output)
+    print("line count", actual_line_count)
     if expected_count == actual_line_count:
         return True
     return False
