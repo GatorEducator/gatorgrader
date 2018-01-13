@@ -22,7 +22,8 @@ import gatorgrader_fragments
     ("a     ", 1),
     ("a\n     ", 1),
 ])
-def test_singleline_comments_zero_or_one(writing_string, expected_count):
+def test_paragraphs_zero_or_one(writing_string, expected_count):
+    """Check that it can detect zero or one paragraphs"""
     assert gatorgrader_fragments.count_paragraphs(
         writing_string) == expected_count
 
@@ -34,7 +35,8 @@ def test_singleline_comments_zero_or_one(writing_string, expected_count):
     ('hello world\n\nhi\n\nff!$@name\n\n^^44', 4),
     ('hello world 44\n\nhi\n\nff!$@name\n\n^^44', 4),
 ])
-def test_singleline_comments_many(writing_string, expected_count):
+def test_paragraphs_many(writing_string, expected_count):
+    """Check that it can detect two or more paragraphs"""
     assert gatorgrader_fragments.count_paragraphs(
         writing_string) == expected_count
 
@@ -48,5 +50,6 @@ def test_singleline_comments_many(writing_string, expected_count):
 ])
 def test_chosen_fragment_zero_or_one(writing_string, chosen_fragment,
                                      expected_count):
+    """Check that it can detect one or more of a fragment"""
     assert gatorgrader_fragments.count_specified_fragment(
         writing_string, chosen_fragment) == expected_count
