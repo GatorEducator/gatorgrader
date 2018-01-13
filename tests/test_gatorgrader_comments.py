@@ -98,6 +98,7 @@ def test_file_contains_multiline_comment_not_greater(tmpdir):
     (" ", 0),
 ])
 def test_singleline_comments_zero_or_one(code_string, expected_count):
+    """Check that it finds zero or one single-line comments"""
     assert gatorgrader_comments.count_singleline_java_comment(
         code_string) == expected_count
 
@@ -122,6 +123,7 @@ def test_singleline_comments_zero_or_one(code_string, expected_count):
     (" ", 0),
 ])
 def test_singleline_comments_zero_or_one_python(code_string, expected_count):
+    """Checks that it finds zero or one Python comments"""
     assert gatorgrader_comments.count_singleline_python_comment(
         code_string) == expected_count
 
