@@ -27,10 +27,11 @@ before_script:
 # --> run the internal test suite with pytest
 # --> perform linting with
 #     --> Python: flake8
+#         --> test suites
+#         --> main program
 #     --> Markdown: mdl
 script:
   - pytest tests
-  - flake8 gatorgrader.py
-  - flake8 gatorgrader_comments.py
   - flake8 tests*
+  - flake8 gatorgrader*
   - mdl README.md
