@@ -180,7 +180,7 @@ if __name__ == '__main__':
               and gg_arguments.fragments is not None):
             current_invoke_return_values =\
                 gatorgrader_invoke.invoke_all_command_fragment_checks(
-                    gg_arguments.commands, gg_arguments.fragment)
+                    gg_arguments.commands, gg_arguments.fragments)
         # The requested check is not available
         else:
             print("Requested non-existent checking.")
