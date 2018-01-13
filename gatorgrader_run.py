@@ -9,9 +9,7 @@ def specified_command_output_equals_count(command, expected_count):
     """ Determines if the output is exactly equal to the count """
     output, error = run_command(command)
     actual_output = get_actual_output(output)
-    print(actual_output)
     actual_line_count = count_output_lines(actual_output)
-    print("line count", actual_line_count)
     if expected_count == actual_line_count:
         return True
     return False
