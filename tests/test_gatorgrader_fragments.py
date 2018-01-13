@@ -53,3 +53,17 @@ def test_chosen_fragment_zero_or_one(writing_string, chosen_fragment,
     """Check that it can detect one or more of a fragment"""
     assert gatorgrader_fragments.count_specified_fragment(
         writing_string, chosen_fragment) == expected_count
+
+
+@pytest.mark.parametrize("writing_string,chosen_fragment,expected_count", [
+    ('hello world!!%^(@after)writing a lot\n\nnew one writing', 'writing', 2),
+    ('hello @world!!%^(@after)writing a lot\n\nnew new new one', 'new', 3),
+    ('hello @world!!%^(@after)writing a @world lot\n\nnew one', '@world', 2),
+    ('System.out.println(new Date()) \n new Date()', 'new Date()', 2),
+    ('System.out.println(new Date() new Date() new Date())', 'new Date', 3),
+])
+def test_chosen_fragment_many(writing_string, chosen_fragment,
+                              expected_count):
+    """Check that it can detect many of a fragment"""
+    assert gatorgrader_fragments.count_specified_fragment(
+        writing_string, chosen_fragment) == expected_count
