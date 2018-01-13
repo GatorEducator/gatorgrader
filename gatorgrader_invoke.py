@@ -148,14 +148,13 @@ def invoke_all_fragment_checks(files, directories, fragments, expected_counts):
     return was_exceeded_list
 
 
-def invoke_all_command_checks(commands, expected_counts, languages):
+def invoke_all_command_checks(commands, expected_counts):
     """ Repeatedly perform the check and return the results """
     print("Checking the output of commands ...")
     print()
     was_exactly_equal_list = []
     was_exactly_count = 0
-    for command, expected_count, language in zip(commands, expected_counts,
-                                                 languages):
+    for command, expected_count, language in zip(commands, expected_counts):
         was_exactly_count =\
             gatorgrader_run.specified_command_output_equals_count(
                 command, expected_count, language)
@@ -175,15 +174,16 @@ def invoke_all_command_checks(commands, expected_counts, languages):
     return was_exactly_equal_list
 
 
-def invoke_all_command_fragment_checks(commands, expected_fragment, languages):
+def invoke_all_command_fragment_checks(commands, expected_fragment):
     """ Repeatedly perform the check and return the results """
     print("Checking the output of commands ...")
     print()
     was_contained_list = []
-    for command, expected_fragment, language in zip(
-            commands, expected_fragment, languages):
-        was_contained = gatorgrader_run.specified_command_output_contains_fragment(
-            command, expected_fragment, language)
+    for command, expected_fragment in zip(
+            commands, expected_fragment):
+        was_contained =\
+            gatorgrader_run.specified_command_output_contains_fragment(
+                command, expected_fragment)
 
         was_contained_list.append(was_contained)
         print(

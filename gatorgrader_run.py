@@ -3,13 +3,9 @@
 import subprocess
 
 BLANK_LINE = "\n"
-JAVA = "Java"
-TASK_MARKER = ":run"
-BUILD_MARKER = "BUILD SUCCESSFUL"
-ACTIONABLE_MARKER = "actionable tasks:"
 
 
-def specified_command_output_equals_count(command, expected_count, language):
+def specified_command_output_equals_count(command, expected_count):
     """ Determines if the output is exactly equal to the count """
     output, error = run_command(command)
     actual_output = get_actual_output(output)
@@ -26,14 +22,10 @@ def count_output_lines(output):
     return len(output)
 
 
-def specified_command_output_contains_fragment(command, expected_fragment,
-                                               language):
+def specified_command_output_contains_fragment(command, expected_fragment):
     """ Determines if the output is exactly equal to the count """
     output, error = run_command(command)
-    if language == JAVA:
-        actual_output = get_actual_java_output(output)
-    else:
-        actual_output = get_actual_output(output)
+    actual_output = get_actual_output(output)
     fragment_exists_output = check_fragment_exists(expected_fragment,
                                                    actual_output)
     return fragment_exists_output
@@ -46,29 +38,6 @@ def check_fragment_exists(expected_fragment, output_list):
         if expected_fragment in current_line:
             found_fragment = True
     return found_fragment
-
-
-def get_actual_java_output(output):
-    """ Returns the actual lines from the command's output """
-    actual_output = []
-    capture_output = False
-    for line in output.splitlines(keepends=True):
-        try:
-            line = line.decode()
-        except AttributeError:
-            pass
-        if BLANK_LINE == line:
-            capture_output = False
-        if capture_output is True and BUILD_MARKER not in line and ACTIONABLE_MARKER not in line:
-            actual_output.append(line)
-        if TASK_MARKER in line:
-            capture_output = True
-        # if BUILD_MARKER in line:
-        #     capture_output = True
-        # if ACTIONABLE_MARKER in line:
-        #     capture_output = True
-
-    return actual_output
 
 
 def get_actual_output(output):

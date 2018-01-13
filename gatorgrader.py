@@ -168,15 +168,15 @@ if __name__ == '__main__':
                     gg_arguments.fragments, gg_arguments.fragmentcounts)
                 check_return_values.extend(current_invoke_return_values)
         # CHECK: Command produces 'k' lines of output
-        elif gg_arguments.commands is not None and gg_arguments.outputlines is not None:
+        elif (gg_arguments.commands is not None and
+              gg_arguments.outputlines is not None):
             current_invoke_return_values = gatorgrader_invoke.invoke_all_command_checks(
-                gg_arguments.commands, gg_arguments.outputlines,
-                gg_arguments.languages)
+                gg_arguments.commands, gg_arguments.outputlines)
         # CHECK: Command produces lines of output with the specified fragment
-        elif gg_arguments.commands is not None and gg_arguments.fragments is not None:
+        elif (gg_arguments.commands is not None and
+              gg_arguments.fragments is not None):
             current_invoke_return_values = gatorgrader_invoke.invoke_all_command_fragment_checks(
-                gg_arguments.commands, gg_arguments.fragments,
-                gg_arguments.languages)
+                gg_arguments.commands, gg_arguments.fragment)
         # The requested check is not available
         else:
             print("Requested non-existent checking.")
