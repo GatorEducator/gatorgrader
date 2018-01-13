@@ -20,7 +20,9 @@ before_install:
 install:
   - pip install --upgrade pip
   - pip install -r requirements.txt --cache-dir $HOME/.pip-cache
-  - sudo apt install pylint3
+  - sudo apt-get install python3-pip
+  - sudo pip-3.3 install pylint
+  # - sudo apt install pylint3
 
 # set GATORGRADER_HOME environment variable
 before_script:
