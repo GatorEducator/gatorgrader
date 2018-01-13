@@ -79,7 +79,7 @@ def get_actual_output(output):
             current_line_decoded = line.decode()
         except AttributeError:
             current_line_decoded = line
-    actual_output.append(current_line_decoded)
+        actual_output.append(current_line_decoded)
     return actual_output
 
 
