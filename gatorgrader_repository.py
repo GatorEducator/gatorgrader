@@ -16,3 +16,12 @@ def get_commmits(path):
 def count_commits(commits):
     """Returns the count of the list of commits"""
     return len(commits)
+
+
+def commits_greater_than_count(path, expected_count):
+    """Returns true if count of commits is greater than limit, else False"""
+    commits = get_commmits(path)
+    number_commits = count_commits(commits)
+    if number_commits >= expected_count:
+        return True
+    return False
