@@ -1,8 +1,12 @@
 coverage==4.4.2
+gitdb2==2.0.3
+GitPython==2.1.8
 nltk==3.2.5
 pathlib==1.0.1
+pkg-resources==0.0.0
 py==1.4.34
 pytest==3.2.1
 pytest-cov==2.5.1
 pytest-randomly==1.2.3
 six==1.11.0
+smmap2==2.0.3
