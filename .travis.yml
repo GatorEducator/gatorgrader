@@ -11,7 +11,7 @@ cache:
 # install mdl for checking Markdown
 before_install:
   - gem install mdl
-  - python3 -m nltk.downloader all
+  - python3 -m nltk.downloader punkt
 
 # command to install dependencies
 install:
