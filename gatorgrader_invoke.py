@@ -138,7 +138,7 @@ def invoke_all_sentence_checks(files, directories, expected_counts):
             filecheck,
             " in ",
             directory,
-            " have at least paragraphs with at least ",
+            " have paragraphs with at least ",
             expected_count,
             " sentence(s)? ",
             gatorgrader_util.get_human_answer(met_or_exceeded_count),
