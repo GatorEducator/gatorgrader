@@ -32,7 +32,7 @@ before_script:
 #         --> main program
 #     --> Markdown: mdl
 script:
-  - pytest tests
+  - pytest --cov-config pytest.cov --cov
   - flake8 tests*
   - flake8 gatorgrader*
   - mdl README.md
