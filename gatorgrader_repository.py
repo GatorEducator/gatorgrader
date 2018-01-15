@@ -11,3 +11,8 @@ def get_commmits(path):
     repository = Repo(path)
     commits = list(repository.iter_commits(MASTER))
     return commits
+
+
+def count_commits(commits):
+    """Returns the count of the list of commits"""
+    return len(commits)
