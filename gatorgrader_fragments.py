@@ -40,7 +40,6 @@ def count_sentences(contents):
     """Counts the number of sentences in the writing"""
     replace_blank_inputs = False
     paragraphs = get_paragraphs(contents, replace_blank_inputs)
-    print(paragraphs)
     sentence_counts = []
     for paragraph in paragraphs:
         paragraph = paragraph.replace("\n", "")
