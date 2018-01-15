@@ -12,6 +12,9 @@ FILE_SEPARATOR = "/"
 
 PARAGRAH_RE = r'(.+?\n\n|.+?$)'
 SECTION_MARKER = "#"
+GATORGRADER_REPLACEMENT = "GATORGRADER_REPLACEMENT"
+NEWLINE = "\n"
+DOUBLE_NEWLINE = NEWLINE * 2
 
 
 def get_paragraphs(contents, blank_replace=True):
@@ -19,6 +22,10 @@ def get_paragraphs(contents, blank_replace=True):
     # use a replacement to handle a string with just spaces
     if blank_replace is True:
         contents = contents.replace(" ", "")
+    # replace a single newline with a blank space, respecting double newlines
+    contents = contents.replace(DOUBLE_NEWLINE, GATORGRADER_REPLACEMENT)
+    contents = contents.replace(NEWLINE, " ")
+    contents = contents.replace(GATORGRADER_REPLACEMENT, DOUBLE_NEWLINE)
     pattern = re.compile(PARAGRAH_RE)
     paragraphs = pattern.findall(contents)
     print("get_paragraphs paragraphs: ", paragraphs)
