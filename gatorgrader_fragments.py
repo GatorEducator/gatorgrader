@@ -26,12 +26,12 @@ def count_sentences(contents):
     """Counts the number of sentences in the writing"""
     pattern = re.compile(PARAGRAH_RE)
     paragraphs = pattern.findall(contents)
+    sentence_counts = []
     for paragraph in paragraphs:
         paragraph = paragraph.replace("\n", "")
-        print("paragraph: ", paragraph)
         sentences = nltk.sent_tokenize(paragraph)
-        for sentence in sentences:
-            print("sentence", sentence)
+        sentence_counts.append(len(sentences))
+    return min(sentence_counts)
 
 
 def count_specified_fragment(contents, fragment):
