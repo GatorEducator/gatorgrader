@@ -203,7 +203,7 @@ if __name__ == '__main__':
             current_invoke_return_values =\
                 gatorgrader_invoke.invoke_commits_check(REPOSITORY,
                                                         gg_arguments.commits)
-            check_return_values.extend(current_invoke_return_values)
+            check_return_values.append(current_invoke_return_values)
         # The requested check is not available
         else:
             print("Requested non-existent checking.")
