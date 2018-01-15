@@ -14,10 +14,11 @@ PARAGRAH_RE = r'(.+?\n\n|.+?$)'
 SECTION_MARKER = "#"
 
 
-def count_paragraphs(contents):
-    """Counts the number of paragraphs in the writing"""
+def get_paragraphs(contents, blank_replace=True):
+    """Retrieves the paragraphs in the writing"""
     # use a replacement to handle a string with just spaces
-    contents = contents.replace(" ", "")
+    if blank_replace is True:
+        contents = contents.replace(" ", "")
     pattern = re.compile(PARAGRAH_RE)
     paragraphs = pattern.findall(contents)
     matching_paragraphs = []
@@ -25,13 +26,21 @@ def count_paragraphs(contents):
     for paragraph in paragraphs:
         if paragraph.startswith(SECTION_MARKER) is False:
             matching_paragraphs.append(paragraph)
+    return matching_paragraphs
+
+
+def count_paragraphs(contents):
+    """Counts the number of paragraphs in the writing"""
+    replace_blank_inputs = True
+    matching_paragraphs = get_paragraphs(contents, replace_blank_inputs)
     return len(matching_paragraphs)
 
 
 def count_sentences(contents):
     """Counts the number of sentences in the writing"""
-    pattern = re.compile(PARAGRAH_RE)
-    paragraphs = pattern.findall(contents)
+    replace_blank_inputs = False
+    paragraphs = get_paragraphs(contents, replace_blank_inputs)
+    print(paragraphs)
     sentence_counts = []
     for paragraph in paragraphs:
         paragraph = paragraph.replace("\n", "")
