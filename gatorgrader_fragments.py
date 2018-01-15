@@ -2,6 +2,7 @@
 
 from pathlib import Path
 import re
+import nltk
 
 FILE_SEPARATOR = "/"
 
