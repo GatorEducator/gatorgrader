@@ -1,4 +1,4 @@
-""" Utility functions that check the comments of a file """
+"""Utility functions that check the comments of a file"""
 
 import re
 
