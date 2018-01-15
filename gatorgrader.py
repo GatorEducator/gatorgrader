@@ -39,6 +39,7 @@ def parse_gatorgrader_arguments(args):
     gg_parser.add_argument('--multicomments', nargs='+', type=int)
 
     gg_parser.add_argument('--paragraphs', nargs='+', type=int)
+    gg_parser.add_argument('--sentences', nargs='+', type=int)
 
     gg_parser.add_argument('--fragments', nargs='+', type=str)
     gg_parser.add_argument('--fragmentcounts', nargs='+', type=int)
@@ -70,6 +71,9 @@ def verify_gatorgrader_arguments(args):
         if args.checkfiles is None or args.directories is None:
             verified_arguments = False
     elif args.paragraphs is not None:
+        if args.checkfiles is None or args.directories is None:
+            verified_arguments = False
+    elif args.sentences is not None:
         if args.checkfiles is None or args.directories is None:
             verified_arguments = False
     elif args.fragments is None and args.fragmentcounts is not None:
