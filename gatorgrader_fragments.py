@@ -11,6 +11,7 @@ FILE_SEPARATOR = "/"
 # https://stackoverflow.com/questions/13531204/how-to-match-paragraphs-in-text-with-regx
 
 PARAGRAH_RE = r'(.+?\n\n|.+?$)'
+SECTION_MARKER = "#"
 
 
 def count_paragraphs(contents):
@@ -18,8 +19,12 @@ def count_paragraphs(contents):
     # use a replacement to handle a string with just spaces
     contents = contents.replace(" ", "")
     pattern = re.compile(PARAGRAH_RE)
-    matches = pattern.findall(contents)
-    return len(matches)
+    paragraphs = pattern.findall(contents)
+    matching_paragraphs = []
+    for paragraph in paragraphs:
+        if paragraph.startswith(SECTION_MARKER) is False:
+            matching_paragraphs.append(paragraph)
+    return len(matching_paragraphs)
 
 
 def count_sentences(contents):
