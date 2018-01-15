@@ -111,7 +111,7 @@ def invoke_all_paragraph_checks(files, directories, expected_counts):
             directory,
             " have at least ",
             expected_count,
-            " paragraphs? ",
+            " paragraph(s)? ",
             gatorgrader_util.get_human_answer(met_or_exceeded_count),
             sep="")
 
@@ -140,7 +140,7 @@ def invoke_all_sentence_checks(files, directories, expected_counts):
             directory,
             " have at least paragraphs with at least ",
             expected_count,
-            " sentences? ",
+            " sentence(s)? ",
             gatorgrader_util.get_human_answer(met_or_exceeded_count),
             sep="")
 
