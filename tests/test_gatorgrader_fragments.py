@@ -53,6 +53,8 @@ def test_paragraphs_many(writing_string, expected_count):
      'New one. Question? Fun! Nice!', 3),
     ('The method test.main was called. Hello world! Example? Writing.\n\n'
      'New one. Question? Fun! Nice!', 4),
+    ('The method test.main was called.\nHello world! Example? Writing.\n\n'
+     'New one. Question? Fun! Nice!', 4),
 ])
 def test_sentences_different_counts(writing_string, expected_count):
     """Check that it can detect different counts of sentences"""
