@@ -36,6 +36,7 @@ def test_paragraphs_zero_or_one(writing_string, expected_count):
     ('hello world\n\nhi\n\nff!$@name', 3),
     ('hello world\n\nhi\n\nff!$@name\n\n^^44', 4),
     ('hello world 44\n\nhi\n\nff!$@name\n\n^^44', 4),
+    ('# Section Header\n\nhello world 44\n\nhi\n\nff!$@name\n\n^^44', 4),
 ])
 def test_paragraphs_many(writing_string, expected_count):
     """Check that it can detect two or more paragraphs"""
