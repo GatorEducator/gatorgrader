@@ -1,4 +1,4 @@
-""" Testing to see if GatorGrader can check for correct fragments """
+"""Testing to see if GatorGrader can check for correct fragments"""
 
 import pytest
 
