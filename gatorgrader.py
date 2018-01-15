@@ -20,6 +20,8 @@ PYTHON = "Python"
 SINGLE = "single-line"
 MULTIPLE = "multiple-line"
 
+REPOSITORY = ".."
+
 
 def parse_gatorgrader_arguments(args):
     """Parses the arguments provided on the command-line"""
@@ -48,6 +50,8 @@ def parse_gatorgrader_arguments(args):
 
     gg_parser.add_argument('--commands', nargs='+', type=str)
     gg_parser.add_argument('--outputlines', nargs='+', type=int)
+
+    gg_parser.add_argument('--commits', type=int)
 
     gg_arguments_finished = gg_parser.parse_args(args)
     return gg_arguments_finished
@@ -186,12 +190,20 @@ if __name__ == '__main__':
             current_invoke_return_values =\
                 gatorgrader_invoke.invoke_all_command_checks(
                     gg_arguments.commands, gg_arguments.outputlines)
+            check_return_values.extend(current_invoke_return_values)
         # CHECK: Command produces lines of output with the specified fragment
         elif (gg_arguments.commands is not None
               and gg_arguments.fragments is not None):
             current_invoke_return_values =\
                 gatorgrader_invoke.invoke_all_command_fragment_checks(
                     gg_arguments.commands, gg_arguments.fragments)
+            check_return_values.extend(current_invoke_return_values)
+        # CHECK: Repository contains at least 'k' commits
+        elif gg_arguments.commits is not None:
+            current_invoke_return_values =\
+                gatorgrader_invoke.invoke_commits_check(REPOSITORY,
+                                                        gg_arguments.commits)
+            check_return_values.extend(current_invoke_return_values)
         # The requested check is not available
         else:
             print("Requested non-existent checking.")
