@@ -28,9 +28,8 @@ def get_paragraphs(contents, blank_replace=True):
     contents = contents.replace(GATORGRADER_REPLACEMENT, DOUBLE_NEWLINE)
     pattern = re.compile(PARAGRAH_RE)
     paragraphs = pattern.findall(contents)
-    print("get_paragraphs paragraphs: ", paragraphs)
+    # disregard all of the section headers in markdown
     matching_paragraphs = []
-    # extract all of the section headers in markdown
     for paragraph in paragraphs:
         if paragraph.startswith(SECTION_MARKER) is False:
             matching_paragraphs.append(paragraph)
@@ -46,9 +45,10 @@ def count_paragraphs(contents):
 
 def count_sentences(contents):
     """Counts the number of sentences in the writing"""
+    # retrieve all of the paragraphs in the contents
     replace_blank_inputs = False
     paragraphs = get_paragraphs(contents, replace_blank_inputs)
-    print("paragraphs:", paragraphs)
+    # count all of the sentences in each paragraph
     sentence_counts = []
     for paragraph in paragraphs:
         paragraph = paragraph.replace("\n", " ")
