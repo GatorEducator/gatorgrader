@@ -41,6 +41,15 @@ def test_paragraphs_many(writing_string, expected_count):
         writing_string) == expected_count
 
 
+@pytest.mark.parametrize("writing_string,expected_count", [
+    ('hello world! Writing a lot.\n\nnew one.', 1),
+])
+def test_sentences_different(writing_string, expected_count):
+    """Check that it can detect two or more paragraphs"""
+    assert gatorgrader_fragments.count_sentences(
+        writing_string) == expected_count
+
+
 @pytest.mark.parametrize("writing_string,chosen_fragment,expected_count", [
     ('hello world!!%^(@after)writing a lot\n\nnew one', 'writing', 1),
     ('hello @world!!%^(@after)writing a lot\n\nnew one', '@world', 1),
