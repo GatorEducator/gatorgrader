@@ -165,6 +165,13 @@ if __name__ == '__main__':
                         gg_arguments.checkfiles, gg_arguments.directories,
                         gg_arguments.paragraphs)
                 check_return_values.extend(current_invoke_return_values)
+            # CHECK: Writing all paragraphs contain 'k' sentences
+            if gg_arguments.sentences is not None:
+                current_invoke_return_values =\
+                    gatorgrader_invoke.invoke_all_sentence_checks(
+                        gg_arguments.checkfiles, gg_arguments.directories,
+                        gg_arguments.sentences)
+                check_return_values.extend(current_invoke_return_values)
             # CHECK: Content contains 'k' specified fragments
             if (gg_arguments.fragments is not None and
                     gg_arguments.fragmentcounts is not None):
