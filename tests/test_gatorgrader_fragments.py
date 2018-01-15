@@ -47,7 +47,10 @@ def test_paragraphs_many(writing_string, expected_count):
     ('The method test.main was called. Hello world! Writing a lot.\n\n'
      'New one. Question? Fun!', 3),
     ('The method test.main was called. Hello world! Writing a lot.\n\n'
-     'New one. Question? Fun! Nice!', 3), ])
+     'New one. Question? Fun! Nice!', 3),
+    ('The method test.main was called. Hello world! Example? Writing.\n\n'
+     'New one. Question? Fun! Nice!', 4),
+])
 def test_sentences_different_counts(writing_string, expected_count):
     """Check that it can detect different counts of sentences"""
     assert gatorgrader_fragments.count_sentences(
