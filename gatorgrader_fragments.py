@@ -21,6 +21,7 @@ def get_paragraphs(contents, blank_replace=True):
         contents = contents.replace(" ", "")
     pattern = re.compile(PARAGRAH_RE)
     paragraphs = pattern.findall(contents)
+    print("get_paragraphs paragraphs: ", paragraphs)
     matching_paragraphs = []
     # extract all of the section headers in markdown
     for paragraph in paragraphs:
@@ -40,9 +41,10 @@ def count_sentences(contents):
     """Counts the number of sentences in the writing"""
     replace_blank_inputs = False
     paragraphs = get_paragraphs(contents, replace_blank_inputs)
+    print("paragraphs:", paragraphs)
     sentence_counts = []
     for paragraph in paragraphs:
-        paragraph = paragraph.replace("\n", "")
+        paragraph = paragraph.replace("\n", " ")
         sentences = nltk.sent_tokenize(paragraph)
         sentence_counts.append(len(sentences))
     return min(sentence_counts)
