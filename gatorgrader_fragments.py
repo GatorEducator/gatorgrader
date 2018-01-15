@@ -21,6 +21,7 @@ def count_paragraphs(contents):
     pattern = re.compile(PARAGRAH_RE)
     paragraphs = pattern.findall(contents)
     matching_paragraphs = []
+    # extract all of the section headers in markdown
     for paragraph in paragraphs:
         if paragraph.startswith(SECTION_MARKER) is False:
             matching_paragraphs.append(paragraph)
