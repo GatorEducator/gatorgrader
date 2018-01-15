@@ -20,7 +20,7 @@ PYTHON = "Python"
 SINGLE = "single-line"
 MULTIPLE = "multiple-line"
 
-REPOSITORY = ".."
+REPOSITORY = "."
 
 
 def parse_gatorgrader_arguments(args):
