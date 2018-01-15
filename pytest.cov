@@ -1,3 +1,5 @@
 [run]
+# omit the tests for test coverage monitoring
 omit=test/*
+# run all of the tests that start with gatorgrader
 include=gatorgrader*
