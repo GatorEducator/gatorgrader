@@ -50,6 +50,12 @@ def not_verifiable_gg_args_missing_paragraphs():
     return ['--directories', 'D', 'F', 'G', '--paragraphs', '2']
 
 
+@pytest.fixture
+def not_verifiable_gg_args_missing_sentences():
+    """Return arguments that are not verifiable"""
+    return ['--directories', 'D', 'F', 'G', '--sentences', '4']
+
+
 def test_default_argument_values_correct(no_gg_args):
     """The default command-line arguments are correct"""
     gg_arguments = gatorgrader.parse_gatorgrader_arguments(no_gg_args)
@@ -104,6 +110,16 @@ def test_default_argument_values_not_correct_when_missing_fragments(
 
 
 def test_default_argument_values_not_correct_when_missing_paragraphs(
+        not_verifiable_gg_args_missing_paragraphs):
+    """The default command-line arguments are not correct"""
+    gg_arguments = gatorgrader.parse_gatorgrader_arguments(
+        not_verifiable_gg_args_missing_paragraphs)
+    gatorgrader_args_verified = gatorgrader.verify_gatorgrader_arguments(
+        gg_arguments)
+    assert gatorgrader_args_verified == NOT_VERIFIED
+
+
+def test_default_argument_values_not_correct_when_missing_sentences(
         not_verifiable_gg_args_missing_paragraphs):
     """The default command-line arguments are not correct"""
     gg_arguments = gatorgrader.parse_gatorgrader_arguments(
