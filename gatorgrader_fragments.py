@@ -22,6 +22,18 @@ def count_paragraphs(contents):
     return len(matches)
 
 
+def count_sentences(contents):
+    """Counts the number of sentences in the writing"""
+    pattern = re.compile(PARAGRAH_RE)
+    paragraphs = pattern.findall(contents)
+    for paragraph in paragraphs:
+        paragraph = paragraph.replace("\n", "")
+        print("paragraph: ", paragraph)
+        sentences = nltk.sent_tokenize(paragraph)
+        for sentence in sentences:
+            print("sentence", sentence)
+
+
 def count_specified_fragment(contents, fragment):
     """Counts the specified string fragment in the writing"""
     fragment_count = contents.count(fragment)
