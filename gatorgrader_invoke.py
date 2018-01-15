@@ -5,6 +5,7 @@ import gatorgrader_comments
 import gatorgrader_entities
 import gatorgrader_files
 import gatorgrader_fragments
+import gatorgrader_repository
 import gatorgrader_run
 import gatorgrader_util
 
@@ -12,6 +13,24 @@ JAVA = "Java"
 MULTIPLE = "multiple-line"
 PYTHON = "Python"
 SINGLE = "single-line"
+
+
+def invoke_commits_check(repository, expected_count):
+    """Check to see if the repository has more than specified commits"""
+    print("Checking for commits...")
+    print()
+    did_check_pass =\
+        gatorgrader_repository.\
+        commits_greater_than_count(repository, expected_count)
+    print(
+        "Did the repository have at least ",
+        expected_count,
+        " commits? ",
+        gatorgrader_util.get_human_answer(did_check_pass),
+        sep="")
+    print()
+    print("... Done checking for commits")
+    return did_check_pass
 
 
 def invoke_all_file_in_directory_checks(files, directories):
