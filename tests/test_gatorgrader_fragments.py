@@ -23,7 +23,7 @@ import gatorgrader_fragments
     ("a\n     ", 1),
     ('# Section Header', 0),
     ('# Section Header\n\nNot Section Header', 1),
-    ('# Section Header\n\n#Something\n\n\n# Section Header\n\nAn actual paragraph', 1),
+    ('Paragraph\n\n\n# Section Header', 1),
 ])
 def test_paragraphs_zero_or_one(writing_string, expected_count):
     """Check that it can detect zero or one paragraphs"""
