@@ -31,7 +31,7 @@ def get_paragraphs(contents, blank_replace=True):
     # disregard all of the section headers in markdown
     matching_paragraphs = []
     for paragraph in paragraphs:
-        if paragraph.startswith(SECTION_MARKER) is False:
+        if paragraph.strip().startswith(SECTION_MARKER) is False:
             matching_paragraphs.append(paragraph)
     return matching_paragraphs
 
