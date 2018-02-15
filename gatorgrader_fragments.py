@@ -29,6 +29,10 @@ def is_paragraph(candidate):
     if candidate.startswith(CODE_FENCE_MARKER):
         return False
 
+    # there may be other edge cases that should be added here in the
+    # future -- what other structures look like paragraphs but should
+    # not be?
+
     # if nothing has returned by now, the candidate must be a paragraphz
     return True
 
