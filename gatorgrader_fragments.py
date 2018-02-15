@@ -29,7 +29,7 @@ def is_paragraph(candidate):
     if candidate.startswith(CODE_FENCE_MARKER):
         return False
 
-    # if nothing has returned by now, the candidate must be a paragraph
+    # if nothing has returned by now, the candidate must be a paragraphz
     return True
 
 

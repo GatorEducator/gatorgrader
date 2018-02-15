@@ -60,6 +60,11 @@ def test_paragraphs_many(writing_string, expected_count):
      'New one. Question? Fun! Nice!', 4),
     ('The method test.main was called.\nHello world! Example? Writing.\n\n'
      'New one. Question? Fun! Nice!', 4),
+     ('Here is one paragraph.\nIt should end up having three sentences. '
+      'Here is the third sentence\n\n```\nHere\'s a correctly formatted code'
+      ' block that should not be considered as a paragraph to count sentences'
+      ' in.\n```\n\nAnd now here is the second paragraph. It will also '
+      'have three sentences. The third is a short one.', 3),
 ])
 def test_sentences_different_counts(writing_string, expected_count):
     """Check that it can detect different counts of sentences"""
