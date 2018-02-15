@@ -203,6 +203,11 @@ lib64
 pip-selfcheck.json
 pyvenv.cfg
 
+
+# NLTK #
+######################
+nltk_data
+
 # R #
 ######################
 *-Ex.R
