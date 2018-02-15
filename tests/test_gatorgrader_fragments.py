@@ -26,6 +26,8 @@ import gatorgrader_fragments
     ('Paragraph\n\n\n# Section Header', 1),
     ('Paragraph\n\n```\nShould not be a paragraph\n```', 1),
     ('```\nShould not be\na paragraph\n```', 0),
+    ('Beginning of paragraph ``` Still in fences but now \
+    also in paragraph ``` and end', 1),
 ])
 def test_paragraphs_zero_or_one(writing_string, expected_count):
     """Check that it can detect zero or one paragraphs"""
