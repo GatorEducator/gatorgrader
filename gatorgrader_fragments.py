@@ -12,9 +12,25 @@ FILE_SEPARATOR = "/"
 
 PARAGRAH_RE = r'(.+?\n\n|.+?$)'
 SECTION_MARKER = "#"
+CODE_FENCE_MARKER = "```"
 GATORGRADER_REPLACEMENT = "GATORGRADER_REPLACEMENT"
 NEWLINE = "\n"
 DOUBLE_NEWLINE = NEWLINE * 2
+
+
+def is_paragraph(candidate):
+    # remove whitespace surrounding candidate paragraph
+    candidate = candidate.strip()
+
+    # if the paragraph is a markdown header, it is not a paragraph
+    if candidate.startswith(SECTION_MARKER):
+        return False
+    # if the paragraph is a fenced code block, it is not a paragraph
+    if candidate.startswith(CODE_FENCE_MARKER):
+        return False
+
+    # if nothing has returned by now, the candidate must be a paragraph
+    return True
 
 
 def get_paragraphs(contents, blank_replace=True):
@@ -31,7 +47,7 @@ def get_paragraphs(contents, blank_replace=True):
     # disregard all of the section headers in markdown
     matching_paragraphs = []
     for paragraph in paragraphs:
-        if paragraph.strip().startswith(SECTION_MARKER) is False:
+        if is_paragraph(paragraph) is True:
             matching_paragraphs.append(paragraph)
     return matching_paragraphs
 
