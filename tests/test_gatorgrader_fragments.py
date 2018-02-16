@@ -65,10 +65,10 @@ def test_paragraphs_many(writing_string, expected_count):
      'block that should not be considered as a paragraph to count sentences '
      'in.\n```\n\nAnd now here is the second paragraph. It will also '
      'have three sentences. The third is a short one.', 3),
-    ('This is a paragraph with A through L in it. It should pass. '
+    ('This is a paragraph with A through L in it. It should pass.\n'
      'It should also have three sentences', 3),
-     ('This is a sentence ending in A through L. It should also pass. '
-      'The paragraph should have three sentences', 3),
+    ('This is a sentence ending in A through L. It should also pass.\n'
+     'The paragraph should have three sentences', 3),
 ])
 def test_sentences_different_counts(writing_string, expected_count):
     """Check that it can detect different counts of sentences"""
