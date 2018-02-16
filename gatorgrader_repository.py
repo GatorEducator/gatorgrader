@@ -9,7 +9,10 @@ MASTER = "master"
 def get_commmits(path):
     """Returns a list of the commits for the repo at path"""
     repository = Repo(path)
-    commits = list(repository.iter_commits(MASTER))
+    # pass in None so that the default (the current branch) is used
+    # this avoids problems with being checked out in different branches
+    # alternatively, we could detect the current HEAD and use that
+    commits = list(repository.iter_commits())
     return commits
 
 
