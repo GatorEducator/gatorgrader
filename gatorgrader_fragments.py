@@ -21,7 +21,6 @@ DOUBLE_NEWLINE = NEWLINE * 2
 def is_paragraph(candidate):
     # remove whitespace surrounding candidate paragraph
     candidate = candidate.strip()
-
     # if the paragraph is a markdown header, it is not a paragraph
     if candidate.startswith(SECTION_MARKER):
         return False
