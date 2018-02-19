@@ -1,5 +1,7 @@
 # GatorGrader
 
+[![Build Status](https://api.travis-ci.org/gkapfham/gatorgrader.png?branch=master)](https://travis-ci.org/gkapfham/gatorgrader)
+
 Designed for use with [GitHub Classroom](https://classroom.github.com/),
 GatorGrader is an automated grading tool that checks the work of programmers and
 writers. Although it can be used independently of a containing project,
