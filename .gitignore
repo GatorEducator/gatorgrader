@@ -224,3 +224,8 @@ tags.tmp
 *.xmi
 *.sync
 *.jekyll-metadata
+
+# GatorGrader files #
+######################
+.gatorgrader_log
+nltk_data
