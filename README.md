@@ -53,9 +53,9 @@ GatorGrader's issue tracker.
 If your environment supports it, then please set the `GATORGRADER_HOME`
 environment variable. For instance, typing the command `export
 GATORGRADER_HOME="/home/travis/build/gkapfham/gatorgrader"` would set
-`GATORGRADER__HOME` environment variable to the appropriate directory for
+`GATORGRADER_HOME` environment variable to the appropriate directory for
 building it on Travis CI under the `gkapfham` account. If you do not set the
-`GATORGRADER__HOME` environment variable, then GatorGrader will attempt to guess
+`GATORGRADER_HOME` environment variable, then GatorGrader will attempt to guess
 the best setting for it.
 
 GatorGrader can perform simple checks on both writing and source code. For
@@ -109,6 +109,7 @@ operating systems that support Python version 3.
 GatorGrader comes equipped with a few commands line arguments that should be
 used in the `gatorgrader.sh` to run the system. These include:
 
+
 - `--checkfiles`
 
 Determines which file to look to. This should be followed by the name of a file.
@@ -155,13 +156,13 @@ programming language, such as java or python.
 
 - `--commands`
 
-Runs a command that will be further investigated. This should be
-followed by a command such as gradle build.
+Runs a command; the results can be used further on. This should be
+followed by a command such as `"gradle build"`.
 
 - `--outputlines`
 
 Ensures that the program outputs a number of lines. Should be followed by the
-number of lines that the user wants output.
+number of lines that the user wants output. Used in conjunction with `--commands`.
 
 - `--commits`
 
