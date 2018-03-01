@@ -109,7 +109,6 @@ operating systems that support Python version 3.
 GatorGrader comes equipped with a few commands line arguments that should be
 used in the `gatorgrader.sh` to run the system. These include:
 
-
 - `--checkfiles`
 
 Determines which file to look to. This should be followed by the name of a file.
