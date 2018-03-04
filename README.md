@@ -143,7 +143,8 @@ the number of sentences to look for.
 - `--fragments`
 
 Looks for a particular fragment in the code. This should be followed by the
-fragment to be looked for.
+fragment to be looked for. This can also be used after a `--commands` flag to
+check if the output contains the fragment specified.
 
 - `--fragmentcounts`
 
