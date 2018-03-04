@@ -121,12 +121,14 @@ Tells GatorGrader which path to follow to find the file. This should be followed
 - `--singlecomments`
 
 Indicates to look for a number of single-line comments. This should be followed
-by a number of single-line comments to look for.
+by a number of single-line comments to look for. The language must also be
+specified with the `--langauge` option.
 
 - `--multicomments`
 
 Indicates to look for a number of multi-line comments. This should be followed
-by the number of multi-line comments to look for.
+by the number of multi-line comments to look for. The language must also be
+specified with the `--langauge` option.
 
 - `--paragraphs`
 
@@ -151,7 +153,7 @@ by the number of times the user wants the fragment in the code.
 - `--language`
 
 Indicates what language the code snippet will be. This should be followed by a
-programming language, such as java or python.
+programming language, such as Java or Python.
 
 - `--commands`
 
