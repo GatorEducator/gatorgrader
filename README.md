@@ -104,10 +104,10 @@ Each of the previous commands were run on an Ubuntu 16.04 workstation running
 Python 3.5.2. However, GatorGrader should run correctly on a wide variety of
 operating systems that support Python version 3.
 
-## Listing of the commands used in GatorGrader
+## GatorGrader Options
 
-GatorGrader comes equipped with a few commands line arguments that should be
-used in the `gatorgrader.sh` to run the system. These include:
+GatorGrader comes equipped with a few commands line arguments that can be used to
+configure an individual run of the system. These include:
 
 - `--checkfiles`
 
