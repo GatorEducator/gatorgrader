@@ -53,9 +53,9 @@ GatorGrader's issue tracker.
 If your environment supports it, then please set the `GATORGRADER_HOME`
 environment variable. For instance, typing the command `export
 GATORGRADER_HOME="/home/travis/build/gkapfham/gatorgrader"` would set
-`GATORGRADER__HOME` environment variable to the appropriate directory for
+`GATORGRADER_HOME` environment variable to the appropriate directory for
 building it on Travis CI under the `gkapfham` account. If you do not set the
-`GATORGRADER__HOME` environment variable, then GatorGrader will attempt to guess
+`GATORGRADER_HOME` environment variable, then GatorGrader will attempt to guess
 the best setting for it.
 
 GatorGrader can perform simple checks on both writing and source code. For
@@ -103,6 +103,91 @@ python3 gatorgrader.py \
 Each of the previous commands were run on an Ubuntu 16.04 workstation running
 Python 3.5.2. However, GatorGrader should run correctly on a wide variety of
 operating systems that support Python version 3.
+
+## GatorGrader Options
+
+GatorGrader comes equipped with a few commands line arguments that can be used to
+configure an individual run of the system. These include:
+
+- `--checkfiles`
+
+Determines which file to look to. This should be followed by the name of a file.
+
+- `--directories`
+
+Tells GatorGrader which path to follow to find the file. This should be followed
+ by the filepath to the file.
+
+- `--singlecomments`
+
+Indicates to look for a number of single-line comments. This should be followed
+by a number of single-line comments to look for. The language must also be
+specified with the `--langauge` option.
+
+- `--multicomments`
+
+Indicates to look for a number of multi-line comments. This should be followed
+by the number of multi-line comments to look for. The language must also be
+specified with the `--langauge` option.
+
+- `--paragraphs`
+
+Indicates to look for a number of paragraphs in a md file. This should be
+followed by the number of paragraphs to check for in the file.
+
+- `--sentences`
+
+Indicates to look for a number of sentences in a md file. Should be followed by
+the number of sentences to look for.
+
+- `--fragments`
+
+Looks for a particular fragment in the code. This should be followed by the
+fragment to be looked for. This can also be used after a `--commands` flag to
+check if the output contains the fragment specified.
+
+- `--fragmentcounts`
+
+Indicates how many times the code must have a fragment. This should be followed
+by the number of times the user wants the fragment in the code.
+
+- `--language`
+
+Indicates what language the code snippet will be. This should be followed by a
+programming language, such as Java or Python.
+
+- `--commands`
+
+Runs a command; the results can be used further on. This should be
+followed by a command such as `"gradle build"`.
+
+- `--outputlines`
+
+Ensures that the program outputs a number of lines. Should be followed by the
+number of lines that the user wants output. Used in conjunction with `--commands`.
+
+- `--commits`
+
+Checks that the user commit a number of times. This should be followed by the
+number of commits the user would like the student to commit.
+
+## Output of gradle and GatorGrader
+
+Gradle checks whether the code compiled and what the errors are, then once the
+code compiles correctly it checks the formatting. The output of gradle build is
+what the normal compiler would look like if javac was used, but it also provides
+a link that students can go to that will explain what their error is and what
+line.
+
+Once GatorGrader has been checked it will provide output that will explain what
+the student has done wrong in terms of the GatorGrader checks, such as if they
+reached a certain amount of output lines or if their code contains a number of
+multi-line comments. This will be displayed with a sentence that explains what
+the check is then followed by a yes or a no. Yes if it was completed and no if
+not. If the student receives a No, at the end of the print out there is a
+statement that says "Overall, are there mistakes in the assignment?" that is
+followed by a Yes. The student can then scroll up and find what the error was to
+fix it.
 
 ## GatorGrader in Action
 
