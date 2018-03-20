@@ -149,7 +149,7 @@ def invoke_all_sentence_checks(files, directories, expected_counts):
                                                     expected_counts):
         met_or_exceeded_count = gatorgrader_entities.entity_greater_than_count(
             filecheck, directory, expected_count,
-            gatorgrader_fragments.count_sentences)
+            gatorgrader_fragments.count_words)
 
         was_exceeded_list.append(met_or_exceeded_count)
         print(

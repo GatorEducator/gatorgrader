@@ -50,29 +50,24 @@ def test_paragraphs_many(writing_string, expected_count):
 
 
 @pytest.mark.parametrize("writing_string,expected_count", [
-    ('hello world! Writing a lot.\n\nnew one.', 1),
-    ('hello world! Writing a lot.\n\nNew one. Question?', 2),
+    ('hello world! Writing a lot.\n\nsingle.', 1),
+    ('hello world! Writing a lot.\n\nnew one.', 2),
+    ('hello world! Writing a lot.\n\nNew one. Question?', 3),
     ('The method test.main was called. Hello world! Writing a lot.\n\n'
-     'New one. Question? Fun!', 3),
-    ('The method test.main was called. Hello world! Writing a lot.\n\n'
-     'New one. Question? Fun! Nice!', 3),
-    ('The method test.main was called. Hello world! Example? Writing.\n\n'
-     'New one. Question? Fun! Nice!', 4),
+     'New one. Question? Fun!', 4),
+    ('New one. Question? Fun! Nice!\n\n'
+    'The method test.main was called. Hello world! Writing a lot.', 5),
+    ('The method `test.main` was called. Hello world! Example? Writing.\n\n'
+     'New one. Question? Fun! Nice!', 5),
     ('The method test.main was called.\nHello world! Example? Writing.\n\n'
-     'New one. Question? Fun! Nice!', 4),
-    ('Here is one paragraph.\nIt should end up having three sentences. '
-     'Here is the third sentence\n\n```\nHere\'s a correctly formatted code '
-     'block that should not be considered as a paragraph to count sentences '
-     'in.\n```\n\nAnd now here is the second paragraph. It will also '
-     'have three sentences. The third is a short one.', 3),
-    ('This is a paragraph with A through L in it. It should pass.\n'
-     'It should also have three sentences', 3),
-    ('This is a sentence ending in A through L. It should also pass.\n'
-     'The paragraph should have three sentences', 3),
+     'New one. Question? Fun! Nice!', 5),
+    ('Here is some code in a code block.\n\n```\ndef test_function():\n    '
+     'function_call()\n```\n\nHello world! Example? Writing.\n\n'
+     'New one. Question? Fun! Nice!', 8),
 ])
-def test_sentences_different_counts(writing_string, expected_count):
+def test_words_different_counts(writing_string, expected_count):
     """Check that it can detect different counts of sentences"""
-    assert gatorgrader_fragments.count_sentences(
+    assert gatorgrader_fragments.count_words(
         writing_string) == expected_count
 
 

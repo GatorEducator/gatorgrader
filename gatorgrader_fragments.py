@@ -2,7 +2,6 @@
 
 from pathlib import Path
 import re
-import nltk
 
 FILE_SEPARATOR = "/"
 
@@ -63,18 +62,18 @@ def count_paragraphs(contents):
     return len(matching_paragraphs)
 
 
-def count_sentences(contents):
+def count_words(contents):
     """Counts the number of sentences in the writing"""
     # retrieve all of the paragraphs in the contents
     replace_blank_inputs = False
     paragraphs = get_paragraphs(contents, replace_blank_inputs)
     # count all of the sentences in each paragraph
-    sentence_counts = []
-    for paragraph in paragraphs:
-        paragraph = paragraph.replace("\n", " ")
-        sentences = nltk.sent_tokenize(paragraph)
-        sentence_counts.append(len(sentences))
-    return min(sentence_counts)
+    word_counts = []
+    for para in paragraphs:
+        para = para.replace("\n", " ")
+        words = "".join(ch if ch.isalnum() else " " for ch in para).split()
+        word_counts.append(len(words))
+    return min(word_counts)
 
 
 def count_specified_fragment(contents, fragment):
