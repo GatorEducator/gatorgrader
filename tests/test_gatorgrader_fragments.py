@@ -64,6 +64,7 @@ def test_paragraphs_many(writing_string, expected_count):
     ('Here is some code in a code block.\n\n```\ndef test_function():\n    '
      'function_call()\n```\n\nHello world! Example? Writing.\n\n'
      'New one. Question? Fun! Nice!', 4),
+    ('', 0)
 ])
 def test_words_different_counts(writing_string, expected_count):
     """Check that it can detect different counts of words"""

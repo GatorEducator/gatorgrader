@@ -73,7 +73,10 @@ def count_words(contents):
         para = para.replace("\n", " ")
         words = "".join(ch if ch.isalnum() else " " for ch in para).split()
         word_counts.append(len(words))
-    return min(word_counts)
+    if word_counts:
+        return min(word_counts)
+    else:
+        return 0
 
 
 def count_specified_fragment(contents, fragment):
