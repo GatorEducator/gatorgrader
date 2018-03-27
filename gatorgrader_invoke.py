@@ -139,9 +139,9 @@ def invoke_all_paragraph_checks(files, directories, expected_counts):
     return was_exceeded_list
 
 
-def invoke_all_sentence_checks(files, directories, expected_counts):
+def invoke_all_word_count_checks(files, directories, expected_counts):
     """Repeatedly perform the check and return the results"""
-    print("Checking for sentences...")
+    print("Checking for word counts...")
     print()
     was_exceeded_list = []
     met_or_exceeded_count = 0
@@ -159,12 +159,12 @@ def invoke_all_sentence_checks(files, directories, expected_counts):
             directory,
             " have paragraphs with at least ",
             expected_count,
-            " sentence(s)? ",
+            " words? ",
             gatorgrader_util.get_human_answer(met_or_exceeded_count),
             sep="")
 
     print()
-    print("... Done checking for sentences")
+    print("... Done checking for word counts")
     return was_exceeded_list
 
 

@@ -41,7 +41,7 @@ def parse_gatorgrader_arguments(args):
     gg_parser.add_argument('--multicomments', nargs='+', type=int)
 
     gg_parser.add_argument('--paragraphs', nargs='+', type=int)
-    gg_parser.add_argument('--sentences', nargs='+', type=int)
+    gg_parser.add_argument('--wordcount', '--sentences', nargs='+', type=int, dest='wordcount')
 
     gg_parser.add_argument('--fragments', nargs='+', type=str)
     gg_parser.add_argument('--fragmentcounts', nargs='+', type=int)
@@ -77,7 +77,7 @@ def verify_gatorgrader_arguments(args):
     elif args.paragraphs is not None:
         if args.checkfiles is None or args.directories is None:
             verified_arguments = False
-    elif args.sentences is not None:
+    elif args.wordcount is not None:
         if args.checkfiles is None or args.directories is None:
             verified_arguments = False
     elif args.fragments is None and args.fragmentcounts is not None:
@@ -169,12 +169,12 @@ if __name__ == '__main__':
                         gg_arguments.checkfiles, gg_arguments.directories,
                         gg_arguments.paragraphs)
                 check_return_values.extend(current_invoke_return_values)
-            # CHECK: Writing all paragraphs contain 'k' sentences
-            if gg_arguments.sentences is not None:
+            # CHECK: Writing all paragraphs contain 'k' words
+            if gg_arguments.wordcount is not None:
                 current_invoke_return_values =\
-                    gatorgrader_invoke.invoke_all_sentence_checks(
+                    gatorgrader_invoke.invoke_all_word_count_checks(
                         gg_arguments.checkfiles, gg_arguments.directories,
-                        gg_arguments.sentences)
+                        gg_arguments.word_count)
                 check_return_values.extend(current_invoke_return_values)
             # CHECK: Content contains 'k' specified fragments
             if (gg_arguments.fragments is not None and
