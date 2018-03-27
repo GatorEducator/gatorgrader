@@ -175,7 +175,7 @@ if __name__ == '__main__':
                 current_invoke_return_values =\
                     gatorgrader_invoke.invoke_all_word_count_checks(
                         gg_arguments.checkfiles, gg_arguments.directories,
-                        gg_arguments.word_count)
+                        gg_arguments.wordcount)
                 check_return_values.extend(current_invoke_return_values)
             # CHECK: Content contains 'k' specified fragments
             if (gg_arguments.fragments is not None and
