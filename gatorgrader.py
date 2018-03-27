@@ -41,7 +41,8 @@ def parse_gatorgrader_arguments(args):
     gg_parser.add_argument('--multicomments', nargs='+', type=int)
 
     gg_parser.add_argument('--paragraphs', nargs='+', type=int)
-    gg_parser.add_argument('--wordcount', '--sentences', nargs='+', type=int, dest='wordcount')
+    gg_parser.add_argument('--wordcount', '--sentences', nargs='+', type=int,
+                           dest='wordcount')
 
     gg_parser.add_argument('--fragments', nargs='+', type=str)
     gg_parser.add_argument('--fragmentcounts', nargs='+', type=int)

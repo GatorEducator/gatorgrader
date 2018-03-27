@@ -18,7 +18,6 @@ install:
   - pip3 install --upgrade pip
   - pip install -r requirements.txt --cache-dir $HOME/.pip-cache
   - pip3 install flake8
-  - python3 -m nltk.downloader punkt
 
 # set GATORGRADER_HOME environment variable
 before_script:

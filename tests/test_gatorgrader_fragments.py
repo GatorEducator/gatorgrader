@@ -56,7 +56,7 @@ def test_paragraphs_many(writing_string, expected_count):
     ('The method test.main was called. Hello world! Writing a lot.\n\n'
      'New one. Question? Fun!', 4),
     ('New one. Question? Fun! Nice!\n\n'
-    'The method test.main was called. Hello world! Writing a lot.', 5),
+     'The method test.main was called. Hello world! Writing a lot.', 5),
     ('The method `test.main` was called. Hello world! Example? Writing.\n\n'
      'New one. Question? Fun! Nice!', 5),
     ('The method test.main was called.\nHello world! Example? Writing.\n\n'

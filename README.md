@@ -137,8 +137,8 @@ followed by the number of paragraphs to check for in the file.
 
 - `--wordcount`
 
-Indicates to look for a number of words in each paragraph in a Markdown file. Should be followed by
-the number of words to look for.
+Indicates to look for a number of words in each paragraph in a Markdown file.
+Should be followed by the number of words to look for.
 
 - `--fragments`
 
