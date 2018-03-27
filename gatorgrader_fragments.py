@@ -67,14 +67,12 @@ def count_words(contents):
     # retrieve all of the paragraphs in the contents
     replace_blank_inputs = False
     paragraphs = get_paragraphs(contents, replace_blank_inputs)
-    print(paragraphs)
     # count all of the words in each paragraph
     word_counts = []
     for para in paragraphs:
         para = para.replace("\n", " ")
         words = "".join(ch if ch.isalnum() else " " for ch in para).split()
         word_counts.append(len(words))
-    print(word_counts)
     return min(word_counts)
 
 
