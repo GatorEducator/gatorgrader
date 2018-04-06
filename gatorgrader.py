@@ -14,6 +14,7 @@ GATORGRADER_HOME = "GATORGRADER_HOME"
 DEFAULT_COUNT = 0
 DEFAULT_LANGUAGE = "Java"
 INCORRECT_ARGUMENTS = 2
+NONEXISTENT_CHECKING = 3
 JAVA = "Java"
 PYTHON = "Python"
 
@@ -208,6 +209,7 @@ if __name__ == '__main__':
         # The requested check is not available
         else:
             print("Requested non-existent checking.")
+            sys.exit(NONEXISTENT_CHECKING)
 
         # DONE: Determine the correct exit code for the checks
         correct_exit_code = gatorgrader_exit.get_code(check_return_values)
