@@ -202,7 +202,7 @@ share/
 lib64
 pip-selfcheck.json
 pyvenv.cfg
-
+.pytest_cache
 
 # NLTK #
 ######################

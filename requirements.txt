@@ -1,7 +1,6 @@
 coverage==4.4.2
 gitdb2==2.0.3
 GitPython==2.1.8
-nltk==3.2.5
 pathlib==1.0.1
 py==1.4.34
 pytest==3.2.1

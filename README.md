@@ -135,10 +135,10 @@ specified with the `--langauge` option.
 Indicates to look for a number of paragraphs in a md file. This should be
 followed by the number of paragraphs to check for in the file.
 
-- `--sentences`
+- `--wordcount`
 
-Indicates to look for a number of sentences in a md file. Should be followed by
-the number of sentences to look for.
+Indicates to look for a number of words in each paragraph in a Markdown file.
+Should be followed by the number of words to look for.
 
 - `--fragments`
 
