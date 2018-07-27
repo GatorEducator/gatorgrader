@@ -13,7 +13,7 @@ nicely with [Travis CI](https://travis-ci.com/) &mdash; which is again how
 faculty members at Allegheny College commonly use it in conjunction with other
 automated checking tools.
 
-## Installing GatorGrader
+## Installing and Testing GatorGrader
 
 As a Python 3 program, GatorGrader relies on
 [pip](https://pip.pypa.io/en/stable/installing/) for installation. To ensure
