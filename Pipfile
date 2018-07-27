@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+
+[dev-packages]
+pylint = "*"
+black = "*"
+pytest = "*"
+six = "*"
+codecov = "*"
+"flake8" = "*"
+pytest-cov = "*"
+
+[requires]
+python_version = "3.6"
+
+[pipenv]
+allow_prereleases = true
