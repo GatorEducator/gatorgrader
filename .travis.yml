@@ -1,7 +1,7 @@
-# use the Python 3.5 language
+# use the Python 3.6 language
 language: python
 python:
-  - "3.5"
+  - "3.6"
 
 # cache to improve build speed
 cache:
