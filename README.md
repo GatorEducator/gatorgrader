@@ -88,7 +88,7 @@ python3 gatorgrader.py \
 ```
 
 Each of the previous commands were run on an Ubuntu 16.04 workstation running
-Python 3.5.2. However, GatorGrader should run correctly on a wide variety of
+Python 3.6. However, GatorGrader should run correctly on a wide variety of
 operating systems that support Python version 3.
 
 ## GatorGrader Options
