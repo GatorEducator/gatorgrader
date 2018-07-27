@@ -74,19 +74,6 @@ python3 gatorgrader.py \
         --languages Java
 ```
 
-Since introductory courses at Allegheny College commonly use the Java
-programming language and compile and run programs using
-[Gradle](https://gradle.org/), the following commands shows how to use
-GatorGrader to ensure that running the program yields exactly four lines of
-output.
-
-```
-python3 gatorgrader/gatorgrader.py \
-        --commands "gradle run" \
-        --outputlines 4 \
-        --languages Java
-```
-
 Since many computer science courses at Allegheny College require students to
 write technical documents, GatorGrader also provides a feature to check how many
 paragraphs of writing are in a file. The following example shows how to use
