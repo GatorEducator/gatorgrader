@@ -9,7 +9,7 @@ FILE_SEPARATOR = "/"
 # https://stackoverflow.com/questions/18568105/how-match-a-paragraph-using-regex
 # https://stackoverflow.com/questions/13531204/how-to-match-paragraphs-in-text-with-regx
 
-PARAGRAH_RE = r'(.+?\n\n|.+?$)'
+PARAGRAH_RE = r"(.+?\n\n|.+?$)"
 SECTION_MARKER = "#"
 CODE_FENCE_MARKER = "```"
 GATORGRADER_REPLACEMENT = "GATORGRADER_REPLACEMENT"
@@ -85,22 +85,25 @@ def count_specified_fragment(contents, fragment):
     return fragment_count
 
 
-def specified_fragment_greater_than_count(given_file, containing_directory,
-                                          chosen_fragment, expected_count,
-                                          checking_function):
+# pylint: disable=bad-continuation
+def specified_fragment_greater_than_count(
+    given_file, containing_directory, chosen_fragment, expected_count, checking_function
+):
     """Determines if the fragment count is greater than expected"""
-    file_fragment_count = count_fragments(given_file, containing_directory,
-                                          chosen_fragment, checking_function)
+    file_fragment_count = count_fragments(
+        given_file, containing_directory, chosen_fragment, checking_function
+    )
     if file_fragment_count >= expected_count:
         return True
     return False
 
 
-def count_fragments(given_file, containing_directory, chosen_fragment,
-                    checking_function):
+# pylint: disable=bad-continuation
+def count_fragments(
+    given_file, containing_directory, chosen_fragment, checking_function
+):
     """Counts fragments for the file in the directory and a fragment"""
-    file_for_checking = Path(containing_directory + FILE_SEPARATOR +
-                             given_file)
+    file_for_checking = Path(containing_directory + FILE_SEPARATOR + given_file)
     file_contents_count = 0
     if file_for_checking.is_file():
         file_contents = file_for_checking.read_text()
