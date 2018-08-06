@@ -24,8 +24,7 @@ def specified_command_output_contains_fragment(command, expected_fragment):
     """Determines if the output is exactly equal to the count"""
     output, error = run_command(command)
     actual_output = get_actual_output(output)
-    fragment_exists_output = check_fragment_exists(expected_fragment,
-                                                   actual_output)
+    fragment_exists_output = check_fragment_exists(expected_fragment, actual_output)
     return fragment_exists_output
 
 
@@ -53,6 +52,7 @@ def get_actual_output(output):
 def run_command(command):
     """Run a command and return the output and error code"""
     process = subprocess.Popen(
-        command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+        command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
+    )
     output, error = process.communicate()
     return output, error
