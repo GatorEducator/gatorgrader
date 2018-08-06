@@ -82,7 +82,7 @@ def test_gatorgrader_not_verified(not_verifiable_gg_args):
 def test_default_argument_values_not_correct_when_missing(
     not_verifiable_gg_args_missing
 ):
-    """The default command-line arguments are not correct"""
+    """The command-line arguments are not correct"""
     gg_arguments = gatorgrader.parse_gatorgrader_arguments(
         not_verifiable_gg_args_missing
     )
@@ -93,7 +93,7 @@ def test_default_argument_values_not_correct_when_missing(
 def test_default_argument_values_not_correct_when_missing_comments(
     not_verifiable_gg_args_missing_comments
 ):
-    """The default command-line arguments are not correct"""
+    """The command-line arguments are not correct"""
     gg_arguments = gatorgrader.parse_gatorgrader_arguments(
         not_verifiable_gg_args_missing_comments
     )
@@ -104,7 +104,7 @@ def test_default_argument_values_not_correct_when_missing_comments(
 def test_default_argument_values_not_correct_when_missing_fragments(
     not_verifiable_gg_args_missing_fragments
 ):
-    """The default command-line arguments are not correct"""
+    """The command-line arguments are not correct"""
     gg_arguments = gatorgrader.parse_gatorgrader_arguments(
         not_verifiable_gg_args_missing_fragments
     )
@@ -115,7 +115,7 @@ def test_default_argument_values_not_correct_when_missing_fragments(
 def test_default_argument_values_not_correct_when_missing_paragraphs(
     not_verifiable_gg_args_missing_paragraphs
 ):
-    """The default command-line arguments are not correct"""
+    """The command-line arguments are not correct"""
     gg_arguments = gatorgrader.parse_gatorgrader_arguments(
         not_verifiable_gg_args_missing_paragraphs
     )
@@ -127,7 +127,7 @@ def test_default_argument_values_not_correct_when_missing_paragraphs(
 def test_default_argument_values_not_correct_when_missing_sentences(
     not_verifiable_gg_args_missing_paragraphs
 ):
-    """The default command-line arguments are not correct"""
+    """The command-line arguments are not correct"""
     gg_arguments = gatorgrader.parse_gatorgrader_arguments(
         not_verifiable_gg_args_missing_paragraphs
     )
