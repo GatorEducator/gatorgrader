@@ -1,6 +1,5 @@
 """GatorGrader checks the files of programmers and writers"""
 
-import os
 import sys
 
 import argparse
@@ -8,8 +7,6 @@ import argparse
 import gatorgrader_invoke
 import gatorgrader_exit
 
-SLASH = "/"
-GATORGRADER_HOME = "GATORGRADER_HOME"
 
 DEFAULT_COUNT = 0
 DEFAULT_LANGUAGE = "Java"
@@ -88,28 +85,6 @@ def verify_gatorgrader_arguments(args):
     return verified_arguments
 
 
-def verify_gatorgrader_home(current_gatorgrader_home):
-    """Verifies that the GATORGRADER_HOME variable is set correctly"""
-    verified_gatorgrader_home = False
-    # pylint: disable=bad-continuation
-    if (
-        current_gatorgrader_home is not None
-        and current_gatorgrader_home.endswith(SLASH) is True
-    ):
-        verified_gatorgrader_home = True
-    return verified_gatorgrader_home
-
-
-def get_gatorgrader_home():
-    """Returns the GATORGRADER_HOME"""
-    current_gatorgrader_home = os.environ.get(GATORGRADER_HOME)
-    # the current gatorgrader_home is acceptable, so use it
-    if verify_gatorgrader_home(current_gatorgrader_home) is not False:
-        gatorgrader_home = current_gatorgrader_home
-    # the current gatorgrader_home is not okay, so guess at one
-    else:
-        gatorgrader_home = os.getcwd() + SLASH
-    return gatorgrader_home
 
 
 def display_welcome_message():
