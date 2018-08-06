@@ -1,4 +1,4 @@
-""" Invokes programs on the command-line on behalf of GatorGrader """
+"""Invokes programs on the command-line"""
 
 import gatorgrader
 import gatorgrader_comments
