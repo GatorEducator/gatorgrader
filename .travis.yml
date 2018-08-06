@@ -38,3 +38,7 @@ script:
   - pipenv run flake8 tests*
   - pipenv run flake8 gatorgrader*
   - mdl README.md
+
+# report coverage information to CodeCov
+after_success:
+  - pipenv run codecov
