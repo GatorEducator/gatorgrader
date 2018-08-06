@@ -18,6 +18,7 @@ DOUBLE_NEWLINE = NEWLINE * 2
 
 
 def is_paragraph(candidate):
+    """Determines if a writing candidate is a paragraph"""
     # remove whitespace surrounding candidate paragraph
     candidate = candidate.strip()
 
