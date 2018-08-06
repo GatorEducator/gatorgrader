@@ -85,8 +85,6 @@ def verify_gatorgrader_arguments(args):
     return verified_arguments
 
 
-
-
 def display_welcome_message():
     """Display a welcome message"""
     print()
