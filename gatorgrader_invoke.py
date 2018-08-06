@@ -1,6 +1,5 @@
-""" Invokes programs on the command-line on behalf of GatorGrader """
+"""Invokes programs on the command-line"""
 
-import gatorgrader
 import gatorgrader_comments
 import gatorgrader_entities
 import gatorgrader_files
@@ -49,7 +48,7 @@ def invoke_all_file_in_directory_checks(files, directories):
 
 def invoke_file_in_directory_check(filecheck, directory):
     """Check to see if the file is in the directory"""
-    gatorgrader_home, had_to_set_gatorgrader_home = gatorgrader.get_gatorgrader_home()
+    gatorgrader_home = gatorgrader_util.get_gatorgrader_home()
     was_file_found = gatorgrader_files.check_file_in_directory(
         filecheck, gatorgrader_home + directory
     )
@@ -253,9 +252,9 @@ def invoke_all_command_fragment_checks(commands, expected_fragment):
     print("Checking the output of commands ...")
     print()
     was_contained_list = []
-    for command, expected_fragment in zip(commands, expected_fragment):
+    for command, expected_fragment_current in zip(commands, expected_fragment):
         was_contained = gatorgrader_run.specified_command_output_contains_fragment(
-            command, expected_fragment
+            command, expected_fragment_current
         )
 
         was_contained_list.append(was_contained)
