@@ -1,12 +1,15 @@
-# use the Python 3.5 language
+# use the Python 3.6 language
 language: python
 python:
-  - "3.5"
+  - "3.6"
 
-# cache to improve build speed
-cache:
-  directories:
-    - $HOME/.pip-cache/
+# ignore the virtualenv that Travis creates
+# setup a secure login to CodeCov
+env:
+  global:
+    - PIPENV_VENV_IN_PROJECT=1
+    - PIPENV_IGNORE_VIRTUALENVS=1
+    - secure: hnWlE/s8Vo+OM+Vz2p60+/jmMoGwnIdpVg2OUnu269TJYapPG+qF6ks1jYpb/XfRucfndZSZXy4UZfJnzf082hoQmAUGHm3yrRTDkrsGGK1bxea3Rhwj1bn8IrjcZqOAQAtpCsnhFbzrdRTtng8+PCBcYyru+IG6jwOrOv2EMe/CBVLNvSoRdtBgcz4QKl2SRsLhEQh+pjgZiUEY+d7mNfyhGzCD8xS4abj8KfNfKDIZfKHX9E1mvBuZm9GQC17wvLyOt0j4gtEZeoGLGF63fuLvMqZhpZh00lJ6wmSD9vTok7pqgpErR1yrzZmVDrD61bz0PL/b8kHjOLLd0HcOw9q0D0KPX5BojOJxVKglc8GaAI4CksnMmjfLjieZRMag8K8qI8lKkIiD/AABAjqwHJ0Ywm7ru42alY163y4ieatXDMBQpoLsSn1P4gs0LDvGe6Kby+jeM8nL8y+5L5qGTODnqYDHes0rHVMIXQAr7HLKyru6/Bwzz8woYr8WjBmTd1UxLtFcfSYr8Rj+Yklldz4Wt1p4Wnpj9Hd5S2eVLXeteTBKA4y/tFSenZTke+NlVK8zmHa06yVHTbLf14ggTe4hZgUM/mLXRnVFy73LyaBPQkDQpvc6HELMxj94z5OZ6DpDrESDDxVnGq3H876qiJfi/rMFAkTbtgeMu4MRbow=
 
 # install mdl for checking Markdown
 before_install:
@@ -15,23 +18,33 @@ before_install:
 # command to install dependencies
 install:
   - pip install --upgrade pip
-  - pip3 install --upgrade pip
-  - pip install -r requirements.txt --cache-dir $HOME/.pip-cache
-  - pip3 install flake8
+  - pip install pipenv --upgrade
+  - pipenv install --dev --three
+
+# Send emails when there is a change or failure
+notifications:
+  email:
+    on_success: change
+    on_failure: always
+
+# use a cache to improve performance
+cache: pip
 
 # set GATORGRADER_HOME environment variable
 before_script:
   - export GATORGRADER_HOME="/home/travis/build/gkapfham/gatorgrader"
 
 # perform testing:
-# --> run the internal test suite with pytest
-# --> perform linting with
-#     --> Python: flake8
-#         --> test suites
-#         --> main program
-#     --> Markdown: mdl
+# --> run the test suite with pytest
+# --> lint the functions with flake8
+# --> lint the test suites with flake8
+# --> lint the README documentation with mdl
 script:
-  - pytest --cov-config pytest.cov --cov
-  - flake8 tests*
-  - flake8 gatorgrader*
+  - pipenv run pytest --cov-config pytest.cov --cov
+  - pipenv run flake8 tests*
+  - pipenv run flake8 gatorgrader*
   - mdl README.md
+
+# report coverage information to CodeCov
+after_success:
+  - pipenv run codecov

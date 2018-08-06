@@ -1,6 +1,6 @@
 # GatorGrader
 
-[![Build Status](https://api.travis-ci.org/gkapfham/gatorgrader.svg?branch=master)](https://travis-ci.org/gkapfham/gatorgrader)
+[![Build Status](https://api.travis-ci.org/GatorEducator/gatorgrader.svg?branch=master)](https://travis-ci.org/GatorEducator/gatorgrader) [![codecov.io](http://codecov.io/github/GatorEducator/gatorgrader/coverage.svg?branch=master)](http://codecov.io/github/GatorEducator/gatorgrader?branch=master) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-orange.svg)](https://www.python.org/)
 
 Designed for use with [GitHub Classroom](https://classroom.github.com/),
 GatorGrader is an automated grading tool that checks the work of programmers and
@@ -13,7 +13,7 @@ nicely with [Travis CI](https://travis-ci.com/) &mdash; which is again how
 faculty members at Allegheny College commonly use it in conjunction with other
 automated checking tools.
 
-## Installing GatorGrader
+## Installing and Testing GatorGrader
 
 As a Python 3 program, GatorGrader relies on
 [pip](https://pip.pypa.io/en/stable/installing/) for installation. To ensure
@@ -74,19 +74,6 @@ python3 gatorgrader.py \
         --languages Java
 ```
 
-Since introductory courses at Allegheny College commonly use the Java
-programming language and compile and run programs using
-[Gradle](https://gradle.org/), the following commands shows how to use
-GatorGrader to ensure that running the program yields exactly four lines of
-output.
-
-```
-python3 gatorgrader/gatorgrader.py \
-        --commands "gradle run" \
-        --outputlines 4 \
-        --languages Java
-```
-
 Since many computer science courses at Allegheny College require students to
 write technical documents, GatorGrader also provides a feature to check how many
 paragraphs of writing are in a file. The following example shows how to use
@@ -101,7 +88,7 @@ python3 gatorgrader.py \
 ```
 
 Each of the previous commands were run on an Ubuntu 16.04 workstation running
-Python 3.5.2. However, GatorGrader should run correctly on a wide variety of
+Python 3.6. However, GatorGrader should run correctly on a wide variety of
 operating systems that support Python version 3.
 
 ## GatorGrader Options
