@@ -4,9 +4,9 @@ from gator import comments
 from gator import entities
 from gator import files
 from gator import fragments
+from gator import repository
+from gator import run
 
-import gatorgrader_repository
-import gatorgrader_run
 import gatorgrader_util
 
 JAVA = "Java"
@@ -19,7 +19,7 @@ def invoke_commits_check(repository, expected_count):
     """Check to see if the repository has more than specified commits"""
     print("Checking for commits...")
     print()
-    did_check_pass = gatorgrader_repository.commits_greater_than_count(
+    did_check_pass = repository.commits_greater_than_count(
         repository, expected_count
     )
     print(
@@ -228,7 +228,7 @@ def invoke_all_command_checks(commands, expected_counts):
     was_exactly_equal_list = []
     was_exactly_count = 0
     for command, expected_count in zip(commands, expected_counts):
-        was_exactly_count = gatorgrader_run.specified_command_output_equals_count(
+        was_exactly_count = run.specified_command_output_equals_count(
             command, expected_count
         )
 
@@ -254,7 +254,7 @@ def invoke_all_command_fragment_checks(commands, expected_fragment):
     print()
     was_contained_list = []
     for command, expected_fragment_current in zip(commands, expected_fragment):
-        was_contained = gatorgrader_run.specified_command_output_contains_fragment(
+        was_contained = run.specified_command_output_contains_fragment(
             command, expected_fragment_current
         )
 
