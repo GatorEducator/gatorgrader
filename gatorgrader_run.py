@@ -1,4 +1,4 @@
-"""Run a specified process """
+"""Run a specified process"""
 
 import subprocess
 
