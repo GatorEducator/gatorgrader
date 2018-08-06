@@ -11,11 +11,13 @@ def parse(args):
     )
 
     # do not display the welcome message
+    # CORRECT WHEN: user does or does not provide
     gg_parser.add_argument(
         "--nowelcome", help="Do not display the welcome message", action="store_true"
     )
 
-    # specify a file and a directory
+    # specify a single file and a single directory
+    # CORRECT WHEN: user provides both of these
     gg_parser.add_argument("--file", type=str)
     gg_parser.add_argument("--directory", type=str)
 
@@ -44,8 +46,9 @@ def parse(args):
 
 def verify(args):
     """Checks if the arguments are correct"""
+    # assume that the arguments are not valid and prove otherwise
     verified_arguments = False
-    # both a file and a directory were specified
+    # VERIFIED --> both a file and a directory were specified
     if args.directory is not None and args.file is not None:
         verified_arguments = True
     return verified_arguments
