@@ -1,4 +1,4 @@
-""" Utility functions for GatorGrader """
+"""Utility functions"""
 
 
 def get_human_answer(boolean_value):
