@@ -3,6 +3,7 @@
 import sys
 
 from gator import arguments
+from gator import display
 from gator import invoke
 from gator import leave
 
@@ -20,21 +21,6 @@ MULTIPLE = "multiple-line"
 REPOSITORY = "."
 
 
-def display_welcome_message():
-    """Display a welcome message"""
-    print()
-    print("GatorGrader: Automatically Check the Files of Programmers and Writers")
-    print("https://github.com/gkapfham/gatorgrader")
-    print()
-
-
-def display_checking_message():
-    """Display the checking message"""
-    print("Valid command-line arguments.")
-    print("Running the specified checks!")
-    print()
-
-
 if __name__ == "__main__":
     # parse and verify the arguments
     gg_arguments = arguments.parse(sys.argv[1:])
@@ -45,9 +31,10 @@ if __name__ == "__main__":
         sys.exit(INCORRECT_ARGUMENTS)
     # correct arguments, so perform the checks
     else:
+        # still permitted to display messages
         if gg_arguments.nowelcome is not True:
-            display_welcome_message()
-            display_checking_message()
+            display.welcome_message()
+            display.checking_message()
         check_return_values = []
         # CHECK: all of the files exist in their directories
         if gg_arguments.directories is not None and gg_arguments.checkfiles is not None:
