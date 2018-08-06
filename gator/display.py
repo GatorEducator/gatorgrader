@@ -14,3 +14,9 @@ def checking_message():
     print("Valid command-line arguments.")
     print("Running the specified checks!")
     print()
+
+
+def incorrect_message():
+    """Display a message for incorrect arguments"""
+    print("Incorrect command-line arguments.")
+    print()
