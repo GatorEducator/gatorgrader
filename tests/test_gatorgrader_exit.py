@@ -1,4 +1,4 @@
-""" test cases for the gatorgrader_exit module """
+""" test cases for the exit module """
 
 import pytest
 

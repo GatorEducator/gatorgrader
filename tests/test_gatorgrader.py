@@ -1,4 +1,4 @@
-"""Tests for the gatorgrader module"""
+"""Tests for the gatorgrader main program"""
 
 import pytest
 
