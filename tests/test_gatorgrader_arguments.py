@@ -1,4 +1,4 @@
-"""Tests for the arguments main program"""
+"""Tests for the input and checking of command-line arguments"""
 
 import pytest
 
