@@ -1,6 +1,6 @@
 """Test cases for the files module"""
 
-import gatorgrader_files
+from gator import files
 
 
 def test_one_file_found_in_subdirectory(tmpdir):
@@ -9,7 +9,7 @@ def test_one_file_found_in_subdirectory(tmpdir):
     hello_file.write("content")
     assert hello_file.read() == "content"
     assert len(tmpdir.listdir()) == 1
-    was_file_found = gatorgrader_files.check_file_in_directory(
+    was_file_found = files.check_file_in_directory(
         "hello.txt", tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     )
     assert was_file_found is True
@@ -21,13 +21,13 @@ def test_many_files_found_in_subdirectory(tmpdir):
     hello_file.write("content")
     assert hello_file.read() == "content"
     assert len(tmpdir.listdir()) == 1
-    was_file_found = gatorgrader_files.check_file_in_directory(
+    was_file_found = files.check_file_in_directory(
         "hello.txt", tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     )
     assert was_file_found is True
     readme_file = tmpdir.join("sub").join("README.md")
     readme_file.write("# README")
-    was_file_found = gatorgrader_files.check_file_in_directory(
+    was_file_found = files.check_file_in_directory(
         "README.md", tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     )
     assert was_file_found is True
@@ -39,7 +39,7 @@ def test_one_file_not_found_in_subdirectory(tmpdir):
     hello_file.write("content")
     assert hello_file.read() == "content"
     assert len(tmpdir.listdir()) == 1
-    was_file_found = gatorgrader_files.check_file_in_directory(
+    was_file_found = files.check_file_in_directory(
         "hello_not_there.txt", tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     )
     assert was_file_found is False
@@ -51,13 +51,13 @@ def test_many_files_not_found_in_subdirectory(tmpdir):
     hello_file.write("content")
     assert hello_file.read() == "content"
     assert len(tmpdir.listdir()) == 1
-    was_file_found = gatorgrader_files.check_file_in_directory(
+    was_file_found = files.check_file_in_directory(
         "hello_not_there.txt", tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     )
     assert was_file_found is False
     readme_file = tmpdir.join("sub").join("README.md")
     readme_file.write("# README")
-    was_file_found = gatorgrader_files.check_file_in_directory(
+    was_file_found = files.check_file_in_directory(
         "README_not_there.md", tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     )
     assert was_file_found is False
