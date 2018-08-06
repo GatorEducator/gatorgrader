@@ -4,6 +4,9 @@ import pytest
 
 from gator import arguments
 
+EMPTY_STRING = ""
+ERROR = "error:"
+
 VERIFIED = True
 NOT_VERIFIED = False
 
@@ -34,3 +37,40 @@ def test_arguments_verified(verifiable_gg_args):
     gg_arguments = arguments.parse(verifiable_gg_args)
     gg_args_verified = arguments.verify(gg_arguments)
     assert gg_args_verified == VERIFIED
+
+
+@pytest.mark.parametrize(
+    "chosen_arguments",
+    [
+        (["--directoryy", "D"]),
+        (["--directory", "D", "F"]),
+        (["--filles", "F"]),
+        (["--file", "m", "f"]),
+        (["-file", "f"]),
+        (["-directory", "f"]),
+    ],
+)
+def test_module_argument_not_verifiable_syserror(chosen_arguments, capsys):
+    """Check that not valid arguments will not verify correctly"""
+    with pytest.raises(SystemExit):
+        arguments.parse(chosen_arguments)
+    standard_out, standard_err = capsys.readouterr()
+    assert standard_out is EMPTY_STRING
+    assert ERROR in standard_err
+
+
+@pytest.mark.parametrize(
+    "chosen_arguments",
+    [
+        (["--nowelcome"]),
+        (["--nowelcome", "--directory", "D"]),
+        (["--directory", "D"]),
+        (["--nowelcome", "--file", "F"]),
+        (["--file", "F"]),
+    ],
+)
+def test_invalid_argument_combinations_not_accepted(chosen_arguments):
+    """Check that not valid argument combinations do not verify correctly"""
+    parsed_arguments = arguments.parse(chosen_arguments)
+    verified_arguments = arguments.verify(parsed_arguments)
+    assert verified_arguments is False
