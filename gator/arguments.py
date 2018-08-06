@@ -5,16 +5,19 @@ import argparse
 
 def parse(args):
     """Parses the arguments provided on the command-line"""
+    # create the parser with the default help formatter
     gg_parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
 
+    # do not display the welcome message
     gg_parser.add_argument(
         "--nowelcome", help="Do not display the welcome message", action="store_true"
     )
 
-    gg_parser.add_argument("--checkfiles", nargs="+", type=str)
-    gg_parser.add_argument("--directories", nargs="+", type=str)
+    # specify a file and a directory
+    gg_parser.add_argument("--file", type=str)
+    gg_parser.add_argument("--directory", type=str)
 
     gg_parser.add_argument("--singlecomments", nargs="+", type=int)
 
@@ -41,27 +44,8 @@ def parse(args):
 
 def verify(args):
     """Checks if the arguments are correct"""
-    verified_arguments = True
-    # TODO: This verification is not complete and/or incorrect
-    if args.checkfiles is not None and args.directories is None:
-        verified_arguments = False
-    elif args.directories is not None and args.checkfiles is None:
-        verified_arguments = False
-    elif args.directories is not None and args.checkfiles is not None:
-        if len(args.directories) != len(args.checkfiles):
-            verified_arguments = False
-    elif args.singlecomments is not None:
-        if args.checkfiles is None or args.directories is None:
-            verified_arguments = False
-    elif args.multicomments is not None:
-        if args.checkfiles is None or args.directories is None:
-            verified_arguments = False
-    elif args.paragraphs is not None:
-        if args.checkfiles is None or args.directories is None:
-            verified_arguments = False
-    elif args.wordcount is not None:
-        if args.checkfiles is None or args.directories is None:
-            verified_arguments = False
-    elif args.fragments is None and args.fragmentcounts is not None:
-        verified_arguments = False
+    verified_arguments = False
+    # both a file and a directory were specified
+    if args.directory is not None and args.file is not None:
+        verified_arguments = True
     return verified_arguments
