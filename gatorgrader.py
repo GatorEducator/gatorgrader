@@ -103,15 +103,13 @@ def verify_gatorgrader_home(current_gatorgrader_home):
 def get_gatorgrader_home():
     """Returns the GATORGRADER_HOME"""
     current_gatorgrader_home = os.environ.get(GATORGRADER_HOME)
-    had_to_set = False
     # the current gatorgrader_home is acceptable, so use it
     if verify_gatorgrader_home(current_gatorgrader_home) is not False:
         gatorgrader_home = current_gatorgrader_home
     # the current gatorgrader_home is not okay, so guess at one
     else:
         gatorgrader_home = os.getcwd() + SLASH
-        had_to_set = True
-    return gatorgrader_home, had_to_set
+    return gatorgrader_home
 
 
 def display_welcome_message():
