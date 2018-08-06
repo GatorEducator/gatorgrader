@@ -32,7 +32,7 @@ def is_paragraph(candidate):
     # future -- what other structures look like paragraphs but should
     # not be?
 
-    # if nothing has returned by now, the candidate must be a paragraphz
+    # if nothing has returned by now, the candidate must be a paragraph
     return True
 
 
