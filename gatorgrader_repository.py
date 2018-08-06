@@ -1,4 +1,4 @@
-"""Functions that interact with a Git repository"""
+"""Interact with a Git repository"""
 
 from git import Repo
 
