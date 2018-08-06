@@ -1,4 +1,4 @@
-""" Test cases for the utils module """
+"""Test cases for the utils module"""
 
 import pytest
 
