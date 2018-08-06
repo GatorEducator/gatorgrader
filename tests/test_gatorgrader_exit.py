@@ -1,4 +1,4 @@
-""" test cases for the exit module """
+"""Test cases for the exit module"""
 
 import pytest
 
