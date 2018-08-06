@@ -5,7 +5,7 @@ import sys
 import argparse
 
 import gatorgrader_invoke
-import gatorgrader_exit
+from gator import leave
 
 
 DEFAULT_COUNT = 0
@@ -193,5 +193,5 @@ if __name__ == "__main__":
             sys.exit(NONEXISTENT_CHECKING)
 
         # DONE: Determine the correct exit code for the checks
-        correct_exit_code = gatorgrader_exit.get_code(check_return_values)
+        correct_exit_code = leave.get_code(check_return_values)
         sys.exit(correct_exit_code)
