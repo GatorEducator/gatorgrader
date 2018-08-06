@@ -1,4 +1,4 @@
-"""Utility functions that retrieve and count the contents of a file"""
+"""Retrieve and count the contents of a file"""
 
 from pathlib import Path
 import re
