@@ -1,7 +1,8 @@
 """Invokes programs on the command-line"""
 
-import gatorgrader_comments
-import gatorgrader_entities
+from gator import comments
+from gator import entities
+
 import gatorgrader_files
 import gatorgrader_fragments
 import gatorgrader_repository
@@ -78,25 +79,25 @@ def invoke_all_comment_checks(
     ):
         if comment_type == SINGLE:
             if language == JAVA:
-                met_or_exceeded_count = gatorgrader_entities.entity_greater_than_count(
+                met_or_exceeded_count = entities.entity_greater_than_count(
                     filecheck,
                     directory,
                     expected_count,
-                    gatorgrader_comments.count_singleline_java_comment,
+                    comments.count_singleline_java_comment,
                 )
             if language == PYTHON:
-                met_or_exceeded_count = gatorgrader_entities.entity_greater_than_count(
+                met_or_exceeded_count = entities.entity_greater_than_count(
                     filecheck,
                     directory,
                     expected_count,
-                    gatorgrader_comments.count_singleline_python_comment,
+                    comments.count_singleline_python_comment,
                 )
         elif comment_type == MULTIPLE:
-            met_or_exceeded_count = gatorgrader_entities.entity_greater_than_count(
+            met_or_exceeded_count = entities.entity_greater_than_count(
                 filecheck,
                 directory,
                 expected_count,
-                gatorgrader_comments.count_multiline_java_comment,
+                comments.count_multiline_java_comment,
             )
 
         was_exceeded_list.append(met_or_exceeded_count)
@@ -130,7 +131,7 @@ def invoke_all_paragraph_checks(files, directories, expected_counts):
     for filecheck, directory, expected_count in zip(
         files, directories, expected_counts
     ):
-        met_or_exceeded_count = gatorgrader_entities.entity_greater_than_count(
+        met_or_exceeded_count = entities.entity_greater_than_count(
             filecheck, directory, expected_count, gatorgrader_fragments.count_paragraphs
         )
 
@@ -161,7 +162,7 @@ def invoke_all_word_count_checks(files, directories, expected_counts):
     for filecheck, directory, expected_count in zip(
         files, directories, expected_counts
     ):
-        met_or_exceeded_count = gatorgrader_entities.entity_greater_than_count(
+        met_or_exceeded_count = entities.entity_greater_than_count(
             filecheck, directory, expected_count, gatorgrader_fragments.count_words
         )
 
