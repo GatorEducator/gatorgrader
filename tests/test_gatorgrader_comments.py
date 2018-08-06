@@ -1,9 +1,9 @@
-"""Test cases for the utils module"""
+"""Test cases for the comments module"""
 
 import pytest
 
-import gatorgrader_comments
-import gatorgrader_entities
+from gator import comments
+from gator import entities
 
 
 def test_file_contains_singleline_comment_count(tmpdir):
@@ -12,10 +12,10 @@ def test_file_contains_singleline_comment_count(tmpdir):
     hello_file.write("//// hello world")
     assert hello_file.read() == "//// hello world"
     assert len(tmpdir.listdir()) == 1
-    comment_count = gatorgrader_entities.count_entities(
+    comment_count = entities.count_entities(
         hello_file.basename,
         hello_file.dirname,
-        gatorgrader_comments.count_singleline_java_comment,
+        comments.count_singleline_java_comment,
     )
     assert comment_count == 1
 
@@ -26,10 +26,10 @@ def test_file_contains_multiline_comment_count(tmpdir):
     hello_file.write("/* hello world */")
     assert hello_file.read() == "/* hello world */"
     assert len(tmpdir.listdir()) == 1
-    comment_count = gatorgrader_entities.count_entities(
+    comment_count = entities.count_entities(
         hello_file.basename,
         hello_file.dirname,
-        gatorgrader_comments.count_multiline_java_comment,
+        comments.count_multiline_java_comment,
     )
     assert comment_count == 1
 
@@ -40,11 +40,11 @@ def test_file_contains_singleline_comment_greater(tmpdir):
     hello_file.write("//// hello world")
     assert hello_file.read() == "//// hello world"
     assert len(tmpdir.listdir()) == 1
-    greater_than_count = gatorgrader_entities.entity_greater_than_count(
+    greater_than_count = entities.entity_greater_than_count(
         hello_file.basename,
         hello_file.dirname,
         1,
-        gatorgrader_comments.count_singleline_java_comment,
+        comments.count_singleline_java_comment,
     )
     assert greater_than_count is True
 
@@ -55,11 +55,11 @@ def test_file_contains_multiline_comment_greater(tmpdir):
     hello_file.write("/* hello world */")
     assert hello_file.read() == "/* hello world */"
     assert len(tmpdir.listdir()) == 1
-    greater_than_count = gatorgrader_entities.entity_greater_than_count(
+    greater_than_count = entities.entity_greater_than_count(
         hello_file.basename,
         hello_file.dirname,
         1,
-        gatorgrader_comments.count_multiline_java_comment,
+        comments.count_multiline_java_comment,
     )
     assert greater_than_count is True
 
@@ -70,11 +70,11 @@ def test_file_contains_singleline_comment_not_greater(tmpdir):
     hello_file.write("/ hello world")
     assert hello_file.read() == "/ hello world"
     assert len(tmpdir.listdir()) == 1
-    greater_than_count = gatorgrader_entities.entity_greater_than_count(
+    greater_than_count = entities.entity_greater_than_count(
         hello_file.basename,
         hello_file.dirname,
         1,
-        gatorgrader_comments.count_singleline_java_comment,
+        comments.count_singleline_java_comment,
     )
     assert greater_than_count is False
 
@@ -85,11 +85,11 @@ def test_file_contains_multiline_comment_not_greater(tmpdir):
     hello_file.write("/ hello world")
     assert hello_file.read() == "/ hello world"
     assert len(tmpdir.listdir()) == 1
-    greater_than_count = gatorgrader_entities.entity_greater_than_count(
+    greater_than_count = entities.entity_greater_than_count(
         hello_file.basename,
         hello_file.dirname,
         1,
-        gatorgrader_comments.count_multiline_java_comment,
+        comments.count_multiline_java_comment,
     )
     assert greater_than_count is False
 
@@ -119,7 +119,7 @@ def test_file_contains_multiline_comment_not_greater(tmpdir):
 def test_singleline_comments_zero_or_one(code_string, expected_count):
     """Check that it finds zero or one single-line comments"""
     assert (
-        gatorgrader_comments.count_singleline_java_comment(code_string)
+        comments.count_singleline_java_comment(code_string)
         == expected_count
     )
 
@@ -149,7 +149,7 @@ def test_singleline_comments_zero_or_one(code_string, expected_count):
 def test_singleline_comments_zero_or_one_python(code_string, expected_count):
     """Checks that it finds zero or one Python comments"""
     assert (
-        gatorgrader_comments.count_singleline_python_comment(code_string)
+        comments.count_singleline_python_comment(code_string)
         == expected_count
     )
 
@@ -177,7 +177,7 @@ def test_singleline_comments_zero_or_one_python(code_string, expected_count):
 def test_singleline_comments_many(code_string, expected_count):
     """Checks that it finds many singleline comments"""
     assert (
-        gatorgrader_comments.count_singleline_java_comment(code_string)
+        comments.count_singleline_java_comment(code_string)
         == expected_count
     )
 
@@ -205,7 +205,7 @@ def test_singleline_comments_many(code_string, expected_count):
 def test_singleline_comments_many_python(code_string, expected_count):
     """Checks that it finds many singleline comments"""
     assert (
-        gatorgrader_comments.count_singleline_python_comment(code_string)
+        comments.count_singleline_python_comment(code_string)
         == expected_count
     )
 
@@ -238,7 +238,7 @@ def test_singleline_comments_many_python(code_string, expected_count):
 def test_multiline_comments_zero_or_one(code_string, expected_count):
     """Checks that it finds zero or one multiline comments"""
     assert (
-        gatorgrader_comments.count_multiline_java_comment(code_string) == expected_count
+        comments.count_multiline_java_comment(code_string) == expected_count
     )
 
 
@@ -257,7 +257,7 @@ def test_multiline_comments_zero_or_one(code_string, expected_count):
 def test_multiline_comments_two(code_string, expected_count):
     """Checks that it has two or more multiline comments"""
     assert (
-        gatorgrader_comments.count_multiline_java_comment(code_string) == expected_count
+        comments.count_multiline_java_comment(code_string) == expected_count
     )
 
 
@@ -274,7 +274,7 @@ def test_multiline_comments_two(code_string, expected_count):
 def test_multiline_comments_mixed(code_string, expected_count):
     """Checks that it can find multiline comments in mixtures"""
     assert (
-        gatorgrader_comments.count_multiline_java_comment(code_string) == expected_count
+        comments.count_multiline_java_comment(code_string) == expected_count
     )
 
 
@@ -290,6 +290,6 @@ def test_multiline_comments_mixed(code_string, expected_count):
 def test_singleline_comments_mixed(code_string, expected_count):
     """Checks that it can find singleline comments in mixtures"""
     assert (
-        gatorgrader_comments.count_singleline_java_comment(code_string)
+        comments.count_singleline_java_comment(code_string)
         == expected_count
     )
