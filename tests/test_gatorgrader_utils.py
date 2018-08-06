@@ -1,4 +1,4 @@
-""" test cases for the gatorgrader_utils module """
+"""Test cases for the run module"""
 
 import gatorgrader_util
 

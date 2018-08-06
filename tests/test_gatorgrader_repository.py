@@ -1,4 +1,4 @@
-"""Testing to see if GatorGrader can analyze Git repositories"""
+"""Test cases for the repository module"""
 
 import gatorgrader_repository
 
