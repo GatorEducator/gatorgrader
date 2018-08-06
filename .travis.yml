@@ -43,6 +43,7 @@ script:
   - pipenv run pytest --cov-config pytest.cov --cov
   - pipenv run flake8 tests*
   - pipenv run flake8 gatorgrader*
+  - pipenv run pylint tests
   - mdl README.md
 
 # report coverage information to CodeCov
