@@ -30,8 +30,10 @@ if __name__ == "__main__":
         # still permitted to display messages
         if gg_arguments.nowelcome is not True:
             display.welcome_message()
-            print("Incorrect command-line arguments.")
-            sys.exit(INCORRECT_ARGUMENTS)
+        # display incorrect arguments message
+        display.incorrect_message()
+        # exit given that arguments are wrong
+        sys.exit(INCORRECT_ARGUMENTS)
     # correct arguments, so perform the checks
     else:
         # still permitted to display messages
