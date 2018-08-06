@@ -49,7 +49,7 @@ def invoke_all_file_in_directory_checks(files, directories):
 
 def invoke_file_in_directory_check(filecheck, directory):
     """Check to see if the file is in the directory"""
-    gatorgrader_home, had_to_set_gatorgrader_home = gatorgrader.get_gatorgrader_home()
+    gatorgrader_home = gatorgrader.get_gatorgrader_home()
     was_file_found = gatorgrader_files.check_file_in_directory(
         filecheck, gatorgrader_home + directory
     )
