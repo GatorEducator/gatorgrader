@@ -75,8 +75,7 @@ def count_words(contents):
         word_counts.append(len(words))
     if word_counts:
         return min(word_counts)
-    else:
-        return 0
+    return 0
 
 
 def count_specified_fragment(contents, fragment):
