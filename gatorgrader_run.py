@@ -3,15 +3,17 @@
 import subprocess
 
 BLANK_LINE = "\n"
+EMPTY = b''
 
 
 def specified_command_output_equals_count(command, expected_count):
     """Determines if the output is exactly equal to the count"""
     output, error = run_command(command)
-    actual_output = get_actual_output(output)
-    actual_line_count = count_output_lines(actual_output)
-    if expected_count == actual_line_count:
-        return True
+    if error != EMPTY:
+        actual_output = get_actual_output(output)
+        actual_line_count = count_output_lines(actual_output)
+        if expected_count == actual_line_count:
+            return True
     return False
 
 
@@ -23,8 +25,10 @@ def count_output_lines(output):
 def specified_command_output_contains_fragment(command, expected_fragment):
     """Determines if the output is exactly equal to the count"""
     output, error = run_command(command)
-    actual_output = get_actual_output(output)
-    fragment_exists_output = check_fragment_exists(expected_fragment, actual_output)
+    fragment_exists_output = 0
+    if error != EMPTY:
+        actual_output = get_actual_output(output)
+        fragment_exists_output = check_fragment_exists(expected_fragment, actual_output)
     return fragment_exists_output
 
 
