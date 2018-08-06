@@ -27,8 +27,11 @@ if __name__ == "__main__":
     did_verify_arguments = arguments.verify(gg_arguments)
     # incorrect arguments, exit program
     if did_verify_arguments is False:
-        print("Incorrect command-line arguments.")
-        sys.exit(INCORRECT_ARGUMENTS)
+        # still permitted to display messages
+        if gg_arguments.nowelcome is not True:
+            display.welcome_message()
+            print("Incorrect command-line arguments.")
+            sys.exit(INCORRECT_ARGUMENTS)
     # correct arguments, so perform the checks
     else:
         # still permitted to display messages
