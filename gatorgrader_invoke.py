@@ -2,9 +2,9 @@
 
 from gator import comments
 from gator import entities
+from gator import files
+from gator import fragments
 
-import gatorgrader_files
-import gatorgrader_fragments
 import gatorgrader_repository
 import gatorgrader_run
 import gatorgrader_util
@@ -34,12 +34,12 @@ def invoke_commits_check(repository, expected_count):
     return did_check_pass
 
 
-def invoke_all_file_in_directory_checks(files, directories):
+def invoke_all_file_in_directory_checks(chosen_files, directories):
     """Repeatedly perform the check and return the results"""
     print("Checking if files are in the expected directories ...")
     print()
     was_file_found_list = []
-    for filecheck, directory in zip(files, directories):
+    for filecheck, directory in zip(chosen_files, directories):
         was_file_found = invoke_file_in_directory_check(filecheck, directory)
         was_file_found_list.append(was_file_found)
     print()
@@ -50,7 +50,7 @@ def invoke_all_file_in_directory_checks(files, directories):
 def invoke_file_in_directory_check(filecheck, directory):
     """Check to see if the file is in the directory"""
     gatorgrader_home = gatorgrader_util.get_gatorgrader_home()
-    was_file_found = gatorgrader_files.check_file_in_directory(
+    was_file_found = files.check_file_in_directory(
         filecheck, gatorgrader_home + directory
     )
     print(
@@ -67,7 +67,7 @@ def invoke_file_in_directory_check(filecheck, directory):
 
 # pylint: disable=bad-continuation
 def invoke_all_comment_checks(
-    files, directories, expected_counts, comment_type, languages
+    chosen_files, directories, expected_counts, comment_type, languages
 ):
     """Repeatedly perform the check and return the results"""
     print("Checking for", comment_type, "comments...")
@@ -75,7 +75,7 @@ def invoke_all_comment_checks(
     was_exceeded_list = []
     met_or_exceeded_count = 0
     for filecheck, directory, expected_count, language in zip(
-        files, directories, expected_counts, languages
+        chosen_files, directories, expected_counts, languages
     ):
         if comment_type == SINGLE:
             if language == JAVA:
@@ -122,17 +122,17 @@ def invoke_all_comment_checks(
     return was_exceeded_list
 
 
-def invoke_all_paragraph_checks(files, directories, expected_counts):
+def invoke_all_paragraph_checks(chosen_files, directories, expected_counts):
     """Repeatedly perform the check and return the results"""
     print("Checking for paragraphs...")
     print()
     was_exceeded_list = []
     met_or_exceeded_count = 0
     for filecheck, directory, expected_count in zip(
-        files, directories, expected_counts
+        chosen_files, directories, expected_counts
     ):
         met_or_exceeded_count = entities.entity_greater_than_count(
-            filecheck, directory, expected_count, gatorgrader_fragments.count_paragraphs
+            filecheck, directory, expected_count, fragments.count_paragraphs
         )
 
         was_exceeded_list.append(met_or_exceeded_count)
@@ -153,17 +153,17 @@ def invoke_all_paragraph_checks(files, directories, expected_counts):
     return was_exceeded_list
 
 
-def invoke_all_word_count_checks(files, directories, expected_counts):
+def invoke_all_word_count_checks(chosen_files, directories, expected_counts):
     """Repeatedly perform the check and return the results"""
     print("Checking for word counts...")
     print()
     was_exceeded_list = []
     met_or_exceeded_count = 0
     for filecheck, directory, expected_count in zip(
-        files, directories, expected_counts
+        chosen_files, directories, expected_counts
     ):
         met_or_exceeded_count = entities.entity_greater_than_count(
-            filecheck, directory, expected_count, gatorgrader_fragments.count_words
+            filecheck, directory, expected_count, fragments.count_words
         )
 
         was_exceeded_list.append(met_or_exceeded_count)
@@ -184,21 +184,21 @@ def invoke_all_word_count_checks(files, directories, expected_counts):
     return was_exceeded_list
 
 
-def invoke_all_fragment_checks(files, directories, fragments, expected_counts):
+def invoke_all_fragment_checks(chosen_files, directories, fragments, expected_counts):
     """Repeatedly perform the check and return the results"""
     print("Checking for fragments...")
     print()
     was_exceeded_list = []
     met_or_exceeded_count = 0
     for filecheck, directory, fragment, expected_count in zip(
-        files, directories, fragments, expected_counts
+        chosen_files, directories, fragments, expected_counts
     ):
-        met_or_exceeded_count = gatorgrader_fragments.specified_fragment_greater_than_count(
+        met_or_exceeded_count = fragments.specified_fragment_greater_than_count(
             filecheck,
             directory,
             fragment,
             expected_count,
-            gatorgrader_fragments.count_specified_fragment,
+            fragments.count_specified_fragment,
         )
 
         was_exceeded_list.append(met_or_exceeded_count)
