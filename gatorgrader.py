@@ -4,8 +4,8 @@ import sys
 
 import argparse
 
-import gatorgrader_invoke
-import gatorgrader_exit
+from gator import invoke
+from gator import leave
 
 
 DEFAULT_COUNT = 0
@@ -116,13 +116,13 @@ if __name__ == "__main__":
         check_return_values = []
         # CHECK: all of the files exist in their directories
         if gg_arguments.directories is not None and gg_arguments.checkfiles is not None:
-            current_invoke_return_values = gatorgrader_invoke.invoke_all_file_in_directory_checks(
+            current_invoke_return_values = invoke.invoke_all_file_in_directory_checks(
                 gg_arguments.checkfiles, gg_arguments.directories
             )
             check_return_values.extend(current_invoke_return_values)
             # CHECK: Java code contains 'k' single-line comments
             if gg_arguments.singlecomments is not None:
-                current_invoke_return_values = gatorgrader_invoke.invoke_all_comment_checks(
+                current_invoke_return_values = invoke.invoke_all_comment_checks(
                     gg_arguments.checkfiles,
                     gg_arguments.directories,
                     gg_arguments.singlecomments,
@@ -132,7 +132,7 @@ if __name__ == "__main__":
                 check_return_values.extend(current_invoke_return_values)
             # CHECK: Java code contains 'k' multiple-line comments
             if gg_arguments.multicomments is not None:
-                current_invoke_return_values = gatorgrader_invoke.invoke_all_comment_checks(
+                current_invoke_return_values = invoke.invoke_all_comment_checks(
                     gg_arguments.checkfiles,
                     gg_arguments.directories,
                     gg_arguments.multicomments,
@@ -142,7 +142,7 @@ if __name__ == "__main__":
                 check_return_values.extend(current_invoke_return_values)
             # CHECK: Writing contains 'k' paragraphs
             if gg_arguments.paragraphs is not None:
-                current_invoke_return_values = gatorgrader_invoke.invoke_all_paragraph_checks(
+                current_invoke_return_values = invoke.invoke_all_paragraph_checks(
                     gg_arguments.checkfiles,
                     gg_arguments.directories,
                     gg_arguments.paragraphs,
@@ -150,7 +150,7 @@ if __name__ == "__main__":
                 check_return_values.extend(current_invoke_return_values)
             # CHECK: Writing all paragraphs contain 'k' words
             if gg_arguments.wordcount is not None:
-                current_invoke_return_values = gatorgrader_invoke.invoke_all_word_count_checks(
+                current_invoke_return_values = invoke.invoke_all_word_count_checks(
                     gg_arguments.checkfiles,
                     gg_arguments.directories,
                     gg_arguments.wordcount,
@@ -162,7 +162,7 @@ if __name__ == "__main__":
                 gg_arguments.fragments is not None
                 and gg_arguments.fragmentcounts is not None
             ):
-                current_invoke_return_values = gatorgrader_invoke.invoke_all_fragment_checks(
+                current_invoke_return_values = invoke.invoke_all_fragment_checks(
                     gg_arguments.checkfiles,
                     gg_arguments.directories,
                     gg_arguments.fragments,
@@ -171,19 +171,19 @@ if __name__ == "__main__":
                 check_return_values.extend(current_invoke_return_values)
         # CHECK: Command produces 'k' lines of output
         elif gg_arguments.commands is not None and gg_arguments.outputlines is not None:
-            current_invoke_return_values = gatorgrader_invoke.invoke_all_command_checks(
+            current_invoke_return_values = invoke.invoke_all_command_checks(
                 gg_arguments.commands, gg_arguments.outputlines
             )
             check_return_values.extend(current_invoke_return_values)
         # CHECK: Command produces lines of output with the specified fragment
         elif gg_arguments.commands is not None and gg_arguments.fragments is not None:
-            current_invoke_return_values = gatorgrader_invoke.invoke_all_command_fragment_checks(
+            current_invoke_return_values = invoke.invoke_all_command_fragment_checks(
                 gg_arguments.commands, gg_arguments.fragments
             )
             check_return_values.extend(current_invoke_return_values)
         # CHECK: Repository contains at least 'k' commits
         elif gg_arguments.commits is not None:
-            current_invoke_return_values = gatorgrader_invoke.invoke_commits_check(
+            current_invoke_return_values = invoke.invoke_commits_check(
                 REPOSITORY, gg_arguments.commits
             )
             check_return_values.append(current_invoke_return_values)
@@ -193,5 +193,5 @@ if __name__ == "__main__":
             sys.exit(NONEXISTENT_CHECKING)
 
         # DONE: Determine the correct exit code for the checks
-        correct_exit_code = gatorgrader_exit.get_code(check_return_values)
+        correct_exit_code = leave.get_code(check_return_values)
         sys.exit(correct_exit_code)

@@ -8,11 +8,11 @@ MASTER = "master"
 
 def get_commmits(path):
     """Returns a list of the commits for the repo at path"""
-    repository = Repo(path)
+    student_repository = Repo(path)
     # pass in None so that the default (the current branch) is used
     # this avoids problems with being checked out in different branches
     # alternatively, we could detect the current HEAD and use that
-    commits = list(repository.iter_commits())
+    commits = list(student_repository.iter_commits())
     return commits
 
 

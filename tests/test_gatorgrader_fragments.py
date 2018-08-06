@@ -2,7 +2,7 @@
 
 import pytest
 
-import gatorgrader_fragments
+from gator import fragments
 
 
 @pytest.mark.parametrize(
@@ -37,7 +37,7 @@ import gatorgrader_fragments
 )
 def test_paragraphs_zero_or_one(writing_string, expected_count):
     """Check that it can detect zero or one paragraphs"""
-    assert gatorgrader_fragments.count_paragraphs(writing_string) == expected_count
+    assert fragments.count_paragraphs(writing_string) == expected_count
 
 
 @pytest.mark.parametrize(
@@ -53,7 +53,7 @@ def test_paragraphs_zero_or_one(writing_string, expected_count):
 )
 def test_paragraphs_many(writing_string, expected_count):
     """Check that it can detect two or more paragraphs"""
-    assert gatorgrader_fragments.count_paragraphs(writing_string) == expected_count
+    assert fragments.count_paragraphs(writing_string) == expected_count
 
 
 @pytest.mark.parametrize(
@@ -93,7 +93,7 @@ def test_paragraphs_many(writing_string, expected_count):
 )
 def test_words_different_counts(writing_string, expected_count):
     """Check that it can detect different counts of words"""
-    assert gatorgrader_fragments.count_words(writing_string) == expected_count
+    assert fragments.count_words(writing_string) == expected_count
 
 
 @pytest.mark.parametrize(
@@ -109,7 +109,7 @@ def test_words_different_counts(writing_string, expected_count):
 def test_chosen_fragment_zero_or_one(writing_string, chosen_fragment, expected_count):
     """Check that it can detect one or more of a fragment"""
     assert (
-        gatorgrader_fragments.count_specified_fragment(writing_string, chosen_fragment)
+        fragments.count_specified_fragment(writing_string, chosen_fragment)
         == expected_count
     )
 
@@ -127,6 +127,6 @@ def test_chosen_fragment_zero_or_one(writing_string, chosen_fragment, expected_c
 def test_chosen_fragment_many(writing_string, chosen_fragment, expected_count):
     """Check that it can detect many of a fragment"""
     assert (
-        gatorgrader_fragments.count_specified_fragment(writing_string, chosen_fragment)
+        fragments.count_specified_fragment(writing_string, chosen_fragment)
         == expected_count
     )

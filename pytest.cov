@@ -1,5 +1,7 @@
 [run]
 # omit the tests for test coverage monitoring
 omit=test/*
-# run all of the tests that start with gatorgrader
-include=gatorgrader*
+# run all of the tests that start with gator
+# note that this captures gatorgrader.py and
+# all of the modules in the gator package
+include=gator*
