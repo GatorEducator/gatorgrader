@@ -6,8 +6,7 @@ from gator import files
 from gator import fragments
 from gator import repository
 from gator import run
-
-import gatorgrader_util
+from gator import util
 
 JAVA = "Java"
 MULTIPLE = "multiple-line"
@@ -15,18 +14,18 @@ PYTHON = "Python"
 SINGLE = "single-line"
 
 
-def invoke_commits_check(repository, expected_count):
+def invoke_commits_check(student_repository, expected_count):
     """Check to see if the repository has more than specified commits"""
     print("Checking for commits...")
     print()
     did_check_pass = repository.commits_greater_than_count(
-        repository, expected_count
+        student_repository, expected_count
     )
     print(
         "Did the repository have at least ",
         expected_count,
         " commits? ",
-        gatorgrader_util.get_human_answer(did_check_pass),
+        util.get_human_answer(did_check_pass),
         sep="",
     )
     print()
@@ -49,7 +48,7 @@ def invoke_all_file_in_directory_checks(chosen_files, directories):
 
 def invoke_file_in_directory_check(filecheck, directory):
     """Check to see if the file is in the directory"""
-    gatorgrader_home = gatorgrader_util.get_gatorgrader_home()
+    gatorgrader_home = util.get_gatorgrader_home()
     was_file_found = files.check_file_in_directory(
         filecheck, gatorgrader_home + directory
     )
@@ -59,7 +58,7 @@ def invoke_file_in_directory_check(filecheck, directory):
         " found in ",
         directory,
         "? ",
-        gatorgrader_util.get_human_answer(was_file_found),
+        util.get_human_answer(was_file_found),
         sep="",
     )
     return was_file_found
@@ -113,7 +112,7 @@ def invoke_all_comment_checks(
             " comments in the ",
             language,
             " format? ",
-            gatorgrader_util.get_human_answer(met_or_exceeded_count),
+            util.get_human_answer(met_or_exceeded_count),
             sep="",
         )
 
@@ -144,7 +143,7 @@ def invoke_all_paragraph_checks(chosen_files, directories, expected_counts):
             " have at least ",
             expected_count,
             " paragraph(s)? ",
-            gatorgrader_util.get_human_answer(met_or_exceeded_count),
+            util.get_human_answer(met_or_exceeded_count),
             sep="",
         )
 
@@ -175,7 +174,7 @@ def invoke_all_word_count_checks(chosen_files, directories, expected_counts):
             " have paragraphs with at least ",
             expected_count,
             " words? ",
-            gatorgrader_util.get_human_answer(met_or_exceeded_count),
+            util.get_human_answer(met_or_exceeded_count),
             sep="",
         )
 
@@ -212,7 +211,7 @@ def invoke_all_fragment_checks(chosen_files, directories, fragments, expected_co
             ' of the "',
             fragment,
             '" fragment? ',
-            gatorgrader_util.get_human_answer(met_or_exceeded_count),
+            util.get_human_answer(met_or_exceeded_count),
             sep="",
         )
 
@@ -239,7 +238,7 @@ def invoke_all_command_checks(commands, expected_counts):
             "' produce exactly ",
             expected_count,
             " lines of output? ",
-            gatorgrader_util.get_human_answer(was_exactly_count),
+            util.get_human_answer(was_exactly_count),
             sep="",
         )
 
@@ -265,7 +264,7 @@ def invoke_all_command_fragment_checks(commands, expected_fragment):
             "' output the fragment '",
             expected_fragment,
             "'? ",
-            gatorgrader_util.get_human_answer(was_contained),
+            util.get_human_answer(was_contained),
             sep="",
         )
 
