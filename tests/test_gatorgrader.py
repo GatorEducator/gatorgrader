@@ -133,21 +133,3 @@ def test_default_argument_values_not_correct_when_missing_sentences(
     )
     gatorgrader_args_verified = gatorgrader.verify_gatorgrader_arguments(gg_arguments)
     assert gatorgrader_args_verified == NOT_VERIFIED
-
-
-def test_gatorgrader_home_is_set():
-    """Ensure that the gatorgrader_HOME environment variable is set"""
-    gatorgrader_home = gatorgrader.get_gatorgrader_home()
-    assert gatorgrader_home is not None
-
-
-def test_gatorgrader_home_verification_working_verified():
-    """Checks that GATORGRADER_HOME verification is working"""
-    gatorgrader_home_verified = gatorgrader.verify_gatorgrader_home("/home/gkapfham/")
-    assert gatorgrader_home_verified == VERIFIED
-
-
-def test_gatorgrader_home_verification_working_notverified():
-    """Checks that GATORGRADER_HOME verification is working"""
-    gatorgrader_home_verified = gatorgrader.verify_gatorgrader_home("/home/gkapfham")
-    assert gatorgrader_home_verified == NOT_VERIFIED
