@@ -18,8 +18,10 @@ def parse(args):
 
     # specify a single file and a single directory
     # CORRECT WHEN: user provides both of these
-    gg_parser.add_argument("--file", type=str)
-    gg_parser.add_argument("--directory", type=str)
+    gg_parser.add_argument(
+        "--directory", type=str, help="Specify the directory with files for checking"
+    )
+    gg_parser.add_argument("--file", type=str, help="Specify the file for checking")
 
     gg_parser.add_argument("--singlecomments", nargs="+", type=int)
 
