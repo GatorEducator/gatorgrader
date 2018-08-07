@@ -82,10 +82,33 @@ def parse(args):
 
 # Helper functions {{{
 
+# Top-level helper functions {{{
+
 
 def is_valid_file(args):
     """Checks if it is a valid file and directory specification"""
-    if args.directory is not None and args.file is not None:
+    if args.file is not None:
+        return True
+    return False
+
+
+def is_valid_directory(args):
+    """Checks if it is a valid directory specification"""
+    if args.directory is not None:
+        return True
+    return False
+
+
+def is_valid_file_and_directory(args):
+    """Checks if it is a valid file and directory specification"""
+    if is_valid_file(args) and is_valid_directory(args):
+        return True
+    return False
+
+
+def is_valid_file_or_directory(args):
+    """Checks if it is a valid file or directory specification"""
+    if is_valid_file(args) or is_valid_directory(args):
         return True
     return False
 
@@ -96,10 +119,14 @@ def is_valid_command(args):
         return True
     return False
 
+# }}}
+
+# Ancillary helper functions {{{
+
 
 def is_valid_comments(args):
     """Checks if it is a valid comment specification"""
-    if is_valid_file(args):
+    if is_valid_file_and_directory(args):
         if args.singlecomments is not None or args.multicomments is not None:
             return True
     return False
@@ -107,7 +134,7 @@ def is_valid_comments(args):
 
 def is_valid_paragraphs(args):
     """Checks if it is a valid paragraphs specification"""
-    if is_valid_file(args):
+    if is_valid_file_and_directory(args):
         if args.paragraphs is not None:
             return True
     return False
@@ -115,11 +142,13 @@ def is_valid_paragraphs(args):
 
 def is_valid_words(args):
     """Checks if it is a valid words specification"""
-    if is_valid_file(args):
+    if is_valid_file_and_directory(args):
         if args.words is not None:
             return True
     return False
 
+
+# }}}
 
 # }}}
 
@@ -131,10 +160,10 @@ def verify(args):
     # assume that the arguments are not valid and prove otherwise
     verified_arguments = False
     # VERIFIED: both a file and a directory were specified and command not given
-    if is_valid_file(args) and not is_valid_command(args):
+    if is_valid_file_and_directory(args) and not is_valid_command(args):
         verified_arguments = True
     # VERIFIED: both a file and a directory were not specified and command given
-    if is_valid_command(args) and not is_valid_file(args):
+    if is_valid_command(args) and (not is_valid_file_or_directory(args)):
         verified_arguments = True
     # VERIFIED: correct check for comments of a file in a directory
     if is_valid_comments(args):
