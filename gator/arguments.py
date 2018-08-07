@@ -16,12 +16,22 @@ def parse(args):
         "--nowelcome", help="Do not display the welcome message", action="store_true"
     )
 
+    # Top-Level Arguments {{{
+
     # specify a single file and a single directory
     # CORRECT WHEN: user provides both of these
     gg_parser.add_argument(
         "--directory", type=str, help="Specify the directory with files for checking"
     )
     gg_parser.add_argument("--file", type=str, help="Specify the file for checking")
+
+    # specify a command to run for checking
+    # CORRECT WHEN: user provides this argument but not a file or directory
+    gg_parser.add_argument("--command", type=str, help="Specify a command to run")
+
+    # }}}
+
+    # Ancillary Arguments {{{
 
     # specify a check on single-line comments
     # CORRECT WHEN: user provides file and directory along with this argument
@@ -55,12 +65,16 @@ def parse(args):
         help="Specify a minimum number of words"
     )
 
+    # specify a check on fragments
+    # CORRECT WHEN: user provides file and directory along with this argument
+    # CORRECT WHEN: user provides a command along with this argument
     gg_parser.add_argument("--fragments", nargs="+", type=str)
     gg_parser.add_argument("--fragmentcounts", nargs="+", type=int)
 
+    # }}}
+
     gg_parser.add_argument("--languages", nargs="+", type=str)
 
-    gg_parser.add_argument("--commands", nargs="+", type=str)
     gg_parser.add_argument("--outputlines", nargs="+", type=int)
 
     gg_parser.add_argument("--commits", type=int)
