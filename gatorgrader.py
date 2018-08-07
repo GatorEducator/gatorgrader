@@ -76,11 +76,11 @@ if __name__ == "__main__":
                 )
                 check_return_values.extend(current_invoke_return_values)
             # CHECK: Writing all paragraphs contain 'k' words
-            if gg_arguments.wordcount is not None:
+            if gg_arguments.words is not None:
                 current_invoke_return_values = invoke.invoke_all_word_count_checks(
                     gg_arguments.checkfiles,
                     gg_arguments.directories,
-                    gg_arguments.wordcount,
+                    gg_arguments.words,
                 )
                 check_return_values.extend(current_invoke_return_values)
             # CHECK: Content contains 'k' specified fragments
