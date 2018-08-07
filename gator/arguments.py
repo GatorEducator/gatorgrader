@@ -80,4 +80,7 @@ def verify(args):
     # VERIFIED: both a file and a directory were specified
     if is_valid_file(args):
         verified_arguments = True
+    # VERIFIED: correct check for comments of a file in a directory
+    if is_valid_comments(args):
+        verified_arguments = True
     return verified_arguments
