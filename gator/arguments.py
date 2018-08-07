@@ -23,9 +23,21 @@ def parse(args):
     )
     gg_parser.add_argument("--file", type=str, help="Specify the file for checking")
 
-    gg_parser.add_argument("--singlecomments", nargs="+", type=int)
+    # specify a check on single-line comments
+    # CORRECT WHEN: user provides file and directory along with this argument
+    gg_parser.add_argument(
+        "--singlecomments",
+        type=int,
+        help="Specify a minimum number of single-line comments",
+    )
 
-    gg_parser.add_argument("--multicomments", nargs="+", type=int)
+    # specify a check on multiple-line comments
+    # CORRECT WHEN: user provides file and directory along with this argument
+    gg_parser.add_argument(
+        "--multicomments",
+        type=int,
+        help="Specify a minimum number of multiple-line comments",
+    )
 
     gg_parser.add_argument("--paragraphs", nargs="+", type=int)
     gg_parser.add_argument(
