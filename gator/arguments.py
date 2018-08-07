@@ -164,7 +164,7 @@ def verify(args):
     if is_valid_file_and_directory(args) and not is_valid_command(args):
         verified_arguments = True
     # VERIFIED: both a file and a directory were not specified and command given
-    if is_valid_command(args) and (not is_valid_file_or_directory(args)):
+    elif is_valid_command(args) and (not is_valid_file_or_directory(args)):
         verified_arguments = True
     # VERIFIED: correct check for comments of a file in a directory
     if is_valid_comments(args):
