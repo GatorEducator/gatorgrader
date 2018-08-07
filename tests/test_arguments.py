@@ -42,6 +42,8 @@ def test_arguments_verified(verifiable_gg_args):
 
 # }}}
 
+# Incorrect Arguments Tests {{{
+
 
 @pytest.mark.parametrize(
     "chosen_arguments",
@@ -62,6 +64,10 @@ def test_module_argument_not_verifiable_syserror(chosen_arguments, capsys):
     assert standard_out is EMPTY_STRING
     assert ERROR in standard_err
 
+# }}}
+
+# Not Verified Arguments Tests: verify {{{
+
 
 @pytest.mark.parametrize(
     "chosen_arguments",
@@ -79,6 +85,10 @@ def test_invalid_argument_combinations_not_accepted(chosen_arguments):
     verified_arguments = arguments.verify(parsed_arguments)
     assert verified_arguments is False
 
+# }}}
+
+# Verified Arguments Tests: verify {{{
+
 
 @pytest.mark.parametrize(
     "chosen_arguments",
@@ -94,6 +104,8 @@ def test_valid_argument_combinations_accepted(chosen_arguments):
     parsed_arguments = arguments.parse(chosen_arguments)
     verified_arguments = arguments.verify(parsed_arguments)
     assert verified_arguments is True
+
+# }}}
 
 
 @pytest.mark.parametrize(
