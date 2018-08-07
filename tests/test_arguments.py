@@ -82,6 +82,7 @@ def test_invalid_argument_combinations_not_accepted(chosen_arguments):
         (["--nowelcome", "--directory", "D", "--file", "f"]),
         (["--nowelcome", "--directory", "D", "--file", "f", "--singlecomments", "2"]),
         (["--nowelcome", "--directory", "D", "--file", "f", "--multicomments", "2"]),
+        (["--nowelcome", "--directory", "D", "--file", "f", "--paragraphs", "2"]),
     ],
 )
 def test_valid_argument_combinations_accepted(chosen_arguments):
@@ -122,10 +123,27 @@ def test_is_valid_file_not_valid(chosen_arguments):
         (["--file", "F", "--multicomments", "1"]),
     ],
 )
-def test_is_valid_file_not_valid_comments_wrong(chosen_arguments):
+def test_is_not_valid_file_not_valid_comments_wrong(chosen_arguments):
     """Check that invalid argument combinations do not verify correctly"""
     parsed_arguments = arguments.parse(chosen_arguments)
     verified_arguments = arguments.is_valid_comments(parsed_arguments)
+    assert verified_arguments is False
+
+
+@pytest.mark.parametrize(
+    "chosen_arguments",
+    [
+        (["--nowelcome"]),
+        (["--nowelcome", "--directory", "D", "--paragraphs", "2"]),
+        (["--directory", "D", "--paragraphs", "2"]),
+        (["--nowelcome", "--file", "F", "--paragraphs", "1"]),
+        (["--file", "F", "--paragraphs", "1"]),
+    ],
+)
+def test_is_not_valid_file_not_valid_paragraphs_wrong(chosen_arguments):
+    """Check that invalid argument combinations do not verify correctly"""
+    parsed_arguments = arguments.parse(chosen_arguments)
+    verified_arguments = arguments.is_valid_paragraphs(parsed_arguments)
     assert verified_arguments is False
 
 
@@ -162,4 +180,20 @@ def test_is_valid_comments_valid(chosen_arguments):
     """Check that valid argument combinations do not verify correctly"""
     parsed_arguments = arguments.parse(chosen_arguments)
     verified_arguments = arguments.is_valid_comments(parsed_arguments)
+    assert verified_arguments is True
+
+
+@pytest.mark.parametrize(
+    "chosen_arguments",
+    [
+        (["--nowelcome", "--directory", "D", "--file", "f", "--paragraphs", "2"]),
+        (["--nowelcome", "--file", "f", "--directory", "D", "--paragraphs", "2"]),
+        (["--file", "f", "--directory", "D", "--paragraphs", "2"]),
+        (["--directory", "D", "--file", "F", "--paragraphs", "2"]),
+    ],
+)
+def test_is_valid_paragraphs_valid(chosen_arguments):
+    """Check that valid argument combinations do not verify correctly"""
+    parsed_arguments = arguments.parse(chosen_arguments)
+    verified_arguments = arguments.is_valid_paragraphs(parsed_arguments)
     assert verified_arguments is True
