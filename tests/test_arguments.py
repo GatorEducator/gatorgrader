@@ -96,6 +96,27 @@ def test_is_valid_file_not_valid(chosen_arguments):
 @pytest.mark.parametrize(
     "chosen_arguments",
     [
+        (["--nowelcome"]),
+        (["--nowelcome", "--directory", "D", "--singlecomments", "2"]),
+        (["--nowelcome", "--directory", "D", "--multicomments", "1"]),
+        (["--directory", "D", "--singlecomments", "2"]),
+        (["--directory", "D", "--multicomments", "3"]),
+        (["--nowelcome", "--file", "F", "--singlecomments", "1"]),
+        (["--nowelcome", "--file", "F", "--multicomments", "2"]),
+        (["--file", "F", "--singlecomments", "1"]),
+        (["--file", "F", "--multicomments", "1"]),
+    ],
+)
+def test_is_valid_file_not_valid_comments_wrong(chosen_arguments):
+    """Check that invalid argument combinations do not verify correctly"""
+    parsed_arguments = arguments.parse(chosen_arguments)
+    verified_arguments = arguments.is_valid_comments(parsed_arguments)
+    assert verified_arguments is False
+
+
+@pytest.mark.parametrize(
+    "chosen_arguments",
+    [
         (["--nowelcome", "--directory", "D", "--file", "f"]),
         (["--nowelcome", "--file", "f", "--directory", "D"]),
         (["--file", "f", "--directory", "D"]),
