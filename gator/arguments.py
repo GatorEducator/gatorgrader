@@ -39,9 +39,20 @@ def parse(args):
         help="Specify a minimum number of multiple-line comments",
     )
 
-    gg_parser.add_argument("--paragraphs", nargs="+", type=int)
+    # specify a check on paragraphs
+    # CORRECT WHEN: user provides file and directory along with this argument
     gg_parser.add_argument(
-        "--wordcount", "--sentences", nargs="+", type=int, dest="wordcount"
+        "--paragraphs", help="Specify a minimum number of paragraphs"
+    )
+
+    # specify a check on words
+    # note that sentences are no longer supported so, a "dest" given
+    # CORRECT WHEN: user provides file and directory along with this argument
+    gg_parser.add_argument(
+        "--words",
+        "--sentences",
+        dest="words",
+        help="Specify a minimum number of words"
     )
 
     gg_parser.add_argument("--fragments", nargs="+", type=str)
@@ -73,6 +84,14 @@ def is_valid_comments(args):
     return False
 
 
+def is_valid_paragraphs(args):
+    """Checks if it is a valid paragraphs specification"""
+    if is_valid_file(args):
+        if args.paragraphs is not None:
+            return True
+    return False
+
+
 def verify(args):
     """Checks if the arguments are correct"""
     # assume that the arguments are not valid and prove otherwise
@@ -82,5 +101,8 @@ def verify(args):
         verified_arguments = True
     # VERIFIED: correct check for comments of a file in a directory
     if is_valid_comments(args):
+        verified_arguments = True
+    # VERIFIED: correct check for paragraphs of a file in a directory
+    if is_valid_paragraphs(args):
         verified_arguments = True
     return verified_arguments
