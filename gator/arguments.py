@@ -92,6 +92,14 @@ def is_valid_paragraphs(args):
     return False
 
 
+def is_valid_words(args):
+    """Checks if it is a valid words specification"""
+    if is_valid_file(args):
+        if args.words is not None:
+            return True
+    return False
+
+
 def verify(args):
     """Checks if the arguments are correct"""
     # assume that the arguments are not valid and prove otherwise
@@ -104,5 +112,8 @@ def verify(args):
         verified_arguments = True
     # VERIFIED: correct check for paragraphs of a file in a directory
     if is_valid_paragraphs(args):
+        verified_arguments = True
+    # VERIFIED: correct check for words of a file in a directory
+    if is_valid_words(args):
         verified_arguments = True
     return verified_arguments
