@@ -125,27 +125,39 @@ def is_valid_command(args):
 # Ancillary helper functions {{{
 
 
-def is_valid_comments(args):
+def is_valid_comments(args, skip=False):
     """Checks if it is a valid comment specification"""
-    if is_valid_file_and_directory(args):
+    if is_valid_file_and_directory(args) or skip:
         if args.singlecomments is not None or args.multicomments is not None:
             return True
     return False
 
 
-def is_valid_paragraphs(args):
+def is_valid_paragraphs(args, skip=False):
     """Checks if it is a valid paragraphs specification"""
-    if is_valid_file_and_directory(args):
+    if is_valid_file_and_directory(args) or skip:
         if args.paragraphs is not None:
             return True
     return False
 
 
-def is_valid_words(args):
+def is_valid_words(args, skip=False):
     """Checks if it is a valid words specification"""
-    if is_valid_file_and_directory(args):
+    if is_valid_file_and_directory(args) or skip:
         if args.words is not None:
             return True
+    return False
+
+
+def is_file_ancillary(args):
+    """Checks if it is an ancillary of a file"""
+    # pylint: disable=bad-continuation
+    if (
+        is_valid_comments(args, True)
+        or is_valid_paragraphs(args, True)
+        or is_valid_words(args, True)
+    ):
+        return True
     return False
 
 
@@ -160,7 +172,7 @@ def verify(args):
     """Checks if the arguments are correct"""
     # assume that the arguments are not valid and prove otherwise
     verified_arguments = False
-    # TOP-LEVEL VERIFIED: both a file and a directory were specified and command not given
+    # TOP-LEVEL VERIFIED: both a file and a directory were specified and a command is given
     if is_valid_file_and_directory(args) and not is_valid_command(args):
         verified_arguments = True
         # VERIFIED: correct check for comments of a file in a directory
@@ -172,9 +184,13 @@ def verify(args):
         # VERIFIED: correct check for words of a file in a directory
         if is_valid_words(args):
             verified_arguments = True
-    # TOP-LEVEL VERIFIED: both a file and a directory were not specified and command given
-    elif is_valid_command(args) and (not is_valid_file_or_directory(args)):
+    # TOP-LEVEL VERIFIED: no file or directory details were specified and a command given
+    # pylint: disable=bad-continuation
+    elif is_valid_command(args) and (
+        not is_valid_file_or_directory(args) and not is_file_ancillary(args)
+    ):
         verified_arguments = True
     return verified_arguments
+
 
 # }}}
