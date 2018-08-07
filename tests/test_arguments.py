@@ -40,6 +40,7 @@ def test_arguments_verified(verifiable_gg_args):
     gg_args_verified = arguments.verify(gg_arguments)
     assert gg_args_verified == VERIFIED
 
+
 # }}}
 
 # Region: Incorrect Arguments Tests {{{
@@ -64,6 +65,7 @@ def test_module_argument_not_verifiable_syserror(chosen_arguments, capsys):
     assert standard_out is EMPTY_STRING
     assert ERROR in standard_err
 
+
 # }}}
 
 # Region: Not Verified Arguments Tests for verify {{{
@@ -86,6 +88,7 @@ def test_invalid_argument_combinations_not_accepted(chosen_arguments):
     verified_arguments = arguments.verify(parsed_arguments)
     assert verified_arguments is False
 
+
 # }}}
 
 # Region: Verified Arguments Tests for verify {{{
@@ -107,6 +110,46 @@ def test_valid_argument_combinations_accepted(chosen_arguments):
     parsed_arguments = arguments.parse(chosen_arguments)
     verified_arguments = arguments.verify(parsed_arguments)
     assert verified_arguments is True
+
+
+@pytest.mark.parametrize(
+    "chosen_arguments",
+    [
+        (["--nowelcome", "--directory", "D", "--file", "f", "--command", "run"]),
+        (
+            [
+                "--nowelcome",
+                "--directory",
+                "D",
+                "--file",
+                "f",
+                "--multicomments",
+                "2",
+                "--command",
+                "run",
+            ]
+        ),
+        (
+            [
+                "--nowelcome",
+                "--directory",
+                "D",
+                "--file",
+                "f",
+                "--singlecomments",
+                "2",
+                "--command",
+                "run",
+            ]
+        ),
+    ],
+)
+def test_invalid_argument_combinations_accepted(chosen_arguments):
+    """Check that not valid argument combinations do not verify correctly"""
+    parsed_arguments = arguments.parse(chosen_arguments)
+    verified_arguments = arguments.verify(parsed_arguments)
+    assert verified_arguments is False
+
 
 # }}}
 
@@ -193,6 +236,7 @@ def test_is_not_valid_file_not_valid_words_wrong(chosen_arguments):
     verified_arguments = arguments.is_valid_words(parsed_arguments)
     assert verified_arguments is False
 
+
 # }}}
 
 # Verified Arguments Tests for helper functions {{{
@@ -210,7 +254,9 @@ def test_is_not_valid_file_not_valid_words_wrong(chosen_arguments):
 def test_is_valid_file_valid(chosen_arguments):
     """Check that valid argument combinations do not verify correctly"""
     parsed_arguments = arguments.parse(chosen_arguments)
-    verified_arguments = arguments.is_valid_file(parsed_arguments)
+    verified_arguments = arguments.is_valid_file_and_directory(parsed_arguments)
+    assert verified_arguments is True
+    verified_arguments = arguments.is_valid_file_or_directory(parsed_arguments)
     assert verified_arguments is True
 
 
@@ -264,5 +310,6 @@ def test_is_valid_words_valid(chosen_arguments):
     parsed_arguments = arguments.parse(chosen_arguments)
     verified_arguments = arguments.is_valid_words(parsed_arguments)
     assert verified_arguments is True
+
 
 # }}}
