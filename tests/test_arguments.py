@@ -10,6 +10,8 @@ ERROR = "error:"
 VERIFIED = True
 NOT_VERIFIED = False
 
+# Simple fixture-based Tests {{{
+
 
 @pytest.fixture
 def no_gg_args():
@@ -37,6 +39,8 @@ def test_arguments_verified(verifiable_gg_args):
     gg_arguments = arguments.parse(verifiable_gg_args)
     gg_args_verified = arguments.verify(gg_arguments)
     assert gg_args_verified == VERIFIED
+
+# }}}
 
 
 @pytest.mark.parametrize(
