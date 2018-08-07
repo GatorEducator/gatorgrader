@@ -97,6 +97,8 @@ def test_invalid_argument_combinations_not_accepted(chosen_arguments):
         (["--nowelcome", "--directory", "D", "--file", "f", "--singlecomments", "2"]),
         (["--nowelcome", "--directory", "D", "--file", "f", "--multicomments", "2"]),
         (["--nowelcome", "--directory", "D", "--file", "f", "--paragraphs", "2"]),
+        (["--nowelcome", "--directory", "D", "--file", "f", "--words", "100"]),
+        (["--nowelcome", "--directory", "D", "--file", "f", "--sentences", "100"]),
     ],
 )
 def test_valid_argument_combinations_accepted(chosen_arguments):
