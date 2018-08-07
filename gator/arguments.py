@@ -72,7 +72,6 @@ def is_valid_comments(args):
     return False
 
 
-
 def verify(args):
     """Checks if the arguments are correct"""
     # assume that the arguments are not valid and prove otherwise
