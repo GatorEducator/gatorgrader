@@ -109,7 +109,7 @@ def test_valid_argument_combinations_accepted(chosen_arguments):
 
 # }}}
 
-# Not Verified Arguments Tests: helper functions {{{
+# Not Verified Arguments Tests for helper functions {{{
 
 
 @pytest.mark.parametrize(
@@ -141,6 +141,8 @@ def test_is_valid_file_not_valid(chosen_arguments):
         (["--nowelcome", "--file", "F", "--multicomments", "2"]),
         (["--file", "F", "--singlecomments", "1"]),
         (["--file", "F", "--multicomments", "1"]),
+        (["--directory", "D", "--file", "F", "--paragraphs", "1"]),
+        (["--directory", "D", "--file", "F", "--words", "1"]),
     ],
 )
 def test_is_not_valid_file_not_valid_comments_wrong(chosen_arguments):
@@ -158,6 +160,9 @@ def test_is_not_valid_file_not_valid_comments_wrong(chosen_arguments):
         (["--directory", "D", "--paragraphs", "2"]),
         (["--nowelcome", "--file", "F", "--paragraphs", "1"]),
         (["--file", "F", "--paragraphs", "1"]),
+        (["--directory", "D", "--file", "F", "--singlecomments", "1"]),
+        (["--directory", "D", "--file", "F", "--multicomments", "1"]),
+        (["--directory", "D", "--file", "F", "--words", "1"]),
     ],
 )
 def test_is_not_valid_file_not_valid_paragraphs_wrong(chosen_arguments):
@@ -166,9 +171,29 @@ def test_is_not_valid_file_not_valid_paragraphs_wrong(chosen_arguments):
     verified_arguments = arguments.is_valid_paragraphs(parsed_arguments)
     assert verified_arguments is False
 
+
+@pytest.mark.parametrize(
+    "chosen_arguments",
+    [
+        (["--nowelcome"]),
+        (["--nowelcome", "--directory", "D", "--words", "2"]),
+        (["--directory", "D", "--words", "2"]),
+        (["--nowelcome", "--file", "F", "--words", "1"]),
+        (["--file", "F", "--words", "1"]),
+        (["--directory", "D", "--file", "F", "--singlecomments", "1"]),
+        (["--directory", "D", "--file", "F", "--multicomments", "1"]),
+        (["--directory", "D", "--file", "F", "--paragraphs", "1"]),
+    ],
+)
+def test_is_not_valid_file_not_valid_words_wrong(chosen_arguments):
+    """Check that invalid argument combinations do not verify correctly"""
+    parsed_arguments = arguments.parse(chosen_arguments)
+    verified_arguments = arguments.is_valid_words(parsed_arguments)
+    assert verified_arguments is False
+
 # }}}
 
-# Verified Arguments Tests: helper functions {{{
+# Verified Arguments Tests for helper functions {{{
 
 
 @pytest.mark.parametrize(
@@ -220,6 +245,22 @@ def test_is_valid_paragraphs_valid(chosen_arguments):
     """Check that valid argument combinations do not verify correctly"""
     parsed_arguments = arguments.parse(chosen_arguments)
     verified_arguments = arguments.is_valid_paragraphs(parsed_arguments)
+    assert verified_arguments is True
+
+
+@pytest.mark.parametrize(
+    "chosen_arguments",
+    [
+        (["--nowelcome", "--directory", "D", "--file", "f", "--words", "2"]),
+        (["--nowelcome", "--file", "f", "--directory", "D", "--words", "2"]),
+        (["--file", "f", "--directory", "D", "--words", "2"]),
+        (["--directory", "D", "--file", "F", "--words", "2"]),
+    ],
+)
+def test_is_valid_words_valid(chosen_arguments):
+    """Check that valid argument combinations do not verify correctly"""
+    parsed_arguments = arguments.parse(chosen_arguments)
+    verified_arguments = arguments.is_valid_words(parsed_arguments)
     assert verified_arguments is True
 
 # }}}
