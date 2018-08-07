@@ -65,6 +65,14 @@ def is_valid_file(args):
     return False
 
 
+def is_valid_comments(args):
+    """Checks if it is a valid comment specification"""
+    if args.directory is not None and args.file is not None:
+        return True
+    return False
+
+
+
 def verify(args):
     """Checks if the arguments are correct"""
     # assume that the arguments are not valid and prove otherwise
