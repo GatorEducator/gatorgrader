@@ -46,11 +46,18 @@ def parse(args):
     return gg_arguments_finished
 
 
+def is_valid_file(args):
+    """Checks if it is a valid file and directory specification"""
+    if args.directory is not None and args.file is not None:
+        return True
+    return False
+
+
 def verify(args):
     """Checks if the arguments are correct"""
     # assume that the arguments are not valid and prove otherwise
     verified_arguments = False
-    # VERIFIED --> both a file and a directory were specified
-    if args.directory is not None and args.file is not None:
+    # VERIFIED: both a file and a directory were specified
+    if is_valid_file(args):
         verified_arguments = True
     return verified_arguments
