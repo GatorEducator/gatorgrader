@@ -80,6 +80,8 @@ def test_module_argument_not_verifiable_syserror(chosen_arguments, capsys):
         (["--nowelcome", "--file", "f"]),
         (["--file", "F"]),
         (["--command", "run this command", "--file", "f"]),
+        (["--command", "run this command", "--file", "f", "--directory", "D"]),
+        (["--nowelcome", "--command", "run", "--paragraphs", "3"]),
     ],
 )
 def test_invalid_argument_combinations_not_accepted(chosen_arguments):
@@ -352,6 +354,22 @@ def test_is_valid_words_valid(chosen_arguments):
     """Check that valid argument combinations do not verify correctly"""
     parsed_arguments = arguments.parse(chosen_arguments)
     verified_arguments = arguments.is_valid_words(parsed_arguments)
+    assert verified_arguments is True
+
+
+@pytest.mark.parametrize(
+    "chosen_arguments",
+    [
+        (["--nowelcome", "--command", "run", "--paragraphs", "3"]),
+        (["--nowelcome", "--command", "run", "--words", "3"]),
+        (["--nowelcome", "--command", "run", "--singlecomments", "3"]),
+        (["--nowelcome", "--command", "run", "--multicomments", "3"]),
+    ],
+)
+def test_is_file_ancillary(chosen_arguments):
+    """Check that file ancillary detection verifies correctly"""
+    parsed_arguments = arguments.parse(chosen_arguments)
+    verified_arguments = arguments.is_file_ancillary(parsed_arguments)
     assert verified_arguments is True
 
 
