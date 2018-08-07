@@ -124,7 +124,27 @@ def test_is_valid_file_not_valid_comments_wrong(chosen_arguments):
     ],
 )
 def test_is_valid_file_valid(chosen_arguments):
-    """Check that invalid argument combinations do not verify correctly"""
+    """Check that valid argument combinations do not verify correctly"""
+    parsed_arguments = arguments.parse(chosen_arguments)
+    verified_arguments = arguments.is_valid_file(parsed_arguments)
+    assert verified_arguments is True
+
+
+@pytest.mark.parametrize(
+    "chosen_arguments",
+    [
+        (["--nowelcome", "--directory", "D", "--file", "f", "--singlecomments", "2"]),
+        (["--nowelcome", "--directory", "D", "--file", "f", "--multicomments", "2"]),
+        (["--nowelcome", "--file", "f", "--directory", "D", "--singlecomments", "2"]),
+        (["--nowelcome", "--file", "f", "--directory", "D", "--multicomments", "2"]),
+        (["--file", "f", "--directory", "D", "--singlecomments", "2"]),
+        (["--file", "f", "--directory", "D", "--multicomments", "2"]),
+        (["--directory", "D", "--file", "F", "--singlecomments", "2"]),
+        (["--directory", "D", "--file", "F", "--multicomments", "2"]),
+    ],
+)
+def test_is_valid_comments_valid(chosen_arguments):
+    """Check that valid argument combinations do not verify correctly"""
     parsed_arguments = arguments.parse(chosen_arguments)
     verified_arguments = arguments.is_valid_file(parsed_arguments)
     assert verified_arguments is True
