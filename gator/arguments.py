@@ -64,9 +64,10 @@ def parse(args):
 
     # specify a check on fragments
     # CORRECT WHEN: user provides file and directory along with this argument
+    # or
     # CORRECT WHEN: user provides a command along with this argument
-    gg_parser.add_argument("--fragments", nargs="+", type=str)
-    gg_parser.add_argument("--fragmentcounts", nargs="+", type=int)
+    gg_parser.add_argument("--fragment", type=str)
+    gg_parser.add_argument("--fragmentcounts", type=int)
 
     # }}}
 
