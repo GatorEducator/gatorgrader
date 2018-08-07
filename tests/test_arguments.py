@@ -142,6 +142,32 @@ def test_valid_argument_combinations_accepted(chosen_arguments):
                 "run",
             ]
         ),
+        (
+            [
+                "--nowelcome",
+                "--directory",
+                "D",
+                "--file",
+                "f",
+                "--paragraphs",
+                "2",
+                "--command",
+                "run",
+            ]
+        ),
+        (
+            [
+                "--nowelcome",
+                "--directory",
+                "D",
+                "--file",
+                "f",
+                "--words",
+                "2",
+                "--command",
+                "run",
+            ]
+        ),
     ],
 )
 def test_invalid_argument_combinations_accepted(chosen_arguments):
