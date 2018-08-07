@@ -66,7 +66,7 @@ def test_module_argument_not_verifiable_syserror(chosen_arguments, capsys):
 
 # }}}
 
-# Region: Not Verified Arguments Tests: verify {{{
+# Region: Not Verified Arguments Tests for verify {{{
 
 
 @pytest.mark.parametrize(
@@ -87,7 +87,7 @@ def test_invalid_argument_combinations_not_accepted(chosen_arguments):
 
 # }}}
 
-# Verified Arguments Tests: verify {{{
+# Region: Verified Arguments Tests for verify {{{
 
 
 @pytest.mark.parametrize(
