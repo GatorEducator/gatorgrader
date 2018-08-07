@@ -70,7 +70,24 @@ def test_module_argument_not_verifiable_syserror(chosen_arguments, capsys):
     ],
 )
 def test_invalid_argument_combinations_not_accepted(chosen_arguments):
-    """Check that not valid argument combinations do not verify correctly"""
+    """Check that not invalid argument combinations do not verify correctly"""
     parsed_arguments = arguments.parse(chosen_arguments)
     verified_arguments = arguments.verify(parsed_arguments)
+    assert verified_arguments is False
+
+
+@pytest.mark.parametrize(
+    "chosen_arguments",
+    [
+        (["--nowelcome"]),
+        (["--nowelcome", "--directory", "D"]),
+        (["--directory", "D"]),
+        (["--nowelcome", "--file", "F"]),
+        (["--file", "F"]),
+    ],
+)
+def test_is_valid_file_not_valid(chosen_arguments):
+    """Check that invalid argument combinations do not verify correctly"""
+    parsed_arguments = arguments.parse(chosen_arguments)
+    verified_arguments = arguments.is_valid_file(parsed_arguments)
     assert verified_arguments is False
