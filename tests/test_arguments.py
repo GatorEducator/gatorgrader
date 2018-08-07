@@ -203,6 +203,22 @@ def test_is_valid_file_not_valid(chosen_arguments):
 @pytest.mark.parametrize(
     "chosen_arguments",
     [
+        (["--nowelcome", "--command", "run"]),
+        (["--paragraphs", "4"]),
+        (["--nowelcome", "--words", "5"]),
+        (["--command", "run"]),
+    ],
+)
+def test_is_valid_file_or_directory_not_valid(chosen_arguments):
+    """Check that invalid argument combinations do not verify correctly"""
+    parsed_arguments = arguments.parse(chosen_arguments)
+    verified_arguments = arguments.is_valid_file_or_directory(parsed_arguments)
+    assert verified_arguments is False
+
+
+@pytest.mark.parametrize(
+    "chosen_arguments",
+    [
         (["--nowelcome"]),
         (["--nowelcome", "--directory", "D", "--singlecomments", "2"]),
         (["--nowelcome", "--directory", "D", "--multicomments", "1"]),
