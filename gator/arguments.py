@@ -59,10 +59,7 @@ def parse(args):
     # note that sentences are no longer supported so, a "dest" given
     # CORRECT WHEN: user provides file and directory along with this argument
     gg_parser.add_argument(
-        "--words",
-        "--sentences",
-        dest="words",
-        help="Specify a minimum number of words"
+        "--words", "--sentences", dest="words", help="Specify a minimum number of words"
     )
 
     # specify a check on fragments
@@ -82,12 +79,20 @@ def parse(args):
     gg_arguments_finished = gg_parser.parse_args(args)
     return gg_arguments_finished
 
+
 # Helper functions {{{
 
 
 def is_valid_file(args):
     """Checks if it is a valid file and directory specification"""
     if args.directory is not None and args.file is not None:
+        return True
+    return False
+
+
+def is_valid_command(args):
+    """Checks if it is a valid commands specification"""
+    if args.command is not None:
         return True
     return False
 
@@ -115,6 +120,7 @@ def is_valid_words(args):
             return True
     return False
 
+
 # }}}
 
 # Verification function {{{
@@ -124,8 +130,11 @@ def verify(args):
     """Checks if the arguments are correct"""
     # assume that the arguments are not valid and prove otherwise
     verified_arguments = False
-    # VERIFIED: both a file and a directory were specified
-    if is_valid_file(args):
+    # VERIFIED: both a file and a directory were specified and command not given
+    if is_valid_file(args) and not is_valid_command(args):
+        verified_arguments = True
+    # VERIFIED: both a file and a directory were not specified and command given
+    if is_valid_command(args) and not is_valid_file(args):
         verified_arguments = True
     # VERIFIED: correct check for comments of a file in a directory
     if is_valid_comments(args):
@@ -137,5 +146,6 @@ def verify(args):
     if is_valid_words(args):
         verified_arguments = True
     return verified_arguments
+
 
 # }}}
