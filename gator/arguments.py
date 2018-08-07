@@ -67,8 +67,9 @@ def is_valid_file(args):
 
 def is_valid_comments(args):
     """Checks if it is a valid comment specification"""
-    if args.directory is not None and args.file is not None:
-        return True
+    if is_valid_file(args):
+        if args.singlecomments is not None or args.multicomments is not None:
+            return True
     return False
 
 
