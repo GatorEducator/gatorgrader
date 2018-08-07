@@ -160,22 +160,21 @@ def verify(args):
     """Checks if the arguments are correct"""
     # assume that the arguments are not valid and prove otherwise
     verified_arguments = False
-    # VERIFIED: both a file and a directory were specified and command not given
+    # TOP-LEVEL VERIFIED: both a file and a directory were specified and command not given
     if is_valid_file_and_directory(args) and not is_valid_command(args):
         verified_arguments = True
-    # VERIFIED: both a file and a directory were not specified and command given
+        # VERIFIED: correct check for comments of a file in a directory
+        if is_valid_comments(args):
+            verified_arguments = True
+        # VERIFIED: correct check for paragraphs of a file in a directory
+        if is_valid_paragraphs(args):
+            verified_arguments = True
+        # VERIFIED: correct check for words of a file in a directory
+        if is_valid_words(args):
+            verified_arguments = True
+    # TOP-LEVEL VERIFIED: both a file and a directory were not specified and command given
     elif is_valid_command(args) and (not is_valid_file_or_directory(args)):
         verified_arguments = True
-    # VERIFIED: correct check for comments of a file in a directory
-    if is_valid_comments(args):
-        verified_arguments = True
-    # VERIFIED: correct check for paragraphs of a file in a directory
-    if is_valid_paragraphs(args):
-        verified_arguments = True
-    # VERIFIED: correct check for words of a file in a directory
-    if is_valid_words(args):
-        verified_arguments = True
     return verified_arguments
-
 
 # }}}
