@@ -82,6 +82,8 @@ def parse(args):
     gg_arguments_finished = gg_parser.parse_args(args)
     return gg_arguments_finished
 
+# Helper functions {{{
+
 
 def is_valid_file(args):
     """Checks if it is a valid file and directory specification"""
@@ -113,6 +115,10 @@ def is_valid_words(args):
             return True
     return False
 
+# }}}
+
+# Verification function {{{
+
 
 def verify(args):
     """Checks if the arguments are correct"""
@@ -131,3 +137,5 @@ def verify(args):
     if is_valid_words(args):
         verified_arguments = True
     return verified_arguments
+
+# }}}
