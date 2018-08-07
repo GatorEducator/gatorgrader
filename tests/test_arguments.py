@@ -107,6 +107,8 @@ def test_valid_argument_combinations_accepted(chosen_arguments):
 
 # }}}
 
+# Not Verified Arguments Tests: helper functions {{{
+
 
 @pytest.mark.parametrize(
     "chosen_arguments",
@@ -161,6 +163,8 @@ def test_is_not_valid_file_not_valid_paragraphs_wrong(chosen_arguments):
     parsed_arguments = arguments.parse(chosen_arguments)
     verified_arguments = arguments.is_valid_paragraphs(parsed_arguments)
     assert verified_arguments is False
+
+# }}}
 
 
 @pytest.mark.parametrize(
