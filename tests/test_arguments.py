@@ -10,7 +10,7 @@ ERROR = "error:"
 VERIFIED = True
 NOT_VERIFIED = False
 
-# Simple fixture-based Tests {{{
+# Region: Simple fixture-based Tests {{{
 
 
 @pytest.fixture
@@ -42,7 +42,7 @@ def test_arguments_verified(verifiable_gg_args):
 
 # }}}
 
-# Incorrect Arguments Tests {{{
+# Region: Incorrect Arguments Tests {{{
 
 
 @pytest.mark.parametrize(
@@ -66,7 +66,7 @@ def test_module_argument_not_verifiable_syserror(chosen_arguments, capsys):
 
 # }}}
 
-# Not Verified Arguments Tests: verify {{{
+# Region: Not Verified Arguments Tests: verify {{{
 
 
 @pytest.mark.parametrize(
