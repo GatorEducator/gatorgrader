@@ -22,7 +22,7 @@ def no_gg_args():
 @pytest.fixture
 def verifiable_gg_args():
     """Return arguments that are verifiable"""
-    return ["--directory", "D", "--file", "a"]
+    return ["--directory", "D", "--file", "a", "--exists"]
 
 
 # pylint: disable=redefined-outer-name
@@ -99,7 +99,7 @@ def test_invalid_argument_combinations_not_accepted(chosen_arguments):
 @pytest.mark.parametrize(
     "chosen_arguments",
     [
-        (["--nowelcome", "--directory", "D", "--file", "f"]),
+        (["--nowelcome", "--directory", "D", "--file", "f", "--exists"]),
         (["--nowelcome", "--directory", "D", "--file", "f", "--singlecomments", "2"]),
         (["--nowelcome", "--directory", "D", "--file", "f", "--multicomments", "2"]),
         (["--nowelcome", "--directory", "D", "--file", "f", "--paragraphs", "2"]),
