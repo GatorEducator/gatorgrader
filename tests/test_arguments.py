@@ -393,7 +393,6 @@ def test_is_file_ancillary(chosen_arguments):
 @pytest.mark.parametrize(
     "chosen_arguments",
     [
-        (["--nowelcome"]),
         (
             [
                 "--nowelcome",
