@@ -33,6 +33,14 @@ def parse(args):
 
     # Ancillary Arguments {{{
 
+    # do not display the welcome message
+    # CORRECT WHEN: user provides file and directory along with this argument
+    gg_parser.add_argument(
+        "--exists",
+        help="Determine whether or not a file in a directory exists",
+        action="store_true",
+    )
+
     # specify a check on single-line comments
     # CORRECT WHEN: user provides file and directory along with this argument
     gg_parser.add_argument(
@@ -126,6 +134,14 @@ def is_valid_command(args):
 # Ancillary helper functions {{{
 
 
+def is_valid_exists(args, skip=False):
+    """Checks if it is a valid existence specification"""
+    if is_valid_file_and_directory(args) or skip:
+        if args.exists is not False:
+            return True
+    return False
+
+
 def is_valid_comments(args, skip=False):
     """Checks if it is a valid comment specification"""
     if is_valid_file_and_directory(args) or skip:
@@ -197,13 +213,16 @@ def verify(args):
     verified_arguments = False
     # TOP-LEVEL VERIFIED: both a file and a directory were specified and a command is not given
     if is_valid_file_and_directory(args) and not is_valid_command(args):
-        # VERIFIED: correct check for comments of a file in a directory
+        # VERIFIED: correct check for existence of a file in a directory
+        if is_valid_exists(args):
+            verified_arguments = True
+        # VERIFIED: correct check for comments in a file in a directory
         if is_valid_comments(args):
             verified_arguments = True
-        # VERIFIED: correct check for paragraphs of a file in a directory
+        # VERIFIED: correct check for paragraphs in a file in a directory
         elif is_valid_paragraphs(args):
             verified_arguments = True
-        # VERIFIED: correct check for words of a file in a directory
+        # VERIFIED: correct check for words in a file in a directory
         elif is_valid_words(args):
             verified_arguments = True
         # VERIFIED: correct check for fragments in a file in a directory
