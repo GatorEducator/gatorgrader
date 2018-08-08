@@ -162,9 +162,11 @@ def is_file_ancillary(args):
     """Checks if it is an ancillary of a file"""
     # pylint: disable=bad-continuation
     if (
-        is_valid_comments(args, True)
-        or is_valid_paragraphs(args, True)
-        or is_valid_words(args, True)
+        # skip the parent check and only
+        # determine if the parameter is present
+        is_valid_comments(args, skip=True)
+        or is_valid_paragraphs(args, skip=True)
+        or is_valid_words(args, skip=True)
     ):
         return True
     return False
