@@ -230,6 +230,7 @@ def verify(args):
     verified_arguments = False
     # TOP-LEVEL VERIFIED:
     # both a file and a directory were specified and a command is not given
+    # pylint: disable=bad-continuation
     if is_valid_file_and_directory(args) and (
         not is_command_ancillary(args) and not is_valid_command(args)
     ):
