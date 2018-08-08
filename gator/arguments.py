@@ -209,8 +209,6 @@ def verify(args):
         # VERIFIED: correct check for fragments in a file in a directory
         elif is_valid_fragment(args):
             verified_arguments = True
-        else:
-            verified_arguments = True
     # TOP-LEVEL VERIFIED: no file or directory details were specified and a command given
     # pylint: disable=bad-continuation
     elif is_valid_command(args) and (
