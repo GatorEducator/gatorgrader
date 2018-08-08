@@ -173,7 +173,7 @@ def verify(args):
     """Checks if the arguments are correct"""
     # assume that the arguments are not valid and prove otherwise
     verified_arguments = False
-    # TOP-LEVEL VERIFIED: both a file and a directory were specified and a command is given
+    # TOP-LEVEL VERIFIED: both a file and a directory were specified and a command is not given
     if is_valid_file_and_directory(args) and not is_valid_command(args):
         verified_arguments = True
         # VERIFIED: correct check for comments of a file in a directory
