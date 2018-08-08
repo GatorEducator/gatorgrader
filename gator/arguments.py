@@ -11,7 +11,7 @@ def parse(args):
     )
 
     # do not display the welcome message
-    # CORRECT WHEN: user does or does not provide
+    # CORRECT WHEN: always, only changes output on screen
     gg_parser.add_argument(
         "--nowelcome", help="Do not display the welcome message", action="store_true"
     )
