@@ -299,6 +299,24 @@ def test_is_invalid_fragment_with_file_or_command(chosen_arguments):
     assert verified_arguments is False
 
 
+@pytest.mark.parametrize(
+    "chosen_arguments",
+    [
+        (["--nowelcome", "--command", "run", "--paragraphs", "3"]),
+        (["--nowelcome", "--command", "run", "--words", "3"]),
+        (["--nowelcome", "--command", "run", "--singlecomments", "3"]),
+        (["--nowelcome", "--command", "run", "--multicomments", "3"]),
+    ],
+)
+def test_is_not_command_ancillary(chosen_arguments):
+    """Check that file ancillary detection verifies correctly"""
+    parsed_arguments = arguments.parse(chosen_arguments)
+    # note that this function is only checking for the presence
+    # of the ancillary arguments like fragment and fragmentcount
+    verified_arguments = arguments.is_command_ancillary(parsed_arguments)
+    assert verified_arguments is False
+
+
 # }}}
 
 # Verified Arguments Tests for helper functions {{{
@@ -386,7 +404,25 @@ def test_is_valid_words_valid(chosen_arguments):
 def test_is_file_ancillary(chosen_arguments):
     """Check that file ancillary detection verifies correctly"""
     parsed_arguments = arguments.parse(chosen_arguments)
+    # note that this function is only checking for the presence
+    # of the ancillary arguments like paragraphs or words
     verified_arguments = arguments.is_file_ancillary(parsed_arguments)
+    assert verified_arguments is True
+
+
+@pytest.mark.parametrize(
+    "chosen_arguments",
+    [
+        (["--nowelcome", "--command", "run", "--fragment", "it", "--fragmentcount", "3"]),
+        (["--nowelcome", "--command", "run", "--fragment", "it", "--fragmentcount", "3"]),
+    ],
+)
+def test_is_command_ancillary(chosen_arguments):
+    """Check that file ancillary detection verifies correctly"""
+    parsed_arguments = arguments.parse(chosen_arguments)
+    # note that this function is only checking for the presence
+    # of the ancillary arguments like fragment and fragmentcount
+    verified_arguments = arguments.is_command_ancillary(parsed_arguments)
     assert verified_arguments is True
 
 
