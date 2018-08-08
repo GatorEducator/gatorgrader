@@ -390,4 +390,65 @@ def test_is_file_ancillary(chosen_arguments):
     assert verified_arguments is True
 
 
+@pytest.mark.parametrize(
+    "chosen_arguments",
+    [
+        (["--nowelcome"]),
+        (
+            [
+                "--nowelcome",
+                "--directory",
+                "D",
+                "--file",
+                "f",
+                "--fragment",
+                "it",
+                "--fragmentcount",
+                "2",
+            ]
+        ),
+        (
+            [
+                "--nowelcome",
+                "--directory",
+                "D",
+                "--file",
+                "f",
+                "--fragmentcount",
+                "2",
+                "--fragment",
+                "it",
+            ]
+        ),
+        (
+            [
+                "--nowelcome",
+                "--command",
+                "run",
+                "--fragment",
+                "it",
+                "--fragmentcount",
+                "2",
+            ]
+        ),
+        (
+            [
+                "--nowelcome",
+                "--command",
+                "run",
+                "--fragmentcount",
+                "2",
+                "--fragment",
+                "it",
+            ]
+        ),
+    ],
+)
+def test_is_valid_fragment_with_file_or_command(chosen_arguments):
+    """Check that invalid argument combinations do not verify correctly"""
+    parsed_arguments = arguments.parse(chosen_arguments)
+    verified_arguments = arguments.is_valid_fragment(parsed_arguments)
+    assert verified_arguments is True
+
+
 # }}}
