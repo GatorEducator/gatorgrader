@@ -180,7 +180,8 @@ def is_file_ancillary(args):
     if (
         # skip the parent check and only
         # determine if the parameter is present
-        is_valid_comments(args, skip=True)
+        is_valid_exists(args, skip=True)
+        or is_valid_comments(args, skip=True)
         or is_valid_paragraphs(args, skip=True)
         or is_valid_words(args, skip=True)
     ):
