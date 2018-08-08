@@ -282,6 +282,23 @@ def test_is_not_valid_file_not_valid_words_wrong(chosen_arguments):
     assert verified_arguments is False
 
 
+@pytest.mark.parametrize(
+    "chosen_arguments",
+    [
+        (["--nowelcome"]),
+        (["--nowelcome", "--directory", "D", "--file", "f", "--fragment", "it"]),
+        (["--nowelcome", "--directory", "D", "--file", "f", "--fragmentcount", "2"]),
+        (["--nowelcome", "--command", "run", "--fragment", "it"]),
+        (["--nowelcome", "--command", "run", "--fragmentcount", "2"]),
+    ],
+)
+def test_is_invalid_fragment_with_file_or_command(chosen_arguments):
+    """Check that invalid argument combinations do not verify correctly"""
+    parsed_arguments = arguments.parse(chosen_arguments)
+    verified_arguments = arguments.is_valid_fragment(parsed_arguments)
+    assert verified_arguments is False
+
+
 # }}}
 
 # Verified Arguments Tests for helper functions {{{
