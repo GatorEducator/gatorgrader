@@ -172,6 +172,18 @@ def is_file_ancillary(args):
     return False
 
 
+def is_command_ancillary(args):
+    """Checks if it is an ancillary of a command"""
+    # pylint: disable=bad-continuation
+    if (
+        # skip the parent check and only
+        # determine if the parameter is present
+        is_valid_fragment(args, skip=True)
+    ):
+        return True
+    return False
+
+
 # }}}
 
 # }}}
