@@ -70,6 +70,14 @@ def parse(args):
         "--words", "--sentences", dest="words", help="Specify a minimum number of words"
     )
 
+    # do not display the welcome message
+    # CORRECT WHEN: user provides a command to run along with this argument
+    gg_parser.add_argument(
+        "--executes",
+        help="Determine whether or not a command executes without error",
+        action="store_true",
+    )
+
     # specify a check on fragments
     # CORRECT WHEN: user provides file and directory along with this argument
     # or
@@ -166,6 +174,14 @@ def is_valid_words(args, skip=False):
     return False
 
 
+def is_valid_executes(args, skip=False):
+    """Checks if it is a valid executes without error specification"""
+    if is_valid_command(args) or skip:
+        if args.executes is not False:
+            return True
+    return False
+
+
 def is_valid_fragment(args, skip=False):
     """Checks if it is a valid fragment specification"""
     if (is_valid_file_and_directory(args) or is_valid_command(args)) or skip:
@@ -195,7 +211,7 @@ def is_command_ancillary(args):
     if (
         # skip the parent check and only
         # determine if the parameter is present
-        is_valid_fragment(args, skip=True)
+        is_valid_executes(args, skip=True)
     ):
         return True
     return False
@@ -212,8 +228,11 @@ def verify(args):
     """Checks if the arguments are correct"""
     # assume that the arguments are not valid and prove otherwise
     verified_arguments = False
-    # TOP-LEVEL VERIFIED: both a file and a directory were specified and a command is not given
-    if is_valid_file_and_directory(args) and not is_valid_command(args):
+    # TOP-LEVEL VERIFIED:
+    # both a file and a directory were specified and a command is not given
+    if is_valid_file_and_directory(args) and (
+        not is_command_ancillary(args) and not is_valid_command(args)
+    ):
         # VERIFIED: correct check for existence of a file in a directory
         if is_valid_exists(args):
             verified_arguments = True
@@ -229,12 +248,18 @@ def verify(args):
         # VERIFIED: correct check for fragments in a file in a directory
         elif is_valid_fragment(args):
             verified_arguments = True
-    # TOP-LEVEL VERIFIED: no file or directory details were specified and a command given
+    # TOP-LEVEL VERIFIED:
+    # no file or directory details were specified and a command given
     # pylint: disable=bad-continuation
     elif is_valid_command(args) and (
         not is_valid_file_or_directory(args) and not is_file_ancillary(args)
     ):
-        verified_arguments = True
+        # VERIFIED: correct check for existence of a file in a directory
+        if is_valid_executes(args):
+            verified_arguments = True
+        # VERIFIED: correct check for fragments in a file in a directory
+        elif is_valid_fragment(args):
+            verified_arguments = True
     return verified_arguments
 
 
