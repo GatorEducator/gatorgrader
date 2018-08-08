@@ -142,6 +142,7 @@ def test_valid_argument_combinations_accepted(chosen_arguments):
 @pytest.mark.parametrize(
     "chosen_arguments",
     [
+        (["--nowelcome", "--directory", "D", "--file", "f"]),
         (["--nowelcome", "--directory", "D", "--file", "f", "--command", "run"]),
         (
             [
