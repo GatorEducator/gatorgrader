@@ -182,7 +182,7 @@ def test_invalid_argument_combinations_accepted(chosen_arguments):
 
 # }}}
 
-# Not Verified Arguments Tests for helper functions {{{
+# Region: Not Verified Arguments Tests for helper functions {{{
 
 
 @pytest.mark.parametrize(
@@ -319,7 +319,7 @@ def test_is_not_command_ancillary(chosen_arguments):
 
 # }}}
 
-# Verified Arguments Tests for helper functions {{{
+# Region: Verified Arguments Tests for helper functions {{{
 
 
 @pytest.mark.parametrize(
