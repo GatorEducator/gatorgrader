@@ -67,7 +67,7 @@ def parse(args):
     # or
     # CORRECT WHEN: user provides a command along with this argument
     gg_parser.add_argument("--fragment", type=str)
-    gg_parser.add_argument("--fragmentcounts", type=int)
+    gg_parser.add_argument("--fragmentcount", type=int)
 
     # }}}
 
@@ -146,6 +146,14 @@ def is_valid_words(args, skip=False):
     """Checks if it is a valid words specification"""
     if is_valid_file_and_directory(args) or skip:
         if args.words is not None:
+            return True
+    return False
+
+
+def is_valid_fragment(args, skip=False):
+    """Checks if it is a valid fragment specification"""
+    if (is_valid_file_and_directory(args) or is_valid_command(args)) or skip:
+        if args.fragment is not None and args.fragmentcount is not None:
             return True
     return False
 
