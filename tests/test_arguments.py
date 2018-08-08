@@ -106,6 +106,30 @@ def test_invalid_argument_combinations_not_accepted(chosen_arguments):
         (["--nowelcome", "--directory", "D", "--file", "f", "--words", "100"]),
         (["--nowelcome", "--directory", "D", "--file", "f", "--sentences", "100"]),
         (["--nowelcome", "--command", "run"]),
+        (
+            [
+                "--nowelcome",
+                "--command",
+                "run",
+                "--fragment",
+                "hi",
+                "--fragmentcount",
+                "2",
+            ]
+        ),
+        (
+            [
+                "--nowelcome",
+                "--directory",
+                "D",
+                "--file",
+                "f",
+                "--fragment",
+                "hi",
+                "--fragmentcount",
+                "2",
+            ]
+        ),
     ],
 )
 def test_valid_argument_combinations_accepted(chosen_arguments):
@@ -413,8 +437,28 @@ def test_is_file_ancillary(chosen_arguments):
 @pytest.mark.parametrize(
     "chosen_arguments",
     [
-        (["--nowelcome", "--command", "run", "--fragment", "it", "--fragmentcount", "3"]),
-        (["--nowelcome", "--command", "run", "--fragment", "it", "--fragmentcount", "3"]),
+        (
+            [
+                "--nowelcome",
+                "--command",
+                "run",
+                "--fragment",
+                "it",
+                "--fragmentcount",
+                "3",
+            ]
+        ),
+        (
+            [
+                "--nowelcome",
+                "--command",
+                "run",
+                "--fragment",
+                "it",
+                "--fragmentcount",
+                "3",
+            ]
+        ),
     ],
 )
 def test_is_command_ancillary(chosen_arguments):
