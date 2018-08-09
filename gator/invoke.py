@@ -73,9 +73,6 @@ def invoke_all_comment_checks(
     print()
     was_exceeded_list = []
     met_or_exceeded_count = 0
-    # for filecheck, directory, expected_count, language in zip(
-    # chosen_files, directories, expected_counts, languages
-    # ):
     if comment_type == SINGLE:
         if language == JAVA:
             met_or_exceeded_count = entities.entity_greater_than_count(
