@@ -251,8 +251,8 @@ def verify(args):
         # VERIFIED: correct check for existence of a file in a directory
         if is_valid_exists(args):
             verified_arguments = True
-        # VERIFIED: correct check for comments in a file in a directory
-        if is_valid_comments(args):
+        # VERIFIED: correct check for comments with language in a file in a directory
+        if is_valid_comments(args) and is_valid_language(args):
             verified_arguments = True
         # VERIFIED: correct check for paragraphs in a file in a directory
         elif is_valid_paragraphs(args):
