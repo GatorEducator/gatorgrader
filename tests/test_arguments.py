@@ -318,6 +318,28 @@ def test_is_not_valid_file_not_valid_words_wrong(chosen_arguments):
 @pytest.mark.parametrize(
     "chosen_arguments",
     [
+        (["--nowelcome", "--directory", "D", "--language", "Java"]),
+        (["--nowelcome", "--directory", "D", "--language", "Python"]),
+        (["--directory", "D", "--language", "Java"]),
+        (["--directory", "D", "--language", "Python"]),
+        (["--nowelcome", "--file", "F", "--language", "Java"]),
+        (["--nowelcome", "--file", "F", "--language", "Python"]),
+        (["--file", "F", "--language", "Java"]),
+        (["--file", "F", "--language", "Python"]),
+        (["--directory", "D", "--file", "F", "--language", "Java"]),
+        (["--directory", "D", "--file", "F", "--language", "Python"]),
+    ],
+)
+def test_is_not_valid_language_combinations_wrong(chosen_arguments):
+    """Check that invalid argument combinations do not verify correctly"""
+    parsed_arguments = arguments.parse(chosen_arguments)
+    verified_arguments = arguments.is_valid_language(parsed_arguments)
+    assert verified_arguments is False
+
+
+@pytest.mark.parametrize(
+    "chosen_arguments",
+    [
         (["--nowelcome"]),
         (["--nowelcome", "--directory", "D", "--file", "f", "--fragment", "it"]),
         (["--nowelcome", "--directory", "D", "--file", "f", "--fragmentcount", "2"]),
