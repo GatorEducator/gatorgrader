@@ -180,6 +180,14 @@ def is_valid_words(args, skip=False):
     return False
 
 
+def is_valid_language(args, skip=False):
+    """Checks if it is a valid language specification"""
+    if (is_valid_file_and_directory(args) and is_valid_comments(args)) or skip:
+        if args.language is not None:
+            return True
+    return False
+
+
 def is_valid_executes(args, skip=False):
     """Checks if it is a valid executes without error specification"""
     if is_valid_command(args) or skip:
