@@ -54,7 +54,9 @@ def test_arguments_verified(verifiable_gg_args):
         (["--filles", "F"]),
         (["--file", "m", "f"]),
         (["-file", "f"]),
-        (["-directory", "f"]),
+        (["-directory", "D"]),
+        (["--directory", "D", "--file", "f", "--singlecomments", "2", "--language", "JavaScript"]),
+        (["--directory", "D", "--file", "f", "--multicomments", "2", "--language", "JavaScript"]),
     ],
 )
 def test_module_argument_not_verifiable_syserror(chosen_arguments, capsys):
