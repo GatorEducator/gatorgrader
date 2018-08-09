@@ -73,7 +73,7 @@ def parse(args):
         "--words", "--sentences", dest="words", help="Specify a minimum number of words"
     )
 
-    # do not display the welcome message
+    # execute the specified command
     # CORRECT WHEN: user provides a command to run along with this argument
     gg_parser.add_argument(
         "--executes",
