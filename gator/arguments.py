@@ -2,6 +2,9 @@
 
 import argparse
 
+JAVA = "Java"
+PYTHON = "Python"
+
 
 def parse(args):
     """Parses the arguments provided on the command-line"""
