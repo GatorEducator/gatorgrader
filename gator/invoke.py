@@ -66,55 +66,52 @@ def invoke_file_in_directory_check(filecheck, directory):
 
 # pylint: disable=bad-continuation
 def invoke_all_comment_checks(
-    chosen_files, directories, expected_counts, comment_type, languages
+    filecheck, directory, expected_count, comment_type, language
 ):
-    """Repeatedly perform the check and return the results"""
+    """Perform the comment check and return the results"""
     print("Checking for", comment_type, "comments...")
     print()
     was_exceeded_list = []
     met_or_exceeded_count = 0
-    for filecheck, directory, expected_count, language in zip(
-        chosen_files, directories, expected_counts, languages
-    ):
-        if comment_type == SINGLE:
-            if language == JAVA:
-                met_or_exceeded_count = entities.entity_greater_than_count(
-                    filecheck,
-                    directory,
-                    expected_count,
-                    comments.count_singleline_java_comment,
-                )
-            if language == PYTHON:
-                met_or_exceeded_count = entities.entity_greater_than_count(
-                    filecheck,
-                    directory,
-                    expected_count,
-                    comments.count_singleline_python_comment,
-                )
-        elif comment_type == MULTIPLE:
+    # for filecheck, directory, expected_count, language in zip(
+    # chosen_files, directories, expected_counts, languages
+    # ):
+    if comment_type == SINGLE:
+        if language == JAVA:
             met_or_exceeded_count = entities.entity_greater_than_count(
                 filecheck,
                 directory,
                 expected_count,
-                comments.count_multiline_java_comment,
+                comments.count_singleline_java_comment,
             )
-
-        was_exceeded_list.append(met_or_exceeded_count)
-        print(
-            "Did ",
-            filecheck,
-            " in ",
-            directory,
-            " have at least ",
-            expected_count,
-            " ",
-            comment_type,
-            " comments in the ",
-            language,
-            " format? ",
-            util.get_human_answer(met_or_exceeded_count),
-            sep="",
+        if language == PYTHON:
+            met_or_exceeded_count = entities.entity_greater_than_count(
+                filecheck,
+                directory,
+                expected_count,
+                comments.count_singleline_python_comment,
+            )
+    elif comment_type == MULTIPLE:
+        met_or_exceeded_count = entities.entity_greater_than_count(
+            filecheck, directory, expected_count, comments.count_multiline_java_comment
         )
+
+    was_exceeded_list.append(met_or_exceeded_count)
+    print(
+        "Did ",
+        filecheck,
+        " in ",
+        directory,
+        " have at least ",
+        expected_count,
+        " ",
+        comment_type,
+        " comments in the ",
+        language,
+        " format? ",
+        util.get_human_answer(met_or_exceeded_count),
+        sep="",
+    )
 
     print()
     print("... Done checking for", comment_type, "comments")
