@@ -106,6 +106,8 @@ def test_module_argument_not_verifiable_syserror(chosen_arguments, capsys):
         (["--command", "run this command", "--file", "f"]),
         (["--command", "run this command", "--file", "f", "--directory", "D"]),
         (["--file", "f", "--directory", "D", "--executes"]),
+        (["--file", "f", "--directory", "D", "--multicomments", "2"]),
+        (["--file", "f", "--directory", "D", "--singlecomments", "2"]),
         (["--file", "f", "--directory", "D", "--multicomments", "2", "--executes"]),
         (["--file", "f", "--directory", "D", "--singlecomments", "2", "--executes"]),
         (["--nowelcome", "--command", "run", "--paragraphs", "3"]),
@@ -142,8 +144,45 @@ def test_invalid_argument_combinations_not_accepted(chosen_arguments):
     "chosen_arguments",
     [
         (["--nowelcome", "--directory", "D", "--file", "f", "--exists"]),
-        (["--nowelcome", "--directory", "D", "--file", "f", "--singlecomments", "2"]),
-        (["--nowelcome", "--directory", "D", "--file", "f", "--multicomments", "2"]),
+        (
+            [
+                "--nowelcome",
+                "--directory",
+                "D",
+                "--file",
+                "f",
+                "--singlecomments",
+                "2",
+                "--language",
+                "Java",
+            ]
+        ),
+        (
+            [
+                "--nowelcome",
+                "--directory",
+                "D",
+                "--file",
+                "f",
+                "--singlecomments",
+                "2",
+                "--language",
+                "Java",
+            ]
+        ),
+        (
+            [
+                "--nowelcome",
+                "--directory",
+                "D",
+                "--file",
+                "f",
+                "--multicomments",
+                "2",
+                "--language",
+                "Java",
+            ]
+        ),
         (["--nowelcome", "--directory", "D", "--file", "f", "--paragraphs", "2"]),
         (["--nowelcome", "--directory", "D", "--file", "f", "--words", "100"]),
         (["--nowelcome", "--directory", "D", "--file", "f", "--sentences", "100"]),
