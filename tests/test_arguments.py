@@ -340,6 +340,8 @@ def test_is_not_valid_file_not_valid_words_wrong(chosen_arguments):
         (["--file", "F", "--language", "Python"]),
         (["--directory", "D", "--file", "F", "--language", "Java"]),
         (["--directory", "D", "--file", "F", "--language", "Python"]),
+        (["--directory", "D", "--file", "F", "--fragment", "it", "--fragmentcount", "2", "--language", "Java"]),
+        (["--directory", "D", "--file", "F", "--fragment", "it", "--fragmentcount", "2", "--language", "Python"]),
     ],
 )
 def test_is_not_valid_language_combinations_wrong(chosen_arguments):
