@@ -88,14 +88,17 @@ def parse(args):
     gg_parser.add_argument("--fragment", type=str)
     gg_parser.add_argument("--fragmentcount", type=int)
 
-    # }}}
+    # specify that the comment checks are for a certain language
+    # CORRECT WHEN: user provides file and directory along with this argument
+    gg_parser.add_argument("--language", type=str, choices=[JAVA, PYTHON])
 
-    gg_parser.add_argument("--languages", nargs="+", type=str)
+    # }}}
 
     gg_parser.add_argument("--outputlines", nargs="+", type=int)
 
     gg_parser.add_argument("--commits", type=int)
 
+    # call argparse's parse_args function and return result
     gg_arguments_finished = gg_parser.parse_args(args)
     return gg_arguments_finished
 
