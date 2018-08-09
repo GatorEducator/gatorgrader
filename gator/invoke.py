@@ -73,7 +73,9 @@ def invoke_all_comment_checks(
     print()
     was_exceeded_list = []
     met_or_exceeded_count = 0
+    # check single-lie comments
     if comment_type == SINGLE:
+        # check comments in Java
         if language == JAVA:
             met_or_exceeded_count = entities.entity_greater_than_count(
                 filecheck,
@@ -214,28 +216,26 @@ def invoke_all_fragment_checks(chosen_files, directories, fragments, expected_co
     return was_exceeded_list
 
 
-def invoke_all_command_checks(commands, expected_counts):
-    """Repeatedly perform the check and return the results"""
+def invoke_all_command_checks(command, expected_count):
+    """Repeatedly perform the command check and return the results"""
     print("Checking the output of commands ...")
     print()
     was_exactly_equal_list = []
     was_exactly_count = 0
-    for command, expected_count in zip(commands, expected_counts):
-        was_exactly_count = run.specified_command_output_equals_count(
-            command, expected_count
-        )
-
-        was_exactly_equal_list.append(was_exactly_count)
-        print(
-            "Did the command '",
-            command,
-            "' produce exactly ",
-            expected_count,
-            " lines of output? ",
-            util.get_human_answer(was_exactly_count),
-            sep="",
-        )
-
+    # for command, expected_count in zip(commands, expected_counts):
+    was_exactly_count = run.specified_command_output_equals_count(
+        command, expected_count
+    )
+    was_exactly_equal_list.append(was_exactly_count)
+    print(
+        "Did the command '",
+        command,
+        "' produce exactly ",
+        expected_count,
+        " lines of output? ",
+        util.get_human_answer(was_exactly_count),
+        sep="",
+    )
     print()
     print("... Done checking the output of commands")
     return was_exactly_equal_list
