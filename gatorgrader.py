@@ -43,9 +43,12 @@ if __name__ == "__main__":
         check_return_values = []
         # CHECK: all of the files exist in their directory
         if gg_arguments.directory is not None and gg_arguments.file is not None:
-            current_invoke_return_values = invoke.invoke_all_file_in_directory_checks(
+            current_invoke_return_value = invoke.invoke_file_in_directory_check(
                 gg_arguments.file, gg_arguments.directory
             )
+            # take the single return value and include it in a list for tracking
+            current_invoke_return_values = []
+            current_invoke_return_values.append(current_invoke_return_value)
             check_return_values.extend(current_invoke_return_values)
             # CHECK: Java code contains 'k' single-line comments
             if gg_arguments.singlecomments is not None:
