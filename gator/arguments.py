@@ -32,6 +32,10 @@ def parse(args):
     # CORRECT WHEN: user provides this argument but not a file or directory
     gg_parser.add_argument("--command", type=str, help="Specify a command to run")
 
+    # specify a check for the number of commits in the Git repository
+    # CORRECT WHEN: user provides this argument but not any other main arguments
+    gg_parser.add_argument("--commits", type=int)
+
     # }}}
 
     # Ancillary Arguments {{{
@@ -96,8 +100,6 @@ def parse(args):
 
     gg_parser.add_argument("--outputlines", nargs="+", type=int)
 
-    gg_parser.add_argument("--commits", type=int)
-
     # call argparse's parse_args function and return result
     gg_arguments_finished = gg_parser.parse_args(args)
     return gg_arguments_finished
@@ -137,8 +139,15 @@ def is_valid_file_or_directory(args):
 
 
 def is_valid_command(args):
-    """Checks if it is a valid commands specification"""
+    """Checks if it is a valid command specification"""
     if args.command is not None:
+        return True
+    return False
+
+
+def is_valid_commits(args):
+    """Checks if it is a valid commits specification"""
+    if args.commits is not None:
         return True
     return False
 
@@ -157,7 +166,7 @@ def is_valid_exists(args, skip=False):
 
 
 def is_valid_comments(args, skip=False):
-    """Checks if it is a valid comment specification"""
+    """Checks if it is a valid comments specification"""
     if is_valid_file_and_directory(args) or skip:
         if args.singlecomments is not None or args.multicomments is not None:
             return True
@@ -246,7 +255,9 @@ def verify(args):
     # both a file and a directory were specified and a command is not given
     # pylint: disable=bad-continuation
     if is_valid_file_and_directory(args) and (
-        not is_command_ancillary(args) and not is_valid_command(args)
+        not is_command_ancillary(args)
+        and not is_valid_command(args)
+        and not is_valid_commits(args)
     ):
         # VERIFIED: correct check for existence of a file in a directory
         if is_valid_exists(args):
@@ -267,7 +278,9 @@ def verify(args):
     # no file or directory details were specified and a command given
     # pylint: disable=bad-continuation
     elif is_valid_command(args) and (
-        not is_valid_file_or_directory(args) and not is_file_ancillary(args)
+        not is_valid_file_or_directory(args)
+        and not is_file_ancillary(args)
+        and not is_valid_commits(args)
     ):
         # VERIFIED: correct check for existence of a file in a directory
         if is_valid_executes(args):
@@ -275,6 +288,17 @@ def verify(args):
         # VERIFIED: correct check for fragments in a file in a directory
         elif is_valid_fragment(args):
             verified_arguments = True
+    # TOP-LEVEL VERIFIED:
+    # no file or directory details were specified or a command given
+    # and the argument is a request to check the count of Git commits
+    # pylint: disable=bad-continuation
+    elif is_valid_commits(args) and (
+        not is_valid_file_or_directory(args)
+        and not is_file_ancillary(args)
+        and not is_valid_command(args)
+        and not is_command_ancillary(args)
+    ):
+        verified_arguments = True
     return verified_arguments
 
 
