@@ -54,7 +54,7 @@ if __name__ == "__main__":
                     gg_arguments.directories,
                     gg_arguments.singlecomments,
                     SINGLE,
-                    gg_arguments.languages,
+                    gg_arguments.language,
                 )
                 check_return_values.extend(current_invoke_return_values)
             # CHECK: Java code contains 'k' multiple-line comments
@@ -64,7 +64,7 @@ if __name__ == "__main__":
                     gg_arguments.directories,
                     gg_arguments.multicomments,
                     MULTIPLE,
-                    gg_arguments.languages,
+                    gg_arguments.language,
                 )
                 check_return_values.extend(current_invoke_return_values)
             # CHECK: Writing contains 'k' paragraphs
