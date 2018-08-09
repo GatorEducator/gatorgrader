@@ -86,7 +86,17 @@ def test_module_argument_not_verifiable_syserror(chosen_arguments, capsys):
         (["--file", "f", "--directory", "D", "--singlecomments", "2", "--executes"]),
         (["--nowelcome", "--command", "run", "--paragraphs", "3"]),
         (["--nowelcome", "--command", "run", "--paragraphs", "3", "--executes"]),
-        (["--command", "run this command", "--file", "f", "--directory", "D", "--executes"]),
+        (
+            [
+                "--command",
+                "run this command",
+                "--file",
+                "f",
+                "--directory",
+                "D",
+                "--executes",
+            ]
+        ),
         (["--file", "f", "--directory", "D", "--executes"]),
         (["--directory", "D", "--executes"]),
         (["--file", "f", "--executes"]),
@@ -412,6 +422,118 @@ def test_is_valid_comments_valid(chosen_arguments):
     """Check that valid argument combinations do not verify correctly"""
     parsed_arguments = arguments.parse(chosen_arguments)
     verified_arguments = arguments.is_valid_comments(parsed_arguments)
+    assert verified_arguments is True
+
+
+@pytest.mark.parametrize(
+    "chosen_arguments",
+    [
+        (
+            [
+                "--nowelcome",
+                "--directory",
+                "D",
+                "--file",
+                "f",
+                "--singlecomments",
+                "2",
+                "--language",
+                "Java",
+            ]
+        ),
+        (
+            [
+                "--nowelcome",
+                "--directory",
+                "D",
+                "--file",
+                "f",
+                "--multicomments",
+                "2",
+                "--language",
+                "Java",
+            ]
+        ),
+        (
+            [
+                "--nowelcome",
+                "--file",
+                "f",
+                "--directory",
+                "D",
+                "--singlecomments",
+                "2",
+                "--language",
+                "Java",
+            ]
+        ),
+        (
+            [
+                "--nowelcome",
+                "--file",
+                "f",
+                "--directory",
+                "D",
+                "--multicomments",
+                "2",
+                "--language",
+                "Java",
+            ]
+        ),
+        (
+            [
+                "--file",
+                "f",
+                "--directory",
+                "D",
+                "--singlecomments",
+                "2",
+                "--language",
+                "Java",
+            ]
+        ),
+        (
+            [
+                "--file",
+                "f",
+                "--directory",
+                "D",
+                "--multicomments",
+                "2",
+                "--language",
+                "Java",
+            ]
+        ),
+        (
+            [
+                "--directory",
+                "D",
+                "--file",
+                "F",
+                "--singlecomments",
+                "2",
+                "--language",
+                "Java",
+            ]
+        ),
+        (
+            [
+                "--directory",
+                "D",
+                "--file",
+                "F",
+                "--multicomments",
+                "2",
+                "--language",
+                "Java",
+            ]
+        ),
+    ],
+)
+def test_is_valid_comments_and_language_valid(chosen_arguments):
+    """Check that valid argument combinations do not verify correctly"""
+    parsed_arguments = arguments.parse(chosen_arguments)
+    verified_arguments = arguments.is_valid_language(parsed_arguments)
     assert verified_arguments is True
 
 
