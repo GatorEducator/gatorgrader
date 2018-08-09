@@ -98,7 +98,7 @@ def parse(args):
 
     # }}}
 
-    gg_parser.add_argument("--outputlines", nargs="+", type=int)
+    gg_parser.add_argument("--outputlines", type=int)
 
     # call argparse's parse_args function and return result
     gg_arguments_finished = gg_parser.parse_args(args)
