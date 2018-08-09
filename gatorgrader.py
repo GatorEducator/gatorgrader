@@ -73,17 +73,13 @@ if __name__ == "__main__":
             # CHECK: Writing contains 'k' paragraphs
             if gg_arguments.paragraphs is not None:
                 current_invoke_return_values = invoke.invoke_all_paragraph_checks(
-                    gg_arguments.file,
-                    gg_arguments.directory,
-                    gg_arguments.paragraphs,
+                    gg_arguments.file, gg_arguments.directory, gg_arguments.paragraphs
                 )
                 check_return_values.extend(current_invoke_return_values)
             # CHECK: Writing all paragraphs contain 'k' words
             if gg_arguments.words is not None:
                 current_invoke_return_values = invoke.invoke_all_word_count_checks(
-                    gg_arguments.file,
-                    gg_arguments.directory,
-                    gg_arguments.words,
+                    gg_arguments.file, gg_arguments.directory, gg_arguments.words
                 )
                 check_return_values.extend(current_invoke_return_values)
             # CHECK: Content contains 'k' specified fragment
@@ -100,15 +96,15 @@ if __name__ == "__main__":
                 )
                 check_return_values.extend(current_invoke_return_values)
         # CHECK: Command produces 'k' lines of output
-        elif gg_arguments.commands is not None and gg_arguments.outputlines is not None:
+        elif gg_arguments.command is not None and gg_arguments.outputlines is not None:
             current_invoke_return_values = invoke.invoke_all_command_checks(
-                gg_arguments.commands, gg_arguments.outputlines
+                gg_arguments.command, gg_arguments.outputlines
             )
             check_return_values.extend(current_invoke_return_values)
         # CHECK: Command produces lines of output with the specified fragment
-        elif gg_arguments.commands is not None and gg_arguments.fragment is not None:
+        elif gg_arguments.command is not None and gg_arguments.fragment is not None:
             current_invoke_return_values = invoke.invoke_all_command_fragment_checks(
-                gg_arguments.commands, gg_arguments.fragment
+                gg_arguments.command, gg_arguments.fragment
             )
             check_return_values.extend(current_invoke_return_values)
         # CHECK: Repository contains at least 'k' commits
