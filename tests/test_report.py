@@ -8,7 +8,7 @@ from gator import report
 @pytest.fixture
 def reset_results_dictionary():
     """Reset the state of the results dictionary"""
-    report.reset_details()
+    report.reset()
 
 
 def test_create_result():

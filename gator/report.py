@@ -17,6 +17,15 @@ def create_result(check, outcome, diagnostic):
     return result_dictionary
 
 
+def reset():
+    """Reset the details dictionary"""
+    # pylint: disable=global-statement
+    global details
+    global result_count
+    details = {}
+    result_count = 0
+
+
 def add_result(check, outcome, diagnostic):
     """Add a new result to the details dictionary"""
     # pylint: disable=global-statement
@@ -44,10 +53,3 @@ def get_size():
     return len(details)
 
 
-def reset_details():
-    """Reset the details dictionary"""
-    # pylint: disable=global-statement
-    global details
-    global result_count
-    details = {}
-    result_count = 0
