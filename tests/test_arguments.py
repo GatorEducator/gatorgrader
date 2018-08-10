@@ -61,7 +61,7 @@ def test_arguments_verified(verifiable_gg_args):
                 "D",
                 "--file",
                 "f",
-                "--singlecomments",
+                "--single",
                 "2",
                 "--language",
                 "JavaScript",
@@ -73,7 +73,7 @@ def test_arguments_verified(verifiable_gg_args):
                 "D",
                 "--file",
                 "f",
-                "--multicomments",
+                "--multiple",
                 "2",
                 "--language",
                 "JavaScript",
@@ -106,10 +106,10 @@ def test_module_argument_not_verifiable_syserror(chosen_arguments, capsys):
         (["--command", "run this command", "--file", "f"]),
         (["--command", "run this command", "--file", "f", "--directory", "D"]),
         (["--file", "f", "--directory", "D", "--executes"]),
-        (["--file", "f", "--directory", "D", "--multicomments", "2"]),
-        (["--file", "f", "--directory", "D", "--singlecomments", "2"]),
-        (["--file", "f", "--directory", "D", "--multicomments", "2", "--executes"]),
-        (["--file", "f", "--directory", "D", "--singlecomments", "2", "--executes"]),
+        (["--file", "f", "--directory", "D", "--multiple", "2"]),
+        (["--file", "f", "--directory", "D", "--single", "2"]),
+        (["--file", "f", "--directory", "D", "--multiple", "2", "--executes"]),
+        (["--file", "f", "--directory", "D", "--single", "2", "--executes"]),
         (["--nowelcome", "--command", "run", "--paragraphs", "3"]),
         (["--nowelcome", "--command", "run", "--paragraphs", "3", "--executes"]),
         (
@@ -153,7 +153,7 @@ def test_invalid_argument_combinations_not_accepted(chosen_arguments):
                 "D",
                 "--file",
                 "f",
-                "--singlecomments",
+                "--single",
                 "2",
                 "--language",
                 "Java",
@@ -166,7 +166,7 @@ def test_invalid_argument_combinations_not_accepted(chosen_arguments):
                 "D",
                 "--file",
                 "f",
-                "--singlecomments",
+                "--single",
                 "2",
                 "--language",
                 "Java",
@@ -179,7 +179,7 @@ def test_invalid_argument_combinations_not_accepted(chosen_arguments):
                 "D",
                 "--file",
                 "f",
-                "--multicomments",
+                "--multiple",
                 "2",
                 "--language",
                 "Java",
@@ -187,7 +187,6 @@ def test_invalid_argument_combinations_not_accepted(chosen_arguments):
         ),
         (["--nowelcome", "--directory", "D", "--file", "f", "--paragraphs", "2"]),
         (["--nowelcome", "--directory", "D", "--file", "f", "--words", "100"]),
-        (["--nowelcome", "--directory", "D", "--file", "f", "--sentences", "100"]),
         (["--nowelcome", "--command", "run", "--executes"]),
         (
             [
@@ -196,7 +195,7 @@ def test_invalid_argument_combinations_not_accepted(chosen_arguments):
                 "run",
                 "--fragment",
                 "hi",
-                "--fragmentcount",
+                "--count",
                 "2",
             ]
         ),
@@ -209,7 +208,7 @@ def test_invalid_argument_combinations_not_accepted(chosen_arguments):
                 "f",
                 "--fragment",
                 "hi",
-                "--fragmentcount",
+                "--count",
                 "2",
             ]
         ),
@@ -236,7 +235,7 @@ def test_valid_argument_combinations_accepted(chosen_arguments):
                 "D",
                 "--file",
                 "f",
-                "--multicomments",
+                "--multiple",
                 "2",
                 "--command",
                 "run",
@@ -249,7 +248,7 @@ def test_valid_argument_combinations_accepted(chosen_arguments):
                 "D",
                 "--file",
                 "f",
-                "--singlecomments",
+                "--single",
                 "2",
                 "--command",
                 "run",
@@ -333,14 +332,14 @@ def test_is_valid_file_or_directory_not_valid(chosen_arguments):
     "chosen_arguments",
     [
         (["--nowelcome"]),
-        (["--nowelcome", "--directory", "D", "--singlecomments", "2"]),
-        (["--nowelcome", "--directory", "D", "--multicomments", "1"]),
-        (["--directory", "D", "--singlecomments", "2"]),
-        (["--directory", "D", "--multicomments", "3"]),
-        (["--nowelcome", "--file", "F", "--singlecomments", "1"]),
-        (["--nowelcome", "--file", "F", "--multicomments", "2"]),
-        (["--file", "F", "--singlecomments", "1"]),
-        (["--file", "F", "--multicomments", "1"]),
+        (["--nowelcome", "--directory", "D", "--single", "2"]),
+        (["--nowelcome", "--directory", "D", "--multiple", "1"]),
+        (["--directory", "D", "--single", "2"]),
+        (["--directory", "D", "--multiple", "3"]),
+        (["--nowelcome", "--file", "F", "--single", "1"]),
+        (["--nowelcome", "--file", "F", "--multiple", "2"]),
+        (["--file", "F", "--single", "1"]),
+        (["--file", "F", "--multiple", "1"]),
         (["--directory", "D", "--file", "F", "--paragraphs", "1"]),
         (["--directory", "D", "--file", "F", "--words", "1"]),
     ],
@@ -360,8 +359,8 @@ def test_is_not_valid_file_not_valid_comments_wrong(chosen_arguments):
         (["--directory", "D", "--paragraphs", "2"]),
         (["--nowelcome", "--file", "F", "--paragraphs", "1"]),
         (["--file", "F", "--paragraphs", "1"]),
-        (["--directory", "D", "--file", "F", "--singlecomments", "1"]),
-        (["--directory", "D", "--file", "F", "--multicomments", "1"]),
+        (["--directory", "D", "--file", "F", "--single", "1"]),
+        (["--directory", "D", "--file", "F", "--multiple", "1"]),
         (["--directory", "D", "--file", "F", "--words", "1"]),
     ],
 )
@@ -380,8 +379,8 @@ def test_is_not_valid_file_not_valid_paragraphs_wrong(chosen_arguments):
         (["--directory", "D", "--words", "2"]),
         (["--nowelcome", "--file", "F", "--words", "1"]),
         (["--file", "F", "--words", "1"]),
-        (["--directory", "D", "--file", "F", "--singlecomments", "1"]),
-        (["--directory", "D", "--file", "F", "--multicomments", "1"]),
+        (["--directory", "D", "--file", "F", "--single", "1"]),
+        (["--directory", "D", "--file", "F", "--multiple", "1"]),
         (["--directory", "D", "--file", "F", "--paragraphs", "1"]),
     ],
 )
@@ -413,7 +412,7 @@ def test_is_not_valid_file_not_valid_words_wrong(chosen_arguments):
                 "F",
                 "--fragment",
                 "it",
-                "--fragmentcount",
+                "--count",
                 "2",
                 "--language",
                 "Java",
@@ -427,7 +426,7 @@ def test_is_not_valid_file_not_valid_words_wrong(chosen_arguments):
                 "F",
                 "--fragment",
                 "it",
-                "--fragmentcount",
+                "--count",
                 "2",
                 "--language",
                 "Python",
@@ -447,9 +446,9 @@ def test_is_not_valid_language_combinations_wrong(chosen_arguments):
     [
         (["--nowelcome"]),
         (["--nowelcome", "--directory", "D", "--file", "f", "--fragment", "it"]),
-        (["--nowelcome", "--directory", "D", "--file", "f", "--fragmentcount", "2"]),
+        (["--nowelcome", "--directory", "D", "--file", "f", "--count", "2"]),
         (["--nowelcome", "--command", "run", "--fragment", "it"]),
-        (["--nowelcome", "--command", "run", "--fragmentcount", "2"]),
+        (["--nowelcome", "--command", "run", "--count", "2"]),
     ],
 )
 def test_is_invalid_fragment_with_file_or_command(chosen_arguments):
@@ -464,15 +463,15 @@ def test_is_invalid_fragment_with_file_or_command(chosen_arguments):
     [
         (["--nowelcome", "--command", "run", "--paragraphs", "3"]),
         (["--nowelcome", "--command", "run", "--words", "3"]),
-        (["--nowelcome", "--command", "run", "--singlecomments", "3"]),
-        (["--nowelcome", "--command", "run", "--multicomments", "3"]),
+        (["--nowelcome", "--command", "run", "--single", "3"]),
+        (["--nowelcome", "--command", "run", "--multiple", "3"]),
     ],
 )
 def test_is_not_command_ancillary(chosen_arguments):
     """Check that file ancillary detection verifies correctly"""
     parsed_arguments = arguments.parse(chosen_arguments)
     # note that this function is only checking for the presence
-    # of the ancillary arguments like fragment and fragmentcount
+    # of the ancillary arguments like fragment and count
     verified_arguments = arguments.is_command_ancillary(parsed_arguments)
     assert verified_arguments is False
 
@@ -503,14 +502,14 @@ def test_is_valid_file_valid(chosen_arguments):
 @pytest.mark.parametrize(
     "chosen_arguments",
     [
-        (["--nowelcome", "--directory", "D", "--file", "f", "--singlecomments", "2"]),
-        (["--nowelcome", "--directory", "D", "--file", "f", "--multicomments", "2"]),
-        (["--nowelcome", "--file", "f", "--directory", "D", "--singlecomments", "2"]),
-        (["--nowelcome", "--file", "f", "--directory", "D", "--multicomments", "2"]),
-        (["--file", "f", "--directory", "D", "--singlecomments", "2"]),
-        (["--file", "f", "--directory", "D", "--multicomments", "2"]),
-        (["--directory", "D", "--file", "F", "--singlecomments", "2"]),
-        (["--directory", "D", "--file", "F", "--multicomments", "2"]),
+        (["--nowelcome", "--directory", "D", "--file", "f", "--single", "2"]),
+        (["--nowelcome", "--directory", "D", "--file", "f", "--multiple", "2"]),
+        (["--nowelcome", "--file", "f", "--directory", "D", "--single", "2"]),
+        (["--nowelcome", "--file", "f", "--directory", "D", "--multiple", "2"]),
+        (["--file", "f", "--directory", "D", "--single", "2"]),
+        (["--file", "f", "--directory", "D", "--multiple", "2"]),
+        (["--directory", "D", "--file", "F", "--single", "2"]),
+        (["--directory", "D", "--file", "F", "--multiple", "2"]),
     ],
 )
 def test_is_valid_comments_valid(chosen_arguments):
@@ -530,7 +529,7 @@ def test_is_valid_comments_valid(chosen_arguments):
                 "D",
                 "--file",
                 "f",
-                "--singlecomments",
+                "--single",
                 "2",
                 "--language",
                 "Java",
@@ -543,7 +542,7 @@ def test_is_valid_comments_valid(chosen_arguments):
                 "D",
                 "--file",
                 "f",
-                "--multicomments",
+                "--multiple",
                 "2",
                 "--language",
                 "Java",
@@ -556,7 +555,7 @@ def test_is_valid_comments_valid(chosen_arguments):
                 "f",
                 "--directory",
                 "D",
-                "--singlecomments",
+                "--single",
                 "2",
                 "--language",
                 "Java",
@@ -569,7 +568,7 @@ def test_is_valid_comments_valid(chosen_arguments):
                 "f",
                 "--directory",
                 "D",
-                "--multicomments",
+                "--multiple",
                 "2",
                 "--language",
                 "Java",
@@ -581,7 +580,7 @@ def test_is_valid_comments_valid(chosen_arguments):
                 "f",
                 "--directory",
                 "D",
-                "--singlecomments",
+                "--single",
                 "2",
                 "--language",
                 "Java",
@@ -593,7 +592,7 @@ def test_is_valid_comments_valid(chosen_arguments):
                 "f",
                 "--directory",
                 "D",
-                "--multicomments",
+                "--multiple",
                 "2",
                 "--language",
                 "Java",
@@ -605,7 +604,7 @@ def test_is_valid_comments_valid(chosen_arguments):
                 "D",
                 "--file",
                 "F",
-                "--singlecomments",
+                "--single",
                 "2",
                 "--language",
                 "Java",
@@ -617,7 +616,7 @@ def test_is_valid_comments_valid(chosen_arguments):
                 "D",
                 "--file",
                 "F",
-                "--multicomments",
+                "--multiple",
                 "2",
                 "--language",
                 "Java",
@@ -669,8 +668,8 @@ def test_is_valid_words_valid(chosen_arguments):
     [
         (["--nowelcome", "--command", "run", "--paragraphs", "3"]),
         (["--nowelcome", "--command", "run", "--words", "3"]),
-        (["--nowelcome", "--command", "run", "--singlecomments", "3"]),
-        (["--nowelcome", "--command", "run", "--multicomments", "3"]),
+        (["--nowelcome", "--command", "run", "--single", "3"]),
+        (["--nowelcome", "--command", "run", "--multiple", "3"]),
     ],
 )
 def test_is_file_ancillary(chosen_arguments):
@@ -693,7 +692,7 @@ def test_is_command_ancillary(chosen_arguments):
     """Check that file ancillary detection verifies correctly"""
     parsed_arguments = arguments.parse(chosen_arguments)
     # note that this function is only checking for the presence
-    # of the ancillary arguments like fragment and fragmentcount
+    # of the ancillary arguments like fragment and count
     verified_arguments = arguments.is_command_ancillary(parsed_arguments)
     assert verified_arguments is True
 
@@ -710,7 +709,7 @@ def test_is_command_ancillary(chosen_arguments):
                 "f",
                 "--fragment",
                 "it",
-                "--fragmentcount",
+                "--count",
                 "2",
             ]
         ),
@@ -721,7 +720,7 @@ def test_is_command_ancillary(chosen_arguments):
                 "D",
                 "--file",
                 "f",
-                "--fragmentcount",
+                "--count",
                 "2",
                 "--fragment",
                 "it",
@@ -734,7 +733,7 @@ def test_is_command_ancillary(chosen_arguments):
                 "run",
                 "--fragment",
                 "it",
-                "--fragmentcount",
+                "--count",
                 "2",
             ]
         ),
@@ -743,7 +742,7 @@ def test_is_command_ancillary(chosen_arguments):
                 "--nowelcome",
                 "--command",
                 "run",
-                "--fragmentcount",
+                "--count",
                 "2",
                 "--fragment",
                 "it",
