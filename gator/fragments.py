@@ -21,18 +21,15 @@ def is_paragraph(candidate):
     """Determines if a writing candidate is a paragraph"""
     # remove whitespace surrounding candidate paragraph
     candidate = candidate.strip()
-
     # if the paragraph is a markdown header, it is not a paragraph
     if candidate.startswith(SECTION_MARKER):
         return False
     # if the paragraph is a fenced code block, it is not a paragraph
     if candidate.startswith(CODE_FENCE_MARKER):
         return False
-
     # there may be other edge cases that should be added here in the
     # future -- what other structures look like paragraphs but should
     # not be?
-
     # if nothing has returned by now, the candidate must be a paragraph
     return True
 

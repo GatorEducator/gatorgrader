@@ -2,8 +2,8 @@
 
 import sys
 
-import argparse
-
+from gator import arguments
+from gator import display
 from gator import invoke
 from gator import leave
 
@@ -21,164 +21,87 @@ MULTIPLE = "multiple-line"
 REPOSITORY = "."
 
 
-def parse_gatorgrader_arguments(args):
-    """Parses the arguments provided on the command-line"""
-    gg_parser = argparse.ArgumentParser(
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
-    )
-
-    gg_parser.add_argument(
-        "--nowelcome", help="Do not display the welcome message", action="store_true"
-    )
-
-    gg_parser.add_argument("--checkfiles", nargs="+", type=str)
-    gg_parser.add_argument("--directories", nargs="+", type=str)
-
-    gg_parser.add_argument("--singlecomments", nargs="+", type=int)
-
-    gg_parser.add_argument("--multicomments", nargs="+", type=int)
-
-    gg_parser.add_argument("--paragraphs", nargs="+", type=int)
-    gg_parser.add_argument(
-        "--wordcount", "--sentences", nargs="+", type=int, dest="wordcount"
-    )
-
-    gg_parser.add_argument("--fragments", nargs="+", type=str)
-    gg_parser.add_argument("--fragmentcounts", nargs="+", type=int)
-
-    gg_parser.add_argument("--languages", nargs="+", type=str)
-
-    gg_parser.add_argument("--commands", nargs="+", type=str)
-    gg_parser.add_argument("--outputlines", nargs="+", type=int)
-
-    gg_parser.add_argument("--commits", type=int)
-
-    gg_arguments_finished = gg_parser.parse_args(args)
-    return gg_arguments_finished
-
-
-def verify_gatorgrader_arguments(args):
-    """Checks if the arguments are correct"""
-    verified_arguments = True
-    # TODO: This verification is not complete and/or incorrect
-    if args.checkfiles is not None and args.directories is None:
-        verified_arguments = False
-    elif args.directories is not None and args.checkfiles is None:
-        verified_arguments = False
-    elif args.directories is not None and args.checkfiles is not None:
-        if len(args.directories) != len(args.checkfiles):
-            verified_arguments = False
-    elif args.singlecomments is not None:
-        if args.checkfiles is None or args.directories is None:
-            verified_arguments = False
-    elif args.multicomments is not None:
-        if args.checkfiles is None or args.directories is None:
-            verified_arguments = False
-    elif args.paragraphs is not None:
-        if args.checkfiles is None or args.directories is None:
-            verified_arguments = False
-    elif args.wordcount is not None:
-        if args.checkfiles is None or args.directories is None:
-            verified_arguments = False
-    elif args.fragments is None and args.fragmentcounts is not None:
-        verified_arguments = False
-    return verified_arguments
-
-
-def display_welcome_message():
-    """Display a welcome message"""
-    print()
-    print("GatorGrader: Automatically Check the Files of Programmers and Writers")
-    print("https://github.com/gkapfham/gatorgrader")
-    print()
-
-
-def display_checking_message():
-    """Display the checking message"""
-    print("Valid command-line arguments.")
-    print("Running the specified checks!")
-    print()
-
-
 if __name__ == "__main__":
     # parse and verify the arguments
-    gg_arguments = parse_gatorgrader_arguments(sys.argv[1:])
-    did_verify_arguments = verify_gatorgrader_arguments(gg_arguments)
+    gg_arguments = arguments.parse(sys.argv[1:])
+    did_verify_arguments = arguments.verify(gg_arguments)
     # incorrect arguments, exit program
     if did_verify_arguments is False:
-        print("Incorrect command-line arguments.")
+        # still permitted to display messages
+        if gg_arguments.nowelcome is not True:
+            display.welcome_message()
+        # display incorrect arguments message
+        display.incorrect_message()
+        # exit given that arguments are wrong
         sys.exit(INCORRECT_ARGUMENTS)
     # correct arguments, so perform the checks
     else:
+        # still permitted to display messages
         if gg_arguments.nowelcome is not True:
-            display_welcome_message()
-            display_checking_message()
+            display.welcome_message()
+            display.checking_message()
         check_return_values = []
-        # CHECK: all of the files exist in their directories
-        if gg_arguments.directories is not None and gg_arguments.checkfiles is not None:
-            current_invoke_return_values = invoke.invoke_all_file_in_directory_checks(
-                gg_arguments.checkfiles, gg_arguments.directories
+        # CHECK: all of the files exist in their directory
+        if gg_arguments.directory is not None and gg_arguments.file is not None:
+            current_invoke_return_value = invoke.invoke_file_in_directory_check(
+                gg_arguments.file, gg_arguments.directory
             )
+            # take the single return value and include it in a list for tracking
+            current_invoke_return_values = []
+            current_invoke_return_values.append(current_invoke_return_value)
             check_return_values.extend(current_invoke_return_values)
             # CHECK: Java code contains 'k' single-line comments
-            if gg_arguments.singlecomments is not None:
+            if gg_arguments.single is not None:
                 current_invoke_return_values = invoke.invoke_all_comment_checks(
-                    gg_arguments.checkfiles,
-                    gg_arguments.directories,
-                    gg_arguments.singlecomments,
+                    gg_arguments.file,
+                    gg_arguments.directory,
+                    gg_arguments.single,
                     SINGLE,
-                    gg_arguments.languages,
+                    gg_arguments.language,
                 )
                 check_return_values.extend(current_invoke_return_values)
             # CHECK: Java code contains 'k' multiple-line comments
-            if gg_arguments.multicomments is not None:
+            if gg_arguments.multiple is not None:
                 current_invoke_return_values = invoke.invoke_all_comment_checks(
-                    gg_arguments.checkfiles,
-                    gg_arguments.directories,
-                    gg_arguments.multicomments,
+                    gg_arguments.file,
+                    gg_arguments.directory,
+                    gg_arguments.multiple,
                     MULTIPLE,
-                    gg_arguments.languages,
+                    gg_arguments.language,
                 )
                 check_return_values.extend(current_invoke_return_values)
             # CHECK: Writing contains 'k' paragraphs
             if gg_arguments.paragraphs is not None:
                 current_invoke_return_values = invoke.invoke_all_paragraph_checks(
-                    gg_arguments.checkfiles,
-                    gg_arguments.directories,
-                    gg_arguments.paragraphs,
+                    gg_arguments.file, gg_arguments.directory, gg_arguments.paragraphs
                 )
                 check_return_values.extend(current_invoke_return_values)
             # CHECK: Writing all paragraphs contain 'k' words
-            if gg_arguments.wordcount is not None:
+            if gg_arguments.words is not None:
                 current_invoke_return_values = invoke.invoke_all_word_count_checks(
-                    gg_arguments.checkfiles,
-                    gg_arguments.directories,
-                    gg_arguments.wordcount,
+                    gg_arguments.file, gg_arguments.directory, gg_arguments.words
                 )
                 check_return_values.extend(current_invoke_return_values)
-            # CHECK: Content contains 'k' specified fragments
+            # CHECK: Content contains 'k' specified fragment
             # pylint: disable=bad-continuation
-            if (
-                gg_arguments.fragments is not None
-                and gg_arguments.fragmentcounts is not None
-            ):
+            if gg_arguments.fragment is not None and gg_arguments.count is not None:
                 current_invoke_return_values = invoke.invoke_all_fragment_checks(
-                    gg_arguments.checkfiles,
-                    gg_arguments.directories,
-                    gg_arguments.fragments,
-                    gg_arguments.fragmentcounts,
+                    gg_arguments.file,
+                    gg_arguments.directory,
+                    gg_arguments.fragment,
+                    gg_arguments.count,
                 )
                 check_return_values.extend(current_invoke_return_values)
         # CHECK: Command produces 'k' lines of output
-        elif gg_arguments.commands is not None and gg_arguments.outputlines is not None:
+        elif gg_arguments.command is not None and gg_arguments.outputlines is not None:
             current_invoke_return_values = invoke.invoke_all_command_checks(
-                gg_arguments.commands, gg_arguments.outputlines
+                gg_arguments.command, gg_arguments.outputlines
             )
             check_return_values.extend(current_invoke_return_values)
         # CHECK: Command produces lines of output with the specified fragment
-        elif gg_arguments.commands is not None and gg_arguments.fragments is not None:
+        elif gg_arguments.command is not None and gg_arguments.fragment is not None:
             current_invoke_return_values = invoke.invoke_all_command_fragment_checks(
-                gg_arguments.commands, gg_arguments.fragments
+                gg_arguments.command, gg_arguments.fragment
             )
             check_return_values.extend(current_invoke_return_values)
         # CHECK: Repository contains at least 'k' commits
