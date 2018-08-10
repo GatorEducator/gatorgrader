@@ -11,7 +11,7 @@ def test_create_result():
     assert new_result[report.DIAGNOSTIC] == ""
 
 
-def test_add_single_row_to_report():
+def test_add_single_result_to_report():
     """Add a single row to the report and check for containment"""
     identifier, new_result = report.add_result("Command executes", True, "")
     assert identifier == 0
