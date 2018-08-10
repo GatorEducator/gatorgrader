@@ -16,7 +16,7 @@ def parse(args):
     # do not display the welcome message
     # CORRECT WHEN: always, only changes output on screen
     gg_parser.add_argument(
-        "--nowelcome", help="Do not display the welcome message", action="store_true"
+        "--nowelcome", help="do not display the welcome message", action="store_true"
     )
 
     # Top-Level Arguments {{{
@@ -24,17 +24,17 @@ def parse(args):
     # specify a single file and a single directory
     # CORRECT WHEN: user provides both of these
     gg_parser.add_argument(
-        "--directory", type=str, help="Specify the directory with files for checking"
+        "--directory", type=str, help="directory with files for checking"
     )
-    gg_parser.add_argument("--file", type=str, help="Specify the file for checking")
+    gg_parser.add_argument("--file", type=str, help="file for checking")
 
     # specify a command to run for checking
     # CORRECT WHEN: user provides this argument but not a file or directory
-    gg_parser.add_argument("--command", type=str, help="Specify a command to run")
+    gg_parser.add_argument("--command", type=str, help="command to run")
 
     # specify a check for the number of commits in the Git repository
     # CORRECT WHEN: user provides this argument but not any other main arguments
-    gg_parser.add_argument("--commits", type=int)
+    gg_parser.add_argument("--commits", type=int, help="number of git commits")
 
     # }}}
 
@@ -43,54 +43,48 @@ def parse(args):
     # do not display the welcome message
     # CORRECT WHEN: user provides file and directory along with this argument
     gg_parser.add_argument(
-        "--exists",
-        help="Determine whether or not a file in a directory exists",
-        action="store_true",
+        "--exists", help="does a file in a directory exists", action="store_true"
     )
 
     # specify a check on single-line comments
     # CORRECT WHEN: user provides file and directory along with this argument
     gg_parser.add_argument(
-        "--singlecomments",
-        type=int,
-        help="Specify a minimum number of single-line comments",
+        "--singlecomments", type=int, help="minimum number of single-line comments"
     )
 
     # specify a check on multiple-line comments
     # CORRECT WHEN: user provides file and directory along with this argument
     gg_parser.add_argument(
-        "--multicomments",
-        type=int,
-        help="Specify a minimum number of multiple-line comments",
+        "--multicomments", type=int, help="minimum number of multi-line comments"
     )
 
     # specify a check on paragraphs
     # CORRECT WHEN: user provides file and directory along with this argument
-    gg_parser.add_argument(
-        "--paragraphs", help="Specify a minimum number of paragraphs"
-    )
+    gg_parser.add_argument("--paragraphs", help="minimum number of paragraphs")
 
     # specify a check on words
     # note that sentences are no longer supported so, a "dest" given
     # CORRECT WHEN: user provides file and directory along with this argument
     gg_parser.add_argument(
-        "--words", "--sentences", dest="words", help="Specify a minimum number of words"
+        "--words", "--sentences", dest="words", help="minimum number of words"
     )
 
     # execute the specified command
     # CORRECT WHEN: user provides a command to run along with this argument
     gg_parser.add_argument(
-        "--executes",
-        help="Determine whether or not a command executes without error",
-        action="store_true",
+        "--executes", help="does a command execute without error", action="store_true"
     )
 
     # specify a check on fragments
     # CORRECT WHEN: user provides file and directory along with this argument
     # or
     # CORRECT WHEN: user provides a command along with this argument
-    gg_parser.add_argument("--fragment", type=str)
-    gg_parser.add_argument("--fragmentcount", type=int)
+    gg_parser.add_argument(
+        "--fragment", type=str, help="fragment that exists in code or output"
+    )
+    gg_parser.add_argument(
+        "--fragmentcount", type=int, help="how many of a fragment should exist"
+    )
 
     # specify that the comment checks are for a certain language
     # CORRECT WHEN: user provides file and directory along with this argument
