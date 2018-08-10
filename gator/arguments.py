@@ -24,7 +24,7 @@ def parse(args):
     # specify a single file and a single directory
     # CORRECT WHEN: user provides both of these
     gg_parser.add_argument(
-        "--directory", type=str, help="directory with files for checking"
+        "--directory", type=str, metavar="DIR", help="directory with file for checking"
     )
     gg_parser.add_argument("--file", type=str, help="file for checking")
 
@@ -49,25 +49,31 @@ def parse(args):
     # specify a check on single-line comments
     # CORRECT WHEN: user provides file and directory along with this argument
     gg_parser.add_argument(
-        "--singlecomments", type=int, help="minimum number of single-line comments"
+        "--singlecomments",
+        type=int,
+        metavar="COUNT",
+        help="minimum number of single comments",
     )
 
     # specify a check on multiple-line comments
     # CORRECT WHEN: user provides file and directory along with this argument
     gg_parser.add_argument(
-        "--multicomments", type=int, help="minimum number of multi-line comments"
+        "--multicomments",
+        type=int,
+        metavar="COUNT",
+        help="minimum number of multi comments",
     )
 
     # specify a check on paragraphs
     # CORRECT WHEN: user provides file and directory along with this argument
-    gg_parser.add_argument("--paragraphs", help="minimum number of paragraphs")
+    gg_parser.add_argument(
+        "--paragraphs", metavar="COUNT", help="minimum number of paragraphs"
+    )
 
     # specify a check on words
     # note that sentences are no longer supported so, a "dest" given
     # CORRECT WHEN: user provides file and directory along with this argument
-    gg_parser.add_argument(
-        "--words", "--sentences", dest="words", help="minimum number of words"
-    )
+    gg_parser.add_argument("--words", help="minimum number of words")
 
     # execute the specified command
     # CORRECT WHEN: user provides a command to run along with this argument
@@ -83,12 +89,20 @@ def parse(args):
         "--fragment", type=str, help="fragment that exists in code or output"
     )
     gg_parser.add_argument(
-        "--fragmentcount", type=int, help="how many of a fragment should exist"
+        "--fragmentcount",
+        type=int,
+        metavar="COUNT",
+        help="how many of a fragment should exist",
     )
 
     # specify that the comment checks are for a certain language
     # CORRECT WHEN: user provides file and directory along with this argument
-    gg_parser.add_argument("--language", type=str, choices=[JAVA, PYTHON])
+    gg_parser.add_argument(
+        "--language",
+        type=str,
+        choices=[JAVA, PYTHON],
+        help="language for the single comments",
+    )
 
     # }}}
 
