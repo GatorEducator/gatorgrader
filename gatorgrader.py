@@ -84,10 +84,7 @@ if __name__ == "__main__":
                 check_return_values.extend(current_invoke_return_values)
             # CHECK: Content contains 'k' specified fragment
             # pylint: disable=bad-continuation
-            if (
-                gg_arguments.fragment is not None
-                and gg_arguments.count is not None
-            ):
+            if gg_arguments.fragment is not None and gg_arguments.count is not None:
                 current_invoke_return_values = invoke.invoke_all_fragment_checks(
                     gg_arguments.file,
                     gg_arguments.directory,
