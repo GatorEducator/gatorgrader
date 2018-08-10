@@ -18,7 +18,7 @@ def create_result(check, outcome, diagnostic):
 
 
 def reset():
-    """Reset the details dictionary"""
+    """Reset the details dictionary and the count"""
     # pylint: disable=global-statement
     global details
     global result_count
