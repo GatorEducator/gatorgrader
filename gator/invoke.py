@@ -38,7 +38,6 @@ def invoke_all_file_in_directory_checks(filecheck, directory):
     print("Checking if files are in the expected directories ...")
     print()
     was_file_found_list = []
-    # for filecheck, directory in zip(chosen_files, directories):
     was_file_found = invoke_file_in_directory_check(filecheck, directory)
     was_file_found_list.append(was_file_found)
     print()
