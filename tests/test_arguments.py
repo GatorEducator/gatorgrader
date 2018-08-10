@@ -188,17 +188,7 @@ def test_invalid_argument_combinations_not_accepted(chosen_arguments):
         (["--nowelcome", "--directory", "D", "--file", "f", "--paragraphs", "2"]),
         (["--nowelcome", "--directory", "D", "--file", "f", "--words", "100"]),
         (["--nowelcome", "--command", "run", "--executes"]),
-        (
-            [
-                "--nowelcome",
-                "--command",
-                "run",
-                "--fragment",
-                "hi",
-                "--count",
-                "2",
-            ]
-        ),
+        (["--nowelcome", "--command", "run", "--fragment", "hi", "--count", "2"]),
         (
             [
                 "--nowelcome",
@@ -574,54 +564,10 @@ def test_is_valid_comments_valid(chosen_arguments):
                 "Java",
             ]
         ),
-        (
-            [
-                "--file",
-                "f",
-                "--directory",
-                "D",
-                "--single",
-                "2",
-                "--language",
-                "Java",
-            ]
-        ),
-        (
-            [
-                "--file",
-                "f",
-                "--directory",
-                "D",
-                "--multiple",
-                "2",
-                "--language",
-                "Java",
-            ]
-        ),
-        (
-            [
-                "--directory",
-                "D",
-                "--file",
-                "F",
-                "--single",
-                "2",
-                "--language",
-                "Java",
-            ]
-        ),
-        (
-            [
-                "--directory",
-                "D",
-                "--file",
-                "F",
-                "--multiple",
-                "2",
-                "--language",
-                "Java",
-            ]
-        ),
+        (["--file", "f", "--directory", "D", "--single", "2", "--language", "Java"]),
+        (["--file", "f", "--directory", "D", "--multiple", "2", "--language", "Java"]),
+        (["--directory", "D", "--file", "F", "--single", "2", "--language", "Java"]),
+        (["--directory", "D", "--file", "F", "--multiple", "2", "--language", "Java"]),
     ],
 )
 def test_is_valid_comments_and_language_valid(chosen_arguments):
@@ -726,28 +672,8 @@ def test_is_command_ancillary(chosen_arguments):
                 "it",
             ]
         ),
-        (
-            [
-                "--nowelcome",
-                "--command",
-                "run",
-                "--fragment",
-                "it",
-                "--count",
-                "2",
-            ]
-        ),
-        (
-            [
-                "--nowelcome",
-                "--command",
-                "run",
-                "--count",
-                "2",
-                "--fragment",
-                "it",
-            ]
-        ),
+        (["--nowelcome", "--command", "run", "--fragment", "it", "--count", "2"]),
+        (["--nowelcome", "--command", "run", "--count", "2", "--fragment", "it"]),
     ],
 )
 def test_is_valid_fragment_with_file_or_command(chosen_arguments):
