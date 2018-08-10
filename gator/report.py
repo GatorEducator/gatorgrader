@@ -42,3 +42,12 @@ def get_detail(index):
 def get_size():
     """Return the size of the details dictionary"""
     return len(details)
+
+
+def reset_details():
+    """Reset the details dictionary"""
+    # pylint: disable=global-statement
+    global details
+    global result_count
+    details = {}
+    result_count = 0
