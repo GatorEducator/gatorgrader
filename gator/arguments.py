@@ -21,6 +21,10 @@ def parse(args):
 
     # Top-Level Arguments {{{
 
+    # specify a check for the number of commits in the Git repository
+    # CORRECT WHEN: user provides this argument but not any other main arguments
+    gg_parser.add_argument("--commits", type=int, help="number of git commits")
+
     # specify a single file and a single directory
     # CORRECT WHEN: user provides both of these
     gg_parser.add_argument(
@@ -39,7 +43,7 @@ def parse(args):
     # specify a check on single-line comments
     # CORRECT WHEN: user provides file and directory along with this argument
     gg_parser.add_argument(
-        "--singlecomments",
+        "--single",
         type=int,
         metavar="COUNT",
         help="minimum number of single comments",
@@ -48,7 +52,7 @@ def parse(args):
     # specify a check on multiple-line comments
     # CORRECT WHEN: user provides file and directory along with this argument
     gg_parser.add_argument(
-        "--multicomments",
+        "--multiple",
         type=int,
         metavar="COUNT",
         help="minimum number of multi comments",
@@ -71,10 +75,6 @@ def parse(args):
     # CORRECT WHEN: user provides this argument but not a file or directory
     gg_parser.add_argument("--command", type=str, help="command to run")
 
-    # specify a check for the number of commits in the Git repository
-    # CORRECT WHEN: user provides this argument but not any other main arguments
-    gg_parser.add_argument("--commits", type=int, help="number of git commits")
-
     # execute the specified command
     # CORRECT WHEN: user provides a command to run along with this argument
     gg_parser.add_argument(
@@ -89,7 +89,7 @@ def parse(args):
         "--fragment", type=str, help="fragment that exists in code or output"
     )
     gg_parser.add_argument(
-        "--fragmentcount",
+        "--count",
         type=int,
         metavar="COUNT",
         help="how many of a fragment should exist",
@@ -106,6 +106,7 @@ def parse(args):
 
     # }}}
 
+    # deprecated, will be removed and combined later
     gg_parser.add_argument("--outputlines", type=int)
 
     # call argparse's parse_args function and return result
