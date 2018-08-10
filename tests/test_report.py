@@ -18,3 +18,6 @@ def test_add_single_row_to_report():
     assert new_result is not None
     assert len(new_result) == 3
     assert report.get_size() == 1
+    assert new_result[report.CHECK] == "Command executes"
+    assert new_result[report.OUTCOME] is True
+    assert new_result[report.DIAGNOSTIC] == ""
