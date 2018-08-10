@@ -21,6 +21,7 @@ def add_result(check, outcome, diagnostic):
     """Add a new result to the details dictionary"""
     # pylint: disable=global-statement
     global result_count
+    global details
     new_result = create_result(check, outcome, diagnostic)
     details[result_count] = new_result
     new_result_count = result_count
