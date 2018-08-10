@@ -83,6 +83,7 @@ def invoke_all_comment_checks(
                 expected_count,
                 comments.count_singleline_java_comment,
             )
+        # check comments in Python
         if language == PYTHON:
             met_or_exceeded_count = entities.entity_greater_than_count(
                 filecheck,
@@ -90,11 +91,11 @@ def invoke_all_comment_checks(
                 expected_count,
                 comments.count_singleline_python_comment,
             )
+    # check multiple-line comments (only in Java)
     elif comment_type == MULTIPLE:
         met_or_exceeded_count = entities.entity_greater_than_count(
             filecheck, directory, expected_count, comments.count_multiline_java_comment
         )
-
     was_exceeded_list.append(met_or_exceeded_count)
     print(
         "Did ",
