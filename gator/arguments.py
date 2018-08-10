@@ -43,19 +43,13 @@ def parse(args):
     # specify a check on single-line comments
     # CORRECT WHEN: user provides file and directory along with this argument
     gg_parser.add_argument(
-        "--single",
-        type=int,
-        metavar="COUNT",
-        help="minimum number of single comments",
+        "--single", type=int, metavar="COUNT", help="minimum number of single comments"
     )
 
     # specify a check on multiple-line comments
     # CORRECT WHEN: user provides file and directory along with this argument
     gg_parser.add_argument(
-        "--multiple",
-        type=int,
-        metavar="COUNT",
-        help="minimum number of multi comments",
+        "--multiple", type=int, metavar="COUNT", help="minimum number of multi comments"
     )
 
     # specify a check on paragraphs
@@ -89,10 +83,7 @@ def parse(args):
         "--fragment", type=str, help="fragment that exists in code or output"
     )
     gg_parser.add_argument(
-        "--count",
-        type=int,
-        metavar="COUNT",
-        help="how many of a fragment should exist",
+        "--count", type=int, metavar="COUNT", help="how many of a fragment should exist"
     )
 
     # specify that the comment checks are for a certain language
