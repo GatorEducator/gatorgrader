@@ -24,9 +24,11 @@ def count_output_lines(output):
 
 def specified_command_output_contains_fragment(command, expected_fragment):
     """Determines if the output is exactly equal to the count"""
+    # run the command and gather the output and error details
     output, error = run_command(command)
     fragment_exists_output = 0
-    if error != EMPTY:
+    # there was no error, so process output and check for fragment
+    if error == EMPTY:
         actual_output = get_actual_output(output)
         fragment_exists_output = check_fragment_exists(expected_fragment, actual_output)
     return fragment_exists_output
