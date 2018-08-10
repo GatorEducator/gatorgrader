@@ -117,32 +117,27 @@ def invoke_all_comment_checks(
     return was_exceeded_list
 
 
-def invoke_all_paragraph_checks(chosen_files, directories, expected_counts):
-    """Repeatedly perform the check and return the results"""
+def invoke_all_paragraph_checks(filecheck, directory, expected_count):
+    """Perform the paragraph check and return the results"""
     print("Checking for paragraphs...")
     print()
     was_exceeded_list = []
     met_or_exceeded_count = 0
-    for filecheck, directory, expected_count in zip(
-        chosen_files, directories, expected_counts
-    ):
-        met_or_exceeded_count = entities.entity_greater_than_count(
-            filecheck, directory, expected_count, fragments.count_paragraphs
-        )
-
-        was_exceeded_list.append(met_or_exceeded_count)
-        print(
-            "Did ",
-            filecheck,
-            " in ",
-            directory,
-            " have at least ",
-            expected_count,
-            " paragraph(s)? ",
-            util.get_human_answer(met_or_exceeded_count),
-            sep="",
-        )
-
+    met_or_exceeded_count = entities.entity_greater_than_count(
+        filecheck, directory, expected_count, fragments.count_paragraphs
+    )
+    was_exceeded_list.append(met_or_exceeded_count)
+    print(
+        "Did ",
+        filecheck,
+        " in ",
+        directory,
+        " have at least ",
+        expected_count,
+        " paragraph(s)? ",
+        util.get_human_answer(met_or_exceeded_count),
+        sep="",
+    )
     print()
     print("... Done checking for paragraphs")
     return was_exceeded_list
