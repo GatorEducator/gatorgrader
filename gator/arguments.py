@@ -177,7 +177,7 @@ def is_valid_exists(args, skip=False):
 def is_valid_comments(args, skip=False):
     """Checks if it is a valid comments specification"""
     if is_valid_file_and_directory(args) or skip:
-        if args.singlecomments is not None or args.multicomments is not None:
+        if args.single is not None or args.multiple is not None:
             return True
     return False
 
@@ -217,7 +217,7 @@ def is_valid_executes(args, skip=False):
 def is_valid_fragment(args, skip=False):
     """Checks if it is a valid fragment specification"""
     if (is_valid_file_and_directory(args) or is_valid_command(args)) or skip:
-        if args.fragment is not None and args.fragmentcount is not None:
+        if args.fragment is not None and args.count is not None:
             return True
     return False
 
