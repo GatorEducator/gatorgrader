@@ -33,14 +33,14 @@ def invoke_commits_check(student_repository, expected_count):
     return did_check_pass
 
 
-def invoke_all_file_in_directory_checks(chosen_files, directories):
-    """Repeatedly perform the check and return the results"""
+def invoke_all_file_in_directory_checks(filecheck, directory):
+    """Perform the check for file existence and return the results"""
     print("Checking if files are in the expected directories ...")
     print()
     was_file_found_list = []
-    for filecheck, directory in zip(chosen_files, directories):
-        was_file_found = invoke_file_in_directory_check(filecheck, directory)
-        was_file_found_list.append(was_file_found)
+    # for filecheck, directory in zip(chosen_files, directories):
+    was_file_found = invoke_file_in_directory_check(filecheck, directory)
+    was_file_found_list.append(was_file_found)
     print()
     print("... Done checking if files are in the expected directories")
     return was_file_found_list
