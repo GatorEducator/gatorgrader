@@ -246,7 +246,6 @@ def invoke_all_command_fragment_checks(command, expected_fragment):
     print("Checking the output of commands ...")
     print()
     was_contained_list = []
-    # for command, expected_fragment_current in zip(commands, expected_fragment):
     was_contained = run.specified_command_output_contains_fragment(
         command, expected_fragment
     )
