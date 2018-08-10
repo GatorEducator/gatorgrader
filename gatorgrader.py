@@ -51,21 +51,21 @@ if __name__ == "__main__":
             current_invoke_return_values.append(current_invoke_return_value)
             check_return_values.extend(current_invoke_return_values)
             # CHECK: Java code contains 'k' single-line comments
-            if gg_arguments.singlecomments is not None:
+            if gg_arguments.single is not None:
                 current_invoke_return_values = invoke.invoke_all_comment_checks(
                     gg_arguments.file,
                     gg_arguments.directory,
-                    gg_arguments.singlecomments,
+                    gg_arguments.single,
                     SINGLE,
                     gg_arguments.language,
                 )
                 check_return_values.extend(current_invoke_return_values)
             # CHECK: Java code contains 'k' multiple-line comments
-            if gg_arguments.multicomments is not None:
+            if gg_arguments.multiple is not None:
                 current_invoke_return_values = invoke.invoke_all_comment_checks(
                     gg_arguments.file,
                     gg_arguments.directory,
-                    gg_arguments.multicomments,
+                    gg_arguments.multiple,
                     MULTIPLE,
                     gg_arguments.language,
                 )
@@ -86,13 +86,13 @@ if __name__ == "__main__":
             # pylint: disable=bad-continuation
             if (
                 gg_arguments.fragment is not None
-                and gg_arguments.fragmentcount is not None
+                and gg_arguments.count is not None
             ):
                 current_invoke_return_values = invoke.invoke_all_fragment_checks(
                     gg_arguments.file,
                     gg_arguments.directory,
                     gg_arguments.fragment,
-                    gg_arguments.fragmentcount,
+                    gg_arguments.count,
                 )
                 check_return_values.extend(current_invoke_return_values)
         # CHECK: Command produces 'k' lines of output
