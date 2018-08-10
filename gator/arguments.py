@@ -52,6 +52,15 @@ def parse(args):
         "--multiple", type=int, metavar="COUNT", help="minimum number of multi comments"
     )
 
+    # specify that the comment checks are for a certain language
+    # CORRECT WHEN: user provides file and directory along with this argument
+    gg_parser.add_argument(
+        "--language",
+        type=str,
+        choices=[JAVA, PYTHON],
+        help="language for the single comments",
+    )
+
     # specify a check on paragraphs
     # CORRECT WHEN: user provides file and directory along with this argument
     gg_parser.add_argument(
@@ -75,6 +84,8 @@ def parse(args):
         "--executes", help="does a command execute without error", action="store_true"
     )
 
+    # Ancillary Arguments for File or Commands {{{
+
     # specify a check on fragments
     # CORRECT WHEN: user provides file and directory along with this argument
     # or
@@ -86,14 +97,6 @@ def parse(args):
         "--count", type=int, metavar="COUNT", help="how many of a fragment should exist"
     )
 
-    # specify that the comment checks are for a certain language
-    # CORRECT WHEN: user provides file and directory along with this argument
-    gg_parser.add_argument(
-        "--language",
-        type=str,
-        choices=[JAVA, PYTHON],
-        help="language for the single comments",
-    )
 
     # }}}
 
