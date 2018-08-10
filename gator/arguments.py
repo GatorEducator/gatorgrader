@@ -28,17 +28,7 @@ def parse(args):
     )
     gg_parser.add_argument("--file", type=str, help="file for checking")
 
-    # specify a command to run for checking
-    # CORRECT WHEN: user provides this argument but not a file or directory
-    gg_parser.add_argument("--command", type=str, help="command to run")
-
-    # specify a check for the number of commits in the Git repository
-    # CORRECT WHEN: user provides this argument but not any other main arguments
-    gg_parser.add_argument("--commits", type=int, help="number of git commits")
-
-    # }}}
-
-    # Ancillary Arguments {{{
+    # Ancillary Arguments for File and Directory {{{
 
     # do not display the welcome message
     # CORRECT WHEN: user provides file and directory along with this argument
@@ -74,6 +64,16 @@ def parse(args):
     # note that sentences are no longer supported so, a "dest" given
     # CORRECT WHEN: user provides file and directory along with this argument
     gg_parser.add_argument("--words", help="minimum number of words")
+
+    # }}}
+
+    # specify a command to run for checking
+    # CORRECT WHEN: user provides this argument but not a file or directory
+    gg_parser.add_argument("--command", type=str, help="command to run")
+
+    # specify a check for the number of commits in the Git repository
+    # CORRECT WHEN: user provides this argument but not any other main arguments
+    gg_parser.add_argument("--commits", type=int, help="number of git commits")
 
     # execute the specified command
     # CORRECT WHEN: user provides a command to run along with this argument
