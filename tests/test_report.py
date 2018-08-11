@@ -98,7 +98,7 @@ def test_add_multiple_results_to_report(reset_results_dictionary):
 
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
-def test_add_single_result_to_report_check_text_output(reset_results_dictionary):
+def test_add_single_result_to_report_check_text_output_list(reset_results_dictionary):
     """Add a single row to the report and check the textual output"""
     identifier, new_result = report.add_result("Command executes", True, "")
     assert identifier == 0
@@ -167,7 +167,7 @@ def test_output_text(reset_results_dictionary):
     report.add_result("Command executes", True, "")
     report.add_result("Check for 3 paragraphs", False, "Only found 2 paragraphs")
     report.add_result("Check for 10 comments", False, "Only found 2 comments")
-    output_list = report.output(report.get_details(), report.TEXT)
+    output_list = report.output_list(report.get_details(), report.TEXT)
     assert len(output_list) == 3
     output = "\n".join(output_list)
     assert output is not None
@@ -181,7 +181,7 @@ def test_output_json(reset_results_dictionary):
     report.add_result("Command executes", True, "")
     report.add_result("Check for 3 paragraphs", False, "Only found 2 paragraphs")
     report.add_result("Check for 10 comments", False, "Only found 2 comments")
-    output_list = report.output(report.get_details(), report.JSON)
+    output_list = report.output_list(report.get_details(), report.JSON)
     assert len(output_list) == 1
     output = " ".join(output_list)
     assert output is not None
