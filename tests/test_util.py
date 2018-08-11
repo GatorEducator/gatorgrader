@@ -1,5 +1,7 @@
 """Test cases for the run module"""
 
+import os
+
 from gator import util
 
 VERIFIED = True
@@ -32,6 +34,13 @@ def test_correct_false_symbol():
 
 def test_gatorgrader_home_is_set():
     """Ensure that the gatorgrader_HOME environment variable is set"""
+    gatorgrader_home = util.get_gatorgrader_home()
+    assert gatorgrader_home is not None
+
+
+def test_gatorgrader_home_is_set_after_os_dictionary_set():
+    """Ensure that the gatorgrader_HOME environment variable is set"""
+    os.environ["GATORGRADER_HOME"] = "/home/gkapfham/working/source/gatorgrader/"
     gatorgrader_home = util.get_gatorgrader_home()
     assert gatorgrader_home is not None
 
