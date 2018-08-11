@@ -2,6 +2,8 @@
 
 import json
 
+from gator import util
+
 details = {}
 result_count = 0
 
@@ -14,6 +16,9 @@ DIAGNOSTIC = "diagnostic"
 REPORT = "report"
 TEXT = "output_text"
 JSON = "output_json"
+
+NEWLINE = "\n"
+SPACE = " "
 
 
 def create_result(check, outcome, diagnostic):
@@ -73,8 +78,25 @@ def contains_nested_dictionary(dictionary):
 def output(dictionary_result, dictionary_format=TEXT):
     """Return the output that the dictionary would produce"""
     output_function = getattr(REPORT, dictionary_format)
-    output_function(dictionary_result)
+    output_list = []
+    output_function(dictionary_result, output_list)
 
 
-def output_text(dictionary_result):
+def output_text(dictionary_result, output_list):
     """Produce output in a textual format"""
+    # the dictionary is not nested, so extract the details and form a string
+    if not contains_nested_dictionary(dictionary_result):
+        check = dictionary_result[CHECK]
+        outcome = dictionary_result[OUTCOME]
+        diagnostic = dictionary_result[DIAGNOSTIC]
+        # there is a diagnostic, so include it on the next line
+        if diagnostic is not "":
+            submitted = (
+                check + SPACE + util.get_symbol_answer(outcome) + NEWLINE + diagnostic
+            )
+        # there is no diagnostic, so do not include anything else
+        else:
+            submitted = (
+                check + SPACE + util.get_symbol_answer(outcome)
+            )
+        output_list.append(submitted)
