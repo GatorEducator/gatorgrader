@@ -35,3 +35,10 @@ def get_human_answer(boolean_value):
     if boolean_value is True:
         return "Yes"
     return "No"
+
+
+def get_symbol_answer(boolean_value):
+    """Return a symbol response for the boolean_value"""
+    if boolean_value is True:
+        return "✔"
+    return "✘"
