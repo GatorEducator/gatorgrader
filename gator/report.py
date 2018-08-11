@@ -80,12 +80,12 @@ def contains_nested_dictionary(dictionary):
     return False
 
 
-def output(dictionary_result, dictionary_format=TEXT):
-    """Return the output that the dictionary would produce"""
+def output_list(dictionary_result, dictionary_format=TEXT):
+    """Return the output list that the dictionary would produce"""
     output_function = getattr(REPORT, dictionary_format)
-    output_list = []
-    output_function(dictionary_result, output_list)
-    return output_list
+    created_output_list = []
+    output_function(dictionary_result, created_output_list)
+    return created_output_list
 
 
 def form_single_output_line(check, outcome, diagnostic):
