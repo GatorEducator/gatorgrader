@@ -1,6 +1,8 @@
 """Utility functions"""
 
+import json
 import os
+
 
 SLASH = "/"
 GATORGRADER_HOME = "GATORGRADER_HOME"
@@ -42,3 +44,12 @@ def get_symbol_answer(boolean_value):
     if boolean_value is True:
         return "✔"
     return "✘"
+
+
+def is_json(potential_json):
+    """Determines if a string is in JSON format"""
+    try:
+        json.loads(potential_json)
+    except ValueError:
+        return False
+    return True
