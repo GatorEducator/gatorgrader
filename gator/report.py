@@ -19,6 +19,7 @@ JSON = "output_json"
 
 NEWLINE = "\n"
 SPACE = " "
+EMPTY_STRING = ""
 
 
 def create_result(check, outcome, diagnostic):
@@ -82,6 +83,21 @@ def output(dictionary_result, dictionary_format=TEXT):
     output_function(dictionary_result, output_list)
 
 
+def form_single_output_line(check, outcome, diagnostic):
+    """Produce a single line of output in a textual format"""
+    # there is a diagnostic, so include it on the next line
+    if diagnostic is not EMPTY_STRING:
+        submitted = (
+            check + SPACE + util.get_symbol_answer(outcome) + NEWLINE + diagnostic
+        )
+    # there is no diagnostic, so do not include anything else
+    else:
+        submitted = (
+            check + SPACE + util.get_symbol_answer(outcome)
+        )
+    return submitted
+
+
 def output_text(dictionary_result, output_list):
     """Produce output in a textual format"""
     # the dictionary is not nested, so extract the details and form a string
@@ -89,14 +105,6 @@ def output_text(dictionary_result, output_list):
         check = dictionary_result[CHECK]
         outcome = dictionary_result[OUTCOME]
         diagnostic = dictionary_result[DIAGNOSTIC]
-        # there is a diagnostic, so include it on the next line
-        if diagnostic is not "":
-            submitted = (
-                check + SPACE + util.get_symbol_answer(outcome) + NEWLINE + diagnostic
-            )
-        # there is no diagnostic, so do not include anything else
-        else:
-            submitted = (
-                check + SPACE + util.get_symbol_answer(outcome)
-            )
+        # put the string into the output list
+        submitted = form_single_output_line(check, outcome, diagnostic)
         output_list.append(submitted)
