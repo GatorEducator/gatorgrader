@@ -18,7 +18,7 @@ def specified_command_output_equals_count(command, expected_count):
 
 
 def count_output_lines(output):
-    """ Counts the lines of program output """
+    """Counts the lines of program output"""
     return len(output)
 
 
