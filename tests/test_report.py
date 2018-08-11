@@ -158,3 +158,14 @@ def test_add_single_result_to_report_check_text_output_diagnostic_nested(
     report.output_text(report.get_details(), output_list)
     assert len(output_list) == 1
     assert "\n" in output_list[0]
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
+def test_output_text(reset_results_dictionary):
+    """Add multiple row to the report and check final output"""
+    report.add_result("Command executes", True, "")
+    report.add_result("Check for 3 paragraphs", False, "Only found 2 paragraphs")
+    report.add_result("Check for 10 comments", True, "Only found 2 comments")
+    output_list = report.output(report.get_details(), report.TEXT)
+    assert len(output_list) == 3
