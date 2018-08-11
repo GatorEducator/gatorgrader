@@ -118,7 +118,7 @@ def form_single_output_line(check, outcome, diagnostic):
     return submitted
 
 
-def output_text(dictionary_result, output_list):
+def output_text(dictionary_result, output_collector):
     """Produce output in a list-based textual format"""
     # the dictionary is not nested, so extract the details and form a string
     if not contains_nested_dictionary(dictionary_result):
@@ -127,13 +127,13 @@ def output_text(dictionary_result, output_list):
         diagnostic = dictionary_result[DIAGNOSTIC]
         # put the string into the output list
         submitted = form_single_output_line(check, outcome, diagnostic)
-        output_list.append(submitted)
+        output_collector.append(submitted)
     # dictionary is nested, so iterate through dictionaries recursively
     else:
         for nested_dictionary in dictionary_result.values():
-            output_text(nested_dictionary, output_list)
+            output_text(nested_dictionary, output_collector)
 
 
-def output_json(dictionary_result, output_list):
+def output_json(dictionary_result, output_collector):
     """Produce output in a JSON-based textual format"""
-    output_list.append(json.dumps(dictionary_result))
+    output_collector.append(json.dumps(dictionary_result))
