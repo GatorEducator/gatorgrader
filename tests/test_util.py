@@ -12,10 +12,22 @@ def test_correct_true_readable():
     assert human_value == "Yes"
 
 
+def test_correct_true_symbol():
+    """Checks to ensure that true input returns a heavy checkmark"""
+    human_value = util.get_symbol_answer(True)
+    assert human_value == "✔"
+
+
 def test_correct_false_readable():
     """Checks to ensure that false input returns no"""
     human_value = util.get_human_answer(False)
     assert human_value == "No"
+
+
+def test_correct_false_symbol():
+    """Checks to ensure that false input returns heavy x-mark"""
+    human_value = util.get_symbol_answer(False)
+    assert human_value == "✘"
 
 
 def test_gatorgrader_home_is_set():
