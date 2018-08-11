@@ -1,8 +1,11 @@
 """Stores details about a check, its status, and diagnostic information"""
 
 import json
+import sys
 
 from gator import util
+
+REPORT = sys.modules[__name__]
 
 details = {}
 result_count = 0
@@ -13,7 +16,6 @@ CHECK = "check"
 OUTCOME = "outcome"
 DIAGNOSTIC = "diagnostic"
 
-REPORT = "report"
 TEXT = "output_text"
 JSON = "output_json"
 
@@ -81,6 +83,7 @@ def output(dictionary_result, dictionary_format=TEXT):
     output_function = getattr(REPORT, dictionary_format)
     output_list = []
     output_function(dictionary_result, output_list)
+    return output_list
 
 
 def form_single_output_line(check, outcome, diagnostic):
