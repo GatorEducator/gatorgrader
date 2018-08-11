@@ -80,6 +80,15 @@ def contains_nested_dictionary(dictionary):
     return False
 
 
+def output(output_as_list):
+    """Return the output that the list would produce"""
+    if util.is_json(output_as_list[FIRST]):
+        produced_output = SPACE.join(output_as_list)
+    else:
+        produced_output = NEWLINE.join(output_as_list)
+    return produced_output
+
+
 def output_list(dictionary_result, dictionary_format=TEXT):
     """Return the output list that the dictionary would produce"""
     output_function = getattr(REPORT, dictionary_format)
