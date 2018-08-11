@@ -172,7 +172,6 @@ def test_output_text(reset_results_dictionary):
     output = "\n".join(output_list)
     assert output is not None
     assert "\n" in output
-    print(output)
 
 
 # pylint: disable=unused-argument
