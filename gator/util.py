@@ -3,7 +3,6 @@
 import json
 import os
 
-
 SLASH = "/"
 GATORGRADER_HOME = "GATORGRADER_HOME"
 
