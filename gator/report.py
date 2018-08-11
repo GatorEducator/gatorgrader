@@ -120,3 +120,8 @@ def output_text(dictionary_result, output_list):
     else:
         for nested_dictionary in dictionary_result.values():
             output_text(nested_dictionary, output_list)
+
+
+def output_json(dictionary_result, output_list):
+    """Produce output in a JSON-based textual format"""
+    output_list.append(json.dumps(dictionary_result))
