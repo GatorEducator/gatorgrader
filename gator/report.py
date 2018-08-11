@@ -23,6 +23,7 @@ ARROW = "↦"
 EMPTY_STRING = ""
 NEWLINE = "\n"
 SPACE = " "
+TAB = "   "
 
 
 def create_result(check, outcome, diagnostic):
@@ -92,10 +93,12 @@ def form_single_output_line(check, outcome, diagnostic):
     # there is a diagnostic, so include it on the next line
     if diagnostic is not EMPTY_STRING:
         submitted = (
-            check
+            util.get_symbol_answer(outcome)
             + SPACE
-            + util.get_symbol_answer(outcome)
+            + check
+            + SPACE
             + NEWLINE
+            + TAB
             + ARROW
             + SPACE
             + diagnostic
