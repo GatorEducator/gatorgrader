@@ -163,7 +163,7 @@ def test_add_single_result_to_report_check_text_output_diagnostic_nested(
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_output_text(reset_results_dictionary):
-    """Add multiple row to the report and check final output as list-based text"""
+    """Add multiple rows to the report and check final output as list-based text"""
     report.add_result("Command executes", True, "")
     report.add_result("Check for 3 paragraphs", False, "Only found 2 paragraphs")
     report.add_result("Check for 10 comments", False, "Only found 2 comments")
@@ -176,8 +176,22 @@ def test_output_text(reset_results_dictionary):
 
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
+def test_output_text_complete(reset_results_dictionary):
+    """Add multiple rows to the report and check final output as list-based text"""
+    report.add_result("Command executes", True, "")
+    report.add_result("Check for 3 paragraphs", False, "Only found 2 paragraphs")
+    report.add_result("Check for 10 comments", False, "Only found 2 comments")
+    output_list = report.output_list(report.get_details(), report.TEXT)
+    assert len(output_list) == 3
+    output = "\n".join(output_list)
+    produced_output = report.output(output_list)
+    assert output == produced_output
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
 def test_output_json(reset_results_dictionary):
-    """Add multiple row to the report and check final output as JSON-based text"""
+    """Add multiple rows to the report and check final output as JSON-based text"""
     report.add_result("Command executes", True, "")
     report.add_result("Check for 3 paragraphs", False, "Only found 2 paragraphs")
     report.add_result("Check for 10 comments", False, "Only found 2 comments")
@@ -186,3 +200,17 @@ def test_output_json(reset_results_dictionary):
     output = " ".join(output_list)
     assert output is not None
     assert "\n" not in output
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
+def test_output_json_complete(reset_results_dictionary):
+    """Add multiple row to the report and check final output as JSON-based text"""
+    report.add_result("Command executes", True, "")
+    report.add_result("Check for 3 paragraphs", False, "Only found 2 paragraphs")
+    report.add_result("Check for 10 comments", False, "Only found 2 comments")
+    output_list = report.output_list(report.get_details(), report.JSON)
+    assert len(output_list) == 1
+    output = " ".join(output_list)
+    produced_output = report.output(output_list)
+    assert output is produced_output
