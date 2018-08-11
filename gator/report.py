@@ -108,3 +108,7 @@ def output_text(dictionary_result, output_list):
         # put the string into the output list
         submitted = form_single_output_line(check, outcome, diagnostic)
         output_list.append(submitted)
+    # dictionary is nested, so iterate through dictionaries recursively
+    else:
+        for nested_dictionary in dictionary_result.values():
+            output_text(nested_dictionary, output_list)
