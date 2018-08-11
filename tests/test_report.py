@@ -120,3 +120,26 @@ def test_add_single_result_to_report_check_text_output_diagnostic(
     report.output_text(new_result, output_list)
     assert len(output_list) == 1
     assert "\n" in output_list[0]
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
+# pylint: disable=bad-continuation
+def test_add_single_result_to_report_check_text_output_diagnostic_nested(
+    reset_results_dictionary
+):
+    """Add a single row to the report and check the textual output"""
+    identifier, new_result = report.add_result(
+        "Command executes", False, "Missing trailing slash"
+    )
+    assert identifier == 0
+    assert new_result is not None
+    assert len(new_result) == 3
+    assert report.get_size() == 1
+    assert new_result[report.CHECK] == "Command executes"
+    assert new_result[report.OUTCOME] is False
+    assert new_result[report.DIAGNOSTIC] == "Missing trailing slash"
+    output_list = []
+    report.output_text(report.get_details(), output_list)
+    assert len(output_list) == 1
+    assert "\n" in output_list[0]
