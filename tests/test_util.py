@@ -1,4 +1,4 @@
-"""Test cases for the run module"""
+"""Test cases for the util module"""
 
 import json
 import os
