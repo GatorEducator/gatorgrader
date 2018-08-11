@@ -54,6 +54,21 @@ def test_add_single_result_to_report(reset_results_dictionary):
 
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
+def test_add_single_result_to_report_check_detail(reset_results_dictionary):
+    """Add a single row to the report and check get_detail"""
+    identifier, new_result = report.add_result("Command executes", True, "")
+    assert identifier == 0
+    assert new_result is not None
+    assert len(new_result) == 3
+    assert report.get_size() == 1
+    assert new_result[report.CHECK] == "Command executes"
+    assert new_result[report.OUTCOME] is True
+    assert new_result[report.DIAGNOSTIC] == ""
+    assert report.get_detail(0) is not None
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
 def test_add_multiple_results_to_report(reset_results_dictionary):
     """Add multiple row to the report and check for containment"""
     identifier, new_result = report.add_result("Command executes", True, "")
