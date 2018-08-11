@@ -107,7 +107,7 @@ def form_single_output_line(check, outcome, diagnostic):
 
 
 def output_text(dictionary_result, output_list):
-    """Produce output in a textual format"""
+    """Produce output in a list-based textual format"""
     # the dictionary is not nested, so extract the details and form a string
     if not contains_nested_dictionary(dictionary_result):
         check = dictionary_result[CHECK]
