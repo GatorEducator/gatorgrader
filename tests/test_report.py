@@ -19,6 +19,25 @@ def test_create_result():
     assert new_result[report.DIAGNOSTIC] == ""
 
 
+def test_dictionary_is_not_nested():
+    """Check to see if a dictionary contains a nested one or not"""
+    new_result = report.create_result("Command executes", True, "")
+    assert new_result[report.CHECK] == "Command executes"
+    assert new_result[report.OUTCOME] is True
+    assert new_result[report.DIAGNOSTIC] == ""
+    assert report.contains_nested_dictionary(new_result) is False
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
+def test_dictionary_is_nested(reset_results_dictionary):
+    """Add a single row to the report and check for containment"""
+    identifier, new_result = report.add_result("Command executes", True, "")
+    assert identifier == 0
+    assert report.contains_nested_dictionary(new_result) is False
+    assert report.contains_nested_dictionary(report.get_details()) is True
+
+
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_add_single_result_to_report(reset_results_dictionary):
