@@ -166,7 +166,7 @@ def test_output_text(reset_results_dictionary):
     """Add multiple row to the report and check final output as list-based text"""
     report.add_result("Command executes", True, "")
     report.add_result("Check for 3 paragraphs", False, "Only found 2 paragraphs")
-    report.add_result("Check for 10 comments", True, "Only found 2 comments")
+    report.add_result("Check for 10 comments", False, "Only found 2 comments")
     output_list = report.output(report.get_details(), report.TEXT)
     assert len(output_list) == 3
     output = "\n".join(output_list)
@@ -181,7 +181,7 @@ def test_output_json(reset_results_dictionary):
     """Add multiple row to the report and check final output as JSON-based text"""
     report.add_result("Command executes", True, "")
     report.add_result("Check for 3 paragraphs", False, "Only found 2 paragraphs")
-    report.add_result("Check for 10 comments", True, "Only found 2 comments")
+    report.add_result("Check for 10 comments", False, "Only found 2 comments")
     output_list = report.output(report.get_details(), report.JSON)
     assert len(output_list) == 1
     output = " ".join(output_list)
