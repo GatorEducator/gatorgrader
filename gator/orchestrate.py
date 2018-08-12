@@ -3,9 +3,12 @@
 import sys
 
 from gator import arguments
+from gator import run
+
 
 DISPLAY = sys.modules["gator.display"]
 ORCHESTRATE = sys.modules[__name__]
+RUN = sys.modules["gator.run"]
 
 VOID = []
 
@@ -26,7 +29,7 @@ def check_arguments(system_arguments):
         # Action: display incorrect arguments message
         actions.append([DISPLAY, "incorrect_message", VOID])
         # Action: exit the program
-        actions.append([ORCHESTRATE, "exit", [INCORRECT_ARGUMENTS]])
+        actions.append([RUN, "run_exit", [INCORRECT_ARGUMENTS]])
     return actions
 
 
@@ -51,8 +54,3 @@ def check(system_arguments):
     # Step: check the arguments
     arguments_actions = check_arguments(system_arguments)
     perform(arguments_actions)
-
-
-def exit(exit_value):
-    """Exit from the program using the provided exit value"""
-    sys.exit(exit_value)
