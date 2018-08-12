@@ -21,7 +21,7 @@ def check_arguments(system_arguments):
     if gg_arguments.nowelcome is not True:
         actions.append([DISPLAY, "welcome_message", VOID])
     did_verify_arguments = arguments.verify(gg_arguments)
-    # incorrect arguments
+    # arguments are incorrect
     if did_verify_arguments is False:
         # Action: display incorrect arguments message
         actions.append([DISPLAY, "incorrect_message", VOID])
@@ -48,6 +48,9 @@ def perform(actions):
 
 def check(system_arguments):
     """Orchestrate a full check of the specified deliverables"""
+    # Step: check the arguments
+    arguments_actions = check_arguments(system_arguments)
+    perform(arguments_actions)
 
 
 def exit(exit_value):
