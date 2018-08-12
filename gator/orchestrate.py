@@ -3,7 +3,6 @@
 import sys
 
 from gator import arguments
-from gator import display
 
 DISPLAY = sys.modules["gator.display"]
 ORCHESTRATE = sys.modules[__name__]
