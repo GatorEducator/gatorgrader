@@ -13,7 +13,7 @@ INCORRECT_ARGUMENTS = 2
 
 
 def check_arguments(system_arguments):
-    """Check the arguments returning the desired actions to perform"""
+    """Check the arguments return the desired actions to perform"""
     # parse and verify the arguments
     actions = []
     gg_arguments = arguments.parse(system_arguments)
