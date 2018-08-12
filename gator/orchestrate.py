@@ -17,14 +17,15 @@ def check_arguments(system_arguments):
     # parse and verify the arguments
     actions = []
     gg_arguments = arguments.parse(system_arguments)
+    # Action: display the welcome message
+    if gg_arguments.nowelcome is not True:
+        actions.append([DISPLAY, "welcome_message", VOID])
     did_verify_arguments = arguments.verify(gg_arguments)
     # incorrect arguments
     if did_verify_arguments is False:
-        # still permitted to display messages
-        if gg_arguments.nowelcome is not True:
-            actions.append([DISPLAY, "welcome_message", VOID])
-        # display incorrect arguments message
+        # Action: display incorrect arguments message
         actions.append([DISPLAY, "incorrect_message", VOID])
+        # Action: exit the program
         actions.append([ORCHESTRATE, "exit", [INCORRECT_ARGUMENTS]])
     return actions
 
@@ -32,6 +33,7 @@ def check_arguments(system_arguments):
 def perform(actions):
     """Perform the specified actions"""
     results = []
+    # iteratively run all of the actions in the list
     for module, function, parameters in actions:
         function_to_invoke = getattr(module, function)
         # no parameters were specified, do not pass
@@ -44,10 +46,10 @@ def perform(actions):
     return results
 
 
+def check(system_arguments):
+    """Orchestrate a full check of the specified deliverables"""
+
+
 def exit(exit_value):
     """Exit from the program using the provided exit value"""
     sys.exit(exit_value)
-
-
-def check(system_arguments):
-    """Orchestrate a full check of the specified deliverables"""
