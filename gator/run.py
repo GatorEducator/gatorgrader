@@ -1,6 +1,7 @@
 """Run a specified process"""
 
 import subprocess
+import sys
 
 BLANK_LINE = "\n"
 EMPTY = b''
@@ -62,3 +63,8 @@ def run_command(command):
     )
     output, error = process.communicate()
     return output, error
+
+
+def run_exit(exit_value):
+    """Exit from the program using the provided exit value"""
+    sys.exit(exit_value)
