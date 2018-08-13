@@ -4,7 +4,6 @@ import sys
 
 import pytest
 
-from gator import comments
 from gator import invoke
 from gator import report
 
