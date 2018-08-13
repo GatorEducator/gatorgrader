@@ -9,13 +9,13 @@ FILE_SEPARATOR = "/"
 def entity_greater_than_count(
     given_file, containing_directory, expected_count, checking_function
 ):
-    """Determines if the entity count is greater than expected"""
+    """Return count and determines if the entity count is greater than expected"""
     file_entity_count = count_entities(
         given_file, containing_directory, checking_function
     )
     if file_entity_count >= expected_count:
-        return True
-    return False
+        return True, file_entity_count
+    return False, file_entity_count
 
 
 def count_entities(given_file, containing_directory, checking_function):
