@@ -38,13 +38,17 @@ def invoke_commits_check(student_repository, expected_count):
 
 def invoke_file_in_directory_check(filecheck, directory):
     """Check to see if the file is in the directory"""
+    # get the home directory for checking and then check for file
     gatorgrader_home = util.get_gatorgrader_home()
     was_file_found = files.check_file_in_directory(
         filecheck, gatorgrader_home + directory
     )
+    # construct the message about whether or not the file exists
+    # note that no diagnostic is needed and the result is boolean
     message = (
         "The file " + filecheck + " exists in the " + directory + SPACE + "directory"
     )
+    # produce the final report and return the result
     report.add_result(message, was_file_found, NO_DIAGNOSTIC)
     return was_file_found
 
