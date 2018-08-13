@@ -14,6 +14,7 @@ MULTIPLE = "multiple-line"
 NO_DIAGNOSTIC = ""
 PYTHON = "Python"
 SINGLE = "single-line"
+SPACE = " "
 
 
 def invoke_commits_check(student_repository, expected_count):
@@ -53,15 +54,8 @@ def invoke_file_in_directory_check(filecheck, directory):
     was_file_found = files.check_file_in_directory(
         filecheck, gatorgrader_home + directory
     )
-    print(
-        "Was ",
-        filecheck,
-        " found in ",
-        directory,
-        "? ",
-        util.get_human_answer(was_file_found),
-        sep="",
-    )
+    message = "The file " + filecheck + " exists in the " + directory + SPACE + "directory"
+    report.add_result(message, was_file_found, NO_DIAGNOSTIC)
     return was_file_found
 
 
