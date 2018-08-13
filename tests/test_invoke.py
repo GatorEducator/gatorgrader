@@ -15,6 +15,7 @@ def reset_results_dictionary():
 
 
 # pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
 def test_commit_checks(reset_results_dictionary):
     """Checks to that invocation of commit check works correctly"""
     invoke.invoke_commits_check(".", sys.maxsize)
