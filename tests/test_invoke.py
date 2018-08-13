@@ -4,6 +4,7 @@ import sys
 
 import pytest
 
+from gator import comments
 from gator import invoke
 from gator import report
 
@@ -34,5 +35,25 @@ def test_file_exists_in_directory_check(reset_results_dictionary, tmpdir):
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     hello_file = "hello.txt"
     invoke.invoke_file_in_directory_check(hello_file, directory)
+    details = report.get_details()
+    assert details is not None
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
+def test_comment_counts_check_single_java(reset_results_dictionary, tmpdir):
+    """Checks to that invocation of comment counting check works correctly"""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
+    hello_file.write("//// hello world")
+    assert hello_file.read() == "//// hello world"
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
+    hello_file = "Hello.java"
+    invoke.invoke_file_in_directory_check(hello_file, directory)
+    details = report.get_details()
+    assert details is not None
+    invoke.invoke_all_comment_checks(
+        hello_file, directory, 1, "single-line", "JAVA"
+    )
     details = report.get_details()
     assert details is not None
