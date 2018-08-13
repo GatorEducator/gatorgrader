@@ -16,8 +16,8 @@ SINGLE = "single-line"
 
 def invoke_commits_check(student_repository, expected_count):
     """Check to see if the repository has more than specified commits"""
-    print("Checking for commits...")
-    print()
+    # print("Checking for commits...")
+    # print()
     did_check_pass = repository.commits_greater_than_count(
         student_repository, expected_count
     )
@@ -28,8 +28,8 @@ def invoke_commits_check(student_repository, expected_count):
         util.get_human_answer(did_check_pass),
         sep="",
     )
-    print()
-    print("... Done checking for commits")
+    # print()
+    # print("... Done checking for commits")
     return did_check_pass
 
 
