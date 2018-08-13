@@ -1,5 +1,6 @@
 """Orchestrate the checks performed on writing and source code"""
 
+import itertools
 import sys
 
 # pylint: disable=unused-import
@@ -110,20 +111,21 @@ def check(system_arguments):
     step_results = []
     check_results = []
     step_results = perform(arguments_actions)
-    check_results = check_results + step_results
+    check_results.extend(step_results)
     # Section: Perform one of these steps
     # Step: check the commit status
     actions = check_commits(gg_arguments)
     step_results = perform(actions)
-    check_results = check_results + step_results
+    check_results.extend(step_results)
     # Step: check the existence of a file
     actions = check_exists(gg_arguments)
     step_results = perform(actions)
-    check_results = check_results + step_results
+    check_results.extend(step_results)
     # Step: check the existence of single-line comments
     actions = check_single(gg_arguments)
     step_results = perform(actions)
-    check_results = check_results + step_results
+    check_results.extend(step_results)
+    print("Step results", step_results)
     # Section: Output the report
     # Only step: get the report's details, produce the output, and display it
     output_list = report.output_list(report.get_details(), report.TEXT)
