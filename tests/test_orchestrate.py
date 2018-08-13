@@ -93,7 +93,6 @@ def test_perform_actions_display_welcome_and_ready_check_commit(
     capsys, reset_results_dictionary
 ):
     """Check the argument verification, messages, and continue"""
-    # chosen_arguments = ["--directory", "D", "--file", "f", "--exists"]
     chosen_arguments = ["--commits", "33"]
     exit_code = orchestrate.check(chosen_arguments)
     captured = capsys.readouterr()
