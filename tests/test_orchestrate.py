@@ -2,8 +2,14 @@
 
 import pytest
 
-
 from gator import orchestrate
+from gator import report
+
+
+@pytest.fixture
+def reset_results_dictionary():
+    """Reset the state of the results dictionary"""
+    report.reset()
 
 
 # pylint: disable=unused-argument
@@ -13,7 +19,7 @@ def test_perform_actions_no_parameters_welcome(capsys):
     actions.append([orchestrate.DISPLAY, "welcome_message", []])
     orchestrate.perform(actions)
     captured = capsys.readouterr()
-    counted_newlines = captured.out.count('\n')
+    counted_newlines = captured.out.count("\n")
     assert "GatorGrader" in captured.out
     assert counted_newlines == 4
     assert captured.err == ""
@@ -26,7 +32,7 @@ def test_perform_actions_no_parameters_incorrect(capsys):
     actions.append([orchestrate.DISPLAY, "incorrect_message", []])
     orchestrate.perform(actions)
     captured = capsys.readouterr()
-    counted_newlines = captured.out.count('\n')
+    counted_newlines = captured.out.count("\n")
     assert "Incorrect" in captured.out
     assert counted_newlines == 2
     assert captured.err == ""
@@ -53,7 +59,7 @@ def test_perform_actions_display_welcome_and_exit_check_arguments(capsys):
     assert pytest_wrapped_e.type == SystemExit
     assert pytest_wrapped_e.value.code == 2
     captured = capsys.readouterr()
-    counted_newlines = captured.out.count('\n')
+    counted_newlines = captured.out.count("\n")
     assert "GatorGrader" in captured.out
     assert counted_newlines == 6
 
@@ -66,7 +72,7 @@ def test_perform_actions_display_welcome_and_exit_check(capsys):
     assert pytest_wrapped_e.type == SystemExit
     assert pytest_wrapped_e.value.code == 2
     captured = capsys.readouterr()
-    counted_newlines = captured.out.count('\n')
+    counted_newlines = captured.out.count("\n")
     assert "GatorGrader" in captured.out
     assert counted_newlines == 6
 
@@ -77,19 +83,22 @@ def test_perform_actions_display_welcome_and_ready_check_arguments(capsys):
     arguments, actions = orchestrate.check_arguments(chosen_arguments)
     orchestrate.perform(actions)
     captured = capsys.readouterr()
-    counted_newlines = captured.out.count('\n')
+    counted_newlines = captured.out.count("\n")
     assert arguments is not None
     assert "GatorGrader" in captured.out
     assert counted_newlines == 4
 
 
-def test_perform_actions_display_welcome_and_ready_check(capsys):
+# pylint: disable=redefined-outer-name
+def test_perform_actions_display_welcome_and_ready_check(
+    capsys, reset_results_dictionary
+):
     """Check the argument verification, messages, and continue"""
     # chosen_arguments = ["--directory", "D", "--file", "f", "--exists"]
     chosen_arguments = ["--commits", "33"]
     exit_code = orchestrate.check(chosen_arguments)
     captured = capsys.readouterr()
-    counted_newlines = captured.out.count('\n')
+    counted_newlines = captured.out.count("\n")
     assert "GatorGrader" in captured.out
     assert counted_newlines == 6
     assert exit_code == 0
