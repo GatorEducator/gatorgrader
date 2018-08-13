@@ -19,6 +19,8 @@ VOID = []
 
 INCORRECT_ARGUMENTS = 2
 
+SINGLE = "single-line"
+MULTIPLE = "multiple-line"
 REPOSITORY = "."
 
 
@@ -64,6 +66,27 @@ def check_exists(system_arguments):
     return actions
 
 
+def check_single(system_arguments):
+    """Check the existence of single-line comments in a file and return desired actions"""
+    actions = []
+    if system_arguments.single is not None:
+        "Hi!"
+        actions.append(
+            [
+                INVOKE,
+                "invoke_all_comment_checks",
+                [
+                    system_arguments.file,
+                    system_arguments.directory,
+                    system_arguments.single,
+                    SINGLE,
+                    system_arguments.language,
+                ],
+            ]
+        )
+    return actions
+
+
 def perform(actions):
     """Perform the specified actions"""
     results = []
@@ -96,6 +119,10 @@ def check(system_arguments):
     check_results = check_results + step_results
     # Step: check the existence of a file
     actions = check_exists(gg_arguments)
+    step_results = perform(actions)
+    check_results = check_results + step_results
+    # Step: check the existence of single-line comments
+    actions = check_single(gg_arguments)
     step_results = perform(actions)
     check_results = check_results + step_results
     # Section: Output the report
