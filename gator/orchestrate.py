@@ -107,9 +107,9 @@ def check(system_arguments):
     """Orchestrate a full check of the specified deliverables"""
     # Section: Initialize
     # Only step: check the arguments
-    gg_arguments, arguments_actions = check_arguments(system_arguments)
     step_results = []
     check_results = []
+    gg_arguments, arguments_actions = check_arguments(system_arguments)
     step_results = perform(arguments_actions)
     check_results.extend(step_results)
     # Section: Perform one of these checks
