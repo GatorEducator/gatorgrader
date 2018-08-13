@@ -84,8 +84,9 @@ def test_perform_actions_display_welcome_and_ready_check_arguments(capsys):
 def test_perform_actions_display_welcome_and_ready_check(capsys):
     """Check the argument verification, messages, and continue"""
     chosen_arguments = ["--directory", "D", "--file", "f", "--exists"]
-    orchestrate.check(chosen_arguments)
+    exit_code = orchestrate.check(chosen_arguments)
     captured = capsys.readouterr()
     counted_newlines = captured.out.count('\n')
     assert "GatorGrader" in captured.out
     assert counted_newlines == 4
+    assert exit_code == 0
