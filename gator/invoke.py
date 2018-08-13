@@ -58,11 +58,9 @@ def invoke_all_comment_checks(
     filecheck, directory, expected_count, comment_type, language
 ):
     """Perform the comment check and return the results"""
-    print("Checking for", comment_type, "comments...")
-    print()
     was_exceeded_list = []
     met_or_exceeded_count = 0
-    # check single-lie comments
+    # check single-line comments
     if comment_type == SINGLE:
         # check comments in Java
         if language == JAVA:
@@ -101,9 +99,6 @@ def invoke_all_comment_checks(
         util.get_human_answer(met_or_exceeded_count),
         sep="",
     )
-
-    print()
-    print("... Done checking for", comment_type, "comments")
     return was_exceeded_list
 
 
