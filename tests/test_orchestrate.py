@@ -40,7 +40,7 @@ def test_perform_actions_single_parameter_exit(capsys):
         actions.append([orchestrate.RUN, "run_exit", [orchestrate.INCORRECT_ARGUMENTS]])
         orchestrate.perform(actions)
     assert pytest_wrapped_e.type == SystemExit
-    assert pytest_wrapped_e.value.code == [2]
+    assert pytest_wrapped_e.value.code == 2
 
 
 def test_perform_actions_display_welcome_and_exit_check_arguments(capsys):
@@ -51,7 +51,7 @@ def test_perform_actions_display_welcome_and_exit_check_arguments(capsys):
         assert arguments is not None
         orchestrate.perform(actions)
     assert pytest_wrapped_e.type == SystemExit
-    assert pytest_wrapped_e.value.code == [2]
+    assert pytest_wrapped_e.value.code == 2
     captured = capsys.readouterr()
     counted_newlines = captured.out.count('\n')
     assert "GatorGrader" in captured.out
@@ -64,7 +64,7 @@ def test_perform_actions_display_welcome_and_exit_check(capsys):
     with pytest.raises(SystemExit) as pytest_wrapped_e:
         orchestrate.check(chosen_arguments)
     assert pytest_wrapped_e.type == SystemExit
-    assert pytest_wrapped_e.value.code == [2]
+    assert pytest_wrapped_e.value.code == 2
     captured = capsys.readouterr()
     counted_newlines = captured.out.count('\n')
     assert "GatorGrader" in captured.out
