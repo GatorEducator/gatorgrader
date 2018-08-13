@@ -25,11 +25,11 @@ def invoke_commits_check(student_repository, expected_count):
     # create the message and the diagnostic
     message = "Repository has at least " + str(expected_count) + " commits"
     diagnostic = "Found " + str(actual_count) + " commits in the Git repository"
-    # found at least the required number of checks
+    # found at least the required number of commits
     # do not produce a diagnostic message
     if did_check_pass:
         report.add_result(message, did_check_pass, NO_DIAGNOSTIC)
-    # did not find at least the required number of checks
+    # did not find at least the required number of commits
     # produce a diagnostic message using the actual count
     else:
         report.add_result(message, did_check_pass, diagnostic)
@@ -60,11 +60,12 @@ def invoke_all_comment_checks(
     """Perform the comment check and return the results"""
     was_exceeded_list = []
     met_or_exceeded_count = 0
+    actual_count = 0
     # check single-line comments
     if comment_type == SINGLE:
         # check comments in Java
         if language == JAVA:
-            met_or_exceeded_count = entities.entity_greater_than_count(
+            met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
                 filecheck,
                 directory,
                 expected_count,
@@ -72,7 +73,7 @@ def invoke_all_comment_checks(
             )
         # check comments in Python
         if language == PYTHON:
-            met_or_exceeded_count = entities.entity_greater_than_count(
+            met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
                 filecheck,
                 directory,
                 expected_count,
@@ -80,25 +81,32 @@ def invoke_all_comment_checks(
             )
     # check multiple-line comments (only in Java)
     elif comment_type == MULTIPLE:
-        met_or_exceeded_count = entities.entity_greater_than_count(
+        met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
             filecheck, directory, expected_count, comments.count_multiline_java_comment
         )
     was_exceeded_list.append(met_or_exceeded_count)
-    print(
-        "Did ",
-        filecheck,
-        " in ",
-        directory,
-        " have at least ",
-        expected_count,
-        " ",
-        comment_type,
-        " comments in the ",
-        language,
-        " format? ",
-        util.get_human_answer(met_or_exceeded_count),
-        sep="",
+    message = (
+        "The "
+        + filecheck
+        + " in "
+        + directory
+        + " has at least "
+        + str(expected_count)
+        + SPACE
+        + comment_type
+        + " comments in the "
+        + language
+        + " format"
     )
+    diagnostic = "Found " + str(actual_count) + " comments in the specified file"
+    # found at least the required number of comments
+    # do not produce a diagnostic message
+    if met_or_exceeded_count:
+        report.add_result(message, met_or_exceeded_count, NO_DIAGNOSTIC)
+    # did not find at least the required number of comments
+    # produce a diagnostic message using the actual count
+    else:
+        report.add_result(message, met_or_exceeded_count, diagnostic)
     return was_exceeded_list
 
 
