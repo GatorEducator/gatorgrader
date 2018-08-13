@@ -4,16 +4,20 @@ import sys
 
 # pylint: disable=unused-import
 from gator import arguments
+from gator import invoke
 from gator import leave
 from gator import run
 
 DISPLAY = sys.modules["gator.display"]
+INVOKE = sys.modules["gator.invoke"]
 ORCHESTRATE = sys.modules[__name__]
 RUN = sys.modules["gator.run"]
 
 VOID = []
 
 INCORRECT_ARGUMENTS = 2
+
+REPOSITORY = "."
 
 
 def check_arguments(system_arguments):
