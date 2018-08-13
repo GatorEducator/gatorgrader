@@ -59,18 +59,26 @@ def perform(actions):
             function_result = function_to_invoke()
         # parameters were specified, do pass
         else:
-            function_result = function_to_invoke(parameters)
+            function_result = function_to_invoke(*parameters)
         results.append(function_result)
     return results
 
 
 def check(system_arguments):
     """Orchestrate a full check of the specified deliverables"""
+    # Region: Initialize
     # Step: check the arguments
-    arguments_actions = check_arguments(system_arguments)
+    gg_arguments, arguments_actions = check_arguments(system_arguments)
+    step_results = []
     check_results = []
     step_results = perform(arguments_actions)
     check_results = check_results + step_results
+    # Region: Perform one of these steps
+    # Step: check the commit status
+    commits_actions = check_commits(gg_arguments)
+    step_results = perform(commits_actions)
+    check_results = check_results + step_results
+    # Region: Return control back to __main__ in gatorgrader
     # Done: determine the correct exit code for the checks
     correct_exit_code = leave.get_code(check_results)
     return correct_exit_code
