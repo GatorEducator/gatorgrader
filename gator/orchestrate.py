@@ -112,19 +112,17 @@ def check(system_arguments):
     check_results = []
     step_results = perform(arguments_actions)
     check_results.extend(step_results)
-    # Section: Perform one of these steps
-    # Step: check the commit status
-    actions = check_commits(gg_arguments)
-    step_results = perform(actions)
-    check_results.extend(step_results)
-    # Step: check the existence of a file
-    actions = check_exists(gg_arguments)
-    step_results = perform(actions)
-    check_results.extend(step_results)
-    # Step: check the existence of single-line comments
-    actions = check_single(gg_arguments)
-    step_results = perform(actions)
-    check_results.extend(step_results)
+    # Section: Perform one of these checks
+    checks = ["check_commits", "check_exists", "check_single"]
+    for a_check in checks:
+        # create the checking function
+        check_to_invoke = getattr(ORCHESTRATE, a_check)
+        # call the checking function and get actions
+        actions = check_to_invoke(gg_arguments)
+        # perform the actions and get results
+        step_results = perform(actions)
+        # store the results from these actions
+        check_results.extend(step_results)
     # Section: Output the report
     # Only step: get the report's details, produce the output, and display it
     output_list = report.output_list(report.get_details(), report.TEXT)
