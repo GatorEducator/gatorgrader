@@ -20,3 +20,9 @@ def incorrect_message():
     """Display a message for incorrect arguments"""
     print("Incorrect command-line arguments.")
     print()
+
+
+def message(requested_message):
+    """Display any requested message and then a newline"""
+    print(requested_message)
+    print()
