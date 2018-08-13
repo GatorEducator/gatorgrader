@@ -4,6 +4,7 @@ import sys
 
 # pylint: disable=unused-import
 from gator import arguments
+from gator import leave
 from gator import run
 
 DISPLAY = sys.modules["gator.display"]
@@ -53,4 +54,9 @@ def check(system_arguments):
     """Orchestrate a full check of the specified deliverables"""
     # Step: check the arguments
     arguments_actions = check_arguments(system_arguments)
-    perform(arguments_actions)
+    check_results = []
+    step_results = perform(arguments_actions)
+    check_results = check_results + step_results
+    # Done: determine the correct exit code for the checks
+    correct_exit_code = leave.get_code(check_results)
+    return correct_exit_code
