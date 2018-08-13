@@ -17,28 +17,19 @@ SINGLE = "single-line"
 
 def invoke_commits_check(student_repository, expected_count):
     """Check to see if the repository has more than specified commits"""
-    # print("Checking for commits...")
-    # print()
     did_check_pass, actual_count = repository.commits_greater_than_count(
         student_repository, expected_count
     )
-    
-    report.add_result(
-        "Did the repository have at least " + str(expected_count) + " commits?",
-        util.get_symbol_answer(did_check_pass),
-        "",
-    )
-
-    # print(
-    #     "Did the repository have at least ",
-    #     expected_count,
-    #     " commits? ",
-    #     util.get_human_answer(did_check_pass),
-    #     sep="",
-    # )
-
-    # print()
-    # print("... Done checking for commits")
+    message = "Repository has at least " + str(expected_count) + " commits"
+    diagnostic = "Found " + str(actual_count) + " commits in the Git repository"
+    # found at least the required number of checks
+    # do not produce a diagnostic message
+    if did_check_pass:
+        report.add_result(message, did_check_pass, "")
+    # did not find at least the required number of checks
+    # produce a diagnostic message using the actual count
+    else:
+        report.add_result(message, did_check_pass, diagnostic)
     return did_check_pass
 
 
