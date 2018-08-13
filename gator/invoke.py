@@ -11,6 +11,7 @@ from gator import util
 
 JAVA = "Java"
 MULTIPLE = "multiple-line"
+NO_DIAGNOSTIC = ""
 PYTHON = "Python"
 SINGLE = "single-line"
 
@@ -20,12 +21,13 @@ def invoke_commits_check(student_repository, expected_count):
     did_check_pass, actual_count = repository.commits_greater_than_count(
         student_repository, expected_count
     )
+    # create the message and the diagnostic
     message = "Repository has at least " + str(expected_count) + " commits"
     diagnostic = "Found " + str(actual_count) + " commits in the Git repository"
     # found at least the required number of checks
     # do not produce a diagnostic message
     if did_check_pass:
-        report.add_result(message, did_check_pass, "")
+        report.add_result(message, did_check_pass, NO_DIAGNOSTIC)
     # did not find at least the required number of checks
     # produce a diagnostic message using the actual count
     else:
