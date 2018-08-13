@@ -1,4 +1,4 @@
-"""Test cases for the comments module"""
+"""Test cases for the comments and entities modules"""
 
 import pytest
 
