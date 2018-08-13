@@ -36,7 +36,7 @@ def test_file_contains_singleline_comment_greater(tmpdir):
     hello_file.write("//// hello world")
     assert hello_file.read() == "//// hello world"
     assert len(tmpdir.listdir()) == 1
-    greater_than_count = entities.entity_greater_than_count(
+    greater_than_count, __ = entities.entity_greater_than_count(
         hello_file.basename,
         hello_file.dirname,
         1,
@@ -51,7 +51,7 @@ def test_file_contains_multiline_comment_greater(tmpdir):
     hello_file.write("/* hello world */")
     assert hello_file.read() == "/* hello world */"
     assert len(tmpdir.listdir()) == 1
-    greater_than_count = entities.entity_greater_than_count(
+    greater_than_count, __ = entities.entity_greater_than_count(
         hello_file.basename,
         hello_file.dirname,
         1,
@@ -66,7 +66,7 @@ def test_file_contains_singleline_comment_not_greater(tmpdir):
     hello_file.write("/ hello world")
     assert hello_file.read() == "/ hello world"
     assert len(tmpdir.listdir()) == 1
-    greater_than_count = entities.entity_greater_than_count(
+    greater_than_count, __ = entities.entity_greater_than_count(
         hello_file.basename,
         hello_file.dirname,
         1,
@@ -81,7 +81,7 @@ def test_file_contains_multiline_comment_not_greater(tmpdir):
     hello_file.write("/ hello world")
     assert hello_file.read() == "/ hello world"
     assert len(tmpdir.listdir()) == 1
-    greater_than_count = entities.entity_greater_than_count(
+    greater_than_count, __ = entities.entity_greater_than_count(
         hello_file.basename,
         hello_file.dirname,
         1,
