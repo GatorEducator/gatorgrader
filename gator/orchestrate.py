@@ -50,6 +50,20 @@ def check_commits(system_arguments):
     return actions
 
 
+def check_exists(system_arguments):
+    """Check the existence of a file in directory and return desired actions"""
+    actions = []
+    if system_arguments.exists is not None:
+        actions.append(
+            [
+                INVOKE,
+                "invoke_file_in_directory_check",
+                [system_arguments.file, system_arguments.directory],
+            ]
+        )
+    return actions
+
+
 def perform(actions):
     """Perform the specified actions"""
     results = []
@@ -78,6 +92,10 @@ def check(system_arguments):
     # Section: Perform one of these steps
     # Step: check the commit status
     commits_actions = check_commits(gg_arguments)
+    step_results = perform(commits_actions)
+    check_results = check_results + step_results
+    # Step: check the existence of a file
+    commits_actions = check_exists(gg_arguments)
     step_results = perform(commits_actions)
     check_results = check_results + step_results
     # Section: Output the report
