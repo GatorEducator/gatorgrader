@@ -36,18 +36,6 @@ def invoke_commits_check(student_repository, expected_count):
     return did_check_pass
 
 
-def invoke_all_file_in_directory_checks(filecheck, directory):
-    """Perform the check for file existence and return the results"""
-    print("Checking if files are in the expected directories ...")
-    print()
-    was_file_found_list = []
-    was_file_found = invoke_file_in_directory_check(filecheck, directory)
-    was_file_found_list.append(was_file_found)
-    print()
-    print("... Done checking if files are in the expected directories")
-    return was_file_found_list
-
-
 def invoke_file_in_directory_check(filecheck, directory):
     """Check to see if the file is in the directory"""
     gatorgrader_home = util.get_gatorgrader_home()
