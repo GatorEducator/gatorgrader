@@ -1,5 +1,7 @@
 """Test cases for the repository module"""
 
+import sys
+
 from gator import repository
 
 
@@ -18,3 +20,8 @@ def test_repository_not_zero_commits_extra_method():
 def test_repository_not_zero_commits_greater_than():
     """Checks to ensure that GatorGrader's repository registers"""
     assert repository.commits_greater_than_count(".", 1) is True
+
+
+def test_repository_commits_not_huge():
+    """Checks to ensure that GatorGrader's repository registers"""
+    assert repository.commits_greater_than_count(".", sys.maxsize) is False
