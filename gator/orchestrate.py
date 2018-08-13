@@ -70,7 +70,6 @@ def check_single(system_arguments):
     """Check the existence of single-line comments in a file and return desired actions"""
     actions = []
     if system_arguments.single is not None:
-        "Hi!"
         actions.append(
             [
                 INVOKE,
