@@ -47,7 +47,8 @@ def test_perform_actions_display_welcome_and_exit_check_arguments(capsys):
     """Check the argument verification, messages, and exit"""
     chosen_arguments = ["--directory", "D", "--file", "f"]
     with pytest.raises(SystemExit) as pytest_wrapped_e:
-        actions = orchestrate.check_arguments(chosen_arguments)
+        arguments, actions = orchestrate.check_arguments(chosen_arguments)
+        assert arguments is not None
         orchestrate.perform(actions)
     assert pytest_wrapped_e.type == SystemExit
     assert pytest_wrapped_e.value.code == [2]
@@ -73,10 +74,11 @@ def test_perform_actions_display_welcome_and_exit_check(capsys):
 def test_perform_actions_display_welcome_and_ready_check_arguments(capsys):
     """Check the argument verification, messages, and continue"""
     chosen_arguments = ["--directory", "D", "--file", "f", "--exists"]
-    actions = orchestrate.check_arguments(chosen_arguments)
+    arguments, actions = orchestrate.check_arguments(chosen_arguments)
     orchestrate.perform(actions)
     captured = capsys.readouterr()
     counted_newlines = captured.out.count('\n')
+    assert arguments is not None
     assert "GatorGrader" in captured.out
     assert counted_newlines == 4
 
