@@ -4,7 +4,7 @@ import subprocess
 import sys
 
 BLANK_LINE = "\n"
-EMPTY = b''
+EMPTY = b""
 
 
 def specified_command_output_equals_count(command, expected_count):

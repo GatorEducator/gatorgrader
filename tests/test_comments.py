@@ -13,9 +13,7 @@ def test_file_contains_singleline_comment_count(tmpdir):
     assert hello_file.read() == "//// hello world"
     assert len(tmpdir.listdir()) == 1
     comment_count = entities.count_entities(
-        hello_file.basename,
-        hello_file.dirname,
-        comments.count_singleline_java_comment,
+        hello_file.basename, hello_file.dirname, comments.count_singleline_java_comment
     )
     assert comment_count == 1
 
@@ -27,9 +25,7 @@ def test_file_contains_multiline_comment_count(tmpdir):
     assert hello_file.read() == "/* hello world */"
     assert len(tmpdir.listdir()) == 1
     comment_count = entities.count_entities(
-        hello_file.basename,
-        hello_file.dirname,
-        comments.count_multiline_java_comment,
+        hello_file.basename, hello_file.dirname, comments.count_multiline_java_comment
     )
     assert comment_count == 1
 
@@ -118,10 +114,7 @@ def test_file_contains_multiline_comment_not_greater(tmpdir):
 )
 def test_singleline_comments_zero_or_one(code_string, expected_count):
     """Check that it finds zero or one single-line comments"""
-    assert (
-        comments.count_singleline_java_comment(code_string)
-        == expected_count
-    )
+    assert comments.count_singleline_java_comment(code_string) == expected_count
 
 
 @pytest.mark.parametrize(
@@ -148,10 +141,7 @@ def test_singleline_comments_zero_or_one(code_string, expected_count):
 )
 def test_singleline_comments_zero_or_one_python(code_string, expected_count):
     """Checks that it finds zero or one Python comments"""
-    assert (
-        comments.count_singleline_python_comment(code_string)
-        == expected_count
-    )
+    assert comments.count_singleline_python_comment(code_string) == expected_count
 
 
 @pytest.mark.parametrize(
@@ -176,10 +166,7 @@ def test_singleline_comments_zero_or_one_python(code_string, expected_count):
 )
 def test_singleline_comments_many(code_string, expected_count):
     """Checks that it finds many singleline comments"""
-    assert (
-        comments.count_singleline_java_comment(code_string)
-        == expected_count
-    )
+    assert comments.count_singleline_java_comment(code_string) == expected_count
 
 
 @pytest.mark.parametrize(
@@ -204,10 +191,7 @@ def test_singleline_comments_many(code_string, expected_count):
 )
 def test_singleline_comments_many_python(code_string, expected_count):
     """Checks that it finds many singleline comments"""
-    assert (
-        comments.count_singleline_python_comment(code_string)
-        == expected_count
-    )
+    assert comments.count_singleline_python_comment(code_string) == expected_count
 
 
 @pytest.mark.parametrize(
@@ -237,9 +221,7 @@ def test_singleline_comments_many_python(code_string, expected_count):
 )
 def test_multiline_comments_zero_or_one(code_string, expected_count):
     """Checks that it finds zero or one multiline comments"""
-    assert (
-        comments.count_multiline_java_comment(code_string) == expected_count
-    )
+    assert comments.count_multiline_java_comment(code_string) == expected_count
 
 
 @pytest.mark.parametrize(
@@ -256,9 +238,7 @@ def test_multiline_comments_zero_or_one(code_string, expected_count):
 )
 def test_multiline_comments_two(code_string, expected_count):
     """Checks that it has two or more multiline comments"""
-    assert (
-        comments.count_multiline_java_comment(code_string) == expected_count
-    )
+    assert comments.count_multiline_java_comment(code_string) == expected_count
 
 
 @pytest.mark.parametrize(
@@ -273,9 +253,7 @@ def test_multiline_comments_two(code_string, expected_count):
 )
 def test_multiline_comments_mixed(code_string, expected_count):
     """Checks that it can find multiline comments in mixtures"""
-    assert (
-        comments.count_multiline_java_comment(code_string) == expected_count
-    )
+    assert comments.count_multiline_java_comment(code_string) == expected_count
 
 
 @pytest.mark.parametrize(
@@ -289,7 +267,4 @@ def test_multiline_comments_mixed(code_string, expected_count):
 )
 def test_singleline_comments_mixed(code_string, expected_count):
     """Checks that it can find singleline comments in mixtures"""
-    assert (
-        comments.count_singleline_java_comment(code_string)
-        == expected_count
-    )
+    assert comments.count_singleline_java_comment(code_string) == expected_count
