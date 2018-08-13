@@ -94,9 +94,9 @@ def invoke_all_comment_checks(
         + str(expected_count)
         + SPACE
         + comment_type
-        + " comments in the "
+        + SPACE
         + language
-        + " format"
+        + " comments"
     )
     diagnostic = "Found " + str(actual_count) + " comments in the specified file"
     # found at least the required number of comments
