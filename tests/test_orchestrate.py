@@ -12,7 +12,6 @@ def reset_results_dictionary():
     report.reset()
 
 
-# pylint: disable=unused-argument
 def test_perform_actions_no_parameters_welcome(capsys):
     """Check to see if perform can invoke welcome action with no parameters"""
     actions = []
@@ -25,7 +24,6 @@ def test_perform_actions_no_parameters_welcome(capsys):
     assert captured.err == ""
 
 
-# pylint: disable=unused-argument
 def test_perform_actions_no_parameters_incorrect(capsys):
     """Check to see if perform can invoke welcome action with no parameters"""
     actions = []
@@ -90,6 +88,7 @@ def test_perform_actions_display_welcome_and_ready_check_arguments(capsys):
 
 
 # pylint: disable=redefined-outer-name
+# pylint: disable=bad-continuation
 def test_perform_actions_display_welcome_and_ready_check(
     capsys, reset_results_dictionary
 ):
