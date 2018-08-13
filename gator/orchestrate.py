@@ -35,6 +35,16 @@ def check_arguments(system_arguments):
         actions.append([DISPLAY, "incorrect_message", VOID])
         # Action: exit the program
         actions.append([RUN, "run_exit", [INCORRECT_ARGUMENTS]])
+    return gg_arguments, actions
+
+
+def check_commits(system_arguments):
+    """Check the commits to the git repository and return desired actions"""
+    actions = []
+    if system_arguments.commits is not None:
+        actions.append(
+            [INVOKE, "invoke_commits_check", [REPOSITORY, system_arguments.commits]]
+        )
     return actions
 
 
