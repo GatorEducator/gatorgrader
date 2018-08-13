@@ -4,6 +4,7 @@ from gator import comments
 from gator import entities
 from gator import files
 from gator import fragments
+from gator import report
 from gator import repository
 from gator import run
 from gator import util
@@ -18,16 +19,24 @@ def invoke_commits_check(student_repository, expected_count):
     """Check to see if the repository has more than specified commits"""
     # print("Checking for commits...")
     # print()
-    did_check_pass = repository.commits_greater_than_count(
+    did_check_pass, actual_count = repository.commits_greater_than_count(
         student_repository, expected_count
     )
-    print(
-        "Did the repository have at least ",
-        expected_count,
-        " commits? ",
-        util.get_human_answer(did_check_pass),
-        sep="",
+    
+    report.add_result(
+        "Did the repository have at least " + str(expected_count) + " commits?",
+        util.get_symbol_answer(did_check_pass),
+        "",
     )
+
+    # print(
+    #     "Did the repository have at least ",
+    #     expected_count,
+    #     " commits? ",
+    #     util.get_human_answer(did_check_pass),
+    #     sep="",
+    # )
+
     # print()
     # print("... Done checking for commits")
     return did_check_pass
