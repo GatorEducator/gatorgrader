@@ -25,5 +25,5 @@ def test_repository_not_zero_commits_greater_than():
 
 def test_repository_commits_not_huge():
     """Checks to ensure that GatorGrader's repository registers"""
-    valid, __ = repository.commits_greater_than_count(".", 1)
-    assert valid is True
+    valid, __ = repository.commits_greater_than_count(".", sys.maxsize)
+    assert valid is False
