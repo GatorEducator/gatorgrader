@@ -4,8 +4,10 @@ import sys
 
 # pylint: disable=unused-import
 from gator import arguments
+from gator import display
 from gator import invoke
 from gator import leave
+from gator import report
 from gator import run
 
 DISPLAY = sys.modules["gator.display"]
@@ -66,19 +68,24 @@ def perform(actions):
 
 def check(system_arguments):
     """Orchestrate a full check of the specified deliverables"""
-    # Region: Initialize
-    # Step: check the arguments
+    # Section: Initialize
+    # Only step: check the arguments
     gg_arguments, arguments_actions = check_arguments(system_arguments)
     step_results = []
     check_results = []
     step_results = perform(arguments_actions)
     check_results = check_results + step_results
-    # Region: Perform one of these steps
+    # Section: Perform one of these steps
     # Step: check the commit status
     commits_actions = check_commits(gg_arguments)
     step_results = perform(commits_actions)
     check_results = check_results + step_results
-    # Region: Return control back to __main__ in gatorgrader
-    # Done: determine the correct exit code for the checks
+    # Section: Output the report
+    # Only step: get the report's details, produce the output, and display it
+    output_list = report.output_list(report.get_details(), report.TEXT)
+    produced_output = report.output(output_list)
+    display.message(produced_output)
+    # Section: Return control back to __main__ in gatorgrader
+    # Only step: determine the correct exit code for the checks
     correct_exit_code = leave.get_code(check_results)
     return correct_exit_code
