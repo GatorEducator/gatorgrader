@@ -58,7 +58,6 @@ def invoke_all_comment_checks(
     filecheck, directory, expected_count, comment_type, language
 ):
     """Perform the comment check and return the results"""
-    was_exceeded_list = []
     met_or_exceeded_count = 0
     actual_count = 0
     # check single-line comments
@@ -84,7 +83,6 @@ def invoke_all_comment_checks(
         met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
             filecheck, directory, expected_count, comments.count_multiline_java_comment
         )
-    was_exceeded_list.append(met_or_exceeded_count)
     message = (
         "The "
         + filecheck
@@ -107,7 +105,7 @@ def invoke_all_comment_checks(
     # produce a diagnostic message using the actual count
     else:
         report.add_result(message, met_or_exceeded_count, diagnostic)
-    return was_exceeded_list
+    return met_or_exceeded_count
 
 
 def invoke_all_paragraph_checks(filecheck, directory, expected_count):
