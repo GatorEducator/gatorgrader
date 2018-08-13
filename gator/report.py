@@ -19,7 +19,7 @@ DIAGNOSTIC = "diagnostic"
 TEXT = "output_text"
 JSON = "output_json"
 
-ARROW = "↦"
+ARROW = "🠆"
 EMPTY_STRING = ""
 NEWLINE = "\n"
 SPACE = " "
