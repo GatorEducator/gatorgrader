@@ -54,7 +54,6 @@ def test_file_exists_in_directory_check_paragraphs(reset_results_dictionary, tmp
     invoke.invoke_all_paragraph_checks(reflection_file, directory, 200)
     details = report.get_details()
     assert details is not None
-    print(details)
 
 
 # pylint: disable=unused-argument
