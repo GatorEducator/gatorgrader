@@ -1,6 +1,5 @@
 """Orchestrate the checks performed on writing and source code"""
 
-import itertools
 import sys
 
 # pylint: disable=unused-import
