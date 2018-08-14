@@ -64,13 +64,13 @@ def parse(args):
     # specify a check on paragraphs
     # CORRECT WHEN: user provides file and directory along with this argument
     gg_parser.add_argument(
-        "--paragraphs", metavar="COUNT", help="minimum number of paragraphs"
+        "--paragraphs", metavar="COUNT", type=int, help="minimum number of paragraphs"
     )
 
     # specify a check on words
     # note that sentences are no longer supported so, a "dest" given
     # CORRECT WHEN: user provides file and directory along with this argument
-    gg_parser.add_argument("--words", help="minimum number of words")
+    gg_parser.add_argument("--words", type=int, help="minimum number of words")
 
     # }}}
 
