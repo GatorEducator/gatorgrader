@@ -145,3 +145,18 @@ def test_perform_actions_display_welcome_and_ready_check_comments_mult(
     assert "GatorGrader" in captured.out
     assert counted_newlines == 7
     assert exit_code == 1
+
+
+# pylint: disable=redefined-outer-name
+# pylint: disable=bad-continuation
+def test_perform_actions_display_welcome_and_ready_check_paragraphs(
+    capsys, reset_results_dictionary
+):
+    """Check the argument verification, messages, and continue"""
+    chosen_arguments = ["--directory", "D", "--file", "f", "--paragraphs", "2"]
+    exit_code = orchestrate.check(chosen_arguments)
+    captured = capsys.readouterr()
+    counted_newlines = captured.out.count("\n")
+    assert "GatorGrader" in captured.out
+    assert counted_newlines == 7
+    assert exit_code == 1
