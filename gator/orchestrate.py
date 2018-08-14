@@ -107,6 +107,24 @@ def check_multiple(system_arguments):
     return actions
 
 
+def check_paragraphs(system_arguments):
+    """Check the existence of paragraphs in a file and return desired actions"""
+    actions = []
+    if system_arguments.paragraphs is not None:
+        actions.append(
+            [
+                INVOKE,
+                "invoke_all_paragraph_checks",
+                [
+                    system_arguments.file,
+                    system_arguments.directory,
+                    system_arguments.paragraphs,
+                ],
+            ]
+        )
+    return actions
+
+
 def perform(actions):
     """Perform the specified actions"""
     results = []
@@ -133,7 +151,13 @@ def check(system_arguments):
     step_results = perform(arguments_actions)
     check_results.extend(step_results)
     # Section: Perform one of these checks
-    checks = ["check_commits", "check_exists", "check_single", "check_multiple"]
+    checks = [
+        "check_commits",
+        "check_exists",
+        "check_single",
+        "check_multiple",
+        "check_paragraphs",
+    ]
     for a_check in checks:
         # create the checking function
         check_to_invoke = getattr(ORCHESTRATE, a_check)
