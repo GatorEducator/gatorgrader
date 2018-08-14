@@ -40,6 +40,25 @@ def test_file_exists_in_directory_check(reset_results_dictionary, tmpdir):
 
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
+def test_file_exists_in_directory_check_paragraphs(reset_results_dictionary, tmpdir):
+    """Checks that the checking of paragraphs works correctly"""
+    reflection_file = tmpdir.mkdir("sub").join("reflection.md")
+    reflection_file.write("hello world 44\n\nhi\n\nff!$@name\n\n^^44")
+    assert reflection_file.read() == "hello world 44\n\nhi\n\nff!$@name\n\n^^44"
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
+    reflection_file = "reflection.md"
+    invoke.invoke_all_paragraph_checks(reflection_file, directory, 4)
+    details = report.get_details()
+    assert details is not None
+    invoke.invoke_all_paragraph_checks(reflection_file, directory, 200)
+    details = report.get_details()
+    assert details is not None
+    print(details)
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
 def test_comment_counts_check_single_java(reset_results_dictionary, tmpdir):
     """Checks to that invocation of comment counting check works correctly"""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
