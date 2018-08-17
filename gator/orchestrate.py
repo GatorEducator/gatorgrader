@@ -156,6 +156,7 @@ def check(system_arguments):
         "check_single",
         "check_multiple",
         "check_paragraphs",
+        "check_words",
     ]
     for a_check in checks:
         # create the checking function
