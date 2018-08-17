@@ -13,7 +13,10 @@ PARAGRAH_RE = r"(.+?\n\n|.+?$)"
 SECTION_MARKER = "#"
 CODE_FENCE_MARKER = "```"
 GATORGRADER_REPLACEMENT = "GATORGRADER_REPLACEMENT"
+
 NEWLINE = "\n"
+NOTHING = ""
+SPACE = " "
 DOUBLE_NEWLINE = NEWLINE * 2
 
 
@@ -38,10 +41,10 @@ def get_paragraphs(contents, blank_replace=True):
     """Retrieves the paragraphs in the writing"""
     # use a replacement to handle a string with just spaces
     if blank_replace is True:
-        contents = contents.replace(" ", "")
+        contents = contents.replace(SPACE, NOTHING)
     # replace a single newline with a blank space, respecting double newlines
     contents = contents.replace(DOUBLE_NEWLINE, GATORGRADER_REPLACEMENT)
-    contents = contents.replace(NEWLINE, " ")
+    contents = contents.replace(NEWLINE, SPACE)
     contents = contents.replace(GATORGRADER_REPLACEMENT, DOUBLE_NEWLINE)
     pattern = re.compile(PARAGRAH_RE)
     paragraphs = pattern.findall(contents)
@@ -61,15 +64,15 @@ def count_paragraphs(contents):
 
 
 def count_words(contents):
-    """Counts the number of words in the writing"""
+    """Counts the minimum number of words across all paragraphs in writing"""
     # retrieve all of the paragraphs in the contents
     replace_blank_inputs = False
     paragraphs = get_paragraphs(contents, replace_blank_inputs)
     # count all of the words in each paragraph
     word_counts = []
     for para in paragraphs:
-        para = para.replace("\n", " ")
-        words = "".join(ch if ch.isalnum() else " " for ch in para).split()
+        para = para.replace(NEWLINE, SPACE)
+        words = NOTHING.join(ch if ch.isalnum() else SPACE for ch in para).split()
         word_counts.append(len(words))
     if word_counts:
         return min(word_counts)
