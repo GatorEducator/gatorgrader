@@ -123,7 +123,16 @@ def test_perform_actions_display_welcome_and_ready_check_comments_single(
     capsys, reset_results_dictionary
 ):
     """Check the argument verification, messages, and continue"""
-    chosen_arguments = ["--directory", "D", "--file", "f", "--single", "2", "--language", "Java"]
+    chosen_arguments = [
+        "--directory",
+        "D",
+        "--file",
+        "f",
+        "--single",
+        "2",
+        "--language",
+        "Java",
+    ]
     exit_code = orchestrate.check(chosen_arguments)
     captured = capsys.readouterr()
     counted_newlines = captured.out.count("\n")
@@ -138,7 +147,16 @@ def test_perform_actions_display_welcome_and_ready_check_comments_mult(
     capsys, reset_results_dictionary
 ):
     """Check the argument verification, messages, and continue"""
-    chosen_arguments = ["--directory", "D", "--file", "f", "--multiple", "2", "--language", "Java"]
+    chosen_arguments = [
+        "--directory",
+        "D",
+        "--file",
+        "f",
+        "--multiple",
+        "2",
+        "--language",
+        "Java",
+    ]
     exit_code = orchestrate.check(chosen_arguments)
     captured = capsys.readouterr()
     counted_newlines = captured.out.count("\n")

@@ -70,7 +70,9 @@ def parse(args):
     # specify a check on words
     # note that sentences are no longer supported so, a "dest" given
     # CORRECT WHEN: user provides file and directory along with this argument
-    gg_parser.add_argument("--words", type=int, help="minimum number of words in paragraphs")
+    gg_parser.add_argument(
+        "--words", type=int, help="minimum number of words in paragraphs"
+    )
 
     # }}}
 
