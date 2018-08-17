@@ -23,8 +23,8 @@ def invoke_commits_check(student_repository, expected_count):
         student_repository, expected_count
     )
     # create the message and the diagnostic
-    message = "Repository has at least " + str(expected_count) + " commits"
-    diagnostic = "Found " + str(actual_count) + " commits in the Git repository"
+    message = "Repository has at least " + str(expected_count) + " commit(s)"
+    diagnostic = "Found " + str(actual_count) + " commit(s) in the Git repository"
     # found at least the required number of commits
     # do not produce a diagnostic message
     if did_check_pass:
@@ -94,9 +94,9 @@ def invoke_all_comment_checks(
         + comment_type
         + SPACE
         + language
-        + " comments"
+        + " comment(s)"
     )
-    diagnostic = "Found " + str(actual_count) + " comments in the specified file"
+    diagnostic = "Found " + str(actual_count) + " comment(s) in the specified file"
     # found at least the required number of comments
     # do not produce a diagnostic message
     if met_or_exceeded_count:
@@ -122,9 +122,9 @@ def invoke_all_paragraph_checks(filecheck, directory, expected_count):
         + " has at least "
         + str(expected_count)
         + SPACE
-        + "paragraphs"
+        + "paragraph(s)"
     )
-    diagnostic = "Found " + str(actual_count) + " paragraphs in the specified file"
+    diagnostic = "Found " + str(actual_count) + " paragraph(s) in the specified file"
     # found at least the required number of paragraphs
     # do not produce a diagnostic message
     if met_or_exceeded_count:
@@ -150,9 +150,9 @@ def invoke_all_word_count_checks(filecheck, directory, expected_count):
         + " has at least "
         + str(expected_count)
         + SPACE
-        + "words"
+        + "word(s)"
     )
-    diagnostic = "Found " + str(actual_count) + " words in the specified file"
+    diagnostic = "Found " + str(actual_count) + " word(s) in the specified file"
     # found at least the required number of paragraphs
     # do not produce a diagnostic message
     if met_or_exceeded_count:
