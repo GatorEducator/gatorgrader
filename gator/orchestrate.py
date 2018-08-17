@@ -124,6 +124,24 @@ def check_paragraphs(system_arguments):
     return actions
 
 
+def check_words(system_arguments):
+    """Check the existence of words in a file and return desired actions"""
+    actions = []
+    if system_arguments.words is not None:
+        actions.append(
+            [
+                INVOKE,
+                "invoke_all_word_count_checks",
+                [
+                    system_arguments.file,
+                    system_arguments.directory,
+                    system_arguments.words,
+                ],
+            ]
+        )
+    return actions
+
+
 def perform(actions):
     """Perform the specified actions"""
     results = []
