@@ -150,9 +150,9 @@ def invoke_all_word_count_checks(filecheck, directory, expected_count):
         + " has at least "
         + str(expected_count)
         + SPACE
-        + "word(s)"
+        + "word(s) in every paragraph"
     )
-    diagnostic = "Found " + str(actual_count) + " word(s) in the specified file"
+    diagnostic = "Found " + str(actual_count) + " word(s) in a paragraph of the specified file"
     # found at least the required number of paragraphs
     # do not produce a diagnostic message
     if met_or_exceeded_count:
