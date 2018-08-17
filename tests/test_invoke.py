@@ -135,6 +135,7 @@ def test_comment_counts_check_multiple_java(reset_results_dictionary, tmpdir):
 
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
+# pylint: disable=bad-continuation
 def test_comment_counts_check_multiple_java_not_enough(
     reset_results_dictionary, tmpdir
 ):
