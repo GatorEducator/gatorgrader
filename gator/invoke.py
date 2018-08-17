@@ -138,28 +138,30 @@ def invoke_all_paragraph_checks(filecheck, directory, expected_count):
 
 def invoke_all_word_count_checks(filecheck, directory, expected_count):
     """Perform the word count check and return the results"""
-    print("Checking for word counts...")
-    print()
-    was_exceeded_list = []
     met_or_exceeded_count = 0
-    met_or_exceeded_count = entities.entity_greater_than_count(
+    met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
         filecheck, directory, expected_count, fragments.count_words
     )
-    was_exceeded_list.append(met_or_exceeded_count)
-    print(
-        "Did ",
-        filecheck,
-        " in ",
-        directory,
-        " have paragraphs with at least ",
-        expected_count,
-        " words? ",
-        util.get_human_answer(met_or_exceeded_count),
-        sep="",
+    message = (
+        "The "
+        + filecheck
+        + " in "
+        + directory
+        + " has at least "
+        + str(expected_count)
+        + SPACE
+        + "words"
     )
-    print()
-    print("... Done checking for word counts")
-    return was_exceeded_list
+    diagnostic = "Found " + str(actual_count) + " words in the specified file"
+    # found at least the required number of paragraphs
+    # do not produce a diagnostic message
+    if met_or_exceeded_count:
+        report.add_result(message, met_or_exceeded_count, NO_DIAGNOSTIC)
+    # did not find at least the required number of words
+    # produce a diagnostic message using the actual count
+    else:
+        report.add_result(message, met_or_exceeded_count, diagnostic)
+    return met_or_exceeded_count
 
 
 def invoke_all_fragment_checks(filecheck, directory, fragment, expected_count):
