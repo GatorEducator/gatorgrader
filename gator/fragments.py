@@ -123,10 +123,10 @@ def count_fragments(
     file_for_checking = Path(containing_directory + FILE_SEPARATOR + given_file)
     file_contents_count = 0
     # file is not available and the contents are provided
-    if not file_for_checking.is_file() and contents is not None:
+    if not file_for_checking.is_file() and contents is not NOTHING:
         file_contents_count = checking_function(contents, chosen_fragment)
     # file is available and the contents are not provided
-    elif file_for_checking.is_file() and contents is None:
+    elif file_for_checking.is_file() and contents is NOTHING:
         file_contents = file_for_checking.read_text()
         file_contents_count = checking_function(file_contents, chosen_fragment)
     return file_contents_count
