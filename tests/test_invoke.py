@@ -218,4 +218,3 @@ def test_run_command_grab_output_as_string(reset_results_dictionary, tmpdir):
         "ls " + directory, "HelloNotThere", 0
     )
     assert met_or_exceeded_count is True
-    print(details)
