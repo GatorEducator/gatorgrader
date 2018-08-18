@@ -133,7 +133,7 @@ def test_chosen_fragment_many(writing_string, chosen_fragment, expected_count):
 
 
 def test_count_fragments_from_file(tmpdir):
-    """Checks to that invocation of comment counting check works correctly"""
+    """Checks that counting fragments in a file works correctly"""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
     hello_file.write("/* hello world */")
     assert hello_file.read() == "/* hello world */"
@@ -150,5 +150,22 @@ def test_count_fragments_from_file(tmpdir):
     assert count == 1
     count = fragments.count_fragments(
         "planet", fragments.count_specified_fragment, hello_file, directory, None
+    )
+    assert count == 0
+
+
+def test_count_fragments_from_contents():
+    """Checks that counting fragments in a string works correctly"""
+    value = "/* hello world */"
+    count = fragments.count_fragments(
+        "hello", fragments.count_specified_fragment, contents=value
+    )
+    assert count == 1
+    count = fragments.count_fragments(
+        "world", fragments.count_specified_fragment, contents=value
+    )
+    assert count == 1
+    count = fragments.count_fragments(
+        "planet", fragments.count_specified_fragment, contents=value
     )
     assert count == 0
