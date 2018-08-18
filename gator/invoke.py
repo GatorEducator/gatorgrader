@@ -167,38 +167,46 @@ def invoke_all_word_count_checks(filecheck, directory, expected_count):
     return met_or_exceeded_count
 
 
-def invoke_all_fragment_checks(filecheck, directory, fragment, expected_count):
-    """Perform the check for a fragment existence and return the results"""
-    print("Checking for fragments...")
-    print()
-    was_exceeded_list = []
+# pylint: disable=bad-continuation
+def invoke_all_fragment_checks(
+    fragment, expected_count, filecheck=NOTHING, directory=NOTHING, contents=NOTHING
+):
+    """Perform the check for a fragment existence in file or contents and return the results"""
     met_or_exceeded_count = 0
-    met_or_exceeded_count = fragments.specified_fragment_greater_than_count(
+    print("fragment checking")
+    met_or_exceeded_count, actual_count = fragments.specified_fragment_greater_than_count(
         fragment,
         fragments.count_specified_fragment,
         expected_count,
         filecheck,
         directory,
-        NOTHING
+        contents,
     )
-    was_exceeded_list.append(met_or_exceeded_count)
-    print(
-        "Did ",
-        filecheck,
-        " in ",
-        directory,
-        " have at least ",
-        expected_count,
-        ' of the "',
-        fragment,
-        '" fragment? ',
-        util.get_human_answer(met_or_exceeded_count),
-        sep="",
+    message = (
+        "The "
+        + filecheck
+        + " in "
+        + directory
+        + " has at least "
+        + str(expected_count)
+        + " of the \'"
+        + fragment
+        + "\' fragment"
     )
-
-    print()
-    print("... Done checking for fragments")
-    return was_exceeded_list
+    diagnostic = (
+        "Found "
+        + str(actual_count)
+        + " fragment(s) in the output or the specified file"
+    )
+    # found at least the required number of fragments
+    # do not produce a diagnostic message
+    if met_or_exceeded_count:
+        report.add_result(message, met_or_exceeded_count, NO_DIAGNOSTIC)
+    # did not find at least the required number of words
+    # produce a diagnostic message using the actual count
+    else:
+        report.add_result(message, met_or_exceeded_count, diagnostic)
+    return met_or_exceeded_count
 
 
 def invoke_all_command_checks(command, expected_count):
