@@ -15,6 +15,7 @@ NO_DIAGNOSTIC = ""
 PYTHON = "Python"
 SINGLE = "single-line"
 SPACE = " "
+NOTHING = ""
 
 
 def invoke_commits_check(student_repository, expected_count):
@@ -173,11 +174,12 @@ def invoke_all_fragment_checks(filecheck, directory, fragment, expected_count):
     was_exceeded_list = []
     met_or_exceeded_count = 0
     met_or_exceeded_count = fragments.specified_fragment_greater_than_count(
+        fragment,
+        fragments.count_specified_fragment,
+        expected_count,
         filecheck,
         directory,
-        fragment,
-        expected_count,
-        fragments.count_specified_fragment,
+        NOTHING
     )
     was_exceeded_list.append(met_or_exceeded_count)
     print(
