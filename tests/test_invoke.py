@@ -115,7 +115,6 @@ def test_content_string_check_fragments(reset_results_dictionary):
     invoke.invoke_all_fragment_checks("@name", 2, contents=value)
     invoke.invoke_all_fragment_checks("planet", 2, contents=value)
     details = report.get_details()
-    print(details)
     assert details is not None
 
 
