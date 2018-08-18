@@ -181,9 +181,9 @@ def invoke_all_fragment_checks(
         + directory
         + " has at least "
         + str(expected_count)
-        + " of the \'"
+        + " of the '"
         + fragment
-        + "\' fragment"
+        + "' fragment"
     )
     diagnostic = (
         "Found "
