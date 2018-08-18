@@ -54,6 +54,18 @@ def invoke_file_in_directory_check(filecheck, directory):
     return was_file_found
 
 
+def update_report(status, message, diagnostic):
+    """Update the report after running a check"""
+    # found at least the required number of an entity
+    # do not produce a diagnostic message
+    if status:
+        report.add_result(message, status, NO_DIAGNOSTIC)
+    # did not find at least the required number of an entity
+    # produce a diagnostic message using the actual count
+    else:
+        report.add_result(message, status, diagnostic)
+
+
 # pylint: disable=bad-continuation
 def invoke_all_comment_checks(
     filecheck, directory, expected_count, comment_type, language
