@@ -191,7 +191,8 @@ def invoke_all_fragment_checks(
     else:
         message = (
             "The output"
-            + " has at least " + str(expected_count)
+            + " has at least "
+            + str(expected_count)
             + " of the '"
             + fragment
             + "' fragment"

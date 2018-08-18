@@ -159,7 +159,7 @@ def check_fragments_file(system_arguments):
                     system_arguments.count,
                     system_arguments.file,
                     system_arguments.directory,
-                    NOTHING
+                    NOTHING,
                 ],
             ]
         )
