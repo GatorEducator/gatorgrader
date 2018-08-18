@@ -231,24 +231,25 @@ def invoke_all_command_checks(command, expected_count):
     return was_exactly_equal_list
 
 
-def invoke_all_command_fragment_checks(command, expected_fragment):
-    """Repeatedly perform the check and return the results"""
-    print("Checking the output of commands ...")
-    print()
-    was_contained_list = []
-    was_contained = run.specified_command_output_contains_fragment(
-        command, expected_fragment
-    )
-    was_contained_list.append(was_contained)
-    print(
-        "Did the command '",
-        command,
-        "' output the fragment '",
-        expected_fragment,
-        "'? ",
-        util.get_human_answer(was_contained),
-        sep="",
-    )
-    print()
-    print("... Done checking the output of commands")
-    return was_contained_list
+def invoke_all_command_fragment_checks(command, expected_fragment, expected_count):
+    """Perform the check for a fragment existence in the output of a command"""
+    command_output = run.specified_command_get_output(command)
+    return invoke_all_fragment_checks(expected_fragment, expected_count, contents=command_output)
+
+    # was_contained_list = []
+    # was_contained = run.specified_command_output_contains_fragment(
+    #     command, expected_fragment
+    # )
+    # was_contained_list.append(was_contained)
+    # print(
+    #     "Did the command '",
+    #     command,
+    #     "' output the fragment '",
+    #     expected_fragment,
+    #     "'? ",
+    #     util.get_human_answer(was_contained),
+    #     sep="",
+    # )
+    # print()
+    # print("... Done checking the output of commands")
+    # return was_contained_list
