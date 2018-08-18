@@ -169,3 +169,18 @@ def test_count_fragments_from_contents():
         "planet", fragments.count_specified_fragment, contents=value
     )
     assert count == 0
+
+
+def test_count_fragments_from_file_with_threshold(tmpdir):
+    """Checks that counting fragments in a file with threshold works correctly"""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
+    hello_file.write("/* hello world */")
+    assert hello_file.read() == "/* hello world */"
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
+    hello_file = "Hello.java"
+    exceeds_threshold, actual_count = fragments.specified_fragment_greater_than_count(
+        "hello", fragments.count_specified_fragment, 10, hello_file, directory, None
+    )
+    assert actual_count == 1
+    assert exceeds_threshold is False
