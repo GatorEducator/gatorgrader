@@ -100,7 +100,7 @@ def test_comment_counts_check_single_java(reset_results_dictionary, tmpdir):
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_comment_counts_check_single_python(reset_results_dictionary, tmpdir):
-    """Checks to that invocation of comment counting check works correctly"""
+    """Checks that invocation of comment counting check works correctly"""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.py")
     hello_file.write("# hello world")
     assert hello_file.read() == "# hello world"
@@ -118,7 +118,7 @@ def test_comment_counts_check_single_python(reset_results_dictionary, tmpdir):
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_comment_counts_check_multiple_java(reset_results_dictionary, tmpdir):
-    """Checks to that invocation of comment counting check works correctly"""
+    """Checks that invocation of comment counting check works correctly"""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
     hello_file.write("/* hello world */")
     assert hello_file.read() == "/* hello world */"
@@ -139,7 +139,7 @@ def test_comment_counts_check_multiple_java(reset_results_dictionary, tmpdir):
 def test_comment_counts_check_multiple_java_not_enough(
     reset_results_dictionary, tmpdir
 ):
-    """Checks to that invocation of comment counting check works correctly"""
+    """Checks that invocation of comment counting check works correctly"""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
     hello_file.write("/* hello world */")
     assert hello_file.read() == "/* hello world */"
