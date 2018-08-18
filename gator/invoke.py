@@ -174,17 +174,28 @@ def invoke_all_fragment_checks(
         directory,
         contents,
     )
-    message = (
-        "The "
-        + filecheck
-        + " in "
-        + directory
-        + " has at least "
-        + str(expected_count)
-        + " of the '"
-        + fragment
-        + "' fragment"
-    )
+    # create a message for a file in directory
+    if contents is NOTHING:
+        message = (
+            "The "
+            + filecheck
+            + " in "
+            + directory
+            + " has at least "
+            + str(expected_count)
+            + " of the '"
+            + fragment
+            + "' fragment"
+        )
+    # create a message for a string
+    else:
+        message = (
+            "The output"
+            + " has at least " + str(expected_count)
+            + " of the '"
+            + fragment
+            + "' fragment"
+        )
     diagnostic = (
         "Found "
         + str(actual_count)
