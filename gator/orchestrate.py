@@ -2,12 +2,13 @@
 
 import sys
 
-# pylint: disable=unused-import
 from gator import arguments
 from gator import display
-from gator import invoke
 from gator import leave
 from gator import report
+
+# pylint: disable=unused-import
+from gator import invoke
 from gator import run
 
 DISPLAY = sys.modules["gator.display"]
