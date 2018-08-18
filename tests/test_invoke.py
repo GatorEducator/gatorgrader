@@ -96,13 +96,10 @@ def test_file_exists_in_directory_check_fragments(reset_results_dictionary, tmpd
     reflection_file = "reflection.md"
     invoke.invoke_all_fragment_checks("hello", 1, reflection_file, directory, "")
     details = report.get_details()
-    assert details is not None
     invoke.invoke_all_fragment_checks("@name", 1, reflection_file, directory, "")
     details = report.get_details()
-    assert details is not None
     invoke.invoke_all_fragment_checks("again", 2, reflection_file, directory, "")
     details = report.get_details()
-    assert details is not None
     invoke.invoke_all_fragment_checks("planet", 2, reflection_file, directory, "")
     details = report.get_details()
     assert details is not None
