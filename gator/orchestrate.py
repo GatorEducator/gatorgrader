@@ -25,6 +25,8 @@ SINGLE = "single-line"
 MULTIPLE = "multiple-line"
 REPOSITORY = "."
 
+NOTHING = ""
+
 
 def check_arguments(system_arguments):
     """Check the arguments return the desired actions to perform"""
@@ -144,6 +146,26 @@ def check_words(system_arguments):
     return actions
 
 
+def check_fragments_file(system_arguments):
+    """Check the existence of fragment in a file and return desired actions"""
+    actions = []
+    if system_arguments.fragment is not None:
+        actions.append(
+            [
+                INVOKE,
+                "invoke_all_fragment_checks",
+                [
+                    system_arguments.fragment,
+                    system_arguments.count,
+                    system_arguments.file,
+                    system_arguments.directory,
+                    NOTHING
+                ],
+            ]
+        )
+    return actions
+
+
 def perform(actions):
     """Perform the specified actions"""
     results = []
@@ -177,6 +199,7 @@ def check(system_arguments):
         "check_multiple",
         "check_paragraphs",
         "check_words",
+        "check_fragments_file",
     ]
     for a_check in checks:
         # create the checking function
