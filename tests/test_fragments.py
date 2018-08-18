@@ -184,3 +184,8 @@ def test_count_fragments_from_file_with_threshold(tmpdir):
     )
     assert actual_count == 1
     assert exceeds_threshold is False
+    exceeds_threshold, actual_count = fragments.specified_fragment_greater_than_count(
+        "hello", fragments.count_specified_fragment, 1, hello_file, directory, None
+    )
+    assert actual_count == 1
+    assert exceeds_threshold is True
