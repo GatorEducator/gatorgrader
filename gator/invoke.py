@@ -173,7 +173,6 @@ def invoke_all_fragment_checks(
 ):
     """Perform the check for a fragment existence in file or contents and return the results"""
     met_or_exceeded_count = 0
-    print("fragment checking")
     met_or_exceeded_count, actual_count = fragments.specified_fragment_greater_than_count(
         fragment,
         fragments.count_specified_fragment,
