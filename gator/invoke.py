@@ -156,7 +156,7 @@ def invoke_all_word_count_checks(filecheck, directory, expected_count):
     diagnostic = (
         "Found " + str(actual_count) + " word(s) in a paragraph of the specified file"
     )
-    # found at least the required number of paragraphs
+    # found at least the required number of words
     # do not produce a diagnostic message
     if met_or_exceeded_count:
         report.add_result(message, met_or_exceeded_count, NO_DIAGNOSTIC)
