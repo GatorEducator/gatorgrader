@@ -80,7 +80,7 @@ def count_words(contents):
 
 
 def count_specified_fragment(contents, fragment):
-    """Counts the specified string fragment in the writing"""
+    """Counts the specified string fragment in the string contents"""
     fragment_count = contents.count(fragment)
     return fragment_count
 
@@ -91,21 +91,29 @@ def specified_fragment_greater_than_count(
 ):
     """Determines if the fragment count is greater than expected"""
     file_fragment_count = count_fragments(
-        given_file, containing_directory, chosen_fragment, checking_function
+        chosen_fragment, checking_function, given_file, containing_directory, None
     )
     if file_fragment_count >= expected_count:
-        return True
-    return False
+        return True, file_fragment_count
+    return False, file_fragment_count
 
 
 # pylint: disable=bad-continuation
 def count_fragments(
-    given_file, containing_directory, chosen_fragment, checking_function
+    chosen_fragment,
+    checking_function,
+    given_file="",
+    containing_directory="",
+    contents="",
 ):
-    """Counts fragments for the file in the directory and a fragment"""
+    """Counts fragments for the file in the directory (or contents) and a fragment"""
     file_for_checking = Path(containing_directory + FILE_SEPARATOR + given_file)
     file_contents_count = 0
-    if file_for_checking.is_file():
+    # file is not available and the contents are provided
+    if not file_for_checking.is_file() and contents is not None:
+        file_contents_count = checking_function(contents, chosen_fragment)
+    # file is available and the contents are not provided
+    elif file_for_checking.is_file() and contents is None:
         file_contents = file_for_checking.read_text()
         file_contents_count = checking_function(file_contents, chosen_fragment)
     return file_contents_count
