@@ -5,6 +5,8 @@ import sys
 
 BLANK_LINE = "\n"
 EMPTY = b""
+NOTHING = ""
+SPACE = " "
 
 
 def specified_command_output_equals_count(command, expected_count):
@@ -42,6 +44,18 @@ def check_fragment_exists(expected_fragment, output_list):
         if expected_fragment in current_line:
             found_fragment = True
     return found_fragment
+
+
+def specified_command_get_output(command):
+    """Run the command and return the output as a String"""
+    # run the command and gather the output and error details
+    output, error = run_command(command)
+    # there was no error, so process the output
+    produced_output = NOTHING
+    if error == EMPTY:
+        actual_output = get_actual_output(output)
+        produced_output = BLANK_LINE.join(actual_output)
+    return produced_output
 
 
 def get_actual_output(output):
