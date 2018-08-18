@@ -9,14 +9,15 @@ FILE_SEPARATOR = "/"
 # https://stackoverflow.com/questions/18568105/how-match-a-paragraph-using-regex
 # https://stackoverflow.com/questions/13531204/how-to-match-paragraphs-in-text-with-regx
 
-PARAGRAH_RE = r"(.+?\n\n|.+?$)"
-SECTION_MARKER = "#"
 CODE_FENCE_MARKER = "```"
 GATORGRADER_REPLACEMENT = "GATORGRADER_REPLACEMENT"
+PARAGRAH_RE = r"(.+?\n\n|.+?$)"
+SECTION_MARKER = "#"
 
 NEWLINE = "\n"
 NOTHING = ""
 SPACE = " "
+
 DOUBLE_NEWLINE = NEWLINE * 2
 
 
@@ -103,7 +104,7 @@ def specified_fragment_greater_than_count(
     file_fragment_count = count_fragments(
         chosen_fragment, checking_function, given_file, containing_directory, contents
     )
-    # the fragment count is above the threshold
+    # the fragment count is at or above the threshold
     if file_fragment_count >= expected_count:
         return True, file_fragment_count
     # the fragment count is not above the threshold
