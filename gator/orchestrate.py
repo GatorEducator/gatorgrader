@@ -11,9 +11,10 @@ from gator import report
 from gator import invoke
 from gator import run
 
+ORCHESTRATE = sys.modules[__name__]
+
 DISPLAY = sys.modules["gator.display"]
 INVOKE = sys.modules["gator.invoke"]
-ORCHESTRATE = sys.modules[__name__]
 RUN = sys.modules["gator.run"]
 
 VOID = []
