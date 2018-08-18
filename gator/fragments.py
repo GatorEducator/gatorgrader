@@ -50,6 +50,8 @@ def get_paragraphs(contents, blank_replace=True):
     paragraphs = pattern.findall(contents)
     # disregard all of the section headers in markdown
     matching_paragraphs = []
+    # iterate through all potential paragraphs and gather
+    # those that match the standard for legitimacy
     for paragraph in paragraphs:
         if is_paragraph(paragraph) is True:
             matching_paragraphs.append(paragraph)
@@ -74,8 +76,10 @@ def count_words(contents):
         para = para.replace(NEWLINE, SPACE)
         words = NOTHING.join(ch if ch.isalnum() else SPACE for ch in para).split()
         word_counts.append(len(words))
+    # return the minimum number of words across all paragraphs
     if word_counts:
         return min(word_counts)
+    # counting did not work correctly, so return 0
     return 0
 
 
