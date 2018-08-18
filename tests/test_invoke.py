@@ -193,3 +193,29 @@ def test_comment_counts_check_multiple_java_not_enough(
     )
     details = report.get_details()
     assert details is not None
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
+def test_run_command_grab_output_as_string(reset_results_dictionary, tmpdir):
+    """Checks that invocation of command produces correct captured output"""
+    tmpdir.mkdir("Hello1")
+    tmpdir.mkdir("Hello2")
+    tmpdir.mkdir("Hello3")
+    assert len(tmpdir.listdir()) == 3
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/"
+    met_or_exceeded_count = invoke.invoke_all_command_fragment_checks(
+        "ls " + directory, "Hello1", 1
+    )
+    assert met_or_exceeded_count is True
+    details = report.get_details()
+    assert details is not None
+    met_or_exceeded_count = invoke.invoke_all_command_fragment_checks(
+        "ls " + directory, "HelloNotThere", 1
+    )
+    assert met_or_exceeded_count is False
+    met_or_exceeded_count = invoke.invoke_all_command_fragment_checks(
+        "ls " + directory, "HelloNotThere", 0
+    )
+    assert met_or_exceeded_count is True
+    print(details)
