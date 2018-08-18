@@ -15,6 +15,7 @@ codecov = "*"
 "flake8" = "*"
 pytest-cov = "*"
 neovim = "*"
+pytest-sugar = "*"
 
 [requires]
 python_version = "3.6"
