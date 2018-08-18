@@ -141,15 +141,15 @@ def test_count_fragments_from_file(tmpdir):
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
     count = fragments.count_fragments(
-        "hello", fragments.count_specified_fragment, hello_file, directory, None
+        "hello", fragments.count_specified_fragment, hello_file, directory, ""
     )
     assert count == 1
     count = fragments.count_fragments(
-        "world", fragments.count_specified_fragment, hello_file, directory, None
+        "world", fragments.count_specified_fragment, hello_file, directory, ""
     )
     assert count == 1
     count = fragments.count_fragments(
-        "planet", fragments.count_specified_fragment, hello_file, directory, None
+        "planet", fragments.count_specified_fragment, hello_file, directory, ""
     )
     assert count == 0
 
@@ -180,12 +180,12 @@ def test_count_fragments_from_file_with_threshold(tmpdir):
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
     exceeds_threshold, actual_count = fragments.specified_fragment_greater_than_count(
-        "hello", fragments.count_specified_fragment, 10, hello_file, directory, None
+        "hello", fragments.count_specified_fragment, 10, hello_file, directory, ""
     )
     assert actual_count == 1
     assert exceeds_threshold is False
     exceeds_threshold, actual_count = fragments.specified_fragment_greater_than_count(
-        "hello", fragments.count_specified_fragment, 1, hello_file, directory, None
+        "hello", fragments.count_specified_fragment, 1, hello_file, directory, ""
     )
     assert actual_count == 1
     assert exceeds_threshold is True
