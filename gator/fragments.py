@@ -87,14 +87,22 @@ def count_specified_fragment(contents, fragment):
 
 # pylint: disable=bad-continuation
 def specified_fragment_greater_than_count(
-    given_file, containing_directory, chosen_fragment, expected_count, checking_function
+    chosen_fragment,
+    checking_function,
+    expected_count,
+    given_file=NOTHING,
+    containing_directory=NOTHING,
+    contents=NOTHING,
 ):
     """Determines if the fragment count is greater than expected"""
+    # count the fragments in either a file in a directory or String contents
     file_fragment_count = count_fragments(
-        chosen_fragment, checking_function, given_file, containing_directory
+        chosen_fragment, checking_function, given_file, containing_directory, contents
     )
+    # the fragment count is above the threshold
     if file_fragment_count >= expected_count:
         return True, file_fragment_count
+    # the fragment count is not above the threshold
     return False, file_fragment_count
 
 
