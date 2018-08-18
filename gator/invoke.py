@@ -10,12 +10,14 @@ from gator import run
 from gator import util
 
 JAVA = "Java"
-MULTIPLE = "multiple-line"
-NO_DIAGNOSTIC = ""
 PYTHON = "Python"
-SINGLE = "single-line"
-SPACE = " "
+
 NOTHING = ""
+NO_DIAGNOSTIC = ""
+SPACE = " "
+
+MULTIPLE = "multiple-line"
+SINGLE = "single-line"
 
 
 def invoke_commits_check(student_repository, expected_count):
