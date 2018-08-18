@@ -13,7 +13,7 @@ def test_run_command_returns_message():
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_run_command_grab_output_as_string(tmpdir):
-    """Checks that invocation of comment counting check works correctly"""
+    """Checks that invocation of command produces correct captured output"""
     tmpdir.mkdir("Hello1")
     tmpdir.mkdir("Hello2")
     tmpdir.mkdir("Hello3")
