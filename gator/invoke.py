@@ -110,14 +110,7 @@ def invoke_all_comment_checks(
         + " comment(s)"
     )
     diagnostic = "Found " + str(actual_count) + " comment(s) in the specified file"
-    # found at least the required number of comments
-    # do not produce a diagnostic message
-    if met_or_exceeded_count:
-        report.add_result(message, met_or_exceeded_count, NO_DIAGNOSTIC)
-    # did not find at least the required number of comments
-    # produce a diagnostic message using the actual count
-    else:
-        report.add_result(message, met_or_exceeded_count, diagnostic)
+    update_report(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
 
