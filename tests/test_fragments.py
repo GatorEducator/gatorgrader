@@ -144,3 +144,11 @@ def test_count_fragments_from_file(tmpdir):
         "hello", fragments.count_specified_fragment, hello_file, directory, None
     )
     assert count == 1
+    count = fragments.count_fragments(
+        "world", fragments.count_specified_fragment, hello_file, directory, None
+    )
+    assert count == 1
+    count = fragments.count_fragments(
+        "planet", fragments.count_specified_fragment, hello_file, directory, None
+    )
+    assert count == 0
