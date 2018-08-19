@@ -218,6 +218,7 @@ def check(system_arguments):
         "check_paragraphs",
         "check_words",
         "check_fragment_file",
+        "check_fragment_command",
     ]
     for a_check in checks:
         # create the checking function
