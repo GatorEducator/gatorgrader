@@ -146,7 +146,7 @@ def check_words(system_arguments):
     return actions
 
 
-def check_fragments_file(system_arguments):
+def check_fragment_file(system_arguments):
     """Check the existence of fragment in a file and return desired actions"""
     actions = []
     if system_arguments.fragment is not None:
@@ -199,7 +199,7 @@ def check(system_arguments):
         "check_multiple",
         "check_paragraphs",
         "check_words",
-        "check_fragments_file",
+        "check_fragment_file",
     ]
     for a_check in checks:
         # create the checking function

@@ -197,7 +197,7 @@ def test_perform_actions_display_welcome_and_ready_check_words(
 
 # pylint: disable=redefined-outer-name
 # pylint: disable=bad-continuation
-def test_perform_actions_display_welcome_and_ready_check_fragments_file(
+def test_perform_actions_display_welcome_and_ready_check_fragment_file(
     capsys, reset_results_dictionary
 ):
     """Check the argument verification, messages, and continue"""
