@@ -207,6 +207,17 @@ def test_invalid_argument_combinations_not_accepted(chosen_arguments):
         ),
         (["--nowelcome", "--commits", "10"]),
         (["--commits", "10"]),
+        (
+            [
+                "--nowelcome",
+                "--directory",
+                "D",
+                "--file",
+                "f",
+                "--count",
+                "2",
+            ]
+        ),
     ],
 )
 def test_valid_argument_combinations_accepted(chosen_arguments):
