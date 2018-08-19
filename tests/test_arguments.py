@@ -451,6 +451,23 @@ def test_is_invalid_fragment_with_file_or_command(chosen_arguments):
 @pytest.mark.parametrize(
     "chosen_arguments",
     [
+        (["--nowelcome"]),
+        (["--nowelcome", "--directory", "D", "--count", "2"]),
+        (["--nowelcome", "--file", "f", "--count", "2"]),
+        (["--nowelcome", "--command", "run", "--exists", "--count", "2"]),
+        (["--nowelcome", "--file", "f", "--command", "run", "--count", "2"]),
+    ],
+)
+def test_is_invalid_count_with_file_or_command(chosen_arguments):
+    """Check that invalid argument combinations do not verify correctly"""
+    parsed_arguments = arguments.parse(chosen_arguments)
+    verified_arguments = arguments.is_valid_fragment(parsed_arguments)
+    assert verified_arguments is False
+
+
+@pytest.mark.parametrize(
+    "chosen_arguments",
+    [
         (["--nowelcome", "--command", "run", "--paragraphs", "3"]),
         (["--nowelcome", "--command", "run", "--words", "3"]),
         (["--nowelcome", "--command", "run", "--single", "3"]),
