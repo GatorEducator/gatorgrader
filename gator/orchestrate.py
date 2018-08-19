@@ -149,7 +149,7 @@ def check_words(system_arguments):
 def check_fragment_file(system_arguments):
     """Check the existence of fragment in a file and return desired actions"""
     actions = []
-    if system_arguments.fragment is not None:
+    if system_arguments.fragment is not None and system_arguments.file is not None:
         actions.append(
             [
                 INVOKE,
