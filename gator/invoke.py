@@ -234,4 +234,6 @@ def invoke_all_command_checks(command, expected_count):
 def invoke_all_command_fragment_checks(command, expected_fragment, expected_count):
     """Perform the check for a fragment existence in the output of a command"""
     command_output = run.specified_command_get_output(command)
-    return invoke_all_fragment_checks(expected_fragment, expected_count, contents=command_output)
+    return invoke_all_fragment_checks(
+        expected_fragment, expected_count, contents=command_output
+    )
