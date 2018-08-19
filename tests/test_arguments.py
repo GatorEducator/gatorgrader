@@ -128,6 +128,9 @@ def test_module_argument_not_verifiable_syserror(chosen_arguments, capsys):
         (["--file", "f", "--executes"]),
         (["--file", "f", "--directory", "D", "--commits", "10"]),
         (["--command", "run", "--executes", "--commits", "10"]),
+        (["--directory", "D", "--count", "10"]),
+        (["--file", "f", "--count", "10"]),
+        (["--command", "run", "--executes", "--count", "10"]),
     ],
 )
 def test_invalid_argument_combinations_not_accepted(chosen_arguments):
