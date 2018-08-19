@@ -273,6 +273,7 @@ def verify(args):
         and not is_valid_command(args)
         and not is_valid_commits(args)
     ):
+        # track how many of the sub-arguments separately verified
         file_verified = []
         # VERIFIED: correct check for existence of a file in a directory
         if is_valid_exists(args):
@@ -298,6 +299,7 @@ def verify(args):
         if is_valid_count(args):
             # verified_arguments = True
             file_verified.append(True)
+        # VERIFIED: only one of prior valid options specified
         if file_verified.count(True) == 1:
             verified_arguments = True
     # TOP-LEVEL VERIFIED:
@@ -308,6 +310,7 @@ def verify(args):
         and not is_file_ancillary(args)
         and not is_valid_commits(args)
     ):
+        # track how many of the sub-arguments separately verified
         command_verified = []
         # VERIFIED: correct check for existence of a file in a directory
         if is_valid_executes(args):
