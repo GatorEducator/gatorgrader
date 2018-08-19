@@ -273,23 +273,32 @@ def verify(args):
         and not is_valid_command(args)
         and not is_valid_commits(args)
     ):
+        file_verified = []
         # VERIFIED: correct check for existence of a file in a directory
         if is_valid_exists(args):
-            verified_arguments = True
+            # verified_arguments = True
+            file_verified.append(True)
         # VERIFIED: correct check for comments with language in a file in a directory
         if is_valid_comments(args) and is_valid_language(args):
-            verified_arguments = True
+            # verified_arguments = True
+            file_verified.append(True)
         # VERIFIED: correct check for paragraphs in a file in a directory
-        elif is_valid_paragraphs(args):
-            verified_arguments = True
+        if is_valid_paragraphs(args):
+            # verified_arguments = True
+            file_verified.append(True)
         # VERIFIED: correct check for words in a file in a directory
-        elif is_valid_words(args):
-            verified_arguments = True
+        if is_valid_words(args):
+            # verified_arguments = True
+            file_verified.append(True)
         # VERIFIED: correct check for fragments in a file in a directory
-        elif is_valid_fragment(args):
-            verified_arguments = True
+        if is_valid_fragment(args):
+            # verified_arguments = True
+            file_verified.append(True)
         # VERIFIED: correct check for line count of a file in a directory
-        elif is_valid_count(args):
+        if is_valid_count(args):
+            # verified_arguments = True
+            file_verified.append(True)
+        if file_verified.count(True) == 1:
             verified_arguments = True
     # TOP-LEVEL VERIFIED:
     # no file or directory details were specified and a command given
