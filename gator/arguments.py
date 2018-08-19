@@ -95,8 +95,13 @@ def parse(args):
     gg_parser.add_argument(
         "--fragment", type=str, help="fragment that exists in code or output"
     )
+
+    # specify a check on fragments
+    # CORRECT WHEN: user provides file and directory along with this argument
+    # or
+    # CORRECT WHEN: user provides a command along with this argument
     gg_parser.add_argument(
-        "--count", type=int, metavar="COUNT", help="how many of a fragment should exist"
+        "--count", type=int, metavar="COUNT", help="how many of an entity should exist"
     )
 
     # }}}
@@ -214,6 +219,14 @@ def is_valid_fragment(args, skip=False):
     return False
 
 
+def is_valid_count(args, skip=False):
+    """Checks if it is a valid count specification"""
+    if (is_valid_file_and_directory(args) or is_valid_command(args)) or skip:
+        if args.count is not None and args.fragment is None:
+            return True
+    return False
+
+
 def is_file_ancillary(args):
     """Checks if it is an ancillary of a file"""
     # pylint: disable=bad-continuation
@@ -275,6 +288,10 @@ def verify(args):
         # VERIFIED: correct check for fragments in a file in a directory
         elif is_valid_fragment(args):
             verified_arguments = True
+        # VERIFIED: correct check for line count of a file in a directory
+        elif is_valid_count(args):
+            verified_arguments = True
+
     # TOP-LEVEL VERIFIED:
     # no file or directory details were specified and a command given
     # pylint: disable=bad-continuation
@@ -289,6 +306,9 @@ def verify(args):
         # VERIFIED: correct check for fragments in a file in a directory
         elif is_valid_fragment(args):
             verified_arguments = True
+        # VERIFIED: correct check for line count of a file in a directory
+        elif is_valid_count(args):
+            verified_arguments = True
     # TOP-LEVEL VERIFIED:
     # no file or directory details were specified or a command given
     # and the argument is a request to check the count of Git commits
@@ -301,5 +321,6 @@ def verify(args):
     ):
         verified_arguments = True
     return verified_arguments
+
 
 # }}}
