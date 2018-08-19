@@ -225,14 +225,7 @@ def test_perform_actions_display_welcome_and_ready_check_fragment_command(
     capsys, reset_results_dictionary
 ):
     """Check the argument verification, messages, and continue"""
-    chosen_arguments = [
-        "--command",
-        "ls",
-        "--fragment",
-        "GatorGrader",
-        "--count",
-        "2",
-    ]
+    chosen_arguments = ["--command", "ls", "--fragment", "GatorGrader", "--count", "2"]
     exit_code = orchestrate.check(chosen_arguments)
     captured = capsys.readouterr()
     counted_newlines = captured.out.count("\n")
