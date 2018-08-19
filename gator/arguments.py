@@ -101,9 +101,6 @@ def parse(args):
 
     # }}}
 
-    # deprecated, will be removed and combined later
-    gg_parser.add_argument("--outputlines", type=int)
-
     # call argparse's parse_args function and return result
     gg_arguments_finished = gg_parser.parse_args(args)
     return gg_arguments_finished
@@ -304,6 +301,5 @@ def verify(args):
     ):
         verified_arguments = True
     return verified_arguments
-
 
 # }}}
