@@ -250,23 +250,3 @@ def invoke_all_command_count_checks(command, expected_count):
     return invoke_all_count_checks(
         expected_count, contents=command_output
     )
-
-
-def invoke_all_command_checks(command, expected_count):
-    """Repeatedly perform the command check and return the results"""
-    was_exactly_equal_list = []
-    was_exactly_count = 0
-    was_exactly_count = run.specified_command_output_equals_count(
-        command, expected_count
-    )
-    was_exactly_equal_list.append(was_exactly_count)
-    print(
-        "Did the command '",
-        command,
-        "' produce exactly ",
-        expected_count,
-        " lines of output? ",
-        util.get_human_answer(was_exactly_count),
-        sep="",
-    )
-    return was_exactly_equal_list
