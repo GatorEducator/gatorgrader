@@ -59,6 +59,18 @@ def get_paragraphs(contents, blank_replace=True):
     return matching_paragraphs
 
 
+def get_line_list(content):
+    """Returns a list of lines from any type of input string"""
+    actual_content = []
+    for line in content.splitlines(keepends=False):
+        try:
+            current_line_decoded = line.decode()
+        except AttributeError:
+            current_line_decoded = line
+        actual_content.append(current_line_decoded)
+    return actual_content
+
+
 def count_paragraphs(contents):
     """Counts the number of paragraphs in the writing"""
     replace_blank_inputs = True
