@@ -132,6 +132,23 @@ def test_chosen_fragment_many(writing_string, chosen_fragment, expected_count):
     )
 
 
+@pytest.mark.parametrize(
+    "writing_string,expected_count",
+    [
+        ("System.out.println(new Date() new Date() new Date())", 1),
+        ("hello world!!%^(@after)writing a lot\nnew one writing", 2),
+        ("hello @world!!%^(@after)writing a @world lot\nnew one", 2),
+        ("System.out.println(new Date()) \nnew Date()", 2),
+        ("hello @world!!%^(@after)writing a lot\nnew new new one\nthird one", 3),
+        ("hello @world!!%^(@after)writing a lot\nnew new new one\nthird one\n\n", 4),
+    ],
+)
+def test_extract_line_list(writing_string, expected_count):
+    """Create some strings and then see if breaking them up in lines works"""
+    line_list = fragments.get_line_list(writing_string)
+    assert len(line_list) == expected_count
+
+
 def test_count_fragments_from_file(tmpdir):
     """Checks that counting fragments in a file works correctly"""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
