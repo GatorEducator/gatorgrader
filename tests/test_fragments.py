@@ -146,7 +146,7 @@ def test_chosen_fragment_many(writing_string, chosen_fragment, expected_count):
 def test_extract_line_list(writing_string, expected_count):
     """Create some strings and then see if breaking them up in lines works"""
     line_list = fragments.get_line_list(writing_string)
-    assert fragments.count_lines(line_list) == expected_count
+    assert len(line_list) == expected_count
 
 
 def test_count_fragments_from_file(tmpdir):
