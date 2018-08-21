@@ -218,7 +218,6 @@ def invoke_all_command_checks(command, expected_count):
     """Repeatedly perform the command check and return the results"""
     was_exactly_equal_list = []
     was_exactly_count = 0
-    # for command, expected_count in zip(commands, expected_counts):
     was_exactly_count = run.specified_command_output_equals_count(
         command, expected_count
     )
