@@ -252,3 +252,22 @@ def test_run_command_grab_output_as_string(reset_results_dictionary, tmpdir):
         "ls " + directory, "HelloNotThere", 0
     )
     assert met_or_exceeded_count is True
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
+def test_run_command_grab_output_as_string_count_lines(
+    reset_results_dictionary, tmpdir
+):
+    """Checks that invocation of command produces correct captured output for line count"""
+    tmpdir.mkdir("Hello1")
+    tmpdir.mkdir("Hello2")
+    tmpdir.mkdir("Hello3")
+    assert len(tmpdir.listdir()) == 3
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/"
+    met_or_exceeded_count = invoke.invoke_all_command_count_checks("ls " + directory, 1)
+    assert met_or_exceeded_count is True
+    met_or_exceeded_count = invoke.invoke_all_command_count_checks("ls " + directory, 4)
+    assert met_or_exceeded_count is False
+    details = report.get_details()
+    assert details is not None
