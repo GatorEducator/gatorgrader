@@ -275,6 +275,32 @@ def test_count_multiple_lines_from_file(tmpdir):
     assert count == 3
 
 
+def test_count_multiple_lines_from_file_with_threshold(tmpdir):
+    """Checks that counting lines in a file works correctly"""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
+    hello_file.write(
+        '/* hello world */\nString s = new String("hello");\n//this is a comment'
+    )
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
+    hello_file = "Hello.java"
+    exceeds_threshold, actual_count = fragments.specified_source_greater_than_count(
+        2, hello_file, directory, ""
+    )
+    assert actual_count == 3
+    assert exceeds_threshold is True
+    exceeds_threshold, actual_count = fragments.specified_source_greater_than_count(
+        3, hello_file, directory, ""
+    )
+    assert actual_count == 3
+    assert exceeds_threshold is True
+    exceeds_threshold, actual_count = fragments.specified_source_greater_than_count(
+        100, hello_file, directory, ""
+    )
+    assert actual_count == 3
+    assert exceeds_threshold is False
+
+
 def test_count_multiple_lines_from_contents():
     """Checks that counting lines in contents works correctly"""
     hello_contents = (
