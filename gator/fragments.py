@@ -142,3 +142,34 @@ def count_fragments(
         file_contents = file_for_checking.read_text()
         file_contents_count = checking_function(file_contents, chosen_fragment)
     return file_contents_count
+
+
+# pylint: disable=bad-continuation
+def specified_source_greater_than_count(
+    expected_count, given_file=NOTHING, containing_directory=NOTHING, contents=NOTHING
+):
+    """Determines if the line count is greater than expected"""
+    # count the fragments in either a file in a directory or String contents
+    file_line_count = count_lines(given_file, containing_directory, contents)
+    # the fragment count is at or above the threshold
+    if file_line_count >= expected_count:
+        return True, file_line_count
+    # the fragment count is not above the threshold
+    return False, file_line_count
+
+
+# pylint: disable=bad-continuation
+def count_lines(given_file=NOTHING, containing_directory=NOTHING, contents=NOTHING):
+    """Counts lines for the file in the directory (or contents)"""
+    file_for_checking = Path(containing_directory + FILE_SEPARATOR + given_file)
+    file_contents_count = 0
+    # file is not available and the contents are provided
+    if not file_for_checking.is_file() and contents is not NOTHING:
+        line_list = get_line_list(contents)
+        file_contents_count = len(line_list)
+    # file is available and the contents are not provided
+    elif file_for_checking.is_file() and contents is NOTHING:
+        file_contents = file_for_checking.read_text()
+        line_list = get_line_list(file_contents)
+        file_contents_count = len(line_list)
+    return file_contents_count
