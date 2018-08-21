@@ -216,8 +216,6 @@ def invoke_all_command_fragment_checks(command, expected_fragment, expected_coun
 
 def invoke_all_command_checks(command, expected_count):
     """Repeatedly perform the command check and return the results"""
-    print("Checking the output of commands ...")
-    print()
     was_exactly_equal_list = []
     was_exactly_count = 0
     # for command, expected_count in zip(commands, expected_counts):
@@ -234,8 +232,4 @@ def invoke_all_command_checks(command, expected_count):
         util.get_human_answer(was_exactly_count),
         sep="",
     )
-    print()
-    print("... Done checking the output of commands")
     return was_exactly_equal_list
-
-
