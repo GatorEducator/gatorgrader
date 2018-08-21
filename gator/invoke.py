@@ -247,6 +247,4 @@ def invoke_all_count_checks(
 def invoke_all_command_count_checks(command, expected_count):
     """Perform the check for number of lines in the output of a command"""
     command_output = run.specified_command_get_output(command)
-    return invoke_all_count_checks(
-        expected_count, contents=command_output
-    )
+    return invoke_all_count_checks(expected_count, contents=command_output)
