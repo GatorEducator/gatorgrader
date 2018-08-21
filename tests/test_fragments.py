@@ -221,3 +221,15 @@ def test_count_fragments_from_contents_with_threshold():
     )
     assert actual_count == 1
     assert exceeds_threshold is True
+
+
+def test_count_single_line_from_file(tmpdir):
+    """Checks that counting lines in a file works correctly"""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
+    hello_file.write("/* hello world */")
+    assert hello_file.read() == "/* hello world */"
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
+    hello_file = "Hello.java"
+    count = fragments.count_lines(hello_file, directory, "")
+    assert count == 1
