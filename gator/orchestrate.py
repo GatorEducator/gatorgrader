@@ -169,7 +169,12 @@ def check_fragment_file(system_arguments):
 def check_count_file(system_arguments):
     """Check the count of lines in a file and return desired actions"""
     actions = []
-    if system_arguments.count is not None and system_arguments.file is not None:
+    # pylint: disable=bad-continuation
+    if (
+        system_arguments.count is not None
+        and system_arguments.file is not None
+        and system_arguments.fragment is None
+    ):
         actions.append(
             [
                 INVOKE,
