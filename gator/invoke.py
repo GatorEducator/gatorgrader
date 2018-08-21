@@ -244,6 +244,14 @@ def invoke_all_count_checks(
     return met_or_exceeded_count
 
 
+def invoke_all_command_count_checks(command, expected_count):
+    """Perform the check for number of lines in the output of a command"""
+    command_output = run.specified_command_get_output(command)
+    return invoke_all_count_checks(
+        expected_count, contents=command_output
+    )
+
+
 def invoke_all_command_checks(command, expected_count):
     """Repeatedly perform the command check and return the results"""
     was_exactly_equal_list = []
