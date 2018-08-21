@@ -142,6 +142,18 @@ def test_file_exists_in_directory_check_lines(reset_results_dictionary, tmpdir):
 
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
+def test_content_string_check_fragments_with_threshold(reset_results_dictionary):
+    """Checks that the checking of words works correctly"""
+    value = "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
+    invoke.invoke_all_count_checks(1, contents=value)
+    invoke.invoke_all_count_checks(2, contents=value)
+    invoke.invoke_all_count_checks(7, contents=value)
+    details = report.get_details()
+    assert details is not None
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
 def test_comment_counts_check_single_java(reset_results_dictionary, tmpdir):
     """Checks to that invocation of comment counting check works correctly"""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
