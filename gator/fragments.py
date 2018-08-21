@@ -71,6 +71,11 @@ def get_line_list(content):
     return actual_content
 
 
+def count_lines(line_list):
+    """Counts the number of lines in the line list"""
+    return len(line_list)
+
+
 def count_paragraphs(contents):
     """Counts the number of paragraphs in the writing"""
     replace_blank_inputs = True
