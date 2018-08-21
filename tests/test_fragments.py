@@ -235,6 +235,13 @@ def test_count_single_line_from_file(tmpdir):
     assert count == 1
 
 
+def test_count_single_line_from_contents():
+    """Checks that counting lines in contents works correctly"""
+    hello_contents = "Hello.java"
+    count = fragments.count_lines("", "", hello_contents)
+    assert count == 1
+
+
 def test_count_multiple_lines_from_file(tmpdir):
     """Checks that counting lines in a file works correctly"""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
@@ -245,4 +252,13 @@ def test_count_multiple_lines_from_file(tmpdir):
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
     count = fragments.count_lines(hello_file, directory, "")
+    assert count == 3
+
+
+def test_count_multiple_lines_from_contents():
+    """Checks that counting lines in contents works correctly"""
+    hello_contents = (
+        '/* hello world */\nString s = new String("hello");\n//this is a comment'
+    )
+    count = fragments.count_lines("", "", hello_contents)
     assert count == 3
