@@ -214,6 +214,36 @@ def invoke_all_command_fragment_checks(command, expected_fragment, expected_coun
     )
 
 
+# pylint: disable=bad-continuation
+def invoke_all_count_checks(
+    expected_count, filecheck=NOTHING, directory=NOTHING, contents=NOTHING
+):
+    """Perform the check for the count of lines in file or contents and return the results"""
+    met_or_exceeded_count = 0
+    met_or_exceeded_count, actual_count = fragments.specified_source_greater_than_count(
+        expected_count, filecheck, directory, contents
+    )
+    # create a message for a file in directory
+    if contents is NOTHING:
+        message = (
+            "The "
+            + filecheck
+            + " in "
+            + directory
+            + " has at least "
+            + str(expected_count)
+            + " line(s)"
+        )
+    # create a message for a string
+    else:
+        message = "The content" + " has at least " + str(expected_count) + " lines"
+    diagnostic = (
+        "Found " + str(actual_count) + " line(s) in the output or the specified file"
+    )
+    update_report(met_or_exceeded_count, message, diagnostic)
+    return met_or_exceeded_count
+
+
 def invoke_all_command_checks(command, expected_count):
     """Repeatedly perform the command check and return the results"""
     was_exactly_equal_list = []
