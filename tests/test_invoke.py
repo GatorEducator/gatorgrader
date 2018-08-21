@@ -137,7 +137,6 @@ def test_file_exists_in_directory_check_lines(reset_results_dictionary, tmpdir):
     details = report.get_details()
     invoke.invoke_all_count_checks(100, reflection_file, directory, "")
     details = report.get_details()
-    print(details)
     assert details is not None
 
 
