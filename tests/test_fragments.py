@@ -308,3 +308,25 @@ def test_count_multiple_lines_from_contents():
     )
     count = fragments.count_lines("", "", hello_contents)
     assert count == 3
+
+
+def test_count_multiple_lines_from_contents_with_threshold():
+    """Checks that counting lines in contents works correctly"""
+    hello_contents = (
+        '/* hello world */\nString s = new String("hello");\n//this is a comment'
+    )
+    exceeds_threshold, actual_count = fragments.specified_source_greater_than_count(
+        2, "", "", hello_contents
+    )
+    assert actual_count == 3
+    assert exceeds_threshold is True
+    exceeds_threshold, actual_count = fragments.specified_source_greater_than_count(
+        3, "", "", hello_contents
+    )
+    assert actual_count == 3
+    assert exceeds_threshold is True
+    exceeds_threshold, actual_count = fragments.specified_source_greater_than_count(
+        100, "", "", hello_contents
+    )
+    assert actual_count == 3
+    assert exceeds_threshold is False
