@@ -166,6 +166,25 @@ def check_fragment_file(system_arguments):
     return actions
 
 
+def check_count_file(system_arguments):
+    """Check the count of lines in a file and return desired actions"""
+    actions = []
+    if system_arguments.count is not None and system_arguments.file is not None:
+        actions.append(
+            [
+                INVOKE,
+                "invoke_all_count_checks",
+                [
+                    system_arguments.count,
+                    system_arguments.file,
+                    system_arguments.directory,
+                    NOTHING,
+                ],
+            ]
+        )
+    return actions
+
+
 def check_fragment_command(system_arguments):
     """Check the existence of fragment in a command's output and return desired actions"""
     actions = []
@@ -219,6 +238,7 @@ def check(system_arguments):
         "check_words",
         "check_fragment_file",
         "check_fragment_command",
+        "check_count_file",
     ]
     for a_check in checks:
         # create the checking function
