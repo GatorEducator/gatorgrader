@@ -62,12 +62,19 @@ def get_paragraphs(contents, blank_replace=True):
 def get_line_list(content):
     """Returns a list of lines from any type of input string"""
     actual_content = []
+    # iteratively decode each of the lines in the content
     for line in content.splitlines(keepends=False):
+        # decode worked for this content and charset, use decoded
         try:
             current_line_decoded = line.decode()
+        # decode worked for this content and charset, use line
         except AttributeError:
             current_line_decoded = line
-        actual_content.append(current_line_decoded)
+        # the decoded line is not a blank space (e.g., "")
+        # so it should be added into the list of lines
+        # the goal is to avoid counting blank lines
+        if current_line_decoded is not NOTHING:
+            actual_content.append(current_line_decoded)
     return actual_content
 
 
