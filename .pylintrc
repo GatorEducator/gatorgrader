@@ -393,7 +393,7 @@ max-args=6
 max-attributes=7
 
 # Maximum number of boolean expressions in a if statement
-max-bool-expr=5
+max-bool-expr=7
 
 # Maximum number of branch for function / method body
 max-branches=15
