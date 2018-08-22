@@ -39,6 +39,10 @@ def check_arguments(system_arguments):
     # Action: display the welcome message
     if gg_arguments.nowelcome is not True:
         actions.append([DISPLAY, "welcome_message", VOID])
+    if gg_arguments.json is True:
+        # pylint: disable=global-statement
+        global OUTPUT_TYPE
+        OUTPUT_TYPE = getattr(REPORT, "JSON")
     did_verify_arguments = arguments.verify(gg_arguments)
     # arguments are incorrect
     if did_verify_arguments is False:
