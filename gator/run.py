@@ -22,14 +22,17 @@ def specified_command_get_output(command):
 
 
 def get_actual_output(output):
-    """Returns the actual lines from the command's output"""
+    """Returns the list of actual lines from the command's output"""
     actual_output = []
     # break up the output by newlines, discarding newlines
     for line in output.splitlines(keepends=False):
+        # decode the line
         try:
             current_line_decoded = line.decode()
+        # line cannot decode, return the line itself
         except AttributeError:
             current_line_decoded = line
+        # add this line to the list of actual lines
         actual_output.append(current_line_decoded)
     return actual_output
 
