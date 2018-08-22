@@ -776,6 +776,32 @@ def test_is_valid_count_with_file_or_command(chosen_arguments):
         ),
         (["--nowelcome", "--directory", "D", "--file", "f", "--words", "2", "--exact"]),
         (["--nowelcome", "--directory", "D", "--file", "f", "--count", "2", "--exact"]),
+        (
+            [
+                "--nowelcome",
+                "--directory",
+                "D",
+                "--file",
+                "f",
+                "--fragment",
+                "GatorGrader",
+                "--count",
+                "2",
+                "--exact",
+            ]
+        ),
+        (
+            [
+                "--nowelcome",
+                "--command",
+                "ls",
+                "--fragment",
+                "GatorGrader",
+                "--count",
+                "2",
+                "--exact",
+            ]
+        ),
     ],
 )
 def test_exact_count_check_valid(chosen_arguments):
