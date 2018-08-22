@@ -39,9 +39,11 @@ def get_actual_output(output):
 
 def run_command(command):
     """Run a command and return the output and error code"""
+    # configure the process that will run the command
     process = subprocess.Popen(
         command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
     )
+    # run the command and return the results
     output, error = process.communicate()
     return output, error
 
