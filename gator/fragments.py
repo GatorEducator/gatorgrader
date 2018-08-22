@@ -73,9 +73,16 @@ def get_line_list(content):
         # the decoded line is not a blank space (e.g., "")
         # so it should be added into the list of lines
         # the goal is to avoid counting blank lines
-        if current_line_decoded is not NOTHING:
+        if not is_blank_line(current_line_decoded):
             actual_content.append(current_line_decoded)
     return actual_content
+
+
+def is_blank_line(line):
+    """Returns True if a line is a blank one and False otherwise"""
+    if line is not None and line is not NOTHING and not line.isspace():
+        return False
+    return True
 
 
 def count_paragraphs(contents):
