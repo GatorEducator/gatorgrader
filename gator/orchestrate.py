@@ -265,8 +265,9 @@ def check(system_arguments):
         "check_count_file",
         "check_count_command",
     ]
+    # iterate through all of the possible checks
     for a_check in checks:
-        # create the checking function
+        # reflectively create the checking function
         check_to_invoke = getattr(ORCHESTRATE, a_check)
         # call the checking function and get actions
         actions = check_to_invoke(gg_arguments)
