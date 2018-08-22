@@ -348,3 +348,33 @@ def test_count_multiple_lines_from_contents_with_threshold():
     )
     assert actual_count == 3
     assert exceeds_threshold is False
+
+
+@pytest.mark.parametrize(
+    "writing_string,expected_status",
+    [
+        (None, True),
+        ("", True),
+        ("\n", True),
+        ("\n\n", True),
+        ("\n \n", True),
+        ("\t", True),
+        ("\t \t", True),
+        ("\n \t", True),
+        ("\t \n", True),
+        ("     ", True),
+        ("  \t   ", True),
+        ("  \n   ", True),
+        ("  \t  \n   ", True),
+        ("  \n  \t   ", True),
+        ("System.out.println(new Date() new Date() new Date())", False),
+        (
+            "hello @world!!%^(@after)writing a lot\nnew new new one\nthird one\n\n",
+            False,
+        ),
+    ],
+)
+def test_detect_blank_line(writing_string, expected_status):
+    """Create some strings and then see blank detection for the line works"""
+    found_blanks = fragments.is_blank_line(writing_string)
+    assert found_blanks == expected_status
