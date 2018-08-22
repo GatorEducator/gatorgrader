@@ -22,6 +22,7 @@ SINGLE = "single-line"
 
 def invoke_commits_check(student_repository, expected_count):
     """Check to see if the repository has more than specified commits"""
+    # inspect the Git repository internals for the commits
     did_check_pass, actual_count = repository.commits_greater_than_count(
         student_repository, expected_count
     )
@@ -45,6 +46,8 @@ def invoke_file_in_directory_check(filecheck, directory):
         "The file " + filecheck + " exists in the " + directory + SPACE + "directory"
     )
     # produce the final report and return the result
+    # note that update_report is not called because
+    # there will never be a diagnostic for this invoke
     report.add_result(message, was_file_found, NO_DIAGNOSTIC)
     return was_file_found
 
