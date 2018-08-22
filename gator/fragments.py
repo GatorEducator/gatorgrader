@@ -9,11 +9,15 @@ FILE_SEPARATOR = "/"
 # https://stackoverflow.com/questions/18568105/how-match-a-paragraph-using-regex
 # https://stackoverflow.com/questions/13531204/how-to-match-paragraphs-in-text-with-regx
 
-PARAGRAH_RE = r"(.+?\n\n|.+?$)"
-SECTION_MARKER = "#"
 CODE_FENCE_MARKER = "```"
 GATORGRADER_REPLACEMENT = "GATORGRADER_REPLACEMENT"
+PARAGRAH_RE = r"(.+?\n\n|.+?$)"
+SECTION_MARKER = "#"
+
 NEWLINE = "\n"
+NOTHING = ""
+SPACE = " "
+
 DOUBLE_NEWLINE = NEWLINE * 2
 
 
@@ -38,19 +42,33 @@ def get_paragraphs(contents, blank_replace=True):
     """Retrieves the paragraphs in the writing"""
     # use a replacement to handle a string with just spaces
     if blank_replace is True:
-        contents = contents.replace(" ", "")
+        contents = contents.replace(SPACE, NOTHING)
     # replace a single newline with a blank space, respecting double newlines
     contents = contents.replace(DOUBLE_NEWLINE, GATORGRADER_REPLACEMENT)
-    contents = contents.replace(NEWLINE, " ")
+    contents = contents.replace(NEWLINE, SPACE)
     contents = contents.replace(GATORGRADER_REPLACEMENT, DOUBLE_NEWLINE)
     pattern = re.compile(PARAGRAH_RE)
     paragraphs = pattern.findall(contents)
     # disregard all of the section headers in markdown
     matching_paragraphs = []
+    # iterate through all potential paragraphs and gather
+    # those that match the standard for legitimacy
     for paragraph in paragraphs:
         if is_paragraph(paragraph) is True:
             matching_paragraphs.append(paragraph)
     return matching_paragraphs
+
+
+def get_line_list(content):
+    """Returns a list of lines from any type of input string"""
+    actual_content = []
+    for line in content.splitlines(keepends=False):
+        try:
+            current_line_decoded = line.decode()
+        except AttributeError:
+            current_line_decoded = line
+        actual_content.append(current_line_decoded)
+    return actual_content
 
 
 def count_paragraphs(contents):
@@ -61,48 +79,97 @@ def count_paragraphs(contents):
 
 
 def count_words(contents):
-    """Counts the number of words in the writing"""
+    """Counts the minimum number of words across all paragraphs in writing"""
     # retrieve all of the paragraphs in the contents
     replace_blank_inputs = False
     paragraphs = get_paragraphs(contents, replace_blank_inputs)
     # count all of the words in each paragraph
     word_counts = []
     for para in paragraphs:
-        para = para.replace("\n", " ")
-        words = "".join(ch if ch.isalnum() else " " for ch in para).split()
+        para = para.replace(NEWLINE, SPACE)
+        words = NOTHING.join(ch if ch.isalnum() else SPACE for ch in para).split()
         word_counts.append(len(words))
+    # return the minimum number of words across all paragraphs
     if word_counts:
         return min(word_counts)
+    # counting did not work correctly, so return 0
     return 0
 
 
 def count_specified_fragment(contents, fragment):
-    """Counts the specified string fragment in the writing"""
+    """Counts the specified string fragment in the string contents"""
     fragment_count = contents.count(fragment)
     return fragment_count
 
 
 # pylint: disable=bad-continuation
 def specified_fragment_greater_than_count(
-    given_file, containing_directory, chosen_fragment, expected_count, checking_function
+    chosen_fragment,
+    checking_function,
+    expected_count,
+    given_file=NOTHING,
+    containing_directory=NOTHING,
+    contents=NOTHING,
 ):
     """Determines if the fragment count is greater than expected"""
+    # count the fragments in either a file in a directory or String contents
     file_fragment_count = count_fragments(
-        given_file, containing_directory, chosen_fragment, checking_function
+        chosen_fragment, checking_function, given_file, containing_directory, contents
     )
+    # the fragment count is at or above the threshold
     if file_fragment_count >= expected_count:
-        return True
-    return False
+        return True, file_fragment_count
+    # the fragment count is not above the threshold
+    return False, file_fragment_count
 
 
 # pylint: disable=bad-continuation
 def count_fragments(
-    given_file, containing_directory, chosen_fragment, checking_function
+    chosen_fragment,
+    checking_function,
+    given_file=NOTHING,
+    containing_directory=NOTHING,
+    contents=NOTHING,
 ):
-    """Counts fragments for the file in the directory and a fragment"""
+    """Counts fragments for the file in the directory (or contents) and a fragment"""
     file_for_checking = Path(containing_directory + FILE_SEPARATOR + given_file)
     file_contents_count = 0
-    if file_for_checking.is_file():
+    # file is not available and the contents are provided
+    if not file_for_checking.is_file() and contents is not NOTHING:
+        file_contents_count = checking_function(contents, chosen_fragment)
+    # file is available and the contents are not provided
+    elif file_for_checking.is_file() and contents is NOTHING:
         file_contents = file_for_checking.read_text()
         file_contents_count = checking_function(file_contents, chosen_fragment)
+    return file_contents_count
+
+
+# pylint: disable=bad-continuation
+def specified_source_greater_than_count(
+    expected_count, given_file=NOTHING, containing_directory=NOTHING, contents=NOTHING
+):
+    """Determines if the line count is greater than expected"""
+    # count the fragments in either a file in a directory or String contents
+    file_line_count = count_lines(given_file, containing_directory, contents)
+    # the fragment count is at or above the threshold
+    if file_line_count >= expected_count:
+        return True, file_line_count
+    # the fragment count is not above the threshold
+    return False, file_line_count
+
+
+# pylint: disable=bad-continuation
+def count_lines(given_file=NOTHING, containing_directory=NOTHING, contents=NOTHING):
+    """Counts lines for the file in the directory (or contents)"""
+    file_for_checking = Path(containing_directory + FILE_SEPARATOR + given_file)
+    file_contents_count = 0
+    # file is not available and the contents are provided
+    if not file_for_checking.is_file() and contents is not NOTHING:
+        line_list = get_line_list(contents)
+        file_contents_count = len(line_list)
+    # file is available and the contents are not provided
+    elif file_for_checking.is_file() and contents is NOTHING:
+        file_contents = file_for_checking.read_text()
+        line_list = get_line_list(file_contents)
+        file_contents_count = len(line_list)
     return file_contents_count

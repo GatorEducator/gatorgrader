@@ -6,6 +6,7 @@ from gator import arguments
 from gator import display
 from gator import invoke
 from gator import leave
+from gator import orchestrate
 
 
 DEFAULT_COUNT = 0
@@ -21,7 +22,8 @@ MULTIPLE = "multiple-line"
 REPOSITORY = "."
 
 
-if __name__ == "__main__":
+def old_main():
+    """The old main function"""
     # parse and verify the arguments
     gg_arguments = arguments.parse(sys.argv[1:])
     did_verify_arguments = arguments.verify(gg_arguments)
@@ -114,7 +116,15 @@ if __name__ == "__main__":
         else:
             print("Requested non-existent checking.")
             sys.exit(NONEXISTENT_CHECKING)
-
         # DONE: Determine the correct exit code for the checks
         correct_exit_code = leave.get_code(check_return_values)
         sys.exit(correct_exit_code)
+
+
+if __name__ == "__main__":
+    # orchestrate check(s) of the specified deliverable(s)
+    exit_code = orchestrate.check(sys.argv[1:])
+    # exit the program with the correct code
+    # error code: one aspect of the checks failed
+    # normal code: all aspects of the checks passed
+    sys.exit(exit_code)

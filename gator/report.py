@@ -19,7 +19,7 @@ DIAGNOSTIC = "diagnostic"
 TEXT = "output_text"
 JSON = "output_json"
 
-ARROW = "↦"
+ARROW = "➔"
 EMPTY_STRING = ""
 NEWLINE = "\n"
 SPACE = " "
@@ -114,7 +114,7 @@ def form_single_output_line(check, outcome, diagnostic):
         )
     # there is no diagnostic, so do not include anything else
     else:
-        submitted = check + SPACE + util.get_symbol_answer(outcome)
+        submitted = util.get_symbol_answer(outcome) + SPACE + check
     return submitted
 
 

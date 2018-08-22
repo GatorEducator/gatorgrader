@@ -4,63 +4,68 @@ from gator import comments
 from gator import entities
 from gator import files
 from gator import fragments
+from gator import report
 from gator import repository
 from gator import run
 from gator import util
 
 JAVA = "Java"
-MULTIPLE = "multiple-line"
 PYTHON = "Python"
+
+NOTHING = ""
+NO_DIAGNOSTIC = ""
+SPACE = " "
+
+MULTIPLE = "multiple-line"
 SINGLE = "single-line"
 
 
 def invoke_commits_check(student_repository, expected_count):
     """Check to see if the repository has more than specified commits"""
-    print("Checking for commits...")
-    print()
-    did_check_pass = repository.commits_greater_than_count(
+    did_check_pass, actual_count = repository.commits_greater_than_count(
         student_repository, expected_count
     )
-    print(
-        "Did the repository have at least ",
-        expected_count,
-        " commits? ",
-        util.get_human_answer(did_check_pass),
-        sep="",
-    )
-    print()
-    print("... Done checking for commits")
+    # create the message and the diagnostic
+    message = "Repository has at least " + str(expected_count) + " commit(s)"
+    diagnostic = "Found " + str(actual_count) + " commit(s) in the Git repository"
+    # found at least the required number of commits
+    # do not produce a diagnostic message
+    if did_check_pass:
+        report.add_result(message, did_check_pass, NO_DIAGNOSTIC)
+    # did not find at least the required number of commits
+    # produce a diagnostic message using the actual count
+    else:
+        report.add_result(message, did_check_pass, diagnostic)
     return did_check_pass
-
-
-def invoke_all_file_in_directory_checks(filecheck, directory):
-    """Perform the check for file existence and return the results"""
-    print("Checking if files are in the expected directories ...")
-    print()
-    was_file_found_list = []
-    was_file_found = invoke_file_in_directory_check(filecheck, directory)
-    was_file_found_list.append(was_file_found)
-    print()
-    print("... Done checking if files are in the expected directories")
-    return was_file_found_list
 
 
 def invoke_file_in_directory_check(filecheck, directory):
     """Check to see if the file is in the directory"""
+    # get the home directory for checking and then check for file
     gatorgrader_home = util.get_gatorgrader_home()
     was_file_found = files.check_file_in_directory(
         filecheck, gatorgrader_home + directory
     )
-    print(
-        "Was ",
-        filecheck,
-        " found in ",
-        directory,
-        "? ",
-        util.get_human_answer(was_file_found),
-        sep="",
+    # construct the message about whether or not the file exists
+    # note that no diagnostic is needed and the result is boolean
+    message = (
+        "The file " + filecheck + " exists in the " + directory + SPACE + "directory"
     )
+    # produce the final report and return the result
+    report.add_result(message, was_file_found, NO_DIAGNOSTIC)
     return was_file_found
+
+
+def update_report(status, message, diagnostic):
+    """Update the report after running a check"""
+    # found at least the required number of an entity
+    # do not produce a diagnostic message
+    if status:
+        report.add_result(message, status, NO_DIAGNOSTIC)
+    # did not find at least the required number of an entity
+    # produce a diagnostic message using the actual count
+    else:
+        report.add_result(message, status, diagnostic)
 
 
 # pylint: disable=bad-continuation
@@ -68,15 +73,13 @@ def invoke_all_comment_checks(
     filecheck, directory, expected_count, comment_type, language
 ):
     """Perform the comment check and return the results"""
-    print("Checking for", comment_type, "comments...")
-    print()
-    was_exceeded_list = []
     met_or_exceeded_count = 0
-    # check single-lie comments
+    actual_count = 0
+    # check single-line comments
     if comment_type == SINGLE:
         # check comments in Java
         if language == JAVA:
-            met_or_exceeded_count = entities.entity_greater_than_count(
+            met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
                 filecheck,
                 directory,
                 expected_count,
@@ -84,7 +87,7 @@ def invoke_all_comment_checks(
             )
         # check comments in Python
         if language == PYTHON:
-            met_or_exceeded_count = entities.entity_greater_than_count(
+            met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
                 filecheck,
                 directory,
                 expected_count,
@@ -92,159 +95,156 @@ def invoke_all_comment_checks(
             )
     # check multiple-line comments (only in Java)
     elif comment_type == MULTIPLE:
-        met_or_exceeded_count = entities.entity_greater_than_count(
+        met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
             filecheck, directory, expected_count, comments.count_multiline_java_comment
         )
-    was_exceeded_list.append(met_or_exceeded_count)
-    print(
-        "Did ",
-        filecheck,
-        " in ",
-        directory,
-        " have at least ",
-        expected_count,
-        " ",
-        comment_type,
-        " comments in the ",
-        language,
-        " format? ",
-        util.get_human_answer(met_or_exceeded_count),
-        sep="",
+    message = (
+        "The "
+        + filecheck
+        + " in "
+        + directory
+        + " has at least "
+        + str(expected_count)
+        + SPACE
+        + comment_type
+        + SPACE
+        + language
+        + " comment(s)"
     )
-
-    print()
-    print("... Done checking for", comment_type, "comments")
-    return was_exceeded_list
+    diagnostic = "Found " + str(actual_count) + " comment(s) in the specified file"
+    update_report(met_or_exceeded_count, message, diagnostic)
+    return met_or_exceeded_count
 
 
 def invoke_all_paragraph_checks(filecheck, directory, expected_count):
     """Perform the paragraph check and return the results"""
-    print("Checking for paragraphs...")
-    print()
-    was_exceeded_list = []
     met_or_exceeded_count = 0
-    met_or_exceeded_count = entities.entity_greater_than_count(
+    met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
         filecheck, directory, expected_count, fragments.count_paragraphs
     )
-    was_exceeded_list.append(met_or_exceeded_count)
-    print(
-        "Did ",
-        filecheck,
-        " in ",
-        directory,
-        " have at least ",
-        expected_count,
-        " paragraph(s)? ",
-        util.get_human_answer(met_or_exceeded_count),
-        sep="",
+    message = (
+        "The "
+        + filecheck
+        + " in "
+        + directory
+        + " has at least "
+        + str(expected_count)
+        + SPACE
+        + "paragraph(s)"
     )
-    print()
-    print("... Done checking for paragraphs")
-    return was_exceeded_list
+    diagnostic = "Found " + str(actual_count) + " paragraph(s) in the specified file"
+    update_report(met_or_exceeded_count, message, diagnostic)
+    return met_or_exceeded_count
 
 
 def invoke_all_word_count_checks(filecheck, directory, expected_count):
     """Perform the word count check and return the results"""
-    print("Checking for word counts...")
-    print()
-    was_exceeded_list = []
     met_or_exceeded_count = 0
-    met_or_exceeded_count = entities.entity_greater_than_count(
+    met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
         filecheck, directory, expected_count, fragments.count_words
     )
-    was_exceeded_list.append(met_or_exceeded_count)
-    print(
-        "Did ",
-        filecheck,
-        " in ",
-        directory,
-        " have paragraphs with at least ",
-        expected_count,
-        " words? ",
-        util.get_human_answer(met_or_exceeded_count),
-        sep="",
+    message = (
+        "The "
+        + filecheck
+        + " in "
+        + directory
+        + " has at least "
+        + str(expected_count)
+        + SPACE
+        + "word(s) in every paragraph"
     )
-    print()
-    print("... Done checking for word counts")
-    return was_exceeded_list
+    diagnostic = (
+        "Found " + str(actual_count) + " word(s) in a paragraph of the specified file"
+    )
+    update_report(met_or_exceeded_count, message, diagnostic)
+    return met_or_exceeded_count
 
 
-def invoke_all_fragment_checks(filecheck, directory, fragment, expected_count):
-    """Perform the check for a fragment existence and return the results"""
-    print("Checking for fragments...")
-    print()
-    was_exceeded_list = []
+# pylint: disable=bad-continuation
+def invoke_all_fragment_checks(
+    fragment, expected_count, filecheck=NOTHING, directory=NOTHING, contents=NOTHING
+):
+    """Perform the check for a fragment existence in file or contents and return the results"""
     met_or_exceeded_count = 0
-    met_or_exceeded_count = fragments.specified_fragment_greater_than_count(
-        filecheck,
-        directory,
+    met_or_exceeded_count, actual_count = fragments.specified_fragment_greater_than_count(
         fragment,
-        expected_count,
         fragments.count_specified_fragment,
-    )
-    was_exceeded_list.append(met_or_exceeded_count)
-    print(
-        "Did ",
+        expected_count,
         filecheck,
-        " in ",
         directory,
-        " have at least ",
-        expected_count,
-        ' of the "',
-        fragment,
-        '" fragment? ',
-        util.get_human_answer(met_or_exceeded_count),
-        sep="",
+        contents,
     )
-
-    print()
-    print("... Done checking for fragments")
-    return was_exceeded_list
-
-
-def invoke_all_command_checks(command, expected_count):
-    """Repeatedly perform the command check and return the results"""
-    print("Checking the output of commands ...")
-    print()
-    was_exactly_equal_list = []
-    was_exactly_count = 0
-    # for command, expected_count in zip(commands, expected_counts):
-    was_exactly_count = run.specified_command_output_equals_count(
-        command, expected_count
+    # create a message for a file in directory
+    if contents is NOTHING:
+        message = (
+            "The "
+            + filecheck
+            + " in "
+            + directory
+            + " has at least "
+            + str(expected_count)
+            + " of the '"
+            + fragment
+            + "' fragment"
+        )
+    # create a message for a string
+    else:
+        message = (
+            "The output"
+            + " has at least "
+            + str(expected_count)
+            + " of the '"
+            + fragment
+            + "' fragment"
+        )
+    diagnostic = (
+        "Found "
+        + str(actual_count)
+        + " fragment(s) in the output or the specified file"
     )
-    was_exactly_equal_list.append(was_exactly_count)
-    print(
-        "Did the command '",
-        command,
-        "' produce exactly ",
-        expected_count,
-        " lines of output? ",
-        util.get_human_answer(was_exactly_count),
-        sep="",
-    )
-    print()
-    print("... Done checking the output of commands")
-    return was_exactly_equal_list
+    update_report(met_or_exceeded_count, message, diagnostic)
+    return met_or_exceeded_count
 
 
-def invoke_all_command_fragment_checks(command, expected_fragment):
-    """Repeatedly perform the check and return the results"""
-    print("Checking the output of commands ...")
-    print()
-    was_contained_list = []
-    was_contained = run.specified_command_output_contains_fragment(
-        command, expected_fragment
+def invoke_all_command_fragment_checks(command, expected_fragment, expected_count):
+    """Perform the check for a fragment existence in the output of a command"""
+    command_output = run.specified_command_get_output(command)
+    return invoke_all_fragment_checks(
+        expected_fragment, expected_count, contents=command_output
     )
-    was_contained_list.append(was_contained)
-    print(
-        "Did the command '",
-        command,
-        "' output the fragment '",
-        expected_fragment,
-        "'? ",
-        util.get_human_answer(was_contained),
-        sep="",
+
+
+# pylint: disable=bad-continuation
+def invoke_all_count_checks(
+    expected_count, filecheck=NOTHING, directory=NOTHING, contents=NOTHING
+):
+    """Perform the check for the count of lines in file or contents and return the results"""
+    met_or_exceeded_count = 0
+    met_or_exceeded_count, actual_count = fragments.specified_source_greater_than_count(
+        expected_count, filecheck, directory, contents
     )
-    print()
-    print("... Done checking the output of commands")
-    return was_contained_list
+    # create a message for a file in directory
+    if contents is NOTHING:
+        message = (
+            "The "
+            + filecheck
+            + " in "
+            + directory
+            + " has at least "
+            + str(expected_count)
+            + " line(s)"
+        )
+    # create a message for a string
+    else:
+        message = "The content" + " has at least " + str(expected_count) + " lines"
+    diagnostic = (
+        "Found " + str(actual_count) + " line(s) in the output or the specified file"
+    )
+    update_report(met_or_exceeded_count, message, diagnostic)
+    return met_or_exceeded_count
+
+
+def invoke_all_command_count_checks(command, expected_count):
+    """Perform the check for number of lines in the output of a command"""
+    command_output = run.specified_command_get_output(command)
+    return invoke_all_count_checks(expected_count, contents=command_output)

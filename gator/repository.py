@@ -22,9 +22,9 @@ def count_commits(commits):
 
 
 def commits_greater_than_count(path, expected_count):
-    """Returns true if count of commits is greater than limit, else False"""
+    """Returns count and true if count of commits is greater than limit, else False"""
     commits = get_commmits(path)
     number_commits = count_commits(commits)
     if number_commits >= expected_count:
-        return True
-    return False
+        return True, number_commits
+    return False, number_commits
