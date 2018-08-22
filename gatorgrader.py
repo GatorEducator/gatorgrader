@@ -2,10 +2,6 @@
 
 import sys
 
-from gator import arguments
-from gator import display
-from gator import invoke
-from gator import leave
 from gator import orchestrate
 
 
