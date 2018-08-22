@@ -9,15 +9,6 @@ NOTHING = ""
 SPACE = " "
 
 
-def check_fragment_exists(expected_fragment, output_list):
-    """Checks if a fragment exists in the list of output lines"""
-    found_fragment = False
-    for current_line in output_list:
-        if expected_fragment in current_line:
-            found_fragment = True
-    return found_fragment
-
-
 def specified_command_get_output(command):
     """Run the command and return the output as a String"""
     # run the command and gather the output and error details
