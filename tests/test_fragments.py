@@ -302,6 +302,15 @@ def test_count_multiple_lines_from_file_with_threshold(tmpdir):
 
 
 def test_count_multiple_lines_from_contents():
+    """Checks that counting lines in contents works correctly with blanks"""
+    hello_contents = (
+        '/* hello world */\nString s = new String("hello");\n\n//this is a comment'
+    )
+    count = fragments.count_lines("", "", hello_contents)
+    assert count == 3
+
+
+def test_count_multiple_lines_from_contents_blanks():
     """Checks that counting lines in contents works correctly"""
     hello_contents = (
         '/* hello world */\nString s = new String("hello");\n//this is a comment'
