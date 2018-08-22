@@ -136,4 +136,5 @@ def output_text(dictionary_result, output_collector):
 
 def output_json(dictionary_result, output_collector):
     """Produce output in a JSON-based textual format"""
-    output_collector.append(json.dumps(dictionary_result))
+    for result in dictionary_result.values():
+        output_collector.append(json.dumps(result))
