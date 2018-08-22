@@ -310,10 +310,19 @@ def test_count_multiple_lines_from_contents():
     assert count == 3
 
 
-def test_count_multiple_lines_from_contents_blanks():
+def test_count_multiple_lines_from_contents_single_blank():
     """Checks that counting lines in contents works correctly"""
     hello_contents = (
         '/* hello world */\nString s = new String("hello");\n//this is a comment'
+    )
+    count = fragments.count_lines("", "", hello_contents)
+    assert count == 3
+
+
+def test_count_multiple_lines_from_contents_multiple_blanks():
+    """Checks that counting lines in contents works correctly"""
+    hello_contents = (
+        '/* hello world */\n\nString s = new String("hello");\n//this is a comment\n\n'
     )
     count = fragments.count_lines("", "", hello_contents)
     assert count == 3
