@@ -24,6 +24,7 @@ def specified_command_get_output(command):
 def get_actual_output(output):
     """Returns the actual lines from the command's output"""
     actual_output = []
+    # break up the output by newlines, discarding newlines
     for line in output.splitlines(keepends=False):
         try:
             current_line_decoded = line.decode()
