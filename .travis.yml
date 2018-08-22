@@ -45,6 +45,7 @@ script:
   - pipenv run flake8 tests*
   - pipenv run flake8 gatorgrader*
   - pipenv run pylint tests
+  - pipenv run pylint gator
   - mdl README.md
 
 # report coverage information to CodeCov
