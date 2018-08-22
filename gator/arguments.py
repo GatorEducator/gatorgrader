@@ -172,9 +172,18 @@ def is_valid_commits(args):
 
 # Ancillary helper functions {{{
 
+
 def is_valid_exact(args, skip=False):
     """Checks if it is a valid exact count specification"""
-    if is_valid_commits(args) or is_valid_comments(args) or skip:
+    # pylint: disable=bad-continuation
+    if (
+        is_valid_commits(args)
+        or is_valid_comments(args)
+        or is_valid_paragraphs(args)
+        or is_valid_words(args)
+        or is_valid_count(args)
+        or skip
+    ):
         if args.exact is not False:
             return True
     return False
