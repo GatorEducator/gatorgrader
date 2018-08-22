@@ -23,7 +23,7 @@ def parse(args):
 
     # specify a check for the number of commits in the Git repository
     # CORRECT WHEN: user provides this argument but not any other main arguments
-    gg_parser.add_argument("--commits", type=int, help="number of git commits")
+    gg_parser.add_argument("--commits", type=int, help="minimum number of git commits")
 
     # specify a single file and a single directory
     # CORRECT WHEN: user provides both of these
