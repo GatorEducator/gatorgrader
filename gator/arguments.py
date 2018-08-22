@@ -174,7 +174,7 @@ def is_valid_commits(args):
 
 def is_valid_exact(args, skip=False):
     """Checks if it is a valid exact count specification"""
-    if is_valid_commits(args) or skip:
+    if is_valid_commits(args) or is_valid_comments(args) or skip:
         if args.exact is not False:
             return True
     return False
