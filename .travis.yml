@@ -38,6 +38,7 @@ before_script:
 # --> run the test suite with pytest
 # --> lint the functions with flake8
 # --> lint the test suites with flake8
+# --> lint the functions with pylint
 # --> lint the test suites with pylint
 # --> lint the README documentation with mdl
 script:
