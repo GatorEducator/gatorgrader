@@ -742,6 +742,9 @@ def test_is_valid_count_with_file_or_command(chosen_arguments):
         (["--nowelcome", "--exact", "--commits", "2"]),
         (["--nowelcome", "--directory", "D", "--file", "f", "--single", "2", "--exact"]),
         (["--nowelcome", "--directory", "D", "--file", "f", "--multiple", "2", "--exact"]),
+        (["--nowelcome", "--directory", "D", "--file", "f", "--paragraphs", "2", "--exact"]),
+        (["--nowelcome", "--directory", "D", "--file", "f", "--words", "2", "--exact"]),
+        (["--nowelcome", "--directory", "D", "--file", "f", "--count", "2", "--exact"]),
     ],
 )
 def test_exact_count_check_valid(chosen_arguments):
