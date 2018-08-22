@@ -182,6 +182,7 @@ def is_valid_exact(args, skip=False):
         or is_valid_paragraphs(args)
         or is_valid_words(args)
         or is_valid_count(args)
+        or is_valid_fragment(args)
         or skip
     ):
         if args.exact is not False:
