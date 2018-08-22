@@ -21,7 +21,7 @@ install:
   - pip install pipenv --upgrade
   - pipenv install --dev --three
 
-# Send emails when there is a change or failure
+# send emails when there is a change or failure
 notifications:
   email:
     on_success: change
@@ -38,6 +38,7 @@ before_script:
 # --> run the test suite with pytest
 # --> lint the functions with flake8
 # --> lint the test suites with flake8
+# --> lint the functions with pylint
 # --> lint the test suites with pylint
 # --> lint the README documentation with mdl
 script:
@@ -45,6 +46,7 @@ script:
   - pipenv run flake8 tests*
   - pipenv run flake8 gatorgrader*
   - pipenv run pylint tests
+  - pipenv run pylint gator
   - mdl README.md
 
 # report coverage information to CodeCov

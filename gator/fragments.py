@@ -158,7 +158,6 @@ def specified_source_greater_than_count(
     return False, file_line_count
 
 
-# pylint: disable=bad-continuation
 def count_lines(given_file=NOTHING, containing_directory=NOTHING, contents=NOTHING):
     """Counts lines for the file in the directory (or contents)"""
     file_for_checking = Path(containing_directory + FILE_SEPARATOR + given_file)

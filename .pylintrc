@@ -387,7 +387,7 @@ known-third-party=enchant
 [DESIGN]
 
 # Maximum number of arguments for function / method
-max-args=5
+max-args=6
 
 # Maximum number of attributes for a class (see R0902).
 max-attributes=7
@@ -396,7 +396,7 @@ max-attributes=7
 max-bool-expr=5
 
 # Maximum number of branch for function / method body
-max-branches=12
+max-branches=15
 
 # Maximum number of locals for function / method body
 max-locals=15
