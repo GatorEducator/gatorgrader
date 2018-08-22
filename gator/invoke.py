@@ -20,6 +20,18 @@ MULTIPLE = "multiple-line"
 SINGLE = "single-line"
 
 
+def update_report(status, message, diagnostic):
+    """Update the report after running a check"""
+    # found at least the required number of an entity
+    # do not produce a diagnostic message
+    if status:
+        report.add_result(message, status, NO_DIAGNOSTIC)
+    # did not find at least the required number of an entity
+    # produce a diagnostic message using the actual count
+    else:
+        report.add_result(message, status, diagnostic)
+
+
 def invoke_commits_check(student_repository, expected_count):
     """Check to see if the repository has more than specified commits"""
     # inspect the Git repository internals for the commits
@@ -50,18 +62,6 @@ def invoke_file_in_directory_check(filecheck, directory):
     # there will never be a diagnostic for this invoke
     report.add_result(message, was_file_found, NO_DIAGNOSTIC)
     return was_file_found
-
-
-def update_report(status, message, diagnostic):
-    """Update the report after running a check"""
-    # found at least the required number of an entity
-    # do not produce a diagnostic message
-    if status:
-        report.add_result(message, status, NO_DIAGNOSTIC)
-    # did not find at least the required number of an entity
-    # produce a diagnostic message using the actual count
-    else:
-        report.add_result(message, status, diagnostic)
 
 
 # pylint: disable=bad-continuation
