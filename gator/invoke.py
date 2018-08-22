@@ -20,22 +20,28 @@ MULTIPLE = "multiple-line"
 SINGLE = "single-line"
 
 
+def update_report(status, message, diagnostic):
+    """Update the report after running a check"""
+    # found at least the required number of an entity
+    # do not produce a diagnostic message
+    if status:
+        report.add_result(message, status, NO_DIAGNOSTIC)
+    # did not find at least the required number of an entity
+    # produce a diagnostic message using the actual count
+    else:
+        report.add_result(message, status, diagnostic)
+
+
 def invoke_commits_check(student_repository, expected_count):
     """Check to see if the repository has more than specified commits"""
+    # inspect the Git repository internals for the commits
     did_check_pass, actual_count = repository.commits_greater_than_count(
         student_repository, expected_count
     )
     # create the message and the diagnostic
     message = "Repository has at least " + str(expected_count) + " commit(s)"
     diagnostic = "Found " + str(actual_count) + " commit(s) in the Git repository"
-    # found at least the required number of commits
-    # do not produce a diagnostic message
-    if did_check_pass:
-        report.add_result(message, did_check_pass, NO_DIAGNOSTIC)
-    # did not find at least the required number of commits
-    # produce a diagnostic message using the actual count
-    else:
-        report.add_result(message, did_check_pass, diagnostic)
+    update_report(did_check_pass, message, diagnostic)
     return did_check_pass
 
 
@@ -52,20 +58,10 @@ def invoke_file_in_directory_check(filecheck, directory):
         "The file " + filecheck + " exists in the " + directory + SPACE + "directory"
     )
     # produce the final report and return the result
+    # note that update_report is not called because
+    # there will never be a diagnostic for this invoke
     report.add_result(message, was_file_found, NO_DIAGNOSTIC)
     return was_file_found
-
-
-def update_report(status, message, diagnostic):
-    """Update the report after running a check"""
-    # found at least the required number of an entity
-    # do not produce a diagnostic message
-    if status:
-        report.add_result(message, status, NO_DIAGNOSTIC)
-    # did not find at least the required number of an entity
-    # produce a diagnostic message using the actual count
-    else:
-        report.add_result(message, status, diagnostic)
 
 
 # pylint: disable=bad-continuation
