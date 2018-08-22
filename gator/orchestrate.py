@@ -208,6 +208,25 @@ def check_fragment_command(system_arguments):
     return actions
 
 
+def check_count_command(system_arguments):
+    """Check the count of lines in a command's output and return desired actions"""
+    actions = []
+    # pylint: disable=bad-continuation
+    if (
+        system_arguments.count is not None
+        and system_arguments.command is not None
+        and system_arguments.fragment is None
+    ):
+        actions.append(
+            [
+                INVOKE,
+                "invoke_all_command_count_checks",
+                [system_arguments.command, system_arguments.count],
+            ]
+        )
+    return actions
+
+
 def perform(actions):
     """Perform the specified actions"""
     results = []
@@ -244,6 +263,7 @@ def check(system_arguments):
         "check_fragment_file",
         "check_fragment_command",
         "check_count_file",
+        "check_count_command",
     ]
     for a_check in checks:
         # create the checking function
