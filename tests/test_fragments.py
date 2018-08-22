@@ -140,7 +140,7 @@ def test_chosen_fragment_many(writing_string, chosen_fragment, expected_count):
         ("hello @world!!%^(@after)writing a @world lot\nnew one", 2),
         ("System.out.println(new Date()) \nnew Date()", 2),
         ("hello @world!!%^(@after)writing a lot\nnew new new one\nthird one", 3),
-        ("hello @world!!%^(@after)writing a lot\nnew new new one\nthird one\n\n", 4),
+        ("hello @world!!%^(@after)writing a lot\nnew new new one\nthird one\n\n", 3),
     ],
 )
 def test_extract_line_list(writing_string, expected_count):
