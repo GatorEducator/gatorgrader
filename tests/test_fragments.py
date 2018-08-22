@@ -140,7 +140,7 @@ def test_chosen_fragment_many(writing_string, chosen_fragment, expected_count):
         ("hello @world!!%^(@after)writing a @world lot\nnew one", 2),
         ("System.out.println(new Date()) \nnew Date()", 2),
         ("hello @world!!%^(@after)writing a lot\nnew new new one\nthird one", 3),
-        ("hello @world!!%^(@after)writing a lot\nnew new new one\nthird one\n\n", 4),
+        ("hello @world!!%^(@after)writing a lot\nnew new new one\nthird one\n\n", 3),
     ],
 )
 def test_extract_line_list(writing_string, expected_count):
@@ -302,9 +302,27 @@ def test_count_multiple_lines_from_file_with_threshold(tmpdir):
 
 
 def test_count_multiple_lines_from_contents():
+    """Checks that counting lines in contents works correctly with blanks"""
+    hello_contents = (
+        '/* hello world */\nString s = new String("hello");\n\n//this is a comment'
+    )
+    count = fragments.count_lines("", "", hello_contents)
+    assert count == 3
+
+
+def test_count_multiple_lines_from_contents_single_blank():
     """Checks that counting lines in contents works correctly"""
     hello_contents = (
         '/* hello world */\nString s = new String("hello");\n//this is a comment'
+    )
+    count = fragments.count_lines("", "", hello_contents)
+    assert count == 3
+
+
+def test_count_multiple_lines_from_contents_multiple_blanks():
+    """Checks that counting lines in contents works correctly"""
+    hello_contents = (
+        '/* hello world */\n\nString s = new String("hello");\n//this is a comment\n\n'
     )
     count = fragments.count_lines("", "", hello_contents)
     assert count == 3
