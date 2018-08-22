@@ -21,7 +21,7 @@ install:
   - pip install pipenv --upgrade
   - pipenv install --dev --three
 
-# Send emails when there is a change or failure
+# send emails when there is a change or failure
 notifications:
   email:
     on_success: change
