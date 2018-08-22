@@ -213,4 +213,4 @@ def test_output_json_complete(reset_results_dictionary):
     assert len(output_list) == 3
     output = " ".join(output_list)
     produced_output = report.output(output_list)
-    assert output is produced_output
+    assert output == produced_output
