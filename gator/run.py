@@ -9,22 +9,6 @@ NOTHING = ""
 SPACE = " "
 
 
-def specified_command_output_equals_count(command, expected_count):
-    """Determines if the output is exactly equal to the count"""
-    output, error = run_command(command)
-    if error != EMPTY:
-        actual_output = get_actual_output(output)
-        actual_line_count = count_output_lines(actual_output)
-        if expected_count == actual_line_count:
-            return True
-    return False
-
-
-def count_output_lines(output):
-    """Counts the lines of program output"""
-    return len(output)
-
-
 def specified_command_output_contains_fragment(command, expected_fragment):
     """Determines if the output is exactly equal to the count"""
     # run the command and gather the output and error details
