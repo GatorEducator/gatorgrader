@@ -28,15 +28,16 @@ def invoke_commits_check(student_repository, expected_count):
     # create the message and the diagnostic
     message = "Repository has at least " + str(expected_count) + " commit(s)"
     diagnostic = "Found " + str(actual_count) + " commit(s) in the Git repository"
-    # found at least the required number of commits
-    # do not produce a diagnostic message
-    if did_check_pass:
-        report.add_result(message, did_check_pass, NO_DIAGNOSTIC)
-    # did not find at least the required number of commits
-    # produce a diagnostic message using the actual count
-    else:
-        report.add_result(message, did_check_pass, diagnostic)
-    return did_check_pass
+    update_report(did_check_pass, message, diagnostic)
+    # # found at least the required number of commits
+    # # do not produce a diagnostic message
+    # if did_check_pass:
+    #     report.add_result(message, did_check_pass, NO_DIAGNOSTIC)
+    # # did not find at least the required number of commits
+    # # produce a diagnostic message using the actual count
+    # else:
+    #     report.add_result(message, did_check_pass, diagnostic)
+    # return did_check_pass
 
 
 def invoke_file_in_directory_check(filecheck, directory):
