@@ -37,7 +37,7 @@ def parse(args):
     # do not display the welcome message
     # CORRECT WHEN: user provides file and directory along with this argument
     gg_parser.add_argument(
-        "--exists", help="does a file in a directory exists", action="store_true"
+        "--exists", help="does a file in a directory exist", action="store_true"
     )
 
     # specify a check on single-line comments
@@ -106,6 +106,16 @@ def parse(args):
 
     # }}}
 
+    # Ancillary Arguments for Any Counting of Entities {{{
+
+    # perform exact checking for entity counting (i.e,. "==" instead of ">=")
+    # CORRECT WHEN: user provides file and directory along with this argument
+    gg_parser.add_argument(
+        "--exact", help="equals instead of a minimum number", action="store_true"
+    )
+
+    # }}}
+
     # call argparse's parse_args function and return result
     gg_arguments_finished = gg_parser.parse_args(args)
     return gg_arguments_finished
@@ -161,6 +171,13 @@ def is_valid_commits(args):
 # }}}
 
 # Ancillary helper functions {{{
+
+def is_valid_exact(args, skip=False):
+    """Checks if it is a valid exact count specification"""
+    if is_valid_commits(args) or skip:
+        if args.exact is not False:
+            return True
+    return False
 
 
 def is_valid_exists(args, skip=False):
