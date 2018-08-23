@@ -1,8 +1,8 @@
 """Interact with a Git repository"""
 
-from gator import util
-
 from git import Repo
+
+from gator import util
 
 
 MASTER = "master"
