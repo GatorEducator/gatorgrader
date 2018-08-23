@@ -69,7 +69,7 @@ def invoke_file_in_directory_check(filecheck, directory):
 
 # pylint: disable=bad-continuation
 def invoke_all_comment_checks(
-    filecheck, directory, expected_count, comment_type, language
+    filecheck, directory, expected_count, comment_type, language, exact=False
 ):
     """Perform the comment check and return the results"""
     met_or_exceeded_count = 0
@@ -83,6 +83,7 @@ def invoke_all_comment_checks(
                 directory,
                 expected_count,
                 comments.count_singleline_java_comment,
+                exact,
             )
         # check comments in Python
         if language == PYTHON:
@@ -91,25 +92,46 @@ def invoke_all_comment_checks(
                 directory,
                 expected_count,
                 comments.count_singleline_python_comment,
+                exact,
             )
     # check multiple-line comments (only in Java)
     elif comment_type == MULTIPLE:
         met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
-            filecheck, directory, expected_count, comments.count_multiline_java_comment
+            filecheck,
+            directory,
+            expected_count,
+            comments.count_multiline_java_comment,
+            exact,
         )
-    message = (
-        "The "
-        + filecheck
-        + " in "
-        + directory
-        + " has at least "
-        + str(expected_count)
-        + SPACE
-        + comment_type
-        + SPACE
-        + language
-        + " comment(s)"
-    )
+    # create the message and the diagnostic
+    if not exact:
+        message = (
+            "The "
+            + filecheck
+            + " in "
+            + directory
+            + " has at least "
+            + str(expected_count)
+            + SPACE
+            + comment_type
+            + SPACE
+            + language
+            + " comment(s)"
+        )
+    else:
+        message = (
+            "The "
+            + filecheck
+            + " in "
+            + directory
+            + " has exactly "
+            + str(expected_count)
+            + SPACE
+            + comment_type
+            + SPACE
+            + language
+            + " comment(s)"
+        )
     diagnostic = "Found " + str(actual_count) + " comment(s) in the specified file"
     update_report(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
