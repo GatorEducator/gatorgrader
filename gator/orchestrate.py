@@ -109,6 +109,7 @@ def check_multiple(system_arguments):
                     system_arguments.multiple,
                     MULTIPLE,
                     system_arguments.language,
+                    system_arguments.exact,
                 ],
             ]
         )
