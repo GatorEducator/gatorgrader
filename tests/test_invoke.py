@@ -25,6 +25,15 @@ def test_commit_checks(reset_results_dictionary):
 
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
+def test_commit_checks_exact(reset_results_dictionary):
+    """Checks to that invocation of commit check exacted works correctly"""
+    invoke.invoke_commits_check(".", sys.maxsize, True)
+    details = report.get_details()
+    assert details is not None
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check(reset_results_dictionary, tmpdir):
     """Checks to that invocation of file existence check works correctly"""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
