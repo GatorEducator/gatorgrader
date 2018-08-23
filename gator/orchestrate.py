@@ -128,6 +128,7 @@ def check_paragraphs(system_arguments):
                     system_arguments.file,
                     system_arguments.directory,
                     system_arguments.paragraphs,
+                    system_arguments.exact,
                 ],
             ]
         )
