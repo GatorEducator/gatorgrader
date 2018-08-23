@@ -51,7 +51,11 @@ def check_commits(system_arguments):
     actions = []
     if system_arguments.commits is not None:
         actions.append(
-            [INVOKE, "invoke_commits_check", [REPOSITORY, system_arguments.commits]]
+            [
+                INVOKE,
+                "invoke_commits_check",
+                [REPOSITORY, system_arguments.commits, system_arguments.exact],
+            ]
         )
     return actions
 
