@@ -88,7 +88,7 @@ def check_single(system_arguments):
                     system_arguments.single,
                     SINGLE,
                     system_arguments.language,
-                    system_arguments.exact
+                    system_arguments.exact,
                 ],
             ]
         )
