@@ -32,14 +32,17 @@ def update_report(status, message, diagnostic):
         report.add_result(message, status, diagnostic)
 
 
-def invoke_commits_check(student_repository, expected_count):
+def invoke_commits_check(student_repository, expected_count, exact=False):
     """Check to see if the repository has more than specified commits"""
     # inspect the Git repository internals for the commits
     did_check_pass, actual_count = repository.commits_greater_than_count(
-        student_repository, expected_count
+        student_repository, expected_count, exact
     )
     # create the message and the diagnostic
-    message = "Repository has at least " + str(expected_count) + " commit(s)"
+    if not exact:
+        message = "Repository has at least " + str(expected_count) + " commit(s)"
+    else:
+        message = "Repository has exactly " + str(expected_count) + " commit(s)"
     diagnostic = "Found " + str(actual_count) + " commit(s) in the Git repository"
     update_report(did_check_pass, message, diagnostic)
     return did_check_pass
