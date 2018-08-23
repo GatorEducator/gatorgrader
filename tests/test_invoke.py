@@ -67,6 +67,24 @@ def test_file_exists_in_directory_check_paragraphs(reset_results_dictionary, tmp
 
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
+def test_file_exists_in_directory_check_paragraphs_exact(reset_results_dictionary, tmpdir):
+    """Checks that the checking of paragraphs works for exact correctly"""
+    reflection_file = tmpdir.mkdir("sub").join("reflection.md")
+    reflection_file.write("hello world 44\n\nhi\n\nff!$@name\n\n^^44")
+    assert reflection_file.read() == "hello world 44\n\nhi\n\nff!$@name\n\n^^44"
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
+    reflection_file = "reflection.md"
+    invoke.invoke_all_paragraph_checks(reflection_file, directory, 4, True)
+    details = report.get_details()
+    assert details is not None
+    invoke.invoke_all_paragraph_checks(reflection_file, directory, 200, True)
+    details = report.get_details()
+    assert details is not None
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check_words(reset_results_dictionary, tmpdir):
     """Checks that the checking of words works correctly"""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
