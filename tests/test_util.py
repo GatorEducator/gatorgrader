@@ -71,3 +71,40 @@ def test_json_detection_not_found():
     not_dictionary = "Command\nNot\nFound\n"
     is_valid_json = util.is_json(not_dictionary)
     assert is_valid_json is False
+
+
+def test_relational_operator_exacted_true_not_exacted():
+    """Checks to see if the exacted relational operator returns True, no exacting"""
+    relation_boolean, relation_value = util.greater_than_equal_exacted(100, 10)
+    assert relation_boolean is True
+    assert relation_value == 100
+    relation_boolean, relation_value = util.greater_than_equal_exacted(100, 10, False)
+    assert relation_boolean is True
+    assert relation_value == 100
+
+
+def test_relational_operator_exacted_true_exacted():
+    """Checks to see if the exacted relational operator returns True"""
+    relation_boolean, relation_value = util.greater_than_equal_exacted(100, 100, True)
+    assert relation_boolean is True
+    assert relation_value == 100
+
+
+def test_relational_operator_exacted_false_not_exacted():
+    """Checks to see if the exacted relational operator returns False, no exacting"""
+    relation_boolean, relation_value = util.greater_than_equal_exacted(10, 100)
+    assert relation_boolean is False
+    assert relation_value == 10
+    relation_boolean, relation_value = util.greater_than_equal_exacted(10, 100, False)
+    assert relation_boolean is False
+    assert relation_value == 10
+
+
+def test_relational_operator_exacted_false_exacted():
+    """Checks to see if the exacted relational operator returns False"""
+    relation_boolean, relation_value = util.greater_than_equal_exacted(10, 100, True)
+    assert relation_boolean is False
+    assert relation_value == 10
+    relation_boolean, relation_value = util.greater_than_equal_exacted(100, 10, True)
+    assert relation_boolean is False
+    assert relation_value == 100
