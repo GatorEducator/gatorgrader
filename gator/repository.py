@@ -1,5 +1,7 @@
 """Interact with a Git repository"""
 
+from gator import util
+
 from git import Repo
 
 
@@ -21,10 +23,10 @@ def count_commits(commits):
     return len(commits)
 
 
-def commits_greater_than_count(path, expected_count):
+def commits_greater_than_count(path, expected_count, exact=False):
     """Returns count and true if count of commits is greater than limit, else False"""
+    # extract the commit log and then count the commits
     commits = get_commmits(path)
     number_commits = count_commits(commits)
-    if number_commits >= expected_count:
-        return True, number_commits
-    return False, number_commits
+    # asses the checked condition and also return number_commits
+    return util.greater_than_equal_exacted(number_commits, expected_count, exact)
