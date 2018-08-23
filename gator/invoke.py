@@ -137,22 +137,35 @@ def invoke_all_comment_checks(
     return met_or_exceeded_count
 
 
-def invoke_all_paragraph_checks(filecheck, directory, expected_count):
+def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=False):
     """Perform the paragraph check and return the results"""
     met_or_exceeded_count = 0
     met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
-        filecheck, directory, expected_count, fragments.count_paragraphs
+        filecheck, directory, expected_count, fragments.count_paragraphs, exact
     )
-    message = (
-        "The "
-        + filecheck
-        + " in "
-        + directory
-        + " has at least "
-        + str(expected_count)
-        + SPACE
-        + "paragraph(s)"
-    )
+    # create the message and the diagnostic
+    if not exact:
+        message = (
+            "The "
+            + filecheck
+            + " in "
+            + directory
+            + " has at least "
+            + str(expected_count)
+            + SPACE
+            + "paragraph(s)"
+        )
+    else:
+        message = (
+            "The "
+            + filecheck
+            + " in "
+            + directory
+            + " has exactly "
+            + str(expected_count)
+            + SPACE
+            + "paragraph(s)"
+        )
     diagnostic = "Found " + str(actual_count) + " paragraph(s) in the specified file"
     update_report(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
