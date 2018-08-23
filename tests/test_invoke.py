@@ -67,7 +67,10 @@ def test_file_exists_in_directory_check_paragraphs(reset_results_dictionary, tmp
 
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
-def test_file_exists_in_directory_check_paragraphs_exact(reset_results_dictionary, tmpdir):
+# pylint: disable=bad-continuation
+def test_file_exists_in_directory_check_paragraphs_exact(
+    reset_results_dictionary, tmpdir
+):
     """Checks that the checking of paragraphs works for exact correctly"""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
     reflection_file.write("hello world 44\n\nhi\n\nff!$@name\n\n^^44")
@@ -210,7 +213,9 @@ def test_comment_counts_check_single_java_exact(reset_results_dictionary, tmpdir
     invoke.invoke_file_in_directory_check(hello_file, directory)
     details = report.get_details()
     assert details is not None
-    invoke.invoke_all_comment_checks(hello_file, directory, 1, "single-line", "Java", True)
+    invoke.invoke_all_comment_checks(
+        hello_file, directory, 1, "single-line", "Java", True
+    )
     details = report.get_details()
     assert details is not None
 
