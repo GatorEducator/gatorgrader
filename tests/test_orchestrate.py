@@ -273,7 +273,6 @@ def test_perform_actions_display_welcome_and_ready_check_count_command_json(
     chosen_arguments = ["--nowelcome", "--command", "ls", "--count", "2", "--json"]
     exit_code = orchestrate.check(chosen_arguments)
     captured = capsys.readouterr()
-    print("*" + captured.out + "*")
     counted_newlines = captured.out.count("\n")
     assert "GatorGrader" not in captured.out
     assert counted_newlines == 2
