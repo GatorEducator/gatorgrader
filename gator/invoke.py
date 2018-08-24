@@ -209,7 +209,12 @@ def invoke_all_word_count_checks(filecheck, directory, expected_count, exact=Fal
 
 # pylint: disable=bad-continuation
 def invoke_all_fragment_checks(
-    fragment, expected_count, filecheck=NOTHING, directory=NOTHING, contents=NOTHING
+    fragment,
+    expected_count,
+    filecheck=NOTHING,
+    directory=NOTHING,
+    contents=NOTHING,
+    exact=False,
 ):
     """Perform the check for a fragment existence in file or contents and return the results"""
     met_or_exceeded_count = 0
@@ -220,30 +225,54 @@ def invoke_all_fragment_checks(
         filecheck,
         directory,
         contents,
+        exact,
     )
     # create a message for a file in directory
     if contents is NOTHING:
-        message = (
-            "The "
-            + filecheck
-            + " in "
-            + directory
-            + " has at least "
-            + str(expected_count)
-            + " of the '"
-            + fragment
-            + "' fragment"
-        )
+        if exact is not True:
+            message = (
+                "The "
+                + filecheck
+                + " in "
+                + directory
+                + " has at least "
+                + str(expected_count)
+                + " of the '"
+                + fragment
+                + "' fragment"
+            )
+        else:
+            message = (
+                "The "
+                + filecheck
+                + " in "
+                + directory
+                + " has exactly "
+                + str(expected_count)
+                + " of the '"
+                + fragment
+                + "' fragment"
+            )
     # create a message for a string
     else:
-        message = (
-            "The output"
-            + " has at least "
-            + str(expected_count)
-            + " of the '"
-            + fragment
-            + "' fragment"
-        )
+        if exact is not True:
+            message = (
+                "The output"
+                + " has at least "
+                + str(expected_count)
+                + " of the '"
+                + fragment
+                + "' fragment"
+            )
+        else:
+            message = (
+                "The output"
+                + " has exactly "
+                + str(expected_count)
+                + " of the '"
+                + fragment
+                + "' fragment"
+            )
     diagnostic = (
         "Found "
         + str(actual_count)
