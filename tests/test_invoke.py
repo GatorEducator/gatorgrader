@@ -160,7 +160,9 @@ def test_file_exists_in_directory_check_fragments(reset_results_dictionary, tmpd
 
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
-def test_file_exists_in_directory_check_fragments_exact(reset_results_dictionary, tmpdir):
+def test_file_exists_in_directory_check_fragments_exact(
+    reset_results_dictionary, tmpdir
+):
     """Checks that the exact checking of fragments in a file works correctly"""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
     reflection_file.write(
