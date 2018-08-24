@@ -211,6 +211,7 @@ def check_fragment_command(system_arguments):
                     system_arguments.command,
                     system_arguments.fragment,
                     system_arguments.count,
+                    system_arguments.exact,
                 ],
             ]
         )
