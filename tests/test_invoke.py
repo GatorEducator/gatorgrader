@@ -198,7 +198,9 @@ def test_content_string_check_fragments(reset_results_dictionary):
 def test_content_string_check_fragments_exact(reset_results_dictionary):
     """Checks that the checking of words works correctly"""
     value = "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
-    invoke.invoke_all_fragment_checks("hello", 1, invoke.NOTHING, invoke.NOTHING, value, True)
+    invoke.invoke_all_fragment_checks(
+        "hello", 1, invoke.NOTHING, invoke.NOTHING, value, True
+    )
     details = report.get_details()
     assert details is not None
 
