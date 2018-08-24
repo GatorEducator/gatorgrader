@@ -172,10 +172,6 @@ def specified_source_greater_than_count(
     # the fragment count is at or above the threshold
     # check the condition and also return file_fragment_count
     return util.greater_than_equal_exacted(file_line_count, expected_count, exact)
-    # if file_line_count >= expected_count:
-    #     return True, file_line_count
-    # # the fragment count is not above the threshold
-    # return False, file_line_count
 
 
 def count_lines(given_file=NOTHING, containing_directory=NOTHING, contents=NOTHING):
