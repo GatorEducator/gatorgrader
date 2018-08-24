@@ -147,6 +147,7 @@ def check_words(system_arguments):
                     system_arguments.file,
                     system_arguments.directory,
                     system_arguments.words,
+                    system_arguments.exact
                 ],
             ]
         )
