@@ -26,7 +26,9 @@ SINGLE = "single-line"
 MULTIPLE = "multiple-line"
 REPOSITORY = "."
 
-OUTPUT_TYPE = getattr(REPORT, "TEXT")
+JSON = "JSON"
+TEXT = "TEXT"
+OUTPUT_TYPE = getattr(REPORT, TEXT)
 
 NOTHING = ""
 
@@ -42,7 +44,7 @@ def check_arguments(system_arguments):
     if gg_arguments.json is True:
         # pylint: disable=global-statement
         global OUTPUT_TYPE
-        OUTPUT_TYPE = getattr(REPORT, "JSON")
+        OUTPUT_TYPE = getattr(REPORT, JSON)
     did_verify_arguments = arguments.verify(gg_arguments)
     # arguments are incorrect
     if did_verify_arguments is False:
