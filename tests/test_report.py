@@ -196,7 +196,7 @@ def test_output_json(reset_results_dictionary):
     report.add_result("Check for 3 paragraphs", False, "Only found 2 paragraphs")
     report.add_result("Check for 10 comments", False, "Only found 2 comments")
     output_list = report.output_list(report.get_details(), report.JSON)
-    assert len(output_list) == 1
+    assert len(output_list) == 3
     output = " ".join(output_list)
     assert output is not None
     assert "\n" not in output
@@ -210,7 +210,7 @@ def test_output_json_complete(reset_results_dictionary):
     report.add_result("Check for 3 paragraphs", False, "Only found 2 paragraphs")
     report.add_result("Check for 10 comments", False, "Only found 2 comments")
     output_list = report.output_list(report.get_details(), report.JSON)
-    assert len(output_list) == 1
+    assert len(output_list) == 3
     output = " ".join(output_list)
     produced_output = report.output(output_list)
-    assert output is produced_output
+    assert output == produced_output

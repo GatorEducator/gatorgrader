@@ -16,6 +16,7 @@ ORCHESTRATE = sys.modules[__name__]
 DISPLAY = sys.modules["gator.display"]
 INVOKE = sys.modules["gator.invoke"]
 RUN = sys.modules["gator.run"]
+REPORT = sys.modules["gator.report"]
 
 VOID = []
 
@@ -24,6 +25,10 @@ INCORRECT_ARGUMENTS = 2
 SINGLE = "single-line"
 MULTIPLE = "multiple-line"
 REPOSITORY = "."
+
+JSON = "JSON"
+TEXT = "TEXT"
+OUTPUT_TYPE = getattr(REPORT, TEXT)
 
 NOTHING = ""
 
@@ -36,6 +41,10 @@ def check_arguments(system_arguments):
     # Action: display the welcome message
     if gg_arguments.nowelcome is not True:
         actions.append([DISPLAY, "welcome_message", VOID])
+    if gg_arguments.json is True:
+        # pylint: disable=global-statement
+        global OUTPUT_TYPE
+        OUTPUT_TYPE = getattr(REPORT, JSON)
     did_verify_arguments = arguments.verify(gg_arguments)
     # arguments are incorrect
     if did_verify_arguments is False:
@@ -292,7 +301,7 @@ def check(system_arguments):
         check_results.extend(step_results)
     # Section: Output the report
     # Only step: get the report's details, produce the output, and display it
-    output_list = report.output_list(report.get_details(), report.TEXT)
+    output_list = report.output_list(report.get_details(), OUTPUT_TYPE)
     produced_output = report.output(output_list)
     display.message(produced_output)
     # Section: Return control back to __main__ in gatorgrader

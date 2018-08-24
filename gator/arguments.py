@@ -19,6 +19,12 @@ def parse(args):
         "--nowelcome", help="do not display the welcome message", action="store_true"
     )
 
+    # output reports in JSON
+    # CORRECT WHEN: always, only changes report output
+    gg_parser.add_argument(
+        "--json", help="print reports in JSON", action="store_true"
+    )
+
     # Top-Level Arguments {{{
 
     # specify a check for the number of commits in the Git repository
