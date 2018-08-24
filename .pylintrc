@@ -387,13 +387,13 @@ known-third-party=enchant
 [DESIGN]
 
 # Maximum number of arguments for function / method
-max-args=6
+max-args=7
 
 # Maximum number of attributes for a class (see R0902).
 max-attributes=7
 
 # Maximum number of boolean expressions in a if statement
-max-bool-expr=5
+max-bool-expr=7
 
 # Maximum number of branch for function / method body
 max-branches=15

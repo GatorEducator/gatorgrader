@@ -51,7 +51,11 @@ def check_commits(system_arguments):
     actions = []
     if system_arguments.commits is not None:
         actions.append(
-            [INVOKE, "invoke_commits_check", [REPOSITORY, system_arguments.commits]]
+            [
+                INVOKE,
+                "invoke_commits_check",
+                [REPOSITORY, system_arguments.commits, system_arguments.exact],
+            ]
         )
     return actions
 
@@ -84,6 +88,7 @@ def check_single(system_arguments):
                     system_arguments.single,
                     SINGLE,
                     system_arguments.language,
+                    system_arguments.exact,
                 ],
             ]
         )
@@ -104,6 +109,7 @@ def check_multiple(system_arguments):
                     system_arguments.multiple,
                     MULTIPLE,
                     system_arguments.language,
+                    system_arguments.exact,
                 ],
             ]
         )
@@ -122,6 +128,7 @@ def check_paragraphs(system_arguments):
                     system_arguments.file,
                     system_arguments.directory,
                     system_arguments.paragraphs,
+                    system_arguments.exact,
                 ],
             ]
         )
@@ -140,6 +147,7 @@ def check_words(system_arguments):
                     system_arguments.file,
                     system_arguments.directory,
                     system_arguments.words,
+                    system_arguments.exact,
                 ],
             ]
         )
@@ -160,6 +168,7 @@ def check_fragment_file(system_arguments):
                     system_arguments.file,
                     system_arguments.directory,
                     NOTHING,
+                    system_arguments.exact,
                 ],
             ]
         )
@@ -184,6 +193,7 @@ def check_count_file(system_arguments):
                     system_arguments.file,
                     system_arguments.directory,
                     NOTHING,
+                    system_arguments.exact,
                 ],
             ]
         )
@@ -202,6 +212,7 @@ def check_fragment_command(system_arguments):
                     system_arguments.command,
                     system_arguments.fragment,
                     system_arguments.count,
+                    system_arguments.exact,
                 ],
             ]
         )
@@ -221,7 +232,11 @@ def check_count_command(system_arguments):
             [
                 INVOKE,
                 "invoke_all_command_count_checks",
-                [system_arguments.command, system_arguments.count],
+                [
+                    system_arguments.command,
+                    system_arguments.count,
+                    system_arguments.exact,
+                ],
             ]
         )
     return actions
