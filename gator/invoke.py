@@ -171,22 +171,35 @@ def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=Fals
     return met_or_exceeded_count
 
 
-def invoke_all_word_count_checks(filecheck, directory, expected_count):
+def invoke_all_word_count_checks(filecheck, directory, expected_count, exact=False):
     """Perform the word count check and return the results"""
     met_or_exceeded_count = 0
     met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
         filecheck, directory, expected_count, fragments.count_words
     )
-    message = (
-        "The "
-        + filecheck
-        + " in "
-        + directory
-        + " has at least "
-        + str(expected_count)
-        + SPACE
-        + "word(s) in every paragraph"
-    )
+    # create the message and the diagnostic
+    if not exact:
+        message = (
+            "The "
+            + filecheck
+            + " in "
+            + directory
+            + " has at least "
+            + str(expected_count)
+            + SPACE
+            + "word(s) in every paragraph"
+        )
+    else:
+        message = (
+            "The "
+            + filecheck
+            + " in "
+            + directory
+            + " has exactly "
+            + str(expected_count)
+            + SPACE
+            + "word(s) in every paragraph"
+        )
     diagnostic = (
         "Found " + str(actual_count) + " word(s) in a paragraph of the specified file"
     )
