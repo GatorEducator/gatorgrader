@@ -135,11 +135,6 @@ def specified_fragment_greater_than_count(
     )
     # check the condition and also return file_fragment_count
     return util.greater_than_equal_exacted(file_fragment_count, expected_count, exact)
-    # # the fragment count is at or above the threshold
-    # if file_fragment_count >= expected_count:
-    #     return True, file_fragment_count
-    # # the fragment count is not above the threshold
-    # return False, file_fragment_count
 
 
 # pylint: disable=bad-continuation
