@@ -232,7 +232,11 @@ def check_count_command(system_arguments):
             [
                 INVOKE,
                 "invoke_all_command_count_checks",
-                [system_arguments.command, system_arguments.count],
+                [
+                    system_arguments.command,
+                    system_arguments.count,
+                    system_arguments.exact,
+                ],
             ]
         )
     return actions
