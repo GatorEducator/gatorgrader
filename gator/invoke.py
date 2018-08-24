@@ -294,27 +294,41 @@ def invoke_all_command_fragment_checks(
 
 # pylint: disable=bad-continuation
 def invoke_all_count_checks(
-    expected_count, filecheck=NOTHING, directory=NOTHING, contents=NOTHING
+    expected_count, filecheck=NOTHING, directory=NOTHING, contents=NOTHING, exact=False
 ):
     """Perform the check for the count of lines in file or contents and return the results"""
     met_or_exceeded_count = 0
     met_or_exceeded_count, actual_count = fragments.specified_source_greater_than_count(
-        expected_count, filecheck, directory, contents
+        expected_count, filecheck, directory, contents, exact
     )
     # create a message for a file in directory
     if contents is NOTHING:
-        message = (
-            "The "
-            + filecheck
-            + " in "
-            + directory
-            + " has at least "
-            + str(expected_count)
-            + " line(s)"
-        )
+        if exact is not True:
+            message = (
+                "The "
+                + filecheck
+                + " in "
+                + directory
+                + " has at least "
+                + str(expected_count)
+                + " line(s)"
+            )
+        else:
+            message = (
+                "The "
+                + filecheck
+                + " in "
+                + directory
+                + " has exactly "
+                + str(expected_count)
+                + " line(s)"
+            )
     # create a message for a string
     else:
-        message = "The content" + " has at least " + str(expected_count) + " lines"
+        if exact is not True:
+            message = "The content" + " has at least " + str(expected_count) + " lines"
+        else:
+            message = "The content" + " has exactly " + str(expected_count) + " lines"
     diagnostic = (
         "Found " + str(actual_count) + " line(s) in the output or the specified file"
     )
