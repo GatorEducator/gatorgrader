@@ -227,6 +227,27 @@ def test_file_exists_in_directory_check_lines(reset_results_dictionary, tmpdir):
 
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
+def test_file_exists_in_directory_check_lines_exact(reset_results_dictionary, tmpdir):
+    """Checks that the checking of lines in a file works correctly"""
+    reflection_file = tmpdir.mkdir("sub").join("reflection.md")
+    reflection_file.write(
+        "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
+    )
+    assert (
+        reflection_file.read()
+        == "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
+    )
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
+    reflection_file = "reflection.md"
+    invoke.invoke_all_count_checks(1, reflection_file, directory, "", True)
+    invoke.invoke_all_count_checks(100, reflection_file, directory, "", True)
+    details = report.get_details()
+    assert details is not None
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
 def test_content_string_check_fragments_with_threshold(reset_results_dictionary):
     """Checks that the checking of words works correctly"""
     value = "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
