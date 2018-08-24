@@ -262,3 +262,19 @@ def test_perform_actions_display_welcome_and_ready_check_count_command(
     assert "GatorGrader" in captured.out
     assert counted_newlines == 6
     assert exit_code == 0
+
+
+# pylint: disable=redefined-outer-name
+# pylint: disable=bad-continuation
+def test_perform_actions_display_welcome_and_ready_check_count_command_json(
+    capsys, reset_results_dictionary
+):
+    """Check the argument verification, messages, and continue for JSON output"""
+    chosen_arguments = ["--nowelcome", "--command", "ls", "--count", "2", "--json"]
+    exit_code = orchestrate.check(chosen_arguments)
+    captured = capsys.readouterr()
+    print("*" + captured.out + "*")
+    counted_newlines = captured.out.count("\n")
+    assert "GatorGrader" not in captured.out
+    assert counted_newlines == 2
+    assert exit_code == 0
