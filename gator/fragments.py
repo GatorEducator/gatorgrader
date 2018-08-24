@@ -160,16 +160,22 @@ def count_fragments(
 
 # pylint: disable=bad-continuation
 def specified_source_greater_than_count(
-    expected_count, given_file=NOTHING, containing_directory=NOTHING, contents=NOTHING
+    expected_count,
+    given_file=NOTHING,
+    containing_directory=NOTHING,
+    contents=NOTHING,
+    exact=False,
 ):
     """Determines if the line count is greater than expected"""
     # count the fragments in either a file in a directory or String contents
     file_line_count = count_lines(given_file, containing_directory, contents)
     # the fragment count is at or above the threshold
-    if file_line_count >= expected_count:
-        return True, file_line_count
-    # the fragment count is not above the threshold
-    return False, file_line_count
+    # check the condition and also return file_fragment_count
+    return util.greater_than_equal_exacted(file_line_count, expected_count, exact)
+    # if file_line_count >= expected_count:
+    #     return True, file_line_count
+    # # the fragment count is not above the threshold
+    # return False, file_line_count
 
 
 def count_lines(given_file=NOTHING, containing_directory=NOTHING, contents=NOTHING):
