@@ -168,6 +168,7 @@ def check_fragment_file(system_arguments):
                     system_arguments.file,
                     system_arguments.directory,
                     NOTHING,
+                    system_arguments.exact,
                 ],
             ]
         )
