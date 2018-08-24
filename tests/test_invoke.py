@@ -412,9 +412,13 @@ def test_run_command_grab_output_as_string_count_lines_exact(
     tmpdir.mkdir("Hello3")
     assert len(tmpdir.listdir()) == 3
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/"
-    met_or_exceeded_count = invoke.invoke_all_command_count_checks("ls " + directory, 3, True)
+    met_or_exceeded_count = invoke.invoke_all_command_count_checks(
+        "ls " + directory, 3, True
+    )
     assert met_or_exceeded_count is True
-    met_or_exceeded_count = invoke.invoke_all_command_count_checks("ls " + directory, 4, True)
+    met_or_exceeded_count = invoke.invoke_all_command_count_checks(
+        "ls " + directory, 4, True
+    )
     assert met_or_exceeded_count is False
     details = report.get_details()
     assert details is not None
