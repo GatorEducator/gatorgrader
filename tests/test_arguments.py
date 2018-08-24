@@ -490,6 +490,17 @@ def test_is_not_command_ancillary(chosen_arguments):
     assert verified_arguments is False
 
 
+@pytest.mark.parametrize(
+    "chosen_arguments",
+    [(["--nowelcome", "--directory", "D", "--single", "2", "--exact"])],
+)
+def test_exact_count_check_not_valid(chosen_arguments):
+    """Check that invalid argument combinations do not verify correctly"""
+    parsed_arguments = arguments.parse(chosen_arguments)
+    verified_arguments = arguments.is_valid_exact(parsed_arguments)
+    assert verified_arguments is False
+
+
 # }}}
 
 # Region: Verified Arguments Tests for helper functions {{{
@@ -719,6 +730,84 @@ def test_is_valid_count_with_file_or_command(chosen_arguments):
     """Check that invalid argument combinations do not verify correctly"""
     parsed_arguments = arguments.parse(chosen_arguments)
     verified_arguments = arguments.is_valid_count(parsed_arguments)
+    assert verified_arguments is True
+
+
+@pytest.mark.parametrize(
+    "chosen_arguments",
+    [
+        (["--nowelcome", "--commits", "2", "--exact"]),
+        (["--nowelcome", "--exact", "--commits", "2"]),
+        (
+            [
+                "--nowelcome",
+                "--directory",
+                "D",
+                "--file",
+                "f",
+                "--single",
+                "2",
+                "--exact",
+            ]
+        ),
+        (
+            [
+                "--nowelcome",
+                "--directory",
+                "D",
+                "--file",
+                "f",
+                "--multiple",
+                "2",
+                "--exact",
+            ]
+        ),
+        (
+            [
+                "--nowelcome",
+                "--directory",
+                "D",
+                "--file",
+                "f",
+                "--paragraphs",
+                "2",
+                "--exact",
+            ]
+        ),
+        (["--nowelcome", "--directory", "D", "--file", "f", "--words", "2", "--exact"]),
+        (["--nowelcome", "--directory", "D", "--file", "f", "--count", "2", "--exact"]),
+        (
+            [
+                "--nowelcome",
+                "--directory",
+                "D",
+                "--file",
+                "f",
+                "--fragment",
+                "GatorGrader",
+                "--count",
+                "2",
+                "--exact",
+            ]
+        ),
+        (
+            [
+                "--nowelcome",
+                "--command",
+                "ls",
+                "--fragment",
+                "GatorGrader",
+                "--count",
+                "2",
+                "--exact",
+            ]
+        ),
+    ],
+)
+def test_exact_count_check_valid(chosen_arguments):
+    """Check that invalid argument combinations do verify correctly"""
+    parsed_arguments = arguments.parse(chosen_arguments)
+    verified_arguments = arguments.is_valid_exact(parsed_arguments)
     assert verified_arguments is True
 
 

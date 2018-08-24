@@ -52,3 +52,12 @@ def is_json(potential_json):
     except ValueError:
         return False
     return True
+
+
+def greater_than_equal_exacted(first_value, second_value, exact=False):
+    """Returns True if first_value >= second_value unless exact, then True if ==, otherwise False"""
+    if not exact and first_value >= second_value:
+        return True, first_value
+    if exact and first_value == second_value:
+        return True, first_value
+    return False, first_value

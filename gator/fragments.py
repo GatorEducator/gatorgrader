@@ -3,6 +3,8 @@
 from pathlib import Path
 import re
 
+from gator import util
+
 FILE_SEPARATOR = "/"
 
 # References:
@@ -73,9 +75,16 @@ def get_line_list(content):
         # the decoded line is not a blank space (e.g., "")
         # so it should be added into the list of lines
         # the goal is to avoid counting blank lines
-        if current_line_decoded is not NOTHING:
+        if not is_blank_line(current_line_decoded):
             actual_content.append(current_line_decoded)
     return actual_content
+
+
+def is_blank_line(line):
+    """Returns True if a line is a blank one and False otherwise"""
+    if line is not None and line is not NOTHING and not line.isspace():
+        return False
+    return True
 
 
 def count_paragraphs(contents):
@@ -117,17 +126,15 @@ def specified_fragment_greater_than_count(
     given_file=NOTHING,
     containing_directory=NOTHING,
     contents=NOTHING,
+    exact=False,
 ):
     """Determines if the fragment count is greater than expected"""
     # count the fragments in either a file in a directory or String contents
     file_fragment_count = count_fragments(
         chosen_fragment, checking_function, given_file, containing_directory, contents
     )
-    # the fragment count is at or above the threshold
-    if file_fragment_count >= expected_count:
-        return True, file_fragment_count
-    # the fragment count is not above the threshold
-    return False, file_fragment_count
+    # check the condition and also return file_fragment_count
+    return util.greater_than_equal_exacted(file_fragment_count, expected_count, exact)
 
 
 # pylint: disable=bad-continuation
@@ -153,16 +160,18 @@ def count_fragments(
 
 # pylint: disable=bad-continuation
 def specified_source_greater_than_count(
-    expected_count, given_file=NOTHING, containing_directory=NOTHING, contents=NOTHING
+    expected_count,
+    given_file=NOTHING,
+    containing_directory=NOTHING,
+    contents=NOTHING,
+    exact=False,
 ):
     """Determines if the line count is greater than expected"""
     # count the fragments in either a file in a directory or String contents
     file_line_count = count_lines(given_file, containing_directory, contents)
     # the fragment count is at or above the threshold
-    if file_line_count >= expected_count:
-        return True, file_line_count
-    # the fragment count is not above the threshold
-    return False, file_line_count
+    # check the condition and also return file_fragment_count
+    return util.greater_than_equal_exacted(file_line_count, expected_count, exact)
 
 
 def count_lines(given_file=NOTHING, containing_directory=NOTHING, contents=NOTHING):
