@@ -2,23 +2,29 @@
 
 [![Build Status](https://api.travis-ci.org/GatorEducator/gatorgrader.svg?branch=master)](https://travis-ci.org/GatorEducator/gatorgrader) [![codecov.io](http://codecov.io/github/GatorEducator/gatorgrader/coverage.svg?branch=master)](http://codecov.io/github/GatorEducator/gatorgrader?branch=master) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-orange.svg)](https://www.python.org/)
 
-Designed for use with [GitHub Classroom](https://classroom.github.com/) and
-[Travis CI](https://travis-ci.com/), GatorGrader is an automated grading tool
+Designed for use with [GitHub](https://github.com/), [GitHub
+Classroom](https://classroom.github.com/), [Travis CI](https://travis-ci.com/),
+and [Gradle](https://gradle.org/), GatorGrader is an automated assessment tool
 that checks the work of programmers and writers. While other tools already exist
-to, for instance, enforce a style guide for source code or writing, GatorGrader
-focuses on automating other types of checks. For example, GatorGrader can check
-how many Git commits a student or a team performed during the completion of an
-assignment. Along with checking for the existence of files, the tool can also
-count a wide variety of entities in a project submission, including words and
-paragraphs in technical writing, comments in source code, and fragments in
-either source code or program output. To date, instructors have used GatorGrader
-to check student submissions in classes that used languages like Markdown, Java,
-Python, JavaScript, CSS, and HTML.
+to, for instance, enforce a style guide for source code or build a program,
+GatorGrader focuses on automating the checks and activities not already
+supported. For example, GatorGrader can check how many Git commits a student or
+a team performed during the completion of an assignment. Along with checking for
+the existence of files, the tool can also count a wide variety of entities in a
+project submission, including words and paragraphs in technical writing,
+comments in source code, and fragments in either source code or program output.
+In alignment with key recommendations in a recent [National Academies
+report](https://www.nap.edu/catalog/24926/assessing-and-responding-to-the-growth-of-computer-science-undergraduate-enrollments),
+instructors have used GatorGrader to check student submissions in both
+introductory and application-oriented classes using languages like Markdown,
+Java, Python, JavaScript, CSS, and HTML.
 
-Although it can be used independently of a containing project,
-GatorGrader is commonly used by faculty in the [Department of Computer Science
-at Allegheny College]() as a Git
-submodule in a Git repository for a specific assignment. Since it is a Python 3
+Although it can be used independently of a containing project or additional
+support tools, GatorGrader is commonly used in conjunction with the
+[GatorGradle](https://github.com/GatorEducator/gatorgradle) plugin for the
+[Gradle](https://gradle.org/) build tool.
+
+Since it is a Python 3
 program that can easily be run on the command-line, GatorGrader also works
 nicely with [Travis CI](https://travis-ci.com/) &mdash; which is again how
 faculty members at Allegheny College commonly use it in conjunction with other
