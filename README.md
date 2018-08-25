@@ -35,6 +35,30 @@ grading tools, GatorGrader does not attempt to solve problems related to
 building a project or managing an assignment's submission, instead relying on
 existing tools to effectively handle those tasks.
 
+## What Do People Think about GatorGrader?
+
+GatorGrader addresses some of the challenges that an instructor faces when
+designing automated checkers for the source code or technical writing that a
+student submits through an assignment on [GitHub
+Classroom](https://classroom.github.com/). Feedback from the teaching assistants
+and students who use GatorGrader has been positive. Here is what people think
+about GatorGrader!
+
+> This tool suite made it easier for me to talk with students about
+> technical requirements. It helped me to make complex assignments
+> more accessible to students. **Maria Kim**
+
+<!-- -->
+> GatorGrader encouraged me to add better code comments and try out
+> language constructs that I would not have otherwise investigated.
+> The tool was a big help this semester! **Samatha Darris**
+
+<!-- -->
+> GatorGrader is like having a constant coach! I liked receiving
+> feedback on the quality of my source code and writing before
+> turning in the final version of my lab. **Anna Yeager**
+
+
 ## Installing and Testing GatorGrader
 
 As a Python 3 program, GatorGrader relies on
