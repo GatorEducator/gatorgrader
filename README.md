@@ -61,18 +61,10 @@ about GatorGrader!
 ## Installing GatorGrader
 
 As a Python 3 program, GatorGrader relies on
-[pip](https://pip.pypa.io/en/stable/installing/) for installation. To ensure
-that all of the dependencies are installed correctly, please type the following
-commands before running GatorGrader.
+[pipenv](https://github.com/pypa/pipenv) for the installation of the libraries
+on which it depends and the creation of the virtual environments in which it
+runs.
 
-- `pip install --upgrade pip`
-- `pip install -r requirements.txt`
-
-Note that you may have Python 3 setup in different ways on your computer. For
-instance, you may prefer to install GatorGrader's dependencies in a site-wide
-location and then you would have to type, for instance, `sudo pip install -r
-requirements.txt`. Alternatively, you may choose to install the dependencies by
-typing `pip install --user -r requirements.txt`.
 
 ## Testing GatorGrader
 
