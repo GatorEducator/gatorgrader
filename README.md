@@ -61,9 +61,16 @@ about GatorGrader!
 ## Installing GatorGrader
 
 As a Python 3 program, GatorGrader relies on
-[pipenv](https://github.com/pypa/pipenv) for the installation of the libraries
+[Pipenv](https://github.com/pypa/pipenv) for the installation of the libraries
 on which it depends and the creation of the virtual environments in which it
-runs.
+runs. To install GatorGrader, you should first follow Pipenv's installation
+instructions. You should also ensure that you have installed Git on your
+computer and that you can run Git commands in a terminal window. Then, you can
+type this command to clone GatorGrader's GitHub repository:
+
+```
+git clone https://github.com/GatorEducator/gatorgrader.git 
+```
 
 
 ## Testing GatorGrader
