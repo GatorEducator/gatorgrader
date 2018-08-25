@@ -22,13 +22,18 @@ Java, Python, JavaScript, CSS, and HTML.
 Although it can be used independently of a containing project or additional
 support tools, GatorGrader is commonly used in conjunction with the
 [GatorGradle](https://github.com/GatorEducator/gatorgradle) plugin for the
-[Gradle](https://gradle.org/) build tool.
-
-Since it is a Python 3
-program that can easily be run on the command-line, GatorGrader also works
-nicely with [Travis CI](https://travis-ci.com/) &mdash; which is again how
-faculty members at Allegheny College commonly use it in conjunction with other
-automated checking tools.
+[Gradle](https://gradle.org/) build tool. Additionally, it effectively supports
+the checking of the "solution" and "starter" Git repositories that an instructor
+normally builds when creating an assignment in [GitHub
+Classroom](https://classroom.github.com/). GatorGrader's simple, yet useful,
+automated checks can also be integrated into the continuous integration build
+process supported by a system like [Travis CI](https://travis-ci.com/). Since it
+is a [Python 3](https://www.python.org/) program that students and instructors
+can easily run on the command-line, GatorGrader effectively integrates into many
+diverse workflows and development environments. In contrast to other automated
+grading tools, GatorGrader does not attempt to solve problems related to
+building a project or managing an assignment's submission, instead relying on
+existing tools to effectively handle those tasks.
 
 ## Installing and Testing GatorGrader
 
