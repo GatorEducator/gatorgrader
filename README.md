@@ -7,13 +7,13 @@ Classroom](https://classroom.github.com/), [Travis CI](https://travis-ci.com/),
 and [Gradle](https://gradle.org/), GatorGrader is an automated assessment tool
 that checks the work of programmers and writers. While other tools already exist
 to, for instance, enforce a style guide for source code or build a program,
-GatorGrader focuses on automating the checks and activities not already
-supported. For example, GatorGrader can check how many Git commits a student or
-a team performed during the completion of an assignment. Along with checking for
-the existence of files, the tool can also count a wide variety of entities in a
-project submission, including words and paragraphs in technical writing,
-comments in source code, and fragments in either source code or program output.
-In alignment with key recommendations in a recent [National Academies
+GatorGrader focuses on automating the checks and activities that are not already
+nicely supported. For example, GatorGrader can check how many Git commits a
+student or a team performed during the completion of an assignment. Along with
+checking for the existence of files, the tool can also count a wide variety of
+entities in a project submission, including words and paragraphs in technical
+writing, comments in source code, and fragments in either source code or program
+output. In alignment with key recommendations in a recent [National Academies
 report](https://www.nap.edu/catalog/24926/assessing-and-responding-to-the-growth-of-computer-science-undergraduate-enrollments),
 instructors have used GatorGrader to check student submissions in both
 introductory and application-oriented classes using languages like Markdown,
