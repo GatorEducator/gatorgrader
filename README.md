@@ -66,7 +66,8 @@ on which it depends and the creation of the virtual environments in which it
 runs. To install GatorGrader, you should first follow Pipenv's installation
 instructions. You should also ensure that you have installed Git on your
 computer and that you can run Git commands in a terminal window. Then, you can
-type this command to clone GatorGrader's GitHub repository:
+type the following command in your terminal window to clone GatorGrader's GitHub
+repository:
 
 ```
 git clone https://github.com/GatorEducator/gatorgrader.git 
