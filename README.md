@@ -230,7 +230,7 @@ a program's source code or a command's output), thus leading GatorGrader to
 report `Incorrect command-line arguments`.
 
 Since GatorGrader's commands support many different checks for the various for a
-computer science project, this documentation will walk through five example
+computer science project, this documentation will walk through several example
 commands. Using these examples, you are encouraged to try out new combinations
 of the arguments. If you notice any problems with using GatorGrader, the tool's
 developers ask that you raise an issue on the issue tracker. To start, the
