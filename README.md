@@ -183,10 +183,10 @@ Results (2.95s):
 ## Running GatorGrader
 
 GatorGrader can automatically perform simple checks on both writing and source
-code. You can learn about GatorGrader's checks by typing `pipenv run python3
-gatorgrader.py --help` in your terminal window and then reviewing the following
-output, observing that the tool can, for instance, inspect a command's output or
-the source code of a Java or Python program.
+code. You can learn about GatorGrader's checks and defaults by typing `pipenv
+run python3 gatorgrader.py --help` in your terminal window and then reviewing
+the following output, observing that the tool can, for instance, inspect a
+command's output or the source code of a Java or Python program.
 
 ```
 usage: gatorgrader.py [-h] [--nowelcome] [--json] [--commits COMMITS]
