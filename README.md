@@ -371,9 +371,17 @@ as a Git submodule.
 
 ## Acknowledgements
 
-We gratefully acknowledge Nicholas Tocci and Race Mahoney for pointing out that
-the GatorGrader submodule did not have a `.gitignore` file, thus causing the
-derived Python files and directories to seem to be untracked.
+GatorGrader is developed in a collaborative fashion by members of the
+[GatorEducator](https://github.com/GatorEducator) team. The lead developer of
+GatorGrader acknowledges the inspiring assistance from the following team
+members, listed in alphabetical order by their surname.
+
+- Rowan Castellanos
+- Janyl Jumadinova
+- Maria Kim
+- Saejin Mahlau-Heinert
+- Race Mahoney
+- Nicholas Tocci
 
 ## Problems or Praise
 
