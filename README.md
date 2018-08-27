@@ -229,16 +229,26 @@ arguments, it does not tell GatorGrader what type of deliverable to check (e.g.,
 a program's source code or a command's output), thus leading GatorGrader to
 report `Incorrect command-line arguments`.
 
-Since GatorGrader's commands support many different checks for the various for a
-computer science project, this documentation will walk through several example
-commands. Using these examples, you are encouraged to try out new combinations
-of the arguments. If you notice any problems with using GatorGrader, the tool's
-developers ask that you raise an issue on the issue tracker. To start, the
-following command uses GatorGrader to ensure that the `internal/java` directory
-contains the file called `Sample.java` and the subsequent commands check that
-this file contains at least two single-line comments (e.g., those lines that
-start with `//`) and two multiple-line comments (e.g., content that is
-surrounded by `/** */`).
+Since GatorGrader's commands support many different checks for the various
+deliverables of a project in a computer science course, this documentation will
+walk through several example commands. Using these examples, you are encouraged
+to try out new combinations of the arguments. If you notice any problems with
+using GatorGrader, the tool's developers ask that you raise an issue on the
+issue tracker. To start, the following command uses GatorGrader to ensure that
+the `internal/java` directory contains the file called `Sample.java` and the
+subsequent commands check that this file contains at least two single-line
+comments (e.g., those lines that start with `//`) and two multiple-line comments
+(e.g., content that is surrounded by `/** */`). In these and the remaining
+examples, you will first see the command and then the output that it produces.
+
+```
+pipenv run python3 gatorgrader.py --directory internal/java --file Sample.java --exists
+
+✔ GatorGrader: Automatically Check the Files of Programmers and Writers
+https://github.com/GatorEducator/gatorgrader
+
+✔ The file Sample.java exists in the internal/java directory
+```
 
 
 Since computer science courses at Allegheny College require students to
