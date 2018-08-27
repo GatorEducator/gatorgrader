@@ -182,14 +182,6 @@ Results (2.95s):
 
 ## Running GatorGrader
 
-If your environment supports it, then please set the `GATORGRADER_HOME`
-environment variable. For instance, typing the command `export
-GATORGRADER_HOME="/home/travis/build/gkapfham/gatorgrader"` would set
-`GATORGRADER_HOME` environment variable to the appropriate directory for
-building it on Travis CI under the `gkapfham` account. If you do not set the
-`GATORGRADER_HOME` environment variable, then GatorGrader will attempt to guess
-the best setting for it.
-
 GatorGrader can perform simple checks on both writing and source code. For
 instance, the following command uses GatorGrader to ensure that the
 `internal/java` directory contains the file called `Sample.java` and that
@@ -197,27 +189,13 @@ this file contains at least two single-line comments (e.g., those lines that
 start with `//`) and two multiple-line comments (e.g., content that is
 surrounded by `/** */`).
 
-```
-python3 gatorgrader.py \
-        --directories internal/java \
-        --checkfiles Sample.java \
-        --singlecomments 2 \
-        --multicomments 2 \
-        --languages Java
-```
 
-Since many computer science courses at Allegheny College require students to
+Since computer science courses at Allegheny College require students to
 write technical documents, GatorGrader also provides a feature to check how many
 paragraphs of writing are in a file. The following example shows how to use
 GatorGrader to ensure that the `README.md` file in the root of this repository
 contains at least four paragraphs of writing.
 
-```
-python3 gatorgrader.py \
-        --directories . \
-        --checkfiles README.md \
-        --paragraphs 4
-```
 
 Each of the previous commands were run on an Ubuntu 16.04 workstation running
 Python 3.6. However, GatorGrader should run correctly on a wide variety of
