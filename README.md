@@ -93,11 +93,11 @@ you type `gradle grade` in your terminal window.
 
 ## Testing GatorGrader
 
-GatorGrader uses [pytest](https://docs.pytest.org/en/latest/) for testing. To
-run GatorGrader's comprehensive test suite of over 150 test cases, please type
-`pytest tests` in the root of the project's repository. If any of the test cases
-fail in your development environment, please please raise an issue in
-GatorGrader's issue tracker.
+GatorGrader uses [Pytest](https://docs.pytest.org/en/latest/) for testing.
+
+
+If any of the test cases fail in your development environment, please raise an
+issue in GatorGrader's issue tracker.
 
 ## Running GatorGrader
 
