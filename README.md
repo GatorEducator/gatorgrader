@@ -123,9 +123,15 @@ lines that are not currently covered by the tests, you can type this command:
 pipenv run pytest -x -s --cov-config pytest.cov --cov-report term-missing --cov
 ```
 
-A recent run of the test suite yielded the following output. If you do not see
-output that looks like this when you run the tests in your development
-environment, then please raise an issue in the issue tracker!
+Finally, if you are developing new features for GatorGrader, please attempt to
+preserve the high levels of statement coverage achieved by the test suite. The
+GatorGrader development team uses [CodeCov.io](https://codecov.io/) to track the
+coverage of the tests and, without a thorough justification from new
+contributors, will not agree to merge new source code into the master branch
+unless it is covered by the test suite. With that said, a recent run of the test
+suite yielded the following output. If you do not see output that looks like
+this when you run the tests in your development environment, then please raise
+an issue in the issue tracker! 
 
 ```
  tests/test_arguments.py ✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓  9% ▉
