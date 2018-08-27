@@ -245,7 +245,7 @@ line in your terminal window, we give them on multiple lines to ensure that
 they are easily viewed on a wide variety of displays.
 
 ```
-pipenv run python3 gatorgrader.py \
+$ pipenv run python3 gatorgrader.py \
 --directory internal/java \
 --file Sample.java \
 --exists
@@ -257,7 +257,7 @@ https://github.com/GatorEducator/gatorgrader
 ```
 
 ```
-pipenv run python3 gatorgrader.py \
+$ pipenv run python3 gatorgrader.py \
 --directory internal/java \
 --file Sample.java \
 --single 1 \
@@ -270,7 +270,7 @@ https://github.com/GatorEducator/gatorgrader
 ```
 
 ```
-pipenv run python3 gatorgrader.py \
+$ pipenv run python3 gatorgrader.py \
 --directory internal/java \
 --file Sample.java \
 --multiple 1 \
@@ -291,7 +291,7 @@ appearances of the word "GatorGrader". The third example in this listing shows
 how GatorGrader can check for the number of paragraphs in technical writing.
 
 ```
-pipenv run python3 gatorgrader.py \
+$ pipenv run python3 gatorgrader.py \
 --file README.md \
 --directory . \
 --fragment GatorGrader \
@@ -304,7 +304,7 @@ https://github.com/GatorEducator/gatorgrader
 ```
 
 ```
-pipenv run python3 gatorgrader.py \
+$ pipenv run python3 gatorgrader.py \
 --file README.md \
 --directory . \
 --fragment GatorGrader \
@@ -319,7 +319,7 @@ https://github.com/GatorEducator/gatorgrader
 ```
 
 ```
-pipenv run python3 gatorgrader.py \
+$ pipenv run python3 gatorgrader.py \
 --file README.md \
 --directory . \
 --paragraphs 40 \
