@@ -15,9 +15,9 @@ entities in a project submission, including words and paragraphs in technical
 writing, comments in source code, and fragments in either source code or program
 output. In alignment with key recommendations in a recent [National Academies
 report](https://www.nap.edu/catalog/24926/assessing-and-responding-to-the-growth-of-computer-science-undergraduate-enrollments),
-instructors have used GatorGrader to check student submissions in both
-introductory and application-oriented classes using languages like Markdown,
-Java, Python, JavaScript, CSS, and HTML.
+instructors have used GatorGrader to automatically check student submissions in
+both introductory and application-oriented classes using languages like
+Markdown, Java, Python, JavaScript, CSS, and HTML.
 
 Although it can be used independently of a containing project or additional
 support tools, GatorGrader is commonly used in conjunction with the
