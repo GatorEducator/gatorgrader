@@ -372,12 +372,13 @@ as a Git submodule.
 ## Acknowledgements
 
 GatorGrader is developed in a collaborative fashion by members of the
-[GatorEducator](https://github.com/GatorEducator) team. The lead developer of
-GatorGrader acknowledges the inspiring assistance from the following team
-members, listed in alphabetical order by their surname.
+[GatorEducator](https://github.com/GatorEducator) team. GatorGrader was
+developed by the inspiring collaboration among the following team members,
+listed in alphabetical order by their surname.
 
 - Rowan Castellanos
 - Janyl Jumadinova
+- Gregory Kapfhammer
 - Maria Kim
 - Saejin Mahlau-Heinert
 - Race Mahoney
