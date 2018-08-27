@@ -333,7 +333,7 @@ https://github.com/GatorEducator/gatorgrader
 ```
 
 Each of the previous commands were run on an Ubuntu 16.04 workstation running
-Python 3.6. However, GatorGrader should run correctly on a wide variety of
+Python 3.6.6. However, GatorGrader should run correctly on a wide variety of
 operating systems that support Python version 3. It is also important to note
 that, in adherence to GatorGrader's design philosophy, each of the previous
 checks inspect a single aspect of the solution to a programming project.
