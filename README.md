@@ -282,17 +282,67 @@ https://github.com/GatorEducator/gatorgrader
 ✔ The Sample.java in internal/java has at least 1 multiple-line Java comment(s)
 ```
 
+Since computer science courses at the developers' institution require students
+to write technical documents, GatorGrader also provides a feature to check how
+many words are in each of the paragraphs or how many times a word appears in the
+text. The following examples show how to use GatorGrader to ensure that the
+`README.md` file in this repository contains at least and then exactly 10
+appearances of the word "GatorGrader". The third example in this listing shows
+how GatorGrader can check for the number of paragraphs in technical writing.
 
-Since computer science courses at Allegheny College require students to
-write technical documents, GatorGrader also provides a feature to check how many
-paragraphs of writing are in a file. The following example shows how to use
-GatorGrader to ensure that the `README.md` file in the root of this repository
-contains at least four paragraphs of writing.
+```
+pipenv run python3 gatorgrader.py \
+--file README.md \
+--directory . \
+--fragment GatorGrader \
+--count 10
 
+✔ GatorGrader: Automatically Check the Files of Programmers and Writers
+https://github.com/GatorEducator/gatorgrader
+
+✔ The README.md in . has at least 10 of the 'GatorGrader' fragment
+```
+
+```
+pipenv run python3 gatorgrader.py \
+--file README.md \
+--directory . \
+--fragment GatorGrader \
+--count 10 \
+--exact
+
+✔ GatorGrader: Automatically Check the Files of Programmers and Writers
+https://github.com/GatorEducator/gatorgrader
+
+✘ The README.md in . has exactly 10 of the 'GatorGrader' fragment
+   ➔ Found 56 fragment(s) in the output or the specified file
+```
+
+```
+pipenv run python3 gatorgrader.py \
+--file README.md \
+--directory . \
+--paragraphs 40 \
+--exact
+
+✔ GatorGrader: Automatically Check the Files of Programmers and Writers
+https://github.com/GatorEducator/gatorgrader
+
+✘ The README.md in . has exactly 40 paragraph(s)
+   ➔ Found 36 paragraph(s) in the specified file
+```
 
 Each of the previous commands were run on an Ubuntu 16.04 workstation running
 Python 3.6. However, GatorGrader should run correctly on a wide variety of
-operating systems that support Python version 3.
+operating systems that support Python version 3. It is also important to note
+that, in adherence to GatorGrader's design philosophy, each of the previous
+checks inspect a single aspect of the solution to a programming project.
+Finally, to ensure that it integrates effectively with [Travis
+CI](https://travis-ci.com/), GatorGrader returns a non-zero exit code when its
+check fails, ensure that the continuous integration system will fail the build
+as soon as a single check does not pass. That is, if you ran the previous
+GatorGrader check and then then command `echo $?` you would see that GatorGrader
+returned the value of `1`.
 
 ## GatorGrader in Action
 
