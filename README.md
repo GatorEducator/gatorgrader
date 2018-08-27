@@ -94,10 +94,26 @@ you type `gradle grade` in your terminal window.
 ## Testing GatorGrader
 
 GatorGrader uses [Pytest](https://docs.pytest.org/en/latest/) for testing.
+Depending on your goals, there are several different configurations in which you
+can run the provided test suite. If you want to run the test suite to see if all
+of the test cases are correctly passing, then you can type the following command
+in your terminal window:
 
+```
+pipenv run pytest
+```
 
-If any of the test cases fail in your development environment, please raise an
-issue in GatorGrader's issue tracker.
+Please note that you must preface the execution of the test suite with the
+command `pipenv run` if you want to ensure that the tests run with the correct
+access to their Python packages and in the desired virtual environment. If you
+are using GatorGrader and you find that a test fails in your development
+environment, please raise an issue in GatorGrader's issue tracker. With that
+said, if you are developing new features for Pytest and you want it to produce
+console output and stop when it runs the first failing test, you can type:
+
+```
+pipenv run pytest -x -s
+```
 
 ## Running GatorGrader
 
