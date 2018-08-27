@@ -223,12 +223,19 @@ command-line arguments. For instance, if you type the command `pipenv run
 python3 gatorgrader.py --command ls --fragment pytest --count 1 --exacts` (which
 spells the argument as `--exacts` instead of `--exact`), then you will receive
 the following error message `gatorgrader.py: error: unrecognized arguments:
---exacts`.
+--exacts`. While a command like  `pipenv run python3 gatorgrader.py --fragment
+pytest --count 1 --exact` uses the correct names for all of the specified
+arguments, it does not tell GatorGrader what type of deliverable to check (e.g.,
+a program's source code or a command's output), thus leading GatorGrader to
+report `Incorrect command-line arguments`.
 
-
-For
-instance, the following command uses GatorGrader to ensure that the
-`internal/java` directory contains the file called `Sample.java` and that
+Since GatorGrader's commands support many different checks for the various for a
+computer science project, this documentation will walk through five example
+commands. Using these examples, you are encouraged to try out new combinations
+of the arguments. If you notice any problems with using GatorGrader, the tool's
+developers ask that you raise an issue on the issue tracker. To start, the
+following command uses GatorGrader to ensure that the `internal/java` directory
+contains the file called `Sample.java` and the subsequent commands check that
 this file contains at least two single-line comments (e.g., those lines that
 start with `//`) and two multiple-line comments (e.g., content that is
 surrounded by `/** */`).
