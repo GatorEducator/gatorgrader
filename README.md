@@ -347,8 +347,8 @@ returned the value of `1`.
 ## GatorGrader in Action
 
 GatorGrader is commonly used in conjunction with other tools that check source
-code. For instance, in the introductory computer science classes at Allegheny
-College, the submissions are verified by
+code and technical writing. For instance, in the introductory computer science
+classes at the institution of the developers, the submissions are verified by
 [Checkstyle](https://github.com/checkstyle/checkstyle) and thus the Java source
 code must adhere to all of the requirements in the [Google Java Style
 Guide](https://google.github.io/styleguide/javaguide.html). Moreover, Markdown
@@ -359,15 +359,17 @@ tool](https://github.com/markdownlint/markdownlint). Finally, all submitted
 technical writing must adhere to the writing standards set by the [Proselint
 tool](http://proselint.com/).
 
-The solution repositories for the laboratory assignments in Computer Science
-courses at Allegheny College are kept private. However, the "starter"
-repositories for assignments are publicly available so as to support their
-integration into [GitHub Classroom](https://classroom.github.com/). As
+The solution repositories for the laboratory and practical assignments in
+Computer Science courses at Allegheny College are kept private. However, the
+"starter" repositories for assignments are publicly available so as to support
+their integration into [GitHub Classroom](https://classroom.github.com/). As
 GatorGrader continues to be adopted by more courses, we will expand this list of
-GitHub repositories that provide starting code templates and furnish GatorGrader
-as a Git submodule.
+GitHub repositories that provide starting code templates.
 
-- [Computer Science 111 Laboratory #1](https://github.com/Allegheny-Computer-Science-111-F2017/cs111-F2017-lab1-starter)
+- [Computer Science 111 Fall 2017 at Allegheny College](https://github.com/Allegheny-Computer-Science-111-F2017)
+- [Computer Science 280 Fall 2017 at Allegheny College](https://github.com/allegheny-computer-science-280-f2017)
+- [Computer Science 103 Spring 2018 at Allegheny College](https://github.com/Allegheny-Computer-Science-103-S2018)
+- [Computer Science 112 Spring 2018 at Allegheny College](https://github.com/Allegheny-Computer-Science-112-S2018)
 
 ## Acknowledgements
 
