@@ -218,6 +218,13 @@ optional arguments:
 
 ```
 
+GatorGrader employs many checks to ensure that you configure it with the correct
+command-line arguments. For instance, if you type the command `pipenv run
+python3 gatorgrader.py --command ls --fragment pytest --count 1 --exacts` (which
+spells the argument as `--exacts` instead of `--exact`), then you will receive
+the following error message `gatorgrader.py: error: unrecognized arguments:
+--exacts`.
+
 
 For
 instance, the following command uses GatorGrader to ensure that the
