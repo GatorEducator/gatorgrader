@@ -240,14 +240,46 @@ subsequent commands check that this file contains at least two single-line
 comments (e.g., those lines that start with `//`) and two multiple-line comments
 (e.g., content that is surrounded by `/** */`). In these and the remaining
 examples, you will first see the command and then the output that it produces.
+Finally, while in practice you would normally type these commands on a single
+line in your terminal window, we give them on multiple lines to ensure that
+they are easily viewed on a wide variety of displays.
 
 ```
-pipenv run python3 gatorgrader.py --directory internal/java --file Sample.java --exists
+pipenv run python3 gatorgrader.py \
+--directory internal/java \
+--file Sample.java \
+--exists
 
 ✔ GatorGrader: Automatically Check the Files of Programmers and Writers
 https://github.com/GatorEducator/gatorgrader
 
 ✔ The file Sample.java exists in the internal/java directory
+```
+
+```
+pipenv run python3 gatorgrader.py \
+--directory internal/java \
+--file Sample.java \
+--single 1 \
+--language Java
+
+✔ GatorGrader: Automatically Check the Files of Programmers and Writers
+https://github.com/GatorEducator/gatorgrader
+
+✔ The Sample.java in internal/java has at least 1 single-line Java comment(s)
+```
+
+```
+pipenv run python3 gatorgrader.py \
+--directory internal/java \
+--file Sample.java \
+--multiple 1 \
+--language Java
+
+✔ GatorGrader: Automatically Check the Files of Programmers and Writers
+https://github.com/GatorEducator/gatorgrader
+
+✔ The Sample.java in internal/java has at least 1 multiple-line Java comment(s)
 ```
 
 
