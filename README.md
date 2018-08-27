@@ -373,7 +373,7 @@ as a Git submodule.
 
 GatorGrader is developed in a collaborative fashion by members of the
 [GatorEducator](https://github.com/GatorEducator) team. GatorGrader was
-developed by the inspiring collaboration among the following team members,
+developed by the inspiring collaboration between the following team members,
 listed in alphabetical order by their surname.
 
 - Rowan Castellanos
