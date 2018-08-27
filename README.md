@@ -384,10 +384,17 @@ listed in alphabetical order by their surname.
 - Race Mahoney
 - Nicholas Tocci
 
-## Problems or Praise
+## Contributing
 
-If you have any problems with installing or using GatorGrader, then please
-create an issue associated with this Git repository using the "Issues" link at
-the top of this site. The contributors to GatorGrader will do all that they can
-to resolve your issue and ensure that the entire tool works well in your
-teaching and development environment.
+Are you interested in contributing to
+[GatorGrader](https://github.com/GatorEducator/gatorgrader),
+[GatorGradle](https://github.com/GatorEducator/gatorgradle), or
+[GatorGrader-SampleLab](https://github.com/GatorEducator/gatorgrader-samplelab)?
+Our development team uses the [GitHub flow
+model](https://guides.github.com/introduction/flow/) to guide our engineering of
+these tools and we invite you to also follow it as you make a contribution. Of
+course, if you have any problems with installing, testing, or using GatorGrader,
+then please raise an issue associated with this Git repository using the
+"Issues" link at the top of this site. The contributors to GatorGrader will do
+all that they can to resolve your issue and ensure that the entire tool works
+well in your teaching and development environment.
