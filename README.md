@@ -392,7 +392,7 @@ listed in alphabetical order by their surname.
 GatorGrader's creators give presentations about the development, use, and
 assessment of the tool. Please contact one of the developers if you would like
 to feature a presentation about GatorGrader at your technical conference. The
-following list includes some recent of our presentations:
+following list includes some of our recent presentations:
 
 - [A Hands-on Guide to Teaching Programming with GitHub, Travis CI, and Python](https://speakerdeck.com/gkapfham/a-hands-on-guide-to-teaching-programming-with-github-travis-ci-and-python) <br> *at PyOhio 2018*
 - [Using GitHub, Travis CI, and Python to Introduce Collaborative Software Development](https://speakerdeck.com/gkapfham/using-github-travis-ci-and-python-to-introduce-collaborative-software-development) <br> *at PyCon Education Summit 2018*
