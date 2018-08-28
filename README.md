@@ -74,7 +74,7 @@ type the following command in your terminal window to clone GatorGrader's GitHub
 repository:
 
 ```
-git clone https://github.com/GatorEducator/gatorgrader.git 
+git clone https://github.com/GatorEducator/gatorgrader.git
 ```
 
 If you plan to develop new features for GatorGrader or if you want to run the
