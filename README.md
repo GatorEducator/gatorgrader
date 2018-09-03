@@ -35,9 +35,9 @@ process supported by a system like [Travis CI](https://travis-ci.com/). Since it
 is a [Python 3](https://www.python.org/) program that students and instructors
 can easily run on the command-line, GatorGrader effectively integrates into many
 diverse workflows and development environments. In contrast to other automated
-grading tools, GatorGrader does not attempt to solve problems related to
-building a project or managing an assignment's submission, instead relying on
-existing tools to effectively handle those tasks.
+grading tools, GatorGrader does not aim to solve problems related to building a
+project or managing an assignment's submission, instead relying on existing
+tools that can effectively handle those tasks.
 
 ## What Do People Think about GatorGrader?
 
@@ -74,7 +74,7 @@ type the following command in your terminal window to clone GatorGrader's GitHub
 repository:
 
 ```
-git clone https://github.com/GatorEducator/gatorgrader.git 
+git clone https://github.com/GatorEducator/gatorgrader.git
 ```
 
 If you plan to develop new features for GatorGrader or if you want to run the
@@ -245,7 +245,7 @@ line in your terminal window, we give them on multiple lines to ensure that
 they are easily viewed on a wide variety of displays.
 
 ```
-pipenv run python3 gatorgrader.py \
+$ pipenv run python3 gatorgrader.py \
 --directory internal/java \
 --file Sample.java \
 --exists
@@ -257,7 +257,7 @@ https://github.com/GatorEducator/gatorgrader
 ```
 
 ```
-pipenv run python3 gatorgrader.py \
+$ pipenv run python3 gatorgrader.py \
 --directory internal/java \
 --file Sample.java \
 --single 1 \
@@ -270,7 +270,7 @@ https://github.com/GatorEducator/gatorgrader
 ```
 
 ```
-pipenv run python3 gatorgrader.py \
+$ pipenv run python3 gatorgrader.py \
 --directory internal/java \
 --file Sample.java \
 --multiple 1 \
@@ -291,7 +291,7 @@ appearances of the word "GatorGrader". The third example in this listing shows
 how GatorGrader can check for the number of paragraphs in technical writing.
 
 ```
-pipenv run python3 gatorgrader.py \
+$ pipenv run python3 gatorgrader.py \
 --file README.md \
 --directory . \
 --fragment GatorGrader \
@@ -304,7 +304,7 @@ https://github.com/GatorEducator/gatorgrader
 ```
 
 ```
-pipenv run python3 gatorgrader.py \
+$ pipenv run python3 gatorgrader.py \
 --file README.md \
 --directory . \
 --fragment GatorGrader \
@@ -319,7 +319,7 @@ https://github.com/GatorEducator/gatorgrader
 ```
 
 ```
-pipenv run python3 gatorgrader.py \
+$ pipenv run python3 gatorgrader.py \
 --file README.md \
 --directory . \
 --paragraphs 40 \
@@ -386,6 +386,16 @@ listed in alphabetical order by their surname.
 - Saejin Mahlau-Heinert
 - Race Mahoney
 - Nicholas Tocci
+
+## Presentations
+
+GatorGrader's creators give presentations about the development, use, and
+assessment of the tool. Please contact one of the developers if you would like
+to feature a presentation about GatorGrader at your technical conference. The
+following list includes some of our recent presentations:
+
+- [A Hands-on Guide to Teaching Programming with GitHub, Travis CI, and Python](https://speakerdeck.com/gkapfham/a-hands-on-guide-to-teaching-programming-with-github-travis-ci-and-python) <br> *at PyOhio 2018*
+- [Using GitHub, Travis CI, and Python to Introduce Collaborative Software Development](https://speakerdeck.com/gkapfham/using-github-travis-ci-and-python-to-introduce-collaborative-software-development) <br> *at PyCon Education Summit 2018*
 
 ## Contributing
 
