@@ -35,9 +35,9 @@ process supported by a system like [Travis CI](https://travis-ci.com/). Since it
 is a [Python 3](https://www.python.org/) program that students and instructors
 can easily run on the command-line, GatorGrader effectively integrates into many
 diverse workflows and development environments. In contrast to other automated
-grading tools, GatorGrader does not attempt to solve problems related to
-building a project or managing an assignment's submission, instead relying on
-existing tools to effectively handle those tasks.
+grading tools, GatorGrader does not aim to solve problems related to building a
+project or managing an assignment's submission, instead relying on existing
+tools that can effectively handle those tasks.
 
 ## What Do People Think about GatorGrader?
 
