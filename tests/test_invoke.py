@@ -422,3 +422,12 @@ def test_run_command_grab_output_as_string_count_lines_exact(
     assert met_or_exceeded_count is False
     details = report.get_details()
     assert details is not None
+
+
+def test_command_executes_checks_does_not_execute_correctly():
+    """Checks to see if a command does not run correctly and gets a non-zero return value"""
+    # note that a zero-code means that the command did not work
+    # this is the opposite of what is used for processes
+    # all other GatorGrader checks return 0 on failure and 1 on success
+    status_int_code = invoke.invoke_all_command_executes_checks("willnotwork")
+    assert status_int_code == 0
