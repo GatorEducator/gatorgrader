@@ -346,9 +346,19 @@ def invoke_all_count_checks(
     # create a message for a string (normally from program execution)
     else:
         if exact is not True:
-            message = "The content, such as program output," + " has at least " + str(expected_count) + " lines"
+            message = (
+                "The content, such as program output,"
+                + " has at least "
+                + str(expected_count)
+                + " lines"
+            )
         else:
-            message = "The content, such as program output," + " has exactly " + str(expected_count) + " lines"
+            message = (
+                "The content, such as program output,"
+                + " has exactly "
+                + str(expected_count)
+                + " lines"
+            )
     diagnostic = (
         "Found " + str(actual_count) + " line(s) in the output or the specified file"
     )
