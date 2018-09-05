@@ -430,7 +430,7 @@ def test_command_executes_checks_does_not_execute_correctly():
     # this is the opposite of what is used for processes
     # but, all other GatorGrader checks return 0 on failure and 1 on success
     status_code = invoke.invoke_all_command_executes_checks("willnotwork")
-    assert status_code == False
+    assert status_code is False
 
 
 def test_command_executes_checks_does_execute_correctly():
@@ -439,7 +439,7 @@ def test_command_executes_checks_does_execute_correctly():
     # this is the opposite of what is used for processes
     # but, all other GatorGrader checks return 0 on failure and 1 on success
     status_code = invoke.invoke_all_command_executes_checks("true")
-    assert status_code == True
+    assert status_code is True
 
 
 # pylint: disable=unused-argument
