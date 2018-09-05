@@ -322,7 +322,7 @@ def invoke_all_count_checks(
         expected_count, filecheck, directory, contents, exact
     )
     # create a message for a file in directory
-    if contents is NOTHING:
+    if filecheck is not NOTHING and directory is not NOTHING:
         if exact is not True:
             message = (
                 "The "
@@ -343,12 +343,12 @@ def invoke_all_count_checks(
                 + str(expected_count)
                 + " line(s)"
             )
-    # create a message for a string
+    # create a message for a string (normally from program execution)
     else:
         if exact is not True:
-            message = "The content" + " has at least " + str(expected_count) + " lines"
+            message = "The content, such as program output," + " has at least " + str(expected_count) + " lines"
         else:
-            message = "The content" + " has exactly " + str(expected_count) + " lines"
+            message = "The content, such as program output," + " has exactly " + str(expected_count) + " lines"
     diagnostic = (
         "Found " + str(actual_count) + " line(s) in the output or the specified file"
     )
