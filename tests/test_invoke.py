@@ -429,8 +429,8 @@ def test_command_executes_checks_does_not_execute_correctly():
     # note that a zero-code means that the command did not work
     # this is the opposite of what is used for processes
     # but, all other GatorGrader checks return 0 on failure and 1 on success
-    status_int_code = invoke.invoke_all_command_executes_checks("willnotwork")
-    assert status_int_code == 0
+    status_code = invoke.invoke_all_command_executes_checks("willnotwork")
+    assert status_code == False
 
 
 def test_command_executes_checks_does_execute_correctly():
@@ -438,5 +438,22 @@ def test_command_executes_checks_does_execute_correctly():
     # note that a zero-code means that the command did not work
     # this is the opposite of what is used for processes
     # but, all other GatorGrader checks return 0 on failure and 1 on success
-    status_int_code = invoke.invoke_all_command_executes_checks("true")
-    assert status_int_code == 1
+    status_code = invoke.invoke_all_command_executes_checks("true")
+    assert status_code == True
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
+def test_run_command_does_execute_correctly_would_make_output(
+    reset_results_dictionary, tmpdir
+):
+    """Checks that invocation of command runs when it makes output"""
+    tmpdir.mkdir("Hello1")
+    tmpdir.mkdir("Hello2")
+    tmpdir.mkdir("Hello3")
+    assert len(tmpdir.listdir()) == 3
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/"
+    executed_yes = invoke.invoke_all_command_executes_checks(
+        "ls " + directory
+    )
+    assert executed_yes is True
