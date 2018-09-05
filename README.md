@@ -215,7 +215,6 @@ optional arguments:
   --fragment FRAGMENT   fragment that exists in code or output (default: None)
   --count COUNT         how many of an entity should exist (default: None)
   --exact               equals instead of a minimum number (default: False)
-
 ```
 
 GatorGrader employs many checks to ensure that you configure it with the correct
