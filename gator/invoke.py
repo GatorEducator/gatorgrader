@@ -298,7 +298,11 @@ def invoke_all_command_fragment_checks(
 
 def invoke_all_command_executes_checks(command):
     """Perform the check for whether or not a command runs without error"""
+    # pylint: disable=unused-variable
     command_output, command_error, command_returncode = run.run_command(command)
+    # note that a zero-code means that the command did not work
+    # this is the opposite of what is used for processes
+    # but, all other GatorGrader checks return 0 on failure and 1 on success
     command_passed = 0
     if command_error == EMPTY and command_returncode == SUCCESS:
         command_passed = 1
