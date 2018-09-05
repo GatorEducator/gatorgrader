@@ -453,7 +453,5 @@ def test_run_command_does_execute_correctly_would_make_output(
     tmpdir.mkdir("Hello3")
     assert len(tmpdir.listdir()) == 3
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/"
-    executed_yes = invoke.invoke_all_command_executes_checks(
-        "ls " + directory
-    )
+    executed_yes = invoke.invoke_all_command_executes_checks("ls " + directory)
     assert executed_yes is True
