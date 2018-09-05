@@ -347,17 +347,11 @@ def invoke_all_count_checks(
     else:
         if exact is not True:
             message = (
-                "The command output"
-                + " has at least "
-                + str(expected_count)
-                + " lines"
+                "The command output" + " has at least " + str(expected_count) + " lines"
             )
         else:
             message = (
-                "The command output"
-                + " has exactly "
-                + str(expected_count)
-                + " lines"
+                "The command output" + " has exactly " + str(expected_count) + " lines"
             )
     diagnostic = (
         "Found " + str(actual_count) + " line(s) in the output or the specified file"
