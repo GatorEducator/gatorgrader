@@ -292,3 +292,33 @@ def test_perform_actions_display_welcome_and_ready_check_command(
     assert "GatorGrader" in captured.out
     assert counted_newlines == 6
     assert exit_code == 0
+
+
+# pylint: disable=redefined-outer-name
+# pylint: disable=bad-continuation
+def test_perform_actions_display_welcome_and_ready_check_command_not_working(
+    capsys, reset_results_dictionary
+):
+    """Check the argument verification, messages, and continue"""
+    chosen_arguments = ["--command", "false", "--executes"]
+    exit_code = orchestrate.check(chosen_arguments)
+    captured = capsys.readouterr()
+    counted_newlines = captured.out.count("\n")
+    assert "GatorGrader" in captured.out
+    assert counted_newlines == 6
+    assert exit_code == 1
+
+
+# pylint: disable=redefined-outer-name
+# pylint: disable=bad-continuation
+def test_perform_actions_display_welcome_and_ready_check_command_working(
+    capsys, reset_results_dictionary
+):
+    """Check the argument verification, messages, and continue"""
+    chosen_arguments = ["--command", "true", "--executes"]
+    exit_code = orchestrate.check(chosen_arguments)
+    captured = capsys.readouterr()
+    counted_newlines = captured.out.count("\n")
+    assert "GatorGrader" in captured.out
+    assert counted_newlines == 6
+    assert exit_code == 0
