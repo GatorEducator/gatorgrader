@@ -21,9 +21,7 @@ def parse(args):
 
     # output reports in JSON
     # CORRECT WHEN: always, only changes report output
-    gg_parser.add_argument(
-        "--json", help="print reports in JSON", action="store_true"
-    )
+    gg_parser.add_argument("--json", help="print reports in JSON", action="store_true")
 
     # Top-Level Arguments {{{
 
