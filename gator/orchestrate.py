@@ -251,6 +251,22 @@ def check_count_command(system_arguments):
     return actions
 
 
+def check_executes_command(system_arguments):
+    """Check whether or not a command executes without error and return desired actions"""
+    actions = []
+    # pylint: disable=bad-continuation
+    if (
+        system_arguments.command is not None
+        and system_arguments.executes is not None
+        and system_arguments.count is None
+        and system_arguments.fragment is None
+    ):
+        actions.append(
+            [INVOKE, "invoke_all_command_executes_checks", [system_arguments.command]]
+        )
+    return actions
+
+
 def perform(actions):
     """Perform the specified actions"""
     results = []
@@ -288,6 +304,7 @@ def check(system_arguments):
         "check_fragment_command",
         "check_count_file",
         "check_count_command",
+        "check_executes_command",
     ]
     # iterate through all of the possible checks
     for a_check in checks:
