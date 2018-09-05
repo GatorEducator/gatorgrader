@@ -231,7 +231,7 @@ def invoke_all_fragment_checks(
         exact,
     )
     # create a message for a file in directory
-    if contents is NOTHING:
+    if filecheck is not NOTHING and directory is not NOTHING:
         if exact is not True:
             message = (
                 "The "
@@ -260,7 +260,7 @@ def invoke_all_fragment_checks(
     else:
         if exact is not True:
             message = (
-                "The output"
+                "The command output"
                 + " has at least "
                 + str(expected_count)
                 + " of the '"
@@ -269,7 +269,7 @@ def invoke_all_fragment_checks(
             )
         else:
             message = (
-                "The output"
+                "The command output"
                 + " has exactly "
                 + str(expected_count)
                 + " of the '"
@@ -347,14 +347,14 @@ def invoke_all_count_checks(
     else:
         if exact is not True:
             message = (
-                "The content, such as program output,"
+                "The command output"
                 + " has at least "
                 + str(expected_count)
                 + " lines"
             )
         else:
             message = (
-                "The content, such as program output,"
+                "The command output"
                 + " has exactly "
                 + str(expected_count)
                 + " lines"
