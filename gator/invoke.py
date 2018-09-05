@@ -303,9 +303,9 @@ def invoke_all_command_executes_checks(command):
     # note that a zero-code means that the command did not work
     # this is the opposite of what is used for processes
     # but, all other GatorGrader checks return 0 on failure and 1 on success
-    command_passed = 0
+    command_passed = False
     if command_error == EMPTY and command_returncode == SUCCESS:
-        command_passed = 1
+        command_passed = True
     return command_passed
 
 
