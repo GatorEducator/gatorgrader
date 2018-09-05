@@ -306,6 +306,9 @@ def invoke_all_command_executes_checks(command):
     command_passed = False
     if command_error == EMPTY and command_returncode == SUCCESS:
         command_passed = True
+    message = "The command '" + str(command) + "'" + " executes correctly"
+    diagnostic = "The command returned the error code " + str(command_returncode)
+    update_report(command_passed, message, diagnostic)
     return command_passed
 
 
