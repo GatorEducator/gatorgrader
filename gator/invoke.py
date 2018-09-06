@@ -19,6 +19,9 @@ SPACE = " "
 MULTIPLE = "multiple-line"
 SINGLE = "single-line"
 
+EMPTY = b""
+SUCCESS = 0
+
 
 def update_report(status, message, diagnostic):
     """Update the report after running a check"""
@@ -228,7 +231,7 @@ def invoke_all_fragment_checks(
         exact,
     )
     # create a message for a file in directory
-    if contents is NOTHING:
+    if filecheck is not NOTHING and directory is not NOTHING:
         if exact is not True:
             message = (
                 "The "
@@ -257,7 +260,7 @@ def invoke_all_fragment_checks(
     else:
         if exact is not True:
             message = (
-                "The output"
+                "The command output"
                 + " has at least "
                 + str(expected_count)
                 + " of the '"
@@ -266,7 +269,7 @@ def invoke_all_fragment_checks(
             )
         else:
             message = (
-                "The output"
+                "The command output"
                 + " has exactly "
                 + str(expected_count)
                 + " of the '"
@@ -282,6 +285,7 @@ def invoke_all_fragment_checks(
     return met_or_exceeded_count
 
 
+# pylint: disable=bad-continuation
 def invoke_all_command_fragment_checks(
     command, expected_fragment, expected_count, exact=False
 ):
@@ -290,6 +294,22 @@ def invoke_all_command_fragment_checks(
     return invoke_all_fragment_checks(
         expected_fragment, expected_count, NOTHING, NOTHING, command_output, exact
     )
+
+
+def invoke_all_command_executes_checks(command):
+    """Perform the check for whether or not a command runs without error"""
+    # pylint: disable=unused-variable
+    command_output, command_error, command_returncode = run.run_command(command)
+    # note that a zero-code means that the command did not work
+    # this is the opposite of what is used for processes
+    # but, all other GatorGrader checks return 0 on failure and 1 on success
+    command_passed = False
+    if command_error == EMPTY and command_returncode == SUCCESS:
+        command_passed = True
+    message = "The command '" + str(command) + "'" + " executes correctly"
+    diagnostic = "The command returned the error code " + str(command_returncode)
+    update_report(command_passed, message, diagnostic)
+    return command_passed
 
 
 # pylint: disable=bad-continuation
@@ -302,7 +322,7 @@ def invoke_all_count_checks(
         expected_count, filecheck, directory, contents, exact
     )
     # create a message for a file in directory
-    if contents is NOTHING:
+    if filecheck is not NOTHING and directory is not NOTHING:
         if exact is not True:
             message = (
                 "The "
@@ -323,12 +343,16 @@ def invoke_all_count_checks(
                 + str(expected_count)
                 + " line(s)"
             )
-    # create a message for a string
+    # create a message for a string (normally from program execution)
     else:
         if exact is not True:
-            message = "The content" + " has at least " + str(expected_count) + " lines"
+            message = (
+                "The command output" + " has at least " + str(expected_count) + " lines"
+            )
         else:
-            message = "The content" + " has exactly " + str(expected_count) + " lines"
+            message = (
+                "The command output" + " has exactly " + str(expected_count) + " lines"
+            )
     diagnostic = (
         "Found " + str(actual_count) + " line(s) in the output or the specified file"
     )

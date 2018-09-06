@@ -422,3 +422,36 @@ def test_run_command_grab_output_as_string_count_lines_exact(
     assert met_or_exceeded_count is False
     details = report.get_details()
     assert details is not None
+
+
+def test_command_executes_checks_does_not_execute_correctly():
+    """Checks to see if a command does not run correctly and gets a zero return value"""
+    # note that a zero-code means that the command did not work
+    # this is the opposite of what is used for processes
+    # but, all other GatorGrader checks return 0 on failure and 1 on success
+    status_code = invoke.invoke_all_command_executes_checks("willnotwork")
+    assert status_code is False
+
+
+def test_command_executes_checks_does_execute_correctly():
+    """Checks to see if a command does run correctly and gets a non-zero return value"""
+    # note that a zero-code means that the command did not work
+    # this is the opposite of what is used for processes
+    # but, all other GatorGrader checks return 0 on failure and 1 on success
+    status_code = invoke.invoke_all_command_executes_checks("true")
+    assert status_code is True
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
+def test_run_command_does_execute_correctly_would_make_output(
+    reset_results_dictionary, tmpdir
+):
+    """Checks that invocation of command runs when it makes output"""
+    tmpdir.mkdir("Hello1")
+    tmpdir.mkdir("Hello2")
+    tmpdir.mkdir("Hello3")
+    assert len(tmpdir.listdir()) == 3
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/"
+    executed_yes = invoke.invoke_all_command_executes_checks("ls " + directory)
+    assert executed_yes is True

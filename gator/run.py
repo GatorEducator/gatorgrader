@@ -7,15 +7,16 @@ BLANK_LINE = "\n"
 EMPTY = b""
 NOTHING = ""
 SPACE = " "
+SUCCESS = 0
 
 
 def specified_command_get_output(command):
     """Run the command and return the output as a String"""
     # run the command and gather the output and error details
-    output, error = run_command(command)
+    output, error, code = run_command(command)
     # there was no error, so process the output
     produced_output = NOTHING
-    if error == EMPTY:
+    if error == EMPTY and code == SUCCESS:
         actual_output = get_actual_output(output)
         produced_output = BLANK_LINE.join(actual_output)
     return produced_output
@@ -45,7 +46,7 @@ def run_command(command):
     )
     # run the command and return the results
     output, error = process.communicate()
-    return output, error
+    return output, error, process.returncode
 
 
 def run_exit(exit_value):

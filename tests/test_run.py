@@ -3,11 +3,20 @@
 from gator import run
 
 
-def test_run_command_returns_message():
+def test_run_working_command_returns_message():
     """Checks that a single line is returned from command """
-    output, error = run.run_command('echo "Hello!"')
+    output, error, code = run.run_command('echo "Hello!"')
     assert error == b""
     assert output == b"Hello!\n"
+    assert code == 0
+
+
+def test_run_broken_command_returns_nonzero():
+    """Checks that a single line is returned from command """
+    output, error, code = run.run_command("willnotwork")
+    assert output == b""
+    assert error != b""
+    assert code != 0
 
 
 # pylint: disable=unused-argument
