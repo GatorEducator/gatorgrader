@@ -14,9 +14,9 @@ def specified_command_get_output(command):
     """Run the command and return the output as a String"""
     # run the command and gather the output and error details
     output, error, code = run_command(command)
-    print("Output: ", output)
-    print("Error: ", error)
-    print("Code: ", code)
+    # print("Output: ", output)
+    # print("Error: ", error)
+    # print("Code: ", code)
     # there was no error, so process the output
     produced_output = NOTHING
     if error == EMPTY and code == SUCCESS:
