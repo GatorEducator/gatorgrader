@@ -85,8 +85,8 @@ then you can type `pipenv install` instead. Once these commands complete
 successfully, that's all you you have to do to install GatorGrader! It is worth
 noting that if you only plan to use GatorGrader with the
 [GatorGradle](https://github.com/GatorEducator/gatorgradle) then there is a
-[sample laboratory
-assignment](https://github.com/GatorEducator/gatorgrader-samplelab) that you can
+[java sample laboratory
+assignment](https://github.com/GatorEducator/java-starter) that you can
 try &mdash; it does not require you to complete these steps and instead it will
 download and install GatorGrader and run all of the preconfigured checks when
 you type `gradle grade` in your terminal window.
