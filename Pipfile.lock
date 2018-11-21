@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "b9d5838681378ade72b73287c73b99bb7324c8dac498edb1441e11196953e488"
+            "sha256": "0a510a7576a05cc274a414c1932f74a3a10c941283fc64944ea8a884ed0cfe8d"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,20 @@
         ]
     },
     "default": {
+        "certifi": {
+            "hashes": [
+                "sha256:339dc09518b07e2fa7eda5450740925974815557727d6bd35d319c1524a04a4c",
+                "sha256:6d58c986d22b038c8c0df30d639f23a3e6d172a05c3583e766f4c0b785c0986a"
+            ],
+            "version": "==2018.10.15"
+        },
+        "chardet": {
+            "hashes": [
+                "sha256:84ab92ed1c4d4f16916e05906b6b75a6c0fb5db821cc65e70cbd64a3e2a5eaae",
+                "sha256:fc323ffcaeaed0e0a02bf4d117757b98aed530d9ed4531e3e15460124c106691"
+            ],
+            "version": "==3.0.4"
+        },
         "gitdb2": {
             "hashes": [
                 "sha256:83361131a1836661a155172932a13c08bda2db3674e4caa32368aa6eb02f38c2",
@@ -32,6 +46,21 @@
             "index": "pypi",
             "version": "==2.1.11"
         },
+        "idna": {
+            "hashes": [
+                "sha256:156a6814fb5ac1fc6850fb002e0852d56c0c8d2531923a51032d1b70760e186e",
+                "sha256:684a38a6f903c1d71d6d5fac066b58d7768af4de2b832e426ec79c30daa94a16"
+            ],
+            "version": "==2.7"
+        },
+        "requests": {
+            "hashes": [
+                "sha256:65b3a120e4329e33c9889db89c80976c5272f56ea92d3e74da8a463992e3ff54",
+                "sha256:ea881206e59f41dbd0bd445437d792e43906703fff75ca8ff43ccdb11f33f263"
+            ],
+            "index": "pypi",
+            "version": "==2.20.1"
+        },
         "smmap2": {
             "hashes": [
                 "sha256:0555a7bf4df71d1ef4218e4807bbf9b201f910174e6e08af2e138d4e517b4dde",
@@ -39,6 +68,14 @@
             ],
             "markers": "python_version != '3.3.*' and python_version != '3.0.*' and python_version != '3.2.*' and python_version >= '2.7' and python_version != '3.1.*'",
             "version": "==2.0.5"
+        },
+        "urllib3": {
+            "hashes": [
+                "sha256:61bf29cada3fc2fbefad4fdf059ea4bd1b4a86d2b6d15e1c7c0b582b9752fe39",
+                "sha256:de9529817c93f27c8ccbfead6985011db27bd0ddfcdb2d86f3f663385c6a9c22"
+            ],
+            "markers": "python_version != '3.0.*' and python_version >= '2.7' and python_version != '3.3.*' and python_version != '3.2.*' and python_version < '4' and python_version != '3.1.*'",
+            "version": "==1.24.1"
         }
     },
     "develop": {
@@ -355,7 +392,7 @@
                 "sha256:65b3a120e4329e33c9889db89c80976c5272f56ea92d3e74da8a463992e3ff54",
                 "sha256:ea881206e59f41dbd0bd445437d792e43906703fff75ca8ff43ccdb11f33f263"
             ],
-            "markers": "python_version != '3.0.*' and python_version >= '2.7' and python_version != '3.1.*' and python_version < '4' and python_version != '3.2.*' and python_version != '3.3.*'",
+            "index": "pypi",
             "version": "==2.20.1"
         },
         "six": {
@@ -410,11 +447,11 @@
         },
         "urllib3": {
             "hashes": [
-                "sha256:a68ac5e15e76e7e5dd2b8f94007233e01effe3e50e8daddf69acfd81cb686baf",
-                "sha256:b5725a0bd4ba422ab0e66e89e030c806576753ea3ee08554382c14e685d117b5"
+                "sha256:61bf29cada3fc2fbefad4fdf059ea4bd1b4a86d2b6d15e1c7c0b582b9752fe39",
+                "sha256:de9529817c93f27c8ccbfead6985011db27bd0ddfcdb2d86f3f663385c6a9c22"
             ],
-            "markers": "python_version != '3.0.*' and python_version >= '2.6' and python_version != '3.2.*' and python_version < '4' and python_version != '3.1.*' and python_version != '3.3.*'",
-            "version": "==1.23"
+            "markers": "python_version != '3.0.*' and python_version >= '2.7' and python_version != '3.3.*' and python_version != '3.2.*' and python_version < '4' and python_version != '3.1.*'",
+            "version": "==1.24.1"
         },
         "wrapt": {
             "hashes": [
