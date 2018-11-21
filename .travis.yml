@@ -1,7 +1,7 @@
 # use the Python 3.6 language
 language: python
 python:
-  - "3.6"
+  - "3.7"
 
 # ignore the virtualenv that Travis creates
 # setup a secure login to CodeCov
