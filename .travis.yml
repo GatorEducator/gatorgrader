@@ -18,7 +18,7 @@ before_install:
 # command to install dependencies
 install:
   - pip install --upgrade pip
-  - pip install pipenv --upgrade
+  - pip install --upgrade pipenv
   - pipenv install --dev --three
 
 # send emails when there is a change or failure
