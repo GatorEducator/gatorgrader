@@ -31,7 +31,7 @@ def get_actual_output(output):
         try:
             current_line_decoded = line.decode()
         # line cannot decode, return the line itself
-        except AttributeError:
+        except ValueError:
             current_line_decoded = line
         # add this line to the list of actual lines
         actual_output.append(current_line_decoded)

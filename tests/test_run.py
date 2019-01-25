@@ -32,3 +32,10 @@ def test_run_command_grab_output_as_string(tmpdir):
     assert "Hello1" in output
     assert "Hello2" in output
     assert "Hello3" in output
+
+def test_run_invalid_output():
+    """ Checks that is handles invalid ouput"""
+    invalid_byte_sequence=b'\x80\x81'
+    output = run.get_actual_output(invalid_byte_sequence)
+    print(output)
+    assert invalid_byte_sequence in output
