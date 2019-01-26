@@ -43,6 +43,6 @@ def test_run_invalid_output():
 
 def test_run_invalid_output_str():
     """ Checks that ouputs that are already strings are handled correctly"""
-    randomString = str("Hello")
+    randomString = "Hello"
     output = run.get_actual_output(randomString)
     assert randomString in output
