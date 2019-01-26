@@ -131,7 +131,7 @@ contributors, will not agree to merge new source code into the master branch
 unless it is covered by the test suite. With that said, a recent run of the test
 suite yielded the following output. If you do not see output that looks like
 this when you run the tests in your development environment, then please raise
-an issue in the issue tracker! 
+an issue in the issue tracker!
 
 ```
  tests/test_arguments.py ✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓  9% ▉
@@ -401,7 +401,7 @@ following list includes some of our recent presentations:
 Are you interested in contributing to
 [GatorGrader](https://github.com/GatorEducator/gatorgrader),
 [GatorGradle](https://github.com/GatorEducator/gatorgradle), or
-[GatorGrader-SampleLab](https://github.com/GatorEducator/gatorgrader-samplelab)?
+[GatorGrader-SampleLab](https://github.com/GatorEducator/java-assigment-starter)?
 Our development team uses the [GitHub flow
 model](https://guides.github.com/introduction/flow/) to guide our engineering of
 these tools and we invite you to also follow it as you make a contribution. Of
