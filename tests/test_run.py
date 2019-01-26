@@ -35,7 +35,14 @@ def test_run_command_grab_output_as_string(tmpdir):
 
 
 def test_run_invalid_output():
-    """ Checks that is handles invalid ouput"""
+    """Checks that invalid unicode bytestrings are handled correctly"""
     invalid_byte_sequence = b'\x80\x81'
     output = run.get_actual_output(invalid_byte_sequence)
     assert invalid_byte_sequence in output
+
+
+def test_run_invalid_output_str():
+    """ Checks that ouputs that are already strings are handled correctly"""
+    randomString = str("Hello")
+    output = run.get_actual_output(randomString)
+    assert randomString in output
