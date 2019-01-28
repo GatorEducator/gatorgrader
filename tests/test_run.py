@@ -19,6 +19,8 @@ def test_run_broken_command_returns_nonzero():
     assert code != 0
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
+
+
 def test_run_command_grab_output_as_string(tmpdir):
     """Checks that invocation of command produces correct captured output"""
     tmpdir.mkdir("Hello1")
