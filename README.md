@@ -384,6 +384,7 @@ listed in alphabetical order by their surname.
 - Maria Kim
 - Saejin Mahlau-Heinert
 - Race Mahoney
+- Christopher Miller
 - Nicholas Tocci
 
 ## Presentations
