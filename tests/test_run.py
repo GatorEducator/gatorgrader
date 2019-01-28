@@ -17,8 +17,6 @@ def test_run_broken_command_returns_nonzero():
     assert output == b""
     assert error != b""
     assert code != 0
-
-
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_run_command_grab_output_as_string(tmpdir):

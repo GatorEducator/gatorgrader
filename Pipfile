@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 gitpython = "*"
 requests = ">=2.20.0"
+pytest-clarity = "*"
 
 [dev-packages]
 pylint = "*"
