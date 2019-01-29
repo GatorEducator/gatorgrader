@@ -6,7 +6,6 @@ name = "pypi"
 [packages]
 gitpython = "*"
 requests = ">=2.20.0"
-pytest-clarity = "*"
 
 [dev-packages]
 pylint = "*"
@@ -18,6 +17,7 @@ codecov = "*"
 pytest-cov = "*"
 neovim = "*"
 pytest-sugar = "*"
+pytest-clarity = "*"
 
 [requires]
 python_version = "3.6"
