@@ -93,7 +93,7 @@ you type `gradle grade` in your terminal window.
 
 ## Testing GatorGrader
 
-GatorGrader uses [Pytest](https://docs.pytest.org/en/latest/) for testing, alongside with [pytest-clarity](https://github.com/darrenburns/pytest-clarity) to increase readability of pytest output.
+GatorGrader uses [Pytest](https://docs.pytest.org/en/latest/) for testing, along with [pytest-clarity](https://github.com/darrenburns/pytest-clarity) for increased readability of pytest output.
 Depending on your goals, there are several different configurations in which you
 can run the provided test suite. If you want to run the test suite to see if all
 of the test cases are correctly passing, then you can type the following command
