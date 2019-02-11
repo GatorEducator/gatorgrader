@@ -268,3 +268,60 @@ def test_multiline_comments_mixed(code_string, expected_count):
 def test_singleline_comments_mixed(code_string, expected_count):
     """Checks that it can find singleline comments in mixtures"""
     assert comments.count_singleline_java_comment(code_string) == expected_count
+    
+    
+ def test_multiline_docstring_comments_zero_or_one_python(code_string, expected_count):
+    """Checks that it finds zero or one multiline Python docstring comments"""
+    assert comments.count_multiline_docstring_python_comment(code_string) == expected_count
+
+
+@pytest.mark.parametrize(
+    "code_string,expected_count",
+    [
+        ("// hello world \n//hello world", 2),
+        ("// hello world \n//hello world\n//hello world", 3),
+        ("//// hello world\n//hello", 2),
+        ("//// hello // world\n//hello", 2),
+        ("//// hello //// world\n//hello\n", 2),
+        ("// hello world\n //hello", 2),
+        ("// hello world && --\n//hello", 2),
+        ("// hello world  __ --\n//hello", 2),
+        ('System.out.println("Hello, World!\n"); // prints hello world \n //hello', 2),
+        ('// hello \n System.out.println("Hello, World!\n"); \n //hello', 2),
+        ('String url = "http://www.example.com"; \n //hello', 1),
+        ("//\\ \n //hi", 2),
+        ('// "some comment"', 1),
+        ('new URI("http://www.google.com") \n // hi', 1),
+        ("\n // hi \n //hi", 2),
+    ],
+)
+def test_multiline_docstring_comments_many_python(code_string, expected_count):
+    """Checks that it finds many multiline Python docstring comments"""
+    assert comments.count_multiline_docstring_python_comment(code_string) == expected_count
+
+
+@pytest.mark.parametrize(
+    "code_string,expected_count",
+    [
+        ("/* hello world */", 1),
+        ("/** hello world */", 1),
+        ("/* hello */ \n world", 1),
+        ("/* hello */ world", 1),
+        ("/** hello */ \n world", 1),
+        ("/** hello */ world", 1),
+        ("/** hello **/ world", 1),
+        ("/* hello world */ && --", 1),
+        ("/* hello world  */ __ --", 1),
+        ("/** hello world **/ && --", 1),
+        ("/** hello world  **/ __ --", 1),
+        ("/* hello world", 0),
+        ("/ hello world", 0),
+        (" hello world", 0),
+        ("// hello world", 0),
+        ("/ hello world", 0),
+        (" ", 0),
+        (" ", 0),
+        ("", 0),
+        ("", 0),
+    ],
+)
