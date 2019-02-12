@@ -97,15 +97,26 @@ def invoke_all_comment_checks(
                 comments.count_singleline_python_comment,
                 exact,
             )
-    # check multiple-line comments (only in Java)
+    # check multiple-line comments
     elif comment_type == MULTIPLE:
-        met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
-            filecheck,
-            directory,
-            expected_count,
-            comments.count_multiline_java_comment,
-            exact,
-        )
+        #check comments in Java
+        if language == JAVA:
+            met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
+                filecheck,
+                directory,
+                expected_count,
+                comments.count_multiline_java_comment,
+                exact,
+            )
+        #check comments in Python
+        if language == PYTHON:
+            met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
+                filecheck,
+                directory,
+                expected_count,
+                comments.count_multiline_python_comment,
+                exact,
+            )
     # create the message and the diagnostic
     if not exact:
         message = (
