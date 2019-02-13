@@ -1,21 +1,12 @@
 """Retrieve and count the contents of a file"""
 
 from pathlib import Path
-import re
+
 import commonmark
 
 from gator import util
 
 FILE_SEPARATOR = "/"
-
-# References:
-# https://stackoverflow.com/questions/18568105/how-match-a-paragraph-using-regex
-# https://stackoverflow.com/questions/13531204/how-to-match-paragraphs-in-text-with-regx
-
-CODE_FENCE_MARKER = "```"
-GATORGRADER_REPLACEMENT = "GATORGRADER_REPLACEMENT"
-PARAGRAH_RE = r"(.+?\n\n|.+?$)"
-SECTION_MARKER = "#"
 
 NEWLINE = "\n"
 NOTHING = ""
