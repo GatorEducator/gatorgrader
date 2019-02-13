@@ -16,8 +16,16 @@ DOUBLE_NEWLINE = NEWLINE * 2
 
 
 def is_single_subnode(subnode):
-    """Determines if a writing candidate is a paragraph"""
-    return subnode.t != "text" and subnode.t != "thematic_break" and subnode.t != "html_block" and subnode.t != "code_block" and subnode.t != "softbreak" and subnode.t != "linebreak"
+    """Determines if a node is single"""
+    return (
+        subnode.t != "text"
+        and subnode.t != "thematic_break"
+        and subnode.t != "html_block"
+        and subnode.t != "code_block"
+        and subnode.t != "softbreak"
+        and subnode.t != "linebreak"
+    )
+
 
 def get_paragraphs(contents):
     """Retrieves the paragraphs in the writing"""
