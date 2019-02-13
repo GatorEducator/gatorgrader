@@ -23,42 +23,12 @@ SPACE = " "
 DOUBLE_NEWLINE = NEWLINE * 2
 
 
-def is_paragraph(candidate):
+def is_single_subnode(subnode):
     """Determines if a writing candidate is a paragraph"""
-    # remove whitespace surrounding candidate paragraph
-    candidate = candidate.strip()
-    # if the paragraph is a markdown header, it is not a paragraph
-    if candidate.startswith(SECTION_MARKER):
-        return False
-    # if the paragraph is a fenced code block, it is not a paragraph
-    if candidate.startswith(CODE_FENCE_MARKER):
-        return False
-    # there may be other edge cases that should be added here in the
-    # future -- what other structures look like paragraphs but should
-    # not be?
-    # if nothing has returned by now, the candidate must be a paragraph
-    return True
+    return subnode.t != "text" and subnode.t != "thematic_break" and subnode.t != "html_block" and subnode.t != "code_block" and subnode.t != "softbreak" and subnode.t != "linebreak"
 
-
-def get_paragraphs(contents, blank_replace=True):
+def get_paragraphs(contents):
     """Retrieves the paragraphs in the writing"""
-    # use a replacement to handle a string with just spaces
-    if blank_replace is True:
-        contents = contents.replace(SPACE, NOTHING)
-    # replace a single newline with a blank space, respecting double newlines
-    contents = contents.replace(DOUBLE_NEWLINE, GATORGRADER_REPLACEMENT)
-    contents = contents.replace(NEWLINE, SPACE)
-    contents = contents.replace(GATORGRADER_REPLACEMENT, DOUBLE_NEWLINE)
-    pattern = re.compile(PARAGRAH_RE)
-    paragraphs = pattern.findall(contents)
-    # disregard all of the section headers in markdown
-    matching_paragraphs = []
-    # iterate through all potential paragraphs and gather
-    # those that match the standard for legitimacy
-    for paragraph in paragraphs:
-        if is_paragraph(paragraph) is True:
-            matching_paragraphs.append(paragraph)
-    return matching_paragraphs
 
 
 def get_line_list(content):
