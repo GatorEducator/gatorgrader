@@ -32,8 +32,19 @@ def get_paragraphs(contents):
     ast = commonmark.Parser().parse(contents)
     mode_looking = True
     paragraph_list = []
+    paragraph_content = ""
     counter = 0
     for subnode, enter in ast.walker():
+        if mode_looking:
+            if counter == 1 and subnode.t == "paragraph" and enter:
+                paragraph_content = ""
+                mode_looking = False
+        else:
+            if counter == 2 and subnode.t == "paragraph" and not enter:
+                paragraph_list += paragraph_content
+                mode_looking = True
+            if subnode.literal is not None:
+                paragraph_content += subnode.literal
 
         if not is_single_subnode(subnode):
             if enter:
