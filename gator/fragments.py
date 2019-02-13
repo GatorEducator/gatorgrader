@@ -2,6 +2,7 @@
 
 from pathlib import Path
 import re
+import commonmark
 
 from gator import util
 
@@ -29,6 +30,16 @@ def is_single_subnode(subnode):
 
 def get_paragraphs(contents):
     """Retrieves the paragraphs in the writing"""
+
+    ast = commonmark.Parser().parse(contents)
+    mode_looking = True
+    paragraph_list = []
+    counter = 0
+    for subnode, enter in ast.walker():
+
+
+
+
 
 
 def get_line_list(content):
