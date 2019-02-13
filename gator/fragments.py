@@ -36,12 +36,14 @@ def get_paragraphs(contents):
     counter = 0
     for subnode, enter in ast.walker():
         if mode_looking:
-            if counter == 1 and subnode.t == "paragraph" and enter:
-                paragraph_content = ""
-                mode_looking = False
+            if subnode.t == "paragraph" and enter:
+                counter += 1
+                if counter == 1:
+                    paragraph_content = ""
+                    mode_looking = False
         else:
             if counter == 2 and subnode.t == "paragraph" and not enter:
-                paragraph_list += paragraph_content
+                paragraph_list.append(paragraph_content)
                 mode_looking = True
             if subnode.literal is not None:
                 paragraph_content += subnode.literal
@@ -82,8 +84,7 @@ def is_blank_line(line):
 
 def count_paragraphs(contents):
     """Counts the number of paragraphs in the writing"""
-    replace_blank_inputs = True
-    matching_paragraphs = get_paragraphs(contents, replace_blank_inputs)
+    matching_paragraphs = get_paragraphs(contents)
     return len(matching_paragraphs)
 
 
