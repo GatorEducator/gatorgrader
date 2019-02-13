@@ -29,16 +29,18 @@ def is_single_subnode(subnode):
 
 def get_paragraphs(contents):
     """Retrieves the paragraphs in the writing"""
-
     ast = commonmark.Parser().parse(contents)
     mode_looking = True
     paragraph_list = []
     counter = 0
     for subnode, enter in ast.walker():
 
-
-
-
+        if not is_single_subnode(subnode):
+            if enter:
+                counter += 1
+            else:
+                counter -= 1
+    return paragraph_list
 
 
 def get_line_list(content):
