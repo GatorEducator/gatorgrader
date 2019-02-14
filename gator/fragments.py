@@ -14,9 +14,8 @@ SPACE = " "
 
 
 def is_single_subnode(subnode):
-    """Determines if a node is single"""
+    """Determines if a node is single and excludes subnodes that shouldn't be included as a paragraph"""
     return (
-        # Excludes the following subnode types
         subnode.t == "text"
         or subnode.t == "thematic_break"
         or subnode.t == "html_block"
@@ -29,7 +28,6 @@ def is_single_subnode(subnode):
 
 def get_paragraphs(contents):
     """Retrieves the paragraphs in the writing"""
-    # Calls the CommonMark parser
     ast = commonmark.Parser().parse(contents)
     mode_looking = True
     paragraph_list = []
