@@ -33,18 +33,26 @@ def get_paragraphs(contents):
     paragraph_list = []
     paragraph_content = ""
     counter = 0
+    """Iterates through the file to find the paragraphs"""
     for subnode, enter in ast.walker():
         if mode_looking:
+            # Checks to see if it's at the opening of a paragraph subnode
             if counter == 1 and subnode.t == "paragraph" and enter:
+                # Sets up paragraph content to go to the array
                 paragraph_content = ""
+                # Stops search for paragraph nodes, as one has been found
                 mode_looking = False
         else:
+            # Checks to see if it has found the closing of the paragraph subnode
             if counter == 2 and subnode.t == "paragraph" and not enter:
+                # Adds the content of the paragraph to the array
                 paragraph_list.append(paragraph_content)
+                # Starts a search for a new paragraph
                 mode_looking = True
             if subnode.literal is not None:
                 paragraph_content += subnode.literal
 
+        """Looks for an opening and a closing node"""
         if not is_single_subnode(subnode):
             if enter:
                 counter += 1
