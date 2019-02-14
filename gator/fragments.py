@@ -38,9 +38,7 @@ def get_paragraphs(contents):
     counter = 0
     for subnode, enter in ast.walker():
         if mode_looking:
-            if subnode.t == "paragraph" and enter:
-                counter += 1
-                if counter == 1:
+            if counter == 1 and subnode.t == "paragraph" and enter:
                     paragraph_content = ""
                     mode_looking = False
         else:
