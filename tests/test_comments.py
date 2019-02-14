@@ -29,6 +29,7 @@ def test_file_contains_multiline_comment_count(tmpdir):
     )
     assert comment_count == 1
 
+
 def test_file_contains_multiline_python_comment_count(tmpdir):
     """Checks that the multiline python comment count works"""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.py")
