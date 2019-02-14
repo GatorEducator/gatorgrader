@@ -261,9 +261,9 @@ def check_executes_command(system_arguments):
         and system_arguments.count is None
         and system_arguments.fragment is None
     ):
-        actions.append(
-            [INVOKE, "invoke_all_command_executes_checks", [system_arguments.command]]
-        )
+        actions.append([INVOKE,
+                        "invoke_all_command_executes_checks",
+                        [system_arguments.command]])
     return actions
 
 

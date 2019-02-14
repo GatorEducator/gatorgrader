@@ -16,24 +16,33 @@ def parse(args):
     # do not display the welcome message
     # CORRECT WHEN: always, only changes output on screen
     gg_parser.add_argument(
-        "--nowelcome", help="do not display the welcome message", action="store_true"
-    )
+        "--nowelcome",
+        help="do not display the welcome message",
+        action="store_true")
 
     # output reports in JSON
     # CORRECT WHEN: always, only changes report output
-    gg_parser.add_argument("--json", help="print reports in JSON", action="store_true")
+    gg_parser.add_argument(
+        "--json",
+        help="print reports in JSON",
+        action="store_true")
 
     # Top-Level Arguments {{{
 
     # specify a check for the number of commits in the Git repository
     # CORRECT WHEN: user provides this argument but not any other main arguments
-    gg_parser.add_argument("--commits", type=int, help="minimum number of git commits")
+    gg_parser.add_argument(
+        "--commits",
+        type=int,
+        help="minimum number of git commits")
 
     # specify a single file and a single directory
     # CORRECT WHEN: user provides both of these
     gg_parser.add_argument(
-        "--directory", type=str, metavar="DIR", help="directory with file for checking"
-    )
+        "--directory",
+        type=str,
+        metavar="DIR",
+        help="directory with file for checking")
     gg_parser.add_argument("--file", type=str, help="file for checking")
 
     # Ancillary Arguments for File and Directory {{{
@@ -47,14 +56,18 @@ def parse(args):
     # specify a check on single-line comments
     # CORRECT WHEN: user provides file and directory along with this argument
     gg_parser.add_argument(
-        "--single", type=int, metavar="COUNT", help="minimum number of single comments"
-    )
+        "--single",
+        type=int,
+        metavar="COUNT",
+        help="minimum number of single comments")
 
     # specify a check on multiple-line comments
     # CORRECT WHEN: user provides file and directory along with this argument
     gg_parser.add_argument(
-        "--multiple", type=int, metavar="COUNT", help="minimum number of multi comments"
-    )
+        "--multiple",
+        type=int,
+        metavar="COUNT",
+        help="minimum number of multi comments")
 
     # specify that the comment checks are for a certain language
     # CORRECT WHEN: user provides file and directory along with this argument
@@ -68,8 +81,10 @@ def parse(args):
     # specify a check on paragraphs
     # CORRECT WHEN: user provides file and directory along with this argument
     gg_parser.add_argument(
-        "--paragraphs", metavar="COUNT", type=int, help="minimum number of paragraphs"
-    )
+        "--paragraphs",
+        metavar="COUNT",
+        type=int,
+        help="minimum number of paragraphs")
 
     # specify a check on words
     # note that sentences are no longer supported so, a "dest" given
@@ -87,8 +102,9 @@ def parse(args):
     # execute the specified command
     # CORRECT WHEN: user provides a command to run along with this argument
     gg_parser.add_argument(
-        "--executes", help="does a command execute without error", action="store_true"
-    )
+        "--executes",
+        help="does a command execute without error",
+        action="store_true")
 
     # Ancillary Arguments for File or Commands {{{
 
@@ -105,8 +121,10 @@ def parse(args):
     # or
     # CORRECT WHEN: user provides a command along with this argument
     gg_parser.add_argument(
-        "--count", type=int, metavar="COUNT", help="how many of an entity should exist"
-    )
+        "--count",
+        type=int,
+        metavar="COUNT",
+        help="how many of an entity should exist")
 
     # }}}
 
@@ -115,8 +133,9 @@ def parse(args):
     # perform exact checking for entity counting (i.e,. "==" instead of ">=")
     # CORRECT WHEN: user provides file and directory along with this argument
     gg_parser.add_argument(
-        "--exact", help="equals instead of a minimum number", action="store_true"
-    )
+        "--exact",
+        help="equals instead of a minimum number",
+        action="store_true")
 
     # }}}
 
@@ -181,13 +200,13 @@ def is_valid_exact(args, skip=False):
     """Checks if it is a valid exact count specification"""
     # pylint: disable=bad-continuation
     if (
-        is_valid_commits(args)
-        or is_valid_comments(args)
-        or is_valid_paragraphs(args)
-        or is_valid_words(args)
-        or is_valid_count(args)
-        or is_valid_fragment(args)
-        or skip
+        is_valid_commits(args) or
+        is_valid_comments(args) or
+        is_valid_paragraphs(args) or
+        is_valid_words(args) or
+        is_valid_count(args) or
+        is_valid_fragment(args) or
+        skip
     ):
         if args.exact is not False:
             return True
@@ -264,10 +283,10 @@ def is_file_ancillary(args):
     if (
         # skip the parent check and only
         # determine if the parameter is present
-        is_valid_exists(args, skip=True)
-        or is_valid_comments(args, skip=True)
-        or is_valid_paragraphs(args, skip=True)
-        or is_valid_words(args, skip=True)
+        is_valid_exists(args, skip=True) or
+        is_valid_comments(args, skip=True) or
+        is_valid_paragraphs(args, skip=True) or
+        is_valid_words(args, skip=True)
     ):
         return True
     return False
@@ -300,9 +319,9 @@ def verify(args):
     # both a file and a directory were specified and a command is not given
     # pylint: disable=bad-continuation
     if is_valid_file_and_directory(args) and (
-        not is_command_ancillary(args)
-        and not is_valid_command(args)
-        and not is_valid_commits(args)
+        not is_command_ancillary(args) and
+        not is_valid_command(args) and
+        not is_valid_commits(args)
     ):
         # track how many of the sub-arguments separately verified
         file_verified = []
@@ -310,7 +329,8 @@ def verify(args):
         if is_valid_exists(args):
             # verified_arguments = True
             file_verified.append(True)
-        # VERIFIED: correct check for comments with language in a file in a directory
+        # VERIFIED: correct check for comments with language in a file in a
+        # directory
         if is_valid_comments(args) and is_valid_language(args):
             # verified_arguments = True
             file_verified.append(True)
@@ -337,9 +357,9 @@ def verify(args):
     # no file or directory details were specified and a command given
     # pylint: disable=bad-continuation
     elif is_valid_command(args) and (
-        not is_valid_file_or_directory(args)
-        and not is_file_ancillary(args)
-        and not is_valid_commits(args)
+        not is_valid_file_or_directory(args) and
+        not is_file_ancillary(args) and
+        not is_valid_commits(args)
     ):
         # track how many of the sub-arguments separately verified
         command_verified = []
@@ -363,10 +383,10 @@ def verify(args):
     # and the argument is a request to check the count of Git commits
     # pylint: disable=bad-continuation
     elif is_valid_commits(args) and (
-        not is_valid_file_or_directory(args)
-        and not is_file_ancillary(args)
-        and not is_valid_command(args)
-        and not is_command_ancillary(args)
+        not is_valid_file_or_directory(args) and
+        not is_file_ancillary(args) and
+        not is_valid_command(args) and
+        not is_command_ancillary(args)
     ):
         verified_arguments = True
     return verified_arguments
