@@ -29,8 +29,7 @@ from gator import fragments
         ("Paragraph\n\n```\nShould not be a paragraph\n```", 1),
         ("```\nShould not be\na paragraph\n```", 0),
         (
-            "Beginning of paragraph ``` Still in fences but now \
-    also in paragraph ``` and end",
+            "Paragraph `inline code block` and end",
             1,
         ),
     ],
