@@ -30,6 +30,19 @@ def test_file_contains_multiline_comment_count(tmpdir):
     assert comment_count == 1
 
 
+def test_file_contains_multiline_python_comment_count(tmpdir):
+    """Checks that the multiline python comment count works"""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.py")
+    string = "Hello \n World"
+    hello_file.write('"""{}"""'.format(string))
+    assert hello_file.read() == '"""Hello \n World"""'
+    assert len(tmpdir.listdir()) == 1
+    comment_count = entities.count_entities(
+        hello_file.basename, hello_file.dirname, comments.count_multiline_python_comment
+    )
+    assert comment_count == 1
+
+
 def test_file_contains_singleline_comment_greater(tmpdir):
     """Checks that the file is above the check level"""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
