@@ -24,10 +24,7 @@ from gator import fragments
         ("Paragraph\n\n\n# Section Header", 1),
         ("Paragraph\n\n```\nShould not be a paragraph\n```", 1),
         ("```\nShould not be\na paragraph\n```", 0),
-        (
-            "Paragraph `inline code block` and end",
-            1,
-        ),
+        ("Paragraph `inline code block` and end", 1),
     ],
 )
 def test_paragraphs_zero_or_one(writing_string, expected_count):
