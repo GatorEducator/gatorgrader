@@ -12,8 +12,6 @@ NEWLINE = "\n"
 NOTHING = ""
 SPACE = " "
 
-DOUBLE_NEWLINE = NEWLINE * 2
-
 
 def is_single_subnode(subnode):
     """Determines if a node is single"""
