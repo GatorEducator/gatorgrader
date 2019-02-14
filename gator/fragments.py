@@ -18,6 +18,7 @@ DOUBLE_NEWLINE = NEWLINE * 2
 def is_single_subnode(subnode):
     """Determines if a node is single"""
     return (
+        # Excludes the following subnode types
         subnode.t != "text"
         and subnode.t != "thematic_break"
         and subnode.t != "html_block"
@@ -29,6 +30,7 @@ def is_single_subnode(subnode):
 
 def get_paragraphs(contents):
     """Retrieves the paragraphs in the writing"""
+    # Calls the CommonMark parser
     ast = commonmark.Parser().parse(contents)
     mode_looking = True
     paragraph_list = []
