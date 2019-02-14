@@ -91,8 +91,7 @@ def count_paragraphs(contents):
 def count_words(contents):
     """Counts the minimum number of words across all paragraphs in writing"""
     # retrieve all of the paragraphs in the contents
-    replace_blank_inputs = False
-    paragraphs = get_paragraphs(contents, replace_blank_inputs)
+    paragraphs = get_paragraphs(contents)
     # count all of the words in each paragraph
     word_counts = []
     for para in paragraphs:
