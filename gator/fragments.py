@@ -23,6 +23,7 @@ def is_single_subnode(subnode):
         or subnode.t == "thematic_break"
         or subnode.t == "html_block"
         or subnode.t == "code_block"
+        or subnode.t == "code"
         or subnode.t == "softbreak"
         or subnode.t == "linebreak"
     )
@@ -53,6 +54,7 @@ def get_paragraphs(contents):
                 counter += 1
             else:
                 counter -= 1
+
     return paragraph_list
 
 
