@@ -19,12 +19,12 @@ def is_single_subnode(subnode):
     """Determines if a node is single"""
     return (
         # Excludes the following subnode types
-        subnode.t != "text"
-        and subnode.t != "thematic_break"
-        and subnode.t != "html_block"
-        and subnode.t != "code_block"
-        and subnode.t != "softbreak"
-        and subnode.t != "linebreak"
+        subnode.t == "text"
+        or subnode.t == "thematic_break"
+        or subnode.t == "html_block"
+        or subnode.t == "code_block"
+        or subnode.t == "softbreak"
+        or subnode.t == "linebreak"
     )
 
 
