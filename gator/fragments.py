@@ -52,7 +52,7 @@ def get_paragraphs(contents):
             if subnode.literal is not None:
                 paragraph_content += subnode.literal
 
-        # Looks for an opening and a closing node
+        # Tracks the how deep into the tree the search currently is
         if not is_single_subnode(subnode):
             if enter:
                 counter += 1
