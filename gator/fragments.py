@@ -13,19 +13,6 @@ NOTHING = ""
 SPACE = " "
 
 
-def is_single_subnode(subnode):
-    """Determines if a node is single and thus does not have a closing tag"""
-    return (
-        subnode.t == "text"
-        or subnode.t == "thematic_break"
-        or subnode.t == "html_block"
-        or subnode.t == "code_block"
-        or subnode.t == "code"
-        or subnode.t == "softbreak"
-        or subnode.t == "linebreak"
-    )
-
-
 def get_paragraphs(contents):
     """Retrieves the paragraphs in the writing"""
     ast = commonmark.Parser().parse(contents)
@@ -57,7 +44,7 @@ def get_paragraphs(contents):
                 paragraph_content += subnode.literal
 
         # Track the how deep into the tree the search currently is
-        if not is_single_subnode(subnode):
+        if subnode.is_container():
             if enter:
                 counter += 1
             else:
