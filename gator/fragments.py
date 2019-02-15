@@ -33,8 +33,8 @@ def get_paragraphs(contents):
     paragraph_list = []
     paragraph_content = ""
     counter = 0
+    # Iterates through the file to find the paragraphs and add them to the array
     for subnode, enter in ast.walker():
-        """Iterates through the file to find the paragraphs and add them to the array"""
         if mode_looking:
             # Checks to see if it's at the opening of a paragraph subnode
             if counter == 1 and subnode.t == "paragraph" and enter:
