@@ -49,6 +49,7 @@ def get_paragraphs(contents):
                 paragraph_list.append(paragraph_content)
                 # Starts a search for a new paragraph
                 mode_looking = True
+            # If the subnode literal has contents, it adds them to array
             if subnode.literal is not None:
                 paragraph_content += subnode.literal
 
