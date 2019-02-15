@@ -4,9 +4,8 @@ python:
   - "3.6"
   - "3.5"
 os:
+  - windows
   - linux
-    dist:
-      - xenial
   - osx
 
 # ignore the virtualenv that Travis creates
