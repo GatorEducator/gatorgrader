@@ -3,9 +3,11 @@ python:
   - "3.7"
   - "3.6"
   - "3.5"
-dist:
-  - xenial
-  - trusty
+os:
+  - linux
+    dist:
+      - xenial
+  - osx
 
 # ignore the virtualenv that Travis creates
 # setup a secure login to CodeCov
