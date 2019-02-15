@@ -50,9 +50,8 @@ before_script:
 # --> lint the README documentation with mdl
 script:
   - pipenv run pytest --cov-config pytest.cov --cov
-  - pipenv run black gator/* tests/* --check
   - pipenv run flake8 tests/*
-  - pipenv run flake8 gator/*
+  - pipenv run flake8 gatorgrader*
   - pipenv run pylint tests/*
   - pipenv run pylint gator/*
   - mdl README.md
