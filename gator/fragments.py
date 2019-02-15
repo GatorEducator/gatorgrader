@@ -14,7 +14,7 @@ SPACE = " "
 
 
 def is_single_subnode(subnode):
-    """Determines if a node is single, and doesn't have a closing tag"""
+    """Determines if a node is single and thus does not have a closing tag"""
     return (
         subnode.t == "text"
         or subnode.t == "thematic_break"
@@ -33,27 +33,30 @@ def get_paragraphs(contents):
     paragraph_list = []
     paragraph_content = ""
     counter = 0
-    # Iterates through the file to find the paragraphs and add them to the array
+
+    # Iterate through the markdown to find paragraphs and add their contents to paragraph_list
     for subnode, enter in ast.walker():
         if mode_looking:
-            # Checks to see if it's at the opening of a paragraph subnode
+            # Check to see if the current subnode is an open paragraph node
             if counter == 1 and subnode.t == "paragraph" and enter:
-                # Sets up paragraph content to go to the array
+                # Initialize paragraph_content
                 paragraph_content = ""
-                # Stops search for paragraph nodes, as one has been found
+                # Stop search for paragraph nodes, as one has been found
+                # Instead, start adding content to paragraph_content
                 mode_looking = False
         else:
-            # Checks to see if it has found the closing of the paragraph subnode
+            # Check to see if the current subnode is a closing paragraph node
             if counter == 2 and subnode.t == "paragraph" and not enter:
-                # Adds the content of the paragraph to the array
+                # Add the content of the paragraph to paragraph_list
                 paragraph_list.append(paragraph_content)
-                # Starts a search for a new paragraph
+                # Stop saving paragraph contents, as the paragraph had ended
+                # Start a search for a new paragraph
                 mode_looking = True
-            # If the subnode literal has contents, it adds them to array
+            # If the subnode literal has contents, add them to paragraph_content
             if subnode.literal is not None:
                 paragraph_content += subnode.literal
 
-        # Tracks the how deep into the tree the search currently is
+        # Track the how deep into the tree the search currently is
         if not is_single_subnode(subnode):
             if enter:
                 counter += 1
