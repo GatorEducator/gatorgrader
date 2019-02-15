@@ -2,7 +2,7 @@
 from github import Github
 
 # github access
-g = Github("ZachAndrews98", "ZachAndr2020@!")
+g = Github("username", "password")
 
 # gets the repo
 repo = g.get_repo("GatorEducator/gatorgrader")
