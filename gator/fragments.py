@@ -14,7 +14,7 @@ SPACE = " "
 
 
 def is_single_subnode(subnode):
-    """Determines if a node is single and excludes subnodes that shouldn't be included as a paragraph"""
+    """Determines if a node is single, and doesn't have a closing tag"""
     return (
         subnode.t == "text"
         or subnode.t == "thematic_break"
