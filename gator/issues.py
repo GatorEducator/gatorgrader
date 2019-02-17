@@ -1,48 +1,32 @@
 """Get issues from the Github issue tracker and performs checks on them"""
 from github import Github
+# from git import Repo
 
 # github access
-g = Github("username", "password")
+g = Github("username","password")
 
 # gets the repo
-repo = g.get_repo("GatorEducator/gatorgrader")
+repo = g.get_repo("Repo")
 
-# prints out the total number of events that have occurred for each state
-# print("Closed Issues:", repo.get_issues(state="closed").totalCount)
-# print("Open Issues:", repo.get_issues(state="open").totalCount)
-# print("Total Issues:", repo.get_issues(state="all").totalCount)
+def check_issues_made(name):
+    """Returns the number of issues that the given user has made"""
+    issues_made = 0
+    for issue in repo.get_issues(state="all"):
+        if issue.user.login == name and issue.pull_request == None:
+            issues_made += 1
+    return issues_made
 
-# prints out all events
-for issue in repo.get_issues(state="all"):
-    # print(rate.remaining)
-    contributors = list()
-    if issue.pull_request == None:
-        print("Issue:", issue.number)
-        # not everyone has a name attached to their github, grabs username if
-        # that is the case, if no username grabs email
-        try:
-            contributors.append(issue.user.name)
-        except:
-            try:
-                contributors.append(issue.user.login)
-            except:
-                contributors.append(issue.user.email)
-        comments = issue.get_comments()
-        for comment in comments:
-            name = comment.user.login
-            # not everyone has a name attached to their github, grabs username if
-            # that is the case, if no username grabs email
-            # try:
-            #     contributors.append(comment.user.name)
-            # except:
-            #     try:
-            #         contributors.append(comment.user.login)
-            #     except:
-            #         contributors.append(comment.user.email)
-            contributors.append(name)
-            print(comment.user.login + ":")
-            # print(comment.body)
-        print(contributors)
+def check_comments_made(name):
+    """Returns the number of comments that the given user has made"""
+    comments_made = 0
+    for issue in repo.get_issues(state="all"):
+        for comment in issue.get_comments():
+            if comment.user.login == name and issue.pull_request == None:
+                comments_made += 1
+    return comments_made
+
+print(check_issues("username"))
+print(check_comments("username"))
 
 # issue = repo.get_issue(85)
 # contributors = set()
