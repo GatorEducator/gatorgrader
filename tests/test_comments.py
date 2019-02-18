@@ -330,7 +330,7 @@ def test_multiline_comments_two(code_string, expected_count):
         # ("/** hello @author me **/ world \n /* hello world */", 2),
     ],
 )
-def test_multiline_comments_two(code_string, expected_count):
+def test_multiline_python_comments_two(code_string, expected_count):
     """Checks that it has two or more multiline python comments"""
     assert comments.count_multiline_python_comment(code_string) == expected_count
 
