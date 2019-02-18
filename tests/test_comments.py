@@ -353,6 +353,21 @@ def test_multiline_comments_mixed(code_string, expected_count):
 @pytest.mark.parametrize(
     "code_string,expected_count",
     [
+        ('# hello world' '"""hello \n """', 1),
+        ('# hello world' '"""hello \n """' '"""hello \n """' , 2),
+        ('""" hello world hello ', 0),
+        ('"""hello \n """' '"""hello \n world"""', 2),
+        ('""" hi \n"""' '\n # whoa ' '""" hi \n again """', 2),
+    ],
+)
+def test_multiline_python_comments_mixed(code_string, expected_count):
+    """Checks that it can find multiline comments in mixtures"""
+    assert comments.count_multiline_python_comment(code_string) == expected_count
+
+
+@pytest.mark.parametrize(
+    "code_string,expected_count",
+    [
         ("// hello world /** hello */", 1),
         ("// hello world /** hello */ \n /** hello */", 1),
         ("/** hi */ \n // hello world hello ", 1),
