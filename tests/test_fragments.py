@@ -17,6 +17,7 @@ def test_listsbreak_paragraphs(writing_string, expected_count):
     """Check that lists break paragraphs"""
     assert fragments.count_paragraphs(writing_string) == expected_count
 
+
 @pytest.mark.parametrize(
     "writing_string,expected_count",
     [
@@ -28,6 +29,7 @@ def test_listsbreak_paragraphs(writing_string, expected_count):
 def test_codeblocks_break_paragraphs(writing_string, expected_count):
     """Check that code blocks break paragraphs"""
     assert fragments.count_paragraphs(writing_string) == expected_count
+
 
 @pytest.mark.parametrize(
     "writing_string,expected_count",
