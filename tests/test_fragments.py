@@ -8,6 +8,18 @@ from gator import fragments
 @pytest.mark.parametrize(
     "writing_string,expected_count",
     [
+        ("Paragraph\n\n```\nShould not be a paragraph\n```", 1),
+        ("```\nShould not be\na paragraph\n```", 0),
+        ("Paragraph `inline code block` and end", 1),
+    ]
+)
+def test_codeblocks_break_paragraphs(writing_string, expected_count):
+    """Check that lists, code blocks, and misc markdown items break paragraphs"""
+    assert fragments.count_paragraphs(writing_string) == expected_count
+
+@pytest.mark.parametrize(
+    "writing_string,expected_count",
+    [
         ("hello world", 1),
         ("hello world!!%^()", 1),
         ("hello world!!%^(@after)", 1),
@@ -22,9 +34,6 @@ from gator import fragments
         ("# Section Header", 0),
         ("# Section Header\n\nNot Section Header", 1),
         ("Paragraph\n\n\n# Section Header", 1),
-        ("Paragraph\n\n```\nShould not be a paragraph\n```", 1),
-        ("```\nShould not be\na paragraph\n```", 0),
-        ("Paragraph `inline code block` and end", 1),
     ],
 )
 def test_paragraphs_zero_or_one(writing_string, expected_count):
@@ -122,7 +131,6 @@ def test_chosen_fragment_many(writing_string, chosen_fragment, expected_count):
         fragments.count_specified_fragment(writing_string, chosen_fragment)
         == expected_count
     )
-
 
 @pytest.mark.parametrize(
     "writing_string,expected_count",
