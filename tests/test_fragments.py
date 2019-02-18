@@ -8,13 +8,25 @@ from gator import fragments
 @pytest.mark.parametrize(
     "writing_string,expected_count",
     [
+    ("Paragraph1\n - first item\n - second item\n\nParagraph2", 2),
+    ("Paragraph1\n 1. item one\n 2. item two\n\nParagraph2", 2),
+    (" - first item\n - second item\n", 0),
+    ]
+)
+def test_listsbreak_paragraphs(writing_string, expected_count):
+    """Check that lists break paragraphs"""
+    assert fragments.count_paragraphs(writing_string) == expected_count
+
+@pytest.mark.parametrize(
+    "writing_string,expected_count",
+    [
         ("Paragraph\n\n```\nShould not be a paragraph\n```", 1),
         ("```\nShould not be\na paragraph\n```", 0),
         ("Paragraph `inline code block` and end", 1),
     ]
 )
 def test_codeblocks_break_paragraphs(writing_string, expected_count):
-    """Check that lists, code blocks, and misc markdown items break paragraphs"""
+    """Check that code blocks break paragraphs"""
     assert fragments.count_paragraphs(writing_string) == expected_count
 
 @pytest.mark.parametrize(
