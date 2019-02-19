@@ -2,31 +2,32 @@
 from github import Github
 # from git import Repo
 
-# github access
-g = Github("username","password")
-
-# gets the repo
-repo = g.get_repo("Repo")
-
-def check_issues_made(name):
+def check_issues_made(token, repo, name):
     """Returns the number of issues that the given user has made"""
+    # github access
+    g = Github(token)
+    # gets the repo
+    repo = g.get_repo(repo)
     issues_made = 0
     for issue in repo.get_issues(state="all"):
         if issue.user.login == name and issue.pull_request == None:
             issues_made += 1
     return issues_made
 
-def check_comments_made(name):
+def check_comments_made(token, repo, name):
     """Returns the number of comments that the given user has made"""
+    # github access
+    g = Github(token)
+    # gets the repo
+    repo = g.get_repo(repo)
     comments_made = 0
     for issue in repo.get_issues(state="all"):
         for comment in issue.get_comments():
             if comment.user.login == name and issue.pull_request == None:
                 comments_made += 1
+        else:
+            return 0
     return comments_made
-
-print(check_issues("username"))
-print(check_comments("username"))
 
 def get_specific_issue():
     """Get issues from the Github issue tracker and performs checks on them"""
@@ -68,4 +69,4 @@ def get_specific_issue():
     #             print("You've entered an invalid entry.")
 
 #calls get_specific_issue function
-get_specific_issue()
+# get_specific_issue()

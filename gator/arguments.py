@@ -36,6 +36,51 @@ def parse(args):
         type=int,
         help="minimum number of git commits")
 
+    # specify a check for the number of issues raised in the Github issue tracker
+    # CORRECT WHEN: user provides this argument along with a github token, the
+    # name of the repo to check and the name of the user to check
+    gg_parser.add_argument(
+        "--issues",
+        type=int,
+        help="minimum number of issues raised")
+
+    # specify a check for the number of comments made on issues in the Github
+    # issue tracker
+    # CORRECT WHEN: user provides this argument along with a github token, the
+    # name of the repo to check and the name of the user to check
+    gg_parser.add_argument(
+        "--issue-comments",
+        type=int,
+        help="minimum number of comment made on issues")
+
+    # specify the github token to use for authenication
+    # CORRECT WHEN: user provides along with issues or issue comments, a repo
+    # name, and the user to check
+    gg_parser.add_argument(
+        "--token",
+        type=str,
+        metavar="TOKEN",
+        help="authenication token to access a github repository")
+
+    # specify the github repository to check the issues/comments of
+    # CORRECT WHEN: user provides along with issues or issue comments, a token,
+    # and the user to check
+    gg_parser.add_argument(
+        "--repo",
+        type=str,
+        metavar="REPO",
+        help="name of the repository to check the issues or comments of")
+
+    # specify the name of the user to check
+    # CORRECT WHEN: user provides along with issues or issue comments, a repo
+    # name, and a github token
+    gg_parser.add_argument(
+        "--name",
+        type=str,
+        metavar="NAME",
+        help="name of the creator of the issues or comments to check"
+    )
+
     # specify a single file and a single directory
     # CORRECT WHEN: user provides both of these
     gg_parser.add_argument(
@@ -190,6 +235,36 @@ def is_valid_commits(args):
         return True
     return False
 
+def is_valid_issues(args):
+    """Checks if it is a valid issues specification"""
+    if args.issues is not None:
+        return True
+    return False
+
+def is_valid_issue_comments(args):
+    """Checks if it is a valid issue comment specification"""
+    if args.issue_comments is not None:
+        return True
+    return False
+
+#TODO: check to see if token is actually valid with Github
+def is_valid_token(args):
+    """Checks if it is a valid token specification"""
+    if args.token is not None:
+        return True
+    return False
+
+def is_valid_repo(args):
+    """Checks if it is a valid repo specification"""
+    if args.repo is not None:
+        return True
+    return False
+
+def is_valid_name(args):
+    """Checks if it is a valid name specification"""
+    if args.name is not None:
+        return True
+    return False
 
 # }}}
 
@@ -387,6 +462,16 @@ def verify(args):
         not is_file_ancillary(args) and
         not is_valid_command(args) and
         not is_command_ancillary(args)
+    ):
+        verified_arguments = True
+    # no file or directory details were specified or a command given
+    # and the argumenet is a request to check the number of issues a person
+    # has made in the github issue tracker
+    elif (is_valid_issues(args) or
+        is_valid_issue_comments(args)) and (
+        is_valid_token(args) and
+        is_valid_repo(args) and
+        is_valid_name(args)
     ):
         verified_arguments = True
     return verified_arguments

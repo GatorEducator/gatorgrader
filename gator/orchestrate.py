@@ -68,6 +68,34 @@ def check_commits(system_arguments):
         )
     return actions
 
+def check_issues(system_arguments):
+    """Check the number of issues made in the github issue tracker"""
+    actions = []
+    if system_arguments.issues is not None:
+        actions.append(
+            [
+                INVOKE,
+                "invoke_issues_check",
+                [system_arguments.token, system_arguments.repo,
+                 system_arguments.name, system_arguments.issues],
+            ]
+        )
+    return actions
+
+def check_issue_comments(system_arguments):
+    """Check th enumber of comments on issues made in the github issue tracker"""
+    actions = []
+    if system_arguments.issue_comments is not None:
+        actions.append(
+            [
+                INVOKE,
+                "invoke_issue_comments_check",
+                [system_arguments.token, system_arguments.repo,
+                 system_arguments.name, system_arguments.issue_comments],
+            ]
+        )
+    return actions
+
 
 def check_exists(system_arguments):
     """Check the existence of a file in directory and return desired actions"""
@@ -305,6 +333,8 @@ def check(system_arguments):
         "check_count_file",
         "check_count_command",
         "check_executes_command",
+        "check_issues",
+        "check_issue_comments"
     ]
     # iterate through all of the possible checks
     for a_check in checks:

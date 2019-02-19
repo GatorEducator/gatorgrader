@@ -8,6 +8,7 @@ from gator import report
 from gator import repository
 from gator import run
 from gator import util
+from gator import issues
 
 JAVA = "Java"
 PYTHON = "Python"
@@ -52,6 +53,29 @@ def invoke_commits_check(student_repository, expected_count, exact=False):
     update_report(did_check_pass, message, diagnostic)
     return did_check_pass
 
+def invoke_issues_check(github_token, repo_name, username, expected_count):
+    """Checks to see if a student has made any issues in the issue tracker"""
+    # gets the number of issues the user has made in the tracker
+    num_issues = issues.check_issues_made(github_token, repo_name, username)
+    message = str(username) + " has at made at least " + \
+        str(expected_count) + " issue(s)"
+    diagnostic = "Found " + str(num_issues) + " issue(s)" + \
+        " made by " + str(username) + " in the " + repo_name + " repository"
+    did_check_pass = num_issues >= expected_count
+    update_report(did_check_pass,message,diagnostic)
+    return did_check_pass
+
+def invoke_issue_comments_check(github_token, repo_name, username, expected_count):
+    """Checks to see if a student has made any comments on issues in the issue tracker"""
+    # gets the number of comments the user has made on issues in the tracker
+    num_comments = issues.check_comments_made(github_token, repo_name, username)
+    message = str(username) + " has at made at least " + \
+        str(expected_count) + " comment(s)"
+    diagnostic = "Found " + str(num_comments) + " comment(s)" + \
+        " made by " + str(username) + " in the " + repo_name + " repository"
+    did_check_pass = num_comments >= expected_count
+    update_report(did_check_pass,message,diagnostic)
+    return did_check_pass
 
 def invoke_file_in_directory_check(filecheck, directory):
     """Check to see if the file is in the directory"""
