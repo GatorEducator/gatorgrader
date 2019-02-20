@@ -155,29 +155,29 @@ an issue in the issue tracker!
  tests/test_run.py ✓✓                                            97% █████████▊
  tests/test_util.py ✓✓✓✓✓✓✓✓✓✓✓✓✓✓                              100% ██████████
 
------------ coverage: platform linux, python 3.6.6-final-0 -----------
-Name                   Stmts   Miss  Cover   Missing
-----------------------------------------------------
-gator/__init__.py          0      0   100%
-gator/arguments.py       131      0   100%
-gator/comments.py         17      0   100%
-gator/display.py          15      0   100%
-gator/entities.py         13      0   100%
-gator/files.py             5      0   100%
-gator/fragments.py        90      0   100%
-gator/invoke.py           99      0   100%
-gator/leave.py             4      0   100%
-gator/orchestrate.py     109      0   100%
-gator/report.py           71      0   100%
-gator/repository.py       13      0   100%
-gator/run.py              28      2    93%   33-34
-gator/util.py             35      0   100%
-----------------------------------------------------
-TOTAL                    630      2    99%
+ ----------- coverage: platform linux, python 3.6.7-final-0 -----------
+ Name                   Stmts   Miss  Cover   Missing
+ ----------------------------------------------------
+ gator/__init__.py          0      0   100%
+ gator/arguments.py       131      0   100%
+ gator/comments.py         17      0   100%
+ gator/display.py          15      0   100%
+ gator/entities.py         13      0   100%
+ gator/files.py             5      0   100%
+ gator/fragments.py        90      0   100%
+ gator/invoke.py          110      0   100%
+ gator/leave.py             4      0   100%
+ gator/orchestrate.py     114      0   100%
+ gator/report.py           71      0   100%
+ gator/repository.py       13      0   100%
+ gator/run.py              29      0   100%
+ gator/util.py             35      0   100%
+ ----------------------------------------------------
+ TOTAL                    647      0   100%
 
-Results (2.95s):
-     444 passed
 
+ Results (1.48s):
+      455 passed
 ```
 
 ## Running GatorGrader
