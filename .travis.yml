@@ -50,6 +50,7 @@ script:
   - pipenv run flake8 gatorgrader*
   - pipenv run pylint tests
   - pipenv run pylint gator
+  - pipenv run black --check */**.py *.py
   - mdl README.md
 
 # report coverage information to CodeCov
