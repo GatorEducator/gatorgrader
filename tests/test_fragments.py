@@ -8,32 +8,6 @@ from gator import fragments
 @pytest.mark.parametrize(
     "writing_string,expected_count",
     [
-    ("Paragraph1\n - first item\n - second item\n\nParagraph2", 2),
-    ("Paragraph1\n 1. item one\n 2. item two\n\nParagraph2", 2),
-    (" - first item\n - second item\n", 0),
-    ]
-)
-def test_listsbreak_paragraphs(writing_string, expected_count):
-    """Check that lists break paragraphs"""
-    assert fragments.count_paragraphs(writing_string) == expected_count
-
-
-@pytest.mark.parametrize(
-    "writing_string,expected_count",
-    [
-        ("Paragraph\n\n```\nShould not be a paragraph\n```", 1),
-        ("```\nShould not be\na paragraph\n```", 0),
-        ("Paragraph `inline code block` and end", 1),
-    ]
-)
-def test_codeblocks_break_paragraphs(writing_string, expected_count):
-    """Check that code blocks break paragraphs"""
-    assert fragments.count_paragraphs(writing_string) == expected_count
-
-
-@pytest.mark.parametrize(
-    "writing_string,expected_count",
-    [
         ("hello world", 1),
         ("hello world!!%^()", 1),
         ("hello world!!%^(@after)", 1),
@@ -45,9 +19,17 @@ def test_codeblocks_break_paragraphs(writing_string, expected_count):
         ("     ", 0),
         ("a     ", 1),
         ("a\n     ", 1),
+        # headers
         ("# Section Header", 0),
         ("# Section Header\n\nNot Section Header", 1),
         ("Paragraph\n\n\n# Section Header", 1),
+        # lists
+        ("Paragraph1\n - first item\n - second item", 1),
+        (" - first item\n - second item\n", 0),
+        # code blocks
+        ("Paragraph\n\n```\nShould not be a paragraph\n```", 1),
+        ("```\nShould not be\na paragraph\n```", 0),
+        ("Paragraph `inline code block` and end", 1),
     ],
 )
 def test_paragraphs_zero_or_one(writing_string, expected_count):
@@ -63,7 +45,10 @@ def test_paragraphs_zero_or_one(writing_string, expected_count):
         ("hello world\n\nhi\n\nff!$@name", 3),
         ("hello world\n\nhi\n\nff!$@name\n\n^^44", 4),
         ("hello world 44\n\nhi\n\nff!$@name\n\n^^44", 4),
+        # headers
         ("# Section Header\n\nhello world 44\n\nhi\n\nff!$@name\n\n^^44", 4),
+        # lists
+        ("Paragraph1\n 1. item one\n 2. item two\n\nParagraph2", 2),
     ],
 )
 def test_paragraphs_many(writing_string, expected_count):
