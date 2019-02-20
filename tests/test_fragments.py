@@ -59,6 +59,7 @@ def test_paragraphs_many(writing_string, expected_count):
 @pytest.mark.parametrize(
     "writing_string,expected_count",
     [
+        ("", 0),
         ("hello world! Writing a lot.\n\nsingle.", 1),
         ("hello world! Writing a lot.\n\nnew one.", 2),
         ("hello world! Writing a lot.\n\nNew one. Question?", 3),
@@ -82,13 +83,26 @@ def test_paragraphs_many(writing_string, expected_count):
             "New one. Question? Fun! Nice!",
             5,
         ),
+        # code blocks
         (
             "Here is some code in a code block.\n\n```\ndef test_function():\n    "
             "function_call()\n```\n\nHello world! Example? Writing.\n\n"
             "New one. Question? Fun! Nice!",
             4,
         ),
-        ("", 0),
+        (
+            "Here is some code in an inline code block: `def test_function():`. "
+            "Hello world! Example? Writing.\n\n"
+            "New one. `Code?` Question? Fun! Nice!",
+            6,
+        ),
+        # images
+        (
+            "Here is some code in an inline code block: `def test_function():`. "
+            "Hello world! Example? Writing.\n\n"
+            "New one. [Image](https://example.com/image.png) Question? Fun! Nice!",
+            6,
+        ),
     ],
 )
 def test_words_different_counts(writing_string, expected_count):
@@ -130,6 +144,7 @@ def test_chosen_fragment_many(writing_string, chosen_fragment, expected_count):
         fragments.count_specified_fragment(writing_string, chosen_fragment)
         == expected_count
     )
+
 
 @pytest.mark.parametrize(
     "writing_string,expected_count",
