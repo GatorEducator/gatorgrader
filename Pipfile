@@ -13,14 +13,10 @@ black = "*"
 pytest = "*"
 six = "*"
 codecov = "*"
-"flake8" = "*"
+flake8 = "*"
 pytest-cov = "*"
-neovim = "*"
 pytest-sugar = "*"
-pytest-clarity = "*"
-
-[requires]
-python_version = "3.6"
+neovim = "*"
 
 [pipenv]
 allow_prereleases = true
