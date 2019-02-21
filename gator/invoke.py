@@ -220,18 +220,33 @@ def invoke_all_fragment_checks(
     exact=False,
 ):
     """Perform the check for a fragment existence in file or contents and return the results"""
-    met_or_exceeded_count = 0
-    actual_count = 0
-    counting_function = fragments.count_specified_regex if fragments.is_valid_regex(fragment) else fragments.count_specified_fragment
+    met_or_exceeded_counts = list()
+    actual_counts = list()
+    if fragments.is_valid_regex(fragment):
+        met_or_exceeded_count, actual_count = fragments.specified_fragment_greater_than_count(
+            fragment,
+            fragments.count_specified_regex,
+            expected_count,
+            filecheck,
+            directory,
+            contents,
+            exact,
+        )
+        met_or_exceeded_counts.append(met_or_exceeded_count)
+        actual_counts.append(actual_count)
     met_or_exceeded_count, actual_count = fragments.specified_fragment_greater_than_count(
         fragment,
-        counting_function,
+        fragments.count_specified_fragment,
         expected_count,
         filecheck,
         directory,
         contents,
         exact,
     )
+    met_or_exceeded_counts.append(met_or_exceeded_count)
+    actual_counts.append(actual_count)
+    met_or_exceeded_count = max(met_or_exceeded_counts)
+    actual_count = max(actual_counts)
     # create a message for a file in directory
     if filecheck is not NOTHING and directory is not NOTHING:
         if exact is not True:
