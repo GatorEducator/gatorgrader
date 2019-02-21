@@ -184,6 +184,27 @@ def check_fragment_file(system_arguments):
     return actions
 
 
+def check_regex_file(system_arguments):
+    """Check the existence of fragment in a file and return desired actions"""
+    actions = []
+    if system_arguments.regex is not None and system_arguments.file is not None:
+        actions.append(
+            [
+                INVOKE,
+                "invoke_all_regex_checks",
+                [
+                    system_arguments.fragment,
+                    system_arguments.count,
+                    system_arguments.file,
+                    system_arguments.directory,
+                    NOTHING,
+                    system_arguments.exact,
+                ],
+            ]
+        )
+    return actions
+
+
 def check_count_file(system_arguments):
     """Check the count of lines in a file and return desired actions"""
     actions = []
@@ -305,6 +326,7 @@ def check(system_arguments):
         "check_count_file",
         "check_count_command",
         "check_executes_command",
+        "check_regex_file",
     ]
     # iterate through all of the possible checks
     for a_check in checks:
