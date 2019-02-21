@@ -93,19 +93,24 @@ you type `gradle grade` in your terminal window.
 
 ## Testing GatorGrader
 
-GatorGrader uses [Pytest](https://docs.pytest.org/en/latest/) for testing, along with [pytest-clarity](https://github.com/darrenburns/pytest-clarity) for increased readability of pytest output.
+GatorGrader uses [Pytest](https://docs.pytest.org/en/latest/) for testing.
 Depending on your goals, there are several different configurations in which you
 can run the provided test suite. If you want to run the test suite to see if all
-of the test cases are correctly passing, then you can type the following command
-in your terminal window:
+of the test cases are correctly passing, then you can type one of the following
+commands in your terminal window:
 
 ```
 pipenv run pytest
 ```
 
+```
+pipenv run test
+```
+
 Please note that you must preface the execution of the test suite with the
 command `pipenv run` if you want to ensure that the tests run with the correct
-access to their Python packages and in the desired virtual environment. If you
+access to their Python packages and in the desired virtual environment. The first
+command runs `pytest` explicitely, while the second utilizes `pytest-xdist`. If you
 are using GatorGrader and you find that a test fails in your development
 environment, please raise an issue in GatorGrader's issue tracker. With that
 said, if you are developing new features for Pytest and you want it to produce
@@ -120,7 +125,7 @@ the tool. To see the current coverage of the tests while also highlighting the
 lines that are not currently covered by the tests, you can type this command:
 
 ```
-pipenv run pytest -x -s --cov-config pytest.cov --cov-report term-missing --cov
+pipenv run cover
 ```
 
 Finally, if you are developing new features for GatorGrader, please attempt to
