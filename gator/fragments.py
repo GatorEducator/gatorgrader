@@ -119,6 +119,8 @@ def count_specified_fragment(contents, fragment):
 
 
 def count_specified_regex(contents, regex):
+    """Counts all the specified regex for a given file"""
+    # finds regex matches, returns their count
     matches = re.findall(regex, contents)
     num_matches = len(matches)
     return num_matches
