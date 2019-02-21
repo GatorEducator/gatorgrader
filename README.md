@@ -131,31 +131,31 @@ contributors, will not agree to merge new source code into the master branch
 unless it is covered by the test suite. With that said, a recent run of the test
 suite yielded the following output. If you do not see output that looks like
 this when you run the tests in your development environment, then please raise
-an issue in the issue tracker! 
+an issue in the issue tracker!
 
 ```
- tests/test_arguments.py ✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓  9% ▉
-                         ✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓ 18% █▊
-                         ✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓ 26% ██▋
-                         ✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓ 35% ███▌
-                         ✓✓✓✓✓✓✓✓✓✓                              37% ███▊
- tests/test_comments.py ✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓ 46% ████▋
-                        ✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓ 55% █████▋
-                        ✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓               61% ██████▎
- tests/test_display.py ✓✓✓                                       62% ██████▎
- tests/test_files.py ✓✓✓✓                                        63% ██████▍
- tests/test_fragments.py ✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓ 72% ███████▎
-                         ✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓ 80% ████████▏
-                         ✓✓✓                                     81% ████████▎
- tests/test_invoke.py ✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓                     86% ████████▋
- tests/test_leave.py ✓✓✓✓✓✓✓✓✓✓                                  88% ████████▉
- tests/test_orchestrate.py ✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓                     92% █████████▎
- tests/test_report.py ✓✓✓✓✓✓✓✓✓✓✓✓✓                              95% █████████▌
- tests/test_repository.py ✓✓✓✓✓✓                                 96% █████████▋
- tests/test_run.py ✓✓                                            97% █████████▊
- tests/test_util.py ✓✓✓✓✓✓✓✓✓✓✓✓✓✓                              100% ██████████
+tests/test_arguments.py ✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓  9% ▉         
+                        ✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓ 18% █▊        
+                        ✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓ 26% ██▋       
+                        ✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓ 35% ███▌      
+                        ✓✓✓✓✓✓                                   36% ███▋      
+tests/test_comments.py ✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓ 45% ████▋     
+                       ✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓ 54% █████▌    
+                       ✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓                  60% ██████    
+tests/test_display.py ✓✓✓                                        60% ██████    
+tests/test_files.py ✓✓✓✓                                         61% ██████▎   
+tests/test_fragments.py ✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓ 70% ███████   
+                        ✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓ 79% ███████▉  
+                        ✓✓✓✓                                     80% ███████▉  
+tests/test_invoke.py ✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓                   85% ████████▌
+tests/test_leave.py ✓✓✓✓✓✓✓✓✓✓                                   87% ████████▊
+tests/test_orchestrate.py ✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓                 92% █████████▎
+tests/test_report.py ✓✓✓✓✓✓✓✓✓✓✓✓✓                               95% █████████▌
+tests/test_repository.py ✓✓✓✓✓✓                                  96% █████████▋
+tests/test_run.py ✓✓✓                                            97% █████████▊
+tests/test_util.py ✓✓✓✓✓✓✓✓✓✓✓✓✓✓                               100% ██████████
 
------------ coverage: platform linux, python 3.6.6-final-0 -----------
+----------- coverage: platform linux, python 3.6.7-final-0 -----------
 Name                   Stmts   Miss  Cover   Missing
 ----------------------------------------------------
 gator/__init__.py          0      0   100%
@@ -165,18 +165,19 @@ gator/display.py          15      0   100%
 gator/entities.py         13      0   100%
 gator/files.py             5      0   100%
 gator/fragments.py        90      0   100%
-gator/invoke.py           99      0   100%
+gator/invoke.py          110      0   100%
 gator/leave.py             4      0   100%
-gator/orchestrate.py     109      0   100%
+gator/orchestrate.py     114      0   100%
 gator/report.py           71      0   100%
 gator/repository.py       13      0   100%
-gator/run.py              28      2    93%   33-34
+gator/run.py              29      2    93%   34-35
 gator/util.py             35      0   100%
 ----------------------------------------------------
-TOTAL                    630      2    99%
+TOTAL                    647      2    99%
 
-Results (2.95s):
-     444 passed
+
+Results (2.15s):
+    456 passed
 
 ```
 
