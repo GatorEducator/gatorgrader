@@ -49,6 +49,11 @@ def test_paragraphs_zero_or_one(writing_string, expected_count):
         ("# Section Header\n\nhello world 44\n\nhi\n\nff!$@name\n\n^^44", 4),
         # lists
         ("Paragraph1\n 1. item one\n 2. item two\n\nParagraph2", 2),
+        # Thematic, line and soft breaks
+        ("** ***", 0),
+        ("This is one paragraph.\n___\nThis is another paragraph.", 2),
+        ("Line break.  \nHello\\\nLine break.", 1),
+        ("This is a soft break\n\nThis is the second paragraph", 2),
     ],
 )
 def test_paragraphs_many(writing_string, expected_count):
