@@ -106,7 +106,7 @@ def test_paragraphs_many(writing_string, expected_count):
             6,
         ),
         # links
-        ("[This link is five words](www.url.com)", 8),
+        ("[This link is five words](www.url.com)", 5),
         # emoji
         (":thumbsup: is an emoji", 4),
     ],
