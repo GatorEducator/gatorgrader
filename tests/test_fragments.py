@@ -89,6 +89,7 @@ def test_paragraphs_many(writing_string, expected_count):
             4,
         ),
         ("", 0),
+        ("This should be `five` words", 5),
     ],
 )
 def test_words_different_counts(writing_string, expected_count):
