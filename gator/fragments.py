@@ -157,6 +157,16 @@ def count_fragments(
         file_contents_count = checking_function(file_contents, chosen_fragment)
     return file_contents_count
 
+def count_regex(
+    contents=NOTHING,
+    given_file=NOTHING,
+    containing_directory=NOTHING,
+):
+    """Counts all the regex for the given file"""
+    file_for_checking = Path(containing_directory + FILE_SEPARATOR + given_file)
+    regex = re.findall(user_regex, contents)
+    regex_count = len(regex)
+    return regex_count
 
 # pylint: disable=bad-continuation
 def specified_source_greater_than_count(
