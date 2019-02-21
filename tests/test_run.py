@@ -17,10 +17,10 @@ def test_run_broken_command_returns_nonzero():
     assert output == b""
     assert error != b""
     assert code != 0
-
-
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
+
+
 def test_run_command_grab_output_as_string(tmpdir):
     """Checks that invocation of command produces correct captured output"""
     tmpdir.mkdir("Hello1")
@@ -32,3 +32,17 @@ def test_run_command_grab_output_as_string(tmpdir):
     assert "Hello1" in output
     assert "Hello2" in output
     assert "Hello3" in output
+
+
+def test_run_invalid_output():
+    """Checks that invalid unicode bytestrings are handled correctly"""
+    invalid_byte_sequence = b'\x80\x81'
+    output = run.get_actual_output(invalid_byte_sequence)
+    assert invalid_byte_sequence in output
+
+
+def test_run_invalid_output_str():
+    """ Checks that ouputs that are already strings are handled correctly"""
+    randomString = "Hello"
+    output = run.get_actual_output(randomString)
+    assert randomString in output

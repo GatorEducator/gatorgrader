@@ -93,7 +93,7 @@ you type `gradle grade` in your terminal window.
 
 ## Testing GatorGrader
 
-GatorGrader uses [Pytest](https://docs.pytest.org/en/latest/) for testing.
+GatorGrader uses [Pytest](https://docs.pytest.org/en/latest/) for testing, along with [pytest-clarity](https://github.com/darrenburns/pytest-clarity) for increased readability of pytest output.
 Depending on your goals, there are several different configurations in which you
 can run the provided test suite. If you want to run the test suite to see if all
 of the test cases are correctly passing, then you can type the following command
@@ -384,6 +384,7 @@ listed in alphabetical order by their surname.
 - Maria Kim
 - Saejin Mahlau-Heinert
 - Race Mahoney
+- Christopher Miller
 - Nicholas Tocci
 
 ## Presentations
@@ -401,7 +402,7 @@ following list includes some of our recent presentations:
 Are you interested in contributing to
 [GatorGrader](https://github.com/GatorEducator/gatorgrader),
 [GatorGradle](https://github.com/GatorEducator/gatorgradle), or
-[GatorGrader-SampleLab](https://github.com/GatorEducator/gatorgrader-samplelab)?
+[GatorGrader-SampleLab](https://github.com/GatorEducator/java-assigment-starter)?
 Our development team uses the [GitHub flow
 model](https://guides.github.com/introduction/flow/) to guide our engineering of
 these tools and we invite you to also follow it as you make a contribution. Of

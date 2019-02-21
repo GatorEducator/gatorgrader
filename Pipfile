@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 gitpython = "*"
+requests = ">=2.20.0"
+commonmark = "*"
 
 [dev-packages]
 pylint = "*"
@@ -12,10 +14,11 @@ black = "*"
 pytest = "*"
 six = "*"
 codecov = "*"
-"flake8" = "*"
+flake8 = "*"
 pytest-cov = "*"
 neovim = "*"
 pytest-sugar = "*"
+pytest-clarity = "*"
 
 [requires]
 python_version = "3.6"
