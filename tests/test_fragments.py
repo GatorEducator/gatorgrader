@@ -49,6 +49,9 @@ def test_paragraphs_zero_or_one(writing_string, expected_count):
         ("hello world\n\nhi\n\nff!$@name\n\n^^44", 4),
         ("hello world 44\n\nhi\n\nff!$@name\n\n^^44", 4),
         ("# Section Header\n\nhello world 44\n\nhi\n\nff!$@name\n\n^^44", 4),
+        ("HELLO HELLO HELLO HELLO HELLO\n*test\n*test\n*testers\n*test\n*test for unordered list between paragraphs\nhello como estas estamos bien", 3),
+        ("HELLO HELLO HELLO HELLO HELLO\n+test\n+test\n+testers\n+test\n+test for unordered sublist between paragraphs\nhello como estas estamos bien", 3),
+        ("HELLO HELLO HELLO HELLO HELLO\n1.test\n2.test\n+testers\n+test\n3.test for unordered list between paragraphs\nhello como estas estamos bien", 3),
     ],
 )
 def test_paragraphs_many(writing_string, expected_count):
