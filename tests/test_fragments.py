@@ -68,6 +68,8 @@ def test_paragraphs_many(writing_string, expected_count):
         ("hello world! Writing a lot.\n\nsingle.", 1),
         ("hello world! Writing a lot.\n\nnew one.", 2),
         ("hello world! Writing a lot.\n\nNew one. Question?", 3),
+        ("This should be `five` words", 5),
+        ("The command `pipenv run pytest` should test", 7),
         (
             "The method test.main was called. Hello world! Writing a lot.\n\n"
             "New one. Question? Fun!",
@@ -108,6 +110,10 @@ def test_paragraphs_many(writing_string, expected_count):
             "New one. [Image](https://example.com/image.png) Question? Fun! Nice!",
             6,
         ),
+        # links
+        ("[This link is five words](www.url.com)", 8),
+        # emoji
+        (":thumbsup: is an emoji", 4),
     ],
 )
 def test_words_different_counts(writing_string, expected_count):
