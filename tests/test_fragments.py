@@ -91,7 +91,8 @@ def test_paragraphs_many(writing_string, expected_count):
         ("", 0),
         ("This should be `five` words", 5),
         ("The command `pipenv run pytest` should test", 7),
-        ("[This link is five words](www.url.com)", 8)
+        ("[This link is five words](www.url.com)", 8),
+        (":thumbsup: is an emoji", 4)
     ],
 )
 def test_words_different_counts(writing_string, expected_count):
