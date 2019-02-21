@@ -199,6 +199,7 @@ def count_lines(given_file=NOTHING, containing_directory=NOTHING, contents=NOTHI
 
 
 def is_valid_regex(fragment):
+    """Determines if regex is valid"""
     try:
         re.compile(fragment)
         return True
