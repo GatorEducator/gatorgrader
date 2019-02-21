@@ -1,5 +1,5 @@
 # Python and Pipenv Installation Instructions
-Below are the instructions for installing Python and Pipenv on your device.
+Below are the instructions for installing Python and Pipenv.
 
 ## Python Installation.
 Python comes pre-installed on many different distributions, and is available as
