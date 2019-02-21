@@ -17,6 +17,8 @@ def test_run_broken_command_returns_nonzero():
     assert output == b""
     assert error != b""
     assert code != 0
+
+
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 
@@ -36,7 +38,7 @@ def test_run_command_grab_output_as_string(tmpdir):
 
 def test_run_invalid_output():
     """Checks that invalid unicode bytestrings are handled correctly"""
-    invalid_byte_sequence = b'\x80\x81'
+    invalid_byte_sequence = b"\x80\x81"
     output = run.get_actual_output(invalid_byte_sequence)
     assert invalid_byte_sequence in output
 
