@@ -23,7 +23,6 @@ env:
 # enable use of **
 # install pyenv with travis-pyenv
 before_install:
-  - shopt -s globstar
   - wget https://github.com/praekeltfoundation/travis-pyenv/releases/latest/download/setup-pyenv.sh
   - source setup-pyenv.sh
 
