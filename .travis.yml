@@ -1,18 +1,17 @@
-language: generic
+language: python
 
 os:
   - linux
   - osx
 
+# ignore the virtualenv that Travis creates
+# setup a secure login to CodeCov
+# set env variables for different jobs
 env:
   - PYENV_VERSION=3.7.2
   - PYENV_VERSION=3.6.8
   - PYENV_VERSION=3.5.6
   - PYENV_VERSION=pypy3.5-6.0.0
-
-# ignore the virtualenv that Travis creates
-# setup a secure login to CodeCov
-env:
   global:
     - PIPENV_VENV_IN_PROJECT=1
     - PIPENV_IGNORE_VIRTUALENVS=1
