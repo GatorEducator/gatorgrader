@@ -1,4 +1,4 @@
-language: python
+language: generic
 
 os:
   - linux
@@ -8,10 +8,11 @@ os:
 # setup a secure login to CodeCov
 # set env variables for different jobs
 env:
-  - PYENV_VERSION=3.7.2
-  - PYENV_VERSION=3.6.8
-  - PYENV_VERSION=3.5.6
-  - PYENV_VERSION=pypy3.5-6.0.0
+  matrix:
+    - PYENV_VERSION=3.7.2
+    - PYENV_VERSION=3.6.8
+    - PYENV_VERSION=3.5.6
+    - PYENV_VERSION=pypy3.5-6.0.0
   global:
     - PIPENV_VENV_IN_PROJECT=1
     - PIPENV_IGNORE_VIRTUALENVS=1
