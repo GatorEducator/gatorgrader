@@ -8,7 +8,8 @@ fi
 
 PASSED=true
 
-FILES=$(find . -type f -name "*.py")
+FILES=$(find . -type f -regextype egrep -regex "\./(gator|tests)/.*.py")
+FILES="$FILES *.py"
 
 echo " -- Running black"
 pipenv run black $CHECK $FILES
