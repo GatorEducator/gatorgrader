@@ -57,7 +57,7 @@ before_script:
 # --> lint the README documentation with mdl
 script:
   - pipenv run cover
-  - pipenv run lint
+  - pipenv run lint --check
   - mdl README.md
 
 # report coverage information to CodeCov
