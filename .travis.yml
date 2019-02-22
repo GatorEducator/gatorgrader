@@ -3,13 +3,12 @@ python:
   - "3.7-dev"
   - "3.6-dev"
   - "3.5-dev"
+  - "3.4-dev"
 
 dist: xenial
-osx_image: xcode10.1
 
 os:
   - linux
-  - osx
 
 # ignore the virtualenv that Travis creates
 # setup a secure login to CodeCov
