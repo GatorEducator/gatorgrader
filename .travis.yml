@@ -14,6 +14,7 @@ env:
     - PYENV_VERSION=3.5.6
     - PYENV_VERSION=pypy3.5-6.0.0
   global:
+    - PYENV_ROOT=$HOME/.travis-pyenv
     - PIPENV_VENV_IN_PROJECT=1
     - PIPENV_IGNORE_VIRTUALENVS=1
     - LANG=en_US.UTF-8
