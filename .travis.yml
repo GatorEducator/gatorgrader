@@ -25,7 +25,6 @@ env:
 install:
   - pip install --upgrade pip
   - pip install --upgrade pipenv
-  # - pipenv sync
   - pipenv install --dev --three
   - gem install mdl
 
@@ -50,11 +49,8 @@ before_script:
 # --> lint the test suites with pylint
 # --> lint the README documentation with mdl
 script:
-  - pipenv run pytest --cov-config pytest.cov --cov
-  - pipenv run flake8 tests/*
-  - pipenv run flake8 gatorgrader*
-  - pipenv run pylint tests/*
-  - pipenv run pylint gator/*
+  - pipenv run cover
+  - pipenv run lint
   - mdl README.md
 
 # report coverage information to CodeCov
