@@ -15,21 +15,24 @@ from gator import fragments
         ("hello world!!%^(@after)writing a lot\n", 1),
         ("hello world!!%^(@after)writing a lot\n\n", 1),
         ("", 0),
+        ("", 0),
+        (" ", 0),
         (" ", 0),
         ("     ", 0),
+        ("     ", 0),
+        ("a     ", 1),
         ("a     ", 1),
         ("a\n     ", 1),
-        # headers
         ("# Section Header", 0),
         ("# Section Header\n\nNot Section Header", 1),
         ("Paragraph\n\n\n# Section Header", 1),
-        # lists
-        ("Paragraph1\n - first item\n - second item", 1),
-        (" - first item\n - second item\n", 0),
-        # code blocks
         ("Paragraph\n\n```\nShould not be a paragraph\n```", 1),
         ("```\nShould not be\na paragraph\n```", 0),
-        ("Paragraph `inline code block` and end", 1),
+        (
+            "Beginning of paragraph ``` Still in fences but now \
+    also in paragraph ``` and end",
+            1,
+        ),
     ],
 )
 def test_paragraphs_zero_or_one(writing_string, expected_count):
@@ -45,15 +48,7 @@ def test_paragraphs_zero_or_one(writing_string, expected_count):
         ("hello world\n\nhi\n\nff!$@name", 3),
         ("hello world\n\nhi\n\nff!$@name\n\n^^44", 4),
         ("hello world 44\n\nhi\n\nff!$@name\n\n^^44", 4),
-        # headers
         ("# Section Header\n\nhello world 44\n\nhi\n\nff!$@name\n\n^^44", 4),
-        # lists
-        ("Paragraph1\n 1. item one\n 2. item two\n\nParagraph2", 2),
-        # Thematic, line and soft breaks
-        ("** ***", 0),
-        ("This is one paragraph.\n___\nThis is another paragraph.", 2),
-        ("Line break.  \nHello\\\nLine break.", 1),
-        ("This is a soft break\n\nThis is the second paragraph", 2),
     ],
 )
 def test_paragraphs_many(writing_string, expected_count):
@@ -64,12 +59,9 @@ def test_paragraphs_many(writing_string, expected_count):
 @pytest.mark.parametrize(
     "writing_string,expected_count",
     [
-        ("", 0),
         ("hello world! Writing a lot.\n\nsingle.", 1),
         ("hello world! Writing a lot.\n\nnew one.", 2),
         ("hello world! Writing a lot.\n\nNew one. Question?", 3),
-        ("This should be `five` words", 5),
-        ("The command `pipenv run pytest` should test", 7),
         (
             "The method test.main was called. Hello world! Writing a lot.\n\n"
             "New one. Question? Fun!",
@@ -90,30 +82,13 @@ def test_paragraphs_many(writing_string, expected_count):
             "New one. Question? Fun! Nice!",
             5,
         ),
-        # code blocks
         (
             "Here is some code in a code block.\n\n```\ndef test_function():\n    "
             "function_call()\n```\n\nHello world! Example? Writing.\n\n"
             "New one. Question? Fun! Nice!",
             4,
         ),
-        (
-            "Here is some code in an inline code block: `def test_function():`. "
-            "Hello world! Example? Writing.\n\n"
-            "New one. `Code?` Question? Fun! Nice!",
-            6,
-        ),
-        # images
-        (
-            "Here is some code in an inline code block: `def test_function():`. "
-            "Hello world! Example? Writing.\n\n"
-            "New one. [Image](https://example.com/image.png) Question? Fun! Nice!",
-            6,
-        ),
-        # links
-        ("[This link is five words](www.url.com)", 5),
-        # emoji
-        (":thumbsup: is an emoji", 4),
+        ("", 0),
     ],
 )
 def test_words_different_counts(writing_string, expected_count):

@@ -6,7 +6,6 @@ name = "pypi"
 [packages]
 gitpython = "*"
 requests = ">=2.20.0"
-commonmark = "*"
 
 [dev-packages]
 pylint = "*"
