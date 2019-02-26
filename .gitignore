@@ -1,3 +1,7 @@
+# Pipenv -- multiple python versions #
+######################################
+/Pipfile.lock
+
 # Compiled source #
 ###################
 *.class
