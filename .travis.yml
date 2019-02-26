@@ -24,6 +24,7 @@ addons:
   apt:
     packages:
       - libssl-dev
+      - python-openssl
 
 # install pyenv with travis-pyenv
 before_install:
