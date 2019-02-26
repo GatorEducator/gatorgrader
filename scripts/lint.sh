@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ "$1" = "--check" ]]; then
+if [[ "$1" == "--check" ]]; then
     CHECK="--check"
 else
     CHECK=""
@@ -8,7 +8,14 @@ fi
 
 PASSED=true
 
-FILES=$(find . -type f -regextype egrep -regex "\./(gator|tests)/.*.py")
+OS="$(uname)"
+
+if [[ "$OS" == "Darwin" ]]; then
+    FILES=$(find -E . -type f -regex "\./(gator|tests)/.*.py")
+else
+    FILES=$(find . -type f -regextype posix-extended -regex "\./(gator|tests)/.*.py")
+fi
+
 FILES="$FILES *.py"
 
 echo " -- Running black"
