@@ -11,8 +11,7 @@ env:
   matrix:
     - PYENV_VERSION=3.7.2
     - PYENV_VERSION=3.6.8
-    - PYENV_VERSION=3.5.6
-    - PYENV_VERSION=pypy3.5-6.0.0
+    - PYENV_VERSION=pypy3-dev
   global:
     - PYENV_ROOT=$HOME/.travis-pyenv
     - PIPENV_VENV_IN_PROJECT=1
@@ -27,11 +26,13 @@ before_install:
   - wget https://github.com/praekeltfoundation/travis-pyenv/releases/latest/download/setup-pyenv.sh
   - source setup-pyenv.sh
 
-# command to install dependencies
+# command to install dependencies (from Pipfile, not Pipfile.lock)
+# cannot use locked dependencies because of possible version changes
+# between PYENV_VERSION versions
 install:
   - pip install --upgrade pip
   - pip install --upgrade pipenv
-  - pipenv install --dev --python "$PYENV_VERSION"
+  - pipenv install --dev --skip-lock --python "$PYENV_VERSION"
   - gem install mdl
 
 # send emails when there is a change or failure
