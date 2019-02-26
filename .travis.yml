@@ -1,5 +1,7 @@
 language: generic
 
+dist: xenial
+
 os:
   - linux
   - osx
@@ -19,12 +21,6 @@ env:
     - LANG=en_US.UTF-8
     - LC_ALL=en_US.UTF-8
     - secure: hnWlE/s8Vo+OM+Vz2p60+/jmMoGwnIdpVg2OUnu269TJYapPG+qF6ks1jYpb/XfRucfndZSZXy4UZfJnzf082hoQmAUGHm3yrRTDkrsGGK1bxea3Rhwj1bn8IrjcZqOAQAtpCsnhFbzrdRTtng8+PCBcYyru+IG6jwOrOv2EMe/CBVLNvSoRdtBgcz4QKl2SRsLhEQh+pjgZiUEY+d7mNfyhGzCD8xS4abj8KfNfKDIZfKHX9E1mvBuZm9GQC17wvLyOt0j4gtEZeoGLGF63fuLvMqZhpZh00lJ6wmSD9vTok7pqgpErR1yrzZmVDrD61bz0PL/b8kHjOLLd0HcOw9q0D0KPX5BojOJxVKglc8GaAI4CksnMmjfLjieZRMag8K8qI8lKkIiD/AABAjqwHJ0Ywm7ru42alY163y4ieatXDMBQpoLsSn1P4gs0LDvGe6Kby+jeM8nL8y+5L5qGTODnqYDHes0rHVMIXQAr7HLKyru6/Bwzz8woYr8WjBmTd1UxLtFcfSYr8Rj+Yklldz4Wt1p4Wnpj9Hd5S2eVLXeteTBKA4y/tFSenZTke+NlVK8zmHa06yVHTbLf14ggTe4hZgUM/mLXRnVFy73LyaBPQkDQpvc6HELMxj94z5OZ6DpDrESDDxVnGq3H876qiJfi/rMFAkTbtgeMu4MRbow=
-
-addons:
-  apt:
-    packages:
-      - libssl-dev
-      - python-openssl
 
 # install pyenv with travis-pyenv
 before_install:
