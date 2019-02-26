@@ -28,6 +28,7 @@ addons:
 
 # install pyenv with travis-pyenv
 before_install:
+  - openssl version
   - wget https://github.com/praekeltfoundation/travis-pyenv/releases/latest/download/setup-pyenv.sh
   - source setup-pyenv.sh
 
