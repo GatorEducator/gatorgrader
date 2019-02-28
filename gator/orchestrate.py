@@ -183,6 +183,25 @@ def check_fragment_file(system_arguments):
         )
     return actions
 
+def check_markdown(system_arguments):
+    """Check the existence of markdown in a file and return desired actions"""
+    actions = []
+    if system_arguments.markdown is not None and system_arguments.file is not None:
+        actions.append(
+            [
+                INVOKE,
+                "invoke_all_markdown_checks",
+                [
+                    system_arguments.fragment,
+                    system_arguments.count,
+                    system_arguments.file,
+                    system_arguments.directory,
+                    NOTHING,
+                    system_arguments.exact,
+                ],
+            ]
+        )
+    return actions
 
 def check_count_file(system_arguments):
     """Check the count of lines in a file and return desired actions"""
