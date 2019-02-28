@@ -62,7 +62,7 @@ def parse(args):
     gg_parser.add_argument(
         "--language",
         type=str,
-        choices=[JAVA, PYTHON],
+        choices=[JAVA, PYTHON, LATEX],
         help="language for the single comments",
     )
 
