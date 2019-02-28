@@ -249,6 +249,25 @@ def check_fragment_command(system_arguments):
     return actions
 
 
+def check_regex_command(system_arguments):
+    """Check the existence of fragment in a command's output and return desired actions"""
+    actions = []
+    if system_arguments.regex is not None and system_arguments.command is not None:
+        actions.append(
+            [
+                INVOKE,
+                "invoke_all_command_regex_checks",
+                [
+                    system_arguments.command,
+                    system_arguments.fragment,
+                    system_arguments.count,
+                    system_arguments.exact,
+                ],
+            ]
+        )
+    return actions
+
+
 def check_count_command(system_arguments):
     """Check the count of lines in a command's output and return desired actions"""
     actions = []
