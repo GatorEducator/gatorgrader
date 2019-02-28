@@ -4,7 +4,6 @@ import argparse
 
 JAVA = "Java"
 PYTHON = "Python"
-LATEX = "Latex"
 
 
 def parse(args):
@@ -62,7 +61,7 @@ def parse(args):
     gg_parser.add_argument(
         "--language",
         type=str,
-        choices=[JAVA, PYTHON, LATEX],
+        choices=[JAVA, PYTHON],
         help="language for the single comments",
     )
 

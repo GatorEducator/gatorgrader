@@ -327,6 +327,7 @@ def check(system_arguments):
         "check_count_command",
         "check_executes_command",
         "check_regex_file",
+        "check_regex_command",
     ]
     # iterate through all of the possible checks
     for a_check in checks:
