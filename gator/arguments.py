@@ -4,6 +4,7 @@ import argparse
 
 JAVA = "Java"
 PYTHON = "Python"
+LATEX = "Latex"
 
 
 def parse(args):
