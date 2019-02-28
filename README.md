@@ -213,6 +213,7 @@ optional arguments:
   --command COMMAND     command to run (default: None)
   --executes            does a command execute without error (default: False)
   --fragment FRAGMENT   fragment that exists in code or output (default: None)
+  --regex REGEX         regex that exists in code or output (default: None)
   --count COUNT         how many of an entity should exist (default: None)
   --exact               equals instead of a minimum number (default: False)
 ```
