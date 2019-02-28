@@ -1,7 +1,7 @@
 # Python and Pipenv Installation Instructions
 Below are the instructions for installing Python and Pipenv.
 
-## Python Installation.
+## Python Installation
 Python comes pre-installed on many different distributions, and is available as
 a package on all linux distributions. However there are certain features you
 might want to use that are not available on your distro’s package. You can
@@ -9,18 +9,18 @@ easily compile the latest version of Python from source. Below are the links to 
 
 ### Ubuntu:
 
-  [Link to download.](https://www.python.org/downloads/source/)
+  - [Link to download.](https://www.python.org/downloads/source/)
 
-  [Link to installation instructions.](https://docs.python.org/3/using/unix.html#getting-and-installing-the-latest-version-of-python)
+  - [Link to installation instructions.](https://docs.python.org/3/using/unix.html#getting-and-installing-the-latest-version-of-python)
 ### MacOS:
-  [Link to download.](https://www.python.org/downloads/mac-osx/)
+  - [Link to download.](https://www.python.org/downloads/mac-osx/)
 
-  [Link to installation instructions.](https://docs.python.org/3/using/mac.html)
+  - [Link to installation instructions.](https://docs.python.org/3/using/mac.html)
 ### Windows:
-  [Link to download.](https://www.python.org/downloads/windows/)
+  - [Link to download.](https://www.python.org/downloads/windows/)
 
-  [Link to installation instructions.](https://docs.python.org/3/using/windows.html)
-## Pipenv Installation.
+  - [Link to installation instructions.](https://docs.python.org/3/using/windows.html)
+## Pipenv Installation
 [Pipenv](https://github.com/pypa/pipenv) is used by gatorGrader to: create a
 virtual testing environment, install and manage development packages, and to run
 Python commands. Pipenv relies on Pip for installation. After installing Python,
