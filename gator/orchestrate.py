@@ -259,7 +259,7 @@ def check_regex_command(system_arguments):
                 "invoke_all_command_regex_checks",
                 [
                     system_arguments.command,
-                    system_arguments.fragment,
+                    system_arguments.regex,
                     system_arguments.count,
                     system_arguments.exact,
                 ],
