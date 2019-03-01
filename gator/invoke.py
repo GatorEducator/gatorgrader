@@ -59,8 +59,16 @@ def invoke_issues_check(github_token, repo_name, username, expected_count):
     num_issues = issues.check_issues_made(github_token, repo_name, username)
     message = str(username) + " has at made at least " + \
         str(expected_count) + " issue(s)"
-    diagnostic = "Found " + str(num_issues) + " issue(s)" + \
-        " made by " + str(username) + " in the " + repo_name + " repository"
+    if num_issues == -1:
+        diagnostic = "Invalid Github Token Supplied: '" + github_token + "'"
+    elif num_issues == -2:
+        diagnostic = "Invalid Repository Supplied: '" + repo_name + "'"
+    # elif num_issues == -3:
+    #     diagnostic = "Invalid Github Token Supplied: '" + github_token + "'" + \
+    #         "\nInvalid Repository Supplied: '" + repo_name + "'"
+    else:
+        diagnostic = "Found " + str(num_issues) + " issue(s)" + \
+            " made by " + str(username) + " in the " + repo_name + " repository"
     did_check_pass = num_issues >= expected_count
     update_report(did_check_pass,message,diagnostic)
     return did_check_pass
@@ -71,8 +79,13 @@ def invoke_issue_comments_check(github_token, repo_name, username, expected_coun
     num_comments = issues.check_comments_made(github_token, repo_name, username)
     message = str(username) + " has at made at least " + \
         str(expected_count) + " comment(s)"
-    diagnostic = "Found " + str(num_comments) + " comment(s)" + \
-        " made by " + str(username) + " in the " + repo_name + " repository"
+    if num_comments == -1:
+        diagnostic = "Invalid Github Token Supplied: '" + github_token + "'"
+    elif num_comments == -2:
+        diagnostic = "Invalid Repository Supplied: '" + repo_name + "'"
+    else:
+        diagnostic = "Found " + str(num_comments) + " comment(s)" + \
+            " made by " + str(username) + " in the " + repo_name + " repository"
     did_check_pass = num_comments >= expected_count
     update_report(did_check_pass,message,diagnostic)
     return did_check_pass
