@@ -99,7 +99,9 @@ def parse(args):
     gg_parser.add_argument(
         "--fragment", type=str, help="fragment that exists in code or output"
     )
-
+    gg_parser.add_argument(
+        "--markdown", type=str, help="markdown tag that exists in markdown"
+    )
     # specify a check on fragments
     # CORRECT WHEN: user provides file and directory along with this argument
     # or
