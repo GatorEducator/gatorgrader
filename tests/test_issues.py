@@ -2,7 +2,7 @@
 
 from gator import issues
 
-TOKEN = 
+TOKEN = ""
 
 
 def test_issue_made():
@@ -23,23 +23,25 @@ def test_issue_comment():
 
 def test_issue_invalid_token():
     """Checks to ensure that if there is an incorrect token it returns the correct error"""
-    _, _, err = issues.check_issues_made("aaa", "GatorEducator/gatorgrader", "gkapfham", 1)
+    __, __, err = issues.check_issues_made("aaa", "GatorEducator/gatorgrader", "gkapfham", 1)
     assert err == -1
 
 
+# pylint: disable=function-redefined
 def test_issue_invalid_token():
     """Checks to ensure that if there is an incorrect repo it returns the correct error"""
-    _, _, err = issues.check_issues_made(TOKEN, "GatorEducator/gator", "gkapfham", 1)
+    __, __, err = issues.check_issues_made(TOKEN, "GatorEducator/gator", "gkapfham", 1)
     assert err == -2
 
 
+# pylint: disable=function-redefined
 def test_comments_invalid_token():
     """Checks to ensure that if there is an incorrect token it returns the correct error"""
-    _, _, err = issues.check_comments_made("aaa", "GatorEducator/gatorgrader", "gkapfham", 1)
+    __, __, err = issues.check_comments_made("aaa", "GatorEducator/gatorgrader", "gkapfham", 1)
     assert err == -1
 
 
 def test_comments_invalid_token():
     """Checks to ensure that if there is an incorrect repo it returns the correct error"""
-    _, _, err = issues.check_comments_made(TOKEN, "GatorEducator/gator", "gkapfham", 1)
+    __, __, err = issues.check_comments_made(TOKEN, "GatorEducator/gator", "gkapfham", 1)
     assert err == -2

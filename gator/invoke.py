@@ -8,6 +8,7 @@ from gator import report
 from gator import repository
 from gator import run
 from gator import util
+from gator import issues
 
 JAVA = "Java"
 PYTHON = "Python"

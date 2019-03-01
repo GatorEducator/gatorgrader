@@ -247,7 +247,6 @@ def is_valid_issue_comments(args):
         return True
     return False
 
-#TODO: check to see if token is actually valid with Github
 def is_valid_token(args):
     """Checks if it is a valid token specification"""
     if args.token is not None:
