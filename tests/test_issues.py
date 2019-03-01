@@ -2,6 +2,7 @@
 
 from gator import issues
 
+# will need to not use this and take out the second half of the token later.
 TOKEN = "3e20125561f10fa4df42"
 
 
@@ -20,7 +21,7 @@ def test_issue_comment():
     assert num == 1
     assert err == 0
 
-# Commented out until figure out authenication issues.
+
 def test_issue_invalid_token():
     """Checks to ensure that an incorrect token returns the correct error"""
     __, __, err = issues.check_issues_made("aaa", "GatorEducator/gatorgrader", "gkapfham", 1)
