@@ -2,7 +2,7 @@
 
 from gator import issues
 
-TOKEN = "bc8cec3d5ea48b4082bcc37c53f54dd114b29f20"
+TOKEN = "66dd9984a47dddf69ef0490d783658c11f7108b0"
 
 
 def test_issue_made():
