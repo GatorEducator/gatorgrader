@@ -1,8 +1,8 @@
-# """Get issues from the Github issue tracker and performs checks on them"""
+"""Get issues from the Github issue tracker and performs checks on them"""
+
 from github import Github
 from github.GithubException import UnknownObjectException, BadCredentialsException
-# from github.GithubException import BadCredentialsException
-# from git import Repo
+
 
 def check_issues_made(token, repo, name, expected):
     """Returns the number of issues that the given user has made"""
@@ -17,11 +17,12 @@ def check_issues_made(token, repo, name, expected):
         return False, 0, -2
     issues_made = 0
     for issue in repo.get_issues(state="all"):
-        if issue.user.login == name and issue.pull_request == None:
+        if issue.user.login == name and issue.pull_request is None:
             issues_made += 1
         if issues_made >= expected:
             return True, issues_made, 0
     return issues_made >= expected, issues_made, 0
+
 
 def check_comments_made(token, repo, name, expected):
     """Returns the number of comments that the given user has made"""
@@ -37,7 +38,7 @@ def check_comments_made(token, repo, name, expected):
     comments_made = 0
     for issue in repo.get_issues(state="all"):
         for comment in issue.get_comments():
-            if issue.pull_request == None and comment.user.login == name:
+            if issue.pull_request is None and comment.user.login == name:
                 comments_made += 1
             if comments_made >= expected:
                 return True, comments_made, 0

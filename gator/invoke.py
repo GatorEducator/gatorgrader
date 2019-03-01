@@ -8,7 +8,6 @@ from gator import report
 from gator import repository
 from gator import run
 from gator import util
-from gator import issues
 
 JAVA = "Java"
 PYTHON = "Python"
@@ -44,12 +43,10 @@ def invoke_commits_check(student_repository, expected_count, exact=False):
     )
     # create the message and the diagnostic
     if not exact:
-        message = "Repository has at least " + \
-            str(expected_count) + " commit(s)"
+        message = "Repository has at least " + str(expected_count) + " commit(s)"
     else:
         message = "Repository has exactly " + str(expected_count) + " commit(s)"
-    diagnostic = "Found " + str(actual_count) + \
-        " commit(s) in the Git repository"
+    diagnostic = "Found " + str(actual_count) + " commit(s) in the Git repository"
     update_report(did_check_pass, message, diagnostic)
     return did_check_pass
 
@@ -57,7 +54,7 @@ def invoke_issues_check(github_token, repo_name, username, expected_count):
     """Checks to see if a student has made any issues in the issue tracker"""
     # gets the number of issues the user has made in the tracker
     did_check_pass, num_issues, err = issues.check_issues_made(
-            github_token, repo_name, username, expected_count
+        github_token, repo_name, username, expected_count
     )
     message = str(username) + " has at made at least " + \
         str(expected_count) + " issue(s)"
@@ -68,14 +65,14 @@ def invoke_issues_check(github_token, repo_name, username, expected_count):
     else:
         diagnostic = "Found " + str(num_issues) + " issue(s)" + \
             " made by " + str(username) + " in the " + repo_name + " repository"
-    update_report(did_check_pass,message,diagnostic)
+    update_report(did_check_pass, message, diagnostic)
     return did_check_pass
 
 def invoke_issue_comments_check(github_token, repo_name, username, expected_count):
     """Checks to see if a student has made any comments on issues in the issue tracker"""
     # gets the number of comments the user has made on issues in the tracker
     did_check_pass, num_comments, err = issues.check_comments_made(
-            github_token, repo_name, username, expected_count
+        github_token, repo_name, username, expected_count
     )
     message = str(username) + " has at made at least " + \
         str(expected_count) + " comment(s)"
@@ -86,7 +83,7 @@ def invoke_issue_comments_check(github_token, repo_name, username, expected_coun
     else:
         diagnostic = "Found " + str(num_comments) + " comment(s)" + \
             " made by " + str(username) + " in the " + repo_name + " repository"
-    update_report(did_check_pass,message,diagnostic)
+    update_report(did_check_pass, message, diagnostic)
     return did_check_pass
 
 def invoke_file_in_directory_check(filecheck, directory):
@@ -99,12 +96,8 @@ def invoke_file_in_directory_check(filecheck, directory):
     # construct the message about whether or not the file exists
     # note that no diagnostic is needed and the result is boolean
     message = (
-        "The file "
-    + filecheck
-    + " exists in the "
-    + directory
-    + SPACE
-        + "directory" )
+        "The file " + filecheck + " exists in the " + directory + SPACE + "directory"
+    )
     # produce the final report and return the result
     # note that update_report is not called because
     # there will never be a diagnostic for this invoke
@@ -177,17 +170,12 @@ def invoke_all_comment_checks(
             + language
             + " comment(s)"
         )
-    diagnostic = "Found " + str(actual_count) + \
-        " comment(s) in the specified file"
+    diagnostic = "Found " + str(actual_count) + " comment(s) in the specified file"
     update_report(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
 
-def invoke_all_paragraph_checks(
-        filecheck,
-        directory,
-        expected_count,
-        exact=False):
+def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=False):
     """Perform the paragraph check and return the results"""
     met_or_exceeded_count = 0
     met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
@@ -216,17 +204,12 @@ def invoke_all_paragraph_checks(
             + SPACE
             + "paragraph(s)"
         )
-    diagnostic = "Found " + str(actual_count) + \
-        " paragraph(s) in the specified file"
+    diagnostic = "Found " + str(actual_count) + " paragraph(s) in the specified file"
     update_report(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
 
-def invoke_all_word_count_checks(
-        filecheck,
-        directory,
-        expected_count,
-        exact=False):
+def invoke_all_word_count_checks(filecheck, directory, expected_count, exact=False):
     """Perform the word count check and return the results"""
     met_or_exceeded_count = 0
     met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
@@ -256,9 +239,8 @@ def invoke_all_word_count_checks(
             + "word(s) in every paragraph"
         )
     diagnostic = (
-        "Found "
-    + str(actual_count)
-        + " word(s) in a paragraph of the specified file" )
+        "Found " + str(actual_count) + " word(s) in a paragraph of the specified file"
+    )
     update_report(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
@@ -345,12 +327,8 @@ def invoke_all_command_fragment_checks(
     """Perform the check for a fragment existence in the output of a command"""
     command_output = run.specified_command_get_output(command)
     return invoke_all_fragment_checks(
-        expected_fragment,
-        expected_count,
-        NOTHING,
-        NOTHING,
-        command_output,
-        exact)
+        expected_fragment, expected_count, NOTHING, NOTHING, command_output, exact
+    )
 
 
 def invoke_all_command_executes_checks(command):
@@ -364,23 +342,20 @@ def invoke_all_command_executes_checks(command):
     if command_error == EMPTY and command_returncode == SUCCESS:
         command_passed = True
     message = "The command '" + str(command) + "'" + " executes correctly"
-    diagnostic = "The command returned the error code " + \
-        str(command_returncode)
+    diagnostic = "The command returned the error code " + str(command_returncode)
     update_report(command_passed, message, diagnostic)
     return command_passed
 
 
 # pylint: disable=bad-continuation
 def invoke_all_count_checks(
-        expected_count,
-        filecheck=NOTHING,
-        directory=NOTHING,
-        contents=NOTHING,
-        exact=False):
+    expected_count, filecheck=NOTHING, directory=NOTHING, contents=NOTHING, exact=False
+):
     """Perform the check for the count of lines in file or contents and return the results"""
     met_or_exceeded_count = 0
     met_or_exceeded_count, actual_count = fragments.specified_source_greater_than_count(
-        expected_count, filecheck, directory, contents, exact)
+        expected_count, filecheck, directory, contents, exact
+    )
     # create a message for a file in directory
     if filecheck is not NOTHING and directory is not NOTHING:
         if exact is not True:
@@ -407,20 +382,15 @@ def invoke_all_count_checks(
     else:
         if exact is not True:
             message = (
-                "The command output"
-    + " has at least "
-    + str(expected_count)
-                + " lines" )
+                "The command output" + " has at least " + str(expected_count) + " lines"
+            )
         else:
             message = (
-                "The command output"
-    + " has exactly "
-    + str(expected_count)
-                + " lines" )
+                "The command output" + " has exactly " + str(expected_count) + " lines"
+            )
     diagnostic = (
-        "Found "
-    + str(actual_count)
-        + " line(s) in the output or the specified file" )
+        "Found " + str(actual_count) + " line(s) in the output or the specified file"
+    )
     update_report(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
