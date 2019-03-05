@@ -2,6 +2,10 @@
 
 [![Build Status](https://api.travis-ci.org/GatorEducator/gatorgrader.svg?branch=master)](https://travis-ci.org/GatorEducator/gatorgrader) [![codecov.io](http://codecov.io/github/GatorEducator/gatorgrader/coverage.svg?branch=master)](http://codecov.io/github/GatorEducator/gatorgrader?branch=master) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-orange.svg)](https://www.python.org/)
 
+## Key Features
+
+* Automatically Checks and assesses the work of writers and programmers through the use of different linting tools.
+  * Sets a required number of git commits
 Designed for use with [GitHub](https://github.com/), [GitHub
 Classroom](https://classroom.github.com/), [Travis CI](https://travis-ci.com/),
 and [Gradle](https://gradle.org/), GatorGrader is an automated assessment tool
