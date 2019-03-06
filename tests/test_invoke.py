@@ -49,6 +49,7 @@ def test_file_exists_in_directory_check(reset_results_dictionary, tmpdir):
     assert details["diagnostic"] is not None
     assert details["diagnostic"]
 
+
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check_paragraphs(reset_results_dictionary, tmpdir):
