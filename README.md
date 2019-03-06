@@ -7,9 +7,11 @@
 ## Key Features
 
 * Automatically Checks and assesses the work of writers and programmers through the use of different linting tools.
-  * Sets a required number of git commits
-  * Checks for specific directory and file -- need to add for directory exist, file exist and checks if the file is in the specify directory
-  * single/ muiltple count of comments
+  * Checks for a specified required minimum number of git commits.
+  * Checks to see if required files exist and are in the correct directory, and that the directory exists.
+  * Checks for a specified number of singleline and multiline comments in source code
+  * Counts the number of words and paragraphs in Markdown files.
+  * Checks for specified sentence fragments within Markdown files and source code.
 
 
 * Has the ability to check various formats for multiple languages.
