@@ -231,13 +231,15 @@ def test_perform_actions_display_welcome_and_ready_check_regex_file(
     "--file",
     "f",
     "--regex",
-    "R"
+    "\\begin([^;]*)\\end",
+    "--count",
+    "1"
     ]
     exit_code = orchestrate.check(chosen_arguments)
     captured = capsys.readouterr()
     counted_newlines = captured.out.count("\n")
     assert "GatorGrader" in captured.out
-    assert counted_newlines == 7
+    assert counted_newlines == 9
     assert exit_code == 1
 
 
@@ -268,6 +270,21 @@ def test_perform_actions_display_welcome_and_ready_check_fragment_command(
     counted_newlines = captured.out.count("\n")
     assert "GatorGrader" in captured.out
     assert counted_newlines == 7
+    assert exit_code == 1
+
+
+# pylint: disable=redefined-outer-name
+# pylint: disable=bad-continuation
+def test_perform_actions_display_welcome_and_ready_check_regex_command(
+    capsys, reset_results_dictionary
+):
+    """Check the argument verification, messages, and continue"""
+    chosen_arguments = ["--command", "ls", "--regex", "\\begin", "--count", "1"]
+    exit_code = orchestrate.check(chosen_arguments)
+    captured = capsys.readouterr()
+    counted_newlines = captured.out.count("\n")
+    assert "GatorGrader" in captured.out
+    assert counted_newlines == 8
     assert exit_code == 1
 
 
