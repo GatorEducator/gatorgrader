@@ -226,14 +226,14 @@ def test_perform_actions_display_welcome_and_ready_check_regex_file(
 ):
     """Check the argument verification, messages, and continue"""
     chosen_arguments = [
-    "--directory",
-    "D",
-    "--file",
-    "f",
-    "--regex",
-    "\\begin([^;]*)\\end",
-    "--count",
-    "1"
+        "--directory",
+        "D",
+        "--file",
+        "f",
+        "--regex",
+        "\\begin([^;]*)\\end",
+        "--count",
+        "1"
     ]
     exit_code = orchestrate.check(chosen_arguments)
     captured = capsys.readouterr()
