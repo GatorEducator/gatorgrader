@@ -15,6 +15,9 @@
 * Has the ability to check various formats for multiple languages.
 * It has the ability to support multiple programming languages
   * Java, Python, JavaScript, CSS, and HTML
+* Effectively integrates into many diverse workflows and development environments
+* Can use gatorgrader in a cloud base environment(Travis CI) or local machine
+
 
 
 
