@@ -270,7 +270,7 @@ def is_valid_regex(args, skip=False):
 def is_valid_count(args, skip=False):
     """Checks if it is a valid count specification"""
     if (is_valid_file_and_directory(args) or is_valid_command(args)) or skip:
-        if args.count is not None and args.fragment is None:
+        if args.count is not None and args.fragment is None and args.regex is None:
             return True
     return False
 

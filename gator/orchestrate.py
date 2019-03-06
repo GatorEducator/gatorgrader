@@ -193,7 +193,7 @@ def check_regex_file(system_arguments):
                 INVOKE,
                 "invoke_all_regex_checks",
                 [
-                    system_arguments.fragment,
+                    system_arguments.regex,
                     system_arguments.count,
                     system_arguments.file,
                     system_arguments.directory,
