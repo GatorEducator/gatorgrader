@@ -188,6 +188,7 @@ def is_valid_commits(args):
 def is_valid_exact(args, skip=False):
     """Checks if it is a valid exact count specification"""
     # pylint: disable=bad-continuation
+    # pylint: disable=too-many-boolean-expressions
     if (
         is_valid_commits(args)
         or is_valid_comments(args)
