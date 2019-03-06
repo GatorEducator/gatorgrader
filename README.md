@@ -12,7 +12,6 @@
   * Checks for a specified number of singleline and multiline comments in source code.
   * Counts the number of words and paragraphs in Markdown files.
   * Checks for specified sentence fragments within Markdown files and source code.
-* Has the ability to check various formats for multiple languages.
 * It has the ability to support multiple programming languages
   * Java, Python, JavaScript, CSS, and HTML
 * Effectively integrates into many diverse workflows and development environments
