@@ -351,7 +351,7 @@ def test_multiline_comments_mixed(code_string, expected_count):
     "code_string,expected_count",
     [
         ('# hello world' '"""hello \n """', 1),
-        ('# hello world' '"""hello \n """' '"""hello \n """' ,2),
+        ('# hello world' '"""hello \n """' '"""hello \n """', 2),
         ('""" hello world hello ', 0),
         ('"""hello \n """' '"""hello \n world"""', 2),
         ('""" hi \n"""' '\n # whoa ' '""" hi \n again """', 2),
