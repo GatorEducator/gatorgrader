@@ -188,6 +188,7 @@ def is_valid_commits(args):
 def is_valid_exact(args, skip=False):
     """Checks if it is a valid exact count specification"""
     # pylint: disable=bad-continuation
+    # pylint: disable=too-many-boolean-expressions
     if (
         is_valid_commits(args)
         or is_valid_comments(args)
@@ -344,6 +345,7 @@ def verify(args):
             # verified_arguments = True
             file_verified.append(True)
         # VERIFIED: correct check for regex in a file in a directory
+        # The following line is currently causing Travis to fail due to too many branches
         if is_valid_regex(args):
             # verified arguments = True
             file_verified.append(True)

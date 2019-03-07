@@ -370,6 +370,17 @@ def invoke_all_command_fragment_checks(
     )
 
 
+# pylint: disable=bad-continuation
+def invoke_all_command_regex_checks(
+    command, expected_regex, expected_count, exact=False
+):
+    """Perform the check for a regex existence in the output of a command"""
+    command_output = run.specified_command_get_output(command)
+    return invoke_all_regex_checks(
+        expected_regex, expected_count, NOTHING, NOTHING, command_output, exact
+    )
+
+
 def invoke_all_command_executes_checks(command):
     """Perform the check for whether or not a command runs without error"""
     # pylint: disable=unused-variable
