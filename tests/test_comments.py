@@ -324,12 +324,6 @@ def test_multiline_comments_two(code_string, expected_count):
         ('""" hello \n world """ \n """ hello \n world """', 2),
         ('""" hello \n world """ \n """ hello world """', 1),
         ('""" hello world """ \n """ hello world """', 1),
-        # ("/* hello */ \n world \n /* hello world */", 2),
-        # ("/* hello */ world \n /* hello world */", 2),
-        # ("/** hello world */ \n /* hello world */", 2),
-        # ("/** hello */ \n world \n /* hello world */", 2),
-        # ("/** hello @author me */ world \n /* hello world */", 2),
-        # ("/** hello @author me **/ world \n /* hello world */", 2),
     ],
 )
 def test_multiline_python_comments_two(code_string, expected_count):
