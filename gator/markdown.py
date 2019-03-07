@@ -9,7 +9,7 @@ from gator import util
 FILE_SEPARATOR = "/"
 
 
-def count_specified_tag(contents, tag):
+def count_specified_tag(tag):
     """Counts the specified markdown tag in the string contents"""
     tag_count = 0
     # TODO: implement counting algorithm
