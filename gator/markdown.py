@@ -14,7 +14,6 @@ def count_specified_tag(contents, tag):
     ast = commonmark.Parser().parse(contents)
     tag_count = 0
 
-    # TODO: implement counting algorithm
     for subnode, enter in ast.walker():
         # Check to see if the current subnode is an open node of the specified tag
         if subnode.t == tag and enter:
