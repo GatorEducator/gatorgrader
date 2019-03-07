@@ -289,8 +289,6 @@ def test_multiline_comments_zero_or_one(code_string, expected_count):
         (" hello world", 0),
         ('"hello world"', 0),
         (" ", 0),
-        (" ", 0),
-        ("", 0),
         ("", 0),
     ],
 )
