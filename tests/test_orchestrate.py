@@ -221,6 +221,56 @@ def test_perform_actions_display_welcome_and_ready_check_fragment_file(
 
 # pylint: disable=redefined-outer-name
 # pylint: disable=bad-continuation
+def test_perform_actions_display_welcome_and_ready_check_markdown_tag_file(
+    capsys, reset_results_dictionary
+):
+    """Check the argument verification, messages, and continue"""
+    chosen_arguments = [
+        "--directory",
+        "D",
+        "--file",
+        "f",
+        "--markdown",
+        "code",
+        "--count",
+        "2",
+    ]
+    exit_code = orchestrate.check(chosen_arguments)
+    captured = capsys.readouterr()
+    counted_newlines = captured.out.count("\n")
+    assert "GatorGrader" in captured.out
+    assert counted_newlines == 7
+    assert exit_code == 1
+
+
+# pylint: disable=redefined-outer-name
+# pylint: disable=bad-continuation
+def test_perform_actions_display_welcome_and_ready_check_markdown_tag_exact_file(
+    capsys, reset_results_dictionary
+):
+    """Check the argument verification, messages, and continue"""
+    chosen_arguments = [
+        "--directory",
+        "D",
+        "--file",
+        "f",
+        "--markdown",
+        "code",
+        "--count",
+        "2",
+        "--exact",
+    ]
+    exit_code = orchestrate.check(chosen_arguments)
+    captured = capsys.readouterr()
+    counted_newlines = captured.out.count("\n")
+    assert "GatorGrader" in captured.out
+    assert "exactly" in captured.out
+    assert counted_newlines == 7
+    assert exit_code == 1
+
+
+# pylint: disable=redefined-outer-name
+# pylint: disable=bad-continuation
 def test_perform_actions_display_welcome_and_ready_check_count_file(
     capsys, reset_results_dictionary
 ):
