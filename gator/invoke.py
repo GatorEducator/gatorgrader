@@ -374,7 +374,7 @@ def invoke_all_command_fragment_checks(
 def invoke_all_command_regex_checks(
     command, expected_regex, expected_count, exact=False
 ):
-    """Perform the check for a fragment existence in the output of a command"""
+    """Perform the check for a regex existence in the output of a command"""
     command_output = run.specified_command_get_output(command)
     return invoke_all_regex_checks(
         expected_regex, expected_count, NOTHING, NOTHING, command_output, exact
