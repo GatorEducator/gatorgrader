@@ -277,6 +277,7 @@ def check_count_command(system_arguments):
         system_arguments.count is not None
         and system_arguments.command is not None
         and system_arguments.fragment is None
+        and system_arguments.regex is None
     ):
         actions.append(
             [
@@ -301,6 +302,7 @@ def check_executes_command(system_arguments):
         and system_arguments.executes is not None
         and system_arguments.count is None
         and system_arguments.fragment is None
+        and system_arguments.regex is None
     ):
         actions.append(
             [INVOKE, "invoke_all_command_executes_checks", [system_arguments.command]]
