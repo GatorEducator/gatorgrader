@@ -194,7 +194,7 @@ usage: gatorgrader.py [-h] [--nowelcome] [--json] [--commits COMMITS]
                       [--single COUNT] [--multiple COUNT]
                       [--language {Java,Python}] [--paragraphs COUNT]
                       [--words WORDS] [--command COMMAND] [--executes]
-                      [--fragment FRAGMENT] [--count COUNT] [--exact]
+                      [--fragment FRAGMENT] [--regex REGEX] [--count COUNT] [--exact]
 
 optional arguments:
   -h, --help            show this help message and exit
