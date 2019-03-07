@@ -38,7 +38,7 @@ def check_comments_made(token, repo, name, expected):
     comments_made = 0
     for issue in repo.get_issues(state="all"):
         for comment in issue.get_comments():
-            if issue.pull_request is None and comment.user.login == name:
+            if comment.user.login == name and issue.pull_request is None:
                 comments_made += 1
             if comments_made >= expected:
                 return True, comments_made, 0
