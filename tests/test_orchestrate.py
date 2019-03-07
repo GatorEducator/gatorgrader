@@ -278,7 +278,7 @@ def test_perform_actions_display_welcome_and_ready_check_fragment_command(
 def test_perform_actions_display_welcome_and_ready_check_regex_command(
     capsys, reset_results_dictionary
 ):
-    """Check the argument verification, messages, and continue"""
+    """Check the argument verification, messages, and continue for regex output"""
     chosen_arguments = ["--command", "ls", "--regex", "\\begin", "--count", "1"]
     exit_code = orchestrate.check(chosen_arguments)
     captured = capsys.readouterr()
