@@ -345,6 +345,7 @@ def verify(args):
             # verified_arguments = True
             file_verified.append(True)
         # VERIFIED: correct check for regex in a file in a directory
+        # The following line is currently causing Travis to fail due to too many branches
         if is_valid_regex(args):
             # verified arguments = True
             file_verified.append(True)
