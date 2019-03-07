@@ -183,6 +183,7 @@ def check_fragment_file(system_arguments):
         )
     return actions
 
+
 def check_markdown_file(system_arguments):
     """Check the existence of markdown in a file and return desired actions"""
     actions = []
@@ -201,6 +202,7 @@ def check_markdown_file(system_arguments):
             ]
         )
     return actions
+
 
 def check_count_file(system_arguments):
     """Check the count of lines in a file and return desired actions"""

@@ -315,11 +315,7 @@ def invoke_all_command_executes_checks(command):
 
 # pylint: disable=bad-continuation
 def invoke_all_markdown_checks(
-    markdown_tag,
-    expected_count,
-    filecheck,
-    directory,
-    exact=False,
+    markdown_tag, expected_count, filecheck, directory, exact=False
 ):
     """Perform the check for a markdown tag existence in a file and return the results"""
     met_or_exceeded_count = 0
@@ -356,11 +352,7 @@ def invoke_all_markdown_checks(
             + markdown_tag
             + "' elements"
         )
-    diagnostic = (
-        "Found "
-        + str(actual_count)
-        + " element(s) in the specified file"
-    )
+    diagnostic = "Found " + str(actual_count) + " element(s) in the specified file"
     update_report(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
