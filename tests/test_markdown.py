@@ -45,7 +45,7 @@ def test_chosen_tag_zero_or_one(writing_string, chosen_tag, expected_count):
         ("hello world!!%^(@after)writing a lot\n\n2nd paragraph", "paragraph", 2),
         (
             "# Section one\n\nparagraph of\ntext\n\n# Section two\n\nMore text\n",
-            "header",
+            "heading",
             2,
         ),
         ("hello world the fox `code1` and `code3` and `code2`.", "code", 3),
@@ -53,7 +53,7 @@ def test_chosen_tag_zero_or_one(writing_string, chosen_tag, expected_count):
             "hello world `coding` !!%^(@after) ```misformatted code``` writing"
             "a lot\n\n```\nblock\nof\ncode\n```\n",
             "code_block",
-            2,
+            1,
         ),
         (
             "hello world\n\n![Image](www.google.com)\n\ntext and stuff\n"
@@ -110,4 +110,3 @@ With more `code blocks` and maybe an ![Image](www.example.com)."""
     )
     assert actual_count == 2
     assert exactly is True
-

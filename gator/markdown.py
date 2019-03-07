@@ -36,7 +36,7 @@ def specified_tag_greater_than_count(
     file_for_checking = Path(containing_directory + FILE_SEPARATOR + given_file)
     file_tag_count = 0
     if file_for_checking.is_file():
-        file_contexts = file_for_checking.read_text()
+        file_contents = file_for_checking.read_text()
         file_tag_count = checking_function(file_contents, chosen_tag)
 
     # check the condition and also return file_tag_count
