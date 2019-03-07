@@ -286,6 +286,8 @@ def test_multiline_comments_zero_or_one(code_string, expected_count):
         ('"hello world"', 0),
         ("# hello world", 0),
         ("## hello world", 0),
+        ('# hello world\n"""', 0),
+        ('"""# hello\n world', 0),
         (" hello world", 0),
         ('"hello world"', 0),
         (" ", 0),
@@ -322,6 +324,7 @@ def test_multiline_comments_two(code_string, expected_count):
         ('""" hello \n world """ \n """ hello \n world """', 2),
         ('""" hello \n world """ \n """ hello world """', 1),
         ('""" hello world """ \n """ hello world """', 1),
+        ('""" hello world """', 0),
     ],
 )
 def test_multiline_python_comments_two(code_string, expected_count):
