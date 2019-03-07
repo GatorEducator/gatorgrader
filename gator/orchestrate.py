@@ -210,6 +210,7 @@ def check_count_file(system_arguments):
         system_arguments.count is not None
         and system_arguments.file is not None
         and system_arguments.fragment is None
+        and system_arguments.markdown is None
     ):
         actions.append(
             [
