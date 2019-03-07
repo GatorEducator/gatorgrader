@@ -194,9 +194,9 @@ def check_markdown_file(system_arguments):
                 [
                     system_arguments.markdown,
                     system_arguments.count,
-                    system_arguments.exact,
                     system_arguments.file,
                     system_arguments.directory,
+                    system_arguments.exact,
                 ],
             ]
         )
