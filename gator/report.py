@@ -87,4 +87,4 @@ def output_text(dictionary_result) -> str:
 
 def output_json(dictionary_result) -> str:
     """Return output in a JSON-based textual format"""
-    return json.dumps(result)
+    return json.dumps(dictionary_result)
