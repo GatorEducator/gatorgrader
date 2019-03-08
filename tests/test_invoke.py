@@ -271,7 +271,7 @@ def test_content_string_check_fragments_with_threshold(reset_results_dictionary)
     invoke.invoke_all_count_checks(1, contents=value)
     invoke.invoke_all_count_checks(2, contents=value)
     invoke.invoke_all_count_checks(7, contents=value)
-    details = report.get_report()
+    details = report.get_result()
     assert details is not None
 
 
@@ -286,7 +286,7 @@ def test_comment_counts_check_single_java(reset_results_dictionary, tmpdir):
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
     invoke.invoke_file_in_directory_check(hello_file, directory)
-    details = report.get_report()
+    details = report.get_result()
     assert details is not None
     report.reset()
     invoke.invoke_all_comment_checks(hello_file, directory, 1, "single-line", "Java")
