@@ -18,6 +18,7 @@ def test_create_result():
     assert new_result[report.OUTCOME] is True
     assert new_result[report.DIAGNOSTIC] == ""
 
+
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_set_result(reset_results_dictionary):
@@ -72,4 +73,3 @@ def test_output_json(reset_results_dictionary):
     assert f'"{report.CHECK}":' in output
     assert f'"{report.OUTCOME}":' in output
     assert f'"{report.DIAGNOSTIC}":' in output
-
