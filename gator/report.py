@@ -48,7 +48,7 @@ def set_result(check, outcome, diagnostic):
 
 
 def get_result():
-    """Return a result from the details dictionary"""
+    """Return the result dictionary"""
     global result
     return result
 
@@ -60,7 +60,7 @@ def output(dictionary_result, dictionary_format=TEXT):
 
 
 def output_text(dictionary_result) -> str:
-    """Produce output in a list-based textual format"""
+    """Produce output in textual format"""
     # extract the details and form a string
     check = dictionary_result[CHECK]
     outcome = dictionary_result[OUTCOME]
