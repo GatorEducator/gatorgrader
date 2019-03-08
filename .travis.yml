@@ -12,7 +12,6 @@ os:
 env:
   matrix:
     - PYENV_VERSION=3.7.2
-    - PYENV_VERSION=3.6.8
     - PYENV_VERSION=3.6.3
   global:
     - PYENV_ROOT=$HOME/.travis-pyenv
@@ -24,7 +23,6 @@ env:
 
 # install pyenv with travis-pyenv
 before_install:
-  - openssl version
   - wget https://github.com/praekeltfoundation/travis-pyenv/releases/latest/download/setup-pyenv.sh
   - source setup-pyenv.sh
 
@@ -34,7 +32,7 @@ before_install:
 install:
   - pip install --upgrade pip
   - pip install --upgrade pipenv
-  - pipenv install --dev --skip-lock --python "$PYENV_VERSION"
+  - pipenv install --dev --deploy --python "$PYENV_VERSION"
   - gem install mdl
 
 # send emails when there is a change or failure
