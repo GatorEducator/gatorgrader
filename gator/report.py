@@ -7,7 +7,7 @@ from gator import util
 
 REPORT = sys.modules[__name__]
 
-result = {}
+result = None
 
 CHECK = "check"
 OUTCOME = "outcome"
@@ -33,10 +33,10 @@ def create_result(check, outcome, diagnostic):
 
 
 def reset():
-    """Reset the results dictionary"""
+    """Reset the global result dictionary"""
     # pylint: disable=global-statement
     global result
-    result = {}
+    result = None
 
 
 def set_result(check, outcome, diagnostic):
@@ -49,6 +49,7 @@ def set_result(check, outcome, diagnostic):
 
 def get_result():
     """Return the result dictionary"""
+    # pylint: disable=global-statement
     global result
     return result
 
