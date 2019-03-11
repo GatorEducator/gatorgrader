@@ -227,7 +227,7 @@ the following error message `gatorgrader.py: error: unrecognized arguments:
 pytest --count 1 --exact` uses the correct names for all of the specified
 arguments, it does not tell GatorGrader what type of deliverable to check (e.g.,
 a program's source code or a command's output), thus leading GatorGrader to
-report `Incorrect command-line arguments`.
+report `Incorrect command-line arguments`. Similar errors will occur for the incorrect use of the `--regex` command. One correct usage of the `--regex` command would be `--regex "\\begin([^;]*)\\end" --count 1` to count amount of the `\begin` and `\end` regular expressions in a LaTeX document. Similarly, `--regex "\<footer\>([^;]*)\</footer\>" --count 1` could be used to count amount of regex for footers in an HTML file.
 
 Since GatorGrader's commands support many different checks for the various
 deliverables of a project in a computer science course, this documentation will
