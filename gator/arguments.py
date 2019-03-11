@@ -376,8 +376,8 @@ def verify(args):
             command_verified.append(True)
         # VERIFIED: correct check for regex in a file in a directory
         # if is_valid_regex(args):
-            # verified_arguments = True
-            # command_verified.append(True)
+        # verified_arguments = True
+        # command_verified.append(True)
         # VERIFIED: correct check for line count of a file in a directory
         if is_valid_count(args):
             # verified_arguments = True
