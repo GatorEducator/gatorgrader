@@ -121,9 +121,12 @@ def count_specified_fragment(contents, fragment):
 def count_specified_regex(contents, regex):
     """Counts all the specified regex for a given file"""
     # finds regex matches, returns their count
-    matches = re.findall(regex, contents)
-    num_matches = len(matches)
-    return num_matches
+    if not is_valid_regex(regex):
+        return 0
+    else:
+        matches = re.findall(regex, contents)
+        num_matches = len(matches)
+        return num_matches
 
 
 # pylint: disable=bad-continuation
@@ -198,10 +201,10 @@ def count_lines(given_file=NOTHING, containing_directory=NOTHING, contents=NOTHI
     return file_contents_count
 
 
-def is_valid_regex(fragment):
+def is_valid_regex(regex):
     """Determines if regex is valid"""
     try:
-        re.compile(fragment)
+        re.compile(regex)
         return True
     except re.error:
         return False
