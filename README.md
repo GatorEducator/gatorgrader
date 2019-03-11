@@ -23,6 +23,8 @@
 * Effectively integrates into many diverse workflows and development environments
 * Can use GatorGrader in a cloud base environment(Travis CI) or local machine through command-line.
 * Used in conjunction with GatorGradle for the Gradle build tool and checking of the "solution" and
+* Can use GatorGrader in a cloud base environment (Travis CI) or local machine through command-line.
+* Can be used in conjunction with GatorGradle for the Gradle build tool and checking of the "solution" and
 "starter" GitHub Classroom repositories in GitHub Classroom Assignments.
 
 
