@@ -12,6 +12,12 @@
   * Checks for a specified number of singleline and multiline comments in source code.
   * Counts the number of words and paragraphs in Markdown files.
   * Checks for specified sentence fragments within Markdown files and source code.
+* Automatically checks and assesses the work of writers and programmers through the use of different linting tools.
+  * Can check for a specified required minimum number of git commits.
+  * Can check to see if required files exist and are in the correct directory, and that the directory exists.
+  * Supports checking for a specified number of single line or multi-line comments in source code.
+  * Supports checking to count the number of words and paragraphs in Markdown files.
+  * Can check for specified sentence fragments along with pure text and regular expression fragments within Markdown files and source code.
 * It has the ability to support multiple programming languages
   * Java, Python, JavaScript, CSS, and HTML
 * Effectively integrates into many diverse workflows and development environments
