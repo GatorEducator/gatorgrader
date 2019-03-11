@@ -123,10 +123,9 @@ def count_specified_regex(contents, regex):
     # finds regex matches, returns their count
     if not is_valid_regex(regex):
         return 0
-    else:
-        matches = re.findall(regex, contents)
-        num_matches = len(matches)
-        return num_matches
+    matches = re.findall(regex, contents)
+    num_matches = len(matches)
+    return num_matches
 
 
 # pylint: disable=bad-continuation
