@@ -316,7 +316,7 @@ def invoke_all_regex_checks(
                 + str(expected_count)
                 + " of the '"
                 + fragment
-                + "' fragment"
+                + "' regex"
             )
         else:
             message = (
@@ -328,7 +328,7 @@ def invoke_all_regex_checks(
                 + str(expected_count)
                 + " of the '"
                 + fragment
-                + "' fragment"
+                + "' regex"
             )
     # create a message for a string
     else:
@@ -339,7 +339,7 @@ def invoke_all_regex_checks(
                 + str(expected_count)
                 + " of the '"
                 + fragment
-                + "' fragment"
+                + "' regex"
             )
         else:
             message = (
@@ -348,12 +348,12 @@ def invoke_all_regex_checks(
                 + str(expected_count)
                 + " of the '"
                 + fragment
-                + "' fragment"
+                + "' regex"
             )
     diagnostic = (
         "Found "
         + str(actual_count)
-        + " fragment(s) in the output or the specified file"
+        + " regex(s) in the output or the specified file"
     )
     update_report(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
