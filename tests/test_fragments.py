@@ -399,7 +399,7 @@ def test_is_valid_regex(regex_fragment, expected_status):
         ("[", True)
     ]
 )
-# pytest: disable=unused-argument
+# pylint: disable=unused-argument
 def test_count_specified_regex(regex_fragment, expected_status):
     """Checks that regex is correctly verified"""
     is_valid = fragments.count_specified_regex("test", regex_fragment)
