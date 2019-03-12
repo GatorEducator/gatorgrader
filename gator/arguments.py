@@ -310,6 +310,7 @@ def is_command_ancillary(args):
 # Verification function {{{
 
 
+# pylint: disable=too-many-branches
 def verify(args):
     """Checks if the arguments are correct"""
     # assume that the arguments are not valid and prove otherwise
@@ -345,7 +346,6 @@ def verify(args):
             # verified_arguments = True
             file_verified.append(True)
         # VERIFIED: correct check for regex in a file in a directory
-        # The following line is currently causing Travis to fail due to too many branches
         if is_valid_regex(args):
             # verified arguments = True
             file_verified.append(True)
