@@ -178,7 +178,9 @@ def test_file_exists_in_directory_check_fragments_exact(
     invoke.invoke_all_fragment_checks("hello", 1, reflection_file, directory, "", True)
     details = report.get_details()
     assert details is not None
-
+    invoke.invoke_all_regex_checks("hello", 1, reflection_file, directory, "", True)
+    details = report.get_details()
+    assert details is not None
 
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
@@ -196,9 +198,14 @@ def test_content_string_check_fragments(reset_results_dictionary):
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_content_string_check_fragments_exact(reset_results_dictionary):
-    """Checks that the checking of words works correctly"""
+    """Checks that the checking of exact fragments and regex works correctly"""
     value = "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
     invoke.invoke_all_fragment_checks(
+        "hello", 1, invoke.NOTHING, invoke.NOTHING, value, True
+    )
+    details = report.get_details()
+    assert details is not None
+    invoke.invoke_all_regex_checks(
         "hello", 1, invoke.NOTHING, invoke.NOTHING, value, True
     )
     details = report.get_details()
@@ -355,6 +362,31 @@ def test_comment_counts_check_multiple_java_not_enough(
     )
     details = report.get_details()
     assert details is not None
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
+def test_run_command_grab_output_as_string(reset_results_dictionary, tmpdir):
+    """Checks that invocation of command produces correct captured output"""
+    tmpdir.mkdir("Hello1")
+    tmpdir.mkdir("Hello2")
+    tmpdir.mkdir("Hello3")
+    assert len(tmpdir.listdir()) == 3
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/"
+    met_or_exceeded_count = invoke.invoke_all_command_fragment_checks(
+        "ls " + directory, "Hello1", 1
+    )
+    assert met_or_exceeded_count is True
+    details = report.get_details()
+    assert details is not None
+    met_or_exceeded_count = invoke.invoke_all_command_fragment_checks(
+        "ls " + directory, "HelloNotThere", 1
+    )
+    assert met_or_exceeded_count is False
+    met_or_exceeded_count = invoke.invoke_all_command_fragment_checks(
+        "ls " + directory, "HelloNotThere", 0
+    )
+    assert met_or_exceeded_count is True
 
 
 # pylint: disable=unused-argument
