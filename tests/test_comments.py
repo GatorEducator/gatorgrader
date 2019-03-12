@@ -272,6 +272,36 @@ def test_multiline_comments_zero_or_one(code_string, expected_count):
 @pytest.mark.parametrize(
     "code_string,expected_count",
     [
+        ('""" hello \n world"""', 1),
+        ('"""hello\n world\n"""', 1),
+        ('"""\nhello world\n"""', 1),
+        ('"""\nhello\n world\n"""', 1),
+        ('"""\nhello world\n', 0),
+        ('""\nhello world\n""', 0),
+        ('""" hello world"""', 0),
+        ('""""""', 0),
+        ('""" """', 0),
+        ('""" hello world', 0),
+        ('""hello world""', 0),
+        ('"hello world"', 0),
+        ("# hello world", 0),
+        ("## hello world", 0),
+        ('# hello world\n"""', 0),
+        ('"""# hello\n world', 0),
+        (" hello world", 0),
+        ('"hello world"', 0),
+        (" ", 0),
+        ("", 0),
+    ],
+)
+def test_multiline_python_comments_zero_or_one(code_string, expected_count):
+    """Checks that it finds zero or one multiline comments"""
+    assert comments.count_multiline_python_comment(code_string) == expected_count
+
+
+@pytest.mark.parametrize(
+    "code_string,expected_count",
+    [
         ("/* hello world */ \n /* hello world */", 2),
         ("/* hello */ \n world \n /* hello world */", 2),
         ("/* hello */ world \n /* hello world */", 2),
@@ -282,8 +312,25 @@ def test_multiline_comments_zero_or_one(code_string, expected_count):
     ],
 )
 def test_multiline_comments_two(code_string, expected_count):
-    """Checks that it has two or more multiline comments"""
+    """Checks that it has two or more multiline python comments"""
     assert comments.count_multiline_java_comment(code_string) == expected_count
+
+
+@pytest.mark.parametrize(
+    "code_string,expected_count",
+    [
+        ('""" hello \n world """ \n """ hello \n world """', 2),
+        ('"""\nhello\n world """ \n """ \n hello\n world """', 2),
+        ('""" hello \n world """ \n """ hello \n world """', 2),
+        ('""" hello \n world """ \n """ hello world """', 1),
+        ('""" hello world """ \n """ hello world """', 1),
+        ('""" hello world """ """ hello world """', 0),
+        ('""" hello world """', 0),
+    ],
+)
+def test_multiline_python_comments_two(code_string, expected_count):
+    """Checks that it has two or more multiline python comments"""
+    assert comments.count_multiline_python_comment(code_string) == expected_count
 
 
 @pytest.mark.parametrize(
@@ -299,6 +346,21 @@ def test_multiline_comments_two(code_string, expected_count):
 def test_multiline_comments_mixed(code_string, expected_count):
     """Checks that it can find multiline comments in mixtures"""
     assert comments.count_multiline_java_comment(code_string) == expected_count
+
+
+@pytest.mark.parametrize(
+    "code_string,expected_count",
+    [
+        ("# hello world" + '"""hello \n """', 1),
+        ("# hello world" + '"""hello \n """' + '"""hello \n """', 2),
+        ('""" hello world hello ', 0),
+        ('"""hello \n """' + '"""hello \n world"""', 2),
+        ('""" hi \n"""' + "\n # whoa " + '""" hi \n again """', 2),
+    ],
+)
+def test_multiline_python_comments_mixed(code_string, expected_count):
+    """Checks that it can find multiline comments in mixtures"""
+    assert comments.count_multiline_python_comment(code_string) == expected_count
 
 
 @pytest.mark.parametrize(
