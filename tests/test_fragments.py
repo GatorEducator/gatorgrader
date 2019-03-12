@@ -392,6 +392,7 @@ def test_is_valid_regex(regex_fragment, expected_status):
     regex_status = fragments.is_valid_regex(regex_fragment)
     assert regex_status == expected_status
 
+
 @pytest.mark.parametrize(
     "regex_fragment,expected_status",
     [
