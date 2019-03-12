@@ -383,8 +383,8 @@ def test_detect_blank_line(writing_string, expected_status):
 @pytest.mark.parametrize(
     "regex_fragment,expected_status",
     [
-        ("test",True),
-        ("[",False)
+        ("test", True),
+        ("[", False)
     ]
 )
 def test_is_valid_regex(regex_fragment, expected_status):
