@@ -379,6 +379,7 @@ def test_detect_blank_line(writing_string, expected_status):
     found_blanks = fragments.is_blank_line(writing_string)
     assert found_blanks == expected_status
 
+
 @pytest.mark.parametrize(
     "regex_fragment,expected_status",
     [
@@ -386,7 +387,6 @@ def test_detect_blank_line(writing_string, expected_status):
         ("[",False)
     ]
 )
-
 def test_is_valid_regex(regex_fragment, expected_status):
     """Checks that regex assessment correctly validates regular expressions"""
     regex_status = fragments.is_valid_regex(regex_fragment)
@@ -395,7 +395,7 @@ def test_is_valid_regex(regex_fragment, expected_status):
 @pytest.mark.parametrize(
     "regex_fragment,expected_status",
     [
-        ("[",True)
+        ("[", True)
     ]
 )
 
