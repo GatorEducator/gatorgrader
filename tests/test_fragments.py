@@ -381,11 +381,7 @@ def test_detect_blank_line(writing_string, expected_status):
 
 
 @pytest.mark.parametrize(
-    "regex_fragment,expected_status",
-    [
-        ("test", True),
-        ("[", False)
-    ]
+    "regex_fragment,expected_status", [("test", True), ("[", False)]
 )
 def test_is_valid_regex(regex_fragment, expected_status):
     """Checks that regex assessment correctly validates regular expressions"""
@@ -393,12 +389,7 @@ def test_is_valid_regex(regex_fragment, expected_status):
     assert regex_status == expected_status
 
 
-@pytest.mark.parametrize(
-    "regex_fragment,expected_status",
-    [
-        ("[", True)
-    ]
-)
+@pytest.mark.parametrize("regex_fragment,expected_status", [("[", True)])
 # pylint: disable=unused-argument
 def test_count_specified_regex(regex_fragment, expected_status):
     """Checks that regex is correctly verified"""
