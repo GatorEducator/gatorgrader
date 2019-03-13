@@ -66,7 +66,8 @@ def invoke_file_in_directory_check(filecheck, directory):
     # produce the final report and return the result
     # note that update_report is not called because
     # there will never be a diagnostic for this invoke
-    report.add_result(message, was_file_found, NO_DIAGNOSTIC)
+    diagnostic = "Did not find file"
+    report.add_result(message, was_file_found, diagnostic)
     return was_file_found
 
 

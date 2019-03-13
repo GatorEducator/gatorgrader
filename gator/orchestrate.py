@@ -8,8 +8,8 @@ from gator import leave
 from gator import report
 
 # pylint: disable=unused-import
-from gator import invoke
-from gator import run
+from gator import invoke  # noqa: F401
+from gator import run  # noqa: F401
 
 ORCHESTRATE = sys.modules[__name__]
 

@@ -43,8 +43,11 @@ def test_file_exists_in_directory_check(reset_results_dictionary, tmpdir):
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     hello_file = "hello.txt"
     invoke.invoke_file_in_directory_check(hello_file, directory)
-    details = report.get_details()
+    details = report.get_detail(0)
     assert details is not None
+    # assert details["outcome"] is True
+    assert details["diagnostic"] is not None
+    assert details["diagnostic"]
 
 
 # pylint: disable=unused-argument

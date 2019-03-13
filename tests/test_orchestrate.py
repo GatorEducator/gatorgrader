@@ -113,7 +113,7 @@ def test_perform_actions_display_welcome_and_ready_check_exists(
     captured = capsys.readouterr()
     counted_newlines = captured.out.count("\n")
     assert "GatorGrader" in captured.out
-    assert counted_newlines == 6
+    assert counted_newlines == 7
     assert exit_code == 1
 
 
