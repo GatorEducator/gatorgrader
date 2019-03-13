@@ -315,7 +315,7 @@ def invoke_all_regex_checks(
                 + directory
                 + " has at least "
                 + str(expected_count)
-                + " of the '"
+                + " matches of the '"
                 + fragment
                 + "' regular expression"
             )
@@ -354,7 +354,7 @@ def invoke_all_regex_checks(
     diagnostic = (
         "Found "
         + str(actual_count)
-        + " regular expression(s) in the output or the specified file"
+        + " matches of the specified regular expression in the output or the specified file"
     )
     update_report(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
