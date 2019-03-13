@@ -185,7 +185,7 @@ def check_fragment_file(system_arguments):
 
 
 def check_regex_file(system_arguments):
-    """Check the existence of fragment in a file and return desired actions"""
+    """Check the existence of regex in a file and return desired actions"""
     actions = []
     if system_arguments.regex is not None and system_arguments.file is not None:
         actions.append(
