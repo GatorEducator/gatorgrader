@@ -129,7 +129,7 @@ def count_specified_regex(contents, regex):
 
 
 # pylint: disable=bad-continuation
-def specified_fragment_greater_than_count(
+def specified_entity_greater_than_count(
     chosen_fragment,
     checking_function,
     expected_count,
@@ -138,13 +138,13 @@ def specified_fragment_greater_than_count(
     contents=NOTHING,
     exact=False,
 ):
-    """Determines if the fragment count is greater than expected"""
-    # count the fragments in either a file in a directory or String contents
-    file_fragment_count = count_fragments(
+    """Determines if the entity count is greater than expected"""
+    # count the fragments/regex in either a file in a directory or String contents
+    file_entity_count = count_fragments(
         chosen_fragment, checking_function, given_file, containing_directory, contents
     )
-    # check the condition and also return file_fragment_count
-    return util.greater_than_equal_exacted(file_fragment_count, expected_count, exact)
+    # check the condition and also return file_entity_count
+    return util.greater_than_equal_exacted(file_entity_count, expected_count, exact)
 
 
 # pylint: disable=bad-continuation
