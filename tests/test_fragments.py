@@ -196,12 +196,12 @@ def test_count_fragments_from_file_with_threshold(tmpdir):
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
-    exceeds_threshold, actual_count = fragments.specified_fragment_greater_than_count(
+    exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
         "hello", fragments.count_specified_fragment, 10, hello_file, directory, ""
     )
     assert actual_count == 1
     assert exceeds_threshold is False
-    exceeds_threshold, actual_count = fragments.specified_fragment_greater_than_count(
+    exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
         "hello", fragments.count_specified_fragment, 1, hello_file, directory, ""
     )
     assert actual_count == 1
@@ -211,12 +211,12 @@ def test_count_fragments_from_file_with_threshold(tmpdir):
 def test_count_fragments_from_contents_with_threshold():
     """Checks that counting fragments with threshold in a string works correctly"""
     value = "/* hello world */"
-    exceeds_threshold, actual_count = fragments.specified_fragment_greater_than_count(
+    exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
         "hello", fragments.count_specified_fragment, 10, contents=value
     )
     assert actual_count == 1
     assert exceeds_threshold is False
-    exceeds_threshold, actual_count = fragments.specified_fragment_greater_than_count(
+    exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
         "hello", fragments.count_specified_fragment, 1, contents=value
     )
     assert actual_count == 1
