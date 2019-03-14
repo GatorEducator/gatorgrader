@@ -185,6 +185,102 @@ an issue in the issue tracker!
       455 passed
 ```
 
+if you would like to run a specific test run
+
+```
+pytest test_mod.py::name-of-test-function
+```
+OR
+
+```
+pytest test_mod.py::TestClass::name-of-test_method
+```
+
+The -r options accepts a number of characters after it, with a used above meaning “all except passes”.
+
+Here is the full list of available characters that can be used:
+
+-  f - failed
+-  E - error
+-  s - skipped
+-  x - xfailed
+-  X - xpassed
+-  p - passed
+-  P - passed with output
+-  a - all except pP
+
+More than one character can be used, so for example to only see failed and skipped tests, you can execute:
+
+```
+$ pytest -rfs
+=========================== test session starts ============================
+platform linux -- Python 3.x.y, pytest-4.x.y, py-1.x.y, pluggy-0.x.y
+cachedir: $PYTHON_PREFIX/.pytest_cache
+rootdir: $REGENDOC_TMPDIR, inifile:
+collected 6 items
+
+test_example.py .FEsxX                                               [100%]
+
+================================== ERRORS ==================================
+_______________________ ERROR at setup of test_error _______________________
+
+    @pytest.fixture
+    def error_fixture():
+>       assert 0
+E       assert 0
+
+test_example.py:6: AssertionError
+================================= FAILURES =================================
+________________________________ test_fail _________________________________
+
+    def test_fail():
+>       assert 0
+E       assert 0
+
+test_example.py:14: AssertionError
+========================= short test summary info ==========================
+FAILED test_example.py::test_fail
+SKIPPED [1] $REGENDOC_TMPDIR/test_example.py:23: skipping this test
+ 1 failed, 1 passed, 1 skipped, 1 xfailed, 1 xpassed, 1 error in 0.12 seconds
+Using p lists the passing tests, whilst P adds an extra section “PASSES” with those tests that passed but had captured output:
+
+$ pytest -rpP
+=========================== test session starts ============================
+platform linux -- Python 3.x.y, pytest-4.x.y, py-1.x.y, pluggy-0.x.y
+cachedir: $PYTHON_PREFIX/.pytest_cache
+rootdir: $REGENDOC_TMPDIR, inifile:
+collected 6 items
+
+test_example.py .FEsxX                                               [100%]
+
+================================== ERRORS ==================================
+_______________________ ERROR at setup of test_error _______________________
+
+    @pytest.fixture
+    def error_fixture():
+>       assert 0
+E       assert 0
+
+test_example.py:6: AssertionError
+================================= FAILURES =================================
+________________________________ test_fail _________________________________
+
+    def test_fail():
+>       assert 0
+E       assert 0
+
+test_example.py:14: AssertionError
+========================= short test summary info ==========================
+PASSED test_example.py::test_ok
+================================== PASSES ==================================
+_________________________________ test_ok __________________________________
+--------------------------- Captured stdout call ---------------------------
+ok
+ 1 failed, 1 passed, 1 skipped, 1 xfailed, 1 xpassed, 1 error in 0.12 seconds
+```
+
+
+
 ## Running GatorGrader
 
 GatorGrader can automatically perform simple checks on both writing and source
