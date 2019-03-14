@@ -100,7 +100,7 @@ def invoke_all_comment_checks(
             )
     # check multiple-line comments
     elif comment_type == MULTIPLE:
-        #check comments in Java
+        # check comments in Java
         if language == JAVA:
             met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
                 filecheck,
@@ -109,7 +109,7 @@ def invoke_all_comment_checks(
                 comments.count_multiline_java_comment,
                 exact,
             )
-        #check comments in Python
+        # check comments in Python
         if language == PYTHON:
             met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
                 filecheck,
