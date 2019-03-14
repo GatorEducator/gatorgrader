@@ -140,7 +140,7 @@ def specified_entity_greater_than_count(
 ):
     """Determines if the entity count is greater than expected"""
     # count the fragments/regex in either a file in a directory or String contents
-    file_entity_count = count_fragments(
+    file_entity_count = count_entities(
         chosen_fragment, checking_function, given_file, containing_directory, contents
     )
     # check the condition and also return file_entity_count
@@ -148,7 +148,7 @@ def specified_entity_greater_than_count(
 
 
 # pylint: disable=bad-continuation
-def count_fragments(
+def count_entities(
     chosen_fragment,
     checking_function,
     given_file=NOTHING,

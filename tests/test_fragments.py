@@ -149,7 +149,7 @@ def test_extract_line_list(writing_string, expected_count):
     assert len(line_list) == expected_count
 
 
-def test_count_fragments_from_file(tmpdir):
+def test_count_entities_from_file(tmpdir):
     """Checks that counting fragments in a file works correctly"""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
     hello_file.write("/* hello world */")
@@ -157,38 +157,38 @@ def test_count_fragments_from_file(tmpdir):
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
-    count = fragments.count_fragments(
+    count = fragments.count_entities(
         "hello", fragments.count_specified_fragment, hello_file, directory, ""
     )
     assert count == 1
-    count = fragments.count_fragments(
+    count = fragments.count_entities(
         "world", fragments.count_specified_fragment, hello_file, directory, ""
     )
     assert count == 1
-    count = fragments.count_fragments(
+    count = fragments.count_entities(
         "planet", fragments.count_specified_fragment, hello_file, directory, ""
     )
     assert count == 0
 
 
-def test_count_fragments_from_contents():
+def test_count_entities_from_contents():
     """Checks that counting fragments in a string works correctly"""
     value = "/* hello world */"
-    count = fragments.count_fragments(
+    count = fragments.count_entities(
         "hello", fragments.count_specified_fragment, contents=value
     )
     assert count == 1
-    count = fragments.count_fragments(
+    count = fragments.count_entities(
         "world", fragments.count_specified_fragment, contents=value
     )
     assert count == 1
-    count = fragments.count_fragments(
+    count = fragments.count_entities(
         "planet", fragments.count_specified_fragment, contents=value
     )
     assert count == 0
 
 
-def test_count_fragments_from_file_with_threshold(tmpdir):
+def test_count_entities_from_file_with_threshold(tmpdir):
     """Checks that counting fragments in a file with threshold works correctly"""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
     hello_file.write("/* hello world */")
@@ -208,7 +208,7 @@ def test_count_fragments_from_file_with_threshold(tmpdir):
     assert exceeds_threshold is True
 
 
-def test_count_fragments_from_contents_with_threshold():
+def test_count_entities_from_contents_with_threshold():
     """Checks that counting fragments with threshold in a string works correctly"""
     value = "/* hello world */"
     exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
