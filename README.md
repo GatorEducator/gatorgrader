@@ -1,4 +1,3 @@
-# GatorGrader
 <p align="center">
   <img width="820" height="500" src="https://github.com/dubswalker/gatorgrader/blob/master/gatorgraderlogo.svg">
 </p>
