@@ -99,10 +99,9 @@ in the directory that contains GatorGrader. If you only want to use GatorGrader,
 then you can type `pipenv install` instead. Once these commands complete
 successfully, that's all you you have to do to install GatorGrader! It is worth
 noting that if you only plan to use GatorGrader with the
-[GatorGradle](https://github.com/GatorEducator/gatorgradle) then there is a
-[java sample laboratory
-assignment](https://github.com/GatorEducator/java-starter) that you can
-try &mdash; it does not require you to complete these steps and instead it will
+[GatorGradle](https://github.com/GatorEducator/gatorgradle) then there are several sample laboratories including:
+[Java ](https://github.com/GatorEducator/java-starter), [LaTeX](https://github.com/GatorEducator/latex-assignment-starter), & [HTML with CSS](https://github.com/GatorEducator/html-css-assignment-starter) that you can
+try &mdash; they do not require you to complete these steps and instead it will
 download and install GatorGrader and run all of the preconfigured checks when
 you type `gradle grade` in your terminal window.
 
@@ -519,7 +518,7 @@ following list includes some of our recent presentations:
 Are you interested in contributing to
 [GatorGrader](https://github.com/GatorEducator/gatorgrader),
 [GatorGradle](https://github.com/GatorEducator/gatorgradle), or
-[GatorGrader-SampleLab](https://github.com/GatorEducator/java-assigment-starter)?
+any of the sample labs ([Java](https://github.com/GatorEducator/java-assigment-starter), [LaTeX](https://github.com/GatorEducator/latex-assignment-starter), [HTML with CSS](https://github.com/GatorEducator/html-css-assignment-starter))?
 Our development team uses the [GitHub flow
 model](https://guides.github.com/introduction/flow/) to guide our engineering of
 these tools and we invite you to also follow it as you make a contribution. Of
