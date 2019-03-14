@@ -18,6 +18,7 @@ flake8 = "*"
 pytest-cov = "*"
 pytest-sugar = "*"
 neovim = "*"
+mutmut = "*"
 
 [pipenv]
 allow_prereleases = true
