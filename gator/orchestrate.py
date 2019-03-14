@@ -1,4 +1,4 @@
-"Orchestrate the checks performed on writing and source code"""
+"""Orchestrate the checks performed on writing and source code"""
 
 import sys
 
