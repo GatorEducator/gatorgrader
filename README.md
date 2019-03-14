@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="820" height="500" src="https://github.com/dubswalker/gatorgrader/blob/master/gatorgraderlogo.svg">
+  <img width="720" height="400" src="https://github.com/dubswalker/gatorgrader/blob/master/gatorgraderlogo.svg">
 </p>
 
 # GatorGrader
