@@ -1,6 +1,4 @@
 # GatorGrader
-![logo](https://github.com/dubswalker/gatorgrader/blob/master/gatorgraderlogo.svg "GatorGrader")
-<p align="center">
   <img width="460" height="300" src="https://github.com/dubswalker/gatorgrader/blob/master/gatorgraderlogo.svg"
 </p>
 
