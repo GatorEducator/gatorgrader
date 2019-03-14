@@ -382,7 +382,13 @@ def test_detect_blank_line(writing_string, expected_status):
 
 @pytest.mark.parametrize(
     "regex_fragment,expected_status",
-    [("test", True), ("[", False), ("bibliography", True), ("section", True), ("[^]", False)]
+    [
+        ("test", True),
+        ("[", False),
+        ("bibliography", True),
+        ("section", True),
+        ("[^]", False),
+    ],
 )
 def test_is_valid_regex(regex_fragment, expected_status):
     """Checks that regex assessment correctly validates regular expressions"""
@@ -403,8 +409,7 @@ def test_is_valid_regex(regex_fragment, expected_status):
 def test_chosen_regex_zero_or_one(writing_string, chosen_regex, expected_count):
     """Check that it can detect one or more of a regex"""
     assert (
-        fragments.count_specified_regex(writing_string, chosen_regex)
-        == expected_count
+        fragments.count_specified_regex(writing_string, chosen_regex) == expected_count
     )
 
 
@@ -421,8 +426,7 @@ def test_chosen_regex_zero_or_one(writing_string, chosen_regex, expected_count):
 def test_chosen_regex_many(writing_string, chosen_regex, expected_count):
     """Check that it can detect many of a regex"""
     assert (
-        fragments.count_specified_regex(writing_string, chosen_regex)
-        == expected_count
+        fragments.count_specified_regex(writing_string, chosen_regex) == expected_count
     )
 
 
