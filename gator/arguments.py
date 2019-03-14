@@ -289,7 +289,6 @@ def is_valid_state(args):
 
 # Ancillary helper functions {{{
 
-
 def is_valid_exact(args, skip=False):
     """Checks if it is a valid exact count specification"""
     # pylint: disable=bad-continuation
@@ -487,10 +486,10 @@ def verify(args):
     # and the argumenet is a request to check the number of issues a person
     # has made in the github issue tracker
     elif (is_valid_issues(args) or
-        is_valid_issue_comments(args)) and (
-        is_valid_token(args) and
-        is_valid_repo(args) and
-        is_valid_name(args)
+            is_valid_issue_comments(args)) and (
+            is_valid_token(args) and
+            is_valid_repo(args) and
+            is_valid_name(args)
     ):
         verified_arguments = True
     return verified_arguments
