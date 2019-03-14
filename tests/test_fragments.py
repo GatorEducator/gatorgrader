@@ -389,9 +389,119 @@ def test_is_valid_regex(regex_fragment, expected_status):
     assert regex_status == expected_status
 
 
-@pytest.mark.parametrize("regex_fragment,expected_status", [("[", True)])
-# pylint: disable=unused-argument
-def test_count_specified_regex(regex_fragment, expected_status):
-    """Checks that regex is correctly verified"""
-    is_valid = fragments.count_specified_regex("test", regex_fragment)
-    assert is_valid == 0
+# @pytest.mark.parametrize("regex_fragment,expected_status", [("[", True)])
+# # pylint: disable=unused-argument
+# def test_count_specified_regex(regex_fragment, expected_status):
+#     """Checks that regex is correctly verified"""
+#     is_valid = fragments.count_specified_regex("test", regex_fragment)
+#     assert is_valid == 0
+
+
+@pytest.mark.parametrize(
+    "writing_string,chosen_regex,expected_count",
+    [
+        ("hello world!!%^(@after)writing a lot\n\nnew one", "writing", 1),
+        ("hello @world!!%^(@after)writing a lot\n\nnew one", "@world", 1),
+        ("hello world!!%^(@after)writing a lot\n\nnew one", "@world", 0),
+        ("[", ")", 0),
+        ("System.out.println(new Date())", "new Date", 1),
+    ],
+)
+def test_chosen_regex_zero_or_one(writing_string, chosen_regex, expected_count):
+    """Check that it can detect one or more of a regex"""
+    assert (
+        fragments.count_specified_regex(writing_string, chosen_regex)
+        == expected_count
+    )
+
+
+@pytest.mark.parametrize(
+    "writing_string,chosen_regex,expected_count",
+    [
+        ("hello world!!%^(@after)writing a lot\n\nnew one writing", "writing", 2),
+        ("hello @world!!%^(@after)writing a lot\n\nnew new new one", "new", 3),
+        ("hello @world!!%^(@after)writing a @world lot\n\nnew one", "@world", 2),
+        ("System.out.println(new Date()) \n new Date()", "new Date()", 2),
+        ("System.out.println(new Date() new Date() new Date())", "new Date", 3),
+    ],
+)
+def test_chosen_regex_many(writing_string, chosen_regex, expected_count):
+    """Check that it can detect many of a regex"""
+    assert (
+        fragments.count_specified_regex(writing_string, chosen_regex)
+        == expected_count
+    )
+
+
+def test_count_regex_from_file(tmpdir):
+    """Checks that counting regex in a file works correctly"""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
+    hello_file.write("/* hello world */")
+    assert hello_file.read() == "/* hello world */"
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
+    hello_file = "Hello.java"
+    count = fragments.count_entities(
+        "hello", fragments.count_specified_regex, hello_file, directory, ""
+    )
+    assert count == 1
+    count = fragments.count_entities(
+        "world", fragments.count_specified_regex, hello_file, directory, ""
+    )
+    assert count == 1
+    count = fragments.count_entities(
+        "planet", fragments.count_specified_regex, hello_file, directory, ""
+    )
+    assert count == 0
+
+
+def test_count_regex_from_contents():
+    """Checks that counting regex in a string works correctly"""
+    value = "/* hello world */"
+    count = fragments.count_entities(
+        "hello", fragments.count_specified_regex, contents=value
+    )
+    assert count == 1
+    count = fragments.count_entities(
+        "world", fragments.count_specified_regex, contents=value
+    )
+    assert count == 1
+    count = fragments.count_entities(
+        "planet", fragments.count_specified_regex, contents=value
+    )
+    assert count == 0
+
+
+def test_count_regex_from_file_with_threshold(tmpdir):
+    """Checks that counting regex in a file with threshold works correctly"""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
+    hello_file.write("/* hello world */")
+    assert hello_file.read() == "/* hello world */"
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
+    hello_file = "Hello.java"
+    exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
+        "hello", fragments.count_specified_regex, 10, hello_file, directory, ""
+    )
+    assert actual_count == 1
+    assert exceeds_threshold is False
+    exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
+        "hello", fragments.count_specified_regex, 1, hello_file, directory, ""
+    )
+    assert actual_count == 1
+    assert exceeds_threshold is True
+
+
+def test_count_regex_from_contents_with_threshold():
+    """Checks that counting regex with threshold in a string works correctly"""
+    value = "/* hello world */"
+    exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
+        "hello", fragments.count_specified_regex, 10, contents=value
+    )
+    assert actual_count == 1
+    assert exceeds_threshold is False
+    exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
+        "hello", fragments.count_specified_regex, 1, contents=value
+    )
+    assert actual_count == 1
+    assert exceeds_threshold is True
