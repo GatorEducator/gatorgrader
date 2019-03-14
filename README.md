@@ -199,27 +199,29 @@ usage: gatorgrader.py [-h] [--nowelcome] [--json] [--commits COMMITS]
                       [--single COUNT] [--multiple COUNT]
                       [--language {Java,Python}] [--paragraphs COUNT]
                       [--words WORDS] [--command COMMAND] [--executes]
-                      [--fragment FRAGMENT] [--count COUNT] [--exact]
+                      [--fragment FRAGMENT] [--markdown MARKDOWN]
+                      [--count COUNT] [--exact]
 
-optional arguments:
-  -h, --help            show this help message and exit
-  --nowelcome           do not display the welcome message (default: False)
-  --json                print reports in JSON (default: False)
-  --commits COMMITS     minimum number of git commits (default: None)
-  --directory DIR       directory with file for checking (default: None)
-  --file FILE           file for checking (default: None)
-  --exists              does a file in a directory exist (default: False)
-  --single COUNT        minimum number of single comments (default: None)
-  --multiple COUNT      minimum number of multi comments (default: None)
-  --language {Java,Python}
-                        language for the single comments (default: None)
-  --paragraphs COUNT    minimum number of paragraphs (default: None)
-  --words WORDS         minimum number of words in paragraphs (default: None)
-  --command COMMAND     command to run (default: None)
-  --executes            does a command execute without error (default: False)
-  --fragment FRAGMENT   fragment that exists in code or output (default: None)
-  --count COUNT         how many of an entity should exist (default: None)
-  --exact               equals instead of a minimum number (default: False)
+    -h, --help            show this help message and exit
+     --nowelcome           do not display the welcome message (default: False)
+     --json                print reports in JSON (default: False)
+     --commits COMMITS     minimum number of git commits (default: None)
+     --directory DIR       directory with file for checking (default: None)
+     --file FILE           file for checking (default: None)
+     --exists              does a file in a directory exist (default: False)
+     --single COUNT        minimum number of single comments (default: None)
+     --multiple COUNT      minimum number of multi comments (default: None)
+     --language {Java,Python}
+                           language for the single comments (default: None)
+     --paragraphs COUNT    minimum number of paragraphs (default: None)
+     --words WORDS         minimum number of words in paragraphs (default: None)
+     --command COMMAND     command to run (default: None)
+     --executes            does a command execute without error (default: False)
+     --fragment FRAGMENT   fragment that exists in code or output (default: None)
+     --markdown MARKDOWN   markdown tag that exists in a file (default: None)
+     --count COUNT         how many of an entity should exist (default: None)
+     --exact               equals instead of a minimum number (default: False)
+
 ```
 
 GatorGrader employs many checks to ensure that you configure it with the correct
