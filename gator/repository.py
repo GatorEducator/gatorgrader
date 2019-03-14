@@ -1,7 +1,6 @@
 """Interact with a Git repository"""
 
 from git import Repo
-
 from gator import util
 
 
@@ -30,3 +29,13 @@ def commits_greater_than_count(path, expected_count, exact=False):
     number_commits = count_commits(commits)
     # check the condition and also return number_commits
     return util.greater_than_equal_exacted(number_commits, expected_count, exact)
+
+def check_non_alphanumerics():
+    """ Returns if emoji were entered in commit"""
+    commits = get_commmits(path)
+    if (
+        commits.isalnum()
+    ):
+        return True
+    else:
+        return False
