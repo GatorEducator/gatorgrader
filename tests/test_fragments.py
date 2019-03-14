@@ -389,14 +389,6 @@ def test_is_valid_regex(regex_fragment, expected_status):
     assert regex_status == expected_status
 
 
-# @pytest.mark.parametrize("regex_fragment,expected_status", [("[", True)])
-# # pylint: disable=unused-argument
-# def test_count_specified_regex(regex_fragment, expected_status):
-#     """Checks that regex is correctly verified"""
-#     is_valid = fragments.count_specified_regex("test", regex_fragment)
-#     assert is_valid == 0
-
-
 @pytest.mark.parametrize(
     "writing_string,chosen_regex,expected_count",
     [
