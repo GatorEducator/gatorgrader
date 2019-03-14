@@ -243,11 +243,13 @@ def is_valid_commits(args):
         return True
     return False
 
+
 def is_valid_issues(args):
     """Checks if it is a valid issues specification"""
     if args.issues is not None:
         return True
     return False
+
 
 def is_valid_issue_comments(args):
     """Checks if it is a valid issue comment specification"""
@@ -255,11 +257,13 @@ def is_valid_issue_comments(args):
         return True
     return False
 
+
 def is_valid_token(args):
     """Checks if it is a valid token specification"""
     if args.token is not None:
         return True
     return False
+
 
 def is_valid_repo(args):
     """Checks if it is a valid repo specification"""
@@ -267,11 +271,13 @@ def is_valid_repo(args):
         return True
     return False
 
+
 def is_valid_name(args):
     """Checks if it is a valid name specification"""
     if args.name is not None:
         return True
     return False
+
 
 def is_valid_state(args):
     """Checks if it is a valid state"""

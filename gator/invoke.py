@@ -51,6 +51,7 @@ def invoke_commits_check(student_repository, expected_count, exact=False):
     update_report(did_check_pass, message, diagnostic)
     return did_check_pass
 
+
 def invoke_issues_check(github_token, repo_name, username, expected_count, issue_state):
     """Checks to see if a student has made any issues in the issue tracker"""
     # gets the number of issues the user has made in the tracker
@@ -69,6 +70,7 @@ def invoke_issues_check(github_token, repo_name, username, expected_count, issue
     update_report(did_check_pass, message, diagnostic)
     return did_check_pass
 
+
 def invoke_issue_comments_check(github_token, repo_name, username, expected_count, issue_state):
     """Checks to see if a student has made any comments on issues in the issue tracker"""
     # gets the number of comments the user has made on issues in the tracker
@@ -86,6 +88,7 @@ def invoke_issue_comments_check(github_token, repo_name, username, expected_coun
             " made by " + str(username) + " in the " + repo_name + " repository"
     update_report(did_check_pass, message, diagnostic)
     return did_check_pass
+
 
 def invoke_file_in_directory_check(filecheck, directory):
     """Check to see if the file is in the directory"""

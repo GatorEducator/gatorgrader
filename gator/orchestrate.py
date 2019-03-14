@@ -1,4 +1,4 @@
-"""Orchestrate the checks performed on writing and source code"""
+"Orchestrate the checks performed on writing and source code"""
 
 import sys
 
@@ -68,6 +68,7 @@ def check_commits(system_arguments):
         )
     return actions
 
+
 def check_issues(system_arguments):
     """Check the number of issues made in the github issue tracker"""
     actions = []
@@ -83,8 +84,9 @@ def check_issues(system_arguments):
         )
     return actions
 
+
 def check_issue_comments(system_arguments):
-    """Check th enumber of comments on issues made in the github issue tracker"""
+    """Check the number of comments on issues made in the github issue tracker"""
     actions = []
     if system_arguments.issue_comments is not None:
         actions.append(
