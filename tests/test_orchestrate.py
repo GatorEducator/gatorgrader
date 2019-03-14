@@ -132,6 +132,8 @@ def test_perform_actions_display_welcome_and_ready_check_issues(
 
 
 TOKEN = "3e20125561f10fa4df42"
+
+
 # pylint: disable=redefined-outer-name
 # pylint: disable=bad-continuation
 def test_perform_actions_display_welcome_and_ready_check_issue_comments(
