@@ -77,7 +77,8 @@ def check_issues(system_arguments):
                 INVOKE,
                 "invoke_issues_check",
                 [system_arguments.token, system_arguments.repo,
-                 system_arguments.name, system_arguments.issues],
+                 system_arguments.name, system_arguments.issues,
+                 system_arguments.state],
             ]
         )
     return actions
@@ -91,7 +92,8 @@ def check_issue_comments(system_arguments):
                 INVOKE,
                 "invoke_issue_comments_check",
                 [system_arguments.token, system_arguments.repo,
-                 system_arguments.name, system_arguments.issue_comments],
+                 system_arguments.name, system_arguments.issue_comments,
+                 system_arguments.state],
             ]
         )
     return actions

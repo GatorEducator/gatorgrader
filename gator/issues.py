@@ -4,7 +4,7 @@ from github import Github
 from github.GithubException import UnknownObjectException, BadCredentialsException
 
 
-def check_issues_made(token, repo, name, expected):
+def check_issues_made(token, repo, name, expected, issue_state):
     """Returns the number of issues that the given user has made"""
     # github access
     g = Github(token)
@@ -16,7 +16,7 @@ def check_issues_made(token, repo, name, expected):
     except UnknownObjectException:
         return False, 0, -2
     issues_made = 0
-    for issue in repo.get_issues(state="all"):
+    for issue in repo.get_issues(state=issue_state):
         if issue.user.login == name and issue.pull_request is None:
             issues_made += 1
         if issues_made >= expected:
@@ -24,7 +24,7 @@ def check_issues_made(token, repo, name, expected):
     return issues_made >= expected, issues_made, 0
 
 
-def check_comments_made(token, repo, name, expected):
+def check_comments_made(token, repo, name, expected, issue_state):
     """Returns the number of comments that the given user has made"""
     # github access
     g = Github(token)
@@ -36,7 +36,7 @@ def check_comments_made(token, repo, name, expected):
     except UnknownObjectException:
         return False, 0, -2
     comments_made = 0
-    for issue in repo.get_issues(state="all"):
+    for issue in repo.get_issues(state=issue_state):
         for comment in issue.get_comments():
             if comment.user.login == name and issue.pull_request is None:
                 comments_made += 1

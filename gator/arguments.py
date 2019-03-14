@@ -81,6 +81,14 @@ def parse(args):
         help="name of the creator of the issues or comments to check"
     )
 
+    gg_parser.add_argument(
+        "--state",
+        type=str,
+        metavar="ISSUE_STATE",
+        default="all",
+        help="state of the issues to check, defaults to 'all'"
+    )
+
     # specify a single file and a single directory
     # CORRECT WHEN: user provides both of these
     gg_parser.add_argument(
@@ -262,6 +270,12 @@ def is_valid_repo(args):
 def is_valid_name(args):
     """Checks if it is a valid name specification"""
     if args.name is not None:
+        return True
+    return False
+
+def is_valid_state(args):
+    """Checks if it is a valid state"""
+    if args.state is not None:
         return True
     return False
 

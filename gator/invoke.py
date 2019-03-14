@@ -51,11 +51,11 @@ def invoke_commits_check(student_repository, expected_count, exact=False):
     update_report(did_check_pass, message, diagnostic)
     return did_check_pass
 
-def invoke_issues_check(github_token, repo_name, username, expected_count):
+def invoke_issues_check(github_token, repo_name, username, expected_count, issue_state):
     """Checks to see if a student has made any issues in the issue tracker"""
     # gets the number of issues the user has made in the tracker
     did_check_pass, num_issues, err = issues.check_issues_made(
-        github_token, repo_name, username, expected_count
+        github_token, repo_name, username, expected_count, issue_state
     )
     message = str(username) + " has at made at least " + \
         str(expected_count) + " issue(s)"
@@ -69,11 +69,11 @@ def invoke_issues_check(github_token, repo_name, username, expected_count):
     update_report(did_check_pass, message, diagnostic)
     return did_check_pass
 
-def invoke_issue_comments_check(github_token, repo_name, username, expected_count):
+def invoke_issue_comments_check(github_token, repo_name, username, expected_count, issue_state):
     """Checks to see if a student has made any comments on issues in the issue tracker"""
     # gets the number of comments the user has made on issues in the tracker
     did_check_pass, num_comments, err = issues.check_comments_made(
-        github_token, repo_name, username, expected_count
+        github_token, repo_name, username, expected_count, issue_state
     )
     message = str(username) + " has at made at least " + \
         str(expected_count) + " comment(s)"
