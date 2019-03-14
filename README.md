@@ -313,24 +313,24 @@ usage: gatorgrader.py [-h] [--nowelcome] [--json] [--commits COMMITS]
                       [--count COUNT] [--exact]
 
     -h, --help            show this help message and exit
-     --nowelcome           do not display the welcome message (default: False)
-     --json                print reports in JSON (default: False)
-     --commits COMMITS     minimum number of git commits (default: None)
-     --directory DIR       directory with file for checking (default: None)
-     --file FILE           file for checking (default: None)
-     --exists              does a file in a directory exist (default: False)
-     --single COUNT        minimum number of single comments (default: None)
-     --multiple COUNT      minimum number of multi comments (default: None)
-     --language {Java,Python}
-                           language for the single comments (default: None)
-     --paragraphs COUNT    minimum number of paragraphs (default: None)
-     --words WORDS         minimum number of words in paragraphs (default: None)
-     --command COMMAND     command to run (default: None)
-     --executes            does a command execute without error (default: False)
-     --fragment FRAGMENT   fragment that exists in code or output (default: None)
-     --markdown MARKDOWN   markdown tag that exists in a file (default: None)
-     --count COUNT         how many of an entity should exist (default: None)
-     --exact               equals instead of a minimum number (default: False)
+    --nowelcome           do not display the welcome message (default: False)
+    --json                print reports in JSON (default: False)
+    --commits COMMITS     minimum number of git commits (default: None)
+    --directory DIR       directory with file for checking (default: None)
+    --file FILE           file for checking (default: None)
+    --exists              does a file in a directory exist (default: False)
+    --single COUNT        minimum number of single comments (default: None)
+    --multiple COUNT      minimum number of multi comments (default: None)
+    --language {Java,Python}
+                          language for the single comments (default: None)
+    --paragraphs COUNT    minimum number of paragraphs (default: None)
+    --words WORDS         minimum number of words in paragraphs (default: None)
+    --command COMMAND     command to run (default: None)
+    --executes            does a command execute without error (default: False)
+    --fragment FRAGMENT   fragment that exists in code or output (default: None)
+    --markdown MARKDOWN   markdown tag that exists in a file (default: None)
+    --count COUNT         how many of an entity should exist (default: None)
+    --exact               equals instead of a minimum number (default: False)
 
 ```
 
