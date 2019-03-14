@@ -102,6 +102,33 @@ def test_perform_actions_display_welcome_and_ready_check_commit(
     assert exit_code == 0
 
 
+TOKEN = "3e20125561f10fa4df42"
+# pylint: disable=redefined-outer-name
+# pylint: disable=bad-continuation
+def test_perform_actions_display_welcome_and_ready_check_issues(
+    capsys, reset_results_dictionary
+):
+    """Check argument verification, messages, and continue"""
+    chosen_arguments = [ 
+        "--token",
+        TOKEN + "ac38d5bdd114df9a0ee8",
+        "--repo",
+        "GatorEducator/gatorgrader",
+        "--name",
+        "gkapfham",
+        "--issues",
+        "1",
+        "--state",
+        "all"
+    ]
+    exit_code = orchestrate.check(chosen_arguments)
+    captured = capsys.readouterr()
+    counted_newlines = captured.out.count("\n")
+    assert "GatorGrader" in captured.out
+    assert counted_newlines == 6
+    assert exit_code == 0
+
+
 # pylint: disable=redefined-outer-name
 # pylint: disable=bad-continuation
 def test_perform_actions_display_welcome_and_ready_check_exists(
