@@ -289,17 +289,18 @@ def is_valid_state(args):
 
 # Ancillary helper functions {{{
 
+
 def is_valid_exact(args, skip=False):
     """Checks if it is a valid exact count specification"""
     # pylint: disable=bad-continuation
     if (
-        is_valid_commits(args) or
-        is_valid_comments(args) or
-        is_valid_paragraphs(args) or
-        is_valid_words(args) or
-        is_valid_count(args) or
-        is_valid_fragment(args) or
-        skip
+        is_valid_commits(args)
+        or is_valid_comments(args)
+        or is_valid_paragraphs(args)
+        or is_valid_words(args)
+        or is_valid_count(args)
+        or is_valid_fragment(args)
+        or skip
     ):
         if args.exact is not False:
             return True
@@ -376,10 +377,10 @@ def is_file_ancillary(args):
     if (
         # skip the parent check and only
         # determine if the parameter is present
-        is_valid_exists(args, skip=True) or
-        is_valid_comments(args, skip=True) or
-        is_valid_paragraphs(args, skip=True) or
-        is_valid_words(args, skip=True)
+        is_valid_exists(args, skip=True)
+        or is_valid_comments(args, skip=True)
+        or is_valid_paragraphs(args, skip=True)
+        or is_valid_words(args, skip=True)
     ):
         return True
     return False
@@ -412,9 +413,9 @@ def verify(args):
     # both a file and a directory were specified and a command is not given
     # pylint: disable=bad-continuation
     if is_valid_file_and_directory(args) and (
-        not is_command_ancillary(args) and
-        not is_valid_command(args) and
-        not is_valid_commits(args)
+        not is_command_ancillary(args)
+        and not is_valid_command(args)
+        and not is_valid_commits(args)
     ):
         # track how many of the sub-arguments separately verified
         file_verified = []
@@ -450,9 +451,9 @@ def verify(args):
     # no file or directory details were specified and a command given
     # pylint: disable=bad-continuation
     elif is_valid_command(args) and (
-        not is_valid_file_or_directory(args) and
-        not is_file_ancillary(args) and
-        not is_valid_commits(args)
+        not is_valid_file_or_directory(args)
+        and not is_file_ancillary(args)
+        and not is_valid_commits(args)
     ):
         # track how many of the sub-arguments separately verified
         command_verified = []
@@ -476,20 +477,20 @@ def verify(args):
     # and the argument is a request to check the count of Git commits
     # pylint: disable=bad-continuation
     elif is_valid_commits(args) and (
-        not is_valid_file_or_directory(args) and
-        not is_file_ancillary(args) and
-        not is_valid_command(args) and
-        not is_command_ancillary(args)
+        not is_valid_file_or_directory(args)
+        and not is_file_ancillary(args)
+        and not is_valid_command(args)
+        and not is_command_ancillary(args)
     ):
         verified_arguments = True
     # no file or directory details were specified or a command given
     # and the argumenet is a request to check the number of issues a person
     # has made in the github issue tracker
-    elif (is_valid_issues(args) or
-            is_valid_issue_comments(args)) and (
-            is_valid_token(args) and
-            is_valid_repo(args) and
-            is_valid_name(args)
+    elif (is_valid_issues(args)
+            or is_valid_issue_comments(args)) and (
+            is_valid_token(args)
+            and is_valid_repo(args)
+            and is_valid_name(args)
     ):
         verified_arguments = True
     return verified_arguments
