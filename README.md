@@ -1,5 +1,8 @@
 # GatorGrader
 ![logo](https://github.com/dubswalker/gatorgrader/blob/master/gatorgraderlogo.svg "GatorGrader")
+<p align="center">
+  <img width="460" height="300" src="https://github.com/dubswalker/gatorgrader/blob/master/gatorgraderlogo.svg "GatorGrader"">
+</p>
 
 [![Build Status](https://api.travis-ci.org/GatorEducator/gatorgrader.svg?branch=master)](https://travis-ci.org/GatorEducator/gatorgrader) [![codecov.io](http://codecov.io/github/GatorEducator/gatorgrader/coverage.svg?branch=master)](http://codecov.io/github/GatorEducator/gatorgrader?branch=master) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-orange.svg)](https://www.python.org/)
 
