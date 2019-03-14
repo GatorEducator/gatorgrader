@@ -375,8 +375,8 @@ def test_multiline_python_comments_mixed(code_string, expected_count):
 def test_singleline_comments_mixed(code_string, expected_count):
     """Checks that it can find singleline comments in mixtures"""
     assert comments.count_singleline_java_comment(code_string) == expected_count
-    
-    
+
+
  def test_multiline_docstring_comments_zero_or_one_python(code_string, expected_count):
     """Checks that it finds zero or one multiline Python docstring comments"""
     assert comments.count_multiline_docstring_python_comment(code_string) == expected_count
