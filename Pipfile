@@ -23,7 +23,6 @@ neovim = "*"
 allow_prereleases = true
 
 [scripts]
-test = "pytest -x -s"
-cover = "pytest -s --cov-config pytest.cov --cov-report term-missing --cov"
-# this is sh specific, and will only work on osx and linux
-lint = "sh -c \"black --check */**.py *.py && pylint */**.py *.py && flake8 */**.py *.py\""
+test = "./scripts/test.sh"
+cover = "./scripts/cover.sh"
+lint = "./scripts/lint.sh"
