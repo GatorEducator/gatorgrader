@@ -6,9 +6,6 @@ name = "pypi"
 [packages]
 gitpython = "*"
 requests = ">=2.20.0"
-pytest = "*"
-"flake8" = "*"
-pylint = "*"
 
 [dev-packages]
 pylint = "*"
