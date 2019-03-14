@@ -287,7 +287,7 @@ def invoke_all_fragment_checks(
 
 
 def invoke_all_regex_checks(
-    fragment,
+    regex,
     expected_count,
     filecheck=NOTHING,
     directory=NOTHING,
@@ -297,7 +297,7 @@ def invoke_all_regex_checks(
     """Perform the check for a regex existence in file or contents and return the results"""
     met_or_exceeded_count = 0
     met_or_exceeded_count, actual_count = fragments.specified_entity_greater_than_count(
-        fragment,
+        regex,
         fragments.count_specified_regex,
         expected_count,
         filecheck,
@@ -316,7 +316,7 @@ def invoke_all_regex_checks(
                 + " has at least "
                 + str(expected_count)
                 + " matches of the '"
-                + fragment
+                + regex
                 + "' regular expression"
             )
         else:
@@ -328,7 +328,7 @@ def invoke_all_regex_checks(
                 + " has exactly "
                 + str(expected_count)
                 + " matches of the '"
-                + fragment
+                + regex
                 + "' regular expression"
             )
     # create a message for a string
@@ -339,7 +339,7 @@ def invoke_all_regex_checks(
                 + " has at least "
                 + str(expected_count)
                 + " matches of the '"
-                + fragment
+                + regex
                 + "' regular expression"
             )
         else:
@@ -348,7 +348,7 @@ def invoke_all_regex_checks(
                 + " has exactly "
                 + str(expected_count)
                 + " matches of the '"
-                + fragment
+                + regex
                 + "' regular expression"
             )
     diagnostic = (
