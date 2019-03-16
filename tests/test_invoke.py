@@ -32,14 +32,20 @@ def test_commit_checks_exact(reset_results_dictionary):
     assert details is not None
 
 
-def test_invoke_issues_check():
-    """Checks to see if the github_token is invalid and expects False"""
-    github_token = "fake token"
-    repo_name = "fake_name"
-    username = "user"
-    expected_count = "0"
-    issue_state = "all"
-    assert invoke.invoke_issues_check(github_token,repo_name,username,expected_count,issue_state) == False
+# def test_invoke_issues_check():
+#     """Checks to see if the github_token is invalid and expects False"""
+#     github_token = "fake token"
+#     repo_name = "fake_name"
+#     username = "user"
+#     expected_count = "0"
+#     issue_state = "all"
+#     assert (
+#         invoke.invoke_issues_check(
+#             github_token, repo_name, username, expected_count, issue_state
+#         )
+#         == False
+#     )
+
 
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
