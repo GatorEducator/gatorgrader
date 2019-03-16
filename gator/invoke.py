@@ -81,7 +81,7 @@ def invoke_issues_check(github_token, repo_name, username, expected_count, issue
 
 
 def invoke_issue_comments_check(
-github_token, repo_name, username, expected_count, issue_state
+    github_token, repo_name, username, expected_count, issue_state
 ):
     """Checks to see if a student has made any comments on issues in the issue tracker"""
     # gets the number of comments the user has made on issues in the tracker
