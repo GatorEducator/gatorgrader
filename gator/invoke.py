@@ -80,6 +80,7 @@ def invoke_issues_check(github_token, repo_name, username, expected_count, issue
     return did_check_pass
 
 
+# pylint: disable=bad-continuation
 def invoke_issue_comments_check(
     github_token, repo_name, username, expected_count, issue_state
 ):
