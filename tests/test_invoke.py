@@ -32,6 +32,74 @@ def test_commit_checks_exact(reset_results_dictionary):
     assert details is not None
 
 
+def test_invoke_issues_check_GitHub():
+    """Checks to see if the github_token is invalid and expects False"""
+    github_token = "fake token"
+    repo_name = "fake_name"
+    username = "user"
+    expected_count = "0"
+    issue_state = "all"
+    expected_output = False
+    assert (
+        invoke.invoke_issues_check(
+            github_token, repo_name, username, expected_count, issue_state
+        )
+        == expected_output
+    )
+
+
+def test_invoke_issues_check_repo():
+    """Checks to see if the github_token is invalid and expects False"""
+    TOKEN = "3e20125561f10fa4df42"
+    Next = "ac38d5bdd114df9a0ee8"
+    github_token = TOKEN + Next
+    repo_name = "fake_name"
+    username = "user"
+    expected_count = "0"
+    issue_state = "all"
+    expected_output = False
+    assert (
+        invoke.invoke_issues_check(
+            github_token, repo_name, username, expected_count, issue_state
+        )
+        == expected_output
+    )
+
+
+def test_invoke_issue_comments_check_GitHub():
+    """Tests for an Invalid GitHub Token supplied"""
+    repo_name = "fake_name"
+    username = "user"
+    expected_count = "0"
+    issue_state = "all"
+    github_token = "fake_token"
+    expected_output = False
+    assert (
+        invoke.invoke_issue_comments_check(
+            github_token, repo_name, username, expected_count, issue_state
+        )
+        == expected_output
+    )
+
+
+def test_invoke_issue_comments_check_repo():
+    """Tests for an Invalid GitHub Token supplied"""
+    TOKEN = "3e20125561f10fa4df42"
+    Next = "ac38d5bdd114df9a0ee8"
+    github_token = TOKEN + Next
+    repo_name = "fake_name"
+    username = "user"
+    expected_count = "0"
+    issue_state = "all"
+    expected_output = False
+    assert (
+        invoke.invoke_issue_comments_check(
+            github_token, repo_name, username, expected_count, issue_state
+        )
+        == expected_output
+    )
+
+
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check(reset_results_dictionary, tmpdir):
