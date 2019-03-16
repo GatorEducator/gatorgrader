@@ -103,8 +103,7 @@ def count_words(contents):
     word_counts = []
     for para in paragraphs:
         para = para.replace(NEWLINE, SPACE)
-        words = NOTHING.join(
-            ch if ch.isalnum() else SPACE for ch in para).split()
+        words = NOTHING.join(ch if ch.isalnum() else SPACE for ch in para).split()
         word_counts.append(len(words))
     # return the minimum number of words across all paragraphs
     if word_counts:
@@ -132,14 +131,10 @@ def specified_fragment_greater_than_count(
     """Determines if the fragment count is greater than expected"""
     # count the fragments in either a file in a directory or String contents
     file_fragment_count = count_fragments(
-        chosen_fragment,
-        checking_function,
-        given_file,
-        containing_directory,
-        contents)
+        chosen_fragment, checking_function, given_file, containing_directory, contents
+    )
     # check the condition and also return file_fragment_count
-    return util.greater_than_equal_exacted(
-        file_fragment_count, expected_count, exact)
+    return util.greater_than_equal_exacted(file_fragment_count, expected_count, exact)
 
 
 # pylint: disable=bad-continuation
@@ -176,14 +171,10 @@ def specified_source_greater_than_count(
     file_line_count = count_lines(given_file, containing_directory, contents)
     # the fragment count is at or above the threshold
     # check the condition and also return file_fragment_count
-    return util.greater_than_equal_exacted(
-        file_line_count, expected_count, exact)
+    return util.greater_than_equal_exacted(file_line_count, expected_count, exact)
 
 
-def count_lines(
-        given_file=NOTHING,
-        containing_directory=NOTHING,
-        contents=NOTHING):
+def count_lines(given_file=NOTHING, containing_directory=NOTHING, contents=NOTHING):
     """Counts lines for the file in the directory (or contents)"""
     file_for_checking = Path(containing_directory + FILE_SEPARATOR + given_file)
     file_contents_count = 0

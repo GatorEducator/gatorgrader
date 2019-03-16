@@ -16,42 +16,31 @@ def parse(args):
     # do not display the welcome message
     # CORRECT WHEN: always, only changes output on screen
     gg_parser.add_argument(
-        "--nowelcome",
-        help="do not display the welcome message",
-        action="store_true")
+        "--nowelcome", help="do not display the welcome message", action="store_true"
+    )
 
     # output reports in JSON
     # CORRECT WHEN: always, only changes report output
-    gg_parser.add_argument(
-        "--json",
-        help="print reports in JSON",
-        action="store_true")
+    gg_parser.add_argument("--json", help="print reports in JSON", action="store_true")
 
     # Top-Level Arguments {{{
 
     # specify a check for the number of commits in the Git repository
     # CORRECT WHEN: user provides this argument but not any other main arguments
-    gg_parser.add_argument(
-        "--commits",
-        type=int,
-        help="minimum number of git commits")
+    gg_parser.add_argument("--commits", type=int, help="minimum number of git commits")
 
     # specify a check for the number of issues raised in the Github issue tracker
     # CORRECT WHEN: user provides this argument along with a github token, the
     # name of the repo to check and the name of the user to check
-    gg_parser.add_argument(
-        "--issues",
-        type=int,
-        help="minimum number of issues raised")
+    gg_parser.add_argument("--issues", type=int, help="minimum number of issues raised")
 
     # specify a check for the number of comments made on issues in the Github
     # issue tracker
     # CORRECT WHEN: user provides this argument along with a github token, the
     # name of the repo to check and the name of the user to check
     gg_parser.add_argument(
-        "--issue-comments",
-        type=int,
-        help="minimum number of comment made on issues")
+        "--issue-comments", type=int, help="minimum number of comment made on issues"
+    )
 
     # specify the github token to use for authenication
     # CORRECT WHEN: user provides along with issues or issue comments, a repo
@@ -60,7 +49,8 @@ def parse(args):
         "--token",
         type=str,
         metavar="TOKEN",
-        help="authenication token to access a github repository")
+        help="authenication token to access a github repository",
+    )
 
     # specify the github repository to check the issues/comments of
     # CORRECT WHEN: user provides along with issues or issue comments, a token,
@@ -69,7 +59,8 @@ def parse(args):
         "--repo",
         type=str,
         metavar="REPO",
-        help="name of the repository to check the issues or comments of")
+        help="name of the repository to check the issues or comments of",
+    )
 
     # specify the name of the user to check
     # CORRECT WHEN: user provides along with issues or issue comments, a repo
@@ -78,7 +69,7 @@ def parse(args):
         "--name",
         type=str,
         metavar="NAME",
-        help="name of the creator of the issues or comments to check"
+        help="name of the creator of the issues or comments to check",
     )
 
     gg_parser.add_argument(
@@ -86,16 +77,14 @@ def parse(args):
         type=str,
         metavar="ISSUE_STATE",
         default="all",
-        help="state of the issues to check, defaults to 'all'"
+        help="state of the issues to check, defaults to 'all'",
     )
 
     # specify a single file and a single directory
     # CORRECT WHEN: user provides both of these
     gg_parser.add_argument(
-        "--directory",
-        type=str,
-        metavar="DIR",
-        help="directory with file for checking")
+        "--directory", type=str, metavar="DIR", help="directory with file for checking"
+    )
     gg_parser.add_argument("--file", type=str, help="file for checking")
 
     # Ancillary Arguments for File and Directory {{{
@@ -109,18 +98,14 @@ def parse(args):
     # specify a check on single-line comments
     # CORRECT WHEN: user provides file and directory along with this argument
     gg_parser.add_argument(
-        "--single",
-        type=int,
-        metavar="COUNT",
-        help="minimum number of single comments")
+        "--single", type=int, metavar="COUNT", help="minimum number of single comments"
+    )
 
     # specify a check on multiple-line comments
     # CORRECT WHEN: user provides file and directory along with this argument
     gg_parser.add_argument(
-        "--multiple",
-        type=int,
-        metavar="COUNT",
-        help="minimum number of multi comments")
+        "--multiple", type=int, metavar="COUNT", help="minimum number of multi comments"
+    )
 
     # specify that the comment checks are for a certain language
     # CORRECT WHEN: user provides file and directory along with this argument
@@ -134,10 +119,8 @@ def parse(args):
     # specify a check on paragraphs
     # CORRECT WHEN: user provides file and directory along with this argument
     gg_parser.add_argument(
-        "--paragraphs",
-        metavar="COUNT",
-        type=int,
-        help="minimum number of paragraphs")
+        "--paragraphs", metavar="COUNT", type=int, help="minimum number of paragraphs"
+    )
 
     # specify a check on words
     # note that sentences are no longer supported so, a "dest" given
@@ -155,9 +138,8 @@ def parse(args):
     # execute the specified command
     # CORRECT WHEN: user provides a command to run along with this argument
     gg_parser.add_argument(
-        "--executes",
-        help="does a command execute without error",
-        action="store_true")
+        "--executes", help="does a command execute without error", action="store_true"
+    )
 
     # Ancillary Arguments for File or Commands {{{
 
@@ -174,10 +156,8 @@ def parse(args):
     # or
     # CORRECT WHEN: user provides a command along with this argument
     gg_parser.add_argument(
-        "--count",
-        type=int,
-        metavar="COUNT",
-        help="how many of an entity should exist")
+        "--count", type=int, metavar="COUNT", help="how many of an entity should exist"
+    )
 
     # }}}
 
@@ -186,9 +166,8 @@ def parse(args):
     # perform exact checking for entity counting (i.e,. "==" instead of ">=")
     # CORRECT WHEN: user provides file and directory along with this argument
     gg_parser.add_argument(
-        "--exact",
-        help="equals instead of a minimum number",
-        action="store_true")
+        "--exact", help="equals instead of a minimum number", action="store_true"
+    )
 
     # }}}
 
@@ -284,6 +263,7 @@ def is_valid_state(args):
     if args.state is not None:
         return True
     return False
+
 
 # }}}
 
@@ -486,11 +466,8 @@ def verify(args):
     # no file or directory details were specified or a command given
     # and the argumenet is a request to check the number of issues a person
     # has made in the github issue tracker
-    elif (is_valid_issues(args)
-            or is_valid_issue_comments(args)) and (
-            is_valid_token(args)
-            and is_valid_repo(args)
-            and is_valid_name(args)
+    elif (is_valid_issues(args) or is_valid_issue_comments(args)) and (
+        is_valid_token(args) and is_valid_repo(args) and is_valid_name(args)
     ):
         verified_arguments = True
     return verified_arguments

@@ -29,5 +29,4 @@ def commits_greater_than_count(path, expected_count, exact=False):
     commits = get_commmits(path)
     number_commits = count_commits(commits)
     # check the condition and also return number_commits
-    return util.greater_than_equal_exacted(
-        number_commits, expected_count, exact)
+    return util.greater_than_equal_exacted(number_commits, expected_count, exact)

@@ -9,18 +9,14 @@ FILE_SEPARATOR = "/"
 
 # pylint: disable=bad-continuation
 def entity_greater_than_count(
-        given_file,
-        containing_directory,
-        expected_count,
-        checking_function,
-        exact=False):
+    given_file, containing_directory, expected_count, checking_function, exact=False
+):
     """Return count and determines if the entity count is greater than expected"""
     file_entity_count = count_entities(
         given_file, containing_directory, checking_function
     )
     # check the condition and also return file_entity_count
-    return util.greater_than_equal_exacted(
-        file_entity_count, expected_count, exact)
+    return util.greater_than_equal_exacted(file_entity_count, expected_count, exact)
 
 
 def count_entities(given_file, containing_directory, checking_function):

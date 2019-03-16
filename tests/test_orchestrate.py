@@ -121,7 +121,7 @@ def test_perform_actions_display_welcome_and_ready_check_issues(
         "--issues",
         "1",
         "--state",
-        "all"
+        "all",
     ]
     exit_code = orchestrate.check(chosen_arguments)
     captured = capsys.readouterr()
@@ -150,7 +150,7 @@ def test_perform_actions_display_welcome_and_ready_check_issue_comments(
         "--issue-comments",
         "1",
         "--state",
-        "all"
+        "all",
     ]
     exit_code = orchestrate.check(chosen_arguments)
     captured = capsys.readouterr()

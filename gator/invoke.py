@@ -58,34 +58,54 @@ def invoke_issues_check(github_token, repo_name, username, expected_count, issue
     did_check_pass, num_issues, err = issues.check_issues_made(
         github_token, repo_name, username, expected_count, issue_state
     )
-    message = str(username) + " has at made at least " + \
-        str(expected_count) + " issue(s)"
+    message = (
+        str(username) + " has at made at least " + str(expected_count) + " issue(s)"
+    )
     if err == -1:
         diagnostic = "Invalid Github Token Supplied: '" + github_token + "'"
     elif err == -2:
         diagnostic = "Invalid Repository Supplied: '" + repo_name + "'"
     else:
-        diagnostic = "Found " + str(num_issues) + " issue(s)" + \
-            " made by " + str(username) + " in the " + repo_name + " repository"
+        diagnostic = (
+            "Found "
+            + str(num_issues)
+            + " issue(s)"
+            + " made by "
+            + str(username)
+            + " in the "
+            + repo_name
+            + " repository"
+        )
     update_report(did_check_pass, message, diagnostic)
     return did_check_pass
 
 
-def invoke_issue_comments_check(github_token, repo_name, username, expected_count, issue_state):
+def invoke_issue_comments_check(
+    github_token, repo_name, username, expected_count, issue_state
+):
     """Checks to see if a student has made any comments on issues in the issue tracker"""
     # gets the number of comments the user has made on issues in the tracker
     did_check_pass, num_comments, err = issues.check_comments_made(
         github_token, repo_name, username, expected_count, issue_state
     )
-    message = str(username) + " has at made at least " + \
-        str(expected_count) + " comment(s)"
+    message = (
+        str(username) + " has at made at least " + str(expected_count) + " comment(s)"
+    )
     if err == -1:
         diagnostic = "Invalid Github Token Supplied: '" + github_token + "'"
     elif err == -2:
         diagnostic = "Invalid Repository Supplied: '" + repo_name + "'"
     else:
-        diagnostic = "Found " + str(num_comments) + " comment(s)" + \
-            " made by " + str(username) + " in the " + repo_name + " repository"
+        diagnostic = (
+            "Found "
+            + str(num_comments)
+            + " comment(s)"
+            + " made by "
+            + str(username)
+            + " in the "
+            + repo_name
+            + " repository"
+        )
     update_report(did_check_pass, message, diagnostic)
     return did_check_pass
 

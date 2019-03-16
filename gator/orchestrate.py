@@ -77,9 +77,13 @@ def check_issues(system_arguments):
             [
                 INVOKE,
                 "invoke_issues_check",
-                [system_arguments.token, system_arguments.repo,
-                 system_arguments.name, system_arguments.issues,
-                 system_arguments.state],
+                [
+                    system_arguments.token,
+                    system_arguments.repo,
+                    system_arguments.name,
+                    system_arguments.issues,
+                    system_arguments.state,
+                ],
             ]
         )
     return actions
@@ -93,9 +97,13 @@ def check_issue_comments(system_arguments):
             [
                 INVOKE,
                 "invoke_issue_comments_check",
-                [system_arguments.token, system_arguments.repo,
-                 system_arguments.name, system_arguments.issue_comments,
-                 system_arguments.state],
+                [
+                    system_arguments.token,
+                    system_arguments.repo,
+                    system_arguments.name,
+                    system_arguments.issue_comments,
+                    system_arguments.state,
+                ],
             ]
         )
     return actions
@@ -293,9 +301,9 @@ def check_executes_command(system_arguments):
         and system_arguments.count is None
         and system_arguments.fragment is None
     ):
-        actions.append([INVOKE,
-                        "invoke_all_command_executes_checks",
-                        [system_arguments.command]])
+        actions.append(
+            [INVOKE, "invoke_all_command_executes_checks", [system_arguments.command]]
+        )
     return actions
 
 
@@ -338,7 +346,7 @@ def check(system_arguments):
         "check_count_command",
         "check_executes_command",
         "check_issues",
-        "check_issue_comments"
+        "check_issue_comments",
     ]
     # iterate through all of the possible checks
     for a_check in checks:
