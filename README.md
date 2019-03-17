@@ -1,5 +1,10 @@
 ![Image of Logo](https://github.com/GatorEducator/gatorgrader/blob/master/gatorgraderlogo.svg)
 
+<center>The only tool you'll need to ensure your code is up to speed! GatorGrader
+provides all the necessary checks for your code, from linting to searching
+commit messages. Whenever you feel in doubt, know GatorGrader is there to
+help.</center>
+
 # Gator Grader
 
 [![Build Status](https://api.travis-ci.org/GatorEducator/gatorgrader.svg?branch=master)](https://travis-ci.org/GatorEducator/gatorgrader) [![codecov.io](http://codecov.io/github/GatorEducator/gatorgrader/coverage.svg?branch=master)](http://codecov.io/github/GatorEducator/gatorgrader?branch=master) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-orange.svg)](https://www.python.org/)
