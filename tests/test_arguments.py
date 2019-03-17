@@ -544,6 +544,20 @@ def test_is_valid_comments_valid(chosen_arguments):
     assert verified_arguments is True
 
 
+def test_is_valid_token_false():
+    """Tests valid_token specifications when it args.token is None"""
+    class args:
+        token = None
+    args = args()
+    expected_output = False
+    assert arguments.is_valid_token(args) == expected_output
+
+
+# def test_is_valid_repo_None():
+#     """Tests if repo does not have valid specifications"""
+
+
+
 @pytest.mark.parametrize(
     "chosen_arguments",
     [
