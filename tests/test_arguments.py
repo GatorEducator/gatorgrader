@@ -577,7 +577,7 @@ def test_is_valid_state_True():
     assert arguments.is_valid_state(args) == expected_output
 
 
-def test_is_valid_state_True():
+def test_is_valid_state_False():
     """Tests if it is a valid state"""
     class args:
         state = None
