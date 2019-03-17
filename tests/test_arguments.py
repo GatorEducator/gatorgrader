@@ -561,6 +561,30 @@ def test_is_valid_repo_None():
     assert arguments.is_valid_repo(args) == expected_output
 
 
+def test_is_valid_name_false():
+    """Tests is_valid_name when args.name is None"""
+    class args:
+        name = None
+    expected_output = False
+    assert arguments.is_valid_name(args) == expected_output
+
+
+def test_is_valid_state_True():
+    """Tests if it is a valid state"""
+    class args:
+        state = "something"
+    expected_output = True
+    assert arguments.is_valid_state(args) == expected_output
+
+
+def test_is_valid_state_True():
+    """Tests if it is a valid state"""
+    class args:
+        state = None
+    expected_output = False
+    assert arguments.is_valid_state(args) == expected_output
+
+
 @pytest.mark.parametrize(
     "chosen_arguments",
     [
