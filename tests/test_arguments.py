@@ -553,9 +553,12 @@ def test_is_valid_token_false():
     assert arguments.is_valid_token(args) == expected_output
 
 
-# def test_is_valid_repo_None():
-#     """Tests if repo does not have valid specifications"""
-
+def test_is_valid_repo_None():
+    """Tests if repo does not have valid specifications"""
+    class args:
+        repo = None
+    expected_output = False
+    assert arguments.is_valid_repo(args) == expected_output
 
 
 @pytest.mark.parametrize(
