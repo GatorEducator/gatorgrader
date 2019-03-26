@@ -67,12 +67,39 @@ about GatorGrader!
 As a Python 3 program, GatorGrader relies on
 [Pipenv](https://github.com/pypa/pipenv) for the installation of the libraries
 on which it depends and the creation of the virtual environments in which it
-runs. To install Python3 or Pipenv, view our 
-[installation guide](https://github.com/GatorEducator/gatorgrader/blob/issue-88-InstallationDocs/pythonPipenvInstallation.md). To install GatorGrader, you should
-first follow Pipenv's installation instructions. You should also ensure that you
-have installed Git on your computer and that you can run Git commands in a 
-terminal window. Then, you can type the following command in your terminal 
-window to clone GatorGrader's GitHub repository:
+runs. You may skip the following *Python and Pipenv Installation* section if 
+you have Python3 and Pipenv installed.
+
+### Python and Pipenv Installation
+
+#### Python Installation
+Python comes pre-installed on many different distributions, and is available as
+a package on all linux distributions. However there are certain features you
+might want to use that are not available on your distro’s package. Simply google
+`python download` for your OS, and follow the download and installation 
+instructions on [the Python website](python.org).
+
+#### Pipenv Installation
+[Pipenv](https://github.com/pypa/pipenv) is used by gatorGrader to: create a
+virtual testing environment, install and manage development packages, and to run
+Python commands. The commands below can be used to install pip on the respective 
+OS.
+
+##### Ubuntu:
+- Install and upgrade the `pipenv` command: `pip install pipenv --user`
+- Install the development dependencies `pipenv` command: `pipenv install --dev`
+
+##### MacOS:
+- `brew install pipenv`
+
+##### Windows:
+- Install and upgrade the `pipenv` command: `pip install pipenv --user`
+- Install the development dependencies `pipenv` command: `pipenv install --dev` 
+
+### Installing GatorGrader Cont.
+You should also ensure that you have installed Git on your computer and that you 
+can run Git commands in a terminal window. Then, you can type the following 
+command in your terminal window to clone GatorGrader's GitHub repository:
 
 ```
 git clone https://github.com/GatorEducator/gatorgrader.git
