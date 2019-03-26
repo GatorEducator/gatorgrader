@@ -378,6 +378,7 @@ def test_singleline_comments_mixed(code_string, expected_count):
 @pytest.mark.parametrize(
     "code_string,expected_count",
     [
+        ("hello world", 0)
     ],
 )
 def test_multiline_docstring_comments_zero_or_one_python(code_string, expected_count):
@@ -388,24 +389,16 @@ def test_multiline_docstring_comments_zero_or_one_python(code_string, expected_c
 @pytest.mark.parametrize(
     "code_string,expected_count",
     [
-        ("// hello world \n//hello world", 2),
-        ("// hello world \n//hello world\n//hello world", 3),
-        ("//// hello world\n//hello", 2),
-        ("//// hello // world\n//hello", 2),
-        ("//// hello //// world\n//hello\n", 2),
-        ("// hello world\n //hello", 2),
-        ("// hello world && --\n//hello", 2),
-        ("// hello world  __ --\n//hello", 2),
-        ('System.out.println("Hello, World!\n"); // prints hello world \n //hello', 2),
-        ('// hello \n System.out.println("Hello, World!\n"); \n //hello', 2),
-        ('String url = "http://www.example.com"; \n //hello', 1),
-        ("//\\ \n //hi", 2),
-        ('// "some comment"', 1),
-        ('new URI("http://www.google.com") \n // hi', 1),
-        ("\n // hi \n //hi", 2),
+        ("# hello world" + '"""hello \n """', 1),
+        ("# hello world" + '"""hello \n """' + '"""hello \n """', 2),
+        ('""" hello world hello ', 0),
+        ('"""hello \n """' + '"""hello \n world"""', 2),
+        ('""" hi \n"""' + "\n # whoa " + '""" hi \n again """', 2),
+        ('"""hello \n """' + '"""hello \n world"""' + '"""hello \n world hello"""', 3),
+        ('"""hello \n """' + '"""hello \n world"""' + '"""hello \n world hello"""' + '"""hello world \n ** hello"""', 4),
+        ('"""hello \n """' + '"""hello \n world"""' + '"""hello \n world hello"""' + '"""hello world \n ** hello"""' + '"""hello world $$$ \n world hello"""', 5)
     ],
 )
 def test_multiline_docstring_comments_many_python(code_string, expected_count):
     """Checks that it finds many multiline Python docstring comments"""
     assert comments.count_multiline_python_comment(code_string) == expected_count
-
