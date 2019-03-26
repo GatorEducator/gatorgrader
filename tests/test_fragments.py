@@ -383,8 +383,8 @@ def test_detect_blank_line(writing_string, expected_status):
 @pytest.mark.parametrize(
     "regex_fragment,expected_status",
     [
-        ("test", True),
-        ("[", False),
+        ("\\<footer\\>([^;]*)\\<\\/footer\\>", True),
+        ("\\begin([^;]*)\\end", False),
         ("bibliography", True),
         ("section", True),
         ("[^]", False),
@@ -399,11 +399,11 @@ def test_is_valid_regex(regex_fragment, expected_status):
 @pytest.mark.parametrize(
     "writing_string,chosen_regex,expected_count",
     [
-        ("hello world!!%^(@after)writing a lot\n\nnew one", "writing", 1),
-        ("hello @world!!%^(@after)writing a lot\n\nnew one", "@world", 1),
-        ("hello world!!%^(@after)writing a lot\n\nnew one", "@world", 0),
-        ("[", ")", 0),
-        ("System.out.println(new Date())", "new Date", 1),
+        ("\\begin{abstract}This is the paper's abstract \\end{abstract}", "\\\\begin([^;]*)\\\\end", 1),
+        ("\\begin{enumerate}\\item hi \\item bye \\end{enumerate} some random string", "\\\\begin([^;]*)\\\\end", 1),
+        ("\\begin{document}the document never ends", "\\\\begin([^;]*)\\\\end", 0),
+        ("\\bibliographystyle{abbrv} \\bibliography{main}", "\\begin([^;]*)\\end", 0),
+        ("\\begin{table}[c] this cell is all alone \\end{table}", "\\\\begin([^;]*)\\\\end", 1),
     ],
 )
 def test_chosen_regex_zero_or_one(writing_string, chosen_regex, expected_count):
