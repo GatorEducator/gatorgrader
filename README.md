@@ -67,7 +67,7 @@ about GatorGrader!
 As a Python 3 program, GatorGrader relies on
 [Pipenv](https://github.com/pypa/pipenv) for the installation of the libraries
 on which it depends and the creation of the virtual environments in which it
-runs. You may skip the following *Python and Pipenv Installation* section if 
+runs. You may skip the following *Python and Pipenv Installation* subsection if 
 you have Python3 and Pipenv installed.
 
 ### Python and Pipenv Installation
