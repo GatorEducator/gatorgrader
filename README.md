@@ -82,7 +82,7 @@ instructions on [the Python website](python.org).
 #### Pipenv Installation
 [Pipenv](https://github.com/pypa/pipenv) is used by gatorGrader to: create a
 virtual testing environment, install and manage development packages, and to run
-Python commands. The commands below can be used to install pip on the respective 
+Python commands. The commands below can be used to install Pipenv on the respective 
 OS.
 
 ##### Ubuntu:
