@@ -13,7 +13,7 @@ SINGLELINECOMMENT_RE_JAVA = r"""^(?:[^"/\\]|\"(?:[^\"\\]|\\.)*
 \"|/(?:[^/"\\]|\\.)|/\"(?:[^\"\\]|\\.)*\"|\\.)*//(.*)$"""
 SINGLELINECOMMENT_RE_PYTHON = r"""^(?:[^"#\\]|\"(?:[^\"\\]|\\.)*\"|
 /(?:[^#"\\]|\\.)|/\"(?:[^\"\\]|\\.)*\"|\\.)*#(.*)$"""
-MULTILINECOMMENT_RE_PYTHON = r'^[\s]*"""(.*?\n|.*?)*?"""'
+MULTILINECOMMENT_RE_PYTHON = r'^[\s]*"""(.*?\n|.*?)*?$\s*"""'
 
 
 def count_singleline_java_comment(contents):
@@ -39,6 +39,6 @@ def count_multiline_java_comment(contents):
 
 def count_multiline_python_comment(contents):
     """Counts the number of multiline Python comments in the code"""
-    pattern = re.compile(MULTILINECOMMENT_RE_PYTHON, re.DOTALL)
+    pattern = re.compile(MULTILINECOMMENT_RE_PYTHON, re.MULTILNE)
     matches = pattern.findall(contents)
     return len(matches)
