@@ -67,10 +67,10 @@ about GatorGrader!
 As a Python 3 program, GatorGrader relies on
 [Pipenv](https://github.com/pypa/pipenv) for the installation of the libraries
 on which it depends and the creation of the virtual environments in which it
-runs. You may skip the *Python and Pipenv Installation* subsection if 
-you have Python3 and Pipenv installed. 
-You should also ensure that you have installed Git on your computer and that you 
-can run Git commands in a terminal window. Then, you can type the following 
+runs. You may skip the *Python and Pipenv Installation* subsection if
+you have Python3 and Pipenv installed.
+You should also ensure that you have installed Git on your computer and that you
+can run Git commands in a terminal window. Then, you can type the following
 command in your terminal window to clone GatorGrader's GitHub repository:
 
 ```
@@ -95,28 +95,19 @@ you type `gradle grade` in your terminal window.
 ### Python and Pipenv Installation
 
 #### Python Installation
+
 Python comes pre-installed on many different distributions, and is available as
 a package on all linux distributions. However there are certain features you
 might want to use that are not available on your distro’s package. Simply google
-`python download` for your OS, and follow the download and installation 
+`python download` for your OS, and follow the download and installation
 instructions on [the Python website](python.org).
 
 #### Pipenv Installation
-[Pipenv](https://github.com/pypa/pipenv) is used by gatorGrader to: create a
-virtual testing environment, install and manage development packages, and to run
-Python commands. The commands below can be used to install Pipenv on the respective 
-OS.
 
-##### Ubuntu:
-- Install and upgrade the `pipenv` command: `pip install pipenv --user`
-- Install the development dependencies `pipenv` command: `pipenv install --dev`
-
-##### MacOS:
-- `brew install pipenv`
-
-##### Windows:
-- Install and upgrade the `pipenv` command: `pip install pipenv --user`
-- Install the development dependencies `pipenv` command: `pipenv install --dev` 
+[Pipenv](https://github.com/pypa/pipenv) is used by GatorGrader to create a
+virtual testing environment, install and manage development packages, and run
+Python commands. To learn how to install Pipenv, please refer to the
+[Pipenv Documentation](https://pipenv.readthedocs.io/en/latest/install/).
 
 ## Testing GatorGrader
 
