@@ -126,7 +126,7 @@ def test_file_contains_multiline_python_comment_not_greater(tmpdir):
     hello_file.write('"""{}'.format(string))
     assert hello_file.read() == '"""Hello \n World'
     assert len(tmpdir.listdir()) == 1
-    greater_than_count, i = entities.entity_greater_than_count(
+    greater_than_count, _ = entities.entity_greater_than_count(
         hello_file.basename,
         hello_file.dirname,
         1,
