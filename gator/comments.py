@@ -8,12 +8,12 @@ FILE_SEPARATOR = "/"
 # https://stackoverflow.com/questions/15423658/regular-expression-for-single-line-comments
 # https://blog.ostermiller.org/find-comment
 
-MULTILINECOMMENT_RE = r"""/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/"""
+MULTILINECOMMENT_RE_JAVA = r"""/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/"""
 SINGLELINECOMMENT_RE_JAVA = r"""^(?:[^"/\\]|\"(?:[^\"\\]|\\.)*
 \"|/(?:[^/"\\]|\\.)|/\"(?:[^\"\\]|\\.)*\"|\\.)*//(.*)$"""
 SINGLELINECOMMENT_RE_PYTHON = r"""^(?:[^"#\\]|\"(?:[^\"\\]|\\.)*\"|
 /(?:[^#"\\]|\\.)|/\"(?:[^\"\\]|\\.)*\"|\\.)*#(.*)$"""
-MULTILINECOMMENT_RE_PYTHON = r'^[\s]*"""(.*?\n|.*?)*?"""\s*$'
+MULTILINECOMMENT_RE_PYTHON = r'(^|\\n)[ \\t]*?"""(.*?)"""[ \\t]*?\\n'
 
 
 def count_singleline_java_comment(contents):
@@ -32,13 +32,13 @@ def count_singleline_python_comment(contents):
 
 def count_multiline_java_comment(contents):
     """Counts the number of multiline Java comments in the code"""
-    pattern = re.compile(MULTILINECOMMENT_RE, re.MULTILINE)
+    pattern = re.compile(MULTILINECOMMENT_RE_JAVA, re.MULTILINE)
     matches = pattern.findall(contents)
     return len(matches)
 
 
 def count_multiline_python_comment(contents):
     """Counts the number of multiline Python comments in the code"""
-    pattern = re.compile(MULTILINECOMMENT_RE_PYTHON, re.MULTILINE)
+    pattern = re.compile(MULTILINECOMMENT_RE_PYTHON, re.DOTALL)
     matches = pattern.findall(contents)
     return len(matches)
