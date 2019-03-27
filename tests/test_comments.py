@@ -278,8 +278,8 @@ def test_multiline_comments_zero_or_one(code_string, expected_count):
         ('"""\nhello world\n', 0),
         ('""\nhello world\n""', 0),
         ('""" hello world\n"""', 1),
-        ('""""""', 0),
-        ('""" """', 0),
+        ('""""""', 1),
+        ('""" """', 1),
         ('""" hello world', 0),
         ('""hello world""', 0),
         ('"hello world"', 0),
@@ -318,13 +318,13 @@ def test_multiline_comments_two(code_string, expected_count):
 @pytest.mark.parametrize(
     "code_string,expected_count",
     [
-        ('""" hello \n world """ \n """ hello \n world """', 2),
-        ('"""\nhello\n world """ \n """ \n hello\n world """', 2),
-        ('""" hello \n world """ \n """ hello \n world """', 2),
-        ('""" hello \n world """ \n """ hello world """', 1),
-        ('""" hello world """ \n """ hello world """', 1),
-        ('""" hello world """ """ hello world """', 0),
-        ('""" hello world """', 0),
+        ('""" hello world """ \n """ hello world """', 2),
+        ('""" hello """ \n world \n """ hello world """', 2),
+        ('""" hello """ \n """ hello world """', 2),
+        ('""" hello world """ \n """ hello \n world """', 2),
+        ('""" hello """ \n world \n """ hello world """', 2),
+        ('""" hello @author me """ \n """ hello world """', 2),
+        ('""" hello\n@author me """\n world \n """ hello world """', 2),
     ],
 )
 def test_multiline_python_comments_two(code_string, expected_count):
