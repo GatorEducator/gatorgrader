@@ -43,7 +43,7 @@ def test_file_contains_multiline_python_comment_count(tmpdir):
     assert comment_count == 1
 
 
-def test_file_contains_singleline_comment_greater(tmpdir):
+def test_file_contains_singleline_java_comment_greater(tmpdir):
     """Checks that the file is above the check level"""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
     hello_file.write("//// hello world")
@@ -88,7 +88,7 @@ def test_file_contains_multiline_python_comment_greater(tmpdir):
     )
     assert greater_than_count is True
 
-def test_file_contains_singleline_comment_not_greater(tmpdir):
+def test_file_contains_singleline_java_comment_not_greater(tmpdir):
     """Checks that the file is not above the check level"""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
     hello_file.write("/ hello world")
@@ -156,7 +156,7 @@ def test_file_contains_multiline_python_comment_not_greater(tmpdir):
         (" ", 0),
     ],
 )
-def test_singleline_comments_zero_or_one(code_string, expected_count):
+def test_singleline_java_comments_zero_or_one(code_string, expected_count):
     """Check that it finds zero or one single-line comments"""
     assert comments.count_singleline_java_comment(code_string) == expected_count
 
@@ -183,7 +183,7 @@ def test_singleline_comments_zero_or_one(code_string, expected_count):
         (" ", 0),
     ],
 )
-def test_singleline_comments_zero_or_one_python(code_string, expected_count):
+def test_singleline_java_comments_zero_or_one_python(code_string, expected_count):
     """Checks that it finds zero or one Python comments"""
     assert comments.count_singleline_python_comment(code_string) == expected_count
 
@@ -208,7 +208,7 @@ def test_singleline_comments_zero_or_one_python(code_string, expected_count):
         ("\n // hi \n //hi", 2),
     ],
 )
-def test_singleline_comments_many(code_string, expected_count):
+def test_singleline_java_comments_many(code_string, expected_count):
     """Checks that it finds many singleline comments"""
     assert comments.count_singleline_java_comment(code_string) == expected_count
 
@@ -233,7 +233,7 @@ def test_singleline_comments_many(code_string, expected_count):
         ("\n # hi \n #hi", 2),
     ],
 )
-def test_singleline_comments_many_python(code_string, expected_count):
+def test_singleline_java_comments_many_python(code_string, expected_count):
     """Checks that it finds many singleline comments"""
     assert comments.count_singleline_python_comment(code_string) == expected_count
 
@@ -372,7 +372,7 @@ def test_multiline_python_comments_mixed(code_string, expected_count):
         ("/** hi */ \n // hello world hello \n // hi again", 2),
     ],
 )
-def test_singleline_comments_mixed(code_string, expected_count):
+def test_singleline_java_comments_mixed(code_string, expected_count):
     """Checks that it can find singleline comments in mixtures"""
     assert comments.count_singleline_java_comment(code_string) == expected_count
 
