@@ -350,11 +350,12 @@ def test_multiline_comments_mixed(code_string, expected_count):
 @pytest.mark.parametrize(
     "code_string,expected_count",
     [
-        ("# hello world" + '"""hello \n """', 1),
-        ("# hello world" + '"""hello \n """' + '"""hello \n """', 2),
-        ('""" hello world hello ', 0),
-        ('"""hello \n """' + '"""hello \n world"""', 2),
-        ('""" hi \n"""' + "\n # whoa " + '""" hi \n again """', 2),
+        ('# hello world \n""" hello """', 1),
+        ('# hello world\n""" hello """ \n """ hello """', 2),
+        ('# hello world hello ', 0),
+        ('""" hi """ \n """ hi again """', 2),
+        ('""" hi """ \n # whoa \n""" hi again """', 2),
+        ('# another function\ndef func(int arg):\n\t""" hi again """', 1),
     ],
 )
 def test_multiline_python_comments_mixed(code_string, expected_count):
