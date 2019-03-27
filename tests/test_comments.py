@@ -396,10 +396,22 @@ def test_multiline_python_comments_mixed(code_string, expected_count):
 @pytest.mark.parametrize(
     "code_string,expected_count",
     [
+        ('/** hello \n */\n/* hello \n world */\n/**hello \n world hello*/', 3),
+        ('/** hello \n */\n/**hello \n world */\n/*hello \n world hello */\n/*hello world \n ** hello */', 4),
+    ],
+)
+def test_multiline_java_comments_many(code_string, expected_count):
+    """checks that it finds many multiline python docstring comments"""
+    assert comments.count_multiline_java_comment(code_string) == expected_count
+
+
+@pytest.mark.parametrize(
+    "code_string,expected_count",
+    [
         ('"""hello \n """\n"""hello \n world"""\n"""hello \n world hello"""', 3),
         ('"""hello \n """\n"""hello \n world"""\n"""hello \n world hello"""\n"""hello world \n ** hello"""', 4),
     ],
 )
 def test_multiline_python_comments_many(code_string, expected_count):
-    """Checks that it finds many multiline Python docstring comments"""
+    """checks that it finds many multiline python docstring comments"""
     assert comments.count_multiline_python_comment(code_string) == expected_count
