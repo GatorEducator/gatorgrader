@@ -376,21 +376,21 @@ def test_singleline_java_comments_mixed(code_string, expected_count):
     """Checks that it can find singleline comments in mixtures"""
     assert comments.count_singleline_java_comment(code_string) == expected_count
 
+
 @pytest.mark.parametrize(
     "code_string,expected_count",
     [
-        ("hello world", 0),
-        ('""" hello world """ """ hello world """', 0),
-        ('\n """hello world"""', 0),
-        ('"""hello \n world"""', 1),
-        ('"""hello \n world"""'+"hello world", 1),
-        ('""" hello \n world """ \n """ hello world """', 1),
+        ('# hello world \n""" hello """', 1),
+        ('# hello world\n""" hello """ \n """ hello """', 1),
+        ('# hello world hello ', 1),
+        ('""" hi """ \n """ hi again """', 0),
+        ('""" hi """ \n # whoa \n""" hi again """', 1),
+        ('# another function\ndef func(int arg):\n\t""" hi again """', 1),
     ],
 )
-def test_multiline_python_comments_zero_or_one(code_string, expected_count):
-    """Checks that it finds zero or one multiline Python docstring comments"""
-    assert comments.count_multiline_python_comment(code_string) == expected_count
-
+def test_singleline_python_comments_mixed(code_string, expected_count):
+    """Checks that it can find multiline comments in mixtures"""
+    assert comments.count_singleline_python_comment(code_string) == expected_count
 
 @pytest.mark.parametrize(
     "code_string,expected_count",
