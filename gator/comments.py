@@ -13,7 +13,7 @@ SINGLELINECOMMENT_RE_JAVA = r"""^(?:[^"/\\]|\"(?:[^\"\\]|\\.)*
 \"|/(?:[^/"\\]|\\.)|/\"(?:[^\"\\]|\\.)*\"|\\.)*//(.*)$"""
 SINGLELINECOMMENT_RE_PYTHON = r"""^(?:[^"#\\]|\"(?:[^\"\\]|\\.)*\"|
 /(?:[^#"\\]|\\.)|/\"(?:[^\"\\]|\\.)*\"|\\.)*#(.*)$"""
-MULTILINECOMMENT_RE_PYTHON = r'^[\s]*"""(.*?\n|.*?)*?$\s*"""'
+MULTILINECOMMENT_RE_PYTHON = r'^[\s]*"""(.*?\n|.*?)*?"""\s*$'
 
 
 def count_singleline_java_comment(contents):
