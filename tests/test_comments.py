@@ -183,7 +183,7 @@ def test_singleline_java_comments_zero_or_one(code_string, expected_count):
         (" ", 0),
     ],
 )
-def test_singleline_java_comments_zero_or_one_python(code_string, expected_count):
+def test_singleline_python_comments_zero_or_one(code_string, expected_count):
     """Checks that it finds zero or one Python comments"""
     assert comments.count_singleline_python_comment(code_string) == expected_count
 
@@ -233,7 +233,7 @@ def test_singleline_java_comments_many(code_string, expected_count):
         ("\n # hi \n #hi", 2),
     ],
 )
-def test_singleline_java_comments_many_python(code_string, expected_count):
+def test_singleline_python_comments_many(code_string, expected_count):
     """Checks that it finds many singleline comments"""
     assert comments.count_singleline_python_comment(code_string) == expected_count
 
@@ -387,7 +387,7 @@ def test_singleline_java_comments_mixed(code_string, expected_count):
         ('""" hello \n world """ \n """ hello world """', 1),
     ],
 )
-def test_multiline_docstring_comments_zero_or_one_python(code_string, expected_count):
+def test_multiline_python_comments_zero_or_one(code_string, expected_count):
     """Checks that it finds zero or one multiline Python docstring comments"""
     assert comments.count_multiline_python_comment(code_string) == expected_count
 
@@ -405,6 +405,6 @@ def test_multiline_docstring_comments_zero_or_one_python(code_string, expected_c
         ('"""hello \n """' + '"""hello \n world"""' + '"""hello \n world hello"""' + '"""hello world \n ** hello"""' + '"""hello world $$$ \n world hello"""', 5)
     ],
 )
-def test_multiline_docstring_comments_many_python(code_string, expected_count):
+def test_multiline_python_comments_many(code_string, expected_count):
     """Checks that it finds many multiline Python docstring comments"""
     assert comments.count_multiline_python_comment(code_string) == expected_count
