@@ -373,7 +373,9 @@ def test_comment_counts_check_multiple_python(reset_results_dictionary, tmpdir):
     invoke.invoke_file_in_directory_check(hello_file, directory)
     details = report.get_details()
     assert details is not None
-    invoke.invoke_all_comment_checks(hello_file, directory, 1, "multiple-line", "Python")
+    invoke.invoke_all_comment_checks(
+        hello_file, directory, 1, "multiple-line", "Python"
+    )
     details = report.get_details()
     assert details is not None
 
