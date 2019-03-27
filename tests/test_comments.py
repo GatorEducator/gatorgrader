@@ -6,7 +6,7 @@ from gator import comments
 from gator import entities
 
 
-def test_file_contains_singleline_comment_count(tmpdir):
+def test_file_contains_singleline_java_comment_count(tmpdir):
     """Checks that the singleline comment count works"""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
     hello_file.write("//// hello world")
@@ -18,7 +18,7 @@ def test_file_contains_singleline_comment_count(tmpdir):
     assert comment_count == 1
 
 
-def test_file_contains_multiline_comment_count(tmpdir):
+def test_file_contains_multiline_java_comment_count(tmpdir):
     """Checks that the multiline comment count works"""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
     hello_file.write("/* hello world */")
