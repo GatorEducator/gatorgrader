@@ -107,8 +107,8 @@ def test_file_contains_singleline_java_comment_not_greater(tmpdir):
 def test_file_contains_multiline_java_comment_not_greater(tmpdir):
     """Checks that the file is not above the check level"""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
-    hello_file.write("/ hello world")
-    assert hello_file.read() == "/ hello world"
+    hello_file.write("/* hello world")
+    assert hello_file.read() == "/* hello world"
     assert len(tmpdir.listdir()) == 1
     greater_than_count, _ = entities.entity_greater_than_count(
         hello_file.basename,
@@ -123,14 +123,14 @@ def test_file_contains_multiline_python_comment_not_greater(tmpdir):
     """Checks that the file is not above the check level"""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.py")
     string = "Hello \n World"
-    hello_file.write('"""{}"""'.format(string))
-    assert hello_file.read() == '"""Hello \n World"""'
+    hello_file.write('"""{}'.format(string))
+    assert hello_file.read() == '"""Hello \n World'
     assert len(tmpdir.listdir()) == 1
-    greater_than_count, _ = entities.entity_greater_than_count(
+    greater_than_count, i = entities.entity_greater_than_count(
         hello_file.basename,
         hello_file.dirname,
         1,
-        comments.count_multiline_java_comment,
+        comments.count_multiline_python_comment,
     )
     assert greater_than_count is False
 
