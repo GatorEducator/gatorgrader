@@ -58,7 +58,7 @@ def test_file_contains_singleline_comment_greater(tmpdir):
     assert greater_than_count is True
 
 
-def test_file_contains_multiline_comment_greater(tmpdir):
+def test_file_contains_multiline_java_comment_greater(tmpdir):
     """Checks that the file is above the check level"""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
     hello_file.write("/* hello world */")
@@ -103,7 +103,7 @@ def test_file_contains_singleline_comment_not_greater(tmpdir):
     assert greater_than_count is False
 
 
-def test_file_contains_multiline_comment_not_greater(tmpdir):
+def test_file_contains_multiline_java_comment_not_greater(tmpdir):
     """Checks that the file is not above the check level"""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
     hello_file.write("/ hello world")
@@ -263,7 +263,7 @@ def test_singleline_comments_many_python(code_string, expected_count):
         ("", 0),
     ],
 )
-def test_multiline_comments_zero_or_one(code_string, expected_count):
+def test_multiline_java_comments_zero_or_one(code_string, expected_count):
     """Checks that it finds zero or one multiline comments"""
     assert comments.count_multiline_java_comment(code_string) == expected_count
 
@@ -310,7 +310,7 @@ def test_multiline_python_comments_zero_or_one(code_string, expected_count):
         ("/** hello @author me **/ world \n /* hello world */", 2),
     ],
 )
-def test_multiline_comments_two(code_string, expected_count):
+def test_multiline_java_comments_two(code_string, expected_count):
     """Checks that it has two or more multiline python comments"""
     assert comments.count_multiline_java_comment(code_string) == expected_count
 
@@ -342,7 +342,7 @@ def test_multiline_python_comments_two(code_string, expected_count):
         ("/** hi */ \n // whoa /** hi again */", 2),
     ],
 )
-def test_multiline_comments_mixed(code_string, expected_count):
+def test_multiline_java_comments_mixed(code_string, expected_count):
     """Checks that it can find multiline comments in mixtures"""
     assert comments.count_multiline_java_comment(code_string) == expected_count
 
