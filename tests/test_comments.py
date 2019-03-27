@@ -277,9 +277,9 @@ def test_multiline_comments_zero_or_one(code_string, expected_count):
         ('"""\nhello\n world\n"""', 1),
         ('"""\nhello world\n', 0),
         ('""\nhello world\n""', 0),
-        ('""" hello world"""', 1),
-        ('""""""', 1),
-        ('""" """', 1),
+        ('""" hello world\n"""', 1),
+        ('""""""', 0),
+        ('""" """', 0),
         ('""" hello world', 0),
         ('""hello world""', 0),
         ('"hello world"', 0),
@@ -378,7 +378,12 @@ def test_singleline_comments_mixed(code_string, expected_count):
 @pytest.mark.parametrize(
     "code_string,expected_count",
     [
-        ("hello world", 0)
+        ("hello world", 0),
+        ('""" hello world """ """ hello world """', 0),
+        ('\n """hello world"""', 0),
+        ('"""hello \n world"""', 1),
+        ('"""hello \n world"""'+"hello world", 1),
+        ('""" hello \n world """ \n """ hello world """', 1),
     ],
 )
 def test_multiline_docstring_comments_zero_or_one_python(code_string, expected_count):
