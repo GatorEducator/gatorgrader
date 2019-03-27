@@ -88,6 +88,7 @@ def test_file_contains_multiline_python_comment_greater(tmpdir):
     )
     assert greater_than_count is True
 
+
 def test_file_contains_singleline_java_comment_not_greater(tmpdir):
     """Checks that the file is not above the check level"""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
@@ -257,7 +258,7 @@ def test_singleline_java_comments_mixed(code_string, expected_count):
     [
         ('# hello world \n""" hello """', 1),
         ('# hello world\n""" hello """ \n """ hello """', 1),
-        ('# hello world hello ', 1),
+        ("# hello world hello ", 1),
         ('""" hi """ \n """ hi again """', 0),
         ('""" hi """ \n # whoa \n""" hi again """', 1),
         ('# another function\ndef func(int arg):\n\t""" hi again """', 1),
@@ -382,7 +383,7 @@ def test_multiline_java_comments_mixed(code_string, expected_count):
     [
         ('# hello world \n""" hello """', 1),
         ('# hello world\n""" hello """ \n """ hello """', 2),
-        ('# hello world hello ', 0),
+        ("# hello world hello ", 0),
         ('""" hi """ \n """ hi again """', 2),
         ('""" hi """ \n # whoa \n""" hi again """', 2),
         ('# another function\ndef func(int arg):\n\t""" hi again """', 1),
@@ -396,8 +397,12 @@ def test_multiline_python_comments_mixed(code_string, expected_count):
 @pytest.mark.parametrize(
     "code_string,expected_count",
     [
-        ('/** hello \n */\n/* hello \n world */\n/**hello \n world hello*/', 3),
-        ('/** hello \n */\n/**hello \n world */\n/*hello \n world hello */\n/*hello world \n ** hello */', 4),
+        ("/** hello \n */\n/* hello \n world */\n/**hello \n world hello*/", 3),
+        (
+            "/** hello \n */\n/**hello \n world */\n/*hello \n"
+            "world hello */\n/*hello world \n ** hello */",
+            4,
+        ),
     ],
 )
 def test_multiline_java_comments_many(code_string, expected_count):
@@ -409,7 +414,11 @@ def test_multiline_java_comments_many(code_string, expected_count):
     "code_string,expected_count",
     [
         ('"""hello \n """\n"""hello \n world"""\n"""hello \n world hello"""', 3),
-        ('"""hello \n """\n"""hello \n world"""\n"""hello \n world hello"""\n"""hello world \n ** hello"""', 4),
+        (
+            '"""hello \n """\n"""hello \n world"""\n"""hello \n'
+            'world hello"""\n"""hello world \n ** hello"""',
+            4,
+        ),
     ],
 )
 def test_multiline_python_comments_many(code_string, expected_count):
