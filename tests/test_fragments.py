@@ -417,10 +417,10 @@ def test_chosen_regex_zero_or_one(writing_string, chosen_regex, expected_count):
 @pytest.mark.parametrize(
     "writing_string,chosen_regex,expected_count",
     [
-        ("\\begin{abstract}\\begin{enumerate} hello \\end{enumerate}\\end{abstract}", "\\\\begin([^;]*)\\\\end", 2),
+        ("\\begin{abstract}\\end{enumerate} hello \\end{enumerate}\\end{abstract}", "\\\\begin([^;]*)\\\\end", 2),
         ("\\begin{enumerate}\\item1 \\end{enumerate} \\begin{enumerate}\\item2 \\end{enumerate} \\begin{enumerate}\\item3 \\end{enumerate}", "\\\\begin([^;]*)\\\\end", 3),
         ("<footer>happyness</footer> <footer>everything</footer>", "\\<footer\\>([^;]*)\\<\\/footer\\>", 2),
-        ("\\begin{thing1} \\begin \\begin{main}invalid", "\\begin()", 3),
+        ("\\begin{thing1} \\begin \\begin{main}invalid", "\\begin()", 0),
     ],
 )
 def test_chosen_regex_many(writing_string, chosen_regex, expected_count):
@@ -443,10 +443,6 @@ def test_count_regex_from_file(tmpdir):
     )
     assert count == 1
     count = fragments.count_entities(
-        "[^invalid]", fragments.count_specified_regex, hello_file, directory, ""
-    )
-    assert count == 0
-    count = fragments.count_entities(
         "planet", fragments.count_specified_regex, hello_file, directory, ""
     )
     assert count == 0
@@ -459,10 +455,6 @@ def test_count_regex_from_contents():
         "\\\\begin([^;]*)\\\\end", fragments.count_specified_regex, contents=value
     )
     assert count == 1
-    count = fragments.count_entities(
-        "[^invalid]", fragments.count_specified_regex, contents=value
-    )
-    assert count == 0
     count = fragments.count_entities(
         "planet", fragments.count_specified_regex, contents=value
     )
