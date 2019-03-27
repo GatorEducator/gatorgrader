@@ -396,14 +396,8 @@ def test_multiline_python_comments_mixed(code_string, expected_count):
 @pytest.mark.parametrize(
     "code_string,expected_count",
     [
-        ("# hello world" + '"""hello \n """', 1),
-        ("# hello world" + '"""hello \n """' + '"""hello \n """', 2),
-        ('""" hello world hello ', 0),
-        ('"""hello \n """' + '"""hello \n world"""', 2),
-        ('""" hi \n"""' + "\n # whoa " + '""" hi \n again """', 2),
-        ('"""hello \n """' + '"""hello \n world"""' + '"""hello \n world hello"""', 3),
-        ('"""hello \n """' + '"""hello \n world"""' + '"""hello \n world hello"""' + '"""hello world \n ** hello"""', 4),
-        ('"""hello \n """' + '"""hello \n world"""' + '"""hello \n world hello"""' + '"""hello world \n ** hello"""' + '"""hello world $$$ \n world hello"""', 5)
+        ('"""hello \n """\n"""hello \n world"""\n"""hello \n world hello"""', 3),
+        ('"""hello \n """\n"""hello \n world"""\n"""hello \n world hello"""\n"""hello world \n ** hello"""', 4),
     ],
 )
 def test_multiline_python_comments_many(code_string, expected_count):
