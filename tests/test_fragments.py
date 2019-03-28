@@ -417,7 +417,7 @@ def test_chosen_regex_zero_or_one(writing_string, chosen_regex, expected_count):
 @pytest.mark.parametrize(
     "writing_string,chosen_regex,expected_count",
     [
-        ("\\begin{abstract}\\end{enumerate} hello \\end{enumerate}\\end{abstract}", "\\\\begin([^;]*)\\\\end", 2),
+        ("\\begin{abstract} hello\\end{abstract} \\begin{enumerate} world\\end{enumerate}", "\\\\begin([^;]*)\\\\end", 2),
         ("\\begin{enumerate}\\item1 \\end{enumerate} \\begin{enumerate}\\item2 \\end{enumerate} \\begin{enumerate}\\item3 \\end{enumerate}", "\\\\begin([^;]*)\\\\end", 3),
         ("<footer>happyness</footer> <footer>everything</footer>", "\\<footer\\>([^;]*)\\<\\/footer\\>", 2),
         ("\\begin{thing1} \\begin \\begin{main}invalid", "\\begin()", 0),
@@ -446,6 +446,10 @@ def test_count_regex_from_file(tmpdir):
         "planet", fragments.count_specified_regex, hello_file, directory, ""
     )
     assert count == 0
+    count = fragments.count_entities(
+        "invlaid[^]", fragments.count_specified_regex, hello_file, directory, ""
+    )
+    assert count == 0
 
 
 def test_count_regex_from_contents():
@@ -459,6 +463,11 @@ def test_count_regex_from_contents():
         "planet", fragments.count_specified_regex, contents=value
     )
     assert count == 0
+    count = fragments.count_entities(
+        "invalid[^]", fragments.count_specified_regex, contents=value
+    )
+    assert count == 0
+
 
 
 def test_count_regex_from_file_with_threshold(tmpdir):
@@ -479,6 +488,10 @@ def test_count_regex_from_file_with_threshold(tmpdir):
     )
     assert actual_count == 1
     assert exceeds_threshold is True
+    exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
+        "invalid[^]", fragments.count_specified_regex, 0, hello_file, directory, ""
+    )
+    assert actual_count == 0
 
 
 def test_count_regex_from_contents_with_threshold():
@@ -494,3 +507,7 @@ def test_count_regex_from_contents_with_threshold():
     )
     assert actual_count == 1
     assert exceeds_threshold is True
+    exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
+        "invalid[^]", fragments.count_specified_regex, 0, contents=value
+    )
+    assert actual_count == 0
