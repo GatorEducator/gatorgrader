@@ -546,8 +546,11 @@ def test_is_valid_comments_valid(chosen_arguments):
 
 def test_is_valid_token_false():
     """Tests valid_token specifications when it args.token is None"""
+    # pylint: disable=too-few-public-methods
+    # pylint: disable=missing-docstring
     class args:
         token = None
+
     args = args()
     expected_output = False
     assert arguments.is_valid_token(args) == expected_output
@@ -555,32 +558,46 @@ def test_is_valid_token_false():
 
 def test_is_valid_repo_None():
     """Tests if repo does not have valid specifications"""
+    # pylint: disable=too-few-public-methods
+    # pylint: disable=missing-docstring
     class args:
         repo = None
+
     expected_output = False
     assert arguments.is_valid_repo(args) == expected_output
 
 
 def test_is_valid_name_false():
     """Tests is_valid_name when args.name is None"""
+    # pylint: disable=too-few-public-methods
+    # pylint: disable=missing-docstring
     class args:
         name = None
+
     expected_output = False
     assert arguments.is_valid_name(args) == expected_output
 
 
 def test_is_valid_state_True():
     """Tests if it is a valid state"""
+
+    # pylint: disable=too-few-public-methods
+    # pylint: disable=missing-docstring
     class args:
         state = "something"
+
     expected_output = True
     assert arguments.is_valid_state(args) == expected_output
 
 
 def test_is_valid_state_False():
     """Tests if it is a valid state"""
+
+    # pylint: disable=too-few-public-methods
+    # pylint: disable=missing-docstring
     class args:
         state = None
+
     expected_output = False
     assert arguments.is_valid_state(args) == expected_output
 

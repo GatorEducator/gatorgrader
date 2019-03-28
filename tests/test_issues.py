@@ -51,6 +51,14 @@ def test_issue_invalid_repo():
     assert err == -2
 
 
+# def test_check_issues_made():
+#     """Checks the final output of check_issues_made"""
+#     actual_output = issues.check_issues_made(
+#         TOKEN + "ac38d5bdd114df9a0ee8", "GatorEducator/gatorgrader", "gkapfham", 1, "all"
+#     )
+#     expected_output =
+
+
 # pylint: disable=function-redefined
 def test_comments_invalid_token():
     """Checks to ensure that if there is an incorrect token it returns the correct error"""
