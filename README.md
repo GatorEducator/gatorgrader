@@ -9,6 +9,21 @@ help.</center>
 
 [![Build Status](https://api.travis-ci.org/GatorEducator/gatorgrader.svg?branch=master)](https://travis-ci.org/GatorEducator/gatorgrader) [![codecov.io](http://codecov.io/github/GatorEducator/gatorgrader/coverage.svg?branch=master)](http://codecov.io/github/GatorEducator/gatorgrader?branch=master) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-orange.svg)](https://www.python.org/)
 
+## Key Features
+
+* Automatically checks and assesses the work of writers and programmers through the use of different linting tools.
+  * Can check for a specified required minimum number of git commits.
+  * Can check to see if required files exist and are in the correct directory, and that the directory exists.
+  * Can check for a specified number of single line or multi-line comments in source code.
+  * Can check the number of words and paragraphs in Markdown files.
+  * Can check for specified sentence fragments along with pure text and regular expression fragments within Markdown files and
+    source code.
+* Can be use with any text-based programming language or document.
+* Effectively integrates into many diverse workflows and development environments.
+* Can use GatorGrader in a cloud base environment (Travis CI) or local machine through command-line.
+* Can be used in conjunction with [GatorGradle](https://github.com/GatorEducator/gatorgradle)
+  to support checking gradle projects and "solution" and "starter" GitHub Classroom repositories in GitHub Classroom Assignments.
+
 Designed for use with [GitHub](https://github.com/), [GitHub
 Classroom](https://classroom.github.com/), [Travis CI](https://travis-ci.com/),
 and [Gradle](https://gradle.org/), GatorGrader is an automated assessment tool
@@ -91,10 +106,9 @@ in the directory that contains GatorGrader. If you only want to use GatorGrader,
 then you can type `pipenv install` instead. Once these commands complete
 successfully, that's all you you have to do to install GatorGrader! It is worth
 noting that if you only plan to use GatorGrader with the
-[GatorGradle](https://github.com/GatorEducator/gatorgradle) then there is a
-[java sample laboratory
-assignment](https://github.com/GatorEducator/java-starter) that you can
-try &mdash; it does not require you to complete these steps and instead it will
+[GatorGradle](https://github.com/GatorEducator/gatorgradle) then there are several sample laboratories including:
+[Java ](https://github.com/GatorEducator/java-starter), [LaTeX](https://github.com/GatorEducator/latex-assignment-starter), & [HTML with CSS](https://github.com/GatorEducator/html-css-assignment-starter) that you can
+try &mdash; they do not require you to complete these steps and instead it will
 download and install GatorGrader and run all of the preconfigured checks when
 you type `gradle grade` in your terminal window.
 
@@ -191,6 +205,102 @@ an issue in the issue tracker!
  Results (1.48s):
       455 passed
 ```
+
+if you would like to run a specific test run
+
+```
+pytest test_mod.py::name-of-test-function
+```
+OR
+
+```
+pytest test_mod.py::TestClass::name-of-test_method
+```
+
+The -r options accepts a number of characters after it, with a used above meaning “all except passes”.
+
+Here is the full list of available characters that can be used:
+
+-  f - failed
+-  E - error
+-  s - skipped
+-  x - xfailed
+-  X - xpassed
+-  p - passed
+-  P - passed with output
+-  a - all except pP
+
+More than one character can be used, so for example to only see failed and skipped tests, you can execute:
+
+```
+$ pytest -rfs
+=========================== test session starts ============================
+platform linux -- Python 3.x.y, pytest-4.x.y, py-1.x.y, pluggy-0.x.y
+cachedir: $PYTHON_PREFIX/.pytest_cache
+rootdir: $REGENDOC_TMPDIR, inifile:
+collected 6 items
+
+test_example.py .FEsxX                                               [100%]
+
+================================== ERRORS ==================================
+_______________________ ERROR at setup of test_error _______________________
+
+    @pytest.fixture
+    def error_fixture():
+>       assert 0
+E       assert 0
+
+test_example.py:6: AssertionError
+================================= FAILURES =================================
+________________________________ test_fail _________________________________
+
+    def test_fail():
+>       assert 0
+E       assert 0
+
+test_example.py:14: AssertionError
+========================= short test summary info ==========================
+FAILED test_example.py::test_fail
+SKIPPED [1] $REGENDOC_TMPDIR/test_example.py:23: skipping this test
+ 1 failed, 1 passed, 1 skipped, 1 xfailed, 1 xpassed, 1 error in 0.12 seconds
+Using p lists the passing tests, whilst P adds an extra section “PASSES” with those tests that passed but had captured output:
+
+$ pytest -rpP
+=========================== test session starts ============================
+platform linux -- Python 3.x.y, pytest-4.x.y, py-1.x.y, pluggy-0.x.y
+cachedir: $PYTHON_PREFIX/.pytest_cache
+rootdir: $REGENDOC_TMPDIR, inifile:
+collected 6 items
+
+test_example.py .FEsxX                                               [100%]
+
+================================== ERRORS ==================================
+_______________________ ERROR at setup of test_error _______________________
+
+    @pytest.fixture
+    def error_fixture():
+>       assert 0
+E       assert 0
+
+test_example.py:6: AssertionError
+================================= FAILURES =================================
+________________________________ test_fail _________________________________
+
+    def test_fail():
+>       assert 0
+E       assert 0
+
+test_example.py:14: AssertionError
+========================= short test summary info ==========================
+PASSED test_example.py::test_ok
+================================== PASSES ==================================
+_________________________________ test_ok __________________________________
+--------------------------- Captured stdout call ---------------------------
+ok
+ 1 failed, 1 passed, 1 skipped, 1 xfailed, 1 xpassed, 1 error in 0.12 seconds
+```
+
+
 
 ## Running GatorGrader
 
@@ -408,13 +518,14 @@ following list includes some of our recent presentations:
 
 - [A Hands-on Guide to Teaching Programming with GitHub, Travis CI, and Python](https://speakerdeck.com/gkapfham/a-hands-on-guide-to-teaching-programming-with-github-travis-ci-and-python) <br> *at PyOhio 2018*
 - [Using GitHub, Travis CI, and Python to Introduce Collaborative Software Development](https://speakerdeck.com/gkapfham/using-github-travis-ci-and-python-to-introduce-collaborative-software-development) <br> *at PyCon Education Summit 2018*
+- [Using Python, Travis CI, and GitHub to Effectively Teach Programming](https://speakerdeck.com/gkapfham/using-python-travis-ci-and-github-to-effectively-teach-programming) <br> *at PyGotham 2018*
 
 ## Contributing
 
 Are you interested in contributing to
 [GatorGrader](https://github.com/GatorEducator/gatorgrader),
 [GatorGradle](https://github.com/GatorEducator/gatorgradle), or
-[GatorGrader-SampleLab](https://github.com/GatorEducator/java-assigment-starter)?
+any of the sample labs ([Java](https://github.com/GatorEducator/java-assigment-starter), [LaTeX](https://github.com/GatorEducator/latex-assignment-starter), [HTML with CSS](https://github.com/GatorEducator/html-css-assignment-starter))?
 Our development team uses the [GitHub flow
 model](https://guides.github.com/introduction/flow/) to guide our engineering of
 these tools and we invite you to also follow it as you make a contribution. Of
