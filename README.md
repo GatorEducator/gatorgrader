@@ -1,4 +1,4 @@
-![Image of Logo](https://github.com/GatorEducator/gatorgrader/blob/master/gatorgraderlogo.svg)
+![Image of Logo](https://github.com/GatorEducator/gatorgrader/blob/master/gatorgraderlogo.png)
 
 <center>The only tool you'll need to ensure your code is up to speed! GatorGrader
 provides all the necessary checks for your code, from linting to searching
