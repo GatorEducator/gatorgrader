@@ -404,7 +404,7 @@ def test_is_valid_regex(regex_fragment, expected_status):
         ("\\begin{document}the document never ends", "\\\\begin([^;]*)\\\\end", 0),
         ("\\bibliographystyle{abbrv} \\bibliography{main}", "\\\\begin([^;]*)\\\\end", 0),
         ("\\bibliographystyle{abbrv} \\bibliography{main} invalid", "\\begin{}", 0),
-        ("<footer>this nice foot</footer>", "\\<footer\>([^;]*)\\<\\/footer\\>", 1),
+        ("<footer>this nice foot</footer>", "\\<footer\\>([^;]*)\\<\\/footer\\>", 1),
     ],
 )
 def test_chosen_regex_zero_or_one(writing_string, chosen_regex, expected_count):
