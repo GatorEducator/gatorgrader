@@ -399,10 +399,22 @@ def test_is_valid_regex(regex_fragment, expected_status):
 @pytest.mark.parametrize(
     "writing_string,chosen_regex,expected_count",
     [
-        ("\\begin{abstract}This is the paper's abstract \\end{abstract}", "\\\\begin([^;]*)\\\\end", 1),
-        ("\\begin{enumerate}\\item hi \\item bye \\end{enumerate} some random string", "\\\\begin([^;]*)\\\\end", 1),
+        (
+            "\\begin{abstract}This is the paper's abstract \\end{abstract}",
+            "\\\\begin([^;]*)\\\\end",
+            1,
+        ),
+        (
+            "\\begin{enumerate}\\item hi \\item bye \\end{enumerate} some random string",
+            "\\\\begin([^;]*)\\\\end",
+            1,
+        ),
         ("\\begin{document}the document never ends", "\\\\begin([^;]*)\\\\end", 0),
-        ("\\bibliographystyle{abbrv} \\bibliography{main}", "\\\\begin([^;]*)\\\\end", 0),
+        (
+            "\\bibliographystyle{abbrv} \\bibliography{main}",
+            "\\\\begin([^;]*)\\\\end",
+            0,
+        ),
         ("\\bibliographystyle{abbrv} \\bibliography{main} invalid", "\\begin{}", 0),
         ("<footer>this nice foot</footer>", "\\<footer\\>([^;]*)\\<\\/footer\\>", 1),
     ],
@@ -417,9 +429,21 @@ def test_chosen_regex_zero_or_one(writing_string, chosen_regex, expected_count):
 @pytest.mark.parametrize(
     "writing_string,chosen_regex,expected_count",
     [
-        ("\\begin{abstract} hello\\end{abstract} \\begin{enumerate} world\\end{enumerate}", "\\\\begin([^;]*)\\\\end", 2),
-        ("\\begin{enumerate}\\item1 \\end{enumerate} \\begin{enumerate}\\item2 \\end{enumerate} \\begin{enumerate}\\item3 \\end{enumerate}", "\\\\begin([^;]*)\\\\end", 3),
-        ("<footer>happyness</footer> <footer>everything</footer>", "\\<footer\\>([^;]*)\\<\\/footer\\>", 2),
+        (
+            "\\begin{abstract} hello\\end{abstract} \\begin{enumerate} world\\end{enumerate}",
+            "\\\\begin([^;]*)\\\\end",
+            2,
+        ),
+        (
+            "\\begin{enumerate}\\item1 \\end{enumerate} \\begin{enumerate}\\item2 \\end{enumerate} \\begin{enumerate}\\item3 \\end{enumerate}",
+            "\\\\begin([^;]*)\\\\end",
+            3,
+        ),
+        (
+            "<footer>happyness</footer> <footer>everything</footer>",
+            "\\<footer\\>([^;]*)\\<\\/footer\\>",
+            2,
+        ),
         ("\\begin{thing1} \\begin \\begin{main}invalid", "\\begin()", 0),
     ],
 )
@@ -439,7 +463,11 @@ def test_count_regex_from_file(tmpdir):
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
     count = fragments.count_entities(
-        "\\\\begin([^;]*)\\\\end", fragments.count_specified_regex, hello_file, directory, ""
+        "\\\\begin([^;]*)\\\\end",
+        fragments.count_specified_regex,
+        hello_file,
+        directory,
+        "",
     )
     assert count == 1
     count = fragments.count_entities(
@@ -469,7 +497,6 @@ def test_count_regex_from_contents():
     assert count == 0
 
 
-
 def test_count_regex_from_file_with_threshold(tmpdir):
     """Checks that counting regex in a file with threshold works correctly"""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
@@ -479,12 +506,22 @@ def test_count_regex_from_file_with_threshold(tmpdir):
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
     exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
-        "\\\\begin([^;]*)\\\\end", fragments.count_specified_regex, 10, hello_file, directory, ""
+        "\\\\begin([^;]*)\\\\end",
+        fragments.count_specified_regex,
+        10,
+        hello_file,
+        directory,
+        "",
     )
     assert actual_count == 1
     assert exceeds_threshold is False
     exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
-        "\\\\begin([^;]*)\\\\end", fragments.count_specified_regex, 1, hello_file, directory, ""
+        "\\\\begin([^;]*)\\\\end",
+        fragments.count_specified_regex,
+        1,
+        hello_file,
+        directory,
+        "",
     )
     assert actual_count == 1
     assert exceeds_threshold is True
