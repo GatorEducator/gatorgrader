@@ -436,7 +436,7 @@ def test_chosen_regex_zero_or_one(writing_string, chosen_regex, expected_count):
         ),
         (
             ("\\begin{enumerate}\\item1 \\end{enumerate} \\begin{enumerate}\\item2" +
-            " \\end{enumerate} \\begin{enumerate}\\item3 \\end{enumerate}" +
+            " \\end{enumerate} \\begin{enumerate}\\item3 \\end{enumerate}",
             "\\\\begin([^;]*)\\\\end"),
             3,
         ),
