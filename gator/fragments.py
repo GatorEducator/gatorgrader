@@ -2,8 +2,8 @@
 
 from pathlib import Path
 
-import commonmark
 import re
+import commonmark
 
 from gator import util
 
