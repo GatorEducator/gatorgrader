@@ -381,42 +381,44 @@ def test_detect_blank_line(writing_string, expected_status):
 
 
 @pytest.mark.parametrize(
-    "regex_fragment,expected_status",
+    "regex,expected_status",
     [
-        ("\\<footer\\>([^;]*)\\<\\/footer\\>", True),
-        ("\\\\begin([^;]*)\\\\end", True),
-        ("bibliography", True),
-        ("section", True),
-        ("[^]", False),
+        (r"<footer>([^;]*)\<\/footer>", True),
+        (r"\\begin([^;]*)\\end", True),
+        (r"bibliography", True),
+        (r"section", True),
+        (r"[^]", False),
+        (r"[)", False),
     ],
 )
-def test_is_valid_regex(regex_fragment, expected_status):
+def test_is_valid_regex(regex, expected_status):
     """Checks that regex assessment correctly validates regular expressions"""
-    regex_status = fragments.is_valid_regex(regex_fragment)
-    assert regex_status == expected_status
+    is_valid = fragments.is_valid_regex(regex)
+    assert is_valid == expected_status
 
 
 @pytest.mark.parametrize(
     "writing_string,chosen_regex,expected_count",
     [
         (
-            "\\begin{abstract}This is the paper's abstract \\end{abstract}",
-            "\\\\begin([^;]*)\\\\end",
+            "\\begin{abstract}\nThis is the paper's abstract\n\\end{abstract}",
+            r"\\begin(.*?)\\end",
             1,
         ),
         (
-            "\\begin{enumerate}\\item hi \\item bye \\end{enumerate} some random string",
-            "\\\\begin([^;]*)\\\\end",
+            "\\begin{enumerate}\n\\item hi\n\\item bye\n\\end{enumerate}"
+            "\nsome random string",
+            r"\\begin(.*?)\\end",
             1,
         ),
-        ("\\begin{document}the document never ends", "\\\\begin([^;]*)\\\\end", 0),
+        ("\\begin{document}the document never ends", r"\\begin(.*?)\\end", 0),
         (
-            "\\bibliographystyle{abbrv} \\bibliography{main}",
-            "\\\\begin([^;]*)\\\\end",
+            "\\bibliographystyle{abbrv}\n\\bibliography{main}",
+            r"\\begin(.*?)\\end",
             0,
         ),
-        ("\\bibliographystyle{abbrv} \\bibliography{main} invalid", "\\begin{}", 0),
-        ("<footer>this nice foot</footer>", "\\<footer\\>([^;]*)\\<\\/footer\\>", 1),
+        ("\\bibliographystyle{abbrv}\n\\bibliography{main}\ninvalid", r"\\begin\{.*?\}", 0),
+        ("<footer>this nice foot</footer>", r"<footer>(.*?)<\/footer>", 1),
     ],
 )
 def test_chosen_regex_zero_or_one(writing_string, chosen_regex, expected_count):
@@ -431,23 +433,26 @@ def test_chosen_regex_zero_or_one(writing_string, chosen_regex, expected_count):
     [
         (
             "\\begin{abstract} hello\\end{abstract} \\begin{enumerate} world\\end{enumerate}",
-            "\\\\begin([^;]*)\\\\end",
+            r"\\begin(.*?)\\end",
             2,
         ),
         (
-            (
-                "\\begin{enumerate}\\item1 \\end{enumerate} \\begin{enumerate}\\item2"
-                + "\\end{enumerate} \\begin{enumerate}\\item3 \\end{enumerate}"
-            ),
-            "\\\\begin([^;]*)\\\\end",
+            "\\begin{enumerate}\\item1 \\end{enumerate} \\begin{enumerate}\\item2"
+            "\\end{enumerate} \\begin{enumerate}\\item3 \\end{enumerate}",
+            r"\\begin(.*?)\\end",
             3,
         ),
         (
             "<footer>happyness</footer> <footer>everything</footer>",
-            "\\<footer\\>([^;]*)\\<\\/footer\\>",
+            r"<footer>(.*?)<\/footer>",
             2,
         ),
-        ("\\begin{thing1} \\begin \\begin{main}invalid", "\\begin()", 0),
+        (
+            "<footer>happyness</footer> <footer>everything</footer>",
+            r"<footer>(.*)<\/footer>",
+            1,
+        ),
+        ("\\begin{thing1} \\begin \\begin{main}invalid", r"\\begin\{itemize\}", 0),
     ],
 )
 def test_chosen_regex_many(writing_string, chosen_regex, expected_count):
@@ -466,19 +471,18 @@ def test_count_regex_from_file(tmpdir):
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
     count = fragments.count_entities(
-        "\\\\begin([^;]*)\\\\end",
+        r"\\begin(.*?)\\end",
         fragments.count_specified_regex,
         hello_file,
-        directory,
-        "",
+        directory
     )
     assert count == 1
     count = fragments.count_entities(
-        "planet", fragments.count_specified_regex, hello_file, directory, ""
+        r"planet", fragments.count_specified_regex, hello_file, directory, ""
     )
     assert count == 0
     count = fragments.count_entities(
-        "invlaid[^]", fragments.count_specified_regex, hello_file, directory, ""
+        r"invalid[^]", fragments.count_specified_regex, hello_file, directory, ""
     )
     assert count == 0
 
@@ -487,15 +491,15 @@ def test_count_regex_from_contents():
     """Checks that counting regex in a string works correctly"""
     value = "\\begin{document} hello! \\end{document}"
     count = fragments.count_entities(
-        "\\\\begin([^;]*)\\\\end", fragments.count_specified_regex, contents=value
+        r"\\begin(.*?)\\end", fragments.count_specified_regex, contents=value
     )
     assert count == 1
     count = fragments.count_entities(
-        "planet", fragments.count_specified_regex, contents=value
+        r"planet", fragments.count_specified_regex, contents=value
     )
     assert count == 0
     count = fragments.count_entities(
-        "invalid[^]", fragments.count_specified_regex, contents=value
+        r"invalid[^]", fragments.count_specified_regex, contents=value
     )
     assert count == 0
 
@@ -509,45 +513,46 @@ def test_count_regex_from_file_with_threshold(tmpdir):
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
     exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
-        "\\\\begin([^;]*)\\\\end",
+        r"\\begin(.*?)\\end",
         fragments.count_specified_regex,
-        10,
+        2,
         hello_file,
-        directory,
-        "",
+        directory
     )
     assert actual_count == 1
     assert exceeds_threshold is False
     exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
-        "\\\\begin([^;]*)\\\\end",
+        r"\\begin(.*?)\\end",
         fragments.count_specified_regex,
         1,
         hello_file,
-        directory,
-        "",
+        directory
     )
     assert actual_count == 1
     assert exceeds_threshold is True
     exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
-        "invalid[^]", fragments.count_specified_regex, 0, hello_file, directory, ""
+        r"invalid[^]", fragments.count_specified_regex, 0, hello_file, directory
     )
+
     assert actual_count == 0
+    assert exceeds_threshold is True
 
 
 def test_count_regex_from_contents_with_threshold():
     """Checks that counting regex with threshold in a string works correctly"""
     value = "\\begin{document} hello! \\end{document}"
     exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
-        "\\\\begin([^;]*)\\\\end", fragments.count_specified_regex, 10, contents=value
+        r"\\begin(.*?)\\end", fragments.count_specified_regex, 10, contents=value
     )
     assert actual_count == 1
     assert exceeds_threshold is False
     exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
-        "\\\\begin([^;]*)\\\\end", fragments.count_specified_regex, 1, contents=value
+        r"\\begin(.*?)\\end", fragments.count_specified_regex, 1, contents=value
     )
     assert actual_count == 1
     assert exceeds_threshold is True
     exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
-        "invalid[^]", fragments.count_specified_regex, 0, contents=value
+        r"invalid[^]", fragments.count_specified_regex, 0, contents=value
     )
     assert actual_count == 0
+    assert exceeds_threshold is True
