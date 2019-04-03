@@ -1,4 +1,11 @@
-# GatorGrader
+# Gator Grader
+
+![Image of Logo](https://raw.githubusercontent.com/GatorEducator/gatorgrader/master/.github/gatorgraderlogo.png)
+
+<center>The only tool you'll need to ensure your code is up to speed! GatorGrader
+provides all the necessary checks for your code, from linting to searching
+commit messages. Whenever you feel in doubt, know GatorGrader is there to
+help.</center>
 
 [![Build Status](https://api.travis-ci.org/GatorEducator/gatorgrader.svg?branch=master)](https://travis-ci.org/GatorEducator/gatorgrader) [![codecov.io](http://codecov.io/github/GatorEducator/gatorgrader/coverage.svg?branch=master)](http://codecov.io/github/GatorEducator/gatorgrader?branch=master) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-orange.svg)](https://www.python.org/)
 
@@ -82,10 +89,10 @@ about GatorGrader!
 As a Python 3 program, GatorGrader relies on
 [Pipenv](https://github.com/pypa/pipenv) for the installation of the libraries
 on which it depends and the creation of the virtual environments in which it
-runs. To install GatorGrader, you should first follow Pipenv's installation
-instructions. You should also ensure that you have installed Git on your
-computer and that you can run Git commands in a terminal window. Then, you can
-type the following command in your terminal window to clone GatorGrader's GitHub
+runs. You may skip the *Dependencies* subsection if you have Python 3 and Pipenv
+installed.  You should also ensure that you have installed Git on your computer
+and that you can run Git commands in a terminal window. Then, you can type the
+following command in your terminal window to clone GatorGrader's GitHub
 repository:
 
 ```
@@ -94,16 +101,31 @@ git clone https://github.com/GatorEducator/gatorgrader.git
 
 If you plan to develop new features for GatorGrader or if you want to run the
 tool's test suite in [Pytest](https://github.com/pytest-dev/pytest), then you
-will need to install the developer dependencies by typing `pipenv install --dev`
-in the directory that contains GatorGrader. If you only want to use GatorGrader,
-then you can type `pipenv install` instead. Once these commands complete
-successfully, that's all you you have to do to install GatorGrader! It is worth
-noting that if you only plan to use GatorGrader with the
-[GatorGradle](https://github.com/GatorEducator/gatorgradle) then there are several sample laboratories including:
-[Java ](https://github.com/GatorEducator/java-starter), [LaTeX](https://github.com/GatorEducator/latex-assignment-starter), & [HTML with CSS](https://github.com/GatorEducator/html-css-assignment-starter) that you can
-try &mdash; they do not require you to complete these steps and instead it will
-download and install GatorGrader and run all of the preconfigured checks when
-you type `gradle grade` in your terminal window.
+will need to install the developer dependencies by typing `pipenv install
+--dev` in the directory that contains GatorGrader. If you only want to use
+GatorGrader, then you can use `pipenv install` instead. It is worth noting that
+if you only plan to use GatorGrader with
+[GatorGradle](https://github.com/GatorEducator/gatorgradle) then there are
+several sample laboratories including:
+[Java ](https://github.com/GatorEducator/java-starter),
+[LaTeX](https://github.com/GatorEducator/latex-assignment-starter), &
+[HTML with CSS](https://github.com/GatorEducator/html-css-assignment-starter)
+that you can try &mdash; they do not require you to complete these steps and
+instead it will download and install GatorGrader and run all of the
+preconfigured checks when you type `gradle grade` in your terminal window.
+
+### Dependencies
+
+Python comes pre-installed on many different distributions, and is available as
+a package on most systems. However, there are certain features you might want
+to use that are not available on your distro’s package. Simply google `python
+download` for your OS or follow the download and installation instructions on
+[the Python website](python.org).
+
+[Pipenv](https://github.com/pypa/pipenv) is used by GatorGrader to create a
+virtual environment, install and manage packages, and run Python commands. To
+learn how to install and use Pipenv, please refer to the [Pipenv
+Documentation](https://pipenv.readthedocs.io/en/latest/install/).
 
 ## Testing GatorGrader
 
