@@ -122,7 +122,7 @@ def count_specified_regex(contents, regex):
     """Counts all the specified regex for a given file"""
     # finds regex matches, returns their count
     if not is_valid_regex(regex):
-        return 0
+        return -1
 
     matches = re.findall(regex, contents, re.DOTALL)
     return len(matches)

@@ -484,7 +484,7 @@ def test_count_regex_from_file(tmpdir):
     count = fragments.count_entities(
         r"invalid[^]", fragments.count_specified_regex, hello_file, directory, ""
     )
-    assert count == 0
+    assert count == -1
 
 
 def test_count_regex_from_contents():
@@ -501,7 +501,7 @@ def test_count_regex_from_contents():
     count = fragments.count_entities(
         r"invalid[^]", fragments.count_specified_regex, contents=value
     )
-    assert count == 0
+    assert count == -1
 
 
 def test_count_regex_from_file_with_threshold(tmpdir):
@@ -534,8 +534,8 @@ def test_count_regex_from_file_with_threshold(tmpdir):
         r"invalid[^]", fragments.count_specified_regex, 0, hello_file, directory
     )
 
-    assert actual_count == 0
-    assert exceeds_threshold is True
+    assert actual_count == -1
+    assert exceeds_threshold is False
 
 
 def test_count_regex_from_contents_with_threshold():
@@ -554,5 +554,5 @@ def test_count_regex_from_contents_with_threshold():
     exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
         r"invalid[^]", fragments.count_specified_regex, 0, contents=value
     )
-    assert actual_count == 0
-    assert exceeds_threshold is True
+    assert actual_count == -1
+    assert exceeds_threshold is False
