@@ -412,12 +412,12 @@ def test_is_valid_regex(regex, expected_status):
             1,
         ),
         ("\\begin{document}the document never ends", r"\\begin(.*?)\\end", 0),
+        ("\\bibliographystyle{abbrv}\n\\bibliography{main}", r"\\begin(.*?)\\end", 0),
         (
-            "\\bibliographystyle{abbrv}\n\\bibliography{main}",
-            r"\\begin(.*?)\\end",
+            "\\bibliographystyle{abbrv}\n\\bibliography{main}\ninvalid",
+            r"\\begin\{.*?\}",
             0,
         ),
-        ("\\bibliographystyle{abbrv}\n\\bibliography{main}\ninvalid", r"\\begin\{.*?\}", 0),
         ("<footer>this nice foot</footer>", r"<footer>(.*?)<\/footer>", 1),
     ],
 )
@@ -471,10 +471,7 @@ def test_count_regex_from_file(tmpdir):
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
     count = fragments.count_entities(
-        r"\\begin(.*?)\\end",
-        fragments.count_specified_regex,
-        hello_file,
-        directory
+        r"\\begin(.*?)\\end", fragments.count_specified_regex, hello_file, directory
     )
     assert count == 1
     count = fragments.count_entities(
@@ -513,20 +510,12 @@ def test_count_regex_from_file_with_threshold(tmpdir):
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
     exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
-        r"\\begin(.*?)\\end",
-        fragments.count_specified_regex,
-        2,
-        hello_file,
-        directory
+        r"\\begin(.*?)\\end", fragments.count_specified_regex, 2, hello_file, directory
     )
     assert actual_count == 1
     assert exceeds_threshold is False
     exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
-        r"\\begin(.*?)\\end",
-        fragments.count_specified_regex,
-        1,
-        hello_file,
-        directory
+        r"\\begin(.*?)\\end", fragments.count_specified_regex, 1, hello_file, directory
     )
     assert actual_count == 1
     assert exceeds_threshold is True
