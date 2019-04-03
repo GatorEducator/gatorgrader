@@ -251,7 +251,7 @@ def check_fragment_command(system_arguments):
 
 
 def check_regex_command(system_arguments):
-    """Check the existence of fragment in a command's output and return desired actions"""
+    """Check the existence of regex in a command's output and return desired actions"""
     actions = []
     if system_arguments.regex is not None and system_arguments.command is not None:
         actions.append(
