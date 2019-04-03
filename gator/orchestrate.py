@@ -205,6 +205,26 @@ def check_regex_file(system_arguments):
     return actions
 
 
+def check_markdown_file(system_arguments):
+    """Check the existence of markdown in a file and return desired actions"""
+    actions = []
+    if system_arguments.markdown is not None and system_arguments.file is not None:
+        actions.append(
+            [
+                INVOKE,
+                "invoke_all_markdown_checks",
+                [
+                    system_arguments.markdown,
+                    system_arguments.count,
+                    system_arguments.file,
+                    system_arguments.directory,
+                    system_arguments.exact,
+                ],
+            ]
+        )
+    return actions
+
+
 def check_count_file(system_arguments):
     """Check the count of lines in a file and return desired actions"""
     actions = []
@@ -214,6 +234,7 @@ def check_count_file(system_arguments):
         and system_arguments.file is not None
         and system_arguments.fragment is None
         and system_arguments.regex is None
+        and system_arguments.markdown is None
     ):
         actions.append(
             [
@@ -343,6 +364,7 @@ def check(system_arguments):
         "check_multiple",
         "check_paragraphs",
         "check_words",
+        "check_markdown_file",
         "check_fragment_file",
         "check_fragment_command",
         "check_count_file",
