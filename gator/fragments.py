@@ -124,22 +124,8 @@ def count_specified_regex(contents, regex):
     if not is_valid_regex(regex):
         return 0
 
-    new_contents = str(contents)
-    is_match = True
-    num_matches = 0
-    position_start = 0
-    position_end = len(new_contents)
-
-    while is_match:
-        match = re.search(regex, repr(new_contents[position_start:position_end]))
-        if match is not None:
-            num_matches += 1
-            position_start = match.start() + 1
-            position_end = match.end() - 1
-        else:
-            is_match = False
-
-    return num_matches
+    matches = re.findall(regex, contents, re.DOTALL)
+    return len(matches)
 
 
 # pylint: disable=bad-continuation
