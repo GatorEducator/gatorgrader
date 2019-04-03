@@ -332,10 +332,6 @@ def test_perform_actions_display_welcome_and_ready_check_regex_file(
         r"\\begin(.*?)\\end",
         "--count",
         "1",
-        "--markdown",
-        "code",
-        "--count",
-        "2",
     ]
     exit_code = orchestrate.check(chosen_arguments)
     captured = capsys.readouterr()

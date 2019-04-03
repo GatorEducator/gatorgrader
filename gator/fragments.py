@@ -3,6 +3,7 @@
 from pathlib import Path
 
 import commonmark
+import re
 
 from gator import util
 
