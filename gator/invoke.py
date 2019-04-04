@@ -4,6 +4,7 @@ from gator import comments
 from gator import entities
 from gator import files
 from gator import fragments
+from gator import markdown
 from gator import report
 from gator import repository
 from gator import run
@@ -96,15 +97,26 @@ def invoke_all_comment_checks(
                 comments.count_singleline_python_comment,
                 exact,
             )
-    # check multiple-line comments (only in Java)
+    # check multiple-line comments
     elif comment_type == MULTIPLE:
-        met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
-            filecheck,
-            directory,
-            expected_count,
-            comments.count_multiline_java_comment,
-            exact,
-        )
+        # check comments in Java
+        if language == JAVA:
+            met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
+                filecheck,
+                directory,
+                expected_count,
+                comments.count_multiline_java_comment,
+                exact,
+            )
+        # check comments in Python
+        if language == PYTHON:
+            met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
+                filecheck,
+                directory,
+                expected_count,
+                comments.count_multiline_python_comment,
+                exact,
+            )
     # create the message and the diagnostic
     if not exact:
         message = (
@@ -309,6 +321,50 @@ def invoke_all_command_executes_checks(command):
     diagnostic = "The command returned the error code " + str(command_returncode)
     report_result(command_passed, message, diagnostic)
     return command_passed
+
+
+# pylint: disable=bad-continuation
+def invoke_all_markdown_checks(
+    markdown_tag, expected_count, filecheck, directory, exact=False
+):
+    """Perform the check for a markdown tag existence in a file and return the results"""
+    met_or_exceeded_count = 0
+    met_or_exceeded_count, actual_count = markdown.specified_tag_greater_than_count(
+        markdown_tag,
+        markdown.count_specified_tag,
+        expected_count,
+        filecheck,
+        directory,
+        exact,
+    )
+    # create a message for a file in directory
+    if exact is not True:
+        message = (
+            "The "
+            + filecheck
+            + " in "
+            + directory
+            + " has at least "
+            + str(expected_count)
+            + " of the '"
+            + markdown_tag
+            + "' elements"
+        )
+    else:
+        message = (
+            "The "
+            + filecheck
+            + " in "
+            + directory
+            + " has exactly "
+            + str(expected_count)
+            + " of the '"
+            + markdown_tag
+            + "' elements"
+        )
+    diagnostic = "Found " + str(actual_count) + " element(s) in the specified file"
+    update_report(met_or_exceeded_count, message, diagnostic)
+    return met_or_exceeded_count
 
 
 # pylint: disable=bad-continuation

@@ -379,6 +379,49 @@ def test_comment_counts_check_multiple_java_not_enough(
 
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
+def test_comment_counts_check_multiple_python(reset_results_dictionary, tmpdir):
+    """Checks that invocation of comment counting check works correctly"""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.py")
+    hello_file.write('""" hello world """')
+    assert hello_file.read() == '""" hello world """'
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + '"""' + tmpdir.basename + '"""' + "subdirectory"
+    hello_file = "Hello.py"
+    invoke.invoke_file_in_directory_check(hello_file, directory)
+    details = report.get_details()
+    assert details is not None
+    invoke.invoke_all_comment_checks(
+        hello_file, directory, 1, "multiple-line", "Python"
+    )
+    details = report.get_details()
+    assert details is not None
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
+# pylint: disable=bad-continuation
+def test_comment_counts_check_multiple_python_not_enough(
+    reset_results_dictionary, tmpdir
+):
+    """Checks that invocation of comment counting check works correctly"""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.py")
+    hello_file.write('""" hello world """')
+    assert hello_file.read() == '""" hello world """'
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + '"""' + tmpdir.basename + '"""' + "subdirectory"
+    hello_file = "Hello.py"
+    invoke.invoke_file_in_directory_check(hello_file, directory)
+    details = report.get_details()
+    assert details is not None
+    invoke.invoke_all_comment_checks(
+        hello_file, directory, 100, "multiple-line", "Python"
+    )
+    details = report.get_details()
+    assert details is not None
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
 def test_run_command_grab_output_as_string(reset_results_dictionary, tmpdir):
     """Checks that invocation of command produces correct captured output"""
     tmpdir.mkdir("Hello1")
