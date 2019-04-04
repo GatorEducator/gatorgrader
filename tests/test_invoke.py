@@ -388,12 +388,13 @@ def test_comment_counts_check_multiple_python(reset_results_dictionary, tmpdir):
     directory = tmpdir.dirname + '"""' + tmpdir.basename + '"""' + "subdirectory"
     hello_file = "Hello.py"
     invoke.invoke_file_in_directory_check(hello_file, directory)
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
+    report.reset()
     invoke.invoke_all_comment_checks(
         hello_file, directory, 1, "multiple-line", "Python"
     )
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
 
 
@@ -411,12 +412,13 @@ def test_comment_counts_check_multiple_python_not_enough(
     directory = tmpdir.dirname + '"""' + tmpdir.basename + '"""' + "subdirectory"
     hello_file = "Hello.py"
     invoke.invoke_file_in_directory_check(hello_file, directory)
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
+    report.reset()
     invoke.invoke_all_comment_checks(
         hello_file, directory, 100, "multiple-line", "Python"
     )
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
 
 

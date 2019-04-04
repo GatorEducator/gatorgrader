@@ -26,11 +26,11 @@ SUCCESS = 0
 
 def report_result(status, message, diagnostic):
     """Set the report after running a check"""
-    # passed the check, so do not produce a diagnostic message
     if status:
+        # passed the check, so do not produce a diagnostic message
         report.set_result(message, status, NO_DIAGNOSTIC)
-    # did not pass the check, so produce a diagnostic message
     else:
+        # did not pass the check, so produce a diagnostic message
         report.set_result(message, status, diagnostic)
 
 
@@ -63,8 +63,6 @@ def invoke_file_in_directory_check(filecheck, directory):
         "The file " + filecheck + " exists in the " + directory + SPACE + "directory"
     )
     # produce the final report and return the result
-    # note that update_report is not called because
-    # there will never be a diagnostic for this invoke
     diagnostic = "Did not find file"
     report_result(was_file_found, message, diagnostic)
     return was_file_found
@@ -363,7 +361,7 @@ def invoke_all_markdown_checks(
             + "' elements"
         )
     diagnostic = "Found " + str(actual_count) + " element(s) in the specified file"
-    update_report(met_or_exceeded_count, message, diagnostic)
+    report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
 
