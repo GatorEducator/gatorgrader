@@ -185,6 +185,28 @@ def test_file_exists_in_directory_check_fragments_exact(
 
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
+def test_file_exists_in_directory_check_regex_exact(reset_results_dictionary, tmpdir):
+    """Checks that the exact checking of fragments in a file works correctly"""
+    reflection_file = tmpdir.mkdir("sub").join("reflection.md")
+    reflection_file.write(
+        "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
+    )
+    assert (
+        reflection_file.read()
+        == "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
+    )
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
+    reflection_file = "reflection.md"
+    invoke.invoke_all_regex_checks(
+        r"fine(.*?)nice\sagain", 1, reflection_file, directory, "", True
+    )
+    details = report.get_details()
+    assert details is not None
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
 def test_content_string_check_fragments(reset_results_dictionary):
     """Checks that the checking of words works correctly"""
     value = "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
@@ -199,11 +221,19 @@ def test_content_string_check_fragments(reset_results_dictionary):
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_content_string_check_fragments_exact(reset_results_dictionary):
-    """Checks that the checking of words works correctly"""
+    """Checks that the checking of exact fragments works correctly"""
     value = "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
-    invoke.invoke_all_fragment_checks(
-        "hello", 1, invoke.NOTHING, invoke.NOTHING, value, True
-    )
+    invoke.invoke_all_fragment_checks("hello", 1, contents=value, exact=True)
+    details = report.get_details()
+    assert details is not None
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
+def test_content_string_check_regex_exact(reset_results_dictionary):
+    """Checks that the checking of exact regex works correctly"""
+    value = "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
+    invoke.invoke_all_regex_checks("hello", 1, contents=value, exact=True)
     details = report.get_details()
     assert details is not None
 
