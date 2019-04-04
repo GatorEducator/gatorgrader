@@ -99,9 +99,21 @@ def parse(args):
     gg_parser.add_argument(
         "--fragment", type=str, help="fragment that exists in code or output"
     )
+
+    # specify a check on regex
+    # CORRECT WHEN: user provides file and directory along with this arguments
+    # or
+    # CORRECT WHEN: user provides a command along with this argument
+    gg_parser.add_argument(
+        "--regex", type=str, help="regular expression that exists in code or output"
+    )
+
+    # specify a check on markdown tags
+    # CORRECT WHEN: user provides file and directory along with this arguments
     gg_parser.add_argument(
         "--markdown", type=str, help="markdown tag that exists in a file"
     )
+
     # specify a check on fragments
     # CORRECT WHEN: user provides file and directory along with this argument
     # or
@@ -182,6 +194,7 @@ def is_valid_commits(args):
 def is_valid_exact(args, skip=False):
     """Checks if it is a valid exact count specification"""
     # pylint: disable=bad-continuation
+    # pylint: disable=too-many-boolean-expressions
     if (
         is_valid_commits(args)
         or is_valid_comments(args)
@@ -189,6 +202,7 @@ def is_valid_exact(args, skip=False):
         or is_valid_words(args)
         or is_valid_count(args)
         or is_valid_fragment(args)
+        or is_valid_regex(args)
         or skip
     ):
         if args.exact is not False:
@@ -252,10 +266,18 @@ def is_valid_fragment(args, skip=False):
     return False
 
 
+def is_valid_regex(args, skip=False):
+    """Checks if it is a valid regex specification"""
+    if (is_valid_file_and_directory(args) or is_valid_command(args)) or skip:
+        if args.regex is not None and args.count is not None:
+            return True
+    return False
+
+
 def is_valid_count(args, skip=False):
     """Checks if it is a valid count specification"""
     if (is_valid_file_and_directory(args) or is_valid_command(args)) or skip:
-        if args.count is not None and args.fragment is None:
+        if args.count is not None and args.fragment is None and args.regex is None:
             return True
     return False
 
@@ -294,6 +316,7 @@ def is_command_ancillary(args):
 # Verification function {{{
 
 
+# pylint: disable=too-many-branches
 def verify(args):
     """Checks if the arguments are correct"""
     # assume that the arguments are not valid and prove otherwise
@@ -328,6 +351,10 @@ def verify(args):
         if is_valid_fragment(args):
             # verified_arguments = True
             file_verified.append(True)
+        # VERIFIED: correct check for regex in a file in a directory
+        if is_valid_regex(args):
+            # verified arguments = True
+            file_verified.append(True)
         # VERIFIED: correct check for line count of a file in a directory
         if is_valid_count(args):
             # verified_arguments = True
@@ -351,6 +378,10 @@ def verify(args):
             # verified_arguments = True
         # VERIFIED: correct check for fragments in a file in a directory
         if is_valid_fragment(args):
+            # verified_arguments = True
+            command_verified.append(True)
+        # VERIFIED: correct check for regex in a file in a directory
+        if is_valid_regex(args):
             # verified_arguments = True
             command_verified.append(True)
         # VERIFIED: correct check for line count of a file in a directory

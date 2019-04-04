@@ -230,7 +230,7 @@ def invoke_all_fragment_checks(
 ):
     """Perform the check for a fragment existence in file or contents and return the results"""
     met_or_exceeded_count = 0
-    met_or_exceeded_count, actual_count = fragments.specified_fragment_greater_than_count(
+    met_or_exceeded_count, actual_count = fragments.specified_entity_greater_than_count(
         fragment,
         fragments.count_specified_fragment,
         expected_count,
@@ -294,6 +294,80 @@ def invoke_all_fragment_checks(
     return met_or_exceeded_count
 
 
+def invoke_all_regex_checks(
+    regex,
+    expected_count,
+    filecheck=NOTHING,
+    directory=NOTHING,
+    contents=NOTHING,
+    exact=False,
+):
+    """Perform the check for a regex existence in file or contents and return the results"""
+    met_or_exceeded_count = 0
+    met_or_exceeded_count, actual_count = fragments.specified_entity_greater_than_count(
+        regex,
+        fragments.count_specified_regex,
+        expected_count,
+        filecheck,
+        directory,
+        contents,
+        exact,
+    )
+    # create a message for a file in directory
+    if filecheck is not NOTHING and directory is not NOTHING:
+        if exact is not True:
+            message = (
+                "The "
+                + filecheck
+                + " in "
+                + directory
+                + " has at least "
+                + str(expected_count)
+                + " matches of the '"
+                + regex
+                + "' regular expression"
+            )
+        else:
+            message = (
+                "The "
+                + filecheck
+                + " in "
+                + directory
+                + " has exactly "
+                + str(expected_count)
+                + " matches of the '"
+                + regex
+                + "' regular expression"
+            )
+    # create a message for a string
+    else:
+        if exact is not True:
+            message = (
+                "The command output"
+                + " has at least "
+                + str(expected_count)
+                + " matches of the '"
+                + regex
+                + "' regular expression"
+            )
+        else:
+            message = (
+                "The command output"
+                + " has exactly "
+                + str(expected_count)
+                + " matches of the '"
+                + regex
+                + "' regular expression"
+            )
+    diagnostic = (
+        "Found "
+        + str(actual_count)
+        + " matches of the specified regular expression in the output or the specified file"
+    )
+    report_result(met_or_exceeded_count, message, diagnostic)
+    return met_or_exceeded_count
+
+
 # pylint: disable=bad-continuation
 def invoke_all_command_fragment_checks(
     command, expected_fragment, expected_count, exact=False
@@ -302,6 +376,17 @@ def invoke_all_command_fragment_checks(
     command_output = run.specified_command_get_output(command)
     return invoke_all_fragment_checks(
         expected_fragment, expected_count, NOTHING, NOTHING, command_output, exact
+    )
+
+
+# pylint: disable=bad-continuation
+def invoke_all_command_regex_checks(
+    command, expected_regex, expected_count, exact=False
+):
+    """Perform the check for a regex existence in the output of a command"""
+    command_output = run.specified_command_get_output(command)
+    return invoke_all_regex_checks(
+        expected_regex, expected_count, NOTHING, NOTHING, command_output, exact
     )
 
 

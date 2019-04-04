@@ -2,6 +2,7 @@
 
 from pathlib import Path
 
+import re
 import commonmark
 
 from gator import util
@@ -108,8 +109,18 @@ def count_specified_fragment(contents, fragment):
     return fragment_count
 
 
+def count_specified_regex(contents, regex):
+    """Counts all the specified regex for a given file"""
+    # finds regex matches, returns their count
+    if not is_valid_regex(regex):
+        return -1
+
+    matches = re.findall(regex, contents, re.DOTALL)
+    return len(matches)
+
+
 # pylint: disable=bad-continuation
-def specified_fragment_greater_than_count(
+def specified_entity_greater_than_count(
     chosen_fragment,
     checking_function,
     expected_count,
@@ -118,17 +129,17 @@ def specified_fragment_greater_than_count(
     contents=NOTHING,
     exact=False,
 ):
-    """Determines if the fragment count is greater than expected"""
-    # count the fragments in either a file in a directory or String contents
-    file_fragment_count = count_fragments(
+    """Determines if the entity count is greater than expected"""
+    # count the fragments/regex in either a file in a directory or String contents
+    file_entity_count = count_entities(
         chosen_fragment, checking_function, given_file, containing_directory, contents
     )
-    # check the condition and also return file_fragment_count
-    return util.greater_than_equal_exacted(file_fragment_count, expected_count, exact)
+    # check the condition and also return file_entity_count
+    return util.greater_than_equal_exacted(file_entity_count, expected_count, exact)
 
 
 # pylint: disable=bad-continuation
-def count_fragments(
+def count_entities(
     chosen_fragment,
     checking_function,
     given_file=NOTHING,
@@ -178,3 +189,12 @@ def count_lines(given_file=NOTHING, containing_directory=NOTHING, contents=NOTHI
         line_list = get_line_list(file_contents)
         file_contents_count = len(line_list)
     return file_contents_count
+
+
+def is_valid_regex(regex):
+    """Determines if regex is valid"""
+    try:
+        re.compile(regex)
+        return True
+    except re.error:
+        return False
