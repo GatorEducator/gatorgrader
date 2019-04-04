@@ -9,10 +9,19 @@ help.</center>
 
 [![Build Status](https://api.travis-ci.org/GatorEducator/gatorgrader.svg?branch=master)](https://travis-ci.org/GatorEducator/gatorgrader) [![codecov.io](http://codecov.io/github/GatorEducator/gatorgrader/coverage.svg?branch=master)](http://codecov.io/github/GatorEducator/gatorgrader?branch=master) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-orange.svg)](https://www.python.org/)
 
+## How to Use
+For those who are interested in using GatorGrader, this program allows for an easy
+implementation into the lab that needs graded. Provided below are starter labs that
+will help you to follow along with the implementation of GatorGrader! The links
+are starter labs for [Java ](https://github.com/GatorEducator/java-starter), [LaTeX](https://github.com/GatorEducator/latex-assignment-starter), & [HTML with CSS](https://github.com/GatorEducator/html-css-assignment-starter). They do not
+require you to complete these steps and instead it will download and install GatorGrader
+and run all of the preconfigured checks when you type `gradle grade` in your terminal window.
+
+
 ## Key Features
 
 * Automatically checks and assesses the work of writers and programmers through the use of different linting tools.
-  * Can check for a specified required minimum number of git commits.
+  * Can check for a specified required minimum number of it commits.
   * Can check to see if required files exist and are in the correct directory, and that the directory exists.
   * Can check for a specified number of single line or multi-line comments in source code.
   * Can check the number of words and paragraphs in Markdown files.
@@ -104,13 +113,13 @@ tool's test suite in [Pytest](https://github.com/pytest-dev/pytest), then you
 will need to install the developer dependencies by typing `pipenv install --dev`
 in the directory that contains GatorGrader. If you only want to use GatorGrader,
 then you can type `pipenv install` instead. Once these commands complete
-successfully, that's all you you have to do to install GatorGrader! It is worth
+successfully, that's all you you have to do to install GatorGrader! <!-- It is worth
 noting that if you only plan to use GatorGrader with the
 [GatorGradle](https://github.com/GatorEducator/gatorgradle) then there are several sample laboratories including:
 [Java ](https://github.com/GatorEducator/java-starter), [LaTeX](https://github.com/GatorEducator/latex-assignment-starter), & [HTML with CSS](https://github.com/GatorEducator/html-css-assignment-starter) that you can
 try &mdash; they do not require you to complete these steps and instead it will
 download and install GatorGrader and run all of the preconfigured checks when
-you type `gradle grade` in your terminal window.
+you type `gradle grade` in your terminal window. -->
 
 ## Testing GatorGrader
 
@@ -501,12 +510,15 @@ engineered by the inspiring collaboration between the following team members,
 listed in alphabetical order by their surname.
 
 - Rowan Castellanos
+- Megan Corletti
 - Janyl Jumadinova
 - Gregory Kapfhammer
 - Maria Kim
+- Alexandra Heinle
 - Saejin Mahlau-Heinert
 - Race Mahoney
 - Christopher Miller
+- Hannah Schultz
 - Nicholas Tocci
 
 ## Presentations
