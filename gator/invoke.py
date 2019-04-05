@@ -45,6 +45,8 @@ def invoke_commits_check(student_repository, expected_count, exact=False):
         message = "Repository has at least " + str(expected_count) + " commit(s)"
     else:
         message = "Repository has exactly " + str(expected_count) + " commit(s)"
+    # diagnostic is created when repository does not have sufficient commits
+    # call report_result to update report for this check
     diagnostic = "Found " + str(actual_count) + " commit(s) in the Git repository"
     report_result(did_check_pass, message, diagnostic)
     return did_check_pass
@@ -58,12 +60,14 @@ def invoke_file_in_directory_check(filecheck, directory):
         filecheck, gatorgrader_home + directory
     )
     # construct the message about whether or not the file exists
-    # note that no diagnostic is needed and the result is boolean
     message = (
         "The file " + filecheck + " exists in the " + directory + SPACE + "directory"
     )
-    # produce the final report and return the result
-    diagnostic = "Did not find file"
+    # diagnostic is created when file does not exist in specified directory
+    # call report_result to update report for this check
+    diagnostic = (
+        "Did not find the specified file in the " + directory + SPACE + "directory"
+    )
     report_result(was_file_found, message, diagnostic)
     return was_file_found
 
