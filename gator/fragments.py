@@ -36,12 +36,15 @@ def get_paragraphs(contents):
             # Check to see if the current subnode is a closing paragraph node
             if counter == 2 and subnode.t == "paragraph" and not enter:
                 # Add the content of the paragraph to paragraph_list
-                paragraph_list.append(paragraph_content)
+                paragraph_list.append(paragraph_content.strip())
                 # Stop saving paragraph contents, as the paragraph had ended
                 # Start a search for a new paragraph
                 mode_looking = True
-            # If the subnode literal has contents, add them to paragraph_content
-            if subnode.literal is not None:
+            # If the subnode literal has contents,
+            # or is a softbreak, add them to paragraph_content
+            if subnode.t == "softbreak":
+                paragraph_content += NEWLINE
+            elif subnode.literal is not None:
                 paragraph_content += subnode.literal
 
         # Track the how deep into the tree the search currently is
