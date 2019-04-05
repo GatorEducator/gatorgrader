@@ -58,13 +58,11 @@ def invoke_file_in_directory_check(filecheck, directory):
         filecheck, gatorgrader_home + directory
     )
     # construct the message about whether or not the file exists
-    # note that no diagnostic is needed and the result is boolean
     message = (
         "The file " + filecheck + " exists in the " + directory + SPACE + "directory"
     )
-    # produce the final report and return the result
-    # note that update_report is not called because
-    # there will never be a diagnostic for this invoke
+    # diagnostic is created when file does not exist in specified directory
+    # call report_result to update report for this check 
     diagnostic = "Did not find the specified file in the " + directory + SPACE + "directory"
     report_result(was_file_found, message, diagnostic)
     return was_file_found
