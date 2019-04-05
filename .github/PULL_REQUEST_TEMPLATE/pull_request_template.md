@@ -17,7 +17,7 @@
 - [ ] Tests for newly introduced code
 - [ ] Docsrings for newly introduced code
 
-This PR is a <!-- REQUIRED: replace this comment with one of ["small change", "feature", "compatibility breaking update"] -->
+This PR is a <!-- REQUIRED: replace this comment with one of ["small change", "feature", "compatibility breaking update", "non-versioned change"] -->
 that fixes #<!-- replace this comment with an issue number if applicable -->
 
 **Developers**
