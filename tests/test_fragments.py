@@ -69,6 +69,7 @@ def test_paragraphs_many(writing_string, expected_count):
         ("hello world! Writing a lot.\n\nnew one.", 2),
         ("hello world! Writing a lot.\n\nNew one. Question?", 3),
         ("This should be `five` words", 5),
+        ("This should still be `six` word's", 6),
         ("The command `pipenv run pytest` should test", 7),
         (
             "The method test.main was called. Hello world! Writing a lot.\n\n"
@@ -114,10 +115,14 @@ def test_paragraphs_many(writing_string, expected_count):
         ("[This link is five words](www.url.com)", 5),
         # emoji
         (":thumbsup: is an emoji", 4),
+        # new lines
+        ("One sentence is\nanother's problem.", 5),
+        ("One sentence's\ngreat delusion.", 4),
     ],
 )
 def test_words_different_counts(writing_string, expected_count):
     """Check that it can detect different counts of words"""
+    # only check the minimum count
     assert fragments.count_words(writing_string) == expected_count
 
 
