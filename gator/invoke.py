@@ -62,7 +62,7 @@ def invoke_file_in_directory_check(filecheck, directory):
         "The file " + filecheck + " exists in the " + directory + SPACE + "directory"
     )
     # diagnostic is created when file does not exist in specified directory
-    # call report_result to update report for this check 
+    # call report_result to update report for this check
     diagnostic = "Did not find the specified file in the " + directory + SPACE + "directory"
     report_result(was_file_found, message, diagnostic)
     return was_file_found
