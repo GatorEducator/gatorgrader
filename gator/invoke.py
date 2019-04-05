@@ -45,6 +45,8 @@ def invoke_commits_check(student_repository, expected_count, exact=False):
         message = "Repository has at least " + str(expected_count) + " commit(s)"
     else:
         message = "Repository has exactly " + str(expected_count) + " commit(s)"
+    # diagnostic is created when repository does not have sufficient commits
+    # call report_result to update report for this check
     diagnostic = "Found " + str(actual_count) + " commit(s) in the Git repository"
     report_result(did_check_pass, message, diagnostic)
     return did_check_pass
