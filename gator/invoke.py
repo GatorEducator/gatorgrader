@@ -24,16 +24,14 @@ EMPTY = b""
 SUCCESS = 0
 
 
-def update_report(status, message, diagnostic):
-    """Update the report after running a check"""
-    # found at least the required number of an entity
-    # do not produce a diagnostic message
+def report_result(status, message, diagnostic):
+    """Set the report after running a check"""
     if status:
-        report.add_result(message, status, NO_DIAGNOSTIC)
-    # did not find at least the required number of an entity
-    # produce a diagnostic message using the actual count
+        # passed the check, so do not produce a diagnostic message
+        report.set_result(message, status, NO_DIAGNOSTIC)
     else:
-        report.add_result(message, status, diagnostic)
+        # did not pass the check, so produce a diagnostic message
+        report.set_result(message, status, diagnostic)
 
 
 def invoke_commits_check(student_repository, expected_count, exact=False):
@@ -48,7 +46,7 @@ def invoke_commits_check(student_repository, expected_count, exact=False):
     else:
         message = "Repository has exactly " + str(expected_count) + " commit(s)"
     diagnostic = "Found " + str(actual_count) + " commit(s) in the Git repository"
-    update_report(did_check_pass, message, diagnostic)
+    report_result(did_check_pass, message, diagnostic)
     return did_check_pass
 
 
@@ -65,10 +63,8 @@ def invoke_file_in_directory_check(filecheck, directory):
         "The file " + filecheck + " exists in the " + directory + SPACE + "directory"
     )
     # produce the final report and return the result
-    # note that update_report is not called because
-    # there will never be a diagnostic for this invoke
     diagnostic = "Did not find file"
-    report.add_result(message, was_file_found, diagnostic)
+    report_result(was_file_found, message, diagnostic)
     return was_file_found
 
 
@@ -149,7 +145,7 @@ def invoke_all_comment_checks(
             + " comment(s)"
         )
     diagnostic = "Found " + str(actual_count) + " comment(s) in the specified file"
-    update_report(met_or_exceeded_count, message, diagnostic)
+    report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
 
@@ -183,7 +179,7 @@ def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=Fals
             + "paragraph(s)"
         )
     diagnostic = "Found " + str(actual_count) + " paragraph(s) in the specified file"
-    update_report(met_or_exceeded_count, message, diagnostic)
+    report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
 
@@ -219,7 +215,7 @@ def invoke_all_word_count_checks(filecheck, directory, expected_count, exact=Fal
     diagnostic = (
         "Found " + str(actual_count) + " word(s) in a paragraph of the specified file"
     )
-    update_report(met_or_exceeded_count, message, diagnostic)
+    report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
 
@@ -294,7 +290,7 @@ def invoke_all_fragment_checks(
         + str(actual_count)
         + " fragment(s) in the output or the specified file"
     )
-    update_report(met_or_exceeded_count, message, diagnostic)
+    report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
 
@@ -368,7 +364,7 @@ def invoke_all_regex_checks(
         + str(actual_count)
         + " matches of the specified regular expression in the output or the specified file"
     )
-    update_report(met_or_exceeded_count, message, diagnostic)
+    report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
 
@@ -406,7 +402,7 @@ def invoke_all_command_executes_checks(command):
         command_passed = True
     message = "The command '" + str(command) + "'" + " executes correctly"
     diagnostic = "The command returned the error code " + str(command_returncode)
-    update_report(command_passed, message, diagnostic)
+    report_result(command_passed, message, diagnostic)
     return command_passed
 
 
@@ -450,7 +446,7 @@ def invoke_all_markdown_checks(
             + "' elements"
         )
     diagnostic = "Found " + str(actual_count) + " element(s) in the specified file"
-    update_report(met_or_exceeded_count, message, diagnostic)
+    report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
 
@@ -498,7 +494,7 @@ def invoke_all_count_checks(
     diagnostic = (
         "Found " + str(actual_count) + " line(s) in the output or the specified file"
     )
-    update_report(met_or_exceeded_count, message, diagnostic)
+    report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
 

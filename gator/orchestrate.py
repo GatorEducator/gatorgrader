@@ -385,8 +385,7 @@ def check(system_arguments):
         check_results.extend(step_results)
     # Section: Output the report
     # Only step: get the report's details, produce the output, and display it
-    output_list = report.output_list(report.get_details(), OUTPUT_TYPE)
-    produced_output = report.output(output_list)
+    produced_output = report.output(report.get_result(), OUTPUT_TYPE)
     display.message(produced_output)
     # Section: Return control back to __main__ in gatorgrader
     # Only step: determine the correct exit code for the checks
