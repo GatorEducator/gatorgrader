@@ -19,7 +19,7 @@ def reset_results_dictionary():
 def test_commit_checks(reset_results_dictionary):
     """Checks to that invocation of commit check works correctly"""
     invoke.invoke_commits_check(".", sys.maxsize)
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
 
 
@@ -28,7 +28,7 @@ def test_commit_checks(reset_results_dictionary):
 def test_commit_checks_exact(reset_results_dictionary):
     """Checks to that invocation of commit check exacted works correctly"""
     invoke.invoke_commits_check(".", sys.maxsize, True)
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
 
 
@@ -43,7 +43,7 @@ def test_file_exists_in_directory_check(reset_results_dictionary, tmpdir):
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     hello_file = "hello.txt"
     invoke.invoke_file_in_directory_check(hello_file, directory)
-    details = report.get_detail(0)
+    details = report.get_result()
     assert details is not None
     # assert details["outcome"] is True
     assert details["diagnostic"] is not None
@@ -61,10 +61,11 @@ def test_file_exists_in_directory_check_paragraphs(reset_results_dictionary, tmp
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     reflection_file = "reflection.md"
     invoke.invoke_all_paragraph_checks(reflection_file, directory, 4)
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
+    report.reset()
     invoke.invoke_all_paragraph_checks(reflection_file, directory, 200)
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
 
 
@@ -82,10 +83,11 @@ def test_file_exists_in_directory_check_paragraphs_exact(
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     reflection_file = "reflection.md"
     invoke.invoke_all_paragraph_checks(reflection_file, directory, 4, True)
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
+    report.reset()
     invoke.invoke_all_paragraph_checks(reflection_file, directory, 200, True)
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
 
 
@@ -105,10 +107,11 @@ def test_file_exists_in_directory_check_words(reset_results_dictionary, tmpdir):
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     reflection_file = "reflection.md"
     invoke.invoke_all_word_count_checks(reflection_file, directory, 4)
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
+    report.reset()
     invoke.invoke_all_word_count_checks(reflection_file, directory, 200)
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
 
 
@@ -128,10 +131,11 @@ def test_file_exists_in_directory_check_words_exact(reset_results_dictionary, tm
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     reflection_file = "reflection.md"
     invoke.invoke_all_word_count_checks(reflection_file, directory, 4, True)
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
+    report.reset()
     invoke.invoke_all_word_count_checks(reflection_file, directory, 200, True)
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
 
 
@@ -151,13 +155,19 @@ def test_file_exists_in_directory_check_fragments(reset_results_dictionary, tmpd
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     reflection_file = "reflection.md"
     invoke.invoke_all_fragment_checks("hello", 1, reflection_file, directory, "")
-    details = report.get_details()
+    details = report.get_result()
+    assert details is not None
+    report.reset()
     invoke.invoke_all_fragment_checks("@name", 1, reflection_file, directory, "")
-    details = report.get_details()
+    details = report.get_result()
+    assert details is not None
+    report.reset()
     invoke.invoke_all_fragment_checks("again", 2, reflection_file, directory, "")
-    details = report.get_details()
+    details = report.get_result()
+    assert details is not None
+    report.reset()
     invoke.invoke_all_fragment_checks("planet", 2, reflection_file, directory, "")
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
 
 
@@ -179,7 +189,29 @@ def test_file_exists_in_directory_check_fragments_exact(
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     reflection_file = "reflection.md"
     invoke.invoke_all_fragment_checks("hello", 1, reflection_file, directory, "", True)
-    details = report.get_details()
+    details = report.get_result()
+    assert details is not None
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
+def test_file_exists_in_directory_check_regex_exact(reset_results_dictionary, tmpdir):
+    """Checks that the exact checking of fragments in a file works correctly"""
+    reflection_file = tmpdir.mkdir("sub").join("reflection.md")
+    reflection_file.write(
+        "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
+    )
+    assert (
+        reflection_file.read()
+        == "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
+    )
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
+    reflection_file = "reflection.md"
+    invoke.invoke_all_regex_checks(
+        r"fine(.*?)nice\sagain", 1, reflection_file, directory, "", True
+    )
+    details = report.get_result()
     assert details is not None
 
 
@@ -192,19 +224,27 @@ def test_content_string_check_fragments(reset_results_dictionary):
     invoke.invoke_all_fragment_checks("@name", 1, contents=value)
     invoke.invoke_all_fragment_checks("@name", 2, contents=value)
     invoke.invoke_all_fragment_checks("planet", 2, contents=value)
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
 
 
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_content_string_check_fragments_exact(reset_results_dictionary):
-    """Checks that the checking of words works correctly"""
+    """Checks that the checking of exact fragments works correctly"""
     value = "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
-    invoke.invoke_all_fragment_checks(
-        "hello", 1, invoke.NOTHING, invoke.NOTHING, value, True
-    )
-    details = report.get_details()
+    invoke.invoke_all_fragment_checks("hello", 1, contents=value, exact=True)
+    details = report.get_result()
+    assert details is not None
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
+def test_content_string_check_regex_exact(reset_results_dictionary):
+    """Checks that the checking of exact regex works correctly"""
+    value = "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
+    invoke.invoke_all_regex_checks("hello", 1, contents=value, exact=True)
+    details = report.get_result()
     assert details is not None
 
 
@@ -224,9 +264,11 @@ def test_file_exists_in_directory_check_lines(reset_results_dictionary, tmpdir):
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     reflection_file = "reflection.md"
     invoke.invoke_all_count_checks(1, reflection_file, directory, "")
-    details = report.get_details()
+    details = report.get_result()
+    assert details is not None
+    report.reset()
     invoke.invoke_all_count_checks(100, reflection_file, directory, "")
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
 
 
@@ -247,7 +289,7 @@ def test_file_exists_in_directory_check_lines_exact(reset_results_dictionary, tm
     reflection_file = "reflection.md"
     invoke.invoke_all_count_checks(1, reflection_file, directory, "", True)
     invoke.invoke_all_count_checks(100, reflection_file, directory, "", True)
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
 
 
@@ -259,7 +301,7 @@ def test_content_string_check_fragments_with_threshold(reset_results_dictionary)
     invoke.invoke_all_count_checks(1, contents=value)
     invoke.invoke_all_count_checks(2, contents=value)
     invoke.invoke_all_count_checks(7, contents=value)
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
 
 
@@ -274,10 +316,11 @@ def test_comment_counts_check_single_java(reset_results_dictionary, tmpdir):
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
     invoke.invoke_file_in_directory_check(hello_file, directory)
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
+    report.reset()
     invoke.invoke_all_comment_checks(hello_file, directory, 1, "single-line", "Java")
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
 
 
@@ -292,12 +335,13 @@ def test_comment_counts_check_single_java_exact(reset_results_dictionary, tmpdir
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
     invoke.invoke_file_in_directory_check(hello_file, directory)
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
+    report.reset()
     invoke.invoke_all_comment_checks(
         hello_file, directory, 1, "single-line", "Java", True
     )
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
 
 
@@ -312,10 +356,11 @@ def test_comment_counts_check_single_python(reset_results_dictionary, tmpdir):
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.py"
     invoke.invoke_file_in_directory_check(hello_file, directory)
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
+    report.reset()
     invoke.invoke_all_comment_checks(hello_file, directory, 1, "single-line", "Python")
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
 
 
@@ -330,10 +375,11 @@ def test_comment_counts_check_multiple_java(reset_results_dictionary, tmpdir):
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
     invoke.invoke_file_in_directory_check(hello_file, directory)
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
+    report.reset()
     invoke.invoke_all_comment_checks(hello_file, directory, 1, "multiple-line", "Java")
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
 
 
@@ -351,12 +397,13 @@ def test_comment_counts_check_multiple_java_not_enough(
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
     invoke.invoke_file_in_directory_check(hello_file, directory)
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
+    report.reset()
     invoke.invoke_all_comment_checks(
         hello_file, directory, 100, "multiple-line", "Java"
     )
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
 
 
@@ -371,12 +418,13 @@ def test_comment_counts_check_multiple_python(reset_results_dictionary, tmpdir):
     directory = tmpdir.dirname + '"""' + tmpdir.basename + '"""' + "subdirectory"
     hello_file = "Hello.py"
     invoke.invoke_file_in_directory_check(hello_file, directory)
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
+    report.reset()
     invoke.invoke_all_comment_checks(
         hello_file, directory, 1, "multiple-line", "Python"
     )
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
 
 
@@ -394,12 +442,13 @@ def test_comment_counts_check_multiple_python_not_enough(
     directory = tmpdir.dirname + '"""' + tmpdir.basename + '"""' + "subdirectory"
     hello_file = "Hello.py"
     invoke.invoke_file_in_directory_check(hello_file, directory)
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
+    report.reset()
     invoke.invoke_all_comment_checks(
         hello_file, directory, 100, "multiple-line", "Python"
     )
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
 
 
@@ -416,8 +465,9 @@ def test_run_command_grab_output_as_string(reset_results_dictionary, tmpdir):
         "ls " + directory, "Hello1", 1
     )
     assert met_or_exceeded_count is True
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
+    report.reset()
     met_or_exceeded_count = invoke.invoke_all_command_fragment_checks(
         "ls " + directory, "HelloNotThere", 1
     )
@@ -443,7 +493,7 @@ def test_run_command_grab_output_as_string_count_lines(
     assert met_or_exceeded_count is True
     met_or_exceeded_count = invoke.invoke_all_command_count_checks("ls " + directory, 4)
     assert met_or_exceeded_count is False
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
 
 
@@ -466,7 +516,7 @@ def test_run_command_grab_output_as_string_count_lines_exact(
         "ls " + directory, 4, True
     )
     assert met_or_exceeded_count is False
-    details = report.get_details()
+    details = report.get_result()
     assert details is not None
 
 
