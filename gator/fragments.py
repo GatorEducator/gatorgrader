@@ -36,12 +36,15 @@ def get_paragraphs(contents):
             # Check to see if the current subnode is a closing paragraph node
             if counter == 2 and subnode.t == "paragraph" and not enter:
                 # Add the content of the paragraph to paragraph_list
-                paragraph_list.append(paragraph_content)
+                paragraph_list.append(paragraph_content.strip())
                 # Stop saving paragraph contents, as the paragraph had ended
                 # Start a search for a new paragraph
                 mode_looking = True
-            # If the subnode literal has contents, add them to paragraph_content
-            if subnode.literal is not None:
+            # If the subnode literal has contents,
+            # or is a softbreak, add them to paragraph_content
+            if subnode.t == "softbreak":
+                paragraph_content += NEWLINE
+            elif subnode.literal is not None:
                 paragraph_content += subnode.literal
 
         # Track the how deep into the tree the search currently is
@@ -89,17 +92,19 @@ def count_paragraphs(contents):
 def count_words(contents):
     """Counts the minimum number of words across all paragraphs in writing"""
     # retrieve all of the paragraphs in the contents
+    # NOTE: this causes word counting to only be supported for markdown!
     paragraphs = get_paragraphs(contents)
     # count all of the words in each paragraph
     word_counts = []
     for para in paragraphs:
-        para = para.replace(NEWLINE, SPACE)
-        words = NOTHING.join(ch if ch.isalnum() else SPACE for ch in para).split()
+        # split the string by whitespace (newlines, spaces, etc.)
+        words = para.split()
         word_counts.append(len(words))
     # return the minimum number of words across all paragraphs
     if word_counts:
         return min(word_counts)
-    # counting did not work correctly, so return 0
+    # counting did not work correctly (probably because there were
+    # no paragraphs), so return 0
     return 0
 
 
