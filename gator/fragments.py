@@ -89,17 +89,19 @@ def count_paragraphs(contents):
 def count_words(contents):
     """Counts the minimum number of words across all paragraphs in writing"""
     # retrieve all of the paragraphs in the contents
+    # NOTE: this causes word counting to only be supported for markdown!
     paragraphs = get_paragraphs(contents)
     # count all of the words in each paragraph
     word_counts = []
     for para in paragraphs:
-        para = para.replace(NEWLINE, SPACE)
-        words = NOTHING.join(ch if ch.isalnum() else SPACE for ch in para).split()
+        # split the string by whitespace (newlines, spaces, etc.)
+        words = para.split()
         word_counts.append(len(words))
     # return the minimum number of words across all paragraphs
     if word_counts:
         return min(word_counts)
-    # counting did not work correctly, so return 0
+    # counting did not work correctly (probably because there were
+    # no paragraphs), so return 0
     return 0
 
 
