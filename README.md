@@ -120,7 +120,7 @@ Python comes pre-installed on many different distributions, and is available as
 a package on most systems. However, there are certain features you might want
 to use that are not available on your distro’s package. Simply google `python
 download` for your OS or follow the download and installation instructions on
-[the Python website](python.org).
+[the Python website](https://www.python.org/).
 
 [Pipenv](https://github.com/pypa/pipenv) is used by GatorGrader to create a
 virtual environment, install and manage packages, and run Python commands. To
