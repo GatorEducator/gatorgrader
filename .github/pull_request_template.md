@@ -12,7 +12,8 @@
 
 ##### Other information
 
-* **This PR has:**
+**This PR has:**
+
 - [ ] Commit messages that are correctly formatted
 - [ ] Tests for newly introduced code
 - [ ] Docstrings for newly introduced code
