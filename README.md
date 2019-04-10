@@ -113,7 +113,7 @@ tool's test suite in [Pytest](https://github.com/pytest-dev/pytest), then you
 will need to install the developer dependencies by typing `pipenv install --dev`
 in the directory that contains GatorGrader. If you only want to use GatorGrader,
 then you can type `pipenv install` instead. Once these commands complete
-successfully, that's all you you have to do to install GatorGrader! 
+successfully, that's all you you have to do to install GatorGrader!
 
 ## Testing GatorGrader
 
@@ -176,7 +176,6 @@ Here is the full list of available characters that can be used:
 -  P - passed with output
 -  a - all except pP
 
-More than one character can be used, so for example to only see failed and skipped tests, you can execute:
 
 ## Running GatorGrader
 
