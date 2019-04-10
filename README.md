@@ -21,7 +21,7 @@ and run all of the preconfigured checks when you type `gradle grade` in your ter
 ## Key Features
 
 * Automatically checks and assesses the work of writers and programmers through the use of different linting tools.
-  * Can check for a specified required minimum number of it commits.
+  * Can check for a specified required minimum number of Git commits.
   * Can check to see if required files exist and are in the correct directory, and that the directory exists.
   * Can check for a specified number of single line or multi-line comments in source code.
   * Can check the number of words and paragraphs in Markdown files.
@@ -169,7 +169,7 @@ OR
 pytest test_mod.py::TestClass::name-of-test_method
 ```
 
-The -r options accepts a number of characters after it, with a used above meaning “all except passes”.
+The `-r` options accepts a number of characters after it, with a used above meaning “all except passes”.
 
 Here is the full list of available characters that can be used:
 
