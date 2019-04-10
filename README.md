@@ -367,13 +367,7 @@ Computer Science courses at Allegheny College are kept private. However, the
 "starter" repositories for assignments are publicly available so as to support
 their integration into [GitHub Classroom](https://classroom.github.com/). As
 GatorGrader continues to be adopted by more courses, we will expand this list of
-GitHub repositories that provide starting code templates. Here are some courses
-that have recently used GatorGrader:
-
-- [Computer Science 111 Fall 2017 at Allegheny College](https://github.com/Allegheny-Computer-Science-111-F2017)
-- [Computer Science 280 Fall 2017 at Allegheny College](https://github.com/allegheny-computer-science-280-f2017)
-- [Computer Science 103 Spring 2018 at Allegheny College](https://github.com/Allegheny-Computer-Science-103-S2018)
-- [Computer Science 112 Spring 2018 at Allegheny College](https://github.com/Allegheny-Computer-Science-112-S2018)
+GitHub repositories that provide starting code templates. 
 
 ## Acknowledgements
 
