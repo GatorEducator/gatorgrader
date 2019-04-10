@@ -21,13 +21,13 @@ and run all of the preconfigured checks when you type `gradle grade` in your ter
 ## Key Features
 
 * Automatically checks and assesses the work of writers and programmers through the use of different linting tools.
-  * Can check for a specified required minimum number of Git commits.
+  * Can check for a required minimum number of Git commits.
   * Can check to see if required files exist and are in the correct directory, and that the directory exists.
   * Can check for a specified number of single line or multi-line comments in source code.
   * Can check the number of words and paragraphs in Markdown files.
   * Can check for specified sentence fragments along with pure text and regular expression fragments within Markdown files and
     source code.
-* Can be use with any text-based programming language or document.
+* Can be used with any text-based programming language or document.
 * Effectively integrates into many diverse workflows and development environments.
 * Can use GatorGrader in a cloud base environment (Travis CI) or local machine through command-line.
 * Can be used in conjunction with [GatorGradle](https://github.com/GatorEducator/gatorgradle)
@@ -350,7 +350,7 @@ returned the value of `1`.
 ## GatorGrader in Action
 
 GatorGrader is commonly used in conjunction with other tools that check source
-code and technical writing. For instance, in the introductory computer science
+code and technical writing. For instance, in the introductory Computer Science
 classes at the institution of the developers, the submissions are verified by
 [Checkstyle](https://github.com/checkstyle/checkstyle) and thus the Java source
 code must adhere to all of the requirements in the [Google Java Style
@@ -367,7 +367,7 @@ Computer Science courses at Allegheny College are kept private. However, the
 "starter" repositories for assignments are publicly available so as to support
 their integration into [GitHub Classroom](https://classroom.github.com/). As
 GatorGrader continues to be adopted by more courses, we will expand this list of
-GitHub repositories that provide starting code templates. 
+GitHub repositories that provide starting code templates.
 
 ## Acknowledgements
 
@@ -405,8 +405,8 @@ Are you interested in contributing to
 [GatorGrader](https://github.com/GatorEducator/gatorgrader),
 [GatorGradle](https://github.com/GatorEducator/gatorgradle), or
 any of the sample labs ([Java](https://github.com/GatorEducator/java-assigment-starter), [LaTeX](https://github.com/GatorEducator/latex-assignment-starter), [HTML with CSS](https://github.com/GatorEducator/html-css-assignment-starter))?
-Our development team uses the [GitHub flow
-model](https://guides.github.com/introduction/flow/) to guide our engineering of
+Our development team uses the [GitHub Flow
+Model](https://guides.github.com/introduction/flow/) to guide our engineering of
 these tools and we invite you to also follow it as you make a contribution. Of
 course, if you have any problems with installing, testing, or using GatorGrader,
 then please raise an issue associated with this Git repository using the
