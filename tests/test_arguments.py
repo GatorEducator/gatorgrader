@@ -110,6 +110,8 @@ def test_module_argument_not_verifiable_syserror(chosen_arguments, capsys):
         (["--file", "f", "--directory", "D", "--single", "2"]),
         (["--file", "f", "--directory", "D", "--multiple", "2", "--executes"]),
         (["--file", "f", "--directory", "D", "--single", "2", "--executes"]),
+        (["--file", "f", "--directory", "D", "--total-words", "2", "--words", "4"]),
+        (["--file", "f", "--directory", "D", "--words", "2", "--total-words", "4"]),
         (["--nowelcome", "--command", "run", "--paragraphs", "3"]),
         (["--nowelcome", "--command", "run", "--paragraphs", "3", "--executes"]),
         (
