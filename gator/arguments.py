@@ -72,12 +72,16 @@ def parse(args):
     )
 
     # specify a check on words
-    # note that sentences are no longer supported so, a "dest" given
     # CORRECT WHEN: user provides file and directory along with this argument
     gg_parser.add_argument(
         "--words", type=int, help="minimum number of words in paragraphs"
     )
 
+    # specify a check on total words
+    # CORRECT WHEN: user provides file and directory along with this argument
+    gg_parser.add_argument(
+        "--total-words", type=int, help="minimum number of words in a file"
+    )
     # }}}
 
     # specify a command to run for checking
@@ -242,6 +246,14 @@ def is_valid_words(args, skip=False):
     return False
 
 
+def is_valid_total_words(args, skip=False):
+    """Checks if it is a valid total-words specification"""
+    if is_valid_file_and_directory(args) or skip:
+        if args.total_words is not None:
+            return True
+    return False
+
+
 def is_valid_language(args, skip=False):
     """Checks if it is a valid language specification"""
     if (is_valid_file_and_directory(args) and is_valid_comments(args)) or skip:
@@ -292,6 +304,7 @@ def is_file_ancillary(args):
         or is_valid_comments(args, skip=True)
         or is_valid_paragraphs(args, skip=True)
         or is_valid_words(args, skip=True)
+        or is_valid_total_words(args, skip=True)
     ):
         return True
     return False
@@ -345,6 +358,10 @@ def verify(args):
             file_verified.append(True)
         # VERIFIED: correct check for words in a file in a directory
         if is_valid_words(args):
+            # verified_arguments = True
+            file_verified.append(True)
+        # VERIFIED: correct check for total words in a file in a directory
+        if is_valid_total_words(args):
             # verified_arguments = True
             file_verified.append(True)
         # VERIFIED: correct check for fragments in a file in a directory
