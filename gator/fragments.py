@@ -108,6 +108,24 @@ def count_words(contents):
     return 0
 
 
+def count_total_words(contents):
+    """Counts the total number of words in writing"""
+    # retrieve all of the paragraphs in the contents
+    # NOTE: this causes word counting to only be supported for markdown!
+    paragraphs = get_paragraphs(contents)
+    # count all of the words in each paragraph
+    word_counts = []
+    for para in paragraphs:
+        # split the string by whitespace (newlines, spaces, etc.) and punctuation
+        words = re.sub(r"[!\"#$%&()*+,\./:;\<=\>\?\@\[\]\^`\{\|\}]", " ", para).split()
+        word_counts.append(len(words))
+    if word_counts:
+        return sum(word_counts)
+    # counting did not work correctly (probably because there were
+    # no paragraphs), so return 0
+    return 0
+
+
 def count_specified_fragment(contents, fragment):
     """Counts the specified string fragment in the string contents"""
     fragment_count = contents.count(fragment)
