@@ -645,6 +645,33 @@ def test_is_valid_words_valid(chosen_arguments):
 
 
 @pytest.mark.parametrize(
+    "chosen_arguments,validity",
+    [
+        (["--nowelcome", "--directory", "D", "--file", "f", "--total-words", "2"], True),
+        (["--nowelcome", "--file", "f", "--directory", "D", "--total-words", "2"], True),
+        (["--file", "f", "--directory", "D", "--total-words", "2"], True),
+        (["--directory", "D", "--file", "F", "--total-words", "2"], True),
+        (["--nowelcome"], False),
+        (["--nowelcome", "--directory", "D", "--total-words", "2"], False),
+        (["--directory", "D", "--total-words", "2"], False),
+        (["--nowelcome", "--file", "F", "--total-words", "1"], False),
+        (["--file", "F", "--total-words", "1"], False),
+        (["--directory", "D", "--file", "F", "--single", "1"], False),
+        (["--directory", "D", "--file", "F", "--multiple", "1"], False),
+        (["--directory", "D", "--file", "F", "--paragraphs", "1"], False),
+        # This is true, but should be false after verify() since words will also be true
+        (["--directory", "D", "--file", "F", "--total-words", "4", "--words", "2"], True),
+        (["--directory", "D", "--file", "F", "--words", "4", "--total-words", "2"], True),
+    ],
+)
+def test_is_valid_total_words(chosen_arguments, validity):
+    """Check that valid argument combinations do not verify correctly"""
+    parsed_arguments = arguments.parse(chosen_arguments)
+    verified_arguments = arguments.is_valid_total_words(parsed_arguments)
+    assert verified_arguments is validity
+
+
+@pytest.mark.parametrize(
     "chosen_arguments",
     [
         (["--nowelcome", "--command", "run", "--paragraphs", "3"]),
