@@ -223,7 +223,9 @@ def invoke_all_word_count_checks(filecheck, directory, expected_count, exact=Fal
     return met_or_exceeded_count
 
 
-def invoke_all_total_word_count_checks(filecheck, directory, expected_count, exact=False):
+def invoke_all_total_word_count_checks(
+    filecheck, directory, expected_count, exact=False
+):
     """Perform the word count check and return the results"""
     met_or_exceeded_count = 0
     met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
@@ -252,9 +254,7 @@ def invoke_all_total_word_count_checks(filecheck, directory, expected_count, exa
             + SPACE
             + "word(s) in total"
         )
-    diagnostic = (
-        "Found " + str(actual_count) + " word(s) in the specified file"
-    )
+    diagnostic = "Found " + str(actual_count) + " word(s) in the specified file"
     report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 

@@ -165,7 +165,9 @@ def test_file_exists_in_directory_check_total_words(reset_results_dictionary, tm
 
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
-def test_file_exists_in_directory_check_total_words_exact(reset_results_dictionary, tmpdir):
+def test_file_exists_in_directory_check_total_words_exact(
+    reset_results_dictionary, tmpdir
+):
     """Checks that the checking of total words works exactly correctly"""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
     reflection_file.write(
@@ -178,11 +180,15 @@ def test_file_exists_in_directory_check_total_words_exact(reset_results_dictiona
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     reflection_file = "reflection.md"
-    invoke.invoke_all_total_word_count_checks(reflection_file, directory, 12, exact=True)
+    invoke.invoke_all_total_word_count_checks(
+        reflection_file, directory, 12, exact=True
+    )
     details = report.get_result()
     assert details is not None
     report.reset()
-    invoke.invoke_all_total_word_count_checks(reflection_file, directory, 100, exact=True)
+    invoke.invoke_all_total_word_count_checks(
+        reflection_file, directory, 100, exact=True
+    )
     details = report.get_result()
     assert details is not None
 
