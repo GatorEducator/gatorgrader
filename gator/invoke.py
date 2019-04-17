@@ -223,6 +223,42 @@ def invoke_all_word_count_checks(filecheck, directory, expected_count, exact=Fal
     return met_or_exceeded_count
 
 
+def invoke_all_total_word_count_checks(
+    filecheck, directory, expected_count, exact=False
+):
+    """Perform the word count check and return the results"""
+    met_or_exceeded_count = 0
+    met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
+        filecheck, directory, expected_count, fragments.count_total_words
+    )
+    # create the message and the diagnostic
+    if not exact:
+        message = (
+            "The "
+            + filecheck
+            + " in "
+            + directory
+            + " has at least "
+            + str(expected_count)
+            + SPACE
+            + "word(s) in total"
+        )
+    else:
+        message = (
+            "The "
+            + filecheck
+            + " in "
+            + directory
+            + " has exactly "
+            + str(expected_count)
+            + SPACE
+            + "word(s) in total"
+        )
+    diagnostic = "Found " + str(actual_count) + " word(s) in the specified file"
+    report_result(met_or_exceeded_count, message, diagnostic)
+    return met_or_exceeded_count
+
+
 # pylint: disable=bad-continuation
 def invoke_all_fragment_checks(
     fragment,
