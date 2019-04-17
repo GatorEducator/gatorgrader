@@ -2,7 +2,7 @@
   "files": [
     "README.md"
   ],
-  "imageSize": 100,
+  "imageSize": 64,
   "commit": false,
   "contributors": [
     {
@@ -11,11 +11,11 @@
       "avatar_url": "https://avatars2.githubusercontent.com/u/926029?v=4",
       "profile": "https://www.gregorykapfhammer.com",
       "contributions": [
-        "talk"
+        "talk", "code", "doc", "design", "infra", "test"
       ]
     }
   ],
-  "contributorsPerLine": 7,
+  "contributorsPerLine": 10,
   "projectName": "gatorgrader",
   "projectOwner": "GatorEducator",
   "repoType": "github",
