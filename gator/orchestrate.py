@@ -163,6 +163,25 @@ def check_words(system_arguments):
     return actions
 
 
+def check_total_words(system_arguments):
+    """Check the total word count in a file and return desired actions"""
+    actions = []
+    if system_arguments.total_words is not None:
+        actions.append(
+            [
+                INVOKE,
+                "invoke_all_total_word_count_checks",
+                [
+                    system_arguments.file,
+                    system_arguments.directory,
+                    system_arguments.total_words,
+                    system_arguments.exact,
+                ],
+            ]
+        )
+    return actions
+
+
 def check_fragment_file(system_arguments):
     """Check the existence of fragment in a file and return desired actions"""
     actions = []
@@ -364,6 +383,7 @@ def check(system_arguments):
         "check_multiple",
         "check_paragraphs",
         "check_words",
+        "check_total_words",
         "check_markdown_file",
         "check_fragment_file",
         "check_fragment_command",
