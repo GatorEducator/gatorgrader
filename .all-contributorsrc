@@ -1,0 +1,23 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "gkapfham",
+      "name": "Gregory M. Kapfhammer",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/926029?v=4",
+      "profile": "https://www.gregorykapfhammer.com",
+      "contributions": [
+        "talk"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "gatorgrader",
+  "projectOwner": "GatorEducator",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
