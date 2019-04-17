@@ -11,10 +11,12 @@ PASSED=true
 OS="$(uname)"
 
 if [[ "$OS" == "Darwin" ]]; then
-    FILES=$(find -E . -type f -regex "\./(gator/|tests/|?!\.venv/)?.*.py")
+    FILES=$(find -E . -type f -regex '\./(gator|tests)/.*.py')
 else
-    FILES=$(find . -type f -regextype posix-extended -regex "\./(gator/|tests/?!\.venv/)?.*.py")
+    FILES=$(find . -type f -regextype posix-extended -regex '\./(gator|tests)/.*.py')
 fi
+
+FILES="$FILES *.py"
 
 echo " -- Running black"
 # shellcheck disable=SC2086
