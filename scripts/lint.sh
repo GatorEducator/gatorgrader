@@ -11,17 +11,14 @@ PASSED=true
 OS="$(uname)"
 
 if [[ "$OS" == "Darwin" ]]; then
-    FILES=$(find -E . -type f -regex "\./(gator|tests)/.*.py")
+    FILES=$(find -E . -type f -regex "\./(gator/|tests/)?.*.py")
 else
-    FILES=$(find . -type f -regextype posix-extended -regex "\./(gator|tests)/.*.py")
+    FILES=$(find . -type f -regextype posix-extended -regex "\./(gator/|tests/)?.*.py")
 fi
 
-FILES="$FILES *.py"
-
 echo " -- Running black"
-pipenv run black $CHECK $FILES
-
-if [[ $? != 0 ]]; then
+# shellcheck disable=SC2086
+if ! pipenv run black $CHECK $FILES; then
     echo " -- Failed"
     PASSED=false
 else
@@ -29,9 +26,8 @@ else
 fi
 echo ""
 echo " -- Running pylint"
-pipenv run pylint $FILES
-
-if [[ $? != 0 ]]; then
+# shellcheck disable=SC2086
+if ! pipenv run pylint $FILES; then
     echo " -- Failed"
     PASSED=false
 else
@@ -39,15 +35,22 @@ else
 fi
 echo ""
 echo " -- Running flake8"
-pipenv run flake8 $FILES
-
-if [[ $? != 0 ]]; then
+# shellcheck disable=SC2086
+if ! pipenv run flake8 $FILES; then
     echo " -- Failed"
     PASSED=false
 else
     echo " -- Passed"
 fi
-
+echo ""
+echo " -- Running bandit"
+# shellcheck disable=SC2086
+if ! pipenv run bandit -c ".bandit" $FILES; then
+    echo " -- Failed"
+    PASSED=false
+else
+    echo " -- Passed"
+fi
 
 if [[ "$PASSED" != "true" ]]; then
     exit 1
