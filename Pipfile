@@ -19,6 +19,7 @@ pytest-cov = "*"
 pytest-sugar = "*"
 neovim = "*"
 mutmut = "*"
+bandit = "*"
 
 [pipenv]
 allow_prereleases = true
