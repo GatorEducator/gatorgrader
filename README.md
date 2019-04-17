@@ -1,5 +1,4 @@
 # Gator Grader
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
 ![Image of Logo](https://raw.githubusercontent.com/GatorEducator/gatorgrader/master/.github/gatorgraderlogo.png)
 
@@ -8,7 +7,7 @@ provides all the necessary checks for your code, from linting to searching
 commit messages. Whenever you feel in doubt, know GatorGrader is there to
 help.</center>
 
-[![Build Status](https://api.travis-ci.org/GatorEducator/gatorgrader.svg?branch=master)](https://travis-ci.org/GatorEducator/gatorgrader) [![codecov.io](http://codecov.io/github/GatorEducator/gatorgrader/coverage.svg?branch=master)](http://codecov.io/github/GatorEducator/gatorgrader?branch=master) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-orange.svg)](https://www.python.org/)
+[![Build Status](https://api.travis-ci.org/GatorEducator/gatorgrader.svg?branch=master)](https://travis-ci.org/GatorEducator/gatorgrader) [![codecov.io](http://codecov.io/github/GatorEducator/gatorgrader/coverage.svg?branch=master)](http://codecov.io/github/GatorEducator/gatorgrader?branch=master) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-orange.svg)](https://www.python.org/) [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
 ## Key Features
 
@@ -512,22 +511,6 @@ that have recently used GatorGrader:
 - [Computer Science 280 Fall 2017 at Allegheny College](https://github.com/allegheny-computer-science-280-f2017)
 - [Computer Science 103 Spring 2018 at Allegheny College](https://github.com/Allegheny-Computer-Science-103-S2018)
 - [Computer Science 112 Spring 2018 at Allegheny College](https://github.com/Allegheny-Computer-Science-112-S2018)
-
-## Acknowledgements
-
-GatorGrader is developed in a collaborative fashion by members of the
-[GatorEducator](https://github.com/GatorEducator) team. GatorGrader was
-engineered by the inspiring collaboration between the following team members,
-listed in alphabetical order by their surname.
-
-- Rowan Castellanos
-- Janyl Jumadinova
-- Gregory Kapfhammer
-- Maria Kim
-- Saejin Mahlau-Heinert
-- Race Mahoney
-- Christopher Miller
-- Nicholas Tocci
 
 ## Presentations
 
