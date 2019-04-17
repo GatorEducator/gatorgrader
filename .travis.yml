@@ -20,6 +20,7 @@ env:
     - LANG=en_US.UTF-8
     - LC_ALL=en_US.UTF-8
     - secure: hnWlE/s8Vo+OM+Vz2p60+/jmMoGwnIdpVg2OUnu269TJYapPG+qF6ks1jYpb/XfRucfndZSZXy4UZfJnzf082hoQmAUGHm3yrRTDkrsGGK1bxea3Rhwj1bn8IrjcZqOAQAtpCsnhFbzrdRTtng8+PCBcYyru+IG6jwOrOv2EMe/CBVLNvSoRdtBgcz4QKl2SRsLhEQh+pjgZiUEY+d7mNfyhGzCD8xS4abj8KfNfKDIZfKHX9E1mvBuZm9GQC17wvLyOt0j4gtEZeoGLGF63fuLvMqZhpZh00lJ6wmSD9vTok7pqgpErR1yrzZmVDrD61bz0PL/b8kHjOLLd0HcOw9q0D0KPX5BojOJxVKglc8GaAI4CksnMmjfLjieZRMag8K8qI8lKkIiD/AABAjqwHJ0Ywm7ru42alY163y4ieatXDMBQpoLsSn1P4gs0LDvGe6Kby+jeM8nL8y+5L5qGTODnqYDHes0rHVMIXQAr7HLKyru6/Bwzz8woYr8WjBmTd1UxLtFcfSYr8Rj+Yklldz4Wt1p4Wnpj9Hd5S2eVLXeteTBKA4y/tFSenZTke+NlVK8zmHa06yVHTbLf14ggTe4hZgUM/mLXRnVFy73LyaBPQkDQpvc6HELMxj94z5OZ6DpDrESDDxVnGq3H876qiJfi/rMFAkTbtgeMu4MRbow=
+    - secure: Z8kpg7aQExqtmjG/E6k5n7K6urjZVfy1UTOGcw0Ml+5mnr1jsV9IsM81gs8TOjPqsV9+x/asY6mFd8MPyij36Re2B7M5g4uYGtV/yWI8gLmgMYy3b+zC1iKm5XUH3wpn940abLx4gsUFk01SWKYu4Rvv0dygXVseeYcd0O8SLK3bwuZ4J+GRz1G9AMXw6hjlXOffu0HlRvC/KnK0pDNYZel/QGbSkIKE+vKJIDufcplHkB2w8rZrjZH1JSD/KpcIe+B7/dYKQgixRupFBJ7oeq6M+GrXyILNaVLrhdYpDVHKycU6pYL1Gn3xxqWudT0nMVE9Bs5iw6TjilA4l3ToliYFoTBfokF1PyiYFuH40K/IQk8Lwpkibc0oJFQr5v+Rr4gKUOoxTyAlJzc+kZjStuhOoRPViEjRpauC6bdHVlMjc2Rt6TjY5BwFbeFSiYD/CG2lCsFcNTubeM8zQhwB5RCiM+DAq1wmI/BekdWkx+q2L2HmwatDYudAnV8Wqyhhg9rHJBHkTadzN6ftQCOXxIa3FNVr8wJMLu2pSOIfxPV40QIZy7mKMyINfB1gdkCU1vfgA9Ob1WjzWuUt1tg0bMK40FR8aMLxgdRze/LmkwWnIZ1nAFY4eX9V50qkdWgj5mi07T7hUh4CmbdJjwsHs1M4FNtnwQlUjsQwe3RihbQ=
 
 # install pyenv with travis-pyenv
 before_install:
@@ -62,6 +63,7 @@ script:
   - pipenv run lint --check
   - mdl README.md
 
-# report coverage information to CodeCov
+# report information to CodeCov and Codacy
 after_success:
   - pipenv run codecov
+  - pipenv run python-codacy-coverage -r coverage.xml
