@@ -361,25 +361,6 @@ their integration into [GitHub Classroom](https://classroom.github.com/). As
 GatorGrader continues to be adopted by more courses, we will expand this list of
 GitHub repositories that provide starting code templates.
 
-## Acknowledgements
-
-GatorGrader is developed in a collaborative fashion by members of the
-[GatorEducator](https://github.com/GatorEducator) team. GatorGrader was
-engineered by the inspiring collaboration between the following team members,
-listed in alphabetical order by their surname.
-
-- Rowan Castellanos
-- Megan Corletti
-- Janyl Jumadinova
-- Gregory Kapfhammer
-- Maria Kim
-- Alexandra Heinle
-- Saejin Mahlau-Heinert
-- Race Mahoney
-- Christopher Miller
-- Hannah Schultz
-- Nicholas Tocci
-
 ## Presentations
 
 GatorGrader's creators give presentations about the development, use, and
@@ -405,3 +386,22 @@ then please raise an issue associated with this Git repository using the
 "Issues" link at the top of this site. The contributors to GatorGrader will do
 all that they can to resolve your issue and ensure that the entire tool works
 well in your teaching and development environment.
+
+## Acknowledgements
+
+GatorGrader is developed in a collaborative fashion by members of the
+[GatorEducator](https://github.com/GatorEducator) team. GatorGrader was
+engineered by the inspiring collaboration between the following team members,
+listed in alphabetical order by their surname.
+
+- Rowan Castellanos
+- Megan Corletti
+- Janyl Jumadinova
+- Gregory Kapfhammer
+- Maria Kim
+- Alexandra Heinle
+- Saejin Mahlau-Heinert
+- Race Mahoney
+- Christopher Miller
+- Hannah Schultz
+- Nicholas Tocci
