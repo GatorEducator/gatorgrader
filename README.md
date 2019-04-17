@@ -73,7 +73,7 @@ tools that can effectively handle those tasks.
 ## What Do People Think about GatorGrader?
 
 GatorGrader addresses some of the challenges that an instructor faces when
-designing automated checkers for the source code or technical writing that a
+designing automated checks for the source code or technical writing that a
 student submits through an assignment on [GitHub
 Classroom](https://classroom.github.com/). Feedback from the teaching assistants
 and students who use GatorGrader has been positive. Here is what people think
@@ -112,8 +112,8 @@ If you plan to develop new features for GatorGrader or if you want to run the
 tool's test suite in [Pytest](https://github.com/pytest-dev/pytest), then you
 will need to install the developer dependencies by typing `pipenv install --dev`
 in the directory that contains GatorGrader. If you only want to use GatorGrader,
-then you can type `pipenv install` instead. Once these commands complete
-successfully, that's all you you have to do to install GatorGrader!
+then you can type `pipenv install` instead. Once these commands are completed
+successfully, you have officially installed GatorGrader!
 
 ## Testing GatorGrader
 
@@ -134,7 +134,7 @@ pipenv run test
 Please note that you must preface the execution of the test suite with the
 command `pipenv run` if you want to ensure that the tests run with the correct
 access to their Python packages and in the desired virtual environment. The first
-command runs `pytest` explicitely, while the second utilizes `pytest-xdist`. If you
+command runs `pytest` explicitly, while the second utilizes `pytest-xdist`. If you
 are using GatorGrader and you find that a test fails in your development
 environment, please raise an issue in GatorGrader's issue tracker. With that
 said, if you are developing new features for Pytest and you want it to produce
@@ -152,7 +152,7 @@ lines that are not currently covered by the tests, you can type this command:
 pipenv run cover
 ```
 
-if you would like to run a specific test run
+if you would like to run a specific test suite
 
 ```
 pytest test_run.py::name-of-test-function
@@ -163,7 +163,7 @@ OR
 pytest test_run.py::TestClass::name-of-test_method
 ```
 
-The `-r` options accepts a number of characters after it, with a used above meaning “all except passes”.
+The `-r` option accepts a number of characters after it, with a used above meaning “all except passes”.
 
 Here is the full list of available characters that can be used:
 
@@ -182,8 +182,7 @@ Here is the full list of available characters that can be used:
 GatorGrader can automatically perform simple checks on both writing and source
 code. You can learn about GatorGrader's checks and defaults by typing `pipenv
 run python3 gatorgrader.py --help` in your terminal window and then reviewing
-the following output, observing that the tool can, for instance, inspect a
-command's output or the source code of a Java or Python program.
+the following output:
 
 ```
 usage: gatorgrader.py [-h] [--nowelcome] [--json] [--commits COMMITS]
