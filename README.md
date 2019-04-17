@@ -31,7 +31,7 @@ and run all of the preconfigured checks when you type `gradle grade` in your ter
 * Effectively integrates into many diverse workflows and development environments.
 * Can use GatorGrader in a cloud base environment (Travis CI) or local machine through command-line.
 * Can be used in conjunction with [GatorGradle](https://github.com/GatorEducator/gatorgradle)
-  to support checking gradle projects and "solution" and "starter" GitHub Classroom repositories in GitHub Classroom Assignments.
+  to support checking Gradle projects and "solution" and "starter" GitHub Classroom repositories in GitHub Classroom Assignments.
 
 Designed for use with [GitHub](https://github.com/), [GitHub
 Classroom](https://classroom.github.com/), [Travis CI](https://travis-ci.com/),
@@ -155,12 +155,12 @@ pipenv run cover
 if you would like to run a specific test suite
 
 ```
-pytest test_run.py::name-of-test-function
+pytest test_run.py::<name-of-test-function>
 ```
-OR
+or
 
 ```
-pytest test_run.py::TestClass::name-of-test_method
+pytest test_run.py::TestClass::<name-of-test_method>
 ```
 
 The `-r` option accepts a number of characters after it, with a used above meaning “all except passes”.
@@ -360,6 +360,8 @@ Computer Science courses at Allegheny College are kept private. However, the
 their integration into [GitHub Classroom](https://classroom.github.com/). As
 GatorGrader continues to be adopted by more courses, we will expand this list of
 GitHub repositories that provide starting code templates.
+
+## Comparison to Existing Tools
 
 ## Presentations
 
