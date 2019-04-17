@@ -512,22 +512,6 @@ that have recently used GatorGrader:
 - [Computer Science 103 Spring 2018 at Allegheny College](https://github.com/Allegheny-Computer-Science-103-S2018)
 - [Computer Science 112 Spring 2018 at Allegheny College](https://github.com/Allegheny-Computer-Science-112-S2018)
 
-## Acknowledgements
-
-GatorGrader is developed in a collaborative fashion by members of the
-[GatorEducator](https://github.com/GatorEducator) team. GatorGrader was
-engineered by the inspiring collaboration between the following team members,
-listed in alphabetical order by their surname.
-
-- Rowan Castellanos
-- Janyl Jumadinova
-- Gregory Kapfhammer
-- Maria Kim
-- Saejin Mahlau-Heinert
-- Race Mahoney
-- Christopher Miller
-- Nicholas Tocci
-
 ## Presentations
 
 GatorGrader's creators give presentations about the development, use, and
@@ -553,3 +537,19 @@ then please raise an issue associated with this Git repository using the
 "Issues" link at the top of this site. The contributors to GatorGrader will do
 all that they can to resolve your issue and ensure that the entire tool works
 well in your teaching and development environment.
+
+## Acknowledgements
+
+GatorGrader is developed in a collaborative fashion by members of the
+[GatorEducator](https://github.com/GatorEducator) team. GatorGrader was
+engineered by the inspiring collaboration between the following team members,
+listed in alphabetical order by their surname.
+
+- Rowan Castellanos
+- Janyl Jumadinova
+- Gregory Kapfhammer
+- Maria Kim
+- Saejin Mahlau-Heinert
+- Race Mahoney
+- Christopher Miller
+- Nicholas Tocci
