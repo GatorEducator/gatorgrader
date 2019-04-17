@@ -7,6 +7,7 @@ provides all the necessary checks for your code, from linting to searching
 commit messages. Whenever you feel in doubt, know GatorGrader is there to
 help.</center>
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/4f3d6ef38652472dae59cf90025ce4fd)](https://app.codacy.com/app/GatorEducator/gatorgrader?utm_source=github.com&utm_medium=referral&utm_content=GatorEducator/gatorgrader&utm_campaign=Badge_Grade_Settings)
 [![Build Status](https://api.travis-ci.org/GatorEducator/gatorgrader.svg?branch=master)](https://travis-ci.org/GatorEducator/gatorgrader) [![codecov.io](http://codecov.io/github/GatorEducator/gatorgrader/coverage.svg?branch=master)](http://codecov.io/github/GatorEducator/gatorgrader?branch=master) [![All Contributors](https://img.shields.io/badge/all_contributors-32-orange.svg?style=flat-square)](#contributors) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-orange.svg)](https://www.python.org/)
 
 ## Key Features
