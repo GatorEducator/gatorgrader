@@ -6,9 +6,10 @@ labels: feature
 assignees: ''
 
 ---
+<!-- If any of these headers do not fit with your request, please remove or edit them! -->
 
 **Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+A clear and concise description of what the problem is. Ex. I'm always frustrated when...
 
 **Describe the solution you'd like**
 A clear and concise description of what you want to happen.
