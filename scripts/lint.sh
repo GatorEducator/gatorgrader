@@ -47,7 +47,7 @@ fi
 echo ""
 echo " -- Running bandit"
 # shellcheck disable=SC2086
-if ! pipenv run bandit -c ".bandit" $FILES; then
+if ! pipenv run bandit -c "bandit.yml" $FILES; then
     echo " -- Failed"
     PASSED=false
 else
