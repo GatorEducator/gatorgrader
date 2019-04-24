@@ -357,7 +357,19 @@ a priority on our side. It does not seem like CS50 is known for its integration
 within multiple classes or languages. It only makes direct references to the use
 in a CS50 class at Harvard and nothing about what languages that encompasses.
 However, when it comes to our tool GatorGrader, it can be used on classes that have
-languages such as Java, HTML, or even LaTex. 
+languages such as Java, HTML, or even LaTex.
+
+For Submitty, there tool rather similar to ours. However, the one difference is
+that they are modeling more of a GitHub type of tool. In other words, they are
+modeling a system that will hold assignments and leave them there for grading.
+Besides questions that may already have programmed answers, other checks like
+those that accompany a test case being written, seem like they must be hand graded.
+Therefore, it eliminates the idea of an automated grading system. In contrast,
+GatorGrader does all the grading for you. You input checks into a `yml` file and
+when students submit their work, the checks are checked to see if they have been
+fulfilled. Therefore, eliminating the need for the professor to hand grade an assignment.
+
+
 
 ## Presentations
 
