@@ -66,8 +66,7 @@ script:
 # report coverage information to CodeCov
 after_success:
   - pipenv run codecov
-  - wget https://github.com/Michionlion/pr-tag-release/releases/latest/download/pr_tag_release.sh
-  - test "$PYENV_VERSION" -eq "3.7.2" && test "$TRAVIS_OS_NAME" -eq "linux" && \
+  - test "$PYENV_VERSION" = "3.7.2" && test "$TRAVIS_OS_NAME" = "linux" && \
     wget https://github.com/Michionlion/pr-tag-release/releases/latest/download/pr_tag_release.sh && \
     source pr_tag_release.sh
 
