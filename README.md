@@ -371,7 +371,7 @@ fulfilled. Therefore, eliminating the need for the professor to hand grade an as
 
 Web Cat is a private grading system that one needs an account or access too.
 Therefore, it is impossible to be open for other users that do not have
-or specifically want Web Cat. 
+or specifically want Web Cat.
 
 ## Presentations
 
@@ -398,22 +398,3 @@ then please raise an issue associated with this Git repository using the
 "Issues" link at the top of this site. The contributors to GatorGrader will do
 all that they can to resolve your issue and ensure that the entire tool works
 well in your teaching and development environment.
-
-## Acknowledgements
-
-GatorGrader is developed in a collaborative fashion by members of the
-[GatorEducator](https://github.com/GatorEducator) team. GatorGrader was
-engineered by the inspiring collaboration between the following team members,
-listed in alphabetical order by their surname.
-
-- Rowan Castellanos
-- Megan Corletti
-- Janyl Jumadinova
-- Gregory Kapfhammer
-- Maria Kim
-- Alexandra Heinle
-- Saejin Mahlau-Heinert
-- Race Mahoney
-- Christopher Miller
-- Hannah Schultz
-- Nicholas Tocci
