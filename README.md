@@ -369,7 +369,9 @@ GatorGrader does all the grading for you. You input checks into a `yml` file and
 when students submit their work, the checks are checked to see if they have been
 fulfilled. Therefore, eliminating the need for the professor to hand grade an assignment.
 
-
+Web Cat is a private grading system that one needs an account or access too.
+Therefore, it is impossible to be open for other users that do not have
+or specifically want Web Cat. 
 
 ## Presentations
 
