@@ -46,13 +46,13 @@ notifications:
 # cache pip installations
 # cache pyenv installations
 cache:
-  - pip
-  - directories:
+  directories:
     - $HOME/.pyenv_cache
+    - $HOME/.cache/pip
 
 # set GATORGRADER_HOME environment variable
 before_script:
-  - export GATORGRADER_HOME="/home/travis/build/gkapfham/gatorgrader"
+  - export GATORGRADER_HOME="$TRAVIS_BUILD_DIR"
 
 # perform testing:
 # --> run the test suite and generate coverage with Pipfile script
@@ -67,7 +67,9 @@ script:
 after_success:
   - pipenv run codecov
   - wget https://github.com/Michionlion/pr-tag-release/releases/latest/download/pr_tag_release.sh
-  - test "$PYENV_VERSION" -eq "3.7.2" && test "$TRAVIS_OS_NAME" -eq "linux" && source pr_tag_release.sh
+  - test "$PYENV_VERSION" -eq "3.7.2" && test "$TRAVIS_OS_NAME" -eq "linux" && \
+    wget https://github.com/Michionlion/pr-tag-release/releases/latest/download/pr_tag_release.sh && \
+    source pr_tag_release.sh
 
 # deploy to GitHub Releases on PR merge
 deploy:
@@ -75,5 +77,5 @@ deploy:
   api_key: "$GITHUB_OAUTH_TOKEN"
   skip_cleanup: true
   on:
-    all_branches: true
+    branch: master
     condition: $DO_GITHUB_RELEASE = true
