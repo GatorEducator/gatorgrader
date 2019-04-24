@@ -20,18 +20,19 @@ and run all of the preconfigured checks when you type `gradle grade` in your ter
 
 ## Key Features
 
-* Automatically checks and assesses the work of writers and programmers through the use of different linting tools.
-  * Can check for a required minimum number of Git commits.
+For instance:
+  * Can automatically checks and assesses the work of writers and programmers through the use of different linting tools.
+  * Can be used in conjunction with [GatorGradle](https://github.com/GatorEducator/gatorgradle)
+  to support checking Gradle projects and "solution" and "starter" GitHub Classroom repositories in GitHub Classroom Assignments.
+  * Can use GatorGrader in a cloud base environment (e.g. Travis CI) or local machine through command-line.
+  * Effectively integrates into many diverse workflows and development environments.
+  * Can be used with any text-based programming language or document.
+  * Can check for specified sentence fragments along with pure text and regular expression fragments within Markdown files and
+  source code.
   * Can check to see if required files exist and are in the correct directory, and that the directory exists.
   * Can check for a specified number of single line or multi-line comments in source code.
   * Can check the number of words and paragraphs in Markdown files.
-  * Can check for specified sentence fragments along with pure text and regular expression fragments within Markdown files and
-    source code.
-* Can be used with any text-based programming language or document.
-* Effectively integrates into many diverse workflows and development environments.
-* Can use GatorGrader in a cloud base environment (Travis CI) or local machine through command-line.
-* Can be used in conjunction with [GatorGradle](https://github.com/GatorEducator/gatorgradle)
-  to support checking Gradle projects and "solution" and "starter" GitHub Classroom repositories in GitHub Classroom Assignments.
+  * Can check for a required minimum number of Git commits.
 
 Designed for use with [GitHub](https://github.com/), [GitHub
 Classroom](https://classroom.github.com/), [Travis CI](https://travis-ci.com/),
@@ -39,31 +40,13 @@ and [Gradle](https://gradle.org/), GatorGrader is an automated assessment tool
 that checks the work of programmers and writers. While other tools already exist
 to, for instance, enforce a style guide for source code or build a program,
 GatorGrader focuses on automating the checks and activities that are not already
-nicely supported. For example, GatorGrader can check how many Git commits a
-student or a team performed during the completion of an assignment. Along with
-checking for the existence of files, the tool can also count a wide variety of
-entities in a project submission, including words and paragraphs in technical
-writing, comments in source code, and fragments in either source code or program
-output. In alignment with key recommendations in a recent [National Academies
-report](https://www.nap.edu/catalog/24926/assessing-and-responding-to-the-growth-of-computer-science-undergraduate-enrollments),
-instructors have used GatorGrader to automatically check student submissions in
-both introductory and application-oriented classes using languages like
-Markdown, Java, Python, JavaScript, CSS, and HTML.
+nicely supported. In alignment with key recommendations in a recent [National Academies
+report](https://www.nap.edu/catalog/24926/assessing-and-responding-to-the-growth-of-computer-science-undergraduate-enrollments), instructors have used GatorGrader to automatically
+check student submissions in both introductory and application-oriented classes
+using languages like Markdown, Java, Python, JavaScript, CSS, and HTML.
 
-Although it can be used independently of a containing project or additional
-support tools, GatorGrader is commonly used in conjunction with the
-[GatorGradle](https://github.com/GatorEducator/gatorgradle) plugin for the
-[Gradle](https://gradle.org/) build tool. It's worth noting that even though
-[Gradle](https://gradle.org/) is commonly associated with the Java programming
-language, you can use GatorGrader and
-[GatorGradle](https://github.com/GatorEducator/gatorgradle) to check the work
-that students complete in a wide variety of languages. The tool also effectively
-supports the checking of the "solution" and "starter" Git repositories that an
-instructor normally builds when creating an assignment in [GitHub
-Classroom](https://classroom.github.com/). GatorGrader's simple, yet useful,
-automated checks can also be integrated into the continuous integration build
-process supported by a system like [Travis CI](https://travis-ci.com/). Since it
-is a [Python 3](https://www.python.org/) program that students and instructors
+GatorGrader's simple, yet useful, automated checks can also be integrated into the continuous integration build process supported by a system like [Travis CI](https://travis-ci.com/). Since it
+is a [Python](https://www.python.org/) program that students and instructors
 can easily run on the command-line, GatorGrader effectively integrates into many
 diverse workflows and development environments. In contrast to other automated
 grading tools, GatorGrader does not aim to solve problems related to building a
