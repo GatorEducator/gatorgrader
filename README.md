@@ -352,7 +352,7 @@ be referenced when talking about GatorGrader are:
 3. [Web Cat](https://github.com/web-cat/web-cat-plugin-JavaTddPlugin)
 
 When it comes to CS50 Harvard, the first step to a great program is documentation
-and that is what they are lacking but it is something that we can assure you is
+however that is what they are lacking but it is something that we can assure you is
 a priority on our side. It does not seem like CS50 is known for its integration
 within multiple classes or languages. It only makes direct references to the use
 in a CS50 class at Harvard and nothing about what languages that encompasses.
