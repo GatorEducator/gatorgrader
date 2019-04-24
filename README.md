@@ -2,10 +2,10 @@
 
 ![Image of Logo](https://raw.githubusercontent.com/GatorEducator/gatorgrader/master/.github/gatorgraderlogo.png)
 
-<center>The only tool you'll need to ensure your code is up to speed! GatorGrader
-provides all the necessary checks for your code, from linting to searching
-commit messages. Whenever you feel in doubt, know GatorGrader is there to
+<center>The only tool you'll need to ensure your code is up to speed!
+Whenever you feel in doubt, know GatorGrader is there to
 help.</center>
+
 
 [![Build Status](https://api.travis-ci.org/GatorEducator/gatorgrader.svg?branch=master)](https://travis-ci.org/GatorEducator/gatorgrader) [![codecov.io](http://codecov.io/github/GatorEducator/gatorgrader/coverage.svg?branch=master)](http://codecov.io/github/GatorEducator/gatorgrader?branch=master) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-orange.svg)](https://www.python.org/)
 
@@ -43,15 +43,12 @@ GatorGrader focuses on automating the checks and activities that are not already
 nicely supported. In alignment with key recommendations in a recent [National Academies
 report](https://www.nap.edu/catalog/24926/assessing-and-responding-to-the-growth-of-computer-science-undergraduate-enrollments), instructors have used GatorGrader to automatically
 check student submissions in both introductory and application-oriented classes
-using languages like Markdown, Java, Python, JavaScript, CSS, and HTML.
-
-GatorGrader's simple, yet useful, automated checks can also be integrated into the continuous integration build process supported by a system like [Travis CI](https://travis-ci.com/). Since it
-is a [Python](https://www.python.org/) program that students and instructors
-can easily run on the command-line, GatorGrader effectively integrates into many
-diverse workflows and development environments. In contrast to other automated
-grading tools, GatorGrader does not aim to solve problems related to building a
-project or managing an assignment's submission, instead relying on existing
-tools that can effectively handle those tasks.
+using languages like Markdown, Java, Python, JavaScript, CSS, and HTML. GatorGrader's
+simple, yet useful, automated checks can also be integrated into the continuous
+integration build process supported by a system like [Travis CI](https://travis-ci.com/).
+In  contrast to other automated grading tools, GatorGrader does not aim to solve problems
+related to building a project or managing an assignment's submission, instead relying
+on existing tools that can effectively handle those tasks.
 
 ## What Do People Think about GatorGrader?
 
@@ -150,14 +147,14 @@ The `-r` option accepts a number of characters after it, with a used above meani
 
 Here is the full list of available characters that can be used:
 
--  f - failed
--  E - error
--  s - skipped
--  x - xfailed
--  X - xpassed
--  p - passed
--  P - passed with output
--  a - all except pP
+-  `f` - failed
+-  `E` - error
+-  `s` - skipped
+-  `x` - xfailed
+-  `X` - xpassed
+-  `p` - passed
+-  `P` - passed with output
+-  `a` - all except `pP`
 
 
 ## Running GatorGrader
@@ -345,6 +342,22 @@ GatorGrader continues to be adopted by more courses, we will expand this list of
 GitHub repositories that provide starting code templates.
 
 ## Comparison to Existing Tools
+
+In today's world, there are so many new up and coming systems in the study of
+Computer Science. The most noticeable change is the amount of automated
+grading systems that are being created by schools and companies. Three that can
+be referenced when talking about GatorGrader are:
+1. [CS50 Harvard](https://github.com/cs50/check50)
+2. [Submitty](https://github.com/Submitty/Submitty)
+3. [Web Cat](https://github.com/web-cat/web-cat-plugin-JavaTddPlugin)
+
+When it comes to CS50 Harvard, the first step to a great program is documentation
+and that is what they are lacking but it is something that we can assure you is
+a priority on our side. It does not seem like CS50 is known for its integration
+within multiple classes or languages. It only makes direct references to the use
+in a CS50 class at Harvard and nothing about what languages that encompasses.
+However, when it comes to our tool GatorGrader, it can be used on classes that have
+languages such as Java, HTML, or even LaTex. 
 
 ## Presentations
 
