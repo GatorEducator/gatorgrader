@@ -85,6 +85,11 @@ def test_file_exists_in_directory_check_paragraphs_exact(
     invoke.invoke_all_paragraph_checks(reflection_file, directory, 4, True)
     details = report.get_result()
     assert details is not None
+    assert details["outcome"] is True
+    assert "has exactly 4" in details["check"]
+    assert "reflection.md" in details["check"]
+    assert "sub" in details["check"]
+    assert details["diagnostic"] == ""
     report.reset()
     invoke.invoke_all_paragraph_checks(reflection_file, directory, 200, True)
     details = report.get_result()
