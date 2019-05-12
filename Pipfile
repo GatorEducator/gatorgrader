@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 gitpython = "*"
 requests = ">=2.20.0"
+commonmark = "*"
 
 [dev-packages]
 pylint = "*"
@@ -18,6 +19,8 @@ pytest-cov = "*"
 pytest-sugar = "*"
 neovim = "*"
 mutmut = "*"
+bandit = "*"
+codacy-coverage = "*"
 
 [pipenv]
 allow_prereleases = true

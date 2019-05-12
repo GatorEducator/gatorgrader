@@ -163,6 +163,25 @@ def check_words(system_arguments):
     return actions
 
 
+def check_total_words(system_arguments):
+    """Check the total word count in a file and return desired actions"""
+    actions = []
+    if system_arguments.total_words is not None:
+        actions.append(
+            [
+                INVOKE,
+                "invoke_all_total_word_count_checks",
+                [
+                    system_arguments.file,
+                    system_arguments.directory,
+                    system_arguments.total_words,
+                    system_arguments.exact,
+                ],
+            ]
+        )
+    return actions
+
+
 def check_fragment_file(system_arguments):
     """Check the existence of fragment in a file and return desired actions"""
     actions = []
@@ -184,6 +203,47 @@ def check_fragment_file(system_arguments):
     return actions
 
 
+def check_regex_file(system_arguments):
+    """Check the existence of regex in a file and return desired actions"""
+    actions = []
+    if system_arguments.regex is not None and system_arguments.file is not None:
+        actions.append(
+            [
+                INVOKE,
+                "invoke_all_regex_checks",
+                [
+                    system_arguments.regex,
+                    system_arguments.count,
+                    system_arguments.file,
+                    system_arguments.directory,
+                    NOTHING,
+                    system_arguments.exact,
+                ],
+            ]
+        )
+    return actions
+
+
+def check_markdown_file(system_arguments):
+    """Check the existence of markdown in a file and return desired actions"""
+    actions = []
+    if system_arguments.markdown is not None and system_arguments.file is not None:
+        actions.append(
+            [
+                INVOKE,
+                "invoke_all_markdown_checks",
+                [
+                    system_arguments.markdown,
+                    system_arguments.count,
+                    system_arguments.file,
+                    system_arguments.directory,
+                    system_arguments.exact,
+                ],
+            ]
+        )
+    return actions
+
+
 def check_count_file(system_arguments):
     """Check the count of lines in a file and return desired actions"""
     actions = []
@@ -192,6 +252,8 @@ def check_count_file(system_arguments):
         system_arguments.count is not None
         and system_arguments.file is not None
         and system_arguments.fragment is None
+        and system_arguments.regex is None
+        and system_arguments.markdown is None
     ):
         actions.append(
             [
@@ -228,6 +290,25 @@ def check_fragment_command(system_arguments):
     return actions
 
 
+def check_regex_command(system_arguments):
+    """Check the existence of regex in a command's output and return desired actions"""
+    actions = []
+    if system_arguments.regex is not None and system_arguments.command is not None:
+        actions.append(
+            [
+                INVOKE,
+                "invoke_all_command_regex_checks",
+                [
+                    system_arguments.command,
+                    system_arguments.regex,
+                    system_arguments.count,
+                    system_arguments.exact,
+                ],
+            ]
+        )
+    return actions
+
+
 def check_count_command(system_arguments):
     """Check the count of lines in a command's output and return desired actions"""
     actions = []
@@ -236,6 +317,7 @@ def check_count_command(system_arguments):
         system_arguments.count is not None
         and system_arguments.command is not None
         and system_arguments.fragment is None
+        and system_arguments.regex is None
     ):
         actions.append(
             [
@@ -260,6 +342,7 @@ def check_executes_command(system_arguments):
         and system_arguments.executes is not None
         and system_arguments.count is None
         and system_arguments.fragment is None
+        and system_arguments.regex is None
     ):
         actions.append(
             [INVOKE, "invoke_all_command_executes_checks", [system_arguments.command]]
@@ -300,11 +383,15 @@ def check(system_arguments):
         "check_multiple",
         "check_paragraphs",
         "check_words",
+        "check_total_words",
+        "check_markdown_file",
         "check_fragment_file",
         "check_fragment_command",
         "check_count_file",
         "check_count_command",
         "check_executes_command",
+        "check_regex_file",
+        "check_regex_command",
     ]
     # iterate through all of the possible checks
     for a_check in checks:
@@ -318,8 +405,7 @@ def check(system_arguments):
         check_results.extend(step_results)
     # Section: Output the report
     # Only step: get the report's details, produce the output, and display it
-    output_list = report.output_list(report.get_details(), OUTPUT_TYPE)
-    produced_output = report.output(output_list)
+    produced_output = report.output(report.get_result(), OUTPUT_TYPE)
     display.message(produced_output)
     # Section: Return control back to __main__ in gatorgrader
     # Only step: determine the correct exit code for the checks

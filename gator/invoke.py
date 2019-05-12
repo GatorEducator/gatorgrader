@@ -4,6 +4,7 @@ from gator import comments
 from gator import entities
 from gator import files
 from gator import fragments
+from gator import markdown
 from gator import report
 from gator import repository
 from gator import run
@@ -23,16 +24,14 @@ EMPTY = b""
 SUCCESS = 0
 
 
-def update_report(status, message, diagnostic):
-    """Update the report after running a check"""
-    # found at least the required number of an entity
-    # do not produce a diagnostic message
+def report_result(status, message, diagnostic):
+    """Set the report after running a check"""
     if status:
-        report.add_result(message, status, NO_DIAGNOSTIC)
-    # did not find at least the required number of an entity
-    # produce a diagnostic message using the actual count
+        # passed the check, so do not produce a diagnostic message
+        report.set_result(message, status, NO_DIAGNOSTIC)
     else:
-        report.add_result(message, status, diagnostic)
+        # did not pass the check, so produce a diagnostic message
+        report.set_result(message, status, diagnostic)
 
 
 def invoke_commits_check(student_repository, expected_count, exact=False):
@@ -46,8 +45,10 @@ def invoke_commits_check(student_repository, expected_count, exact=False):
         message = "Repository has at least " + str(expected_count) + " commit(s)"
     else:
         message = "Repository has exactly " + str(expected_count) + " commit(s)"
+    # diagnostic is created when repository does not have sufficient commits
+    # call report_result to update report for this check
     diagnostic = "Found " + str(actual_count) + " commit(s) in the Git repository"
-    update_report(did_check_pass, message, diagnostic)
+    report_result(did_check_pass, message, diagnostic)
     return did_check_pass
 
 
@@ -59,15 +60,15 @@ def invoke_file_in_directory_check(filecheck, directory):
         filecheck, gatorgrader_home + directory
     )
     # construct the message about whether or not the file exists
-    # note that no diagnostic is needed and the result is boolean
     message = (
         "The file " + filecheck + " exists in the " + directory + SPACE + "directory"
     )
-    # produce the final report and return the result
-    # note that update_report is not called because
-    # there will never be a diagnostic for this invoke
-    diagnostic = "Did not find file"
-    report.add_result(message, was_file_found, diagnostic)
+    # diagnostic is created when file does not exist in specified directory
+    # call report_result to update report for this check
+    diagnostic = (
+        "Did not find the specified file in the " + directory + SPACE + "directory"
+    )
+    report_result(was_file_found, message, diagnostic)
     return was_file_found
 
 
@@ -148,7 +149,7 @@ def invoke_all_comment_checks(
             + " comment(s)"
         )
     diagnostic = "Found " + str(actual_count) + " comment(s) in the specified file"
-    update_report(met_or_exceeded_count, message, diagnostic)
+    report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
 
@@ -182,7 +183,7 @@ def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=Fals
             + "paragraph(s)"
         )
     diagnostic = "Found " + str(actual_count) + " paragraph(s) in the specified file"
-    update_report(met_or_exceeded_count, message, diagnostic)
+    report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
 
@@ -218,7 +219,43 @@ def invoke_all_word_count_checks(filecheck, directory, expected_count, exact=Fal
     diagnostic = (
         "Found " + str(actual_count) + " word(s) in a paragraph of the specified file"
     )
-    update_report(met_or_exceeded_count, message, diagnostic)
+    report_result(met_or_exceeded_count, message, diagnostic)
+    return met_or_exceeded_count
+
+
+def invoke_all_total_word_count_checks(
+    filecheck, directory, expected_count, exact=False
+):
+    """Perform the word count check and return the results"""
+    met_or_exceeded_count = 0
+    met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
+        filecheck, directory, expected_count, fragments.count_total_words
+    )
+    # create the message and the diagnostic
+    if not exact:
+        message = (
+            "The "
+            + filecheck
+            + " in "
+            + directory
+            + " has at least "
+            + str(expected_count)
+            + SPACE
+            + "word(s) in total"
+        )
+    else:
+        message = (
+            "The "
+            + filecheck
+            + " in "
+            + directory
+            + " has exactly "
+            + str(expected_count)
+            + SPACE
+            + "word(s) in total"
+        )
+    diagnostic = "Found " + str(actual_count) + " word(s) in the specified file"
+    report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
 
@@ -233,7 +270,7 @@ def invoke_all_fragment_checks(
 ):
     """Perform the check for a fragment existence in file or contents and return the results"""
     met_or_exceeded_count = 0
-    met_or_exceeded_count, actual_count = fragments.specified_fragment_greater_than_count(
+    met_or_exceeded_count, actual_count = fragments.specified_entity_greater_than_count(
         fragment,
         fragments.count_specified_fragment,
         expected_count,
@@ -293,7 +330,81 @@ def invoke_all_fragment_checks(
         + str(actual_count)
         + " fragment(s) in the output or the specified file"
     )
-    update_report(met_or_exceeded_count, message, diagnostic)
+    report_result(met_or_exceeded_count, message, diagnostic)
+    return met_or_exceeded_count
+
+
+def invoke_all_regex_checks(
+    regex,
+    expected_count,
+    filecheck=NOTHING,
+    directory=NOTHING,
+    contents=NOTHING,
+    exact=False,
+):
+    """Perform the check for a regex existence in file or contents and return the results"""
+    met_or_exceeded_count = 0
+    met_or_exceeded_count, actual_count = fragments.specified_entity_greater_than_count(
+        regex,
+        fragments.count_specified_regex,
+        expected_count,
+        filecheck,
+        directory,
+        contents,
+        exact,
+    )
+    # create a message for a file in directory
+    if filecheck is not NOTHING and directory is not NOTHING:
+        if exact is not True:
+            message = (
+                "The "
+                + filecheck
+                + " in "
+                + directory
+                + " has at least "
+                + str(expected_count)
+                + " matches of the '"
+                + regex
+                + "' regular expression"
+            )
+        else:
+            message = (
+                "The "
+                + filecheck
+                + " in "
+                + directory
+                + " has exactly "
+                + str(expected_count)
+                + " matches of the '"
+                + regex
+                + "' regular expression"
+            )
+    # create a message for a string
+    else:
+        if exact is not True:
+            message = (
+                "The command output"
+                + " has at least "
+                + str(expected_count)
+                + " matches of the '"
+                + regex
+                + "' regular expression"
+            )
+        else:
+            message = (
+                "The command output"
+                + " has exactly "
+                + str(expected_count)
+                + " matches of the '"
+                + regex
+                + "' regular expression"
+            )
+    diagnostic = (
+        "Found "
+        + str(actual_count)
+        + " matches of the specified regular expression in the output or the specified file"
+    )
+    report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
 
@@ -305,6 +416,17 @@ def invoke_all_command_fragment_checks(
     command_output = run.specified_command_get_output(command)
     return invoke_all_fragment_checks(
         expected_fragment, expected_count, NOTHING, NOTHING, command_output, exact
+    )
+
+
+# pylint: disable=bad-continuation
+def invoke_all_command_regex_checks(
+    command, expected_regex, expected_count, exact=False
+):
+    """Perform the check for a regex existence in the output of a command"""
+    command_output = run.specified_command_get_output(command)
+    return invoke_all_regex_checks(
+        expected_regex, expected_count, NOTHING, NOTHING, command_output, exact
     )
 
 
@@ -320,8 +442,52 @@ def invoke_all_command_executes_checks(command):
         command_passed = True
     message = "The command '" + str(command) + "'" + " executes correctly"
     diagnostic = "The command returned the error code " + str(command_returncode)
-    update_report(command_passed, message, diagnostic)
+    report_result(command_passed, message, diagnostic)
     return command_passed
+
+
+# pylint: disable=bad-continuation
+def invoke_all_markdown_checks(
+    markdown_tag, expected_count, filecheck, directory, exact=False
+):
+    """Perform the check for a markdown tag existence in a file and return the results"""
+    met_or_exceeded_count = 0
+    met_or_exceeded_count, actual_count = markdown.specified_tag_greater_than_count(
+        markdown_tag,
+        markdown.count_specified_tag,
+        expected_count,
+        filecheck,
+        directory,
+        exact,
+    )
+    # create a message for a file in directory
+    if exact is not True:
+        message = (
+            "The "
+            + filecheck
+            + " in "
+            + directory
+            + " has at least "
+            + str(expected_count)
+            + " of the '"
+            + markdown_tag
+            + "' elements"
+        )
+    else:
+        message = (
+            "The "
+            + filecheck
+            + " in "
+            + directory
+            + " has exactly "
+            + str(expected_count)
+            + " of the '"
+            + markdown_tag
+            + "' elements"
+        )
+    diagnostic = "Found " + str(actual_count) + " element(s) in the specified file"
+    report_result(met_or_exceeded_count, message, diagnostic)
+    return met_or_exceeded_count
 
 
 # pylint: disable=bad-continuation
@@ -368,7 +534,7 @@ def invoke_all_count_checks(
     diagnostic = (
         "Found " + str(actual_count) + " line(s) in the output or the specified file"
     )
-    update_report(met_or_exceeded_count, message, diagnostic)
+    report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
 

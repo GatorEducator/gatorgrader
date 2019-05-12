@@ -1,64 +1,60 @@
 """Retrieve and count the contents of a file"""
 
 from pathlib import Path
+
 import re
+import commonmark
 
 from gator import util
 
 FILE_SEPARATOR = "/"
 
-# References:
-# https://stackoverflow.com/questions/18568105/how-match-a-paragraph-using-regex
-# https://stackoverflow.com/questions/13531204/how-to-match-paragraphs-in-text-with-regx
-
-CODE_FENCE_MARKER = "```"
-GATORGRADER_REPLACEMENT = "GATORGRADER_REPLACEMENT"
-PARAGRAH_RE = r"(.+?\n\n|.+?$)"
-SECTION_MARKER = "#"
-
 NEWLINE = "\n"
 NOTHING = ""
 SPACE = " "
 
-DOUBLE_NEWLINE = NEWLINE * 2
 
-
-def is_paragraph(candidate):
-    """Determines if a writing candidate is a paragraph"""
-    # remove whitespace surrounding candidate paragraph
-    candidate = candidate.strip()
-    # if the paragraph is a markdown header, it is not a paragraph
-    if candidate.startswith(SECTION_MARKER):
-        return False
-    # if the paragraph is a fenced code block, it is not a paragraph
-    if candidate.startswith(CODE_FENCE_MARKER):
-        return False
-    # there may be other edge cases that should be added here in the
-    # future -- what other structures look like paragraphs but should
-    # not be?
-    # if nothing has returned by now, the candidate must be a paragraph
-    return True
-
-
-def get_paragraphs(contents, blank_replace=True):
+def get_paragraphs(contents):
     """Retrieves the paragraphs in the writing"""
-    # use a replacement to handle a string with just spaces
-    if blank_replace is True:
-        contents = contents.replace(SPACE, NOTHING)
-    # replace a single newline with a blank space, respecting double newlines
-    contents = contents.replace(DOUBLE_NEWLINE, GATORGRADER_REPLACEMENT)
-    contents = contents.replace(NEWLINE, SPACE)
-    contents = contents.replace(GATORGRADER_REPLACEMENT, DOUBLE_NEWLINE)
-    pattern = re.compile(PARAGRAH_RE)
-    paragraphs = pattern.findall(contents)
-    # disregard all of the section headers in markdown
-    matching_paragraphs = []
-    # iterate through all potential paragraphs and gather
-    # those that match the standard for legitimacy
-    for paragraph in paragraphs:
-        if is_paragraph(paragraph) is True:
-            matching_paragraphs.append(paragraph)
-    return matching_paragraphs
+    ast = commonmark.Parser().parse(contents)
+    mode_looking = True
+    paragraph_list = []
+    paragraph_content = ""
+    counter = 0
+
+    # Iterate through the markdown to find paragraphs and add their contents to paragraph_list
+    for subnode, enter in ast.walker():
+        if mode_looking:
+            # Check to see if the current subnode is an open paragraph node
+            if counter == 1 and subnode.t == "paragraph" and enter:
+                # Initialize paragraph_content
+                paragraph_content = ""
+                # Stop search for paragraph nodes, as one has been found
+                # Instead, start adding content to paragraph_content
+                mode_looking = False
+        else:
+            # Check to see if the current subnode is a closing paragraph node
+            if counter == 2 and subnode.t == "paragraph" and not enter:
+                # Add the content of the paragraph to paragraph_list
+                paragraph_list.append(paragraph_content.strip())
+                # Stop saving paragraph contents, as the paragraph had ended
+                # Start a search for a new paragraph
+                mode_looking = True
+            # If the subnode literal has contents,
+            # or is a softbreak, add them to paragraph_content
+            if subnode.t == "softbreak":
+                paragraph_content += NEWLINE
+            elif subnode.literal is not None:
+                paragraph_content += subnode.literal
+
+        # Track the how deep into the tree the search currently is
+        if subnode.is_container():
+            if enter:
+                counter += 1
+            else:
+                counter -= 1
+
+    return paragraph_list
 
 
 def get_line_list(content):
@@ -89,26 +85,44 @@ def is_blank_line(line):
 
 def count_paragraphs(contents):
     """Counts the number of paragraphs in the writing"""
-    replace_blank_inputs = True
-    matching_paragraphs = get_paragraphs(contents, replace_blank_inputs)
+    matching_paragraphs = get_paragraphs(contents)
     return len(matching_paragraphs)
 
 
 def count_words(contents):
     """Counts the minimum number of words across all paragraphs in writing"""
     # retrieve all of the paragraphs in the contents
-    replace_blank_inputs = False
-    paragraphs = get_paragraphs(contents, replace_blank_inputs)
+    # NOTE: this causes word counting to only be supported for markdown!
+    paragraphs = get_paragraphs(contents)
     # count all of the words in each paragraph
     word_counts = []
     for para in paragraphs:
-        para = para.replace(NEWLINE, SPACE)
-        words = NOTHING.join(ch if ch.isalnum() else SPACE for ch in para).split()
+        # split the string by whitespace (newlines, spaces, etc.) and punctuation
+        words = re.sub(r"[!\"#$%&()*+,\./:;\<=\>\?\@\[\]\^`\{\|\}]", " ", para).split()
         word_counts.append(len(words))
     # return the minimum number of words across all paragraphs
     if word_counts:
         return min(word_counts)
-    # counting did not work correctly, so return 0
+    # counting did not work correctly (probably because there were
+    # no paragraphs), so return 0
+    return 0
+
+
+def count_total_words(contents):
+    """Counts the total number of words in writing"""
+    # retrieve all of the paragraphs in the contents
+    # NOTE: this causes word counting to only be supported for markdown!
+    paragraphs = get_paragraphs(contents)
+    # count all of the words in each paragraph
+    word_counts = []
+    for para in paragraphs:
+        # split the string by whitespace (newlines, spaces, etc.) and punctuation
+        words = re.sub(r"[!\"#$%&()*+,\./:;\<=\>\?\@\[\]\^`\{\|\}]", " ", para).split()
+        word_counts.append(len(words))
+    if word_counts:
+        return sum(word_counts)
+    # counting did not work correctly (probably because there were
+    # no paragraphs), so return 0
     return 0
 
 
@@ -118,8 +132,18 @@ def count_specified_fragment(contents, fragment):
     return fragment_count
 
 
+def count_specified_regex(contents, regex):
+    """Counts all the specified regex for a given file"""
+    # finds regex matches, returns their count
+    if not is_valid_regex(regex):
+        return -1
+
+    matches = re.findall(regex, contents, re.DOTALL)
+    return len(matches)
+
+
 # pylint: disable=bad-continuation
-def specified_fragment_greater_than_count(
+def specified_entity_greater_than_count(
     chosen_fragment,
     checking_function,
     expected_count,
@@ -128,17 +152,17 @@ def specified_fragment_greater_than_count(
     contents=NOTHING,
     exact=False,
 ):
-    """Determines if the fragment count is greater than expected"""
-    # count the fragments in either a file in a directory or String contents
-    file_fragment_count = count_fragments(
+    """Determines if the entity count is greater than expected"""
+    # count the fragments/regex in either a file in a directory or String contents
+    file_entity_count = count_entities(
         chosen_fragment, checking_function, given_file, containing_directory, contents
     )
-    # check the condition and also return file_fragment_count
-    return util.greater_than_equal_exacted(file_fragment_count, expected_count, exact)
+    # check the condition and also return file_entity_count
+    return util.greater_than_equal_exacted(file_entity_count, expected_count, exact)
 
 
 # pylint: disable=bad-continuation
-def count_fragments(
+def count_entities(
     chosen_fragment,
     checking_function,
     given_file=NOTHING,
@@ -188,3 +212,12 @@ def count_lines(given_file=NOTHING, containing_directory=NOTHING, contents=NOTHI
         line_list = get_line_list(file_contents)
         file_contents_count = len(line_list)
     return file_contents_count
+
+
+def is_valid_regex(regex):
+    """Determines if regex is valid"""
+    try:
+        re.compile(regex)
+        return True
+    except re.error:
+        return False
