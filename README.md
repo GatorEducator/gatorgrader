@@ -100,8 +100,11 @@ successfully, you have officially installed GatorGrader!
 GatorGrader uses [Pytest](https://docs.pytest.org/en/latest/) for testing.
 Depending on your goals, there are several different configurations in which you
 can run the provided test suite. If you want to run the test suite to see if all
-of the test cases are correctly passing, then you can type one of the following
-commands in your terminal window:
+of the test cases are correctly passing, then you can type the first or second
+command in your terminal window. Along with running the test suite, the developers
+of GatorGrader used statement coverage to inform their testing of the tool. To see
+the current coverage of the tests while also highlighting the lines that are not
+currently covered by the tests, type the third command below in your terminal window.
 
 ```
 pipenv run pytest
@@ -111,51 +114,9 @@ pipenv run pytest
 pipenv run test
 ```
 
-Please note that you must preface the execution of the test suite with the
-command `pipenv run` if you want to ensure that the tests run with the correct
-access to their Python packages and in the desired virtual environment. The first
-command runs `pytest` explicitly, while the second utilizes `pytest-xdist`. If you
-are using GatorGrader and you find that a test fails in your development
-environment, please raise an issue in GatorGrader's issue tracker. With that
-said, if you are developing new features for Pytest and you want it to produce
-console output and stop when it runs the first failing test, you can type:
-
-```
-pipenv run pytest -x -s
-```
-
-The developers of GatorGrader used statement coverage to inform their testing of
-the tool. To see the current coverage of the tests while also highlighting the
-lines that are not currently covered by the tests, you can type this command:
-
 ```
 pipenv run cover
 ```
-
-if you would like to run a specific test suite
-
-```
-pytest test_run.py::<name-of-test-function>
-```
-or
-
-```
-pytest test_run.py::TestClass::<name-of-test_method>
-```
-
-The `-r` option accepts a number of characters after it, with a used above meaning “all except passes”.
-
-Here is the full list of available characters that can be used:
-
--  `f` - failed
--  `E` - error
--  `s` - skipped
--  `x` - xfailed
--  `X` - xpassed
--  `p` - passed
--  `P` - passed with output
--  `a` - all except `pP`
-
 
 ## Running GatorGrader
 
@@ -163,7 +124,7 @@ GatorGrader can automatically perform simple checks on both writing and source
 code. You can learn about GatorGrader's checks and defaults by typing `pipenv
 run python3 gatorgrader.py --help` in your terminal window and/or following the
 provided link. GatorGrader employs many checks to ensure that you configure it
-with the correct command-line arguments. 
+with the correct command-line arguments.
 
 
 ## GatorGrader in Action
