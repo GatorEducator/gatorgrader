@@ -75,11 +75,8 @@ about GatorGrader!
 
 ## Installing GatorGrader
 
-As a Python 3 program, GatorGrader relies on
-[Pipenv](https://github.com/pypa/pipenv) for the installation of the libraries
-on which it depends and the creation of the virtual environments in which it
-runs. To install GatorGrader, you should first follow Pipenv's installation
-instructions. You should also ensure that you have installed Git on your
+To install GatorGrader, you should first follow Pipenv's installation
+instructions. Please be sure that you have installed Git on your
 computer and that you can run Git commands in a terminal window. Then, you can
 type the following command in your terminal window to clone GatorGrader's GitHub
 repository:
@@ -101,7 +98,7 @@ GatorGrader uses [Pytest](https://docs.pytest.org/en/latest/) for testing.
 Depending on your goals, there are several different configurations in which you
 can run the provided test suite. If you want to run the test suite to see if all
 of the test cases are correctly passing, then you can type the first or second
-command in your terminal window. Along with running the test suite, the developers
+command (located below) in your terminal window. Along with running the test suite, the developers
 of GatorGrader used statement coverage to inform their testing of the tool. To see
 the current coverage of the tests while also highlighting the lines that are not
 currently covered by the tests, type the third command below in your terminal window.
@@ -109,6 +106,8 @@ currently covered by the tests, type the third command below in your terminal wi
 ```
 pipenv run pytest
 ```
+
+or
 
 ```
 pipenv run test
