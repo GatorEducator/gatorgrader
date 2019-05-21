@@ -1,0 +1,36 @@
+image: Visual Studio 2017
+version: b{build}-{branch}
+
+clone_folder: c:\projects\gatorgrader
+
+# clone using a zip file, not git
+shallow_clone: true
+
+platform:
+  - x86
+  - x64
+
+environment:
+  GATORGRADER_HOME: c:\projects\gatorgrader
+  PIPENV_VENV_IN_PROJECT: 1
+  PIPENV_IGNORE_VIRTUALENVS: 1
+
+matrix:
+  fast_finish: true
+
+cache:
+  - '%LOCALAPPDATA%\pip\Cache'
+
+install:
+  - gem update --system
+  - gem install mdl
+  - cinst gradle
+  - pip install pipenv
+  - pipenv install --dev --skip-lock --python "$PYENV_VERSION"
+  - set GATORGRADER_HOME "c:\projects\gatorgrader"
+
+build_script:
+  - pipenv run cover
+  - pipenv run lint --check
+
+test: off
