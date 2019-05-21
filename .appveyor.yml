@@ -24,7 +24,6 @@ init:
 
 install:
   - gem install mdl
-  - pip install --upgrade pip
   - pip install pipenv
   - pipenv install --dev --skip-lock --python %PYTHON_VERSION%
 
