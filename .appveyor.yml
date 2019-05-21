@@ -6,10 +6,6 @@ clone_folder: c:\projects\gatorgrader
 # clone using a zip file, not git
 shallow_clone: true
 
-platform:
-  - x86
-  - x64
-
 environment:
   # SHELL expected by pipenv
   SHELL: 'windows'
@@ -24,6 +20,7 @@ init:
   - set GATORGRADER_HOME='c:\projects\gatorgrader'
   - set PIPENV_VENV_IN_PROJECT=1
   - set PIPENV_IGNORE_VIRTUALENVS=1
+  - set PATH=c:\Ruby26\bin;%PATH%
 
 install:
   - gem install mdl
