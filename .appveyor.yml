@@ -1,7 +1,7 @@
 image: Visual Studio 2017
 version: b{build}-{branch}
 
-clone_folder: "c:\projects\gatorgrader"
+clone_folder: c:\projects\gatorgrader
 
 # clone using a zip file, not git
 shallow_clone: true
@@ -12,16 +12,16 @@ platform:
 
 environment:
   # SHELL expected by pipenv
-  SHELL: "windows"
+  SHELL: 'windows'
   matrix:
     - PYTHON_VERSION: 3.7.2
     - PYTHON_VERSION: 3.6.8
 
 cache:
-  - "%LOCALAPPDATA%\pip\Cache"
+  - '%LOCALAPPDATA%\pip\Cache'
 
 init:
-  - set GATORGRADER_HOME "c:\projects\gatorgrader"
+  - set GATORGRADER_HOME 'c:\projects\gatorgrader'
   - set PIPENV_VENV_IN_PROJECT 1
   - set PIPENV_IGNORE_VIRTUALENVS 1
 
