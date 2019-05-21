@@ -32,8 +32,8 @@ before_build:
   - pipenv --version
 
 build_script:
-  - pipenv run cover
-  - pipenv run lint --check
+  - pipenv run cover-win
+  - pipenv run lint-win --check
 
 test: off
 deploy: off
