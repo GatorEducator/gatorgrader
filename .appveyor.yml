@@ -3,8 +3,8 @@ version: b{build}-{branch}
 
 clone_folder: c:\projects\gatorgrader
 
-# clone using a zip file, not git
-shallow_clone: true
+# if true, clone using a zip file, not git
+shallow_clone: false
 
 environment:
   # SHELL expected by pipenv
