@@ -21,9 +21,9 @@ cache:
   - '%LOCALAPPDATA%\pip\Cache'
 
 init:
-  - set GATORGRADER_HOME 'c:\projects\gatorgrader'
-  - set PIPENV_VENV_IN_PROJECT 1
-  - set PIPENV_IGNORE_VIRTUALENVS 1
+  - set GATORGRADER_HOME='c:\projects\gatorgrader'
+  - set PIPENV_VENV_IN_PROJECT=1
+  - set PIPENV_IGNORE_VIRTUALENVS=1
 
 install:
   - gem update --system
