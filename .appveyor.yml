@@ -26,7 +26,6 @@ init:
   - set PIPENV_IGNORE_VIRTUALENVS=1
 
 install:
-  - gem update --system
   - gem install mdl
   - cinst gradle
   - python -m pip install pipenv
