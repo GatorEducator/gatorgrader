@@ -1,59 +1,56 @@
-if [[ "$1" == "--check" ]]; then
-    CHECK="--check"
-else
-    CHECK=""
-fi
+@echo off
+setlocal EnableDelayedExpansion
 
-PASSED=true
+if '%1'=='--check' (
+    set CHECK=--check
+) else (
+    set CHECK=
+)
 
-OS="$(uname)"
+set PASSED=true
 
-if [[ "$OS" == "Darwin" ]]; then
-    FILES=$(find -E . -type f -regex '\./(gator|tests)/.*.py')
-else
-    FILES=$(find . -type f -regextype posix-extended -regex '\./(gator|tests)/.*.py')
-fi
+dir /b /s | findstr "\\*.py$" | findstr /v "\\\.venv\\" > .xyzfiles
+for /f "Tokens=* Delims=" %%x in (.xyzfiles) do set FILES=!FILES! %%x
+del .xyzfiles
 
-FILES="$FILES *.py"
+echo -- Running black
+pipenv run black %CHECK% %FILES%
+if ERRORLEVEL 1 (
+	echo -- Failed
+	set PASSED=false
+) else (
+	echo -- Passed
+)
 
-echo " -- Running black"
-# shellcheck disable=SC2086
-if ! pipenv run black $CHECK $FILES; then
-    echo " -- Failed"
-    PASSED=false
-else
-    echo " -- Passed"
-fi
-echo ""
-echo " -- Running pylint"
-# shellcheck disable=SC2086
-if ! pipenv run pylint $FILES; then
-    echo " -- Failed"
-    PASSED=false
-else
-    echo " -- Passed"
-fi
-echo ""
-echo " -- Running flake8"
-# shellcheck disable=SC2086
-if ! pipenv run flake8 $FILES; then
-    echo " -- Failed"
-    PASSED=false
-else
-    echo " -- Passed"
-fi
-echo ""
-echo " -- Running bandit"
-# shellcheck disable=SC2086
-if ! pipenv run bandit -c "bandit.yml" $FILES; then
-    echo " -- Failed"
-    PASSED=false
-else
-    echo " -- Passed"
-fi
+echo -- Running pylint
+pipenv run pylint %FILES%
+if ERRORLEVEL 1 (
+	echo -- Failed
+	set PASSED=false
+) else (
+	echo -- Passed
+)
 
-if [[ "$PASSED" != "true" ]]; then
-    exit 1
-else
-    exit 0
-fi
+echo -- Running flake8
+pipenv run flake8 %FILES%
+if ERRORLEVEL 1 (
+	echo -- Failed
+	set PASSED=false
+) else (
+	echo -- Passed
+)
+
+echo -- Running bandit
+pipenv run bandit -c bandit.yml %FILES%
+if ERRORLEVEL 1 (
+	echo -- Failed
+	set PASSED=false
+) else (
+	echo -- Passed
+)
+
+if "%PASSED%"=="true" (
+    exit /b 0
+) else (
+    exit /b 1
+)
