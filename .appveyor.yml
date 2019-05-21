@@ -10,7 +10,7 @@ environment:
   # SHELL expected by pipenv
   SHELL: 'windows'
   matrix:
-    - PYTHON_VERSION: 3.7.2
+    - PYTHON_VERSION: 3.7.3
     - PYTHON_VERSION: 3.6.8
 
 cache:
@@ -20,11 +20,12 @@ init:
   - set GATORGRADER_HOME='c:\projects\gatorgrader'
   - set PIPENV_VENV_IN_PROJECT=1
   - set PIPENV_IGNORE_VIRTUALENVS=1
-  - set PATH=c:\Ruby26\bin;%PATH%
+  - set PATH=c:\Ruby26\bin;c:\Python37;%PATH%
 
 install:
   - gem install mdl
-  - python -m pip install pipenv
+  - pip --upgrade pip
+  - pip install pipenv
   - pipenv install --dev --skip-lock --python %PYTHON_VERSION%
 
 before_build:
