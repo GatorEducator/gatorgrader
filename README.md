@@ -23,8 +23,9 @@ For instance:
   and check styles.
 
   * Can be used in conjunction with [GatorGradle](https://github.com/GatorEducator/gatorgradle)
-  to support checking Gradle projects and "solution" and "starter" GitHub Classroom repositories in GitHub Classroom Assignments.
-  
+  to support checking Gradle projects and "solution" and "starter" GitHub Classroom repositories in GitHub Classroom
+  Assignments.
+
   * Can use GatorGrader in a cloud base environment (e.g. Travis CI) or local machine through command-line interface.
 
   * Effectively integrates into many diverse workflows and development environments.
