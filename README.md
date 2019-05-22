@@ -19,23 +19,23 @@ preconfigured checks when you type `gradle grade` in your terminal window.
 ## Key Features
 
 For instance:
-* Can automatically check and assess the work of writers and programmers through the use of different linting tools
+  * Can automatically check and assess the work of writers and programmers through the use of different linting tools
   and check styles.
 
-* Can be used in conjunction with [GatorGradle](https://github.com/GatorEducator/gatorgradle)
+  * Can be used in conjunction with [GatorGradle](https://github.com/GatorEducator/gatorgradle)
   to support checking Gradle projects and "solution" and "starter" GitHub Classroom repositories in GitHub Classroom Assignments.
-* Can use GatorGrader in a cloud base environment (e.g. Travis CI) or local machine through command-line interface.
+  * Can use GatorGrader in a cloud base environment (e.g. Travis CI) or local machine through command-line interface.
 
-* Effectively integrates into many diverse workflows and development environments.
-* Can be used with any text-based programming language or document.
+  * Effectively integrates into many diverse workflows and development environments.
+  * Can be used with any text-based programming language or document.
 
-* Can check for specified sentence fragments along with pure text and regular expression fragments within Markdown
+  * Can check for specified sentence fragments along with pure text and regular expression fragments within Markdown
   files and source code.
 
-* Can check to see if required files exist and are in the correct directory, and that the directory exists.
-* Can check for a specified number of single line or multi-line comments in source code.
-* Can check the number of words and paragraphs in Markdown files.
-* Can check for a required minimum number of Git commits.
+  * Can check to see if required files exist and are in the correct directory, and that the directory exists.
+  * Can check for a specified number of single line or multi-line comments in source code.
+  * Can check the number of words and paragraphs in Markdown files.
+  * Can check for a required minimum number of Git commits.
 
 Designed for use with [GitHub](https://github.com/), [GitHub
 Classroom](https://classroom.github.com/), [Travis CI](https://travis-ci.com/),
@@ -188,7 +188,7 @@ following list includes some of our recent presentations:
 
 - [A Hands-on Guide to Teaching Programming with GitHub, Travis CI, and Python](https://speakerdeck.com/gkapfham/a-hands-on-guide-to-teaching-programming-with-github-travis-ci-and-python) <br> *at PyOhio 2018*
 - [Using GitHub, Travis CI, and Python to Introduce Collaborative Software Development](https://speakerdeck.com/gkapfham/using-github-travis-ci-and-python-to-introduce-collaborative-software-development) <br> *at PyCon Education Summit 2018*
-  - [Using Python, Travis CI, and GitHub to Effectively Teach Programming](https://speakerdeck.com/gkapfham/using-python-travis-ci-and-github-to-effectively-teach-programming) <br> *at PyGotham 2018*
+- [Using Python, Travis CI, and GitHub to Effectively Teach Programming](https://speakerdeck.com/gkapfham/using-python-travis-ci-and-github-to-effectively-teach-programming) <br> *at PyGotham 2018*
 
 ## Contributing
 
