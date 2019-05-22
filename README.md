@@ -20,11 +20,11 @@ preconfigured checks when you type `gradle grade` in your terminal window.
 
 For instance:
   * Can automatically check and assess the work of writers and programmers through the use of different linting tools
-  and check styles.
+and check styles.
 
   * Can be used in conjunction with [GatorGradle](https://github.com/GatorEducator/gatorgradle)
-  to support checking Gradle projects and "solution" and "starter" GitHub Classroom repositories in GitHub Classroom
-  Assignments.
+to support checking Gradle projects and "solution" and "starter" GitHub Classroom repositories in GitHub Classroom
+Assignments.
 
   * Can use GatorGrader in a cloud base environment (e.g. Travis CI) or local machine through command-line interface.
 
@@ -32,7 +32,7 @@ For instance:
   * Can be used with any text-based programming language or document.
 
   * Can check for specified sentence fragments along with pure text and regular expression fragments within Markdown
-  files and source code.
+files and source code.
 
   * Can check to see if required files exist and are in the correct directory, and that the directory exists.
   * Can check for a specified number of single line or multi-line comments in source code.
