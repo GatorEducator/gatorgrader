@@ -11,20 +11,23 @@ environment:
   SHELL: 'windows'
   matrix:
     - PYTHON_VERSION: 3.7.3
+      PYTHON_PATH: c:\Python37
     - PYTHON_VERSION: 3.6.8
+      PYTHON_PATH: c:\Python36
 
 cache:
-  - '%LOCALAPPDATA%\pip\Cache'
+  - %LOCALAPPDATA%\pip\Cache
 
 init:
   - set GATORGRADER_HOME='c:\projects\gatorgrader'
   - set PIPENV_VENV_IN_PROJECT=1
   - set PIPENV_IGNORE_VIRTUALENVS=1
-  - set PATH=c:\Ruby26\bin;c:\Python37;%PATH%
+  - set PATH=c:\Ruby26\bin;%PYTHON_PATH%;%PYTHON_PATH%\scripts;%PATH%
 
 install:
   - gem install mdl
-  - pip install pipenv
+  - python -m pip install --upgrade pip
+  - python -m pip install pipenv
   - pipenv install --dev --skip-lock --python %PYTHON_VERSION%
 
 before_build:
@@ -32,8 +35,13 @@ before_build:
   - pipenv --version
 
 build_script:
-  - pipenv run cover-win
   - pipenv run lint-win --check
 
-test: off
+test_script:
+  - ps: |
+      & pipenv run pytest -s --cov-config .coveragerc --cov-report term-missing --junitxml .\unittests.xml --cov
+      $testsExitCode = $lastexitcode
+      $wc = New-Object 'System.Net.WebClient'
+      $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\unittests.xml))
+      if ($testsExitCode -ne 0) {exit $testsExitCode}
 deploy: off
