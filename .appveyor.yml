@@ -6,6 +6,8 @@ clone_folder: c:\projects\gatorgrader
 # if true, clone using a zip file, not git
 shallow_clone: false
 
+max_jobs: 4
+
 environment:
   # SHELL expected by pipenv
   SHELL: 'windows'
@@ -41,10 +43,8 @@ test_script:
   - ps: |
       & pipenv run pytest -s --cov-config .coveragerc --cov-report term-missing --junitxml .\unittests.xml --cov
       $testsExitCode = $lastexitcode
-      pipenv run codecov
-      pipenv run python-codacy-coverage -r coverage.xml
       $wc = New-Object 'System.Net.WebClient'
       $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\unittests.xml))
-      if ($testsExitCode -ne 0) {exit /b $testsExitCode}
+      if ($testsExitCode -ne 0) {exit $testsExitCode}
 
 deploy: off
