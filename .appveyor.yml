@@ -11,9 +11,9 @@ environment:
   SHELL: 'windows'
   matrix:
     - PYTHON_VERSION: 3.7.3
-      PYTHON_PATH: c:\Python37
+      PYTHON_PATH: C:\Python37
     - PYTHON_VERSION: 3.6.8
-      PYTHON_PATH: c:\Python36
+      PYTHON_PATH: C:\Python36
 
 cache:
   - '%LOCALAPPDATA%\pip\Cache'
@@ -41,7 +41,10 @@ test_script:
   - ps: |
       & pipenv run pytest -s --cov-config .coveragerc --cov-report term-missing --junitxml .\unittests.xml --cov
       $testsExitCode = $lastexitcode
+      pipenv run codecov
+      pipenv run python-codacy-coverage -r coverage.xml
       $wc = New-Object 'System.Net.WebClient'
       $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\unittests.xml))
       if ($testsExitCode -ne 0) {exit /b $testsExitCode}
+
 deploy: off
