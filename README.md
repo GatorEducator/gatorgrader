@@ -13,10 +13,11 @@ For those who are interested in using GatorGrader, this program allows for an
 easy implementation into the lab that needs graded. Provided below are starter
 labs that will help you to follow along with the implementation of GatorGrader!
 The links are starter labs for [Java](https://github.com/GatorEducator/java-starter),
-[LaTeX](https://github.com/GatorEducator/latex-assignment-starter), & [HTML                                        with CSS](https://github.com/GatorEducator/html-css-assignment-starter). They do not
-require you to complete these steps and instead it will download and install
-GatorGrader and run all of the preconfigured checks when you type `gradle grade`
-in your terminal window.
+[LaTeX](https://github.com/GatorEducator/latex-assignment-starter), &
+[HTML with CSS](https://github.com/GatorEducator/html-css-assignment-starter).
+They do not require you to complete these steps and instead it will download
+and install GatorGrader and run all of the preconfigured checks when you type
+`gradle grade` in your terminal window.
 
 ## Key Features
 
@@ -24,7 +25,7 @@ For instance:
   * Can automatically check and assess the work of writers and programmers.
 
   * Can be used in conjunction with [GatorGradle](https://github.com/GatorEducator/gatorgradle)
-to support checking Gradle projects
+to check Gradle projects
 
   * Can be used to check "solution" and "starter" GitHub Classroom repositories
 
@@ -52,9 +53,9 @@ check student submissions in both introductory and application-oriented classes
 using languages like Markdown, Java, Python, JavaScript, CSS, and HTML.
 GatorGrader's simple, yet useful, automated checks can also be integrated into
 the continuous integration build process supported by a system like
-[Travis CI](https://travis-ci.com/). In  contrast to other automated grading
-tools, GatorGrader does not aim to solve problems related to building a project or
-managing an assignment's submission, instead relying on existing tools that
+[Travis CI](https://travis-ci.com/). In contrast to other automated grading
+tools, GatorGrader does not aim to solve problems related to building a project
+or managing an assignment's submission, instead relying on existing tools that
 can effectively handle those tasks.
 
 ## What Do People Think about GatorGrader?
