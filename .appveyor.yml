@@ -41,7 +41,7 @@ build_script:
 
 test_script:
   - ps: |
-      & pipenv run pytest -s --cov-config .coveragerc --cov-report term-missing --junitxml .\unittests.xml --cov
+      & pipenv run pytest -s -v --cov-config .coveragerc --cov-report term-missing --junitxml .\unittests.xml --cov
       $testsExitCode = $lastexitcode
       $wc = New-Object 'System.Net.WebClient'
       $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\unittests.xml))
