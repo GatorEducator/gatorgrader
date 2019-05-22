@@ -16,7 +16,7 @@ environment:
       PYTHON_PATH: c:\Python36
 
 cache:
-  - %LOCALAPPDATA%\pip\Cache
+  - '%LOCALAPPDATA%\pip\Cache'
 
 init:
   - set GATORGRADER_HOME='c:\projects\gatorgrader'
