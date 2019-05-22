@@ -8,27 +8,27 @@ help.</center>
 
 [![Build Status](https://api.travis-ci.org/GatorEducator/gatorgrader.svg?branch=master)](https://travis-ci.org/GatorEducator/gatorgrader) [![codecov.io](http://codecov.io/github/GatorEducator/gatorgrader/coverage.svg?branch=master)](http://codecov.io/github/GatorEducator/gatorgrader?branch=master) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-orange.svg)](https://www.python.org/)
 
-
 ## How to Use
-For those who are interested in using GatorGrader, this program allows for an easy
-implementation into the lab that needs graded. Provided below are starter labs that
-will help you to follow along with the implementation of GatorGrader! The links
-are starter labs for [Java](https://github.com/GatorEducator/java-starter), [LaTeX](https://github.com/GatorEducator/latex-assignment-starter), & [HTML with CSS](https://github.com/GatorEducator/html-css-assignment-starter). They do not
-require you to complete these steps and instead it will download and install GatorGrader
-and run all of the preconfigured checks when you type `gradle grade` in your terminal window.
-
+For those who are interested in using GatorGrader, this program allows for an easy implementation into the lab that
+needs graded. Provided below are starter labs that will help you to follow along with the implementation of
+GatorGrader! The links are starter labs for [Java](https://github.com/GatorEducator/java-starter),
+[LaTeX](https://github.com/GatorEducator/latex-assignment-starter), & [HTML with CSS](https://github.com/GatorEducator/html-css-assignment-starter). They do not
+require you to complete these steps and instead it will download and install GatorGrader and run all of the
+preconfigured checks when you type `gradle grade` in your terminal window.
 
 ## Key Features
 
 For instance:
-  * Can automatically checks and assesses the work of writers and programmers through the use of different linting tools.
+  * Can automatically check and assess the work of writers and programmers through the use of different linting tools
+  and check styles.
+
   * Can be used in conjunction with [GatorGradle](https://github.com/GatorEducator/gatorgradle)
   to support checking Gradle projects and "solution" and "starter" GitHub Classroom repositories in GitHub Classroom Assignments.
-  * Can use GatorGrader in a cloud base environment (e.g. Travis CI) or local machine through command-line.
+  * Can use GatorGrader in a cloud base environment (e.g. Travis CI) or local machine through command-line interface.
   * Effectively integrates into many diverse workflows and development environments.
   * Can be used with any text-based programming language or document.
-  * Can check for specified sentence fragments along with pure text and regular expression fragments within Markdown files and
-  source code.
+  * Can check for specified sentence fragments along with pure text and regular expression fragments within Markdown
+  files and source code.
   * Can check to see if required files exist and are in the correct directory, and that the directory exists.
   * Can check for a specified number of single line or multi-line comments in source code.
   * Can check the number of words and paragraphs in Markdown files.
@@ -43,11 +43,10 @@ GatorGrader focuses on automating the checks and activities that are not already
 nicely supported. In alignment with key recommendations in a recent [National Academies
 report](https://www.nap.edu/catalog/24926/assessing-and-responding-to-the-growth-of-computer-science-undergraduate-enrollments), instructors have used GatorGrader to automatically
 check student submissions in both introductory and application-oriented classes
-using languages like Markdown, Java, Python, JavaScript, CSS, and HTML. GatorGrader's
-simple, yet useful, automated checks can also be integrated into the continuous
-integration build process supported by a system like [Travis CI](https://travis-ci.com/).
-In  contrast to other automated grading tools, GatorGrader does not aim to solve problems
-related to building a project or managing an assignment's submission, instead relying
+using languages like Markdown, Java, Python, JavaScript, CSS, and HTML. GatorGrader's simple, yet useful,
+automated checks can also be integrated into the continuous integration build process supported by a system like
+[Travis CI](https://travis-ci.com/). In  contrast to other automated grading tools, GatorGrader does not aim to solve
+problems related to building a project or managing an assignment's submission, instead relying
 on existing tools that can effectively handle those tasks.
 
 ## What Do People Think about GatorGrader?
@@ -98,10 +97,10 @@ GatorGrader uses [Pytest](https://docs.pytest.org/en/latest/) for testing.
 Depending on your goals, there are several different configurations in which you
 can run the provided test suite. If you want to run the test suite to see if all
 of the test cases are correctly passing, then you can type the first or second
-command (located below) in your terminal window. Along with running the test suite, the developers
-of GatorGrader used statement coverage to inform their testing of the tool. To see
-the current coverage of the tests while also highlighting the lines that are not
-currently covered by the tests, type the third command below in your terminal window.
+command (located below) in your terminal window. Along with running the test suite, the developers of GatorGrader used
+statement coverage to inform their testing of the tool. To see the current coverage of the tests while also
+highlighting the lines that are not currently covered by the tests, type the third command below in your terminal
+window.
 
 ```
 pipenv run pytest
@@ -157,22 +156,20 @@ be referenced when talking about GatorGrader are:
 2. [Submitty](https://github.com/Submitty/Submitty)
 3. [Web Cat](https://github.com/web-cat/web-cat-plugin-JavaTddPlugin)
 
-When it comes to CS50 Harvard, the first step to a great program is documentation
-however that is what they are lacking but it is something that we can assure you is
-a priority on our side. It does not seem like CS50 is known for its integration
-within multiple classes or languages. It only makes direct references to the use
+When it comes to CS50 Harvard, the first step to a great program is documentation, however, that is what they are
+lacking but it is something that we can assure you is a priority on our side. It does not seem like CS50 is known for
+its integration within multiple classes or languages. It only makes direct references to the use
 in a CS50 class at Harvard and nothing about what languages that encompasses.
-However, when it comes to our tool GatorGrader, it can be used on classes that have
-languages such as Java, HTML, or even LaTex.
+However, when it comes to our tool GatorGrader, it can be used on classes that have languages such as Java, HTML, or
+even LaTex.
 
 For Submitty, there tool rather similar to ours. However, the one difference is
 that they are modeling more of a GitHub type of tool. In other words, they are
 modeling a system that will hold assignments and leave them there for grading.
 Besides questions that may already have programmed answers, other checks like
-those that accompany a test case being written, seem like they must be hand graded.
-Therefore, it eliminates the idea of an automated grading system. In contrast,
-GatorGrader does all the grading for you. You input checks into a `yml` file and
-when students submit their work, the checks are checked to see if they have been
+those that accompany a test case being written, seem like they must be hand graded. Therefore, it eliminates the idea
+of an automated grading system. In contrast, GatorGrader does all the grading for you. You input checks into a `yml`
+file and when students submit their work, the checks are checked to see if they have been
 fulfilled. Therefore, eliminating the need for the professor to hand grade an assignment.
 
 Web Cat is a private grading system that one needs an account or access too.
