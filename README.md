@@ -13,9 +13,10 @@ For those who are interested in using GatorGrader, this program allows for an
 easy implementation into the lab that needs graded. Provided below are starter
 labs that will help you to follow along with the implementation of GatorGrader!
 The links are starter labs for [Java](https://github.com/GatorEducator/java-starter),
-[LaTeX](https://github.com/GatorEducator/latex-assignment-starter), & [HTML with CSS](https://github.com/GatorEducator/html-css-assignment-starter). They do not
-require you to complete these steps and instead it will download and install GatorGrader and run all of the
-preconfigured checks when you type `gradle grade` in your terminal window.
+[LaTeX](https://github.com/GatorEducator/latex-assignment-starter), & [HTML                                        with CSS](https://github.com/GatorEducator/html-css-assignment-starter). They do not
+require you to complete these steps and instead it will download and install
+GatorGrader and run all of the preconfigured checks when you type `gradle grade`
+in your terminal window.
 
 ## Key Features
 
@@ -27,7 +28,7 @@ to support checking Gradle projects
 
   * Can be used to check "solution" and "starter" GitHub Classroom repositories
 
-  * Can use GatorGrader in a cloud base environment (e.g. Travis CI) or local machine through command-line interface.
+  * Can use GatorGrader in a cloud base environment (e.g. Travis CI) or through command-line.
 
   * Effectively integrates into many diverse workflows and development environments.
   * Can be used with any text-based programming language or document.
@@ -51,10 +52,10 @@ check student submissions in both introductory and application-oriented classes
 using languages like Markdown, Java, Python, JavaScript, CSS, and HTML.
 GatorGrader's simple, yet useful, automated checks can also be integrated into
 the continuous integration build process supported by a system like
-[Travis CI](https://travis-ci.com/). In  contrast to other automated grading tools,
-GatorGrader does not aim to solve problems related to building a project or
-managing an assignment's submission, instead relying on existing tools that can
-effectively handle those tasks.
+[Travis CI](https://travis-ci.com/). In  contrast to other automated grading
+tools, GatorGrader does not aim to solve problems related to building a project or
+managing an assignment's submission, instead relying on existing tools that
+can effectively handle those tasks.
 
 ## What Do People Think about GatorGrader?
 
@@ -166,20 +167,23 @@ be referenced when talking about GatorGrader are:
 
 When it comes to CS50 Harvard, the first step to a great program is
 documentation, however, that is what they are lacking but it is something that
-we can assure you is a priority on our side. It does not seem like CS50 is known for
-its integration within multiple classes or languages. It only makes direct references to the use
-in a CS50 class at Harvard and nothing about what languages that encompasses.
-However, when it comes to our tool GatorGrader, it can be used on classes that have languages such as Java, HTML, or
-even LaTex.
+we can assure you is a priority on our side. It does not seem like CS50 is
+known for its integration within multiple classes or languages. It only makes
+direct references to the use in a CS50 class at Harvard and nothing about what
+languages that encompasses. However, when it comes to our tool GatorGrader,
+it can be used on classes that have languages such as Java, HTML, or even
+LaTex.
 
 For Submitty, there tool rather similar to ours. However, the one difference is
 that they are modeling more of a GitHub type of tool. In other words, they are
 modeling a system that will hold assignments and leave them there for grading.
 Besides questions that may already have programmed answers, other checks like
-those that accompany a test case being written, seem like they must be hand graded. Therefore, it eliminates the idea
-of an automated grading system. In contrast, GatorGrader does all the grading for you. You input checks into a `yml`
-file and when students submit their work, the checks are checked to see if they have been
-fulfilled. Therefore, eliminating the need for the professor to hand grade an assignment.
+those that accompany a test case being written, seem like they must be hand
+graded. Therefore, it eliminates the idea of an automated grading system.
+In contrast, GatorGrader does all the grading for you. You input checks into
+a `yml` file and when students submit their work, the checks are checked to see
+if they have been fulfilled. Therefore, eliminating the need for the professor
+to hand grade an assignment.
 
 Web Cat is a private grading system that one needs an account or access too.
 Therefore, it is impossible to be open for other users that do not have
