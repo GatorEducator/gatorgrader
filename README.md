@@ -23,28 +23,28 @@ and install GatorGrader and run all of the preconfigured checks when you type
 
 For instance:
 
-  * Can automatically check and assess the work of writers and programmers.
+* Can automatically check and assess the work of writers and programmers.
 
-  * Can be used in conjunction with [GatorGradle](https://github.com/GatorEducator/gatorgradle)
-    to check Gradle projects
+* Can be used in conjunction with [GatorGradle](https://github.com/GatorEducator/gatorgradle)
+  to check Gradle projects
 
-  * Can be used to check "solution" and "starter" GitHub Classroom repositories
+* Can be used to check "solution" and "starter" GitHub Classroom repositories
 
-  * Can use GatorGrader in a cloud base environment (e.g. Travis CI) or through command-line.
+* Can use GatorGrader in a cloud base environment (e.g. Travis CI) or through command-line.
 
-  * Effectively integrates into many diverse workflows and development environments.
+* Effectively integrates into many diverse workflows and development environments.
 
-  * Can be used with any text-based programming language or document.
+* Can be used with any text-based programming language or document.
 
-  * Can check for sentence fragments and text and regular expression fragments.
+* Can check for sentence fragments and text and regular expression fragments.
 
-  * Can check to see if required files exist and are in the correct directory, and that the directory exists.
+* Can check to see if required files exist and are in the correct directory, and that the directory exists.
 
-  * Can check for a specified number of single line or multi-line comments in source code.
+* Can check for a specified number of single line or multi-line comments in source code.
 
-  * Can check the number of words and paragraphs in Markdown files.
+* Can check the number of words and paragraphs in Markdown files.
 
-  * Can check for a required minimum number of Git commits.
+* Can check for a required minimum number of Git commits.
 
 Designed for use with [GitHub](https://github.com/), [GitHub
 Classroom](https://classroom.github.com/), [Travis CI](https://travis-ci.com/),
