@@ -30,7 +30,8 @@ For instance:
 
 * Can be used to check "solution" and "starter" GitHub Classroom repositories
 
-* Can use GatorGrader in a cloud base environment (e.g. Travis CI) or through command-line.
+* Can use GatorGrader in a cloud base environment (e.g. Travis CI) or through
+  command-line.
 
 * Effectively integrates into many diverse workflows and development environments.
 
@@ -38,7 +39,8 @@ For instance:
 
 * Can check for sentence fragments and text and regular expression fragments.
 
-* Can check to see if required files exist and are in the correct directory, and that the directory exists.
+* Can check to see if required files exist and are in the correct directory, and
+  that the directory exists.
 
 * Can check for a specified number of single line or multi-line comments in source code.
 
