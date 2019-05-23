@@ -55,15 +55,15 @@ that checks the work of programmers and writers. While other tools already exist
 to, for instance, enforce a style guide for source code or build a program,
 GatorGrader focuses on automating the checks and activities that are not already
 nicely supported. In alignment with key recommendations in a recent [National Academies
-report](https://www.nap.edu/catalog/24926/assessing-and-responding-to-the-growth-of-computer-science-undergraduate-enrollments), 
+report](https://www.nap.edu/catalog/24926/assessing-and-responding-to-the-growth-of-computer-science-undergraduate-enrollments),
 instructors have used GatorGrader to automatically check student submissions in
-both introductory and application-oriented classes using languages like Markdown,
-Java, Python, JavaScript, CSS, and HTML. GatorGrader's simple, yet useful, automated
-checks can also be integrated into the continuous integration build process
-supported by a system like [Travis CI](https://travis-ci.com/). In contrast to
-other automated grading tools, GatorGrader does not aim to solve problems related
-to building a project or managing an assignment's submission, instead relying on
-existing tools that can effectively handle those tasks.
+both introductory and application-oriented classes using languages like
+Markdown, Java, Python, JavaScript, CSS, and HTML. GatorGrader's simple, yet
+useful, automated checks can also be integrated into the continuous integration
+build process supported by a system like [Travis CI](https://travis-ci.com/).
+In contrast to other automated grading tools, GatorGrader does not aim to solve
+problems related to building a project or managing an assignment's submission,
+instead relying on existing tools that can effectively handle those tasks.
 
 ## What Do People Think about GatorGrader?
 
