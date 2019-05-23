@@ -22,23 +22,28 @@ and install GatorGrader and run all of the preconfigured checks when you type
 ## Key Features
 
 For instance:
+
   * Can automatically check and assess the work of writers and programmers.
 
   * Can be used in conjunction with [GatorGradle](https://github.com/GatorEducator/gatorgradle)
-to check Gradle projects
+    to check Gradle projects
 
   * Can be used to check "solution" and "starter" GitHub Classroom repositories
 
   * Can use GatorGrader in a cloud base environment (e.g. Travis CI) or through command-line.
 
   * Effectively integrates into many diverse workflows and development environments.
+
   * Can be used with any text-based programming language or document.
 
   * Can check for sentence fragments and text and regular expression fragments.
 
   * Can check to see if required files exist and are in the correct directory, and that the directory exists.
+
   * Can check for a specified number of single line or multi-line comments in source code.
+
   * Can check the number of words and paragraphs in Markdown files.
+
   * Can check for a required minimum number of Git commits.
 
 Designed for use with [GitHub](https://github.com/), [GitHub
@@ -48,15 +53,15 @@ that checks the work of programmers and writers. While other tools already exist
 to, for instance, enforce a style guide for source code or build a program,
 GatorGrader focuses on automating the checks and activities that are not already
 nicely supported. In alignment with key recommendations in a recent [National Academies
-report](https://www.nap.edu/catalog/24926/assessing-and-responding-to-the-growth-of-computer-science-undergraduate-enrollments), instructors have used GatorGrader to automatically
-check student submissions in both introductory and application-oriented classes
-using languages like Markdown, Java, Python, JavaScript, CSS, and HTML.
-GatorGrader's simple, yet useful, automated checks can also be integrated into
-the continuous integration build process supported by a system like
-[Travis CI](https://travis-ci.com/). In contrast to other automated grading
-tools, GatorGrader does not aim to solve problems related to building a project
-or managing an assignment's submission, instead relying on existing tools that
-can effectively handle those tasks.
+report](https://www.nap.edu/catalog/24926/assessing-and-responding-to-the-growth-of-computer-science-undergraduate-enrollments), 
+instructors have used GatorGrader to automatically check student submissions in
+both introductory and application-oriented classes using languages like Markdown,
+Java, Python, JavaScript, CSS, and HTML. GatorGrader's simple, yet useful, automated
+checks can also be integrated into the continuous integration build process
+supported by a system like [Travis CI](https://travis-ci.com/). In contrast to
+other automated grading tools, GatorGrader does not aim to solve problems related
+to building a project or managing an assignment's submission, instead relying on
+existing tools that can effectively handle those tasks.
 
 ## What Do People Think about GatorGrader?
 
