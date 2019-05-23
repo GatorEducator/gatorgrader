@@ -2,11 +2,12 @@
 
 ![Image of Logo](https://raw.githubusercontent.com/GatorEducator/gatorgrader/master/.github/gatorgraderlogo.png)
 
-<center>The only tool you'll need to ensure your code is up to speed!
-Whenever you feel in doubt, know GatorGrader is there to
-help.</center>
+<center>
+The only tool you'll need to ensure your code is up to speed!
+Whenever you feel in doubt, know GatorGrader is there to help.
+</center>
 
-[![Build Status](https://api.travis-ci.org/GatorEducator/gatorgrader.svg?branch=master)](https://travis-ci.org/GatorEducator/gatorgrader) [![codecov.io](http://codecov.io/github/GatorEducator/gatorgrader/coverage.svg?branch=master)](http://codecov.io/github/GatorEducator/gatorgrader?branch=master) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-orange.svg)](https://www.python.org/)
+[![Build Status](https://api.travis-ci.org/GatorEducator/gatorgrader.svg?branch=master)](https://travis-ci.org/GatorEducator/gatorgrader) [![codecov.io](http://codecov.io/github/GatorEducator/gatorgrader/coverage.svg?branch=master)](http://codecov.io/github/GatorEducator/gatorgrader?branch=master) [![codacy.com](https://api.codacy.com/project/badge/Grade/3dade81be6dc467b8e34cde66eb5cdc6)](https://www.codacy.com/app/GatorEducator/gatorgrader?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=GatorEducator/gatorgrader&amp;utm_campaign=Badge_Grade) [![All Contributors](https://img.shields.io/badge/all_contributors-32-orange.svg?style=flat)](#contributors) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-orange.svg)](https://www.python.org/)
 
 ## How to Use
 For those who are interested in using GatorGrader, this program allows for an
@@ -90,13 +91,16 @@ about GatorGrader!
 
 ## Installing GatorGrader
 
-To install GatorGrader, you should first follow Pipenv's installation
-instructions. Please be sure that you have installed Git on your
-computer and that you can run Git commands in a terminal window. Then, you can
-type the following command in your terminal window to clone GatorGrader's GitHub
+Installing GatorGrader is not necessary if the intended use case includes
+[GatorGradle](https://github.com/GatorEducator/gatorgradle). If a separate
+installation is needed, however, you should first install
+[Pipenv](https://github.com/pypa/pipenv) by following Pipenv's installation
+instructions. Please also be sure that you have installed Git on your computer
+and that you can run Git commands in a terminal window. Then, you can type the
+following command in your terminal window to clone GatorGrader's GitHub
 repository:
 
-```
+```bash
 git clone https://github.com/GatorEducator/gatorgrader.git
 ```
 
@@ -112,26 +116,20 @@ successfully, you have officially installed GatorGrader!
 GatorGrader uses [Pytest](https://docs.pytest.org/en/latest/) for testing.
 Depending on your goals, there are several different configurations in which you
 can run the provided test suite. If you want to run the test suite to see if
-all of the test cases are correctly passing, then you can type the first or
-second command (located below) in your terminal window. Along with running the
-test suite, the developers of GatorGrader used statement coverage to inform
-their testing of the tool. To see the current coverage of the tests while also
-highlighting the lines that are not currently covered by the tests, type the
-third command below in your terminal window.
+all of the test cases are correctly passing, then you can type the first (located
+below) in your terminal window. Along with running the test suite, the developers
+of GatorGrader used statement coverage to inform their testing of the tool. To
+see the current coverage of the tests while also highlighting the lines that are
+not currently covered by the tests, type the second command below in your terminal
+window.
 
-```
-pipenv run pytest
+```bash
+pipenv run test
 ```
 
 or
 
-```
-pipenv run test
-```
-
-then
-
-```
+```bash
 pipenv run cover
 ```
 
@@ -171,6 +169,7 @@ In today's world, there are so many new up and coming systems in the study of
 Computer Science. The most noticeable change is the amount of automated
 grading systems that are being created by schools and companies. Three that can
 be referenced when talking about GatorGrader are:
+
 1. [CS50 Harvard](https://github.com/cs50/check50)
 2. [Submitty](https://github.com/Submitty/Submitty)
 3. [Web Cat](https://github.com/web-cat/web-cat-plugin-JavaTddPlugin)
