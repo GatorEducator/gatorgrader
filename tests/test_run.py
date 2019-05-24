@@ -19,7 +19,7 @@ def test_run_working_command_returns_message():
         assert output == b"Hello!\n"
     # running an "echo" will have a carriage return and then trailing newline
     elif system_name is WINDOWS:
-        assert output == b"Hello!\r\n"
+        assert output == b'"Hello!"\r\n'
     assert code == 0
 
 
