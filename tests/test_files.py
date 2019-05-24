@@ -1,7 +1,5 @@
 """Test cases for the files module"""
 
-from pathlib import Path
-
 from gator import files
 
 
