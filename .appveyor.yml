@@ -51,9 +51,11 @@ before_build:
   - python --version
   - pipenv --version
 
+# run the linting program setup for use through Pipenv
 build_script:
   - pipenv run lint-win --check
 
+# run the test suite through Pipenv, reporting coverage in JUnit format
 test_script:
   - ps: |
       & pipenv run pytest -s -v --cov-config .coveragerc --cov-report term-missing --junitxml .\unittests.xml --cov
