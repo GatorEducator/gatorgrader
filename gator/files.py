@@ -5,6 +5,7 @@ from pathlib import Path
 
 def check_file_in_directory(given_file, home_prefix, containing_directory):
     """Returns true if the specified file is in the directory"""
+    # always use a Path from pathlib to ensure platform independence
     # create the Path for the home_prefix
     home_prefix_path = Path(home_prefix)
     # create the Path for the containing directory
