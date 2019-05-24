@@ -38,13 +38,13 @@ def test_many_files_found_in_subdirectory(tmpdir):
     assert hello_file.read() == "content"
     assert len(tmpdir.listdir()) == 1
     was_file_found = files.check_file_in_directory(
-        "hello.txt", tmpdir.dirname, tmpdir.basename + "/" + "sub"
+        tmpdir.basename, "sub", file="hello.txt", home=tmpdir.dirname
     )
     assert was_file_found is True
     readme_file = tmpdir.join("sub").join("README.md")
     readme_file.write("# README")
     was_file_found = files.check_file_in_directory(
-        "README.md", tmpdir.dirname, tmpdir.basename + "/" + "sub"
+        tmpdir.basename, "sub", file="README.md", home=tmpdir.dirname
     )
     assert was_file_found is True
 
