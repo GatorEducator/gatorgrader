@@ -1,13 +1,25 @@
 """Test cases for the run module"""
 
+import platform
+
 from gator import run
+
+LINUX = "Linux"
+MAC = "Darwin"
+WINDOWS = "Windows"
 
 
 def test_run_working_command_returns_message():
     """Checks that a single line is returned from command """
     output, error, code = run.run_command('echo "Hello!"')
     assert error == b""
-    assert output == b"Hello!\n"
+    system_name = platform.system()
+    # running an "echo" will have a trailing newline
+    if system_name is LINUX or system_name is MAC:
+        assert output == b"Hello!\n"
+    # running an "echo" will have a carriage return and then trailing newline
+    elif system_name is WINDOWS:
+        assert output == b"Hello!\r\n"
     assert code == 0
 
 
