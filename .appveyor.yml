@@ -14,9 +14,12 @@ max_jobs: 4
 environment:
   # configure SHELL environment variable expected by pipenv
   SHELL: 'windows'
+  # build and test with two versions of Python
   matrix:
+    # Use Python 3.7
     - PYTHON_VERSION: 3.7.3
       PYTHON_PATH: C:\Python37
+    # Use Python 3.6
     - PYTHON_VERSION: 3.6.8
       PYTHON_PATH: C:\Python36
 
@@ -43,6 +46,7 @@ install:
   # note that this is customized to work for a specific Python version
   - pipenv install --dev --skip-lock --python %PYTHON_VERSION%
 
+# echo the version of Python before starting the build
 before_build:
   - python --version
   - pipenv --version
