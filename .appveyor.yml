@@ -31,10 +31,16 @@ init:
   - set PIPENV_IGNORE_VIRTUALENVS=1
   - set PATH=c:\Ruby26\bin;%PYTHON_PATH%;%PYTHON_PATH%\scripts;%PATH%
 
+# install programs used for package management and linting
 install:
+  # use mdl for linting
   - gem install mdl
+  # upgrade pip to the most recent version
   - python -m pip install --upgrade pip
+  # install pipenv, which GatorGrader uses for packages
   - python -m pip install pipenv
+  # install all of the development dependencies
+  # note that this is customized to work for a specific Python version
   - pipenv install --dev --skip-lock --python %PYTHON_VERSION%
 
 before_build:
