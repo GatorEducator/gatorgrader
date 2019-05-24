@@ -9,7 +9,7 @@ shallow_clone: false
 max_jobs: 4
 
 environment:
-  # SHELL expected by pipenv
+  # SHELL environment variable expected by pipenv
   SHELL: 'windows'
   matrix:
     - PYTHON_VERSION: 3.7.3
