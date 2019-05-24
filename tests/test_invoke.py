@@ -17,7 +17,7 @@ def reset_results_dictionary():
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_commit_checks(reset_results_dictionary):
-    """Checks to that invocation of commit check works correctly"""
+    """Checks that invocation of commit check works correctly"""
     invoke.invoke_commits_check(".", sys.maxsize)
     details = report.get_result()
     assert details is not None
@@ -26,7 +26,7 @@ def test_commit_checks(reset_results_dictionary):
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_commit_checks_exact(reset_results_dictionary):
-    """Checks to that invocation of commit check exacted works correctly"""
+    """Checks that invocation of commit check exacted works correctly"""
     invoke.invoke_commits_check(".", sys.maxsize, True)
     details = report.get_result()
     assert details is not None
@@ -35,13 +35,14 @@ def test_commit_checks_exact(reset_results_dictionary):
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check(reset_results_dictionary, tmpdir):
-    """Checks to that invocation of file existence check works correctly"""
+    """Checks that invocation of file existence check works correctly"""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
     hello_file.write("content")
     assert hello_file.read() == "content"
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     hello_file = "hello.txt"
+    print("Going to request this directory: " + directory)
     invoke.invoke_file_in_directory_check(hello_file, directory)
     details = report.get_result()
     assert details is not None
