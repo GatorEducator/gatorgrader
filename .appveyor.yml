@@ -1,15 +1,18 @@
 image: Visual Studio 2017
 version: b{build}-{branch}
 
+# define GatorGrader's installation directory
 clone_folder: c:\projects\gatorgrader
 
-# if true, clone using a zip file, not git
+# if true, clone using a zip file, otherwise use git
+# this project uses a GitHub repository
 shallow_clone: false
 
 max_jobs: 4
 
+# configure the build environment
 environment:
-  # SHELL environment variable expected by pipenv
+  # configure SHELL environment variable expected by pipenv
   SHELL: 'windows'
   matrix:
     - PYTHON_VERSION: 3.7.3
@@ -17,9 +20,11 @@ environment:
     - PYTHON_VERSION: 3.6.8
       PYTHON_PATH: C:\Python36
 
+# set the cache directory
 cache:
   - '%LOCALAPPDATA%\pip\Cache'
 
+# configure environment variables used by GatorGrader
 init:
   - set GATORGRADER_HOME='c:\projects\gatorgrader'
   - set PIPENV_VENV_IN_PROJECT=1
