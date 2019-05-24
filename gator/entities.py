@@ -1,7 +1,6 @@
 """Count entities with provided functions"""
 
 from pathlib import Path
-
 from gator import util
 
 FILE_SEPARATOR = "/"
