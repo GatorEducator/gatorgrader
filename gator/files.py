@@ -15,6 +15,7 @@ def check_file_in_directory(given_file, home_prefix, containing_directory):
     # Since home_prefix_path and containing_directory_path are both absolute,
     # the code must make the containing_directory_path relative by stripping
     # off its anchor, allowing paths to be joined on all operating systems
+    # pylint: disable=old-division
     file_for_checking_path = (
         home_prefix_path
         / containing_directory_path.relative_to(containing_directory_path.anchor)
