@@ -471,7 +471,7 @@ def test_comment_counts_check_multiple_python(reset_results_dictionary, tmpdir):
     assert hello_file.read() == '""" hello world """'
     assert len(tmpdir.listdir()) == 1
     # directory = tmpdir.dirname + '"""' + tmpdir.basename + '"""' + "subdirectory"
-    directory = tmpdir.dirname + '/' + tmpdir.basename + '/' + "subdirectory"
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.py"
     invoke.invoke_file_in_directory_check(hello_file, directory)
     details = report.get_result()
@@ -496,7 +496,7 @@ def test_comment_counts_check_multiple_python_not_enough(
     assert hello_file.read() == '""" hello world """'
     assert len(tmpdir.listdir()) == 1
     # directory = tmpdir.dirname + '"""' + tmpdir.basename + '"""' + "subdirectory"
-    directory = tmpdir.dirname + '/' + tmpdir.basename + '/' + "subdirectory"
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.py"
     invoke.invoke_file_in_directory_check(hello_file, directory)
     details = report.get_result()
