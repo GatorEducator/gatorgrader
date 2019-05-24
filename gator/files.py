@@ -13,11 +13,9 @@ def create_path(*args, file, home):
     # create a containing directory of sub-directories for the file
     # pylint: disable=old-division
     for containing_path in args:
-        print("This is the containing_path: " + containing_path)
         nested_path = Path(containing_path)
         final_path = final_path / nested_path.relative_to(nested_path.anchor)
     final_path = final_path / given_file_path
-    print("This is the final path" + str(final_path.absolute))
     return final_path
 
 
@@ -41,5 +39,4 @@ def check_file_in_directory(*args, file, home):
     #     / containing_directory_path.relative_to(containing_directory_path.anchor)
     #     / given_file_path
     # )
-    print("new:" + str(file_for_checking_path))
     return file_for_checking_path.is_file()
