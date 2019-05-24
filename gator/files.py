@@ -22,5 +22,5 @@ def check_file_in_directory(given_file, home_prefix, containing_directory):
         / containing_directory_path.relative_to(containing_directory_path.anchor)
         / given_file_path
     )
-    print("This is the file for checking: " + str(file_for_checking_path.absolute()))
+    # print("This is the file for checking: " + str(file_for_checking_path.absolute()))
     return file_for_checking_path.is_file()
