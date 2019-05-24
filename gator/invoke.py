@@ -57,7 +57,7 @@ def invoke_file_in_directory_check(filecheck, directory):
     # get the home directory for checking and then check for file
     gatorgrader_home = util.get_gatorgrader_home()
     was_file_found = files.check_file_in_directory(
-        filecheck, gatorgrader_home, directory
+        directory, file=filecheck, home=gatorgrader_home
     )
     # construct the message about whether or not the file exists
     message = (
