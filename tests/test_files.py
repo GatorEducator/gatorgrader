@@ -56,7 +56,7 @@ def test_one_file_not_found_in_subdirectory(tmpdir):
     assert hello_file.read() == "content"
     assert len(tmpdir.listdir()) == 1
     was_file_found = files.check_file_in_directory(
-        "hello_not_there.txt", tmpdir.dirname, tmpdir.basename + "/" + "sub"
+        tmpdir.basename, "sub", file="hello_not_there.txt", home=tmpdir.dirname
     )
     assert was_file_found is False
 
@@ -68,12 +68,12 @@ def test_many_files_not_found_in_subdirectory(tmpdir):
     assert hello_file.read() == "content"
     assert len(tmpdir.listdir()) == 1
     was_file_found = files.check_file_in_directory(
-        "hello_not_there.txt", tmpdir.dirname, tmpdir.basename + "/" + "sub"
+        tmpdir.basename, "sub", file="hello_not_there.txt", home=tmpdir.dirname
     )
     assert was_file_found is False
     readme_file = tmpdir.join("sub").join("README.md")
     readme_file.write("# README")
     was_file_found = files.check_file_in_directory(
-        "README_not_there.md", tmpdir.dirname, tmpdir.basename + "/" + "sub"
+        tmpdir.basename, "sub", file="README_not_there.md", home=tmpdir.dirname
     )
     assert was_file_found is False
