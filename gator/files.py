@@ -23,9 +23,4 @@ def check_file_in_directory(given_file, home_prefix, containing_directory):
         containing_directory_path.anchor
     )
     print("This is the file for checking: " + str(file_for_checking_path.absolute()))
-    # print("Given file: " + given_file)
-    # print("Containing directory: " + containing_directory)
-    # print(
-    #     "Trying to create path of " + containing_directory + FILE_SEPARATOR + given_file
-    # )
     return file_for_checking_path.is_file()
