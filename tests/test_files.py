@@ -1,6 +1,22 @@
 """Test cases for the files module"""
 
+from pathlib import Path
+
 from gator import files
+
+
+def test_create_one_file_path(tmpdir):
+    """Ensure that creating a single file path works correctly"""
+    hello_file = tmpdir.mkdir("sub").join("hello.txt")
+    hello_file.write("content")
+    assert hello_file.read() == "content"
+    assert len(tmpdir.listdir()) == 1
+    created_path = files.create_path(
+        tmpdir.basename, "sub", file="hello.txt", home=tmpdir.dirname
+    )
+    assert created_path.name == "hello.txt"
+    assert created_path.parent.absolute is not None
+    assert created_path.parent.name == "sub"
 
 
 def test_one_file_found_in_subdirectory(tmpdir):
@@ -10,7 +26,7 @@ def test_one_file_found_in_subdirectory(tmpdir):
     assert hello_file.read() == "content"
     assert len(tmpdir.listdir()) == 1
     was_file_found = files.check_file_in_directory(
-        "hello.txt", tmpdir.dirname, tmpdir.basename + "/" + "sub"
+        tmpdir.basename, "sub", file="hello.txt", home=tmpdir.dirname
     )
     assert was_file_found is True
 
