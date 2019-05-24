@@ -3,6 +3,24 @@
 from pathlib import Path
 
 
+def create_path(*args, given_file, file_home):
+    """Create a Path object for a file with varying sub-path amounts"""
+    # create the Path for the file_home
+    home_path = Path(file_home)
+    # create the Path for the given file
+    given_file_path = Path(given_file)
+    final_path = home_path
+    # create a containing directory of sub-directories for the file
+    # pylint: disable=old-division
+    for containing_path in args:
+        print("This is the containing_path: " + containing_path)
+        nested_path = Path(containing_path)
+        final_path / nested_path.relative_to(nested_path.anchor)
+    final_path = final_path / given_file_path
+    print(str(final_path.absolute))
+    return final_path
+
+
 def check_file_in_directory(given_file, home_prefix, containing_dir):
     """Returns true if the specified file is in the directory"""
     # always use a Path from pathlib to ensure platform independence
