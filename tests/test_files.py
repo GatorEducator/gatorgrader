@@ -44,6 +44,8 @@ def test_create_one_file_path_with_two_middle(tmpdir):
     assert created_path.name == "hello.txt"
     assert created_path.parent.absolute is not None
     assert created_path.parent.name == "subsecond"
+    assert created_path.parent.parent.absolute is not None
+    assert created_path.parent.parent.name == "subfirst"
 
 
 def test_one_file_found_in_subdirectory(tmpdir):
