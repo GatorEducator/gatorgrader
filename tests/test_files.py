@@ -3,6 +3,21 @@
 from gator import files
 
 
+def test_create_one_file_path_with_none_middle(tmpdir):
+    """Ensure that creating a single file path works correctly"""
+    hello_file = tmpdir.mkdir("sub").join("hello.txt")
+    hello_file.write("content")
+    assert hello_file.read() == "content"
+    assert len(tmpdir.listdir()) == 1
+    created_path = files.create_path(
+        tmpdir.basename, file="hello.txt", home=tmpdir.dirname
+    )
+    assert created_path.name == "hello.txt"
+    assert created_path.parent.absolute is not None
+    assert created_path.parent.name != "sub"
+    assert created_path.parent.name.count("test_") == 1
+
+
 def test_create_one_file_path_with_one_middle(tmpdir):
     """Ensure that creating a single file path works correctly"""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
