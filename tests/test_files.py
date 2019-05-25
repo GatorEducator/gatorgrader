@@ -3,7 +3,7 @@
 from gator import files
 
 
-def test_create_one_file_path(tmpdir):
+def test_create_one_file_path_with_one_middle(tmpdir):
     """Ensure that creating a single file path works correctly"""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
     hello_file.write("content")
