@@ -17,6 +17,20 @@ def test_create_one_file_path_with_one_middle(tmpdir):
     assert created_path.parent.name == "sub"
 
 
+def test_create_one_file_path_with_two_middle(tmpdir):
+    """Ensure that creating a single file path works correctly"""
+    hello_file = tmpdir.mkdir("sub").join("hello.txt")
+    hello_file.write("content")
+    assert hello_file.read() == "content"
+    assert len(tmpdir.listdir()) == 1
+    created_path = files.create_path(
+        tmpdir.basename, "subfirst", "subsecond", file="hello.txt", home=tmpdir.dirname
+    )
+    assert created_path.name == "hello.txt"
+    assert created_path.parent.absolute is not None
+    assert created_path.parent.name == "subsecond"
+
+
 def test_one_file_found_in_subdirectory(tmpdir):
     """Ensure that check_file_in_directory can find one file file in a subdirectory"""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
