@@ -61,7 +61,7 @@ def test_one_file_found_in_subdirectory(tmpdir):
 
 
 def test_one_file_found_in_subdirectory_case_sensitivity_csfunction(tmpdir):
-    """Ensure that check_file_in_directory can find case-sensitive file name in a subdirectory"""
+    """Ensure that case-sensitive function can find file name in a subdirectory"""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
     hello_file.write("content")
     assert hello_file.read() == "content"
@@ -79,7 +79,7 @@ def test_one_file_found_in_subdirectory_case_sensitivity_csfunction(tmpdir):
 
 
 def test_one_file_found_in_subdirectory_case_sensitivity_noncsfunction(tmpdir):
-    """Ensure that non-case-sensitive can find file name in a subdirectory"""
+    """Ensure that non-case-sensitive function can find file name in a subdirectory"""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
     hello_file.write("content")
     assert hello_file.read() == "content"
