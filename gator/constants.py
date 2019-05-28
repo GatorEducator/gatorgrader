@@ -9,9 +9,11 @@ def create_constants(name, *args, **kwargs):
     # the constants are created such that:
     # the name is the name of the namedtuple
     # for *args or **kwargs ConstantName = "ConstantName"
-    created_constants = collections.namedtuple(name, itertools.chain(args, kwargs.keys()))
+    created_constants = collections.namedtuple(
+        name, itertools.chain(args, kwargs.keys())
+    )
     return created_constants(*itertools.chain(args, kwargs.values()))
 
 
 # define the programming languages for comment checks
-languages = create_constants('languages', 'Java', 'Python')
+languages = create_constants("languages", "Java", "Python")
