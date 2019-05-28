@@ -7,7 +7,6 @@ name = "pypi"
 gitpython = "*"
 requests = ">=2.20.0"
 commonmark = "*"
-pydocstyle = "*"
 
 [dev-packages]
 pylint = "*"
@@ -22,7 +21,6 @@ neovim = "*"
 mutmut = "*"
 bandit = "*"
 codacy-coverage = "*"
-pydocstyle = "*"
 
 [pipenv]
 allow_prereleases = true
