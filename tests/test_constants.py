@@ -15,3 +15,5 @@ def test_language_constant_cannot_redefine():
     """Check cannot redefine the variables in the language constant"""
     with pytest.raises(AttributeError):
         constants.languages.Java = "cannot_set_constant"
+    with pytest.raises(AttributeError):
+        constants.languages.Python = "cannot_set_constant"
