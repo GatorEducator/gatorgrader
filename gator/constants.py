@@ -14,4 +14,4 @@ def create_constants(name, *args, **kwargs):
 
 
 # define the programming languages for comment checks
-LANGUAGES = create_constants('LANGUAGES', 'Java', 'Python')
+languages = create_constants('languages', 'Java', 'Python')
