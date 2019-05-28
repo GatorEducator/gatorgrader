@@ -5,7 +5,7 @@ from pathlib import Path
 
 def create_path(*args, file, home):
     """Create a Path object for a file with varying sub-path count"""
-    # create the Path for the file_home
+    # create the Path for the home
     home_path = Path(home)
     # create the Path for the given file
     given_file_path = Path(file)
