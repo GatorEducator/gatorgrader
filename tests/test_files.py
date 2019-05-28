@@ -114,7 +114,6 @@ def test_many_files_found_in_subdirectory(tmpdir):
     assert was_file_found is True
 
 
-
 def test_one_file_found_in_subdirectory_case_sensitivity_csfunction(tmpdir):
     """Ensure that case-sensitive function can find file name in a subdirectory"""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
