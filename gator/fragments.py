@@ -205,13 +205,18 @@ def specified_source_greater_than_count(
 
 def count_lines(given_file=NOTHING, containing_directory=NOTHING, contents=NOTHING):
     """Counts lines for the file in the directory (or contents)"""
-    file_for_checking = Path(containing_directory + FILE_SEPARATOR + given_file)
+    # create a Path object to the chosen file in the containing directory
+    file_for_checking = files.create_path(file=given_file, home=containing_directory)
     file_contents_count = 0
     # file is not available and the contents are provided
+    # the context for this condition is when the function checks
+    # the output from the execution of a specified command
     if not file_for_checking.is_file() and contents is not NOTHING:
         line_list = get_line_list(contents)
         file_contents_count = len(line_list)
     # file is available and the contents are not provided
+    # the context for this condition is when the function checks
+    # the contents of a specified file
     elif file_for_checking.is_file() and contents is NOTHING:
         file_contents = file_for_checking.read_text()
         line_list = get_line_list(file_contents)
@@ -220,7 +225,7 @@ def count_lines(given_file=NOTHING, containing_directory=NOTHING, contents=NOTHI
 
 
 def is_valid_regex(regex):
-    """Determines if regex is valid"""
+    """Determines if the provided regex is valid"""
     try:
         re.compile(regex)
         return True
