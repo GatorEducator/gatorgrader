@@ -1,6 +1,7 @@
 """Invokes programs on the command-line"""
 
 from gator import comments
+from gator import constants
 from gator import entities
 from gator import files
 from gator import fragments
@@ -82,7 +83,7 @@ def invoke_all_comment_checks(
     # check single-line comments
     if comment_type == SINGLE:
         # check comments in Java
-        if language == JAVA:
+        if language == constants.LANGUAGES.Java:
             met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
                 filecheck,
                 directory,
