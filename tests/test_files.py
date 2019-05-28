@@ -93,6 +93,24 @@ def test_one_file_found_in_subdirectory_case_sensitivity_noncsfunction(tmpdir):
     # asserrtion that would not pass across all operating systems
 
 
+def test_one_file_found_in_subdirectory_case_sensitivity(tmpdir):
+    """Ensure that check_file_in_directory can find case-sensitive file name in a subdirectory"""
+    hello_file = tmpdir.mkdir("sub").join("hello.txt")
+    hello_file.write("content")
+    assert hello_file.read() == "content"
+    assert len(tmpdir.listdir()) == 1
+    # the file should be found with the lowercase name
+    was_file_found = files.check_file_in_directory(
+        tmpdir.basename, "sub", file="hello.txt", home=tmpdir.dirname
+    )
+    assert was_file_found is True
+    # the file should be not found with the uppercase name
+    was_file_found = files.check_file_in_directory(
+        tmpdir.basename, "sub", file="HELLO.txt", home=tmpdir.dirname
+    )
+    assert was_file_found is False
+
+
 def test_many_files_found_in_subdirectory(tmpdir):
     """Ensure that check_file_in_directory can find many files in a subdirectory"""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
