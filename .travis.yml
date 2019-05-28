@@ -73,8 +73,8 @@ script:
 after_success:
   - pipenv run codecov
   - pipenv run python-codacy-coverage -r coverage.xml
-  - test "$PYENV_VERSION" = "3.7.2" && test "$TRAVIS_OS_NAME" = "linux" && \
-    wget https://github.com/Michionlion/pr-tag-release/releases/latest/download/pr_tag_release.sh && \
+  - test "$PYENV_VERSION" = "3.7.2" && test "$TRAVIS_OS_NAME" = "linux" &&
+    wget https://github.com/Michionlion/pr-tag-release/releases/latest/download/pr_tag_release.sh &&
     source pr_tag_release.sh
 
 # deploy to GitHub Releases on PR merge
