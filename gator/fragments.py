@@ -12,39 +12,39 @@ SPACE = " "
 
 
 def get_paragraphs(contents):
-    """Retrieves the paragraphs in the writing"""
+    """Retrieves the paragraphs in the writing in the contents parameter"""
     ast = commonmark.Parser().parse(contents)
     mode_looking = True
     paragraph_list = []
     paragraph_content = ""
     counter = 0
 
-    # Iterate through the markdown to find paragraphs and add their contents to paragraph_list
+    # iterate through the markdown to find paragraphs and add their contents to paragraph_list
     for subnode, enter in ast.walker():
         if mode_looking:
-            # Check to see if the current subnode is an open paragraph node
+            # check to see if the current subnode is an open paragraph node
             if counter == 1 and subnode.t == "paragraph" and enter:
-                # Initialize paragraph_content
+                # initialize paragraph_content
                 paragraph_content = ""
-                # Stop search for paragraph nodes, as one has been found
-                # Instead, start adding content to paragraph_content
+                # stop search for paragraph nodes, as one has been found
+                # instead, start adding content to paragraph_content
                 mode_looking = False
         else:
-            # Check to see if the current subnode is a closing paragraph node
+            # check to see if the current subnode is a closing paragraph node
             if counter == 2 and subnode.t == "paragraph" and not enter:
-                # Add the content of the paragraph to paragraph_list
+                # add the content of the paragraph to paragraph_list
                 paragraph_list.append(paragraph_content.strip())
-                # Stop saving paragraph contents, as the paragraph had ended
-                # Start a search for a new paragraph
+                # stop saving paragraph contents, as the paragraph had ended
+                # start a search for a new paragraph
                 mode_looking = True
-            # If the subnode literal has contents,
+            # if the subnode literal has contents,
             # or is a softbreak, add them to paragraph_content
             if subnode.t == "softbreak":
                 paragraph_content += NEWLINE
             elif subnode.literal is not None:
                 paragraph_content += subnode.literal
 
-        # Track the how deep into the tree the search currently is
+        # track the how deep into the tree the search currently is
         if subnode.is_container():
             if enter:
                 counter += 1
