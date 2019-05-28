@@ -121,7 +121,7 @@ def test_one_file_found_in_subdirectory_case_sensitivity_noncsfunction(tmpdir):
     assert hello_file.read() == "content"
     assert len(tmpdir.listdir()) == 1
     # the file should be found with the lowercase name
-    was_file_found = files.platform_check_file_in_directory(
+    was_file_found = files.case_native_check_file_in_directory(
         tmpdir.basename, "sub", file="hello.txt", home=tmpdir.dirname
     )
     assert was_file_found is True
