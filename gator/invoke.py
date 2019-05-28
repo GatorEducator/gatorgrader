@@ -11,8 +11,6 @@ from gator import repository
 from gator import run
 from gator import util
 
-JAVA = "Java"
-PYTHON = "Python"
 
 NOTHING = ""
 NO_DIAGNOSTIC = ""
