@@ -1,12 +1,9 @@
 """Retrieve and count the tags of a markdown file"""
 
-from pathlib import Path
-
 import commonmark
 
+from gator import files
 from gator import util
-
-FILE_SEPARATOR = "/"
 
 
 def count_specified_tag(contents, tag):
@@ -32,9 +29,12 @@ def specified_tag_greater_than_count(
     exact=False,
 ):
     """Determines if the tag count is greater than expected in a given file"""
-    file_for_checking = Path(containing_directory + FILE_SEPARATOR + given_file)
+    # create a Path object to the chosen file in the containing directory
+    file_for_checking = files.create_path(file=given_file, home=containing_directory)
     file_tag_count = 0
+    # the specified file is a valid done and thus it is suitable for checking
     if file_for_checking.is_file():
+        # read the contents of the file and then check for the chosen tag
         file_contents = file_for_checking.read_text()
         file_tag_count = checking_function(file_contents, chosen_tag)
 
