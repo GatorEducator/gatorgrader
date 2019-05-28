@@ -3,7 +3,7 @@
 from pathlib import Path
 
 
-CURRENT_DIRECTORY_GLOB = "*"
+CURRENT_DIRECTORY_GLOB = "*.*"
 
 
 def create_path(*args, file, home):
