@@ -79,7 +79,7 @@ def test_one_file_found_in_subdirectory_case_sensitivity_csfunction(tmpdir):
 
 
 def test_one_file_found_in_subdirectory_case_sensitivity_noncsfunction(tmpdir):
-    """Ensure that check_file_in_directory can find case-sensitive file name in a subdirectory"""
+    """Ensure that non-case-sensitive can find file name in a subdirectory"""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
     hello_file.write("content")
     assert hello_file.read() == "content"
@@ -90,7 +90,7 @@ def test_one_file_found_in_subdirectory_case_sensitivity_noncsfunction(tmpdir):
     )
     assert was_file_found is True
     # note that checking for the existence of HELLO.txt is an
-    # asserrtion that would not pass across all operating systems
+    # assertion that would not pass across all operating systems
 
 
 def test_one_file_found_in_subdirectory_case_sensitivity(tmpdir):
