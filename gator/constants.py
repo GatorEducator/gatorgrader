@@ -15,3 +15,8 @@ def create_constants(name, *args, **kwargs):
 
 # define the programming languages for comment checks
 languages = create_constants("languages", "Java", "Python")
+
+# define the markers for files and output
+markers = create_constants(
+    "markers", Empty=b"", No_Diagnostic="", Nothing="", Space=" "
+)
