@@ -26,7 +26,7 @@ def create_path(*args, file, home):
     return final_path
 
 
-def case_insensitive_check_file_in_directory(*args, file, home):
+def platform_check_file_in_directory(*args, file, home):
     """Returns true if the case-insensitive specified file is in the directory"""
     # create the path so that it has this structure:
     # <home> + <any paths in *args, without their anchor> + <file>
@@ -58,7 +58,7 @@ def check_file_in_directory(*args, file, home):
     """Returns true if the specified file is in the directory"""
     # perform the standard check that relies on the operating system
     # to determine whether or not the file exists on the file system
-    no_case_file_exists = case_insensitive_check_file_in_directory(
+    no_case_file_exists = platform_check_file_in_directory(
         *args, file=file, home=home
     )
     # perform a case-sensitive check that lists all of the files in
