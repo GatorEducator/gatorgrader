@@ -5,9 +5,8 @@ from pathlib import Path
 import re
 import commonmark
 
+from gator import files
 from gator import util
-
-FILE_SEPARATOR = "/"
 
 NEWLINE = "\n"
 NOTHING = ""
@@ -170,13 +169,19 @@ def count_entities(
     contents=NOTHING,
 ):
     """Counts fragments for the file in the directory (or contents) and a fragment"""
-    file_for_checking = Path(containing_directory + FILE_SEPARATOR + given_file)
+    # create a Path object to the chosen file in the containing directory
+    file_for_checking = files.create_path(file=given_file, home=containing_directory)
     file_contents_count = 0
     # file is not available and the contents are provided
+    # the context for this condition is when the function checks
+    # the output from the execution of a specified command
     if not file_for_checking.is_file() and contents is not NOTHING:
         file_contents_count = checking_function(contents, chosen_fragment)
     # file is available and the contents are not provided
+    # the context for this condition is when the function checks
+    # the contents of a specified file
     elif file_for_checking.is_file() and contents is NOTHING:
+        # read the text from the file and the check for the chosen fragment
         file_contents = file_for_checking.read_text()
         file_contents_count = checking_function(file_contents, chosen_fragment)
     return file_contents_count
