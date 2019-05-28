@@ -60,6 +60,61 @@ def test_one_file_found_in_subdirectory(tmpdir):
     assert was_file_found is True
 
 
+def test_one_file_found_in_subdirectory_case_sensitivity_ext_csfunction(tmpdir):
+    """Ensure that case-sensitive function can find file name in a subdirectory"""
+    hello_file = tmpdir.mkdir("sub").join("hello.txt")
+    hello_file.write("content")
+    assert hello_file.read() == "content"
+    assert len(tmpdir.listdir()) == 1
+    # the file should be found with the lowercase name
+    was_file_found = files.case_sensitive_check_file_in_directory(
+        tmpdir.basename, "sub", file="hello.txt", home=tmpdir.dirname
+    )
+    assert was_file_found is True
+    # the file should be not found with the uppercase name
+    was_file_found = files.case_sensitive_check_file_in_directory(
+        tmpdir.basename, "sub", file="hello.TXT", home=tmpdir.dirname
+    )
+    assert was_file_found is False
+
+
+def test_one_file_found_in_subdirectory_case_sensitivity_ext(tmpdir):
+    """Ensure that check_file_in_directory can find case-sensitive file name in a subdirectory"""
+    hello_file = tmpdir.mkdir("sub").join("hello.txt")
+    hello_file.write("content")
+    assert hello_file.read() == "content"
+    assert len(tmpdir.listdir()) == 1
+    # the file should be found with the lowercase name
+    was_file_found = files.check_file_in_directory(
+        tmpdir.basename, "sub", file="hello.txt", home=tmpdir.dirname
+    )
+    assert was_file_found is True
+    # the file should be not found with the uppercase name
+    was_file_found = files.check_file_in_directory(
+        tmpdir.basename, "sub", file="hello.TXT", home=tmpdir.dirname
+    )
+    assert was_file_found is False
+
+
+def test_many_files_found_in_subdirectory(tmpdir):
+    """Ensure that check_file_in_directory can find many files in a subdirectory"""
+    hello_file = tmpdir.mkdir("sub").join("hello.txt")
+    hello_file.write("content")
+    assert hello_file.read() == "content"
+    assert len(tmpdir.listdir()) == 1
+    was_file_found = files.check_file_in_directory(
+        tmpdir.basename, "sub", file="hello.txt", home=tmpdir.dirname
+    )
+    assert was_file_found is True
+    readme_file = tmpdir.join("sub").join("README.md")
+    readme_file.write("# README")
+    was_file_found = files.check_file_in_directory(
+        tmpdir.basename, "sub", file="README.md", home=tmpdir.dirname
+    )
+    assert was_file_found is True
+
+
+
 def test_one_file_found_in_subdirectory_case_sensitivity_csfunction(tmpdir):
     """Ensure that case-sensitive function can find file name in a subdirectory"""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
