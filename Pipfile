@@ -29,3 +29,6 @@ allow_prereleases = true
 test = "./scripts/test.sh"
 cover = "./scripts/cover.sh"
 lint = "./scripts/lint.sh"
+test-win = 'scripts\\test.bat'
+cover-win = 'scripts\\cover.bat'
+lint-win = 'scripts\\lint.bat'

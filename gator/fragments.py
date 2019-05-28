@@ -1,13 +1,10 @@
 """Retrieve and count the contents of a file"""
 
-from pathlib import Path
-
 import re
 import commonmark
 
+from gator import files
 from gator import util
-
-FILE_SEPARATOR = "/"
 
 NEWLINE = "\n"
 NOTHING = ""
@@ -15,39 +12,39 @@ SPACE = " "
 
 
 def get_paragraphs(contents):
-    """Retrieves the paragraphs in the writing"""
+    """Retrieves the paragraphs in the writing in the contents parameter"""
     ast = commonmark.Parser().parse(contents)
     mode_looking = True
     paragraph_list = []
     paragraph_content = ""
     counter = 0
 
-    # Iterate through the markdown to find paragraphs and add their contents to paragraph_list
+    # iterate through the markdown to find paragraphs and add their contents to paragraph_list
     for subnode, enter in ast.walker():
         if mode_looking:
-            # Check to see if the current subnode is an open paragraph node
+            # check to see if the current subnode is an open paragraph node
             if counter == 1 and subnode.t == "paragraph" and enter:
-                # Initialize paragraph_content
+                # initialize paragraph_content
                 paragraph_content = ""
-                # Stop search for paragraph nodes, as one has been found
-                # Instead, start adding content to paragraph_content
+                # stop search for paragraph nodes, as one has been found
+                # instead, start adding content to paragraph_content
                 mode_looking = False
         else:
-            # Check to see if the current subnode is a closing paragraph node
+            # check to see if the current subnode is a closing paragraph node
             if counter == 2 and subnode.t == "paragraph" and not enter:
-                # Add the content of the paragraph to paragraph_list
+                # add the content of the paragraph to paragraph_list
                 paragraph_list.append(paragraph_content.strip())
-                # Stop saving paragraph contents, as the paragraph had ended
-                # Start a search for a new paragraph
+                # stop saving paragraph contents, as the paragraph had ended
+                # start a search for a new paragraph
                 mode_looking = True
-            # If the subnode literal has contents,
+            # if the subnode literal has contents,
             # or is a softbreak, add them to paragraph_content
             if subnode.t == "softbreak":
                 paragraph_content += NEWLINE
             elif subnode.literal is not None:
                 paragraph_content += subnode.literal
 
-        # Track the how deep into the tree the search currently is
+        # track the how deep into the tree the search currently is
         if subnode.is_container():
             if enter:
                 counter += 1
@@ -170,13 +167,19 @@ def count_entities(
     contents=NOTHING,
 ):
     """Counts fragments for the file in the directory (or contents) and a fragment"""
-    file_for_checking = Path(containing_directory + FILE_SEPARATOR + given_file)
+    # create a Path object to the chosen file in the containing directory
+    file_for_checking = files.create_path(file=given_file, home=containing_directory)
     file_contents_count = 0
     # file is not available and the contents are provided
+    # the context for this condition is when the function checks
+    # the output from the execution of a specified command
     if not file_for_checking.is_file() and contents is not NOTHING:
         file_contents_count = checking_function(contents, chosen_fragment)
     # file is available and the contents are not provided
+    # the context for this condition is when the function checks
+    # the contents of a specified file
     elif file_for_checking.is_file() and contents is NOTHING:
+        # read the text from the file and the check for the chosen fragment
         file_contents = file_for_checking.read_text()
         file_contents_count = checking_function(file_contents, chosen_fragment)
     return file_contents_count
@@ -200,13 +203,18 @@ def specified_source_greater_than_count(
 
 def count_lines(given_file=NOTHING, containing_directory=NOTHING, contents=NOTHING):
     """Counts lines for the file in the directory (or contents)"""
-    file_for_checking = Path(containing_directory + FILE_SEPARATOR + given_file)
+    # create a Path object to the chosen file in the containing directory
+    file_for_checking = files.create_path(file=given_file, home=containing_directory)
     file_contents_count = 0
     # file is not available and the contents are provided
+    # the context for this condition is when the function checks
+    # the output from the execution of a specified command
     if not file_for_checking.is_file() and contents is not NOTHING:
         line_list = get_line_list(contents)
         file_contents_count = len(line_list)
     # file is available and the contents are not provided
+    # the context for this condition is when the function checks
+    # the contents of a specified file
     elif file_for_checking.is_file() and contents is NOTHING:
         file_contents = file_for_checking.read_text()
         line_list = get_line_list(file_contents)
@@ -215,7 +223,7 @@ def count_lines(given_file=NOTHING, containing_directory=NOTHING, contents=NOTHI
 
 
 def is_valid_regex(regex):
-    """Determines if regex is valid"""
+    """Determines if the provided regex is valid"""
     try:
         re.compile(regex)
         return True

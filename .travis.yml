@@ -2,6 +2,7 @@ language: generic
 
 dist: xenial
 
+# run builds and tests on Linux and MacOS
 os:
   - linux
   - osx
@@ -10,9 +11,13 @@ os:
 # setup a secure login to CodeCov
 # set env variables for different jobs
 env:
+  # run build and test on two multiple versions of Python
   matrix:
     - PYENV_VERSION=3.7.2
     - PYENV_VERSION=3.6.3
+  # configure all of the needed global variables
+  # note that the secure entries reference access tokens
+  # that support secure access to remote services
   global:
     - PYENV_ROOT=$HOME/.travis-pyenv
     - PIPENV_VENV_IN_PROJECT=1
