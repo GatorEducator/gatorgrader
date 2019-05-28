@@ -40,7 +40,7 @@ def case_sensitive_check_file_in_directory(*args, file, home):
     # get parent, i.e., the containing directory for the specified file
     file_parent = file_for_checking_path.parent
     # create a generator of all of the files in the parent directory
-    file_parent_glob = file_parent.glob("**/*")
+    file_parent_glob = file_parent.glob("*")
     # assume that the file with the correct name has not been found
     # and prove otherwise by iterating through the generator of files
     file_found = False
