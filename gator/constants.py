@@ -24,7 +24,7 @@ comments = create_constants(
 )
 
 # define the markdown indicators
-markdown = create_constants("markdown", Paragraph="paragraph")
+markdown = create_constants("markdown", Paragraph="paragraph", Softbreak="softbreak")
 
 # define the markers for files and output
 markers = create_constants(
