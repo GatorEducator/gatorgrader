@@ -26,6 +26,11 @@ def test_paths_constant_defined():
     assert constants.paths.Current_Directory_Glob == "*.*"
 
 
+def test_markdown_constant_defined():
+    """Check correctness for the variables in the paragraphs constant"""
+    assert constants.markdown.Paragraph == "paragraph"
+
+
 def test_language_constant_cannot_redefine():
     """Check cannot redefine the variables in the languages constant"""
     with pytest.raises(AttributeError):
@@ -54,3 +59,9 @@ def test_paths_constant_cannot_redefine():
     """Check cannot redefine the variables in the paths constant"""
     with pytest.raises(AttributeError):
         constants.paths.Current_Directory_Glob = "cannot_set_constant"
+
+
+def test_markdown_constant_cannot_redefine():
+    """Check cannot redefine the variables in the paths constant"""
+    with pytest.raises(AttributeError):
+        constants.markdown.Paragraph = "cannot_set_constant"
