@@ -17,6 +17,7 @@ def test_marker_constant_defined():
     assert constants.markers.No_Diagnostic == ""
     assert constants.markers.Nothing == ""
     assert constants.markers.Space == " "
+    assert constants.markers.Success == 0
 
 
 def test_language_constant_cannot_redefine():
@@ -37,3 +38,5 @@ def test_marker_constant_cannot_redefine():
         constants.markers.Nothing = "cannot_set_constant"
     with pytest.raises(AttributeError):
         constants.markers.Space = "cannot_set_constant"
+    with pytest.raises(AttributeError):
+        constants.markers.Success = 10
