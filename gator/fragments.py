@@ -20,7 +20,7 @@ def get_paragraphs(contents):
     for subnode, enter in ast.walker():
         if mode_looking:
             # check to see if the current subnode is an open paragraph node
-            if counter == 1 and subnode.t == "paragraph" and enter:
+            if counter == 1 and subnode.t == constants.markdown.Paragraph and enter:
                 # initialize paragraph_content
                 paragraph_content = ""
                 # stop search for paragraph nodes, as one has been found
@@ -28,7 +28,7 @@ def get_paragraphs(contents):
                 mode_looking = False
         else:
             # check to see if the current subnode is a closing paragraph node
-            if counter == 2 and subnode.t == "paragraph" and not enter:
+            if counter == 2 and subnode.t == constants.markdown.Paragraph and not enter:
                 # add the content of the paragraph to paragraph_list
                 paragraph_list.append(paragraph_content.strip())
                 # stop saving paragraph contents, as the paragraph had ended
