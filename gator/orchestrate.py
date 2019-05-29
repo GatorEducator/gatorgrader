@@ -3,6 +3,7 @@
 import sys
 
 from gator import arguments
+from gator import constants
 from gator import display
 from gator import leave
 from gator import report
@@ -13,10 +14,10 @@ from gator import run  # noqa: F401
 
 ORCHESTRATE = sys.modules[__name__]
 
-DISPLAY = sys.modules["gator.display"]
-INVOKE = sys.modules["gator.invoke"]
-RUN = sys.modules["gator.run"]
-REPORT = sys.modules["gator.report"]
+DISPLAY = sys.modules[constants.modules.Display]
+INVOKE = sys.modules[constants.modules.Invoke]
+RUN = sys.modules[constants.modules.Run]
+REPORT = sys.modules[constants.modules.Report]
 
 VOID = []
 
