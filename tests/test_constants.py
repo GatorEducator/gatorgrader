@@ -29,6 +29,7 @@ def test_paths_constant_defined():
 def test_markdown_constant_defined():
     """Check correctness for the variables in the paragraphs constant"""
     assert constants.markdown.Paragraph == "paragraph"
+    assert constants.markdown.Softbreak == "softbreak"
 
 
 def test_language_constant_cannot_redefine():
@@ -65,3 +66,5 @@ def test_markdown_constant_cannot_redefine():
     """Check cannot redefine the variables in the paths constant"""
     with pytest.raises(AttributeError):
         constants.markdown.Paragraph = "cannot_set_constant"
+    with pytest.raises(AttributeError):
+        constants.markdown.Softbreak = "cannot_set_constant"
