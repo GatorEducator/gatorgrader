@@ -15,13 +15,19 @@ def create_constants(name, *args, **kwargs):
     return new_constants(*itertools.chain(args, kwargs.values()))
 
 
-# define the programming languages for comment checks
-languages = create_constants("languages", "Java", "Python")
+# define the arguments
+arguments = create_constants("arguments", Incorrect=2, Void=[])
+
+# define the codes for return values
+codes = create_constants("codes", Error=1, Success=0)
 
 # define the types of comments
 comments = create_constants(
     "comments", Multiple_Line="multiple-line", Single_Line="single-line"
 )
+
+# define the programming languages for comment checks
+languages = create_constants("languages", "Java", "Python")
 
 # define the markdown indicators
 markdown = create_constants("markdown", Paragraph="paragraph", Softbreak="softbreak")
@@ -37,11 +43,16 @@ markers = create_constants(
     Invalid=-1,
 )
 
+# define the names of modules in the system
+modules = create_constants(
+    "modules",
+    Display="gator.display",
+    Invoke="gator.invoke",
+    Report="gator.report",
+    Run="gator.run",
+)
+
 # define the paths for use with Pathlib
 # --> Current_Directory_Glob: will find all files (including dotfiles)
 #     in the current directory
-paths = create_constants("paths", Current_Directory_Glob="*.*")
-
-
-# define the codes for return values
-codes = create_constants("codes", Error=1, Success=0)
+paths = create_constants("paths", Current_Directory=".", Current_Directory_Glob="*.*")
