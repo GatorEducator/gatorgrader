@@ -22,4 +22,6 @@ markers = create_constants(
 )
 
 # define the types of comments
-comments = create_constants("comments", Multiple_Line="multiple-line", Single_Line="single-line")
+comments = create_constants(
+    "comments", Multiple_Line="multiple-line", Single_Line="single-line"
+)
