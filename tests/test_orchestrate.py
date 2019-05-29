@@ -2,6 +2,7 @@
 
 import pytest
 
+from gator import constants
 from gator import orchestrate
 from gator import report
 
@@ -41,7 +42,7 @@ def test_perform_actions_single_parameter_exit(capsys):
     """Check to see if perform can invoke exit actions with a parameter"""
     actions = []
     with pytest.raises(SystemExit) as pytest_wrapped_e:
-        actions.append([orchestrate.RUN, "run_exit", [orchestrate.INCORRECT_ARGUMENTS]])
+        actions.append([orchestrate.RUN, "run_exit", [constants.arguments.Incorrect]])
         orchestrate.perform(actions)
     assert pytest_wrapped_e.type == SystemExit
     assert pytest_wrapped_e.value.code == 2
