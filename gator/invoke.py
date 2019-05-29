@@ -13,13 +13,11 @@ from gator import util
 
 
 NOTHING = ""
-NO_DIAGNOSTIC = ""
 SPACE = " "
 
 MULTIPLE = "multiple-line"
 SINGLE = "single-line"
 
-EMPTY = b""
 SUCCESS = 0
 
 
@@ -27,7 +25,7 @@ def report_result(status, message, diagnostic):
     """Set the report after running a check"""
     if status:
         # passed the check, so do not produce a diagnostic message
-        report.set_result(message, status, NO_DIAGNOSTIC)
+        report.set_result(message, status, constants.markers.No_Diagnostic)
     else:
         # did not pass the check, so produce a diagnostic message
         report.set_result(message, status, diagnostic)
@@ -437,7 +435,7 @@ def invoke_all_command_executes_checks(command):
     # this is the opposite of what is used for processes
     # but, all other GatorGrader checks return 0 on failure and 1 on success
     command_passed = False
-    if command_error == EMPTY and command_returncode == SUCCESS:
+    if command_error == constants.markers.Empty and command_returncode == SUCCESS:
         command_passed = True
     message = "The command '" + str(command) + "'" + " executes correctly"
     diagnostic = "The command returned the error code " + str(command_returncode)
