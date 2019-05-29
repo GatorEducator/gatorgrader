@@ -72,7 +72,11 @@ def get_line_list(content):
 
 def is_blank_line(line):
     """Returns True if a line is a blank one and False otherwise"""
-    if line is not None and line is not constants.markers.Nothing and not line.isspace():
+    if (
+        line is not None
+        and line is not constants.markers.Nothing
+        and not line.isspace()
+    ):
         return False
     return True
 
@@ -198,7 +202,11 @@ def specified_source_greater_than_count(
     return util.greater_than_equal_exacted(file_line_count, expected_count, exact)
 
 
-def count_lines(given_file=constants.markers.Nothing, containing_directory=constants.markers.Nothing, contents=constants.markers.Nothing):
+def count_lines(
+    given_file=constants.markers.Nothing,
+    containing_directory=constants.markers.Nothing,
+    contents=constants.markers.Nothing,
+):
     """Counts lines for the file in the directory (or contents)"""
     # create a Path object to the chosen file in the containing directory
     file_for_checking = files.create_path(file=given_file, home=containing_directory)
