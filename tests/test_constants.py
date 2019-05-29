@@ -38,6 +38,20 @@ def test_codes_constant_defined():
     assert constants.codes.Success == 0
 
 
+def test_arguments_constant_defined():
+    """Check correctness for the variables in the arguments constant"""
+    assert constants.arguments.Incorrect == 2
+    assert constants.arguments.Void == []
+
+
+def test_modules_constant_defined():
+    """Check correctness for the variables in the modules constant"""
+    assert constants.modules.Display == "gator.display"
+    assert constants.modules.Invoke == "gator.invoke"
+    assert constants.modules.Report == "gator.report"
+    assert constants.modules.Run == "gator.run"
+
+
 def test_language_constant_cannot_redefine():
     """Check cannot redefine the variables in the languages constant"""
     with pytest.raises(AttributeError):
@@ -69,7 +83,7 @@ def test_paths_constant_cannot_redefine():
 
 
 def test_markdown_constant_cannot_redefine():
-    """Check cannot redefine the variables in the paths constant"""
+    """Check cannot redefine the variables in the markdown constant"""
     with pytest.raises(AttributeError):
         constants.markdown.Paragraph = "cannot_set_constant"
     with pytest.raises(AttributeError):
@@ -77,8 +91,28 @@ def test_markdown_constant_cannot_redefine():
 
 
 def test_codes_constant_cannot_redefine():
-    """Check cannot redefine the variables in the paths constant"""
+    """Check cannot redefine the variables in the codes constant"""
     with pytest.raises(AttributeError):
         constants.codes.Success = 10
     with pytest.raises(AttributeError):
         constants.codes.Error = 10
+
+
+def test_arguments_constant_cannot_redefine():
+    """Check cannot redefine the variables in the arguments constant"""
+    with pytest.raises(AttributeError):
+        constants.arguments.Incorrect = 100
+    with pytest.raises(AttributeError):
+        constants.codes.Void = [100]
+
+
+def test_modules_constant_cannot_redefine():
+    """Check cannot redefine the variables in the paths constant"""
+    with pytest.raises(AttributeError):
+        constants.modules.Display = "cannot_redefine"
+    with pytest.raises(AttributeError):
+        constants.modules.Invoke = "cannot_redefine"
+    with pytest.raises(AttributeError):
+        constants.modules.Report = "cannot_redefine"
+    with pytest.raises(AttributeError):
+        constants.modules.Run = "cannot_redefine"
