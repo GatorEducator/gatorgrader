@@ -27,3 +27,8 @@ markers = create_constants(
 comments = create_constants(
     "comments", Multiple_Line="multiple-line", Single_Line="single-line"
 )
+
+# define the paths for use with Pathlib
+# --> Current_Directory_Glob: will find all files (including dotfiles)
+#     in the current directory
+paths = create_constants("paths", Current_Directory_Glob="*.*")
