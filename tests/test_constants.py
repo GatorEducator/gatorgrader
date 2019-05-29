@@ -19,6 +19,7 @@ def test_marker_constant_defined():
     assert constants.markers.Nothing == ""
     assert constants.markers.Space == " "
     assert constants.markers.Success == 0
+    assert constants.markers.Invalid == -1
 
 
 def test_paths_constant_defined():
@@ -54,6 +55,8 @@ def test_marker_constant_cannot_redefine():
         constants.markers.Space = "cannot_set_constant"
     with pytest.raises(AttributeError):
         constants.markers.Success = 10
+    with pytest.raises(AttributeError):
+        constants.markers.Invalid = 10
 
 
 def test_paths_constant_cannot_redefine():
