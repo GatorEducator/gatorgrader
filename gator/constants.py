@@ -20,3 +20,6 @@ languages = create_constants("languages", "Java", "Python")
 markers = create_constants(
     "markers", Empty=b"", No_Diagnostic="", Nothing="", Space=" ", Success=0
 )
+
+# define the types of comments
+comments = create_constants("comments", Multiple_Line="multiple-line", Single_Line="single-line")
