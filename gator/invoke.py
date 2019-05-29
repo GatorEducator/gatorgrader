@@ -480,7 +480,7 @@ def invoke_all_command_executes_checks(command):
     command_passed = False
     if (
         command_error == constants.markers.Empty
-        and command_returncode == constants.markers.Success
+        and command_returncode == constants.codes.Success
     ):
         command_passed = True
     # create the message and diagnostic and report the result

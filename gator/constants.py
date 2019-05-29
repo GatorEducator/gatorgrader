@@ -34,7 +34,6 @@ markers = create_constants(
     No_Diagnostic="",
     Nothing="",
     Space=" ",
-    Success=0,
     Invalid=-1,
 )
 
@@ -42,3 +41,7 @@ markers = create_constants(
 # --> Current_Directory_Glob: will find all files (including dotfiles)
 #     in the current directory
 paths = create_constants("paths", Current_Directory_Glob="*.*")
+
+
+# define the codes for return values
+codes = create_constants("codes", Error=1, Success=0)
