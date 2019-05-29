@@ -55,12 +55,20 @@ def invoke_file_in_directory_check(filecheck, directory):
     )
     # construct the message about whether or not the file exists
     message = (
-        "The file " + filecheck + " exists in the " + directory + constants.markers.Space + "directory"
+        "The file "
+        + filecheck
+        + " exists in the "
+        + directory
+        + constants.markers.Space
+        + "directory"
     )
     # diagnostic is created when file does not exist in specified directory
     # call report_result to update report for this check
     diagnostic = (
-        "Did not find the specified file in the " + directory + constants.markers.Space + "directory"
+        "Did not find the specified file in the "
+        + directory
+        + constants.markers.Space
+        + "directory"
     )
     report_result(was_file_found, message, diagnostic)
     return was_file_found
@@ -274,7 +282,10 @@ def invoke_all_fragment_checks(
         exact,
     )
     # create a message for a file in directory
-    if filecheck is not constants.markers.Nothing and directory is not constants.markers.Nothing:
+    if (
+        filecheck is not constants.markers.Nothing
+        and directory is not constants.markers.Nothing
+    ):
         if exact is not True:
             message = (
                 "The "
@@ -348,7 +359,10 @@ def invoke_all_regex_checks(
         exact,
     )
     # create a message for a file in directory
-    if filecheck is not constants.markers.Nothing and directory is not constants.markers.Nothing:
+    if (
+        filecheck is not constants.markers.Nothing
+        and directory is not constants.markers.Nothing
+    ):
         if exact is not True:
             message = (
                 "The "
@@ -409,7 +423,12 @@ def invoke_all_command_fragment_checks(
     """Perform the check for a fragment existence in the output of a command"""
     command_output = run.specified_command_get_output(command)
     return invoke_all_fragment_checks(
-        expected_fragment, expected_count, constants.markers.Nothing, constants.markers.Nothing, command_output, exact
+        expected_fragment,
+        expected_count,
+        constants.markers.Nothing,
+        constants.markers.Nothing,
+        command_output,
+        exact,
     )
 
 
@@ -420,7 +439,12 @@ def invoke_all_command_regex_checks(
     """Perform the check for a regex existence in the output of a command"""
     command_output = run.specified_command_get_output(command)
     return invoke_all_regex_checks(
-        expected_regex, expected_count, constants.markers.Nothing, constants.markers.Nothing, command_output, exact
+        expected_regex,
+        expected_count,
+        constants.markers.Nothing,
+        constants.markers.Nothing,
+        command_output,
+        exact,
     )
 
 
@@ -486,7 +510,11 @@ def invoke_all_markdown_checks(
 
 # pylint: disable=bad-continuation
 def invoke_all_count_checks(
-    expected_count, filecheck=constants.markers.Nothing, directory=constants.markers.Nothing, contents=constants.markers.Nothing, exact=False
+    expected_count,
+    filecheck=constants.markers.Nothing,
+    directory=constants.markers.Nothing,
+    contents=constants.markers.Nothing,
+    exact=False,
 ):
     """Perform the check for the count of lines in file or contents and return the results"""
     met_or_exceeded_count = 0
@@ -494,7 +522,10 @@ def invoke_all_count_checks(
         expected_count, filecheck, directory, contents, exact
     )
     # create a message for a file in directory
-    if filecheck is not constants.markers.Nothing and directory is not constants.markers.Nothing:
+    if (
+        filecheck is not constants.markers.Nothing
+        and directory is not constants.markers.Nothing
+    ):
         if exact is not True:
             message = (
                 "The "
@@ -536,5 +567,9 @@ def invoke_all_command_count_checks(command, expected_count, exact=False):
     """Perform the check for number of lines in the output of a command"""
     command_output = run.specified_command_get_output(command)
     return invoke_all_count_checks(
-        expected_count, constants.markers.Nothing, constants.markers.Nothing, command_output, exact
+        expected_count,
+        constants.markers.Nothing,
+        constants.markers.Nothing,
+        command_output,
+        exact,
     )
