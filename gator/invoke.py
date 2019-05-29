@@ -15,8 +15,6 @@ from gator import util
 MULTIPLE = "multiple-line"
 SINGLE = "single-line"
 
-SUCCESS = 0
-
 
 def report_result(status, message, diagnostic):
     """Set the report after running a check"""
@@ -484,7 +482,7 @@ def invoke_all_command_executes_checks(command):
     # this is the opposite of what is used for processes
     # but, all other GatorGrader checks return 0 on failure and 1 on success
     command_passed = False
-    if command_error == constants.markers.Empty and command_returncode == SUCCESS:
+    if command_error == constants.markers.Empty and command_returncode == constants.markers.Success:
         command_passed = True
     # create the message and diagnostic and report the result
     message = "The command '" + str(command) + "'" + " executes correctly"
