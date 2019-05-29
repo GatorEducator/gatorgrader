@@ -35,6 +35,7 @@ markers = create_constants(
     Nothing="",
     Space=" ",
     Success=0,
+    Invalid=-1,
 )
 
 # define the paths for use with Pathlib
