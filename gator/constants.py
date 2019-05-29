@@ -18,5 +18,5 @@ languages = create_constants("languages", "Java", "Python")
 
 # define the markers for files and output
 markers = create_constants(
-    "markers", Empty=b"", No_Diagnostic="", Nothing="", Space=" "
+    "markers", Empty=b"", No_Diagnostic="", Nothing="", Space=" ", Success=0
 )
