@@ -20,6 +20,11 @@ def test_marker_constant_defined():
     assert constants.markers.Success == 0
 
 
+def test_paths_constant_defined():
+    """Check correctness for the variables in the paths constant"""
+    assert constants.paths.Current_Directory_Glob == "*.*"
+
+
 def test_language_constant_cannot_redefine():
     """Check cannot redefine the variables in the languages constant"""
     with pytest.raises(AttributeError):
@@ -40,3 +45,9 @@ def test_marker_constant_cannot_redefine():
         constants.markers.Space = "cannot_set_constant"
     with pytest.raises(AttributeError):
         constants.markers.Success = 10
+
+
+def test_paths_constant_cannot_redefine():
+    """Check cannot redefine the variables in the paths constant"""
+    with pytest.raises(AttributeError):
+        constants.paths.Current_Directory_Glob = "cannot_set_constant"
