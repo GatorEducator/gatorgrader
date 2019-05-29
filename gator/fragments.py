@@ -97,7 +97,7 @@ def count_words(contents):
     # count all of the words in each paragraph
     word_counts = []
     for para in paragraphs:
-        # split the string by whitespace (newlines, spaces, etc.) and punctuation
+        # split the string by whitespace (e.g., newlines or spaces) and punctuation
         words = re.sub(WHITESPACE_RE, constants.markers.Space, para).split()
         word_counts.append(len(words))
     # return the minimum number of words across all paragraphs
