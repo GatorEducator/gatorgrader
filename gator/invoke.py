@@ -12,10 +12,6 @@ from gator import run
 from gator import util
 
 
-MULTIPLE = "multiple-line"
-SINGLE = "single-line"
-
-
 def report_result(status, message, diagnostic):
     """Set the report after running a check"""
     if status:
@@ -83,7 +79,7 @@ def invoke_all_comment_checks(
     met_or_exceeded_count = 0
     actual_count = 0
     # check single-line comments
-    if comment_type == SINGLE:
+    if comment_type == constants.comments.Single_Line:
         # check comments in Java
         if language == constants.languages.Java:
             met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
@@ -103,7 +99,7 @@ def invoke_all_comment_checks(
                 exact,
             )
     # check multiple-line comments
-    elif comment_type == MULTIPLE:
+    elif comment_type == constants.comments.Multiple_Line:
         # check comments in Java
         if language == constants.languages.Java:
             met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
