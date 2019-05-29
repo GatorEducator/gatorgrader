@@ -8,7 +8,9 @@ def create_constants(name, *args, **kwargs):
     """Create a namedtuple of constants"""
     # the constants are created such that:
     # the name is the name of the namedtuple
-    # for *args or **kwargs ConstantName = "ConstantName"
+    # for *args with "Constant_Name" or **kwargs with Constant_Name = "AnyConstantName"
+    # note that this creates a constant that will
+    # throw an AttributeError when attempting to redefine
     new_constants = collections.namedtuple(name, itertools.chain(args, kwargs.keys()))
     return new_constants(*itertools.chain(args, kwargs.values()))
 
