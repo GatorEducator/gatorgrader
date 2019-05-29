@@ -18,6 +18,14 @@ def create_constants(name, *args, **kwargs):
 # define the programming languages for comment checks
 languages = create_constants("languages", "Java", "Python")
 
+# define the types of comments
+comments = create_constants(
+    "comments", Multiple_Line="multiple-line", Single_Line="single-line"
+)
+
+# define the markdown indicators
+markdown = create_constants("markdown", Paragraph="paragraph")
+
 # define the markers for files and output
 markers = create_constants(
     "markers",
@@ -27,11 +35,6 @@ markers = create_constants(
     Nothing="",
     Space=" ",
     Success=0,
-)
-
-# define the types of comments
-comments = create_constants(
-    "comments", Multiple_Line="multiple-line", Single_Line="single-line"
 )
 
 # define the paths for use with Pathlib
