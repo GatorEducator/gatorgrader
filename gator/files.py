@@ -1,9 +1,8 @@
 """Utility functions that check the contents of the file system"""
 
+from gator import constants
+
 from pathlib import Path
-
-
-CURRENT_DIRECTORY_GLOB = "*.*"
 
 
 def create_path(*args, file, home):
@@ -43,7 +42,11 @@ def case_sensitive_check_file_in_directory(*args, file, home):
     # get parent, i.e., the containing directory for the specified file
     file_parent = file_for_checking_path.parent
     # create a generator of all of the files in the parent directory
-    file_parent_glob = file_parent.glob(CURRENT_DIRECTORY_GLOB)
+    # note that this glob looks for all files in the parent directory
+    # of the specified file, including "dotfiles"
+    # note that this glob will not capture directories and files that
+    # are in sub-directories of the parent directory
+    file_parent_glob = file_parent.glob(constants.paths.Current_Directory_Glob)
     # assume that the file with the correct name has not been found
     # and prove otherwise by iterating through the generator of files
     file_found = False
