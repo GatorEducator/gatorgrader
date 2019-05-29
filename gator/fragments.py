@@ -7,6 +7,8 @@ from gator import constants
 from gator import files
 from gator import util
 
+WHITESPACE_RE = r"[!\"#$%&()*+,\./:;\<=\>\?\@\[\]\^`\{\|\}]"
+
 
 def get_paragraphs(contents):
     """Retrieves the paragraphs in the writing in the contents parameter"""
@@ -96,13 +98,13 @@ def count_words(contents):
     word_counts = []
     for para in paragraphs:
         # split the string by whitespace (newlines, spaces, etc.) and punctuation
-        words = re.sub(r"[!\"#$%&()*+,\./:;\<=\>\?\@\[\]\^`\{\|\}]", " ", para).split()
+        words = re.sub(WHITESPACE_RE, constants.markers.Space, para).split()
         word_counts.append(len(words))
     # return the minimum number of words across all paragraphs
     if word_counts:
         return min(word_counts)
     # counting did not work correctly (probably because there were
-    # no paragraphs), so return 0
+    # no paragraphs), so return 0 to indicate that no words were found
     return 0
 
 
