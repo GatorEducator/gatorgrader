@@ -3,15 +3,12 @@
 import json
 import sys
 
+from gator import constants
 from gator import util
 
 REPORT = sys.modules[__name__]
 
 result = None
-
-CHECK = "check"
-OUTCOME = "outcome"
-DIAGNOSTIC = "diagnostic"
 
 TEXT = "output_text"
 JSON = "output_json"
@@ -26,9 +23,9 @@ TAB = "   "
 def create_result(check, outcome, diagnostic):
     """Create a new result dictionary"""
     result_dictionary = {}
-    result_dictionary[CHECK] = check
-    result_dictionary[OUTCOME] = outcome
-    result_dictionary[DIAGNOSTIC] = diagnostic
+    result_dictionary[constants.results.Check] = check
+    result_dictionary[constants.results.Outcome] = outcome
+    result_dictionary[constants.results.Diagnostic] = diagnostic
     return result_dictionary
 
 
@@ -63,9 +60,9 @@ def output(dictionary_result, dictionary_format=TEXT):
 def output_text(dictionary_result) -> str:
     """Produce output in textual format"""
     # extract the details and form a string
-    check = dictionary_result[CHECK]
-    outcome = dictionary_result[OUTCOME]
-    diagnostic = dictionary_result[DIAGNOSTIC]
+    check = dictionary_result[constants.results.Check]
+    outcome = dictionary_result[constants.results.Outcome]
+    diagnostic = dictionary_result[constants.results.Diagnostic]
     # there is a diagnostic, so include it on the next line
     if diagnostic is not EMPTY_STRING:
         submitted = (
