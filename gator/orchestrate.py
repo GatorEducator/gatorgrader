@@ -21,8 +21,6 @@ RUN = sys.modules[constants.modules.Run]
 REPORT = sys.modules[constants.modules.Report]
 
 # define the formats for the output of the checks
-# constants.output.Json = "constants.output.Json"
-# TEXT = "TEXT"
 OUTPUT_TYPE = getattr(REPORT, constants.output.Text)
 
 
