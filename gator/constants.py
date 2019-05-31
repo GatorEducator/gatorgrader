@@ -44,6 +44,8 @@ markers = create_constants(
 )
 
 # define the names of modules in the system
+# note that this only defines those modules
+# that are reflectively called through their names
 modules = create_constants(
     "modules",
     Display="gator.display",
@@ -53,9 +55,10 @@ modules = create_constants(
 )
 
 # define the output formats
-outputs = create_constants("output", Json="JSON", Text="TEXT")
+outputs = create_constants("outputs", Json="JSON", Text="TEXT")
 
 # define the paths for use with Pathlib
+# --> Current_Directory: this will describe a shortcut to current directory
 # --> Current_Directory_Glob: will find all files (including dotfiles)
 #     in the current directory
 paths = create_constants("paths", Current_Directory=".", Current_Directory_Glob="*.*")
