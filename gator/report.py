@@ -12,14 +12,17 @@ REPORT = sys.modules[__name__]
 # create the empty result table
 result = None
 
-TEXT = "output_text"
-JSON = "output_json"
-
 ARROW = "➔"
 EMPTY_STRING = ""
 NEWLINE = "\n"
 SPACE = " "
 TAB = "   "
+
+# create strings with the name of two report functions
+# these are the names of the functions that perform output
+# both of these functions exist inside of the report module
+TEXT = "output_text"
+JSON = "output_json"
 
 
 def create_result(check, outcome, diagnostic):
