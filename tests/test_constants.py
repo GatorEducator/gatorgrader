@@ -54,8 +54,8 @@ def test_modules_constant_defined():
 
 def test_output_constant_defined():
     """Check correctness for the variables in the output constant"""
-    assert constants.output.Json == "JSON"
-    assert constants.output.Text == "TEXT"
+    assert constants.outputs.Json == "JSON"
+    assert constants.outputs.Text == "TEXT"
 
 
 def test_language_constant_cannot_redefine():
@@ -127,6 +127,6 @@ def test_modules_constant_cannot_redefine():
 def test_outputs_constant_cannot_redefine():
     """Check cannot redefine the variables in the outputs constant"""
     with pytest.raises(AttributeError):
-        constants.output.Json = "cannot_redefine"
+        constants.outputs.Json = "cannot_redefine"
     with pytest.raises(AttributeError):
-        constants.output.Text = "cannot_redefine"
+        constants.outputs.Text = "cannot_redefine"
