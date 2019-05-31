@@ -12,11 +12,11 @@ REPORT = sys.modules[__name__]
 # create the empty result table
 result = None
 
-ARROW = "➔"
-EMPTY_STRING = ""
-NEWLINE = "\n"
-SPACE = " "
-TAB = "   "
+# ARROW = "➔"
+# EMPTY_STRING = ""
+# NEWLINE = "\n"
+# SPACE = " "
+# TAB = "   "
 
 # create strings with the name of two report functions
 # these are the names of the functions that perform output
@@ -69,21 +69,27 @@ def output_text(dictionary_result) -> str:
     outcome = dictionary_result[constants.results.Outcome]
     diagnostic = dictionary_result[constants.results.Diagnostic]
     # there is a diagnostic, so include it on the next line
-    if diagnostic is not EMPTY_STRING:
+    if diagnostic is not constants.markers.Nothing:
         submitted = (
+            # display answer with a symbol not a boolean
             util.get_symbol_answer(outcome)
-            + SPACE
+            + constants.markers.Space
             + check
-            + SPACE
-            + NEWLINE
-            + TAB
-            + ARROW
-            + SPACE
+            # SPACE
+            + constants.markers.Space
+            # NEWLINE
+            + constants.markers.Newline
+            # TAB
+            + constants.markers.Tab
+            # ARROW
+            + constants.markers.Arrow
+            # SPACE
+            + constants.markers.Space
             + diagnostic
         )
     # there is no diagnostic, so do not include anything else
     else:
-        submitted = util.get_symbol_answer(outcome) + SPACE + check
+        submitted = util.get_symbol_answer(outcome) + constants.markers.Space + check
     return submitted
 
 
