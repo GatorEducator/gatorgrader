@@ -20,9 +20,10 @@ INVOKE = sys.modules[constants.modules.Invoke]
 RUN = sys.modules[constants.modules.Run]
 REPORT = sys.modules[constants.modules.Report]
 
-JSON = "JSON"
-TEXT = "TEXT"
-OUTPUT_TYPE = getattr(REPORT, TEXT)
+# define the formats for the output of the checks
+# constants.output.Json = "constants.output.Json"
+# TEXT = "TEXT"
+OUTPUT_TYPE = getattr(REPORT, constants.output.Text)
 
 
 def check_arguments(system_arguments):
@@ -36,7 +37,7 @@ def check_arguments(system_arguments):
     if gg_arguments.json is True:
         # pylint: disable=global-statement
         global OUTPUT_TYPE
-        OUTPUT_TYPE = getattr(REPORT, JSON)
+        OUTPUT_TYPE = getattr(REPORT, constants.output.Json)
     did_verify_arguments = arguments.verify(gg_arguments)
     # arguments are incorrect
     if did_verify_arguments is False:
