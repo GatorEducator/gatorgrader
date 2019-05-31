@@ -1,13 +1,15 @@
 """Run a specified process"""
 
+from gator import constants
+
 import subprocess
 import sys
 
-BLANK_LINE = "\n"
-EMPTY = b""
-NOTHING = ""
-SPACE = " "
-SUCCESS = 0
+# constants.markers.Newline = "\n"
+# constants.markers.Empty = b""
+# constants.markers.Nothing = ""
+# constants.markers.Space = " "
+# constants.codes.Success = 0
 
 
 def specified_command_get_output(command):
@@ -15,10 +17,10 @@ def specified_command_get_output(command):
     # run the command and gather the output and error details
     output, error, code = run_command(command)
     # there was no error, so process the output
-    produced_output = NOTHING
-    if error == EMPTY and code == SUCCESS:
+    produced_output = constants.markers.Nothing
+    if error == constants.markers.Empty and code == constants.codes.Success:
         actual_output = get_actual_output(output)
-        produced_output = BLANK_LINE.join(actual_output)
+        produced_output = constants.markers.Newline.join(actual_output)
     return produced_output
 
 
