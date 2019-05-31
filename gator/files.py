@@ -5,7 +5,7 @@ from gator import constants
 from pathlib import Path
 
 
-def create_path(*args, file, home):
+def create_path(*args, file="", home):
     """Create a Path object for a file with varying sub-path count"""
     # create the Path for the home
     home_path = Path(home)
@@ -13,7 +13,7 @@ def create_path(*args, file, home):
     given_file_path = Path(file)
     final_path = home_path
     # Create a containing directory of sub-directories for the file.
-    # each of these paths will be a path between the home and the
+    # Each of these paths will be a path between the home and the
     # specified file. None of these paths need their anchor, though,
     # which is given like "C:\" on Windows and "/" otherwise.
     # pylint: disable=old-division
