@@ -5,9 +5,6 @@ from git import Repo
 from gator import util
 
 
-MASTER = "master"
-
-
 def get_commmits(path):
     """Returns a list of the commits for the repo at path"""
     student_repository = Repo(path)
