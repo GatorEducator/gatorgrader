@@ -35,11 +35,13 @@ markdown = create_constants("markdown", Paragraph="paragraph", Softbreak="softbr
 # define the markers for files and output
 markers = create_constants(
     "markers",
+    Arrow="➔",
     Empty=b"",
     Newline="\n",
     No_Diagnostic="",
     Nothing="",
     Space=" ",
+    Tab="   ",
     Invalid=-1,
 )
 
