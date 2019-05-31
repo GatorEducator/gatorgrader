@@ -53,9 +53,12 @@ modules = create_constants(
 )
 
 # define the output formats
-output = create_constants("output", Json="JSON", Text="TEXT")
+outputs = create_constants("output", Json="JSON", Text="TEXT")
 
 # define the paths for use with Pathlib
 # --> Current_Directory_Glob: will find all files (including dotfiles)
 #     in the current directory
 paths = create_constants("paths", Current_Directory=".", Current_Directory_Glob="*.*")
+
+# define the names of fields in the result table
+results = create_constants("results", "Check", "Outcome", "Diagnostic")
