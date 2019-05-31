@@ -67,8 +67,8 @@ paths = create_constants(
     "paths", Current_Directory=".", Current_Directory_Glob="*.*", Home="gatorgrader"
 )
 
-# define the environment for the program
-environment = create_constants("environment", Home="GATORGRADER_HOME")
+# define the environment variables for the program
+environmentvariables = create_constants("environmentvariables", Home="GATORGRADER_HOME")
 
 # define the names of fields in the result table
 results = create_constants("results", "Check", "Outcome", "Diagnostic")
