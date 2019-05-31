@@ -22,7 +22,7 @@ RUN = sys.modules[constants.modules.Run]
 REPORT = sys.modules[constants.modules.Report]
 
 # define the formats for the output of the checks
-OUTPUT_TYPE = getattr(REPORT, constants.outputs.Text)
+OUTPUT_TYPE = getattr(REPORT, report.TEXT)
 
 
 def check_arguments(system_arguments):
