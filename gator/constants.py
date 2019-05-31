@@ -53,7 +53,7 @@ modules = create_constants(
 )
 
 # define the output formats
-outputs = create_constants("output", Json="output_json", Text="output_text")
+outputs = create_constants("output", Json="JSON", Text="TEXT")
 
 # define the paths for use with Pathlib
 # --> Current_Directory_Glob: will find all files (including dotfiles)
