@@ -12,6 +12,7 @@ from gator import report
 from gator import invoke  # noqa: F401
 from gator import run  # noqa: F401
 
+# define the name of this module
 ORCHESTRATE = sys.modules[__name__]
 
 # define the modules that contain invokable functions
