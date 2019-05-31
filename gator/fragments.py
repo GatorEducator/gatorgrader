@@ -7,6 +7,7 @@ from gator import constants
 from gator import files
 from gator import util
 
+# define regular expression for blank space matching
 WHITESPACE_RE = r"[!\"#$%&()*+,\./:;\<=\>\?\@\[\]\^`\{\|\}]"
 
 
