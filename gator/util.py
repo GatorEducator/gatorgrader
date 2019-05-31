@@ -1,27 +1,36 @@
 """Utility functions"""
 
+from gator import constants
+from gator import files
+
 import json
 import os
 
 SLASH = "/"
-GATORGRADER_HOME = "GATORGRADER_HOME"
+# GATORGRADER_HOME = "GATORGRADER_HOME"
 
 
 def verify_gatorgrader_home(current_gatorgrader_home):
     """Verifies that the GATORGRADER_HOME variable is set correctly"""
+    # assume that the home is not verified and try to prove otherwise
     verified_gatorgrader_home = False
     # pylint: disable=bad-continuation
-    if (
-        current_gatorgrader_home is not None
-        and current_gatorgrader_home.endswith(SLASH) is True
-    ):
-        verified_gatorgrader_home = True
+    if current_gatorgrader_home is not None:
+        # the provided input parameter is not empty, so try to
+        # create a path for the directory contained in parameter
+        possible_gatorgrader_home = files.create_path(home=current_gatorgrader_home)
+        # this directory exists and the final part of the directory is "gatorgrader"
+        if (
+            possible_gatorgrader_home.exists()
+            and possible_gatorgrader_home.name == constants.paths.Home
+        ):
+            verified_gatorgrader_home = True
     return verified_gatorgrader_home
 
 
 def get_gatorgrader_home():
     """Returns the GATORGRADER_HOME environment variable"""
-    current_gatorgrader_home = os.environ.get(GATORGRADER_HOME)
+    current_gatorgrader_home = os.environ.get(constants.environment.Home)
     # the current gatorgrader_home is acceptable, so use it
     if verify_gatorgrader_home(current_gatorgrader_home) is not False:
         gatorgrader_home = current_gatorgrader_home
