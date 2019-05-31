@@ -118,7 +118,7 @@ def count_total_words(contents):
     word_counts = []
     for para in paragraphs:
         # split the string by whitespace (e.g., newlines or spaces) and punctuation
-        words = re.sub(r"[!\"#$%&()*+,\./:;\<=\>\?\@\[\]\^`\{\|\}]", " ", para).split()
+        words = re.sub(WHITESPACE_RE, constants.markers.Space, para).split()
         word_counts.append(len(words))
     if word_counts:
         return sum(word_counts)
