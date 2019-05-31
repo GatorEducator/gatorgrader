@@ -14,24 +14,21 @@ from gator import run  # noqa: F401
 
 ORCHESTRATE = sys.modules[__name__]
 
+# define the modules that contain invokable functions
 DISPLAY = sys.modules[constants.modules.Display]
 INVOKE = sys.modules[constants.modules.Invoke]
 RUN = sys.modules[constants.modules.Run]
 REPORT = sys.modules[constants.modules.Report]
 
-VOID = []
-
-INCORRECT_ARGUMENTS = 2
-
-SINGLE = "single-line"
-MULTIPLE = "multiple-line"
-REPOSITORY = "."
+# constants.comments.Single_Line = "single-line"
+# constants.comments.Multiple_Line = "multiple-line"
+# REPOSITORY = "."
 
 JSON = "JSON"
 TEXT = "TEXT"
 OUTPUT_TYPE = getattr(REPORT, TEXT)
 
-NOTHING = ""
+# constants.markers.Nothing = ""
 
 
 def check_arguments(system_arguments):
@@ -41,7 +38,7 @@ def check_arguments(system_arguments):
     gg_arguments = arguments.parse(system_arguments)
     # Action: display the welcome message
     if gg_arguments.nowelcome is not True:
-        actions.append([DISPLAY, "welcome_message", VOID])
+        actions.append([DISPLAY, "welcome_message", constants.arguments.Void])
     if gg_arguments.json is True:
         # pylint: disable=global-statement
         global OUTPUT_TYPE
@@ -50,21 +47,23 @@ def check_arguments(system_arguments):
     # arguments are incorrect
     if did_verify_arguments is False:
         # Action: display incorrect arguments message
-        actions.append([DISPLAY, "incorrect_message", VOID])
+        actions.append([DISPLAY, "incorrect_message", constants.arguments.Void])
         # Action: exit the program
-        actions.append([RUN, "run_exit", [INCORRECT_ARGUMENTS]])
+        actions.append([RUN, "run_exit", [constants.arguments.Incorrect]])
     return gg_arguments, actions
 
 
 def check_commits(system_arguments):
     """Check the commits to the git repository and return desired actions"""
     actions = []
+    # the repository is the current directory contained work to check
+    repository = constants.paths.Current_Directory
     if system_arguments.commits is not None:
         actions.append(
             [
                 INVOKE,
                 "invoke_commits_check",
-                [REPOSITORY, system_arguments.commits, system_arguments.exact],
+                [repository, system_arguments.commits, system_arguments.exact],
             ]
         )
     return actions
@@ -96,7 +95,7 @@ def check_single(system_arguments):
                     system_arguments.file,
                     system_arguments.directory,
                     system_arguments.single,
-                    SINGLE,
+                    constants.comments.Single_Line,
                     system_arguments.language,
                     system_arguments.exact,
                 ],
@@ -117,7 +116,7 @@ def check_multiple(system_arguments):
                     system_arguments.file,
                     system_arguments.directory,
                     system_arguments.multiple,
-                    MULTIPLE,
+                    constants.comments.Multiple_Line,
                     system_arguments.language,
                     system_arguments.exact,
                 ],
@@ -196,7 +195,7 @@ def check_fragment_file(system_arguments):
                     system_arguments.count,
                     system_arguments.file,
                     system_arguments.directory,
-                    NOTHING,
+                    constants.markers.Nothing,
                     system_arguments.exact,
                 ],
             ]
@@ -217,7 +216,7 @@ def check_regex_file(system_arguments):
                     system_arguments.count,
                     system_arguments.file,
                     system_arguments.directory,
-                    NOTHING,
+                    constants.markers.Nothing,
                     system_arguments.exact,
                 ],
             ]
@@ -264,7 +263,7 @@ def check_count_file(system_arguments):
                     system_arguments.count,
                     system_arguments.file,
                     system_arguments.directory,
-                    NOTHING,
+                    constants.markers.Nothing,
                     system_arguments.exact,
                 ],
             ]
