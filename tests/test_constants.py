@@ -76,6 +76,8 @@ def test_language_constant_cannot_redefine():
 def test_marker_constant_cannot_redefine():
     """Check cannot redefine the variables in the markers constant"""
     with pytest.raises(AttributeError):
+        constants.markers.Arrow = "cannot_set_constant"
+    with pytest.raises(AttributeError):
         constants.markers.Empty = "cannot_set_constant"
     with pytest.raises(AttributeError):
         constants.markers.Newline = "cannot_set_constant"
@@ -85,6 +87,8 @@ def test_marker_constant_cannot_redefine():
         constants.markers.Nothing = "cannot_set_constant"
     with pytest.raises(AttributeError):
         constants.markers.Space = "cannot_set_constant"
+    with pytest.raises(AttributeError):
+        constants.markers.Tab = "cannot_set_constant"
     with pytest.raises(AttributeError):
         constants.markers.Invalid = 10
 
