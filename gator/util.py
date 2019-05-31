@@ -30,7 +30,7 @@ def verify_gatorgrader_home(current_gatorgrader_home):
 
 def get_gatorgrader_home():
     """Returns the GATORGRADER_HOME environment variable"""
-    current_gatorgrader_home = os.environ.get(constants.environment.Home)
+    current_gatorgrader_home = os.environ.get(constants.environmentvariables.Home)
     # the current gatorgrader_home is acceptable, so use it
     if verify_gatorgrader_home(current_gatorgrader_home) is not False:
         gatorgrader_home = current_gatorgrader_home
