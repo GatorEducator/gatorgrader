@@ -7,7 +7,6 @@ import json
 import os
 
 SLASH = "/"
-# GATORGRADER_HOME = "GATORGRADER_HOME"
 
 
 def verify_gatorgrader_home(current_gatorgrader_home):
