@@ -6,8 +6,10 @@ import sys
 from gator import constants
 from gator import util
 
+# define the name of this module
 REPORT = sys.modules[__name__]
 
+# create the empty result table
 result = None
 
 TEXT = "output_text"
