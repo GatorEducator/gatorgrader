@@ -6,13 +6,13 @@ from gator import constants
 
 
 def test_languages_constant_defined():
-    """Check correctness for the variables in the language constant"""
+    """Check correctness for the variables in the languages constant"""
     assert constants.languages.Python == "Python"
     assert constants.languages.Java == "Java"
 
 
 def test_markers_constant_defined():
-    """Check correctness for the variables in the marker constant"""
+    """Check correctness for the variables in the markers constant"""
     assert constants.markers.Empty == b""
     assert constants.markers.Newline == "\n"
     assert constants.markers.No_Diagnostic == ""
@@ -27,7 +27,7 @@ def test_paths_constant_defined():
 
 
 def test_markdown_constant_defined():
-    """Check correctness for the variables in the paragraphs constant"""
+    """Check correctness for the variables in the markdown constant"""
     assert constants.markdown.Paragraph == "paragraph"
     assert constants.markdown.Softbreak == "softbreak"
 
@@ -59,10 +59,15 @@ def test_outputs_constant_defined():
 
 
 def test_results_constant_defined():
-    """Check correctness for the variables in the language constant"""
+    """Check correctness for the variables in the results constant"""
     assert constants.results.Check == "Check"
     assert constants.results.Outcome == "Outcome"
     assert constants.results.Diagnostic == "Diagnostic"
+
+
+def test_versioncontrol_constant_defined():
+    """Check correctness for the variables in the versioncontrol constant"""
+    assert constants.versioncontrol.Master == "master"
 
 
 def test_language_constant_cannot_redefine():
@@ -151,3 +156,9 @@ def test_results_constant_cannot_redefine():
         constants.results.Outcome = "cannot_redefine"
     with pytest.raises(AttributeError):
         constants.results.Diagnostic = "cannot_redefine"
+
+
+def test_versioncontrol_constant_cannot_redefine():
+    """Check cannot redefine the variables in the results constant"""
+    with pytest.raises(AttributeError):
+        constants.versioncontrol.Master = "cannot_redefine"
