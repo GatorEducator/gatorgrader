@@ -63,7 +63,12 @@ outputs = create_constants("outputs", Json="JSON", Text="TEXT")
 # --> Current_Directory: this will describe a shortcut to current directory
 # --> Current_Directory_Glob: will find all files (including dotfiles)
 #     in the current directory
-paths = create_constants("paths", Current_Directory=".", Current_Directory_Glob="*.*")
+paths = create_constants(
+    "paths", Current_Directory=".", Current_Directory_Glob="*.*", Home="gatorgrader"
+)
+
+# define the environment for the program
+environment = create_constants("environment", Home="GATORGRADER_HOME")
 
 # define the names of fields in the result table
 results = create_constants("results", "Check", "Outcome", "Diagnostic")
