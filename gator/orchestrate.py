@@ -20,15 +20,9 @@ INVOKE = sys.modules[constants.modules.Invoke]
 RUN = sys.modules[constants.modules.Run]
 REPORT = sys.modules[constants.modules.Report]
 
-# constants.comments.Single_Line = "single-line"
-# constants.comments.Multiple_Line = "multiple-line"
-# REPOSITORY = "."
-
 JSON = "JSON"
 TEXT = "TEXT"
 OUTPUT_TYPE = getattr(REPORT, TEXT)
-
-# constants.markers.Nothing = ""
 
 
 def check_arguments(system_arguments):
