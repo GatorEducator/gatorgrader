@@ -12,15 +12,11 @@ REPORT = sys.modules[__name__]
 # create the empty result table
 result = None
 
-# ARROW = "➔"
-# EMPTY_STRING = ""
-# NEWLINE = "\n"
-# SPACE = " "
-# TAB = "   "
-
 # create strings with the name of two report functions
 # these are the names of the functions that perform output
 # both of these functions exist inside of the report module
+# note that these were not moved to constants because they
+# are names of functions that exist in this module
 TEXT = "output_text"
 JSON = "output_json"
 
