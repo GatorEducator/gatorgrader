@@ -65,6 +65,7 @@ def test_gatorgrader_home_verification_working_verified(tmp_path):
 
 def test_gatorgrader_home_verification_working_notverified():
     """Checks that GATORGRADER_HOME verification is working"""
+    # this directory does not end in "gatorgrader" and this it is not valid
     gatorgrader_home_verified = util.verify_gatorgrader_home("/home/gkapfham")
     assert gatorgrader_home_verified == NOT_VERIFIED
 
