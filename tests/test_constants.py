@@ -54,8 +54,8 @@ def test_modules_constant_defined():
 
 def test_outputs_constant_defined():
     """Check correctness for the variables in the outputs constant"""
-    assert constants.outputs.Json == "output_json"
-    assert constants.outputs.Text == "output_text"
+    assert constants.outputs.Json == "JSON"
+    assert constants.outputs.Text == "TEXT"
 
 
 def test_results_constant_defined():
