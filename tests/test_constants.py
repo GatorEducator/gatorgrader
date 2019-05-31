@@ -5,13 +5,13 @@ import pytest
 from gator import constants
 
 
-def test_language_constant_defined():
+def test_languages_constant_defined():
     """Check correctness for the variables in the language constant"""
     assert constants.languages.Python == "Python"
     assert constants.languages.Java == "Java"
 
 
-def test_marker_constant_defined():
+def test_markers_constant_defined():
     """Check correctness for the variables in the marker constant"""
     assert constants.markers.Empty == b""
     assert constants.markers.Newline == "\n"
@@ -52,10 +52,17 @@ def test_modules_constant_defined():
     assert constants.modules.Run == "gator.run"
 
 
-def test_output_constant_defined():
-    """Check correctness for the variables in the output constant"""
+def test_outputs_constant_defined():
+    """Check correctness for the variables in the outputs constant"""
     assert constants.outputs.Json == "JSON"
     assert constants.outputs.Text == "TEXT"
+
+
+def test_results_constant_defined():
+    """Check correctness for the variables in the language constant"""
+    assert constants.results.Check == "Check"
+    assert constants.results.Outcome == "Outcome"
+    assert constants.results.Diagnostic == "Diagnostic"
 
 
 def test_language_constant_cannot_redefine():
@@ -130,3 +137,13 @@ def test_outputs_constant_cannot_redefine():
         constants.outputs.Json = "cannot_redefine"
     with pytest.raises(AttributeError):
         constants.outputs.Text = "cannot_redefine"
+
+
+def test_results_constant_cannot_redefine():
+    """Check cannot redefine the variables in the results constant"""
+    with pytest.raises(AttributeError):
+        constants.results.Check = "cannot_redefine"
+    with pytest.raises(AttributeError):
+        constants.results.Outcome = "cannot_redefine"
+    with pytest.raises(AttributeError):
+        constants.results.Diagnostic = "cannot_redefine"
