@@ -5,6 +5,11 @@ from gator import constants
 from pathlib import Path
 
 
+def create_cwd_path():
+    """Create a Path object for the current working directory"""
+    return Path.cwd()
+
+
 def create_path(*args, file="", home):
     """Create a Path object for a file with varying sub-path count"""
     # create the Path for the home
