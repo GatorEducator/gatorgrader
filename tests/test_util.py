@@ -43,7 +43,9 @@ def test_gatorgrader_home_is_set():
     # ensure that they pass across all operating systems
     current_working_directory = files.create_cwd_path()
     assert gatorgrader_home is not None
-    assert files.create_path(home=gatorgrader_home) == files.create_path(home=current_working_directory)
+    assert files.create_path(home=gatorgrader_home) == files.create_path(
+        home=current_working_directory
+    )
 
 
 def test_gatorgrader_home_is_set_after_os_dictionary_set():
