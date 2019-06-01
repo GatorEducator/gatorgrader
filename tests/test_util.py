@@ -48,7 +48,7 @@ def test_gatorgrader_home_is_set_after_os_dictionary_set():
 
 
 def test_gatorgrader_home_is_set_after_os_dictionary_set_no_trailing():
-    """Ensure that the gatorgrader_HOME environment variable is set"""
+    """Ensure that the GATORGRADER_HOME environment variable is set"""
     os.environ["GATORGRADER_HOME"] = "/home/gkapfham/working/source/gatorgrader"
     gatorgrader_home = util.get_gatorgrader_home()
     assert gatorgrader_home is not None
@@ -57,17 +57,32 @@ def test_gatorgrader_home_is_set_after_os_dictionary_set_no_trailing():
 
 def test_gatorgrader_home_verification_working_verified(tmp_path):
     """Checks that GATORGRADER_HOME verification is working"""
+    # this must be a valid directory on the filesystem
     home_directory = tmp_path / "gatorgrader"
     home_directory.mkdir()
     gatorgrader_home_verified = util.verify_gatorgrader_home(str(home_directory))
-    assert gatorgrader_home_verified == VERIFIED
+    assert gatorgrader_home_verified is VERIFIED
 
 
-def test_gatorgrader_home_verification_working_notverified():
+def test_gatorgrader_home_verification_working_notverified_wrong(tmp_path):
     """Checks that GATORGRADER_HOME verification is working"""
-    # this directory does not end in "gatorgrader" and this it is not valid
-    gatorgrader_home_verified = util.verify_gatorgrader_home("/home/gkapfham")
-    assert gatorgrader_home_verified == NOT_VERIFIED
+    # the real directory does not end in "gatorgrader" and thus it is not valid
+    home_directory = tmp_path / "gatorgraderNOT"
+    home_directory.mkdir()
+    gatorgrader_home_verified = util.verify_gatorgrader_home(str(home_directory))
+    assert gatorgrader_home_verified is NOT_VERIFIED
+
+
+def test_gatorgrader_home_verification_working_notverified_internal(tmp_path):
+    """Checks that GATORGRADER_HOME verification is working"""
+    # this directory does not end in "gatorgrader" and thus it is not valid
+    # in this test, though, the gatorgrader directory does exist in the path
+    home_directory = tmp_path / "gatorgrader"
+    home_directory.mkdir()
+    home_directory = home_directory / "finaldirectorywrong"
+    home_directory.mkdir()
+    gatorgrader_home_verified = util.verify_gatorgrader_home(str(home_directory))
+    assert gatorgrader_home_verified is NOT_VERIFIED
 
 
 def test_json_detection_found():
