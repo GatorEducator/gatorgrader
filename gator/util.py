@@ -6,8 +6,6 @@ from gator import files
 import json
 import os
 
-SLASH = "/"
-
 
 def verify_gatorgrader_home(current_gatorgrader_home):
     """Verifies that the GATORGRADER_HOME variable is set correctly"""
@@ -33,9 +31,10 @@ def get_gatorgrader_home():
     # the current gatorgrader_home is acceptable, so use it
     if verify_gatorgrader_home(current_gatorgrader_home) is not False:
         gatorgrader_home = current_gatorgrader_home
-    # the current gatorgrader_home is not okay, so guess at one
+    # the current gatorgrader_home is not valid, so create the
+    # home for this program to be the current working directory
     else:
-        gatorgrader_home = os.getcwd() + SLASH
+        gatorgrader_home = str(files.create_cwd_path())
     return gatorgrader_home
 
 
