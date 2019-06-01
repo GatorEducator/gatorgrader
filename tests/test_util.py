@@ -37,9 +37,13 @@ def test_correct_false_symbol():
 def test_gatorgrader_home_is_set():
     """Ensure that the GATORGRADER_HOME environment variable is set"""
     gatorgrader_home = util.get_gatorgrader_home()
+    # if GATORGRADER_HOME is not set, then it will be set
+    # by default to the home directory. These assertions
+    # use Pathlib objects to do the comparison so as to
+    # ensure that they pass across all operating systems
     current_working_directory = files.create_cwd_path()
     assert gatorgrader_home is not None
-    assert gatorgrader_home == str(current_working_directory)
+    assert files.create_path(home=gatorgrader_home) == files.create_path(home=current_working_directory)
 
 
 def test_gatorgrader_home_is_set_after_os_dictionary_set():
