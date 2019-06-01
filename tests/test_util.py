@@ -37,7 +37,7 @@ def test_correct_false_symbol():
 def test_gatorgrader_home_is_set():
     """Ensure that the GATORGRADER_HOME environment variable is set"""
     gatorgrader_home = util.get_gatorgrader_home()
-    # if GATORGRADER_HOME is not set, then it will be set
+    # If GATORGRADER_HOME is not set, then it will be set
     # by default to the home directory. These assertions
     # use Pathlib objects to do the comparison so as to
     # ensure that they pass across all operating systems
