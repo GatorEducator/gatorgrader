@@ -3,6 +3,7 @@
 import json
 import os
 
+from gator import files
 from gator import util
 
 VERIFIED = True
@@ -36,7 +37,9 @@ def test_correct_false_symbol():
 def test_gatorgrader_home_is_set():
     """Ensure that the GATORGRADER_HOME environment variable is set"""
     gatorgrader_home = util.get_gatorgrader_home()
+    current_working_directory = files.create_cwd_path()
     assert gatorgrader_home is not None
+    assert gatorgrader_home == str(current_working_directory)
 
 
 def test_gatorgrader_home_is_set_after_os_dictionary_set():
