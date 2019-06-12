@@ -59,10 +59,11 @@ modules = create_constants(
 # define the output formats
 outputs = create_constants("outputs", Json="JSON", Text="TEXT")
 
-# define the paths for use with Pathlib
+# define the paths for use with Pathlib:
 # --> Current_Directory: this will describe a shortcut to current directory
 # --> Current_Directory_Glob: will find all files (including dotfiles)
 #     in the current directory
+# --> Home: the name that must exist at the end of the project's home directory
 paths = create_constants(
     "paths", Current_Directory=".", Current_Directory_Glob="*.*", Home="gatorgrader"
 )
