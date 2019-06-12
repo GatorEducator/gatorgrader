@@ -103,7 +103,9 @@ def test_marker_constant_cannot_redefine():
 def test_paths_constant_cannot_redefine():
     """Check cannot redefine the variables in the paths constant"""
     with pytest.raises(AttributeError):
+        constants.paths.Current_Directory = "cannot_set_constant"
         constants.paths.Current_Directory_Glob = "cannot_set_constant"
+        constants.paths.Home = "cannot_set_constant"
 
 
 def test_markdown_constant_cannot_redefine():
