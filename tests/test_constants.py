@@ -23,7 +23,9 @@ def test_markers_constant_defined():
 
 def test_paths_constant_defined():
     """Check correctness for the variables in the paths constant"""
+    assert constants.paths.Current_Directory == "."
     assert constants.paths.Current_Directory_Glob == "*.*"
+    assert constants.paths.Home == "gatorgrader"
 
 
 def test_markdown_constant_defined():
