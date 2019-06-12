@@ -4,6 +4,8 @@ import pytest
 
 from gator import constants
 
+CANNOT_SET_CONSTANT_VARIABLE = "cannot_set_constant_variable"
+
 
 def test_languages_constant_defined():
     """Check correctness for the variables in the languages constant"""
@@ -72,30 +74,35 @@ def test_versioncontrol_constant_defined():
     assert constants.versioncontrol.Master == "master"
 
 
-def test_language_constant_cannot_redefine():
+def test_environmentvariables_constant_defined():
+    """Check correctness for the variables in the environmentvariables constant"""
+    assert constants.environmentvariables.Home == "GATORGRADER_HOME"
+
+
+def test_languages_constant_cannot_redefine():
     """Check cannot redefine the variables in the languages constant"""
     with pytest.raises(AttributeError):
-        constants.languages.Java = "cannot_set_constant"
+        constants.languages.Java = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
-        constants.languages.Python = "cannot_set_constant"
+        constants.languages.Python = CANNOT_SET_CONSTANT_VARIABLE
 
 
-def test_marker_constant_cannot_redefine():
+def test_markers_constant_cannot_redefine():
     """Check cannot redefine the variables in the markers constant"""
     with pytest.raises(AttributeError):
-        constants.markers.Arrow = "cannot_set_constant"
+        constants.markers.Arrow = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
-        constants.markers.Empty = "cannot_set_constant"
+        constants.markers.Empty = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
-        constants.markers.Newline = "cannot_set_constant"
+        constants.markers.Newline = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
-        constants.markers.No_Diagnostic = "cannot_set_constant"
+        constants.markers.No_Diagnostic = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
-        constants.markers.Nothing = "cannot_set_constant"
+        constants.markers.Nothing = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
-        constants.markers.Space = "cannot_set_constant"
+        constants.markers.Space = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
-        constants.markers.Tab = "cannot_set_constant"
+        constants.markers.Tab = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
         constants.markers.Invalid = 10
 
@@ -103,17 +110,17 @@ def test_marker_constant_cannot_redefine():
 def test_paths_constant_cannot_redefine():
     """Check cannot redefine the variables in the paths constant"""
     with pytest.raises(AttributeError):
-        constants.paths.Current_Directory = "cannot_set_constant"
-        constants.paths.Current_Directory_Glob = "cannot_set_constant"
-        constants.paths.Home = "cannot_set_constant"
+        constants.paths.Current_Directory = CANNOT_SET_CONSTANT_VARIABLE
+        constants.paths.Current_Directory_Glob = CANNOT_SET_CONSTANT_VARIABLE
+        constants.paths.Home = CANNOT_SET_CONSTANT_VARIABLE
 
 
 def test_markdown_constant_cannot_redefine():
     """Check cannot redefine the variables in the markdown constant"""
     with pytest.raises(AttributeError):
-        constants.markdown.Paragraph = "cannot_set_constant"
+        constants.markdown.Paragraph = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
-        constants.markdown.Softbreak = "cannot_set_constant"
+        constants.markdown.Softbreak = CANNOT_SET_CONSTANT_VARIABLE
 
 
 def test_codes_constant_cannot_redefine():
@@ -135,34 +142,40 @@ def test_arguments_constant_cannot_redefine():
 def test_modules_constant_cannot_redefine():
     """Check cannot redefine the variables in the paths constant"""
     with pytest.raises(AttributeError):
-        constants.modules.Display = "cannot_redefine"
+        constants.modules.Display = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
-        constants.modules.Invoke = "cannot_redefine"
+        constants.modules.Invoke = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
-        constants.modules.Report = "cannot_redefine"
+        constants.modules.Report = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
-        constants.modules.Run = "cannot_redefine"
+        constants.modules.Run = CANNOT_SET_CONSTANT_VARIABLE
 
 
 def test_outputs_constant_cannot_redefine():
     """Check cannot redefine the variables in the outputs constant"""
     with pytest.raises(AttributeError):
-        constants.outputs.Json = "cannot_redefine"
+        constants.outputs.Json = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
-        constants.outputs.Text = "cannot_redefine"
+        constants.outputs.Text = CANNOT_SET_CONSTANT_VARIABLE
 
 
 def test_results_constant_cannot_redefine():
     """Check cannot redefine the variables in the results constant"""
     with pytest.raises(AttributeError):
-        constants.results.Check = "cannot_redefine"
+        constants.results.Check = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
-        constants.results.Outcome = "cannot_redefine"
+        constants.results.Outcome = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
-        constants.results.Diagnostic = "cannot_redefine"
+        constants.results.Diagnostic = CANNOT_SET_CONSTANT_VARIABLE
 
 
 def test_versioncontrol_constant_cannot_redefine():
-    """Check cannot redefine the variables in the results constant"""
+    """Check cannot redefine the variables in the versioncontrol constant"""
     with pytest.raises(AttributeError):
-        constants.versioncontrol.Master = "cannot_redefine"
+        constants.versioncontrol.Master = CANNOT_SET_CONSTANT_VARIABLE
+
+
+def test_environmentvariables_constant_cannot_redefine():
+    """Check cannot redefine the variables in the environmentvariables constant"""
+    with pytest.raises(AttributeError):
+        constants.environmentvariables.Home = CANNOT_SET_CONSTANT_VARIABLE
