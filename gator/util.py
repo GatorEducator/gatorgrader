@@ -34,7 +34,7 @@ def get_gatorgrader_home():
     # the current_gatorgrader_home is acceptable, so use it
     if verify_gatorgrader_home(current_gatorgrader_home) is not False:
         gatorgrader_home = current_gatorgrader_home
-    # the current gatorgrader_home is not valid, so create the
+    # the current GATORGRADER_HOME is not valid, so create the
     # home for this program to be the current working directory
     else:
         gatorgrader_home = str(files.create_cwd_path())
