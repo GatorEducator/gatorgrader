@@ -5,12 +5,6 @@ from gator import constants
 import subprocess
 import sys
 
-# constants.markers.Newline = "\n"
-# constants.markers.Empty = b""
-# constants.markers.Nothing = ""
-# constants.markers.Space = " "
-# constants.codes.Success = 0
-
 
 def specified_command_get_output(command):
     """Run the command and return the output as a String"""
