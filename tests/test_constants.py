@@ -74,6 +74,12 @@ def test_versioncontrol_constant_defined():
     assert constants.versioncontrol.Master == "master"
 
 
+def test_words_constant_defined():
+    """Check correctness for the variables in the versioncontrol constant"""
+    assert constants.words.Minimum == "word(s) in every paragraph"
+    assert constants.words.Total == "word(s) in total"
+
+
 def test_environmentvariables_constant_defined():
     """Check correctness for the variables in the environmentvariables constant"""
     assert constants.environmentvariables.Home == "GATORGRADER_HOME"
@@ -173,6 +179,13 @@ def test_versioncontrol_constant_cannot_redefine():
     """Check cannot redefine the variables in the versioncontrol constant"""
     with pytest.raises(AttributeError):
         constants.versioncontrol.Master = CANNOT_SET_CONSTANT_VARIABLE
+
+
+def test_words_constant_cannot_redefine():
+    """Check cannot redefine the variables in the words constant"""
+    with pytest.raises(AttributeError):
+        constants.words.Minimum = CANNOT_SET_CONSTANT_VARIABLE
+        constants.words.Total = CANNOT_SET_CONSTANT_VARIABLE
 
 
 def test_environmentvariables_constant_cannot_redefine():
