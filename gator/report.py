@@ -3,32 +3,30 @@
 import json
 import sys
 
+from gator import constants
 from gator import util
 
+# define the name of this module
 REPORT = sys.modules[__name__]
 
+# create the empty result table
 result = None
 
-CHECK = "check"
-OUTCOME = "outcome"
-DIAGNOSTIC = "diagnostic"
-
+# create strings with the name of two report functions
+# these are the names of the functions that perform output
+# both of these functions exist inside of the report module
+# note that these were not moved to constants because they
+# are names of functions that exist in this module
 TEXT = "output_text"
 JSON = "output_json"
-
-ARROW = "➔"
-EMPTY_STRING = ""
-NEWLINE = "\n"
-SPACE = " "
-TAB = "   "
 
 
 def create_result(check, outcome, diagnostic):
     """Create a new result dictionary"""
     result_dictionary = {}
-    result_dictionary[CHECK] = check
-    result_dictionary[OUTCOME] = outcome
-    result_dictionary[DIAGNOSTIC] = diagnostic
+    result_dictionary[constants.results.Check] = check
+    result_dictionary[constants.results.Outcome] = outcome
+    result_dictionary[constants.results.Diagnostic] = diagnostic
     return result_dictionary
 
 
@@ -63,25 +61,31 @@ def output(dictionary_result, dictionary_format=TEXT):
 def output_text(dictionary_result) -> str:
     """Produce output in textual format"""
     # extract the details and form a string
-    check = dictionary_result[CHECK]
-    outcome = dictionary_result[OUTCOME]
-    diagnostic = dictionary_result[DIAGNOSTIC]
+    check = dictionary_result[constants.results.Check]
+    outcome = dictionary_result[constants.results.Outcome]
+    diagnostic = dictionary_result[constants.results.Diagnostic]
     # there is a diagnostic, so include it on the next line
-    if diagnostic is not EMPTY_STRING:
+    if diagnostic is not constants.markers.Nothing:
         submitted = (
+            # display answer with a symbol not a boolean
             util.get_symbol_answer(outcome)
-            + SPACE
+            + constants.markers.Space
             + check
-            + SPACE
-            + NEWLINE
-            + TAB
-            + ARROW
-            + SPACE
+            # SPACE
+            + constants.markers.Space
+            # NEWLINE
+            + constants.markers.Newline
+            # TAB
+            + constants.markers.Tab
+            # ARROW
+            + constants.markers.Arrow
+            # SPACE
+            + constants.markers.Space
             + diagnostic
         )
     # there is no diagnostic, so do not include anything else
     else:
-        submitted = util.get_symbol_answer(outcome) + SPACE + check
+        submitted = util.get_symbol_answer(outcome) + constants.markers.Space + check
     return submitted
 
 

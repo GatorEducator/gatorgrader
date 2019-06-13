@@ -1,12 +1,16 @@
 """Utility functions that check the contents of the file system."""
 
+from gator import constants
+
 from pathlib import Path
 
 
-CURRENT_DIRECTORY_GLOB = "*.*"
+def create_cwd_path():
+    """Create a Path object for the current working directory"""
+    return Path.cwd()
 
 
-def create_path(*args, file, home):
+def create_path(*args, file="", home):
     """Create a Path object for a file with varying sub-path count"""
     # create the Path for the home
     home_path = Path(home)
@@ -14,7 +18,7 @@ def create_path(*args, file, home):
     given_file_path = Path(file)
     final_path = home_path
     # Create a containing directory of sub-directories for the file.
-    # each of these paths will be a path between the home and the
+    # Each of these paths will be a path between the home and the
     # specified file. None of these paths need their anchor, though,
     # which is given like "C:\" on Windows and "/" otherwise.
     # pylint: disable=old-division
@@ -43,7 +47,11 @@ def case_sensitive_check_file_in_directory(*args, file, home):
     # get parent, i.e., the containing directory for the specified file
     file_parent = file_for_checking_path.parent
     # create a generator of all of the files in the parent directory
-    file_parent_glob = file_parent.glob(CURRENT_DIRECTORY_GLOB)
+    # note that this glob looks for all files in the parent directory
+    # of the specified file, including "dotfiles"
+    # note that this glob will not capture directories and files that
+    # are in sub-directories of the parent directory
+    file_parent_glob = file_parent.glob(constants.paths.Current_Directory_Glob)
     # assume that the file with the correct name has not been found
     # and prove otherwise by iterating through the generator of files
     file_found = False

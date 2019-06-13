@@ -2,12 +2,12 @@
 
 import re
 
-FILE_SEPARATOR = "/"
 
 # References for the regular expressions:
 # https://stackoverflow.com/questions/15423658/regular-expression-for-single-line-comments
 # https://blog.ostermiller.org/find-comment
 
+# define regular expressions for pattern matching
 MULTILINECOMMENT_RE_JAVA = r"""/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/"""
 SINGLELINECOMMENT_RE_JAVA = r"""^(?:[^"/\\]|\"(?:[^\"\\]|\\.)*
 \"|/(?:[^/"\\]|\\.)|/\"(?:[^\"\\]|\\.)*\"|\\.)*//(.*)$"""

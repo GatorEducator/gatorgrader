@@ -1,6 +1,7 @@
 """Invokes programs on the command-line"""
 
 from gator import comments
+from gator import constants
 from gator import entities
 from gator import files
 from gator import fragments
@@ -10,25 +11,12 @@ from gator import repository
 from gator import run
 from gator import util
 
-JAVA = "Java"
-PYTHON = "Python"
-
-NOTHING = ""
-NO_DIAGNOSTIC = ""
-SPACE = " "
-
-MULTIPLE = "multiple-line"
-SINGLE = "single-line"
-
-EMPTY = b""
-SUCCESS = 0
-
 
 def report_result(status, message, diagnostic):
     """Set the report after running a check"""
     if status:
         # passed the check, so do not produce a diagnostic message
-        report.set_result(message, status, NO_DIAGNOSTIC)
+        report.set_result(message, status, constants.markers.No_Diagnostic)
     else:
         # did not pass the check, so produce a diagnostic message
         report.set_result(message, status, diagnostic)
@@ -42,8 +30,11 @@ def invoke_commits_check(student_repository, expected_count, exact=False):
     )
     # create the message and the diagnostic
     if not exact:
+        # create a message for an "at least" because it is not exact
+        # the "at least" check is the default, you must opt-in to an exact check
         message = "Repository has at least " + str(expected_count) + " commit(s)"
     else:
+        # create a message for an exact check
         message = "Repository has exactly " + str(expected_count) + " commit(s)"
     # diagnostic is created when repository does not have sufficient commits
     # call report_result to update report for this check
@@ -61,12 +52,20 @@ def invoke_file_in_directory_check(filecheck, directory):
     )
     # construct the message about whether or not the file exists
     message = (
-        "The file " + filecheck + " exists in the " + directory + SPACE + "directory"
+        "The file "
+        + filecheck
+        + " exists in the "
+        + directory
+        + constants.markers.Space
+        + "directory"
     )
     # diagnostic is created when file does not exist in specified directory
     # call report_result to update report for this check
     diagnostic = (
-        "Did not find the specified file in the " + directory + SPACE + "directory"
+        "Did not find the specified file in the "
+        + directory
+        + constants.markers.Space
+        + "directory"
     )
     report_result(was_file_found, message, diagnostic)
     return was_file_found
@@ -80,9 +79,9 @@ def invoke_all_comment_checks(
     met_or_exceeded_count = 0
     actual_count = 0
     # check single-line comments
-    if comment_type == SINGLE:
+    if comment_type == constants.comments.Single_Line:
         # check comments in Java
-        if language == JAVA:
+        if language == constants.languages.Java:
             met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
                 filecheck,
                 directory,
@@ -91,7 +90,7 @@ def invoke_all_comment_checks(
                 exact,
             )
         # check comments in Python
-        if language == PYTHON:
+        if language == constants.languages.Python:
             met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
                 filecheck,
                 directory,
@@ -100,9 +99,9 @@ def invoke_all_comment_checks(
                 exact,
             )
     # check multiple-line comments
-    elif comment_type == MULTIPLE:
+    elif comment_type == constants.comments.Multiple_Line:
         # check comments in Java
-        if language == JAVA:
+        if language == constants.languages.Java:
             met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
                 filecheck,
                 directory,
@@ -111,7 +110,7 @@ def invoke_all_comment_checks(
                 exact,
             )
         # check comments in Python
-        if language == PYTHON:
+        if language == constants.languages.Python:
             met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
                 filecheck,
                 directory,
@@ -121,6 +120,7 @@ def invoke_all_comment_checks(
             )
     # create the message and the diagnostic
     if not exact:
+        # create an "at least" message, which is the default
         message = (
             "The "
             + filecheck
@@ -128,13 +128,14 @@ def invoke_all_comment_checks(
             + directory
             + " has at least "
             + str(expected_count)
-            + SPACE
+            + constants.markers.Space
             + comment_type
-            + SPACE
+            + constants.markers.Space
             + language
             + " comment(s)"
         )
     else:
+        # create an "exact" message, which is an opt-in
         message = (
             "The "
             + filecheck
@@ -142,12 +143,13 @@ def invoke_all_comment_checks(
             + directory
             + " has exactly "
             + str(expected_count)
-            + SPACE
+            + constants.markers.Space
             + comment_type
-            + SPACE
+            + constants.markers.Space
             + language
             + " comment(s)"
         )
+    # create the diagnotic a nd the report the result
     diagnostic = "Found " + str(actual_count) + " comment(s) in the specified file"
     report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
@@ -161,6 +163,7 @@ def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=Fals
     )
     # create the message and the diagnostic
     if not exact:
+        # create an "at least" message, which is the default
         message = (
             "The "
             + filecheck
@@ -168,10 +171,11 @@ def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=Fals
             + directory
             + " has at least "
             + str(expected_count)
-            + SPACE
+            + constants.markers.Space
             + "paragraph(s)"
         )
     else:
+        # create an "exact" message, which is an opt-in
         message = (
             "The "
             + filecheck
@@ -179,9 +183,10 @@ def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=Fals
             + directory
             + " has exactly "
             + str(expected_count)
-            + SPACE
+            + constants.markers.Space
             + "paragraph(s)"
         )
+    # create the diagnostic and then report the result
     diagnostic = "Found " + str(actual_count) + " paragraph(s) in the specified file"
     report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
@@ -195,6 +200,7 @@ def invoke_all_word_count_checks(filecheck, directory, expected_count, exact=Fal
     )
     # create the message and the diagnostic
     if not exact:
+        # create an "at least" message, which is the default
         message = (
             "The "
             + filecheck
@@ -202,10 +208,11 @@ def invoke_all_word_count_checks(filecheck, directory, expected_count, exact=Fal
             + directory
             + " has at least "
             + str(expected_count)
-            + SPACE
+            + constants.markers.Space
             + "word(s) in every paragraph"
         )
     else:
+        # create an "exact" message, which is an opt-in
         message = (
             "The "
             + filecheck
@@ -213,9 +220,10 @@ def invoke_all_word_count_checks(filecheck, directory, expected_count, exact=Fal
             + directory
             + " has exactly "
             + str(expected_count)
-            + SPACE
+            + constants.markers.Space
             + "word(s) in every paragraph"
         )
+    # create a diagnostic message and report the result
     diagnostic = (
         "Found " + str(actual_count) + " word(s) in a paragraph of the specified file"
     )
@@ -240,7 +248,7 @@ def invoke_all_total_word_count_checks(
             + directory
             + " has at least "
             + str(expected_count)
-            + SPACE
+            + constants.markers.Space
             + "word(s) in total"
         )
     else:
@@ -251,7 +259,7 @@ def invoke_all_total_word_count_checks(
             + directory
             + " has exactly "
             + str(expected_count)
-            + SPACE
+            + constants.markers.Space
             + "word(s) in total"
         )
     diagnostic = "Found " + str(actual_count) + " word(s) in the specified file"
@@ -263,9 +271,9 @@ def invoke_all_total_word_count_checks(
 def invoke_all_fragment_checks(
     fragment,
     expected_count,
-    filecheck=NOTHING,
-    directory=NOTHING,
-    contents=NOTHING,
+    filecheck=constants.markers.Nothing,
+    directory=constants.markers.Nothing,
+    contents=constants.markers.Nothing,
     exact=False,
 ):
     """Perform the check for a fragment existence in file or contents and return the results"""
@@ -280,7 +288,11 @@ def invoke_all_fragment_checks(
         exact,
     )
     # create a message for a file in directory
-    if filecheck is not NOTHING and directory is not NOTHING:
+    if (
+        filecheck is not constants.markers.Nothing
+        and directory is not constants.markers.Nothing
+    ):
+        # create an "at least" message, which is the default
         if exact is not True:
             message = (
                 "The "
@@ -293,6 +305,7 @@ def invoke_all_fragment_checks(
                 + fragment
                 + "' fragment"
             )
+        # create an "exact" message, which is an opt-in
         else:
             message = (
                 "The "
@@ -306,7 +319,10 @@ def invoke_all_fragment_checks(
                 + "' fragment"
             )
     # create a message for a string
+    # this case is run when a program is
+    # executed and then produces output
     else:
+        # create an "at least" message, which is the default
         if exact is not True:
             message = (
                 "The command output"
@@ -316,6 +332,7 @@ def invoke_all_fragment_checks(
                 + fragment
                 + "' fragment"
             )
+        # create an "exact" message, which is an opt-in
         else:
             message = (
                 "The command output"
@@ -325,6 +342,7 @@ def invoke_all_fragment_checks(
                 + fragment
                 + "' fragment"
             )
+    # produce the diagnostic and report the result
     diagnostic = (
         "Found "
         + str(actual_count)
@@ -337,9 +355,9 @@ def invoke_all_fragment_checks(
 def invoke_all_regex_checks(
     regex,
     expected_count,
-    filecheck=NOTHING,
-    directory=NOTHING,
-    contents=NOTHING,
+    filecheck=constants.markers.Nothing,
+    directory=constants.markers.Nothing,
+    contents=constants.markers.Nothing,
     exact=False,
 ):
     """Perform the check for a regex existence in file or contents and return the results"""
@@ -354,7 +372,11 @@ def invoke_all_regex_checks(
         exact,
     )
     # create a message for a file in directory
-    if filecheck is not NOTHING and directory is not NOTHING:
+    if (
+        filecheck is not constants.markers.Nothing
+        and directory is not constants.markers.Nothing
+    ):
+        # create an "at least" message, which is the default
         if exact is not True:
             message = (
                 "The "
@@ -367,6 +389,7 @@ def invoke_all_regex_checks(
                 + regex
                 + "' regular expression"
             )
+        # create an "exact" message, which is an opt-in
         else:
             message = (
                 "The "
@@ -380,7 +403,10 @@ def invoke_all_regex_checks(
                 + "' regular expression"
             )
     # create a message for a string
+    # this case is run when a program is
+    # executed and then produces output
     else:
+        # create an "at least" message, which is the default
         if exact is not True:
             message = (
                 "The command output"
@@ -390,6 +416,7 @@ def invoke_all_regex_checks(
                 + regex
                 + "' regular expression"
             )
+        # creeate an "exact" message, which is opt-in
         else:
             message = (
                 "The command output"
@@ -399,6 +426,7 @@ def invoke_all_regex_checks(
                 + regex
                 + "' regular expression"
             )
+    # create the diagnostic message and report the result
     diagnostic = (
         "Found "
         + str(actual_count)
@@ -415,7 +443,12 @@ def invoke_all_command_fragment_checks(
     """Perform the check for a fragment existence in the output of a command"""
     command_output = run.specified_command_get_output(command)
     return invoke_all_fragment_checks(
-        expected_fragment, expected_count, NOTHING, NOTHING, command_output, exact
+        expected_fragment,
+        expected_count,
+        constants.markers.Nothing,
+        constants.markers.Nothing,
+        command_output,
+        exact,
     )
 
 
@@ -426,20 +459,31 @@ def invoke_all_command_regex_checks(
     """Perform the check for a regex existence in the output of a command"""
     command_output = run.specified_command_get_output(command)
     return invoke_all_regex_checks(
-        expected_regex, expected_count, NOTHING, NOTHING, command_output, exact
+        expected_regex,
+        expected_count,
+        constants.markers.Nothing,
+        constants.markers.Nothing,
+        command_output,
+        exact,
     )
 
 
 def invoke_all_command_executes_checks(command):
     """Perform the check for whether or not a command runs without error"""
     # pylint: disable=unused-variable
+    # note that the program does not use all of these
+    # return values, but we are capturing them if needed for debugging
     command_output, command_error, command_returncode = run.run_command(command)
     # note that a zero-code means that the command did not work
     # this is the opposite of what is used for processes
     # but, all other GatorGrader checks return 0 on failure and 1 on success
     command_passed = False
-    if command_error == EMPTY and command_returncode == SUCCESS:
+    if (
+        command_error == constants.markers.Empty
+        and command_returncode == constants.codes.Success
+    ):
         command_passed = True
+    # create the message and diagnostic and report the result
     message = "The command '" + str(command) + "'" + " executes correctly"
     diagnostic = "The command returned the error code " + str(command_returncode)
     report_result(command_passed, message, diagnostic)
@@ -460,7 +504,7 @@ def invoke_all_markdown_checks(
         directory,
         exact,
     )
-    # create a message for a file in directory
+    # create an "at least" message which is the default
     if exact is not True:
         message = (
             "The "
@@ -473,6 +517,7 @@ def invoke_all_markdown_checks(
             + markdown_tag
             + "' elements"
         )
+    # create an "exact" message which is an opt-in
     else:
         message = (
             "The "
@@ -485,6 +530,7 @@ def invoke_all_markdown_checks(
             + markdown_tag
             + "' elements"
         )
+    # create the diagnostic and report the result
     diagnostic = "Found " + str(actual_count) + " element(s) in the specified file"
     report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
@@ -492,7 +538,11 @@ def invoke_all_markdown_checks(
 
 # pylint: disable=bad-continuation
 def invoke_all_count_checks(
-    expected_count, filecheck=NOTHING, directory=NOTHING, contents=NOTHING, exact=False
+    expected_count,
+    filecheck=constants.markers.Nothing,
+    directory=constants.markers.Nothing,
+    contents=constants.markers.Nothing,
+    exact=False,
 ):
     """Perform the check for the count of lines in file or contents and return the results"""
     met_or_exceeded_count = 0
@@ -500,7 +550,10 @@ def invoke_all_count_checks(
         expected_count, filecheck, directory, contents, exact
     )
     # create a message for a file in directory
-    if filecheck is not NOTHING and directory is not NOTHING:
+    if (
+        filecheck is not constants.markers.Nothing
+        and directory is not constants.markers.Nothing
+    ):
         if exact is not True:
             message = (
                 "The "
@@ -542,5 +595,9 @@ def invoke_all_command_count_checks(command, expected_count, exact=False):
     """Perform the check for number of lines in the output of a command"""
     command_output = run.specified_command_get_output(command)
     return invoke_all_count_checks(
-        expected_count, NOTHING, NOTHING, command_output, exact
+        expected_count,
+        constants.markers.Nothing,
+        constants.markers.Nothing,
+        command_output,
+        exact,
     )

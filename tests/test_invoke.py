@@ -4,6 +4,7 @@ import sys
 
 import pytest
 
+from gator import constants
 from gator import invoke
 from gator import report
 
@@ -45,8 +46,8 @@ def test_file_exists_in_directory_check(reset_results_dictionary, tmpdir):
     invoke.invoke_file_in_directory_check(hello_file, directory)
     details = report.get_result()
     assert details is not None
-    assert details["diagnostic"] is not None
-    assert details["diagnostic"]
+    assert details[constants.results.Diagnostic] is not None
+    assert details[constants.results.Diagnostic]
 
 
 # pylint: disable=unused-argument

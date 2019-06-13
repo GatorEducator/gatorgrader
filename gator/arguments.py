@@ -1,9 +1,8 @@
 """Handle the arguments provided to GatorGrader."""
 
-import argparse
+from gator import constants
 
-JAVA = "Java"
-PYTHON = "Python"
+import argparse
 
 
 def parse(args):
@@ -61,7 +60,7 @@ def parse(args):
     gg_parser.add_argument(
         "--language",
         type=str,
-        choices=[JAVA, PYTHON],
+        choices=[constants.languages.Java, constants.languages.Python],
         help="language for the single comments",
     )
 

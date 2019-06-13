@@ -1,4 +1,4 @@
-"""Tests for the display functions"""
+"""Tests for the display module"""
 
 from gator import display
 
