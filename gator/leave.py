@@ -1,4 +1,4 @@
-"""Determines the correct exit codes to help GatorGrader quit"""
+"""Determines the correct exit codes to help GatorGrader quit."""
 
 
 def get_code(return_values):
