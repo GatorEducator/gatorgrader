@@ -1,8 +1,8 @@
-"""Display output for GatorGrader"""
+"""Display output for GatorGrader's command-line interface."""
 
 
 def welcome_message():
-    """Display a welcome message"""
+    """Display a welcome message."""
     print()
     print("✔ GatorGrader: Automatically Check the Files of Programmers and Writers")
     print("https://github.com/GatorEducator/gatorgrader")
@@ -10,19 +10,19 @@ def welcome_message():
 
 
 def checking_message():
-    """Display the checking message"""
+    """Display the checking message."""
     print("Valid command-line arguments.")
     print("Running the specified checks!")
     print()
 
 
 def incorrect_message():
-    """Display a message for incorrect arguments"""
+    """Display a message for incorrect arguments."""
     print("Incorrect command-line arguments.")
     print()
 
 
 def message(requested_message):
-    """Display any requested message and then a newline"""
+    """Display any requested message and then a newline."""
     print(requested_message)
     print()
