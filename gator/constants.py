@@ -77,3 +77,8 @@ results = create_constants("results", "Check", "Outcome", "Diagnostic")
 
 # define the version control repository details
 versioncontrol = create_constants("versioncontrol", Master="master")
+
+# define the words diagnostic messages
+words = create_constants(
+    "words", Minimum="word(s) in every paragraph", Total="word(s) in total"
+)
