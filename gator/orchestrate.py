@@ -56,7 +56,11 @@ def check_commits(system_arguments):
             [
                 INVOKE,
                 "invoke_commits_check",
-                [constants.paths.Current_Directory, system_arguments.commits, system_arguments.exact],
+                [
+                    constants.paths.Current_Directory,
+                    system_arguments.commits,
+                    system_arguments.exact,
+                ],
             ]
         )
     return actions
