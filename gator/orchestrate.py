@@ -50,14 +50,17 @@ def check_arguments(system_arguments):
 def check_commits(system_arguments):
     """Check the commits to the git repository and return desired actions"""
     actions = []
-    # the repository is the current directory contained work to check
-    repository = constants.paths.Current_Directory
+    # the repository is the current directory containing work to check
     if system_arguments.commits is not None:
         actions.append(
             [
                 INVOKE,
                 "invoke_commits_check",
-                [repository, system_arguments.commits, system_arguments.exact],
+                [
+                    constants.paths.Current_Directory,
+                    system_arguments.commits,
+                    system_arguments.exact,
+                ],
             ]
         )
     return actions
@@ -139,13 +142,13 @@ def check_paragraphs(system_arguments):
 
 
 def check_words(system_arguments):
-    """Check the existence of words in a file and return desired actions"""
+    """Check the existence of minimum words across a file and return desired actions."""
     actions = []
     if system_arguments.words is not None:
         actions.append(
             [
                 INVOKE,
-                "invoke_all_word_count_checks",
+                "invoke_all_minimum_word_count_checks",
                 [
                     system_arguments.file,
                     system_arguments.directory,
@@ -158,7 +161,7 @@ def check_words(system_arguments):
 
 
 def check_total_words(system_arguments):
-    """Check the total word count in a file and return desired actions"""
+    """Check the total word count in a file and return desired actions."""
     actions = []
     if system_arguments.total_words is not None:
         actions.append(

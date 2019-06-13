@@ -120,10 +120,77 @@ def test_paragraphs_many(writing_string, expected_count):
         ("One sentence's\ngreat delusion.", 4),
     ],
 )
-def test_words_different_counts(writing_string, expected_count):
+def test_words_different_min_counts(writing_string, expected_count):
     """Check that it can detect different counts of words"""
     # only check the minimum count
+    # note that the default summarization function in a minimum
     assert fragments.count_words(writing_string) == expected_count
+    assert fragments.count_words(writing_string, min) == expected_count
+
+
+@pytest.mark.parametrize(
+    "writing_string,expected_count",
+    [
+        ("", 0),
+        ("hello world! Writing a lot.\n\nsingle.", 1),
+        ("hello world! Writing a lot.\n\nnew one.", 2),
+        ("hello world! Writing a lot.\n\nNew one. Question?", 3),
+        ("This should be `five` words", 5),
+        ("This should still be `six` word's", 6),
+        ("The command `pipenv run pytest` should test", 7),
+        (
+            "The method test.main was called. Hello world! Writing a lot.\n\n"
+            "New one. Question? Fun!",
+            4,
+        ),
+        (
+            "New one. Question? Fun! Nice!\n\n"
+            "The method test.main was called. Hello world! Writing a lot.",
+            5,
+        ),
+        (
+            "The method `test.main` was called. Hello world! Example? Writing.\n\n"
+            "New one. Question? Fun! Nice!",
+            5,
+        ),
+        (
+            "The method test.main was called.\nHello world! Example? Writing.\n\n"
+            "New one. Question? Fun! Nice!",
+            5,
+        ),
+        # code blocks
+        (
+            "Here is some code in a code block.\n\n```\ndef test_function():\n    "
+            "function_call()\n```\n\nHello world! Example? Writing.\n\n"
+            "New one. Question? Fun! Nice!",
+            4,
+        ),
+        (
+            "Here is some code in an inline code block: `def test_function():`. "
+            "Hello world! Example? Writing.\n\n"
+            "New one. `Code?` Question? Fun! Nice!",
+            6,
+        ),
+        # images
+        (
+            "Here is some code in an inline code block: `def test_function():`. "
+            "Hello world! Example? Writing.\n\n"
+            "New one. [Image](https://example.com/image.png) Question? Fun! Nice!",
+            6,
+        ),
+        # links
+        ("[This link is five words](www.url.com)", 5),
+        # emoji
+        (":thumbsup: is an emoji", 4),
+        # new lines
+        ("One sentence is\nanother's problem.", 5),
+        ("One sentence's\ngreat delusion.", 4),
+    ],
+)
+def test_minimum_words_different_min_counts(writing_string, expected_count):
+    """Check that it can detect different counts of words"""
+    # only check the minimum count
+    assert fragments.count_minimum_words(writing_string) == expected_count
 
 
 @pytest.mark.parametrize(
@@ -185,10 +252,75 @@ def test_words_different_counts(writing_string, expected_count):
         ("One sentence's\ngreat delusion.", 4),
     ],
 )
-def test_total_words_different_counts(writing_string, expected_count):
+def test_total_words_different_sum_counts(writing_string, expected_count):
     """Check that it can detect different counts of total words"""
-    # only check the minimum count
+    # only check the sum count
     assert fragments.count_total_words(writing_string) == expected_count
+
+
+@pytest.mark.parametrize(
+    "writing_string,expected_count",
+    [
+        ("", 0),
+        ("hello world! Writing a lot.\n\nsingle.", 6),
+        ("hello world! Writing a lot.\n\nnew one.", 7),
+        ("hello world! Writing a lot.\n\nNew one. Question?", 8),
+        ("This should be `five` words", 5),
+        ("This should still be `six` word's", 6),
+        ("The command `pipenv run pytest` should test", 7),
+        (
+            "The method test.main was called. Hello world! Writing a lot.\n\n"
+            "New one. Question? Fun!",
+            15,
+        ),
+        (
+            "New one. Question? Fun! Nice!\n\n"
+            "The method test.main was called. Hello world! Writing a lot.",
+            16,
+        ),
+        (
+            "The method `test.main` was called. Hello world! Example? Writing.\n\n"
+            "New one. Question? Fun! Nice!",
+            15,
+        ),
+        (
+            "The method test.main was called.\nHello world! Example? Writing.\n\n"
+            "New one. Question? Fun! Nice!",
+            15,
+        ),
+        # code blocks
+        (
+            "Here is some code in a code block.\n\n```\ndef test_function():\n    "
+            "function_call()\n```\n\nHello world! Example? Writing.\n\n"
+            "New one. Question? Fun! Nice!",
+            17,
+        ),
+        (
+            "Here is some code in an inline code block: `def test_function():`. "
+            "Hello world! Example? Writing.\n\n"
+            "New one. `Code?` Question? Fun! Nice!",
+            21,
+        ),
+        # images
+        (
+            "Here is some code in an inline code block: `def test_function():`. "
+            "Hello world! Example? Writing.\n\n"
+            "New one. [Image](https://example.com/image.png) Question? Fun! Nice!",
+            21,
+        ),
+        # links
+        ("[This link is five words](www.url.com)", 5),
+        # emoji
+        (":thumbsup: is an emoji", 4),
+        # new lines
+        ("One sentence is\nanother's problem.", 5),
+        ("One sentence's\ngreat delusion.", 4),
+    ],
+)
+def test_words_different_sum_counts(writing_string, expected_count):
+    """Check that it can detect different counts of total words"""
+    # only check the sum count
+    assert fragments.count_words(writing_string, sum) == expected_count
 
 
 @pytest.mark.parametrize(

@@ -26,6 +26,9 @@ comments = create_constants(
     "comments", Multiple_Line="multiple-line", Single_Line="single-line"
 )
 
+# define the environment variables for the program
+environmentvariables = create_constants("environmentvariables", Home="GATORGRADER_HOME")
+
 # define the programming languages for comment checks
 languages = create_constants("languages", "Java", "Python")
 
@@ -68,11 +71,14 @@ paths = create_constants(
     "paths", Current_Directory=".", Current_Directory_Glob="*.*", Home="gatorgrader"
 )
 
-# define the environment variables for the program
-environmentvariables = create_constants("environmentvariables", Home="GATORGRADER_HOME")
 
 # define the names of fields in the result table
 results = create_constants("results", "Check", "Outcome", "Diagnostic")
 
 # define the version control repository details
 versioncontrol = create_constants("versioncontrol", Master="master")
+
+# define the words diagnostic messages
+words = create_constants(
+    "words", Minimum="word(s) in every paragraph", Total="word(s) in total"
+)

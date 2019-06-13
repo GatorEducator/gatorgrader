@@ -1,4 +1,4 @@
-"""Retrieve and count the contents of a file"""
+"""Retrieve and count the contents of a file."""
 
 import re
 import commonmark
@@ -12,7 +12,7 @@ WHITESPACE_RE = r"[!\"#$%&()*+,\./:;\<=\>\?\@\[\]\^`\{\|\}]"
 
 
 def get_paragraphs(contents):
-    """Retrieves the paragraphs in the writing in the contents parameter"""
+    """Retrieve the paragraphs in the writing in the contents parameter."""
     ast = commonmark.Parser().parse(contents)
     paragraph_content = constants.markers.Nothing
     mode_looking = True
@@ -85,15 +85,15 @@ def is_blank_line(line):
 
 
 def count_paragraphs(contents):
-    """Counts the number of paragraphs in the writing"""
+    """Count the number of paragraphs in the writing."""
     matching_paragraphs = get_paragraphs(contents)
     return len(matching_paragraphs)
 
 
-def count_words(contents):
-    """Counts the minimum number of words across all paragraphs in writing"""
+def count_words(contents, summarizer=min):
+    """Count the total number of words in writing using a summarization function."""
     # retrieve all of the paragraphs in the contents
-    # NOTE: this causes word counting to only be supported for markdown!
+    # word counting only works for technical writing in Markdown
     paragraphs = get_paragraphs(contents)
     # count all of the words in each paragraph
     word_counts = []
@@ -101,40 +101,35 @@ def count_words(contents):
         # split the string by whitespace (e.g., newlines or spaces) and punctuation
         words = re.sub(WHITESPACE_RE, constants.markers.Space, para).split()
         word_counts.append(len(words))
-    # return the minimum number of words across all paragraphs
+    # word counts exist in the list and thus we can use the provided
+    # summarizer (e.g., a sum or a min function) to summarize the count
     if word_counts:
-        return min(word_counts)
-    # counting did not work correctly (probably because there were
-    # no paragraphs), so return 0 to indicate that no words were found
-    return 0
-
-
-def count_total_words(contents):
-    """Counts the total number of words in writing"""
-    # retrieve all of the paragraphs in the contents
-    # NOTE: this causes word counting to only be supported for markdown!
-    paragraphs = get_paragraphs(contents)
-    # count all of the words in each paragraph
-    word_counts = []
-    for para in paragraphs:
-        # split the string by whitespace (e.g., newlines or spaces) and punctuation
-        words = re.sub(WHITESPACE_RE, constants.markers.Space, para).split()
-        word_counts.append(len(words))
-    if word_counts:
-        return sum(word_counts)
+        return summarizer(word_counts)
     # counting did not work correctly (probably because there were
     # no paragraphs), so return 0
     return 0
 
 
+def count_minimum_words(contents):
+    """Count the minimum number of words across all paragraphs in writing."""
+    # call the count_words function with the min function as a parameter
+    return count_words(contents, min)
+
+
+def count_total_words(contents):
+    """Count the total number of words across all paragraphs in writing."""
+    # call the count_words function with the sum function as a parameter
+    return count_words(contents, sum)
+
+
 def count_specified_fragment(contents, fragment):
-    """Counts the specified string fragment in the string contents"""
+    """Count the specified string fragment in the string contents."""
     fragment_count = contents.count(fragment)
     return fragment_count
 
 
 def count_specified_regex(contents, regex):
-    """Counts all the specified regex for a given file"""
+    """Count all the specified regex for a given file."""
     # not a valid regular expression, so return an valid response
     if not is_valid_regex(regex):
         return constants.markers.Invalid
@@ -153,7 +148,7 @@ def specified_entity_greater_than_count(
     contents=constants.markers.Nothing,
     exact=False,
 ):
-    """Determines if the entity count is greater than expected"""
+    """Determine if the entity count is greater than expected."""
     # count the fragments/regex in either a file in a directory or String contents
     file_entity_count = count_entities(
         chosen_fragment, checking_function, given_file, containing_directory, contents
@@ -170,7 +165,7 @@ def count_entities(
     containing_directory=constants.markers.Nothing,
     contents=constants.markers.Nothing,
 ):
-    """Counts fragments for the file in the directory (or contents) and a fragment"""
+    """Count fragments for the file in the directory (or contents) and a fragment."""
     # create a Path object to the chosen file in the containing directory
     file_for_checking = files.create_path(file=given_file, home=containing_directory)
     file_contents_count = 0
@@ -197,7 +192,7 @@ def specified_source_greater_than_count(
     contents=constants.markers.Nothing,
     exact=False,
 ):
-    """Determines if the line count is greater than expected"""
+    """Determine if the line count is greater than expected."""
     # count the fragments in either a file in a directory or String contents
     file_line_count = count_lines(given_file, containing_directory, contents)
     # the fragment count is at or above the threshold
@@ -210,7 +205,7 @@ def count_lines(
     containing_directory=constants.markers.Nothing,
     contents=constants.markers.Nothing,
 ):
-    """Counts lines for the file in the directory (or contents)"""
+    """Count lines for the file in the directory (or contents)."""
     # create a Path object to the chosen file in the containing directory
     file_for_checking = files.create_path(file=given_file, home=containing_directory)
     file_contents_count = 0
@@ -231,7 +226,7 @@ def count_lines(
 
 
 def is_valid_regex(regex):
-    """Determines if the provided regex is valid"""
+    """Determine if the provided regex is valid."""
     try:
         re.compile(regex)
         return True

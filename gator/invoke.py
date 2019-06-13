@@ -149,7 +149,7 @@ def invoke_all_comment_checks(
             + language
             + " comment(s)"
         )
-    # create the diagnotic a nd the report the result
+    # create the diagnostic and the report the result
     diagnostic = "Found " + str(actual_count) + " comment(s) in the specified file"
     report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
@@ -192,11 +192,13 @@ def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=Fals
     return met_or_exceeded_count
 
 
-def invoke_all_word_count_checks(filecheck, directory, expected_count, exact=False):
+def invoke_all_word_count_checks(
+    filecheck, directory, expected_count, count_function, conclusion, exact=False
+):
     """Perform the word count check and return the results"""
     met_or_exceeded_count = 0
     met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
-        filecheck, directory, expected_count, fragments.count_words
+        filecheck, directory, expected_count, count_function
     )
     # create the message and the diagnostic
     if not exact:
@@ -209,7 +211,7 @@ def invoke_all_word_count_checks(filecheck, directory, expected_count, exact=Fal
             + " has at least "
             + str(expected_count)
             + constants.markers.Space
-            + "word(s) in every paragraph"
+            + conclusion
         )
     else:
         # create an "exact" message, which is an opt-in
@@ -221,7 +223,7 @@ def invoke_all_word_count_checks(filecheck, directory, expected_count, exact=Fal
             + " has exactly "
             + str(expected_count)
             + constants.markers.Space
-            + "word(s) in every paragraph"
+            + conclusion
         )
     # create a diagnostic message and report the result
     diagnostic = (
@@ -231,40 +233,32 @@ def invoke_all_word_count_checks(filecheck, directory, expected_count, exact=Fal
     return met_or_exceeded_count
 
 
+def invoke_all_minimum_word_count_checks(
+    filecheck, directory, expected_count, exact=False
+):
+    """Perform the minimum word count check and return the results"""
+    return invoke_all_word_count_checks(
+        filecheck,
+        directory,
+        expected_count,
+        fragments.count_minimum_words,
+        constants.words.Minimum,
+        exact,
+    )
+
+
 def invoke_all_total_word_count_checks(
     filecheck, directory, expected_count, exact=False
 ):
-    """Perform the word count check and return the results"""
-    met_or_exceeded_count = 0
-    met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
-        filecheck, directory, expected_count, fragments.count_total_words
+    """Perform the total word count check and return the results"""
+    return invoke_all_word_count_checks(
+        filecheck,
+        directory,
+        expected_count,
+        fragments.count_total_words,
+        constants.words.Total,
+        exact,
     )
-    # create the message and the diagnostic
-    if not exact:
-        message = (
-            "The "
-            + filecheck
-            + " in "
-            + directory
-            + " has at least "
-            + str(expected_count)
-            + constants.markers.Space
-            + "word(s) in total"
-        )
-    else:
-        message = (
-            "The "
-            + filecheck
-            + " in "
-            + directory
-            + " has exactly "
-            + str(expected_count)
-            + constants.markers.Space
-            + "word(s) in total"
-        )
-    diagnostic = "Found " + str(actual_count) + " word(s) in the specified file"
-    report_result(met_or_exceeded_count, message, diagnostic)
-    return met_or_exceeded_count
 
 
 # pylint: disable=bad-continuation
