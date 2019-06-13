@@ -1,10 +1,7 @@
 """Count entities with provided functions"""
 
-from pathlib import Path
-
 from gator import util
-
-FILE_SEPARATOR = "/"
+from gator import files
 
 
 # pylint: disable=bad-continuation
@@ -12,6 +9,7 @@ def entity_greater_than_count(
     given_file, containing_directory, expected_count, checking_function, exact=False
 ):
     """Return count and determines if the entity count is greater than expected"""
+    # call the count_entities function in this module
     file_entity_count = count_entities(
         given_file, containing_directory, checking_function
     )
@@ -21,9 +19,17 @@ def entity_greater_than_count(
 
 def count_entities(given_file, containing_directory, checking_function):
     """Counts the number of entities for the file in the directory"""
-    file_for_checking = Path(containing_directory + FILE_SEPARATOR + given_file)
+    # create a path for the given file and its containing directory
+    # note that this call does not specify any *args and thus there
+    # are no directories between the home directory and the file
+    file_for_checking = files.create_path(file=given_file, home=containing_directory)
+    # start the count of the number of entities at zero, assuming none found yet
     file_contents_count = 0
+    # a valid file exists and thus it is acceptable to perform the checking
     if file_for_checking.is_file():
+        # extract the text from the file_for_checking
         file_contents = file_for_checking.read_text()
+        # use the provided checking_function to check the contents of the file
+        # note this works since Python supports passing a function to a function
         file_contents_count = checking_function(file_contents)
     return file_contents_count

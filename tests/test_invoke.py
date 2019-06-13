@@ -17,7 +17,7 @@ def reset_results_dictionary():
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_commit_checks(reset_results_dictionary):
-    """Checks to that invocation of commit check works correctly"""
+    """Checks that invocation of commit check works correctly"""
     invoke.invoke_commits_check(".", sys.maxsize)
     details = report.get_result()
     assert details is not None
@@ -26,7 +26,7 @@ def test_commit_checks(reset_results_dictionary):
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_commit_checks_exact(reset_results_dictionary):
-    """Checks to that invocation of commit check exacted works correctly"""
+    """Checks that invocation of commit check exacted works correctly"""
     invoke.invoke_commits_check(".", sys.maxsize, True)
     details = report.get_result()
     assert details is not None
@@ -35,7 +35,7 @@ def test_commit_checks_exact(reset_results_dictionary):
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check(reset_results_dictionary, tmpdir):
-    """Checks to that invocation of file existence check works correctly"""
+    """Checks that invocation of file existence check works correctly"""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
     hello_file.write("content")
     assert hello_file.read() == "content"
@@ -45,7 +45,6 @@ def test_file_exists_in_directory_check(reset_results_dictionary, tmpdir):
     invoke.invoke_file_in_directory_check(hello_file, directory)
     details = report.get_result()
     assert details is not None
-    # assert details["outcome"] is True
     assert details["diagnostic"] is not None
     assert details["diagnostic"]
 
@@ -469,7 +468,8 @@ def test_comment_counts_check_multiple_python(reset_results_dictionary, tmpdir):
     hello_file.write('""" hello world """')
     assert hello_file.read() == '""" hello world """'
     assert len(tmpdir.listdir()) == 1
-    directory = tmpdir.dirname + '"""' + tmpdir.basename + '"""' + "subdirectory"
+    # directory = tmpdir.dirname + '"""' + tmpdir.basename + '"""' + "subdirectory"
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.py"
     invoke.invoke_file_in_directory_check(hello_file, directory)
     details = report.get_result()
@@ -493,7 +493,8 @@ def test_comment_counts_check_multiple_python_not_enough(
     hello_file.write('""" hello world """')
     assert hello_file.read() == '""" hello world """'
     assert len(tmpdir.listdir()) == 1
-    directory = tmpdir.dirname + '"""' + tmpdir.basename + '"""' + "subdirectory"
+    # directory = tmpdir.dirname + '"""' + tmpdir.basename + '"""' + "subdirectory"
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.py"
     invoke.invoke_file_in_directory_check(hello_file, directory)
     details = report.get_result()

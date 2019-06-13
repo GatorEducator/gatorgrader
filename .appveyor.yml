@@ -1,0 +1,67 @@
+image: Visual Studio 2017
+version: b{build}-{branch}
+
+# define GatorGrader's installation directory
+clone_folder: c:\projects\gatorgrader
+
+# if true, clone using a zip file, otherwise use git
+# this project uses a GitHub repository
+shallow_clone: false
+
+max_jobs: 4
+
+# configure the build environment
+environment:
+  # configure SHELL environment variable expected by pipenv
+  SHELL: 'windows'
+  # build and test with two versions of Python
+  matrix:
+    # Use Python 3.7
+    - PYTHON_VERSION: 3.7.3
+      PYTHON_PATH: C:\Python37
+    # Use Python 3.6
+    - PYTHON_VERSION: 3.6.8
+      PYTHON_PATH: C:\Python36
+
+# set the cache directory
+cache:
+  - '%LOCALAPPDATA%\pip\Cache'
+
+# configure environment variables used by GatorGrader
+init:
+  - set GATORGRADER_HOME='c:\projects\gatorgrader'
+  - set PIPENV_VENV_IN_PROJECT=1
+  - set PIPENV_IGNORE_VIRTUALENVS=1
+  - set PATH=c:\Ruby26\bin;%PYTHON_PATH%;%PYTHON_PATH%\scripts;%PATH%
+
+# install programs used for package management and linting
+install:
+  # use mdl for linting
+  - gem install mdl
+  # upgrade pip to the most recent version
+  - python -m pip install --upgrade pip
+  # install pipenv, which GatorGrader uses for packages
+  - python -m pip install pipenv
+  # install all of the development dependencies
+  # note that this is customized to work for a specific Python version
+  - pipenv install --dev --skip-lock --python %PYTHON_VERSION%
+
+# echo the version of Python before starting the build
+before_build:
+  - python --version
+  - pipenv --version
+
+# run the linting program setup for use through Pipenv
+build_script:
+  - pipenv run lint-win --check
+
+# run the test suite through Pipenv, reporting coverage in JUnit format
+test_script:
+  - ps: |
+      & pipenv run pytest -s -v --cov-config .coveragerc --cov-report term-missing --junitxml .\unittests.xml --cov
+      $testsExitCode = $lastexitcode
+      $wc = New-Object 'System.Net.WebClient'
+      $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\unittests.xml))
+      if ($testsExitCode -ne 0) {exit $testsExitCode}
+
+deploy: off
