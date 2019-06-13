@@ -112,11 +112,13 @@ def count_words(contents, summarizer=sum):
 
 def count_minimum_words(contents):
     """Count the minimum number of words across all paragraphs in writing."""
+    # call the count_words function with the min function as a parameter
     return count_words(contents, min)
 
 
 def count_total_words(contents):
-    """Count the total number of words in writing across all paragraphs."""
+    """Count the total number of words across all paragraphs in writing."""
+    # call the count_words function with the sum function as a parameter
     return count_words(contents, sum)
 
 
