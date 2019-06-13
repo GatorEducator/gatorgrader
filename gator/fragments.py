@@ -90,7 +90,7 @@ def count_paragraphs(contents):
     return len(matching_paragraphs)
 
 
-def count_words(contents, summarizer=sum):
+def count_words(contents, summarizer=min):
     """Count the total number of words in writing using a summarization function."""
     # retrieve all of the paragraphs in the contents
     # word counting only works for technical writing in Markdown
