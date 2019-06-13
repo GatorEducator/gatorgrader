@@ -123,13 +123,13 @@ def count_total_words(contents):
 
 
 def count_specified_fragment(contents, fragment):
-    """Counts the specified string fragment in the string contents"""
+    """Count the specified string fragment in the string contents."""
     fragment_count = contents.count(fragment)
     return fragment_count
 
 
 def count_specified_regex(contents, regex):
-    """Counts all the specified regex for a given file"""
+    """Count all the specified regex for a given file."""
     # not a valid regular expression, so return an valid response
     if not is_valid_regex(regex):
         return constants.markers.Invalid
@@ -148,7 +148,7 @@ def specified_entity_greater_than_count(
     contents=constants.markers.Nothing,
     exact=False,
 ):
-    """Determines if the entity count is greater than expected"""
+    """Determine if the entity count is greater than expected."""
     # count the fragments/regex in either a file in a directory or String contents
     file_entity_count = count_entities(
         chosen_fragment, checking_function, given_file, containing_directory, contents
@@ -165,7 +165,7 @@ def count_entities(
     containing_directory=constants.markers.Nothing,
     contents=constants.markers.Nothing,
 ):
-    """Counts fragments for the file in the directory (or contents) and a fragment"""
+    """Count fragments for the file in the directory (or contents) and a fragment."""
     # create a Path object to the chosen file in the containing directory
     file_for_checking = files.create_path(file=given_file, home=containing_directory)
     file_contents_count = 0
@@ -192,7 +192,7 @@ def specified_source_greater_than_count(
     contents=constants.markers.Nothing,
     exact=False,
 ):
-    """Determines if the line count is greater than expected"""
+    """Determine if the line count is greater than expected."""
     # count the fragments in either a file in a directory or String contents
     file_line_count = count_lines(given_file, containing_directory, contents)
     # the fragment count is at or above the threshold
@@ -205,7 +205,7 @@ def count_lines(
     containing_directory=constants.markers.Nothing,
     contents=constants.markers.Nothing,
 ):
-    """Counts lines for the file in the directory (or contents)"""
+    """Count lines for the file in the directory (or contents)."""
     # create a Path object to the chosen file in the containing directory
     file_for_checking = files.create_path(file=given_file, home=containing_directory)
     file_contents_count = 0
@@ -226,7 +226,7 @@ def count_lines(
 
 
 def is_valid_regex(regex):
-    """Determines if the provided regex is valid"""
+    """Determine if the provided regex is valid."""
     try:
         re.compile(regex)
         return True
