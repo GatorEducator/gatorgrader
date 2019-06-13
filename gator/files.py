@@ -1,4 +1,4 @@
-"""Utility functions that check the contents of the file system"""
+"""Utility functions that check the contents of the file system."""
 
 from pathlib import Path
 
