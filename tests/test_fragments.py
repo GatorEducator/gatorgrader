@@ -123,7 +123,7 @@ def test_paragraphs_many(writing_string, expected_count):
 def test_words_different_counts(writing_string, expected_count):
     """Check that it can detect different counts of words"""
     # only check the minimum count
-    assert fragments.count_words(writing_string) == expected_count
+    assert fragments.count_words(writing_string, min) == expected_count
 
 
 @pytest.mark.parametrize(
