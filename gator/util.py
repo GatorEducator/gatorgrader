@@ -1,4 +1,4 @@
-"""Utility functions"""
+"""Utility functions."""
 
 from gator import constants
 from gator import files
@@ -8,7 +8,7 @@ import os
 
 
 def verify_gatorgrader_home(current_gatorgrader_home):
-    """Verifies that the GATORGRADER_HOME variable is set correctly"""
+    """Verify that the GATORGRADER_HOME variable is set correctly."""
     # assume that the home is not verified and try to prove otherwise
     # a directory is verified if:
     # 1) it exists on the file system
@@ -29,7 +29,7 @@ def verify_gatorgrader_home(current_gatorgrader_home):
 
 
 def get_gatorgrader_home():
-    """Returns GATORGRADER_HOME environment variable if is valid directory"""
+    """Return GATORGRADER_HOME environment variable if is valid directory."""
     current_gatorgrader_home = os.environ.get(constants.environmentvariables.Home)
     # the current_gatorgrader_home is acceptable, so use it
     if verify_gatorgrader_home(current_gatorgrader_home) is not False:
@@ -42,21 +42,21 @@ def get_gatorgrader_home():
 
 
 def get_human_answer(boolean_value):
-    """Return a human readable response for the boolean_value"""
+    """Return a human readable response for the boolean_value."""
     if boolean_value is True:
         return "Yes"
     return "No"
 
 
 def get_symbol_answer(boolean_value):
-    """Return a symbol response for the boolean_value"""
+    """Return a symbol response for the boolean_value."""
     if boolean_value is True:
         return "✔"
     return "✘"
 
 
 def is_json(potential_json):
-    """Determines if a string is in JSON format"""
+    """Determine if a string is in JSON format."""
     try:
         json.loads(potential_json)
     except ValueError:
@@ -65,7 +65,7 @@ def is_json(potential_json):
 
 
 def greater_than_equal_exacted(first, second, exact=False):
-    """Returns True if first >= second unless exact, then True if ==, otherwise False"""
+    """Return True if first >= second unless exact, then True if ==, otherwise False."""
     if not exact and first >= second:
         return True, first
     if exact and first == second:
