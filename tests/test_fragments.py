@@ -1,4 +1,4 @@
-"""Test cases for the fragments module"""
+"""Test cases for the fragments module.."""
 
 import pytest
 
@@ -33,7 +33,7 @@ from gator import fragments
     ],
 )
 def test_paragraphs_zero_or_one(writing_string, expected_count):
-    """Check that it can detect zero or one paragraphs"""
+    """Check that it can detect zero or one paragraphs."""
     assert fragments.count_paragraphs(writing_string) == expected_count
 
 
@@ -57,7 +57,7 @@ def test_paragraphs_zero_or_one(writing_string, expected_count):
     ],
 )
 def test_paragraphs_many(writing_string, expected_count):
-    """Check that it can detect two or more paragraphs"""
+    """Check that it can detect two or more paragraphs."""
     assert fragments.count_paragraphs(writing_string) == expected_count
 
 
@@ -121,7 +121,7 @@ def test_paragraphs_many(writing_string, expected_count):
     ],
 )
 def test_words_different_min_counts(writing_string, expected_count):
-    """Check that it can detect different counts of words"""
+    """Check that it can detect different counts of words."""
     # only check the minimum count
     # note that the default summarization function in a minimum
     assert fragments.count_words(writing_string) == expected_count
@@ -188,7 +188,7 @@ def test_words_different_min_counts(writing_string, expected_count):
     ],
 )
 def test_minimum_words_different_min_counts(writing_string, expected_count):
-    """Check that it can detect different counts of words"""
+    """Check that it can detect different counts of words."""
     # only check the minimum count
     assert fragments.count_minimum_words(writing_string) == expected_count
 
@@ -253,7 +253,7 @@ def test_minimum_words_different_min_counts(writing_string, expected_count):
     ],
 )
 def test_total_words_different_sum_counts(writing_string, expected_count):
-    """Check that it can detect different counts of total words"""
+    """Check that it can detect different counts of total words."""
     # only check the sum count
     assert fragments.count_total_words(writing_string) == expected_count
 
@@ -318,7 +318,7 @@ def test_total_words_different_sum_counts(writing_string, expected_count):
     ],
 )
 def test_words_different_sum_counts(writing_string, expected_count):
-    """Check that it can detect different counts of total words"""
+    """Check that it can detect different counts of total words."""
     # only check the sum count
     assert fragments.count_words(writing_string, sum) == expected_count
 
@@ -334,7 +334,7 @@ def test_words_different_sum_counts(writing_string, expected_count):
     ],
 )
 def test_chosen_fragment_zero_or_one(writing_string, chosen_fragment, expected_count):
-    """Check that it can detect one or more of a fragment"""
+    """Check that it can detect one or more of a fragment."""
     assert (
         fragments.count_specified_fragment(writing_string, chosen_fragment)
         == expected_count
@@ -352,7 +352,7 @@ def test_chosen_fragment_zero_or_one(writing_string, chosen_fragment, expected_c
     ],
 )
 def test_chosen_fragment_many(writing_string, chosen_fragment, expected_count):
-    """Check that it can detect many of a fragment"""
+    """Check that it can detect many of a fragment."""
     assert (
         fragments.count_specified_fragment(writing_string, chosen_fragment)
         == expected_count
@@ -371,13 +371,13 @@ def test_chosen_fragment_many(writing_string, chosen_fragment, expected_count):
     ],
 )
 def test_extract_line_list(writing_string, expected_count):
-    """Create some strings and then see if breaking them up in lines works"""
+    """Create some strings and then see if breaking them up in lines works."""
     line_list = fragments.get_line_list(writing_string)
     assert len(line_list) == expected_count
 
 
 def test_count_entities_from_file(tmpdir):
-    """Checks that counting fragments in a file works correctly"""
+    """Check that counting fragments in a file works correctly."""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
     hello_file.write("/* hello world */")
     assert hello_file.read() == "/* hello world */"
@@ -399,7 +399,7 @@ def test_count_entities_from_file(tmpdir):
 
 
 def test_count_entities_from_contents():
-    """Checks that counting fragments in a string works correctly"""
+    """Check that counting fragments in a string works correctly."""
     value = "/* hello world */"
     count = fragments.count_entities(
         "hello", fragments.count_specified_fragment, contents=value
@@ -416,7 +416,7 @@ def test_count_entities_from_contents():
 
 
 def test_count_entities_from_file_with_threshold(tmpdir):
-    """Checks that counting fragments in a file with threshold works correctly"""
+    """Check that counting fragments in a file with threshold works correctly."""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
     hello_file.write("/* hello world */")
     assert hello_file.read() == "/* hello world */"
@@ -436,7 +436,7 @@ def test_count_entities_from_file_with_threshold(tmpdir):
 
 
 def test_count_entities_from_contents_with_threshold():
-    """Checks that counting fragments with threshold in a string works correctly"""
+    """Check that counting fragments with threshold in a string works correctly."""
     value = "/* hello world */"
     exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
         "hello", fragments.count_specified_fragment, 10, contents=value
@@ -451,7 +451,7 @@ def test_count_entities_from_contents_with_threshold():
 
 
 def test_count_single_line_from_file(tmpdir):
-    """Checks that counting lines in a file works correctly"""
+    """Check that counting lines in a file works correctly."""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
     hello_file.write("/* hello world */")
     assert hello_file.read() == "/* hello world */"
@@ -463,14 +463,14 @@ def test_count_single_line_from_file(tmpdir):
 
 
 def test_count_single_line_from_contents():
-    """Checks that counting lines in contents works correctly"""
+    """Check that counting lines in contents works correctly."""
     hello_contents = "Hello.java"
     count = fragments.count_lines("", "", hello_contents)
     assert count == 1
 
 
 def test_count_single_line_from_file_with_threshold(tmpdir):
-    """Checks that counting lines in a file with threshold works correctly"""
+    """Check that counting lines in a file with threshold works correctly."""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
     hello_file.write("/* hello world */")
     assert hello_file.read() == "/* hello world */"
@@ -490,7 +490,7 @@ def test_count_single_line_from_file_with_threshold(tmpdir):
 
 
 def test_count_multiple_lines_from_file(tmpdir):
-    """Checks that counting lines in a file works correctly"""
+    """Check that counting lines in a file works correctly."""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
     hello_file.write(
         '/* hello world */\nString s = new String("hello");\n//this is a comment'
@@ -503,7 +503,7 @@ def test_count_multiple_lines_from_file(tmpdir):
 
 
 def test_count_multiple_lines_from_file_with_threshold(tmpdir):
-    """Checks that counting lines in a file works correctly"""
+    """Check that counting lines in a file works correctly."""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
     hello_file.write(
         '/* hello world */\nString s = new String("hello");\n//this is a comment'
@@ -529,7 +529,7 @@ def test_count_multiple_lines_from_file_with_threshold(tmpdir):
 
 
 def test_count_multiple_lines_from_contents():
-    """Checks that counting lines in contents works correctly with blanks"""
+    """Check that counting lines in contents works correctly with blanks."""
     hello_contents = (
         '/* hello world */\nString s = new String("hello");\n\n//this is a comment'
     )
@@ -538,7 +538,7 @@ def test_count_multiple_lines_from_contents():
 
 
 def test_count_multiple_lines_from_contents_single_blank():
-    """Checks that counting lines in contents works correctly"""
+    """Check that counting lines in contents works correctly."""
     hello_contents = (
         '/* hello world */\nString s = new String("hello");\n//this is a comment'
     )
@@ -547,7 +547,7 @@ def test_count_multiple_lines_from_contents_single_blank():
 
 
 def test_count_multiple_lines_from_contents_multiple_blanks():
-    """Checks that counting lines in contents works correctly"""
+    """Check that counting lines in contents works correctly."""
     hello_contents = (
         '/* hello world */\n\nString s = new String("hello");\n//this is a comment\n\n'
     )
@@ -556,7 +556,7 @@ def test_count_multiple_lines_from_contents_multiple_blanks():
 
 
 def test_count_multiple_lines_from_contents_with_threshold():
-    """Checks that counting lines in contents works correctly"""
+    """Check that counting lines in contents works correctly."""
     hello_contents = (
         '/* hello world */\nString s = new String("hello");\n//this is a comment'
     )
@@ -602,7 +602,7 @@ def test_count_multiple_lines_from_contents_with_threshold():
     ],
 )
 def test_detect_blank_line(writing_string, expected_status):
-    """Create some strings and then see blank detection for the line works"""
+    """Create some strings and then see blank detection for the line works."""
     found_blanks = fragments.is_blank_line(writing_string)
     assert found_blanks == expected_status
 
@@ -619,7 +619,7 @@ def test_detect_blank_line(writing_string, expected_status):
     ],
 )
 def test_is_valid_regex(regex, expected_status):
-    """Checks that regex assessment correctly validates regular expressions"""
+    """Check that regex assessment correctly validates regular expressions."""
     is_valid = fragments.is_valid_regex(regex)
     assert is_valid == expected_status
 
@@ -649,7 +649,7 @@ def test_is_valid_regex(regex, expected_status):
     ],
 )
 def test_chosen_regex_zero_or_one(writing_string, chosen_regex, expected_count):
-    """Check that it can detect one or more of a regex"""
+    """Check that it can detect one or more of a regex."""
     assert (
         fragments.count_specified_regex(writing_string, chosen_regex) == expected_count
     )
@@ -683,14 +683,14 @@ def test_chosen_regex_zero_or_one(writing_string, chosen_regex, expected_count):
     ],
 )
 def test_chosen_regex_many(writing_string, chosen_regex, expected_count):
-    """Check that it can detect many of a regex"""
+    """Check that it can detect many of a regex."""
     assert (
         fragments.count_specified_regex(writing_string, chosen_regex) == expected_count
     )
 
 
 def test_count_regex_from_file(tmpdir):
-    """Checks that counting regex in a file works correctly"""
+    """Check that counting regex in a file works correctly."""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
     hello_file.write("\\begin{document} hello! \\end{document}")
     assert hello_file.read() == "\\begin{document} hello! \\end{document}"
@@ -712,7 +712,7 @@ def test_count_regex_from_file(tmpdir):
 
 
 def test_count_regex_from_contents():
-    """Checks that counting regex in a string works correctly"""
+    """Check that counting regex in a string works correctly."""
     value = "\\begin{document} hello! \\end{document}"
     count = fragments.count_entities(
         r"\\begin(.*?)\\end", fragments.count_specified_regex, contents=value
@@ -729,7 +729,7 @@ def test_count_regex_from_contents():
 
 
 def test_count_regex_from_file_with_threshold(tmpdir):
-    """Checks that counting regex in a file with threshold works correctly"""
+    """Check that counting regex in a file with threshold works correctly."""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
     hello_file.write("\\begin{document} hello! \\end{document}")
     assert hello_file.read() == "\\begin{document} hello! \\end{document}"
@@ -755,7 +755,7 @@ def test_count_regex_from_file_with_threshold(tmpdir):
 
 
 def test_count_regex_from_contents_with_threshold():
-    """Checks that counting regex with threshold in a string works correctly"""
+    """Check that counting regex with threshold in a string works correctly."""
     value = "\\begin{document} hello! \\end{document}"
     exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
         r"\\begin(.*?)\\end", fragments.count_specified_regex, 10, contents=value
