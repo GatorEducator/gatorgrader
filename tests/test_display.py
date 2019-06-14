@@ -1,10 +1,10 @@
-"""Tests for the display module"""
+"""Tests for the display module.."""
 
 from gator import display
 
 
 def test_display_welcome_produce_output_line_count(capsys):
-    """Check that the display welcome function produces output lines"""
+    """Check that the display welcome function produces output lines."""
     display.welcome_message()
     captured = capsys.readouterr()
     counted_newlines = captured.out.count("\n")
@@ -14,7 +14,7 @@ def test_display_welcome_produce_output_line_count(capsys):
 
 
 def test_display_checking_produce_output_line_count(capsys):
-    """Check that the display checking function produces output lines"""
+    """Check that the display checking function produces output lines."""
     display.checking_message()
     captured = capsys.readouterr()
     counted_newlines = captured.out.count("\n")
@@ -24,7 +24,7 @@ def test_display_checking_produce_output_line_count(capsys):
 
 
 def test_dislay_invalid_produce_output_line_count(capsys):
-    """Check that the invalid arguments function produces output lines"""
+    """Check that the invalid arguments function produces output lines."""
     display.incorrect_message()
     captured = capsys.readouterr()
     counted_newlines = captured.out.count("\n")
