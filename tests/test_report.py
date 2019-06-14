@@ -1,4 +1,4 @@
-"""Test cases for the report module"""
+"""Test cases for the report module."""
 
 import pytest
 
@@ -8,12 +8,12 @@ from gator import report
 
 @pytest.fixture
 def reset_results_dictionary():
-    """Reset the state of the results dictionary"""
+    """Reset the state of the results dictionary."""
     report.reset()
 
 
 def test_create_result():
-    """Create a result dictionary and check for the correct form"""
+    """Create a result dictionary and check for the correct form."""
     new_result = report.create_result("Command executes", True, "")
     assert new_result[constants.results.Check] == "Command executes"
     assert new_result[constants.results.Outcome] is True
@@ -23,7 +23,7 @@ def test_create_result():
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_set_result(reset_results_dictionary):
-    """Set the result dictionary and check if it keeps the values"""
+    """Set the result dictionary and check if it keeps the values."""
     report.set_result("Command executes", True, "")
     assert report.get_result()[constants.results.Check] == "Command executes"
     assert report.get_result()[constants.results.Outcome] is True
@@ -33,7 +33,7 @@ def test_set_result(reset_results_dictionary):
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_set_result_return(reset_results_dictionary):
-    """Set the result dictionary and check if it keeps the values"""
+    """Set the result dictionary and check if it keeps the values."""
     new_result = report.set_result("Command executes", False, "Missing trailing slash")
     assert new_result[constants.results.Check] == "Command executes"
     assert new_result[constants.results.Outcome] is False
@@ -43,7 +43,7 @@ def test_set_result_return(reset_results_dictionary):
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_output_text(reset_results_dictionary):
-    """Set the report and check the textual output"""
+    """Set the report and check the textual output."""
     report.set_result("Command executes", True, "")
     output = report.output(report.get_result(), report.TEXT)
     assert "Command executes" in output
@@ -53,7 +53,7 @@ def test_output_text(reset_results_dictionary):
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_output_text_diagnostic(reset_results_dictionary):
-    """Set the report and check the textual output"""
+    """Set the report and check the textual output."""
     report.set_result("Command executes", False, "Missing trailing slash")
     output = report.output(report.get_result(), report.TEXT)
     assert "Command executes" in output
@@ -64,7 +64,7 @@ def test_output_text_diagnostic(reset_results_dictionary):
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_output_json(reset_results_dictionary):
-    """Set the report and check output as JSON-based text"""
+    """Set the report and check output as JSON-based text."""
     report.set_result("Command executes", True, "")
     output = report.output(report.get_result(), report.JSON)
     assert output is not None
