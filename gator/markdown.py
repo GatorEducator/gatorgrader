@@ -1,4 +1,4 @@
-"""Retrieve and count the tags of a markdown file"""
+"""Retrieve and count the tags of a markdown file."""
 
 import commonmark
 
@@ -7,7 +7,7 @@ from gator import util
 
 
 def count_specified_tag(contents, tag):
-    """Counts the specified markdown tag in the string contents"""
+    """Count the specified markdown tag in the string contents."""
     ast = commonmark.Parser().parse(contents)
     tag_count = 0
 
@@ -28,7 +28,7 @@ def specified_tag_greater_than_count(
     containing_directory,
     exact=False,
 ):
-    """Determines if the tag count is greater than expected in a given file"""
+    """Determine if the tag count is greater than expected in a given file."""
     # create a Path object to the chosen file in the containing directory
     file_for_checking = files.create_path(file=given_file, home=containing_directory)
     file_tag_count = 0
