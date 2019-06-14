@@ -1,4 +1,4 @@
-"""Configuration file for the test suite"""
+"""Configuration file for the test suite."""
 
 import os
 import sys
