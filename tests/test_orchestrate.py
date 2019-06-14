@@ -1,4 +1,4 @@
-"""Test cases for the orchestrate module"""
+"""Test cases for the orchestrate module."""
 
 import pytest
 
@@ -9,12 +9,12 @@ from gator import report
 
 @pytest.fixture
 def reset_results_dictionary():
-    """Reset the state of the results dictionary"""
+    """Reset the state of the results dictionary."""
     report.reset()
 
 
 def test_perform_actions_no_parameters_welcome(capsys):
-    """Check to see if perform can invoke welcome action with no parameters"""
+    """Check to see if perform can invoke welcome action with no parameters."""
     actions = []
     actions.append([orchestrate.DISPLAY, "welcome_message", []])
     orchestrate.perform(actions)
@@ -26,7 +26,7 @@ def test_perform_actions_no_parameters_welcome(capsys):
 
 
 def test_perform_actions_no_parameters_incorrect(capsys):
-    """Check to see if perform can invoke welcome action with no parameters"""
+    """Check to see if perform can invoke welcome action with no parameters."""
     actions = []
     actions.append([orchestrate.DISPLAY, "incorrect_message", []])
     orchestrate.perform(actions)
@@ -39,7 +39,7 @@ def test_perform_actions_no_parameters_incorrect(capsys):
 
 # pylint: disable=unused-argument
 def test_perform_actions_single_parameter_exit(capsys):
-    """Check to see if perform can invoke exit actions with a parameter"""
+    """Check to see if perform can invoke exit actions with a parameter."""
     actions = []
     with pytest.raises(SystemExit) as pytest_wrapped_e:
         actions.append([orchestrate.RUN, "run_exit", [constants.arguments.Incorrect]])
@@ -49,7 +49,7 @@ def test_perform_actions_single_parameter_exit(capsys):
 
 
 def test_perform_actions_display_welcome_and_exit_check_arguments(capsys):
-    """Check the argument verification, messages, and exit"""
+    """Check the argument verification, messages, and exit."""
     chosen_arguments = ["--directory", "D", "--file", "f"]
     with pytest.raises(SystemExit) as pytest_wrapped_e:
         arguments, actions = orchestrate.check_arguments(chosen_arguments)
@@ -64,7 +64,7 @@ def test_perform_actions_display_welcome_and_exit_check_arguments(capsys):
 
 
 def test_perform_actions_display_welcome_and_exit_check(capsys):
-    """Check the argument verification, messages, and exit"""
+    """Check the argument verification, messages, and exit."""
     chosen_arguments = ["--directory", "D", "--file", "f"]
     with pytest.raises(SystemExit) as pytest_wrapped_e:
         orchestrate.check(chosen_arguments)
@@ -77,7 +77,7 @@ def test_perform_actions_display_welcome_and_exit_check(capsys):
 
 
 def test_perform_actions_display_welcome_and_ready_check_arguments(capsys):
-    """Check the argument verification, messages, and continue"""
+    """Check the argument verification, messages, and continue."""
     chosen_arguments = ["--directory", "D", "--file", "f", "--exists"]
     arguments, actions = orchestrate.check_arguments(chosen_arguments)
     orchestrate.perform(actions)
@@ -93,7 +93,7 @@ def test_perform_actions_display_welcome_and_ready_check_arguments(capsys):
 def test_perform_actions_display_welcome_and_ready_check_commit(
     capsys, reset_results_dictionary
 ):
-    """Check the argument verification, messages, and continue"""
+    """Check the argument verification, messages, and continue."""
     chosen_arguments = ["--commits", "33"]
     exit_code = orchestrate.check(chosen_arguments)
     captured = capsys.readouterr()
@@ -108,7 +108,7 @@ def test_perform_actions_display_welcome_and_ready_check_commit(
 def test_perform_actions_display_welcome_and_ready_check_exists(
     capsys, reset_results_dictionary
 ):
-    """Check the argument verification, messages, and continue"""
+    """Check the argument verification, messages, and continue."""
     chosen_arguments = ["--directory", "D", "--file", "f", "--exists"]
     exit_code = orchestrate.check(chosen_arguments)
     captured = capsys.readouterr()
@@ -123,7 +123,7 @@ def test_perform_actions_display_welcome_and_ready_check_exists(
 def test_perform_actions_display_welcome_and_ready_check_comments_single(
     capsys, reset_results_dictionary
 ):
-    """Check the argument verification, messages, and continue"""
+    """Check the argument verification, messages, and continue."""
     chosen_arguments = [
         "--directory",
         "D",
@@ -147,7 +147,7 @@ def test_perform_actions_display_welcome_and_ready_check_comments_single(
 def test_perform_actions_display_welcome_and_ready_check_comments_mult(
     capsys, reset_results_dictionary
 ):
-    """Check the argument verification, messages, and continue"""
+    """Check the argument verification, messages, and continue."""
     chosen_arguments = [
         "--directory",
         "D",
@@ -171,7 +171,7 @@ def test_perform_actions_display_welcome_and_ready_check_comments_mult(
 def test_perform_actions_display_welcome_and_ready_check_comments_single_python(
     capsys, reset_results_dictionary
 ):
-    """Check the argument verification, messages, and continue"""
+    """Check the argument verification, messages, and continue."""
     chosen_arguments = [
         "--directory",
         "D",
@@ -195,7 +195,7 @@ def test_perform_actions_display_welcome_and_ready_check_comments_single_python(
 def test_perform_actions_display_welcome_and_ready_check_comments_mult_python(
     capsys, reset_results_dictionary
 ):
-    """Check the argument verification, messages, and continue"""
+    """Check the argument verification, messages, and continue."""
     chosen_arguments = [
         "--directory",
         "D",
@@ -219,7 +219,7 @@ def test_perform_actions_display_welcome_and_ready_check_comments_mult_python(
 def test_perform_actions_display_welcome_and_ready_check_paragraphs(
     capsys, reset_results_dictionary
 ):
-    """Check the argument verification, messages, and continue"""
+    """Check the argument verification, messages, and continue."""
     chosen_arguments = ["--directory", "D", "--file", "f", "--paragraphs", "2"]
     exit_code = orchestrate.check(chosen_arguments)
     captured = capsys.readouterr()
@@ -234,7 +234,7 @@ def test_perform_actions_display_welcome_and_ready_check_paragraphs(
 def test_perform_actions_display_welcome_and_ready_check_words(
     capsys, reset_results_dictionary
 ):
-    """Check the argument verification, messages, and continue"""
+    """Check the argument verification, messages, and continue."""
     chosen_arguments = ["--directory", "D", "--file", "f", "--words", "2"]
     exit_code = orchestrate.check(chosen_arguments)
     captured = capsys.readouterr()
@@ -249,7 +249,7 @@ def test_perform_actions_display_welcome_and_ready_check_words(
 def test_perform_actions_display_welcome_and_ready_check_totals_words(
     capsys, reset_results_dictionary
 ):
-    """Check the argument verification, messages, and continue"""
+    """Check the argument verification, messages, and continue."""
     chosen_arguments = ["--directory", "D", "--file", "f", "--total-words", "2"]
     exit_code = orchestrate.check(chosen_arguments)
     captured = capsys.readouterr()
@@ -264,7 +264,7 @@ def test_perform_actions_display_welcome_and_ready_check_totals_words(
 def test_perform_actions_display_welcome_and_ready_check_fragment_file(
     capsys, reset_results_dictionary
 ):
-    """Check the argument verification, messages, and continue"""
+    """Check the argument verification, messages, and continue."""
     chosen_arguments = [
         "--directory",
         "D",
@@ -288,7 +288,7 @@ def test_perform_actions_display_welcome_and_ready_check_fragment_file(
 def test_perform_actions_display_welcome_and_ready_check_markdown_tag_file(
     capsys, reset_results_dictionary
 ):
-    """Check the argument verification, messages, and continue"""
+    """Check the argument verification, messages, and continue."""
     chosen_arguments = [
         "--directory",
         "D",
@@ -312,7 +312,7 @@ def test_perform_actions_display_welcome_and_ready_check_markdown_tag_file(
 def test_perform_actions_display_welcome_and_ready_check_markdown_tag_exact_file(
     capsys, reset_results_dictionary
 ):
-    """Check the argument verification, messages, and continue"""
+    """Check the argument verification, messages, and continue."""
     chosen_arguments = [
         "--directory",
         "D",
@@ -338,7 +338,7 @@ def test_perform_actions_display_welcome_and_ready_check_markdown_tag_exact_file
 def test_perform_actions_display_welcome_and_ready_check_regex_file(
     capsys, reset_results_dictionary
 ):
-    """Check the argument verification, messages, and continue"""
+    """Check the argument verification, messages, and continue."""
     chosen_arguments = [
         "--directory",
         "D",
@@ -364,7 +364,7 @@ def test_perform_actions_display_welcome_and_ready_check_regex_file(
 def test_perform_actions_display_welcome_and_ready_check_count_file(
     capsys, reset_results_dictionary
 ):
-    """Check the argument verification, messages, and continue"""
+    """Check the argument verification, messages, and continue."""
     chosen_arguments = ["--directory", "D", "--file", "f", "--count", "2"]
     exit_code = orchestrate.check(chosen_arguments)
     captured = capsys.readouterr()
@@ -379,7 +379,7 @@ def test_perform_actions_display_welcome_and_ready_check_count_file(
 def test_perform_actions_display_welcome_and_ready_check_fragment_command(
     capsys, reset_results_dictionary
 ):
-    """Check the argument verification, messages, and continue"""
+    """Check the argument verification, messages, and continue."""
     chosen_arguments = ["--command", "ls", "--fragment", "GatorGrader", "--count", "2"]
     exit_code = orchestrate.check(chosen_arguments)
     captured = capsys.readouterr()
@@ -394,7 +394,7 @@ def test_perform_actions_display_welcome_and_ready_check_fragment_command(
 def test_perform_actions_display_welcome_and_ready_check_regex_command(
     capsys, reset_results_dictionary
 ):
-    """Check the argument verification, messages, and continue for regex output"""
+    """Check the argument verification, messages, and continue for regex output."""
     chosen_arguments = ["--command", "ls", "--regex", r"G\S{4}G\S{4}r", "--count", "1"]
     exit_code = orchestrate.check(chosen_arguments)
     captured = capsys.readouterr()
@@ -411,7 +411,7 @@ def test_perform_actions_display_welcome_and_ready_check_regex_command(
 def test_perform_actions_display_welcome_and_ready_check_count_command(
     capsys, reset_results_dictionary
 ):
-    """Check the argument verification, messages, and continue"""
+    """Check the argument verification, messages, and continue."""
     chosen_arguments = ["--command", "ls", "--count", "2"]
     exit_code = orchestrate.check(chosen_arguments)
     captured = capsys.readouterr()
@@ -426,7 +426,7 @@ def test_perform_actions_display_welcome_and_ready_check_count_command(
 def test_perform_actions_display_welcome_and_ready_check_count_command_json(
     capsys, reset_results_dictionary
 ):
-    """Check the argument verification, messages, and continue for JSON output"""
+    """Check the argument verification, messages, and continue for JSON output."""
     chosen_arguments = ["--nowelcome", "--command", "ls", "--count", "2", "--json"]
     exit_code = orchestrate.check(chosen_arguments)
     captured = capsys.readouterr()
@@ -441,7 +441,7 @@ def test_perform_actions_display_welcome_and_ready_check_count_command_json(
 def test_perform_actions_display_welcome_and_ready_check_command(
     capsys, reset_results_dictionary
 ):
-    """Check the argument verification, messages, and continue"""
+    """Check the argument verification, messages, and continue."""
     chosen_arguments = ["--command", "ls", "--executes"]
     exit_code = orchestrate.check(chosen_arguments)
     captured = capsys.readouterr()
@@ -456,7 +456,7 @@ def test_perform_actions_display_welcome_and_ready_check_command(
 def test_perform_actions_display_welcome_and_ready_check_command_not_working(
     capsys, reset_results_dictionary
 ):
-    """Check the argument verification, messages, and continue"""
+    """Check the argument verification, messages, and continue."""
     chosen_arguments = ["--command", "false", "--executes"]
     exit_code = orchestrate.check(chosen_arguments)
     captured = capsys.readouterr()
@@ -471,7 +471,7 @@ def test_perform_actions_display_welcome_and_ready_check_command_not_working(
 def test_perform_actions_display_welcome_and_ready_check_command_working(
     capsys, reset_results_dictionary
 ):
-    """Check the argument verification, messages, and continue"""
+    """Check the argument verification, messages, and continue."""
     chosen_arguments = ["--command", "true", "--executes"]
     exit_code = orchestrate.check(chosen_arguments)
     captured = capsys.readouterr()
@@ -486,7 +486,7 @@ def test_perform_actions_display_welcome_and_ready_check_command_working(
 def test_perform_actions_display_welcome_and_ready_check_command_failing(
     capsys, reset_results_dictionary
 ):
-    """Check the argument verification, messages, and continue"""
+    """Check the argument verification, messages, and continue."""
     chosen_arguments = ["--command", "true", "--count", "2"]
     exit_code = orchestrate.check(chosen_arguments)
     captured = capsys.readouterr()
@@ -501,7 +501,7 @@ def test_perform_actions_display_welcome_and_ready_check_command_failing(
 def test_perform_actions_display_welcome_and_ready_check_command_failing_exact(
     capsys, reset_results_dictionary
 ):
-    """Check the argument verification, messages, and continue"""
+    """Check the argument verification, messages, and continue."""
     chosen_arguments = ["--command", "true", "--count", "2", "--exact"]
     exit_code = orchestrate.check(chosen_arguments)
     captured = capsys.readouterr()
