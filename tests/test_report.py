@@ -2,6 +2,7 @@
 
 import pytest
 
+from gator import constants
 from gator import report
 
 
@@ -14,9 +15,9 @@ def reset_results_dictionary():
 def test_create_result():
     """Create a result dictionary and check for the correct form"""
     new_result = report.create_result("Command executes", True, "")
-    assert new_result[report.CHECK] == "Command executes"
-    assert new_result[report.OUTCOME] is True
-    assert new_result[report.DIAGNOSTIC] == ""
+    assert new_result[constants.results.Check] == "Command executes"
+    assert new_result[constants.results.Outcome] is True
+    assert new_result[constants.results.Diagnostic] == ""
 
 
 # pylint: disable=unused-argument
@@ -24,9 +25,9 @@ def test_create_result():
 def test_set_result(reset_results_dictionary):
     """Set the result dictionary and check if it keeps the values"""
     report.set_result("Command executes", True, "")
-    assert report.get_result()[report.CHECK] == "Command executes"
-    assert report.get_result()[report.OUTCOME] is True
-    assert report.get_result()[report.DIAGNOSTIC] == ""
+    assert report.get_result()[constants.results.Check] == "Command executes"
+    assert report.get_result()[constants.results.Outcome] is True
+    assert report.get_result()[constants.results.Diagnostic] == ""
 
 
 # pylint: disable=unused-argument
@@ -34,9 +35,9 @@ def test_set_result(reset_results_dictionary):
 def test_set_result_return(reset_results_dictionary):
     """Set the result dictionary and check if it keeps the values"""
     new_result = report.set_result("Command executes", False, "Missing trailing slash")
-    assert new_result[report.CHECK] == "Command executes"
-    assert new_result[report.OUTCOME] is False
-    assert new_result[report.DIAGNOSTIC] == "Missing trailing slash"
+    assert new_result[constants.results.Check] == "Command executes"
+    assert new_result[constants.results.Outcome] is False
+    assert new_result[constants.results.Diagnostic] == "Missing trailing slash"
 
 
 # pylint: disable=unused-argument
@@ -70,6 +71,6 @@ def test_output_json(reset_results_dictionary):
     assert "\n" not in output
     assert "Command executes" in output
     assert "true" in output
-    assert f'"{report.CHECK}":' in output
-    assert f'"{report.OUTCOME}":' in output
-    assert f'"{report.DIAGNOSTIC}":' in output
+    assert f'"{constants.results.Check}":' in output
+    assert f'"{constants.results.Outcome}":' in output
+    assert f'"{constants.results.Diagnostic}":' in output

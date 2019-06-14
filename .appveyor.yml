@@ -29,7 +29,7 @@ cache:
 
 # configure environment variables used by GatorGrader
 init:
-  - set GATORGRADER_HOME='c:\projects\gatorgrader'
+  - set GATORGRADER_HOME=%APPVEYOR_BUILD_FOLDER%
   - set PIPENV_VENV_IN_PROJECT=1
   - set PIPENV_IGNORE_VIRTUALENVS=1
   - set PATH=c:\Ruby26\bin;%PYTHON_PATH%;%PYTHON_PATH%\scripts;%PATH%

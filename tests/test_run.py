@@ -4,6 +4,7 @@ import platform
 
 from gator import run
 
+# define the operating systems on which to run processes
 LINUX = "Linux"
 MAC = "Darwin"
 WINDOWS = "Windows"

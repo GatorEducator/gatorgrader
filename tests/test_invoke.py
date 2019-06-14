@@ -4,6 +4,8 @@ import sys
 
 import pytest
 
+from gator import constants
+from gator import fragments
 from gator import invoke
 from gator import report
 
@@ -45,8 +47,8 @@ def test_file_exists_in_directory_check(reset_results_dictionary, tmpdir):
     invoke.invoke_file_in_directory_check(hello_file, directory)
     details = report.get_result()
     assert details is not None
-    assert details["diagnostic"] is not None
-    assert details["diagnostic"]
+    assert details[constants.results.Diagnostic] is not None
+    assert details[constants.results.Diagnostic]
 
 
 # pylint: disable=unused-argument
@@ -105,11 +107,23 @@ def test_file_exists_in_directory_check_words(reset_results_dictionary, tmpdir):
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     reflection_file = "reflection.md"
-    invoke.invoke_all_word_count_checks(reflection_file, directory, 4)
+    invoke.invoke_all_word_count_checks(
+        reflection_file,
+        directory,
+        4,
+        fragments.count_minimum_words,
+        constants.words.Minimum,
+    )
     details = report.get_result()
     assert details is not None
     report.reset()
-    invoke.invoke_all_word_count_checks(reflection_file, directory, 200)
+    invoke.invoke_all_word_count_checks(
+        reflection_file,
+        directory,
+        200,
+        fragments.count_minimum_words,
+        constants.words.Minimum,
+    )
     details = report.get_result()
     assert details is not None
 
@@ -129,11 +143,23 @@ def test_file_exists_in_directory_check_words_exact(reset_results_dictionary, tm
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     reflection_file = "reflection.md"
-    invoke.invoke_all_word_count_checks(reflection_file, directory, 4, True)
+    invoke.invoke_all_word_count_checks(
+        reflection_file,
+        directory,
+        4,
+        fragments.count_minimum_words,
+        constants.words.Minimum,
+    )
     details = report.get_result()
     assert details is not None
     report.reset()
-    invoke.invoke_all_word_count_checks(reflection_file, directory, 200, True)
+    invoke.invoke_all_word_count_checks(
+        reflection_file,
+        directory,
+        200,
+        fragments.count_minimum_words,
+        constants.words.Minimum,
+    )
     details = report.get_result()
     assert details is not None
 

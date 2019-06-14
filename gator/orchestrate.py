@@ -3,6 +3,7 @@
 import sys
 
 from gator import arguments
+from gator import constants
 from gator import display
 from gator import leave
 from gator import report
@@ -11,26 +12,17 @@ from gator import report
 from gator import invoke  # noqa: F401
 from gator import run  # noqa: F401
 
+# define the name of this module
 ORCHESTRATE = sys.modules[__name__]
 
-DISPLAY = sys.modules["gator.display"]
-INVOKE = sys.modules["gator.invoke"]
-RUN = sys.modules["gator.run"]
-REPORT = sys.modules["gator.report"]
+# define the modules that contain invokable functions
+DISPLAY = sys.modules[constants.modules.Display]
+INVOKE = sys.modules[constants.modules.Invoke]
+RUN = sys.modules[constants.modules.Run]
+REPORT = sys.modules[constants.modules.Report]
 
-VOID = []
-
-INCORRECT_ARGUMENTS = 2
-
-SINGLE = "single-line"
-MULTIPLE = "multiple-line"
-REPOSITORY = "."
-
-JSON = "JSON"
-TEXT = "TEXT"
-OUTPUT_TYPE = getattr(REPORT, TEXT)
-
-NOTHING = ""
+# define the format for the output of the checks
+OUTPUT_TYPE = getattr(REPORT, constants.outputs.Text)
 
 
 def check_arguments(system_arguments):
@@ -40,30 +32,35 @@ def check_arguments(system_arguments):
     gg_arguments = arguments.parse(system_arguments)
     # Action: display the welcome message
     if gg_arguments.nowelcome is not True:
-        actions.append([DISPLAY, "welcome_message", VOID])
+        actions.append([DISPLAY, "welcome_message", constants.arguments.Void])
     if gg_arguments.json is True:
         # pylint: disable=global-statement
         global OUTPUT_TYPE
-        OUTPUT_TYPE = getattr(REPORT, JSON)
+        OUTPUT_TYPE = getattr(REPORT, constants.outputs.Json)
     did_verify_arguments = arguments.verify(gg_arguments)
     # arguments are incorrect
     if did_verify_arguments is False:
         # Action: display incorrect arguments message
-        actions.append([DISPLAY, "incorrect_message", VOID])
+        actions.append([DISPLAY, "incorrect_message", constants.arguments.Void])
         # Action: exit the program
-        actions.append([RUN, "run_exit", [INCORRECT_ARGUMENTS]])
+        actions.append([RUN, "run_exit", [constants.arguments.Incorrect]])
     return gg_arguments, actions
 
 
 def check_commits(system_arguments):
     """Check the commits to the git repository and return desired actions"""
     actions = []
+    # the repository is the current directory containing work to check
     if system_arguments.commits is not None:
         actions.append(
             [
                 INVOKE,
                 "invoke_commits_check",
-                [REPOSITORY, system_arguments.commits, system_arguments.exact],
+                [
+                    constants.paths.Current_Directory,
+                    system_arguments.commits,
+                    system_arguments.exact,
+                ],
             ]
         )
     return actions
@@ -95,7 +92,7 @@ def check_single(system_arguments):
                     system_arguments.file,
                     system_arguments.directory,
                     system_arguments.single,
-                    SINGLE,
+                    constants.comments.Single_Line,
                     system_arguments.language,
                     system_arguments.exact,
                 ],
@@ -116,7 +113,7 @@ def check_multiple(system_arguments):
                     system_arguments.file,
                     system_arguments.directory,
                     system_arguments.multiple,
-                    MULTIPLE,
+                    constants.comments.Multiple_Line,
                     system_arguments.language,
                     system_arguments.exact,
                 ],
@@ -145,13 +142,13 @@ def check_paragraphs(system_arguments):
 
 
 def check_words(system_arguments):
-    """Check the existence of words in a file and return desired actions"""
+    """Check the existence of minimum words across a file and return desired actions."""
     actions = []
     if system_arguments.words is not None:
         actions.append(
             [
                 INVOKE,
-                "invoke_all_word_count_checks",
+                "invoke_all_minimum_word_count_checks",
                 [
                     system_arguments.file,
                     system_arguments.directory,
@@ -164,7 +161,7 @@ def check_words(system_arguments):
 
 
 def check_total_words(system_arguments):
-    """Check the total word count in a file and return desired actions"""
+    """Check the total word count in a file and return desired actions."""
     actions = []
     if system_arguments.total_words is not None:
         actions.append(
@@ -195,7 +192,7 @@ def check_fragment_file(system_arguments):
                     system_arguments.count,
                     system_arguments.file,
                     system_arguments.directory,
-                    NOTHING,
+                    constants.markers.Nothing,
                     system_arguments.exact,
                 ],
             ]
@@ -216,7 +213,7 @@ def check_regex_file(system_arguments):
                     system_arguments.count,
                     system_arguments.file,
                     system_arguments.directory,
-                    NOTHING,
+                    constants.markers.Nothing,
                     system_arguments.exact,
                 ],
             ]
@@ -263,7 +260,7 @@ def check_count_file(system_arguments):
                     system_arguments.count,
                     system_arguments.file,
                     system_arguments.directory,
-                    NOTHING,
+                    constants.markers.Nothing,
                     system_arguments.exact,
                 ],
             ]
