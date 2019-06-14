@@ -1,4 +1,4 @@
-"""Orchestrate the checks performed on writing and source code"""
+"""Orchestrate the checks performed on writing and source code."""
 
 import sys
 
@@ -26,7 +26,7 @@ OUTPUT_TYPE = getattr(REPORT, constants.outputs.Text)
 
 
 def check_arguments(system_arguments):
-    """Check the arguments return the desired actions to perform"""
+    """Check the arguments return the desired actions to perform."""
     # parse and verify the arguments
     actions = []
     gg_arguments = arguments.parse(system_arguments)
@@ -48,7 +48,7 @@ def check_arguments(system_arguments):
 
 
 def check_commits(system_arguments):
-    """Check the commits to the git repository and return desired actions"""
+    """Check the commits to the git repository and return desired actions."""
     actions = []
     # the repository is the current directory containing work to check
     if system_arguments.commits is not None:
@@ -67,7 +67,7 @@ def check_commits(system_arguments):
 
 
 def check_exists(system_arguments):
-    """Check the existence of a file in directory and return desired actions"""
+    """Check the existence of a file in directory and return desired actions."""
     actions = []
     if system_arguments.exists is True:
         actions.append(
@@ -81,7 +81,7 @@ def check_exists(system_arguments):
 
 
 def check_single(system_arguments):
-    """Check the existence of single-line comments in a file and return desired actions"""
+    """Check the existence of single-line comments in a file and return desired actions."""
     actions = []
     if system_arguments.single is not None:
         actions.append(
@@ -102,7 +102,7 @@ def check_single(system_arguments):
 
 
 def check_multiple(system_arguments):
-    """Check the existence of multiple-line comments in a file and return desired actions"""
+    """Check the existence of multiple-line comments in a file and return desired actions."""
     actions = []
     if system_arguments.multiple is not None:
         actions.append(
@@ -123,7 +123,7 @@ def check_multiple(system_arguments):
 
 
 def check_paragraphs(system_arguments):
-    """Check the existence of paragraphs in a file and return desired actions"""
+    """Check the existence of paragraphs in a file and return desired actions."""
     actions = []
     if system_arguments.paragraphs is not None:
         actions.append(
@@ -180,7 +180,7 @@ def check_total_words(system_arguments):
 
 
 def check_fragment_file(system_arguments):
-    """Check the existence of fragment in a file and return desired actions"""
+    """Check the existence of fragment in a file and return desired actions."""
     actions = []
     if system_arguments.fragment is not None and system_arguments.file is not None:
         actions.append(
@@ -201,7 +201,7 @@ def check_fragment_file(system_arguments):
 
 
 def check_regex_file(system_arguments):
-    """Check the existence of regex in a file and return desired actions"""
+    """Check the existence of regex in a file and return desired actions."""
     actions = []
     if system_arguments.regex is not None and system_arguments.file is not None:
         actions.append(
@@ -222,7 +222,7 @@ def check_regex_file(system_arguments):
 
 
 def check_markdown_file(system_arguments):
-    """Check the existence of markdown in a file and return desired actions"""
+    """Check the existence of markdown in a file and return desired actions."""
     actions = []
     if system_arguments.markdown is not None and system_arguments.file is not None:
         actions.append(
@@ -242,7 +242,7 @@ def check_markdown_file(system_arguments):
 
 
 def check_count_file(system_arguments):
-    """Check the count of lines in a file and return desired actions"""
+    """Check the count of lines in a file and return desired actions."""
     actions = []
     # pylint: disable=bad-continuation
     if (
@@ -269,7 +269,7 @@ def check_count_file(system_arguments):
 
 
 def check_fragment_command(system_arguments):
-    """Check the existence of fragment in a command's output and return desired actions"""
+    """Check the existence of fragment in a command's output and return desired actions."""
     actions = []
     if system_arguments.fragment is not None and system_arguments.command is not None:
         actions.append(
@@ -288,7 +288,7 @@ def check_fragment_command(system_arguments):
 
 
 def check_regex_command(system_arguments):
-    """Check the existence of regex in a command's output and return desired actions"""
+    """Check the existence of regex in a command's output and return desired actions."""
     actions = []
     if system_arguments.regex is not None and system_arguments.command is not None:
         actions.append(
@@ -307,7 +307,7 @@ def check_regex_command(system_arguments):
 
 
 def check_count_command(system_arguments):
-    """Check the count of lines in a command's output and return desired actions"""
+    """Check the count of lines in a command's output and return desired actions."""
     actions = []
     # pylint: disable=bad-continuation
     if (
@@ -331,7 +331,7 @@ def check_count_command(system_arguments):
 
 
 def check_executes_command(system_arguments):
-    """Check whether or not a command executes without error and return desired actions"""
+    """Check whether or not a command executes without error and return desired actions."""
     actions = []
     # pylint: disable=bad-continuation
     if (
@@ -348,7 +348,7 @@ def check_executes_command(system_arguments):
 
 
 def perform(actions):
-    """Perform the specified actions"""
+    """Perform the specified actions."""
     results = []
     # iteratively run all of the actions in the list
     for module, function, parameters in actions:
@@ -364,7 +364,7 @@ def perform(actions):
 
 
 def check(system_arguments):
-    """Orchestrate a full check of the specified deliverables"""
+    """Orchestrate a full check of the specified deliverables."""
     # Section: Initialize
     # Only step: check the arguments
     step_results = []
@@ -373,6 +373,9 @@ def check(system_arguments):
     step_results = perform(arguments_actions)
     check_results.extend(step_results)
     # Section: Perform one of these checks
+    # Note that GatorGrader only performs a single check
+    # The Gradle plugin can run multiple GatorGrader checks in parallel
+    # Make new checks available by adding them to this list of check names
     checks = [
         "check_commits",
         "check_exists",
@@ -391,6 +394,10 @@ def check(system_arguments):
         "check_regex_command",
     ]
     # iterate through all of the possible checks
+    # each of the a_check:
+    # --> is a string of a name of a check function
+    # --> is called reflectively through the getattr function
+    # --> will only result in actions if the arguments signal to call it
     for a_check in checks:
         # reflectively create the checking function
         check_to_invoke = getattr(ORCHESTRATE, a_check)
