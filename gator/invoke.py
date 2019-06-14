@@ -1,4 +1,4 @@
-"""Invokes programs on the command-line"""
+"""Invoke programs on the command-line."""
 
 from gator import comments
 from gator import constants
@@ -13,7 +13,7 @@ from gator import util
 
 
 def report_result(status, message, diagnostic):
-    """Set the report after running a check"""
+    """Set the report after running a check."""
     if status:
         # passed the check, so do not produce a diagnostic message
         report.set_result(message, status, constants.markers.No_Diagnostic)
@@ -23,7 +23,7 @@ def report_result(status, message, diagnostic):
 
 
 def invoke_commits_check(student_repository, expected_count, exact=False):
-    """Check to see if the repository has more than specified commits"""
+    """Check to see if the repository has more than specified commits."""
     # inspect the Git repository internals for the commits
     did_check_pass, actual_count = repository.commits_greater_than_count(
         student_repository, expected_count, exact
@@ -44,7 +44,7 @@ def invoke_commits_check(student_repository, expected_count, exact=False):
 
 
 def invoke_file_in_directory_check(filecheck, directory):
-    """Check to see if the file is in the directory"""
+    """Check to see if the file is in the directory."""
     # get the home directory for checking and then check for file
     gatorgrader_home = util.get_gatorgrader_home()
     was_file_found = files.check_file_in_directory(
@@ -75,7 +75,7 @@ def invoke_file_in_directory_check(filecheck, directory):
 def invoke_all_comment_checks(
     filecheck, directory, expected_count, comment_type, language, exact=False
 ):
-    """Perform the comment check and return the results"""
+    """Perform the comment check and return the results."""
     met_or_exceeded_count = 0
     actual_count = 0
     # check single-line comments
@@ -156,7 +156,7 @@ def invoke_all_comment_checks(
 
 
 def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=False):
-    """Perform the paragraph check and return the results"""
+    """Perform the paragraph check and return the results."""
     met_or_exceeded_count = 0
     met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
         filecheck, directory, expected_count, fragments.count_paragraphs, exact
@@ -195,7 +195,7 @@ def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=Fals
 def invoke_all_word_count_checks(
     filecheck, directory, expected_count, count_function, conclusion, exact=False
 ):
-    """Perform the word count check and return the results"""
+    """Perform the word count check and return the results."""
     met_or_exceeded_count = 0
     met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
         filecheck, directory, expected_count, count_function
@@ -236,7 +236,7 @@ def invoke_all_word_count_checks(
 def invoke_all_minimum_word_count_checks(
     filecheck, directory, expected_count, exact=False
 ):
-    """Perform the minimum word count check and return the results"""
+    """Perform the minimum word count check and return the results."""
     return invoke_all_word_count_checks(
         filecheck,
         directory,
@@ -250,7 +250,7 @@ def invoke_all_minimum_word_count_checks(
 def invoke_all_total_word_count_checks(
     filecheck, directory, expected_count, exact=False
 ):
-    """Perform the total word count check and return the results"""
+    """Perform the total word count check and return the results."""
     return invoke_all_word_count_checks(
         filecheck,
         directory,
@@ -270,7 +270,7 @@ def invoke_all_fragment_checks(
     contents=constants.markers.Nothing,
     exact=False,
 ):
-    """Perform the check for a fragment existence in file or contents and return the results"""
+    """Perform the check for a fragment existence in file or contents and return the results."""
     met_or_exceeded_count = 0
     met_or_exceeded_count, actual_count = fragments.specified_entity_greater_than_count(
         fragment,
@@ -354,7 +354,7 @@ def invoke_all_regex_checks(
     contents=constants.markers.Nothing,
     exact=False,
 ):
-    """Perform the check for a regex existence in file or contents and return the results"""
+    """Perform the check for a regex existence in file or contents and return the results."""
     met_or_exceeded_count = 0
     met_or_exceeded_count, actual_count = fragments.specified_entity_greater_than_count(
         regex,
@@ -434,7 +434,7 @@ def invoke_all_regex_checks(
 def invoke_all_command_fragment_checks(
     command, expected_fragment, expected_count, exact=False
 ):
-    """Perform the check for a fragment existence in the output of a command"""
+    """Perform the check for a fragment existence in the output of a command."""
     command_output = run.specified_command_get_output(command)
     return invoke_all_fragment_checks(
         expected_fragment,
@@ -450,7 +450,7 @@ def invoke_all_command_fragment_checks(
 def invoke_all_command_regex_checks(
     command, expected_regex, expected_count, exact=False
 ):
-    """Perform the check for a regex existence in the output of a command"""
+    """Perform the check for a regex existence in the output of a command."""
     command_output = run.specified_command_get_output(command)
     return invoke_all_regex_checks(
         expected_regex,
@@ -463,7 +463,7 @@ def invoke_all_command_regex_checks(
 
 
 def invoke_all_command_executes_checks(command):
-    """Perform the check for whether or not a command runs without error"""
+    """Perform the check for whether or not a command runs without error."""
     # pylint: disable=unused-variable
     # note that the program does not use all of these
     # return values, but we are capturing them if needed for debugging
@@ -488,7 +488,7 @@ def invoke_all_command_executes_checks(command):
 def invoke_all_markdown_checks(
     markdown_tag, expected_count, filecheck, directory, exact=False
 ):
-    """Perform the check for a markdown tag existence in a file and return the results"""
+    """Perform the check for a markdown tag existence in a file and return the results."""
     met_or_exceeded_count = 0
     met_or_exceeded_count, actual_count = markdown.specified_tag_greater_than_count(
         markdown_tag,
@@ -538,7 +538,7 @@ def invoke_all_count_checks(
     contents=constants.markers.Nothing,
     exact=False,
 ):
-    """Perform the check for the count of lines in file or contents and return the results"""
+    """Perform the check for the count of lines in file or contents and return the results."""
     met_or_exceeded_count = 0
     met_or_exceeded_count, actual_count = fragments.specified_source_greater_than_count(
         expected_count, filecheck, directory, contents, exact
@@ -586,7 +586,7 @@ def invoke_all_count_checks(
 
 
 def invoke_all_command_count_checks(command, expected_count, exact=False):
-    """Perform the check for number of lines in the output of a command"""
+    """Perform the check for number of lines in the output of a command."""
     command_output = run.specified_command_get_output(command)
     return invoke_all_count_checks(
         expected_count,
