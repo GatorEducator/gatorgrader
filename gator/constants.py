@@ -76,7 +76,7 @@ paths = create_constants(
 results = create_constants("results", "Check", "Outcome", "Diagnostic")
 
 # define the version control repository details
-versioncontrol = create_constants("versioncontrol", Master="master")
+versioncontrol = create_constants("versioncontrol", Master="master", No_Commits=[])
 
 # define the words diagnostic messages
 words = create_constants(
