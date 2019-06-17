@@ -72,6 +72,10 @@ paths = create_constants(
 )
 
 # define the names of fields in the result table
+# note that the variable name can be capitalized
+# however, the contents of the constant cannot be
+# capitalized because the JSON report that is transmitted
+# between Python and Java expects that the keys are lowercase
 results = create_constants(
     "results", Check="check", Outcome="outcome", Diagnostic="diagnostic"
 )
