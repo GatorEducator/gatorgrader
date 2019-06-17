@@ -1,4 +1,4 @@
-"""Handle the arguments provided to GatorGrader"""
+"""Handle the arguments provided to GatorGrader."""
 
 from gator import constants
 
@@ -6,7 +6,7 @@ import argparse
 
 
 def parse(args):
-    """Parses the arguments provided on the command-line"""
+    """Parse the arguments provided on the command-line."""
     # create the parser with the default help formatter
     gg_parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
@@ -148,42 +148,42 @@ def parse(args):
 
 
 def is_valid_file(args):
-    """Checks if it is a valid file and directory specification"""
+    """Check if it is a valid file and directory specification."""
     if args.file is not None:
         return True
     return False
 
 
 def is_valid_directory(args):
-    """Checks if it is a valid directory specification"""
+    """Check if it is a valid directory specification."""
     if args.directory is not None:
         return True
     return False
 
 
 def is_valid_file_and_directory(args):
-    """Checks if it is a valid file and directory specification"""
+    """Check if it is a valid file and directory specification."""
     if is_valid_file(args) and is_valid_directory(args):
         return True
     return False
 
 
 def is_valid_file_or_directory(args):
-    """Checks if it is a valid file or directory specification"""
+    """Check if it is a valid file or directory specification."""
     if is_valid_file(args) or is_valid_directory(args):
         return True
     return False
 
 
 def is_valid_command(args):
-    """Checks if it is a valid command specification"""
+    """Check if it is a valid command specification."""
     if args.command is not None:
         return True
     return False
 
 
 def is_valid_commits(args):
-    """Checks if it is a valid commits specification"""
+    """Check if it is a valid commits specification."""
     if args.commits is not None:
         return True
     return False
@@ -195,7 +195,7 @@ def is_valid_commits(args):
 
 
 def is_valid_exact(args, skip=False):
-    """Checks if it is a valid exact count specification"""
+    """Check if it is a valid exact count specification."""
     # pylint: disable=bad-continuation
     # pylint: disable=too-many-boolean-expressions
     if (
@@ -214,7 +214,7 @@ def is_valid_exact(args, skip=False):
 
 
 def is_valid_exists(args, skip=False):
-    """Checks if it is a valid existence specification"""
+    """Check if it is a valid existence specification."""
     if is_valid_file_and_directory(args) or skip:
         if args.exists is not False:
             return True
@@ -222,7 +222,7 @@ def is_valid_exists(args, skip=False):
 
 
 def is_valid_comments(args, skip=False):
-    """Checks if it is a valid comments specification"""
+    """Check if it is a valid comments specification."""
     if is_valid_file_and_directory(args) or skip:
         if args.single is not None or args.multiple is not None:
             return True
@@ -230,7 +230,7 @@ def is_valid_comments(args, skip=False):
 
 
 def is_valid_paragraphs(args, skip=False):
-    """Checks if it is a valid paragraphs specification"""
+    """Check if it is a valid paragraphs specification."""
     if is_valid_file_and_directory(args) or skip:
         if args.paragraphs is not None:
             return True
@@ -238,7 +238,7 @@ def is_valid_paragraphs(args, skip=False):
 
 
 def is_valid_words(args, skip=False):
-    """Checks if it is a valid words specification"""
+    """Check if it is a valid words specification."""
     if is_valid_file_and_directory(args) or skip:
         if args.words is not None:
             return True
@@ -246,7 +246,7 @@ def is_valid_words(args, skip=False):
 
 
 def is_valid_total_words(args, skip=False):
-    """Checks if it is a valid total-words specification"""
+    """Check if it is a valid total-words specification."""
     if is_valid_file_and_directory(args) or skip:
         if args.total_words is not None:
             return True
@@ -254,7 +254,7 @@ def is_valid_total_words(args, skip=False):
 
 
 def is_valid_language(args, skip=False):
-    """Checks if it is a valid language specification"""
+    """Check if it is a valid language specification."""
     if (is_valid_file_and_directory(args) and is_valid_comments(args)) or skip:
         if args.language is not None:
             return True
@@ -262,7 +262,7 @@ def is_valid_language(args, skip=False):
 
 
 def is_valid_executes(args, skip=False):
-    """Checks if it is a valid executes without error specification"""
+    """Check if it is a valid executes without error specification."""
     if is_valid_command(args) or skip:
         if args.executes is not False:
             return True
@@ -270,7 +270,7 @@ def is_valid_executes(args, skip=False):
 
 
 def is_valid_fragment(args, skip=False):
-    """Checks if it is a valid fragment specification"""
+    """Check if it is a valid fragment specification."""
     if (is_valid_file_and_directory(args) or is_valid_command(args)) or skip:
         if args.fragment is not None and args.count is not None:
             return True
@@ -278,7 +278,7 @@ def is_valid_fragment(args, skip=False):
 
 
 def is_valid_regex(args, skip=False):
-    """Checks if it is a valid regex specification"""
+    """Check if it is a valid regex specification."""
     if (is_valid_file_and_directory(args) or is_valid_command(args)) or skip:
         if args.regex is not None and args.count is not None:
             return True
@@ -286,7 +286,7 @@ def is_valid_regex(args, skip=False):
 
 
 def is_valid_count(args, skip=False):
-    """Checks if it is a valid count specification"""
+    """Check if it is a valid count specification."""
     if (is_valid_file_and_directory(args) or is_valid_command(args)) or skip:
         if args.count is not None and args.fragment is None and args.regex is None:
             return True
@@ -294,7 +294,7 @@ def is_valid_count(args, skip=False):
 
 
 def is_file_ancillary(args):
-    """Checks if it is an ancillary of a file"""
+    """Check if it is an ancillary of a file."""
     # pylint: disable=bad-continuation
     if (
         # skip the parent check and only
@@ -310,7 +310,7 @@ def is_file_ancillary(args):
 
 
 def is_command_ancillary(args):
-    """Checks if it is an ancillary of a command"""
+    """Check if it is an ancillary of a command."""
     # pylint: disable=bad-continuation
     if (
         # skip the parent check and only
@@ -330,7 +330,7 @@ def is_command_ancillary(args):
 
 # pylint: disable=too-many-branches
 def verify(args):
-    """Checks if the arguments are correct"""
+    """Check if the arguments are correct."""
     # assume that the arguments are not valid and prove otherwise
     verified_arguments = False
     # TOP-LEVEL VERIFIED:

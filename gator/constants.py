@@ -1,11 +1,11 @@
-"""Provide constants for reference by GatorGrader modules"""
+"""Provide constants for reference by GatorGrader modules."""
 
 import collections
 import itertools
 
 
 def create_constants(name, *args, **kwargs):
-    """Create a namedtuple of constants"""
+    """Create a namedtuple of constants."""
     # the constants are created such that:
     # the name is the name of the namedtuple
     # for *args with "Constant_Name" or **kwargs with Constant_Name = "AnyConstantName"

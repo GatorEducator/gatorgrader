@@ -1,4 +1,4 @@
-"""GatorGrader checks the files of programmers and writers"""
+"""GatorGrader checks the files of programmers and technical writers."""
 
 import sys
 

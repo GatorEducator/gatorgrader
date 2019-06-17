@@ -1,4 +1,4 @@
-"""Test cases for the markdown module"""
+"""Test cases for the markdown module."""
 
 import pytest
 
@@ -35,7 +35,7 @@ from gator import markdown
     ],
 )
 def test_chosen_tag_zero_or_one(writing_string, chosen_tag, expected_count):
-    """Check that it can detect one or more of a fragment"""
+    """Check that it can detect one or more of a fragment."""
     assert markdown.count_specified_tag(writing_string, chosen_tag) == expected_count
 
 
@@ -64,12 +64,12 @@ def test_chosen_tag_zero_or_one(writing_string, chosen_tag, expected_count):
     ],
 )
 def test_chosen_tag_many(writing_string, chosen_tag, expected_count):
-    """Check that it can detect many of a fragment"""
+    """Check that it can detect many of a fragment."""
     assert markdown.count_specified_tag(writing_string, chosen_tag) == expected_count
 
 
 def test_count_fragments_from_file(tmpdir):
-    """Checks that counting tags in a file works correctly"""
+    """Check that counting tags in a file works correctly."""
     test_contents = """
 # Section One
 

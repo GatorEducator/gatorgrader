@@ -1,4 +1,4 @@
-"""Test cases for the leave module"""
+"""Test cases for the leave module.."""
 
 import pytest
 
@@ -6,14 +6,14 @@ from gator import leave
 
 
 def test_failing_exit():
-    """Checks that code fails"""
+    """Check that code fails."""
     failing_exit = [True, True, False]
     failing_code = leave.get_code(failing_exit)
     assert failing_code == 1
 
 
 def test_failing_exit_different():
-    """Check that true input returns yes"""
+    """Check that true input returns yes."""
     failing_exit = [True, True, False]
     failing_code = leave.get_code(failing_exit)
     assert failing_code == 1
@@ -33,5 +33,5 @@ def test_failing_exit_different():
     ],
 )
 def test_exit_codes_parameterized(return_values, expected_codes):
-    """Check that multiple outputs lead to correct exit codes"""
+    """Check that multiple outputs lead to correct exit codes."""
     assert leave.get_code(return_values) == expected_codes

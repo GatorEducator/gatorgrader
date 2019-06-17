@@ -1,4 +1,4 @@
-"""Test cases for the invoke module"""
+"""Test cases for the invoke module.."""
 
 import sys
 
@@ -12,14 +12,14 @@ from gator import report
 
 @pytest.fixture
 def reset_results_dictionary():
-    """Reset the state of the results dictionary"""
+    """Reset the state of the results dictionary."""
     report.reset()
 
 
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_commit_checks(reset_results_dictionary):
-    """Checks that invocation of commit check works correctly"""
+    """Check that invocation of commit check works correctly."""
     invoke.invoke_commits_check(".", sys.maxsize)
     details = report.get_result()
     assert details is not None
@@ -28,7 +28,7 @@ def test_commit_checks(reset_results_dictionary):
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_commit_checks_exact(reset_results_dictionary):
-    """Checks that invocation of commit check exacted works correctly"""
+    """Check that invocation of commit check exacted works correctly."""
     invoke.invoke_commits_check(".", sys.maxsize, True)
     details = report.get_result()
     assert details is not None
@@ -37,7 +37,7 @@ def test_commit_checks_exact(reset_results_dictionary):
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check(reset_results_dictionary, tmpdir):
-    """Checks that invocation of file existence check works correctly"""
+    """Check that invocation of file existence check works correctly."""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
     hello_file.write("content")
     assert hello_file.read() == "content"
@@ -54,7 +54,7 @@ def test_file_exists_in_directory_check(reset_results_dictionary, tmpdir):
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check_paragraphs(reset_results_dictionary, tmpdir):
-    """Checks that the checking of paragraphs works correctly"""
+    """Check that the checking of paragraphs works correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
     reflection_file.write("hello world 44\n\nhi\n\nff!$@name\n\n^^44")
     assert reflection_file.read() == "hello world 44\n\nhi\n\nff!$@name\n\n^^44"
@@ -76,7 +76,7 @@ def test_file_exists_in_directory_check_paragraphs(reset_results_dictionary, tmp
 def test_file_exists_in_directory_check_paragraphs_exact(
     reset_results_dictionary, tmpdir
 ):
-    """Checks that the checking of paragraphs works for exact correctly"""
+    """Check that the checking of paragraphs works for exact correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
     reflection_file.write("hello world 44\n\nhi\n\nff!$@name\n\n^^44")
     assert reflection_file.read() == "hello world 44\n\nhi\n\nff!$@name\n\n^^44"
@@ -95,7 +95,7 @@ def test_file_exists_in_directory_check_paragraphs_exact(
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check_words(reset_results_dictionary, tmpdir):
-    """Checks that the checking of words works correctly"""
+    """Check that the checking of words works correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
     reflection_file.write(
         "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
@@ -131,7 +131,7 @@ def test_file_exists_in_directory_check_words(reset_results_dictionary, tmpdir):
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check_words_exact(reset_results_dictionary, tmpdir):
-    """Checks that the checking of words works exact correctly"""
+    """Check that the checking of words works exact correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
     reflection_file.write(
         "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
@@ -167,7 +167,7 @@ def test_file_exists_in_directory_check_words_exact(reset_results_dictionary, tm
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check_total_words(reset_results_dictionary, tmpdir):
-    """Checks that the checking of total words works correctly"""
+    """Check that the checking of total words works correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
     reflection_file.write(
         "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
@@ -193,7 +193,7 @@ def test_file_exists_in_directory_check_total_words(reset_results_dictionary, tm
 def test_file_exists_in_directory_check_total_words_exact(
     reset_results_dictionary, tmpdir
 ):
-    """Checks that the checking of total words works exactly correctly"""
+    """Check that the checking of total words works exactly correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
     reflection_file.write(
         "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
@@ -221,7 +221,7 @@ def test_file_exists_in_directory_check_total_words_exact(
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check_fragments(reset_results_dictionary, tmpdir):
-    """Checks that the checking of fragments in a file works correctly"""
+    """Check that the checking of fragments in a file works correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
     reflection_file.write(
         "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
@@ -255,7 +255,7 @@ def test_file_exists_in_directory_check_fragments(reset_results_dictionary, tmpd
 def test_file_exists_in_directory_check_fragments_exact(
     reset_results_dictionary, tmpdir
 ):
-    """Checks that the exact checking of fragments in a file works correctly"""
+    """Check that the exact checking of fragments in a file works correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
     reflection_file.write(
         "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
@@ -275,7 +275,7 @@ def test_file_exists_in_directory_check_fragments_exact(
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check_regex_exact(reset_results_dictionary, tmpdir):
-    """Checks that the exact checking of fragments in a file works correctly"""
+    """Check that the exact checking of fragments in a file works correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
     reflection_file.write(
         "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
@@ -297,7 +297,7 @@ def test_file_exists_in_directory_check_regex_exact(reset_results_dictionary, tm
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_content_string_check_fragments(reset_results_dictionary):
-    """Checks that the checking of words works correctly"""
+    """Check that the checking of words works correctly."""
     value = "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
     invoke.invoke_all_fragment_checks("hello", 1, contents=value)
     invoke.invoke_all_fragment_checks("@name", 1, contents=value)
@@ -310,7 +310,7 @@ def test_content_string_check_fragments(reset_results_dictionary):
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_content_string_check_fragments_exact(reset_results_dictionary):
-    """Checks that the checking of exact fragments works correctly"""
+    """Check that the checking of exact fragments works correctly."""
     value = "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
     invoke.invoke_all_fragment_checks("hello", 1, contents=value, exact=True)
     details = report.get_result()
@@ -320,7 +320,7 @@ def test_content_string_check_fragments_exact(reset_results_dictionary):
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_content_string_check_regex_exact(reset_results_dictionary):
-    """Checks that the checking of exact regex works correctly"""
+    """Check that the checking of exact regex works correctly."""
     value = "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
     invoke.invoke_all_regex_checks("hello", 1, contents=value, exact=True)
     details = report.get_result()
@@ -330,7 +330,7 @@ def test_content_string_check_regex_exact(reset_results_dictionary):
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check_lines(reset_results_dictionary, tmpdir):
-    """Checks that the checking of lines in a file works correctly"""
+    """Check that the checking of lines in a file works correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
     reflection_file.write(
         "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
@@ -354,7 +354,7 @@ def test_file_exists_in_directory_check_lines(reset_results_dictionary, tmpdir):
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check_lines_exact(reset_results_dictionary, tmpdir):
-    """Checks that the checking of lines in a file works correctly"""
+    """Check that the checking of lines in a file works correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
     reflection_file.write(
         "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
@@ -375,7 +375,7 @@ def test_file_exists_in_directory_check_lines_exact(reset_results_dictionary, tm
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_content_string_check_fragments_with_threshold(reset_results_dictionary):
-    """Checks that the checking of words works correctly"""
+    """Check that the checking of words works correctly."""
     value = "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
     invoke.invoke_all_count_checks(1, contents=value)
     invoke.invoke_all_count_checks(2, contents=value)
@@ -387,7 +387,7 @@ def test_content_string_check_fragments_with_threshold(reset_results_dictionary)
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_comment_counts_check_single_java(reset_results_dictionary, tmpdir):
-    """Checks to that invocation of comment counting check works correctly"""
+    """Check to that invocation of comment counting check works correctly."""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
     hello_file.write("//// hello world")
     assert hello_file.read() == "//// hello world"
@@ -406,7 +406,7 @@ def test_comment_counts_check_single_java(reset_results_dictionary, tmpdir):
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_comment_counts_check_single_java_exact(reset_results_dictionary, tmpdir):
-    """Checks to that invocation of comment counting check works correctly"""
+    """Check to that invocation of comment counting check works correctly."""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
     hello_file.write("//// hello world")
     assert hello_file.read() == "//// hello world"
@@ -427,7 +427,7 @@ def test_comment_counts_check_single_java_exact(reset_results_dictionary, tmpdir
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_comment_counts_check_single_python(reset_results_dictionary, tmpdir):
-    """Checks that invocation of comment counting check works correctly"""
+    """Check that invocation of comment counting check works correctly."""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.py")
     hello_file.write("# hello world")
     assert hello_file.read() == "# hello world"
@@ -446,7 +446,7 @@ def test_comment_counts_check_single_python(reset_results_dictionary, tmpdir):
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_comment_counts_check_multiple_java(reset_results_dictionary, tmpdir):
-    """Checks that invocation of comment counting check works correctly"""
+    """Check that invocation of comment counting check works correctly."""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
     hello_file.write("/* hello world */")
     assert hello_file.read() == "/* hello world */"
@@ -468,7 +468,7 @@ def test_comment_counts_check_multiple_java(reset_results_dictionary, tmpdir):
 def test_comment_counts_check_multiple_java_not_enough(
     reset_results_dictionary, tmpdir
 ):
-    """Checks that invocation of comment counting check works correctly"""
+    """Check that invocation of comment counting check works correctly."""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
     hello_file.write("/* hello world */")
     assert hello_file.read() == "/* hello world */"
@@ -489,7 +489,7 @@ def test_comment_counts_check_multiple_java_not_enough(
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_comment_counts_check_multiple_python(reset_results_dictionary, tmpdir):
-    """Checks that invocation of comment counting check works correctly"""
+    """Check that invocation of comment counting check works correctly."""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.py")
     hello_file.write('""" hello world """')
     assert hello_file.read() == '""" hello world """'
@@ -514,7 +514,7 @@ def test_comment_counts_check_multiple_python(reset_results_dictionary, tmpdir):
 def test_comment_counts_check_multiple_python_not_enough(
     reset_results_dictionary, tmpdir
 ):
-    """Checks that invocation of comment counting check works correctly"""
+    """Check that invocation of comment counting check works correctly."""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.py")
     hello_file.write('""" hello world """')
     assert hello_file.read() == '""" hello world """'
@@ -536,7 +536,7 @@ def test_comment_counts_check_multiple_python_not_enough(
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
 def test_run_command_grab_output_as_string(reset_results_dictionary, tmpdir):
-    """Checks that invocation of command produces correct captured output"""
+    """Check that invocation of command produces correct captured output."""
     tmpdir.mkdir("Hello1")
     tmpdir.mkdir("Hello2")
     tmpdir.mkdir("Hello3")
@@ -564,7 +564,7 @@ def test_run_command_grab_output_as_string(reset_results_dictionary, tmpdir):
 def test_run_command_grab_output_as_string_count_lines(
     reset_results_dictionary, tmpdir
 ):
-    """Checks that invocation of command produces correct captured output for line count"""
+    """Check that invocation of command produces correct captured output for line count."""
     tmpdir.mkdir("Hello1")
     tmpdir.mkdir("Hello2")
     tmpdir.mkdir("Hello3")
@@ -583,7 +583,7 @@ def test_run_command_grab_output_as_string_count_lines(
 def test_run_command_grab_output_as_string_count_lines_exact(
     reset_results_dictionary, tmpdir
 ):
-    """Checks that invocation of command produces correct captured output for exact line count"""
+    """Check that invocation of command produces correct captured output for exact line count."""
     tmpdir.mkdir("Hello1")
     tmpdir.mkdir("Hello2")
     tmpdir.mkdir("Hello3")
@@ -602,7 +602,7 @@ def test_run_command_grab_output_as_string_count_lines_exact(
 
 
 def test_command_executes_checks_does_not_execute_correctly():
-    """Checks to see if a command does not run correctly and gets a zero return value"""
+    """Check to see if a command does not run correctly and gets a zero return value."""
     # note that a zero-code means that the command did not work
     # this is the opposite of what is used for processes
     # but, all other GatorGrader checks return 0 on failure and 1 on success
@@ -611,7 +611,7 @@ def test_command_executes_checks_does_not_execute_correctly():
 
 
 def test_command_executes_checks_does_execute_correctly():
-    """Checks to see if a command does run correctly and gets a non-zero return value"""
+    """Check to see if a command does run correctly and gets a non-zero return value."""
     # note that a zero-code means that the command did not work
     # this is the opposite of what is used for processes
     # but, all other GatorGrader checks return 0 on failure and 1 on success
@@ -624,7 +624,7 @@ def test_command_executes_checks_does_execute_correctly():
 def test_run_command_does_execute_correctly_would_make_output(
     reset_results_dictionary, tmpdir
 ):
-    """Checks that invocation of command runs when it makes output"""
+    """Check that invocation of command runs when it makes output."""
     tmpdir.mkdir("Hello1")
     tmpdir.mkdir("Hello2")
     tmpdir.mkdir("Hello3")

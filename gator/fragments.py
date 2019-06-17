@@ -55,7 +55,7 @@ def get_paragraphs(contents):
 
 
 def get_line_list(content):
-    """Returns a list of lines from any type of input string"""
+    """Return a list of lines from any type of input string."""
     actual_content = []
     # iteratively decode each of the lines in the content
     for line in content.splitlines(keepends=False):
@@ -74,7 +74,7 @@ def get_line_list(content):
 
 
 def is_blank_line(line):
-    """Returns True if a line is a blank one and False otherwise"""
+    """Return True if a line is a blank one and False otherwise."""
     if (
         line is not None
         and line is not constants.markers.Nothing

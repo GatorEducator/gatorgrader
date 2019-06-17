@@ -18,44 +18,26 @@ fi
 
 FILES="$FILES *.py"
 
-echo " -- Running black"
-# shellcheck disable=SC2086
-if ! pipenv run black $CHECK $FILES; then
-    echo " -- Failed"
-    PASSED=false
-else
-    echo " -- Passed"
-fi
-echo ""
-echo " -- Running pylint"
-# shellcheck disable=SC2086
-if ! pipenv run pylint $FILES; then
-    echo " -- Failed"
-    PASSED=false
-else
-    echo " -- Passed"
-fi
-echo ""
-echo " -- Running flake8"
-# shellcheck disable=SC2086
-if ! pipenv run flake8 $FILES; then
-    echo " -- Failed"
-    PASSED=false
-else
-    echo " -- Passed"
-fi
-echo ""
-echo " -- Running bandit"
-# shellcheck disable=SC2086
-if ! pipenv run bandit -c "bandit.yml" $FILES; then
-    echo " -- Failed"
-    PASSED=false
-else
-    echo " -- Passed"
-fi
+declare -A LINTERS
+
+LINTERS=( ["black"]="pipenv run black $CHECK $FILES" ["pylint"]="pipenv run pylint $FILES" ["flake8"]="pipenv run flake8 $FILES" ["bandit"]="pipenv run bandit -c bandit.yml $FILES" ["pydocstyle"]="pipenv run pydocstyle $FILES" )
+
+for tool in "${!LINTERS[@]}"; do
+    echo " -- Running $tool"
+    # shellcheck disable=SC2086
+    if ! ${LINTERS[$tool]}; then
+        echo " -- Failed"
+        PASSED=false
+    else
+        echo " -- Passed"
+    fi
+    echo ""
+done
 
 if [[ "$PASSED" != "true" ]]; then
+    echo "Not all linters passed!"
     exit 1
 else
+    echo "All is good!"
     exit 0
 fi

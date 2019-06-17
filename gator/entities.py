@@ -1,4 +1,4 @@
-"""Count entities with provided functions"""
+"""Count entities with provided functions."""
 
 from gator import util
 from gator import files
@@ -8,7 +8,7 @@ from gator import files
 def entity_greater_than_count(
     given_file, containing_directory, expected_count, checking_function, exact=False
 ):
-    """Return count and determines if the entity count is greater than expected"""
+    """Return a count and determination if entity count is greater than expected."""
     # call the count_entities function in this module
     file_entity_count = count_entities(
         given_file, containing_directory, checking_function
@@ -18,7 +18,7 @@ def entity_greater_than_count(
 
 
 def count_entities(given_file, containing_directory, checking_function):
-    """Counts the number of entities for the file in the directory"""
+    """Count the number of entities for the file in the directory."""
     # create a path for the given file and its containing directory
     # note that this call does not specify any *args and thus there
     # are no directories between the home directory and the file

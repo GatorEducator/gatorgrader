@@ -1,10 +1,10 @@
-"""Test cases for the files module"""
+"""Test cases for the files module."""
 
 from gator import files
 
 
 def test_create_one_file_path_with_none_middle(tmpdir):
-    """Ensure that creating a single file path works correctly"""
+    """Ensure that creating a single file path works correctly."""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
     hello_file.write("content")
     assert hello_file.read() == "content"
@@ -19,7 +19,7 @@ def test_create_one_file_path_with_none_middle(tmpdir):
 
 
 def test_create_one_file_path_with_one_middle(tmpdir):
-    """Ensure that creating a single file path works correctly"""
+    """Ensure that creating a single file path works correctly."""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
     hello_file.write("content")
     assert hello_file.read() == "content"
@@ -33,7 +33,7 @@ def test_create_one_file_path_with_one_middle(tmpdir):
 
 
 def test_create_one_file_path_with_two_middle(tmpdir):
-    """Ensure that creating a single file path works correctly"""
+    """Ensure that creating a single file path works correctly."""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
     hello_file.write("content")
     assert hello_file.read() == "content"
@@ -49,7 +49,7 @@ def test_create_one_file_path_with_two_middle(tmpdir):
 
 
 def test_one_file_found_in_subdirectory(tmpdir):
-    """Ensure that check_file_in_directory can find one file in a subdirectory"""
+    """Ensure that check_file_in_directory can find one file in a subdirectory."""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
     hello_file.write("content")
     assert hello_file.read() == "content"
@@ -61,7 +61,7 @@ def test_one_file_found_in_subdirectory(tmpdir):
 
 
 def test_one_file_found_in_subdirectory_case_sensitivity_ext_csfunction(tmpdir):
-    """Ensure that case-sensitive function can find file name in a subdirectory"""
+    """Ensure that case-sensitive function can find file name in a subdirectory."""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
     hello_file.write("content")
     assert hello_file.read() == "content"
@@ -79,7 +79,7 @@ def test_one_file_found_in_subdirectory_case_sensitivity_ext_csfunction(tmpdir):
 
 
 def test_one_file_found_in_subdirectory_case_sensitivity_ext(tmpdir):
-    """Ensure that check_file_in_directory can find case-sensitive file name in a subdirectory"""
+    """Ensure that check_file_in_directory can find case-sensitive file name in a subdirectory."""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
     hello_file.write("content")
     assert hello_file.read() == "content"
@@ -97,7 +97,7 @@ def test_one_file_found_in_subdirectory_case_sensitivity_ext(tmpdir):
 
 
 def test_one_file_found_in_subdirectory_case_sensitivity_csfunction(tmpdir):
-    """Ensure that case-sensitive function can find file name in a subdirectory"""
+    """Ensure that case-sensitive function can find file name in a subdirectory."""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
     hello_file.write("content")
     assert hello_file.read() == "content"
@@ -115,7 +115,7 @@ def test_one_file_found_in_subdirectory_case_sensitivity_csfunction(tmpdir):
 
 
 def test_one_file_found_in_subdirectory_case_sensitivity_noncsfunction(tmpdir):
-    """Ensure that non-case-sensitive function can find file name in a subdirectory"""
+    """Ensure that non-case-sensitive function can find file name in a subdirectory."""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
     hello_file.write("content")
     assert hello_file.read() == "content"
@@ -130,7 +130,7 @@ def test_one_file_found_in_subdirectory_case_sensitivity_noncsfunction(tmpdir):
 
 
 def test_one_file_found_in_subdirectory_case_sensitivity(tmpdir):
-    """Ensure that check_file_in_directory can find case-sensitive file name in a subdirectory"""
+    """Ensure that check_file_in_directory can find case-sensitive file name in a subdirectory."""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
     hello_file.write("content")
     assert hello_file.read() == "content"
@@ -148,7 +148,7 @@ def test_one_file_found_in_subdirectory_case_sensitivity(tmpdir):
 
 
 def test_many_files_found_in_subdirectory(tmpdir):
-    """Ensure that check_file_in_directory can find many files in a subdirectory"""
+    """Ensure that check_file_in_directory can find many files in a subdirectory."""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
     hello_file.write("content")
     assert hello_file.read() == "content"
@@ -166,7 +166,7 @@ def test_many_files_found_in_subdirectory(tmpdir):
 
 
 def test_many_files_in_subdirectory_casesensitive(tmpdir):
-    """Ensure that check_file_in_directory can find many files in a subdirectory"""
+    """Ensure that check_file_in_directory can find many files in a subdirectory."""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
     hello_file.write("content")
     assert hello_file.read() == "content"
@@ -196,7 +196,7 @@ def test_many_files_in_subdirectory_casesensitive(tmpdir):
 
 
 def test_one_file_not_found_in_subdirectory(tmpdir):
-    """Ensure check_file_in_directory cannot find one file in a subdirectory"""
+    """Ensure check_file_in_directory cannot find one file in a subdirectory."""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
     hello_file.write("content")
     assert hello_file.read() == "content"
@@ -208,7 +208,7 @@ def test_one_file_not_found_in_subdirectory(tmpdir):
 
 
 def test_one_file_not_found_in_subdirectory_casesensitive(tmpdir):
-    """Ensure check_file_in_directory cannot find one file in a subdirectory"""
+    """Ensure check_file_in_directory cannot find one file in a subdirectory."""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
     hello_file.write("content")
     assert hello_file.read() == "content"
@@ -224,7 +224,7 @@ def test_one_file_not_found_in_subdirectory_casesensitive(tmpdir):
 
 
 def test_many_files_not_found_in_subdirectory(tmpdir):
-    """Ensure check_file_in_directory cannot find many files in a subdirectory"""
+    """Ensure check_file_in_directory cannot find many files in a subdirectory."""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
     hello_file.write("content")
     assert hello_file.read() == "content"

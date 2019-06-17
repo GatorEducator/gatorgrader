@@ -1,4 +1,4 @@
-"""Stores details about the check, its status, and diagnostic information"""
+"""Store details about the check, its status, and diagnostic information."""
 
 import json
 import sys
@@ -22,7 +22,7 @@ JSON = "output_json"
 
 
 def create_result(check, outcome, diagnostic):
-    """Create a new result dictionary"""
+    """Create a new result dictionary."""
     result_dictionary = {}
     result_dictionary[constants.results.Check] = check
     result_dictionary[constants.results.Outcome] = outcome
@@ -31,14 +31,14 @@ def create_result(check, outcome, diagnostic):
 
 
 def reset():
-    """Reset the global result dictionary"""
+    """Reset the global result dictionary."""
     # pylint: disable=global-statement
     global result
     result = None
 
 
 def set_result(check, outcome, diagnostic):
-    """Set the current result dictionary"""
+    """Set the current result dictionary."""
     # pylint: disable=global-statement
     global result
     result = create_result(check, outcome, diagnostic)
@@ -46,20 +46,20 @@ def set_result(check, outcome, diagnostic):
 
 
 def get_result():
-    """Return the result dictionary"""
+    """Return the result dictionary."""
     # pylint: disable=global-statement
     global result
     return result
 
 
 def output(dictionary_result, dictionary_format=TEXT):
-    """Return the output that the dictionary would produce with the given format"""
+    """Return the output that the dictionary would produce with the given format."""
     output_function = getattr(REPORT, dictionary_format)
     return output_function(dictionary_result)
 
 
 def output_text(dictionary_result) -> str:
-    """Produce output in textual format"""
+    """Produce output in textual format."""
     # extract the details and form a string
     check = dictionary_result[constants.results.Check]
     outcome = dictionary_result[constants.results.Outcome]
@@ -90,5 +90,5 @@ def output_text(dictionary_result) -> str:
 
 
 def output_json(dictionary_result) -> str:
-    """Return output in a JSON-based textual format"""
+    """Return output in a JSON-based textual format."""
     return json.dumps(dictionary_result)

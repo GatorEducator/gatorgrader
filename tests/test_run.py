@@ -1,4 +1,4 @@
-"""Test cases for the run module"""
+"""Test cases for the run module."""
 
 import platform
 
@@ -11,7 +11,7 @@ WINDOWS = "Windows"
 
 
 def test_run_working_command_returns_message():
-    """Checks that a single line is returned from command """
+    """Check that a single line is returned from command ."""
     output, error, code = run.run_command('echo "Hello!"')
     assert error == b""
     system_name = platform.system()
@@ -25,7 +25,7 @@ def test_run_working_command_returns_message():
 
 
 def test_run_broken_command_returns_nonzero():
-    """Checks that a single line is returned from command """
+    """Check that a single line is returned from command ."""
     output, error, code = run.run_command("willnotwork")
     assert output == b""
     assert error != b""
@@ -33,7 +33,7 @@ def test_run_broken_command_returns_nonzero():
 
 
 def test_run_command_grab_output_as_string(tmpdir):
-    """Checks that invocation of command produces correct captured output"""
+    """Check that invocation of command produces correct captured output."""
     tmpdir.mkdir("Hello1")
     tmpdir.mkdir("Hello2")
     tmpdir.mkdir("Hello3")
@@ -46,14 +46,14 @@ def test_run_command_grab_output_as_string(tmpdir):
 
 
 def test_run_invalid_output():
-    """Checks that invalid unicode bytestrings are handled correctly"""
+    """Check that invalid unicode bytestrings are handled correctly."""
     invalid_byte_sequence = b"\x80\x81"
     output = run.get_actual_output(invalid_byte_sequence)
     assert invalid_byte_sequence in output
 
 
 def test_run_invalid_output_str():
-    """ Checks that ouputs that are already strings are handled correctly"""
+    """Check that ouputs that are already strings are handled correctly."""
     randomString = "Hello"
     output = run.get_actual_output(randomString)
     assert randomString in output

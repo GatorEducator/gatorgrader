@@ -21,6 +21,7 @@ neovim = "*"
 mutmut = "*"
 bandit = "*"
 codacy-coverage = "*"
+pydocstyle = "*"
 
 [pipenv]
 allow_prereleases = true
