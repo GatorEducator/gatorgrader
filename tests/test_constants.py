@@ -64,9 +64,9 @@ def test_outputs_constant_defined():
 
 def test_results_constant_defined():
     """Check correctness for the variables in the results constant."""
-    assert constants.results.Check == "Check"
-    assert constants.results.Outcome == "Outcome"
-    assert constants.results.Diagnostic == "Diagnostic"
+    assert constants.results.Check == "check"
+    assert constants.results.Outcome == "outcome"
+    assert constants.results.Diagnostic == "diagnostic"
 
 
 def test_versioncontrol_constant_defined():
