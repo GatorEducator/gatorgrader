@@ -16,8 +16,8 @@ def is_git_repository(repository_path):
         _ = git.Repo(repository_path).git_dir
         return True
     # it was not possible to create the repository, so it does not exist
-    # this means that the function should return False
-    # because it is not safe to inspect Git attributes in this non-repo
+    # this means that the function should return False to signal
+    # that it is not safe to inspect Git attributes in this non-repo
     except git.exc.InvalidGitRepositoryError:
         return False
 
@@ -28,11 +28,18 @@ def get_commits(repository_path):
     # and thus set the default commits lists is []
     commits = constants.versioncontrol.No_Commits
     if is_git_repository(repository_path):
+        # the repository_path is a Git repository
+        # Try to extract the commits from the repository
+        # and return the list of commits if they are available.
+        # In circumstances in which this does not work
+        # (e.g., it is a Git repository with no commits)
+        # then catch the ValueError, pass, and return the
+        # commits as the empty list created previously
         student_repository = git.Repo(repository_path)
-        # pass in None so that the default (the current branch) is used
-        # this avoids problems with being checked out in different branches
-        # alternatively, we could detect the current HEAD and use that
-        commits = list(student_repository.iter_commits())
+        try:
+            commits = list(student_repository.iter_commits())
+        except ValueError:
+            pass
     return commits
 
 
