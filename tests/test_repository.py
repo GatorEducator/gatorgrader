@@ -79,3 +79,22 @@ def test_nocrash_when_not_repository(tmpdir):
     # then a call to get_commits will will return an empty list
     commits = repository.get_commits(str(tmpdir))
     assert len(commits) == 0
+
+
+def test_one_commit_in_new_repository(tmpdir):
+    """Ensure that it is possible to detect one commit in a new Git repository."""
+    temp_file = tmpdir.mkdir("sub").join("hello.txt")
+    temp_file.write("content")
+    assert temp_file.read() == "content"
+    assert len(tmpdir.listdir()) == 1
+    testing_repository = Repo.init(tmpdir)
+    # create an empty file and perform a commit on it
+    testing_repository.index.add([str(temp_file)])
+    testing_repository.index.commit("Add the hello.txt file.")
+    # since the repository was created in the tmpdir
+    # the check for the existence of a repository should be True
+    detected_git_repository = repository.is_git_repository(str(tmpdir))
+    assert detected_git_repository is True
+    # since an empty file was committed, the count should be 1
+    commits = repository.get_commits(str(tmpdir))
+    assert len(commits) == 1
