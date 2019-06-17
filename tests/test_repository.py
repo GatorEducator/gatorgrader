@@ -61,6 +61,14 @@ def test_detect_git_repository(tmpdir):
     assert detected_git_repository is True
 
 
+def test_nocrash_when_not_repository(tmpdir):
+    """Ensure that a get_commits not in a repository does not crash."""
+    # since there is, by default, no repository in tmpdir
+    # then a call to get_commits will will return an empty list
+    commits = repository.get_commits(str(tmpdir))
+    assert len(commits) == 0
+
+
 def test_no_commits_in_new_git_repository(tmpdir):
     """Ensure that it is possible to detect that a directory is not a Git repository."""
     # create a Git repository using GitPython
@@ -69,14 +77,6 @@ def test_no_commits_in_new_git_repository(tmpdir):
     # the check for the existence of a repository should be True
     detected_git_repository = repository.is_git_repository(str(tmpdir))
     assert detected_git_repository is True
-    commits = repository.get_commits(str(tmpdir))
-    assert len(commits) == 0
-
-
-def test_nocrash_when_not_repository(tmpdir):
-    """Ensure that a get_commits not in a repository does not crash."""
-    # since there is, by default, no repository in tmpdir
-    # then a call to get_commits will will return an empty list
     commits = repository.get_commits(str(tmpdir))
     assert len(commits) == 0
 
