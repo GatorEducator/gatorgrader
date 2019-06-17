@@ -18,7 +18,6 @@ def get_paragraphs(contents):
     mode_looking = True
     paragraph_list = []
     counter = 0
-
     # iterate through the markdown to find paragraphs and add their contents to paragraph_list
     for subnode, enter in ast.walker():
         if mode_looking:
@@ -43,14 +42,13 @@ def get_paragraphs(contents):
                 paragraph_content += constants.markers.Newline
             elif subnode.literal is not None:
                 paragraph_content += subnode.literal
-
         # track the how deep into the tree the search currently is
         if subnode.is_container():
             if enter:
                 counter += 1
             else:
                 counter -= 1
-
+    # return the list of the collected paragraphs
     return paragraph_list
 
 
