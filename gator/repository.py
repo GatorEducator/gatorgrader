@@ -22,10 +22,10 @@ def is_git_repository(repository_path):
         return False
 
 
-def get_commmits(repository_path):
+def get_commits(repository_path):
     """Return a list of the commits for the repository at the path."""
     # assume that we have not found a Git repository
-    # and thus set the default number of commits to zero
+    # and thus set the default commits lists is []
     commits = constants.versioncontrol.No_Commits
     if is_git_repository(repository_path):
         student_repository = git.Repo(repository_path)
@@ -44,7 +44,7 @@ def count_commits(commits):
 def commits_greater_than_count(path, expected_count, exact=False):
     """Return count and true if count of commits is greater than limit, else False."""
     # extract the commit log and then count the commits
-    commits = get_commmits(path)
+    commits = get_commits(path)
     number_commits = count_commits(commits)
     # check the condition and also return number_commits
     return util.greater_than_equal_exacted(number_commits, expected_count, exact)
