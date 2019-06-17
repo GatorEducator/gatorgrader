@@ -670,12 +670,12 @@ def test_chosen_regex_zero_or_one(writing_string, chosen_regex, expected_count):
             3,
         ),
         (
-            "<footer>happyness</footer> <footer>everything</footer>",
+            "<footer>happiness</footer> <footer>everything</footer>",
             r"<footer>(.*?)<\/footer>",
             2,
         ),
         (
-            "<footer>happyness</footer> <footer>everything</footer>",
+            "<footer>happiness</footer> <footer>everything</footer>",
             r"<footer>(.*)<\/footer>",
             1,
         ),
