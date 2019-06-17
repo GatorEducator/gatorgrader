@@ -72,6 +72,7 @@ def test_results_constant_defined():
 def test_versioncontrol_constant_defined():
     """Check correctness for the variables in the versioncontrol constant."""
     assert constants.versioncontrol.Master == "master"
+    assert constants.versioncontrol.No_Commits == []
 
 
 def test_words_constant_defined():
@@ -179,6 +180,7 @@ def test_versioncontrol_constant_cannot_redefine():
     """Check cannot redefine the variables in the versioncontrol constant."""
     with pytest.raises(AttributeError):
         constants.versioncontrol.Master = CANNOT_SET_CONSTANT_VARIABLE
+        constants.versioncontrol.No_Commits = CANNOT_SET_CONSTANT_VARIABLE
 
 
 def test_words_constant_cannot_redefine():
