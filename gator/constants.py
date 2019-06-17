@@ -71,9 +71,8 @@ paths = create_constants(
     "paths", Current_Directory=".", Current_Directory_Glob="*.*", Home="gatorgrader"
 )
 
-
 # define the names of fields in the result table
-results = create_constants("results", "Check", "Outcome", "Diagnostic")
+results = create_constants("results", Check="check", Outcome="outcome", Diagnostic="diagnostic")
 
 # define the version control repository details
 versioncontrol = create_constants("versioncontrol", Master="master")
