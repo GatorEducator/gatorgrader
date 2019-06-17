@@ -31,13 +31,13 @@ def get_commits(repository_path):
         # the repository_path is a Git repository
         # Try to extract the commits from the repository
         # and return the list of commits if they are available.
+        student_repository = git.Repo(repository_path)
+        try:
+            commits = list(student_repository.iter_commits())
         # In circumstances in which this does not work
         # (e.g., it is a Git repository with no commits)
         # then catch the ValueError, pass, and return the
         # commits as the empty list created previously
-        student_repository = git.Repo(repository_path)
-        try:
-            commits = list(student_repository.iter_commits())
         except ValueError:
             pass
     return commits
