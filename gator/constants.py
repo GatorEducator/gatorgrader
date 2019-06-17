@@ -72,7 +72,9 @@ paths = create_constants(
 )
 
 # define the names of fields in the result table
-results = create_constants("results", Check="check", Outcome="outcome", Diagnostic="diagnostic")
+results = create_constants(
+    "results", Check="check", Outcome="outcome", Diagnostic="diagnostic"
+)
 
 # define the version control repository details
 versioncontrol = create_constants("versioncontrol", Master="master")
