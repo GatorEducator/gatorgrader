@@ -85,5 +85,9 @@ versioncontrol = create_constants("versioncontrol", Master="master")
 
 # define the words diagnostic messages
 words = create_constants(
-    "words", Minimum="word(s) in every paragraph", Total="word(s) in total"
+    "words",
+    Minimum="word(s) in every paragraph",
+    Total="word(s) in total",
+    In_A="in a",
+    In_Every="in every",
 )
