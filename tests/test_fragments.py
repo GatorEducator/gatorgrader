@@ -122,11 +122,12 @@ def test_paragraphs_many(writing_string, expected_count):
 )
 def test_words_different_min_counts(writing_string, expected_count, expected_paragraph_count):
     """Check that it can detect different counts of words."""
-    # only check the minimum count
-    # note that the default summarization function in a minimum
+    # check the summarized value and the size of the dictionary
+    # --> implicit use of the min function, which is the default
     actual_count, actual_count_dictionary = fragments.count_words(writing_string)
     assert actual_count == expected_count
     assert len(actual_count_dictionary) == expected_paragraph_count
+    # --> explicit use of the min function, which is now a parameter
     actual_count, actual_count_dictionary = fragments.count_words(writing_string, min)
     assert len(actual_count_dictionary) == expected_paragraph_count
     assert actual_count == expected_count
