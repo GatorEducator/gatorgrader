@@ -82,7 +82,7 @@ def invoke_all_comment_checks(
     if comment_type == constants.comments.Single_Line:
         # check comments in Java
         if language == constants.languages.Java:
-            met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
+            met_or_exceeded_count, actual_count, _ = entities.entity_greater_than_count(
                 filecheck,
                 directory,
                 expected_count,
@@ -91,7 +91,7 @@ def invoke_all_comment_checks(
             )
         # check comments in Python
         if language == constants.languages.Python:
-            met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
+            met_or_exceeded_count, actual_count, _ = entities.entity_greater_than_count(
                 filecheck,
                 directory,
                 expected_count,
@@ -102,7 +102,7 @@ def invoke_all_comment_checks(
     elif comment_type == constants.comments.Multiple_Line:
         # check comments in Java
         if language == constants.languages.Java:
-            met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
+            met_or_exceeded_count, actual_count, _ = entities.entity_greater_than_count(
                 filecheck,
                 directory,
                 expected_count,
@@ -111,7 +111,7 @@ def invoke_all_comment_checks(
             )
         # check comments in Python
         if language == constants.languages.Python:
-            met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
+            met_or_exceeded_count, actual_count, _ = entities.entity_greater_than_count(
                 filecheck,
                 directory,
                 expected_count,
@@ -158,7 +158,7 @@ def invoke_all_comment_checks(
 def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=False):
     """Perform the paragraph check and return the results."""
     met_or_exceeded_count = 0
-    met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
+    met_or_exceeded_count, actual_count, _ = entities.entity_greater_than_count(
         filecheck, directory, expected_count, fragments.count_paragraphs, exact
     )
     # create the message and the diagnostic
@@ -197,7 +197,7 @@ def invoke_all_word_count_checks(
 ):
     """Perform the word count check and return the results."""
     met_or_exceeded_count = 0
-    met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
+    met_or_exceeded_count, actual_count, actual_count_dictionary = entities.entity_greater_than_count(
         filecheck, directory, expected_count, count_function
     )
     # create the message and the diagnostic
@@ -238,6 +238,8 @@ def invoke_all_word_count_checks(
         + str(actual_count)
         + constants.markers.Space
         + conclusion.replace(constants.words.In_Every, constants.words.In_A)
+        + constants.markers.Space
+        + str(actual_count_dictionary)
     )
     report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
@@ -282,7 +284,7 @@ def invoke_all_fragment_checks(
 ):
     """Perform the check for a fragment existence in file or contents and return the results."""
     met_or_exceeded_count = 0
-    met_or_exceeded_count, actual_count = fragments.specified_entity_greater_than_count(
+    met_or_exceeded_count, actual_count, actual_count_dictionary = fragments.specified_entity_greater_than_count(
         fragment,
         fragments.count_specified_fragment,
         expected_count,
@@ -366,7 +368,7 @@ def invoke_all_regex_checks(
 ):
     """Perform the check for a regex existence in file or contents and return the results."""
     met_or_exceeded_count = 0
-    met_or_exceeded_count, actual_count = fragments.specified_entity_greater_than_count(
+    met_or_exceeded_count, actual_count, actual_count_dictionary = fragments.specified_entity_greater_than_count(
         regex,
         fragments.count_specified_regex,
         expected_count,
