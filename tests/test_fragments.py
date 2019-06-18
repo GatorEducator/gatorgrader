@@ -195,7 +195,8 @@ def test_words_different_min_counts(writing_string, expected_count, expected_par
 def test_minimum_words_different_min_counts(writing_string, expected_count):
     """Check that it can detect different counts of words."""
     # only check the minimum count
-    assert fragments.count_minimum_words(writing_string) == expected_count
+    actual_count, actual_count_dictionary = fragments.count_minimum_words(writing_string)
+    assert actual_count == expected_count
 
 
 @pytest.mark.parametrize(
