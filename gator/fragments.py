@@ -90,22 +90,33 @@ def count_paragraphs(contents):
 
 def count_words(contents, summarizer=min):
     """Count the total number of words in writing using a summarization function."""
+    # create a list for a count of the words in each paragraph
+    word_counts = []
+    # create a dictionary to map a paragraph number
+    # to the count of the number of words in the paragraph
+    paragraph_word_counts = {}
     # retrieve all of the paragraphs in the contents
     # word counting only works for technical writing in Markdown
     paragraphs = get_paragraphs(contents)
-    # count all of the words in each paragraph
-    word_counts = []
-    for para in paragraphs:
+    # iterate through each paragraph and count its words
+    # note that using start=1 means that enumerate will
+    # index the first paragraph with the value of 1
+    for index, para in enumerate(paragraphs, start=1):
+        # for para in paragraphs:
         # split the string by whitespace (e.g., newlines or spaces) and punctuation
         words = re.sub(WHITESPACE_RE, constants.markers.Space, para).split()
-        word_counts.append(len(words))
+        # count the number of words and keep track
+        # of the count for this paragraph in the list and dictionary
+        word_count = len(words)
+        word_counts.append(word_count)
+        paragraph_word_counts[index] = word_count
     # word counts exist in the list and thus we can use the provided
     # summarizer (e.g., a sum or a min function) to summarize the count
-    if word_counts:
-        return summarizer(word_counts)
+    if word_counts and paragraph_word_counts:
+        return summarizer(word_counts), paragraph_word_counts
     # counting did not work correctly (probably because there were
     # no paragraphs), so return 0 to indicate that there were no words
-    return constants.codes.No_Words
+    return constants.codes.No_Words, paragraph_word_counts
 
 
 def count_minimum_words(contents):
