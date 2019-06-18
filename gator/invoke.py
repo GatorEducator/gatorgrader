@@ -201,6 +201,9 @@ def invoke_all_word_count_checks(
         filecheck, directory, expected_count, count_function
     )
     # create the message and the diagnostic
+    # note that the conclusion variable is customized so that it
+    # displays the correct message and diagnostic based on whether
+    # the check was for a "total words" or a "minimum words" check
     if not exact:
         # create an "at least" message, which is the default
         message = (
@@ -226,8 +229,15 @@ def invoke_all_word_count_checks(
             + conclusion
         )
     # create a diagnostic message and report the result
+    # replace "in every" with "in a" since the diagnostic
+    # signals the fact that there was at least a single
+    # paragraph that had a word count below the standard
+    # set for all of the paragraphs in technical writing
     diagnostic = (
-        "Found " + str(actual_count) + " word(s) in a paragraph of the specified file"
+        "Found "
+        + str(actual_count)
+        + constants.markers.Space
+        + conclusion.replace(constants.words.In_Every, constants.words.In_A)
     )
     report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
