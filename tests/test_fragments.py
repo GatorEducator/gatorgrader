@@ -325,7 +325,10 @@ def test_total_words_different_sum_counts(writing_string, expected_count):
 def test_words_different_sum_counts(writing_string, expected_count):
     """Check that it can detect different counts of total words."""
     # only check the sum count
-    assert fragments.count_words(writing_string, sum) == expected_count
+    # does not check size of dictionary as that was
+    # checked in a previous parameterized test case
+    actual_count, actual_count_dictionary = fragments.count_words(writing_string, sum)
+    assert actual_count == expected_count
 
 
 @pytest.mark.parametrize(
