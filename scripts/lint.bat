@@ -16,37 +16,37 @@ del .xyzfiles
 echo -- Running black
 pipenv run black %CHECK% %FILES%
 if ERRORLEVEL 1 (
-	echo -- Failed
-	set PASSED=false
+    echo -- Failed
+    set PASSED=false
 ) else (
-	echo -- Passed
+    echo -- Passed
 )
 
 echo -- Running pylint
 pipenv run pylint %FILES%
 if ERRORLEVEL 1 (
-	echo -- Failed
-	set PASSED=false
+    echo -- Failed
+    set PASSED=false
 ) else (
-	echo -- Passed
+    echo -- Passed
 )
 
 echo -- Running flake8
 pipenv run flake8 %FILES%
 if ERRORLEVEL 1 (
-	echo -- Failed
-	set PASSED=false
+    echo -- Failed
+    set PASSED=false
 ) else (
-	echo -- Passed
+    echo -- Passed
 )
 
 echo -- Running bandit
 pipenv run bandit -c bandit.yml %FILES%
 if ERRORLEVEL 1 (
-	echo -- Failed
-	set PASSED=false
+    echo -- Failed
+    set PASSED=false
 ) else (
-	echo -- Passed
+    echo -- Passed
 )
 
 if "%PASSED%"=="true" (
