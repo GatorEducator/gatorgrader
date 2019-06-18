@@ -40,6 +40,7 @@ def test_codes_constant_defined():
     """Check correctness for the variables in the codes constant."""
     assert constants.codes.Error == 1
     assert constants.codes.Success == 0
+    assert constants.codes.No_Words == 0
 
 
 def test_arguments_constant_defined():
@@ -138,6 +139,8 @@ def test_codes_constant_cannot_redefine():
         constants.codes.Success = 10
     with pytest.raises(AttributeError):
         constants.codes.Error = 10
+    with pytest.raises(AttributeError):
+        constants.codes.No_Words = 10
 
 
 def test_arguments_constant_cannot_redefine():
