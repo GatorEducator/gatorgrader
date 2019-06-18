@@ -78,6 +78,8 @@ def test_words_constant_defined():
     """Check correctness for the variables in the versioncontrol constant."""
     assert constants.words.Minimum == "word(s) in every paragraph"
     assert constants.words.Total == "word(s) in total"
+    assert constants.words.In_A == "in a"
+    assert constants.words.In_Every == "in every"
 
 
 def test_environmentvariables_constant_defined():
@@ -186,6 +188,8 @@ def test_words_constant_cannot_redefine():
     with pytest.raises(AttributeError):
         constants.words.Minimum = CANNOT_SET_CONSTANT_VARIABLE
         constants.words.Total = CANNOT_SET_CONSTANT_VARIABLE
+        constants.words.In_A = CANNOT_SET_CONSTANT_VARIABLE
+        constants.words.In_Even = CANNOT_SET_CONSTANT_VARIABLE
 
 
 def test_environmentvariables_constant_cannot_redefine():
