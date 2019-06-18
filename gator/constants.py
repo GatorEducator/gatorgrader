@@ -19,7 +19,7 @@ def create_constants(name, *args, **kwargs):
 arguments = create_constants("arguments", Incorrect=2, Void=[])
 
 # define the codes for return values
-codes = create_constants("codes", Error=1, Success=0)
+codes = create_constants("codes", Error=1, Success=0, No_Words=0)
 
 # define the types of comments
 comments = create_constants(
