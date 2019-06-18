@@ -85,7 +85,11 @@ def is_blank_line(line):
 def count_paragraphs(contents):
     """Count the number of paragraphs in the writing."""
     matching_paragraphs = get_paragraphs(contents)
-    return len(matching_paragraphs)
+    # return an empty dictionary because this function is
+    # passed as a function to other functions interchangeably
+    # with the count_words function which must return two parameters:
+    # (1) the count of words and (2) the dictionary of word counts
+    return len(matching_paragraphs), {}
 
 
 def count_words(contents, summarizer=min):
@@ -159,11 +163,16 @@ def specified_entity_greater_than_count(
 ):
     """Determine if the entity count is greater than expected."""
     # count the fragments/regex in either a file in a directory or String contents
-    file_entity_count = count_entities(
+    file_entity_count, file_entity_count_dictionary = count_entities(
         chosen_fragment, checking_function, given_file, containing_directory, contents
     )
     # check the condition and also return file_entity_count
-    return util.greater_than_equal_exacted(file_entity_count, expected_count, exact)
+    condition_truth, value = util.greater_than_equal_exacted(
+        file_entity_count, expected_count, exact
+    )
+    # also return an empty dictionary since this function does not
+    # need to count details about multiple entities
+    return condition_truth, value, {}
 
 
 # pylint: disable=bad-continuation
@@ -190,7 +199,9 @@ def count_entities(
         # read the text from the file and the check for the chosen fragment
         file_contents = file_for_checking.read_text()
         file_contents_count = checking_function(file_contents, chosen_fragment)
-    return file_contents_count
+    # also return an empty dictionary since this function does not
+    # need to count details about multiple entities
+    return file_contents_count, {}
 
 
 # pylint: disable=bad-continuation
