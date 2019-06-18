@@ -261,7 +261,8 @@ def test_minimum_words_different_min_counts(writing_string, expected_count):
 def test_total_words_different_sum_counts(writing_string, expected_count):
     """Check that it can detect different counts of total words."""
     # only check the sum count
-    assert fragments.count_total_words(writing_string) == expected_count
+    actual_count, actual_count_dictionary = fragments.count_total_words(writing_string)
+    assert actual_count == expected_count
 
 
 @pytest.mark.parametrize(
