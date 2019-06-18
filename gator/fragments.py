@@ -104,8 +104,8 @@ def count_words(contents, summarizer=min):
     if word_counts:
         return summarizer(word_counts)
     # counting did not work correctly (probably because there were
-    # no paragraphs), so return 0
-    return 0
+    # no paragraphs), so return 0 to indicate that there were no words
+    return constants.codes.No_Words
 
 
 def count_minimum_words(contents):
