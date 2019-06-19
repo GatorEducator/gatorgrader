@@ -109,6 +109,38 @@ def test_json_detection_not_found():
     assert is_valid_json is False
 
 
+def test_find_maximum_in_dictionary_single_max():
+    """Check if the maximum value is found in a dictionary"""
+    input = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 43}
+    found_values = util.get_first_maximum_value(input)
+    assert found_values[0] == "Mike"
+    assert found_values[1] == 52
+
+
+def test_find_maximum_in_dictionary_multiple_max():
+    """Check if the maximum value is found in a dictionary"""
+    input = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 43, "Robert": 52}
+    found_values = util.get_first_maximum_value(input)
+    assert found_values[0] == "Mike"
+    assert found_values[1] == 52
+
+
+def test_find_minimum_in_dictionary_single_min():
+    """Check if the minimum value is found in a dictionary"""
+    input = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 43}
+    found_values = util.get_first_minimum_value(input)
+    assert found_values[0] == "Sarah"
+    assert found_values[1] == 12
+
+
+def test_find_minimum_in_dictionary_multiple_min():
+    """Check if the minimum value is found in a dictionary"""
+    input = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 43, "Gina": 12}
+    found_values = util.get_first_minimum_value(input)
+    assert found_values[0] == "Sarah"
+    assert found_values[1] == 12
+
+
 def test_relational_operator_exacted_true_not_exacted():
     """Check to see if the exacted relational operator returns True, no exacting."""
     relation_boolean, relation_value = util.greater_than_equal_exacted(100, 10)
