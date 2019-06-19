@@ -101,3 +101,20 @@ def greater_than_equal_exacted(first, second, exact=False):
 def get_number_as_words(number, format=constants.words.Ordinal):
     """Return a textual version of the provided word."""
     return num2words(number, to=format)
+
+
+def get_word_diagnostic(word_count_dictionary):
+    """Create a full diagnostic based on the dictionary of (paragraph, word counts)."""
+    # create a diagnostics like "in the third paragraph" based on the dictionary
+    # that contains the words counts in each of the paragraphs of a document
+    if word_count_dictionary:
+        paragraph_number_details = get_first_minimum_value(word_count_dictionary)
+        paragraph_number = paragraph_number_details[0]
+        paragraph_number_as_word = get_number_as_words(paragraph_number)
+        paragraph_number_as_word_phrase = (
+            constants.words.In_The + constants.markers.Space + paragraph_number_as_word
+        )
+        return paragraph_number_as_word_phrase
+    # since there are no paragraphs and no counts of words because the dictionary
+    # is empty, return the empty string instead of a diagnostic phrase
+    return constants.markers.Nothing
