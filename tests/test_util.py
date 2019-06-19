@@ -203,3 +203,24 @@ def test_number_to_words_ordinal_and_cardinal():
     # it is also possible to request cardinal words
     number_as_word = util.get_number_as_words(42, constants.words.Cardinal)
     assert number_as_word == "forty-two"
+
+
+def test_word_diagnostic_single_min_first():
+    """Check to see if diagnostic is produced with a single minimum value."""
+    word_count_dictionary = {1: 4, 2: 5, 3: 10}
+    word_diagnostic = util.get_word_diagnostic(word_count_dictionary)
+    assert word_diagnostic == "in the first"
+
+
+def test_word_diagnostic_single_min_last():
+    """Check to see if diagnostic is produced with a single minimum value."""
+    word_count_dictionary = {1: 10, 2: 5, 3: 4}
+    word_diagnostic = util.get_word_diagnostic(word_count_dictionary)
+    assert word_diagnostic == "in the third"
+
+
+def test_word_diagnostic_empty_dictionary():
+    """Check to see if diagnostic is produced with an empty dictionary."""
+    word_count_dictionary = {}
+    word_diagnostic = util.get_word_diagnostic(word_count_dictionary)
+    assert word_diagnostic == ""
