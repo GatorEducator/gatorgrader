@@ -93,5 +93,5 @@ words = create_constants(
     In_The="in the",
     Cardinal="cardinal",
     Ordinal="ordinal",
-    Paragraph="paragraph"
+    Paragraph="paragraph",
 )
