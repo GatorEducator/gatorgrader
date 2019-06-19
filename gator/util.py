@@ -3,6 +3,9 @@
 from gator import constants
 from gator import files
 
+from itertools import groupby
+from operator import itemgetter
+
 import json
 import os
 
@@ -53,6 +56,23 @@ def get_symbol_answer(boolean_value):
     if boolean_value is True:
         return "✔"
     return "✘"
+
+
+def get_first_value(input_dictionary, finder=min):
+    """Return the values matched by a finder function."""
+    # pick the key and value that is matched by the finder
+    # note that the  return is in the format (key, value)
+    return finder(input_dictionary.items(), key=lambda input_dictionary: input_dictionary[1])
+
+
+def get_first_maximum_value(input_dictionary):
+    """Return the first maximum value."""
+    return get_first_value(input_dictionary, max)
+
+
+def get_first_minimum_value(input_dictionary):
+    """Return the first minimum value."""
+    return get_first_value(input_dictionary, min)
 
 
 def is_json(potential_json):
