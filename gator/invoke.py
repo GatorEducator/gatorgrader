@@ -228,18 +228,18 @@ def invoke_all_word_count_checks(
             + constants.markers.Space
             + conclusion
         )
-    # create a diagnostic message and report the result
-    # replace "in every" with "in a" since the diagnostic
-    # signals the fact that there was at least a single
-    # paragraph that had a word count below the standard
-    # set for all of the paragraphs in technical writing
+    # Create a diagnostic message and report the result
+    # replace "in every" with "in a" and a specific paragraph number.
+    # This diagnostic signals the fact that there was at least
+    # a single paragraph that had a word count below the standard
+    # set for all of the paragraphs in the technical writing
+    word_diagnostic = util.get_word_diagnostic(actual_count_dictionary)
     diagnostic = (
         "Found "
         + str(actual_count)
         + constants.markers.Space
-        + conclusion.replace(constants.words.In_Every, constants.words.In_A)
+        + conclusion.replace(constants.words.In_Every, word_diagnostic)
         + constants.markers.Space
-        + str(actual_count_dictionary)
     )
     report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
