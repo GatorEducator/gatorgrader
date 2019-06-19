@@ -592,6 +592,34 @@ def test_is_not_valid_exists(chosen_arguments):
 @pytest.mark.parametrize(
     "chosen_arguments",
     [
+        (["--nowelcome", "--command", "C", "--executes"]),
+        (["--command", "C", "--executes"]),
+    ],
+)
+def test_is_valid_executes(chosen_arguments):
+    """Check that valid argument combinations do verify correctly."""
+    parsed_arguments = arguments.parse(chosen_arguments)
+    verified_arguments = arguments.is_valid_executes(parsed_arguments)
+    assert verified_arguments is True
+
+
+@pytest.mark.parametrize(
+    "chosen_arguments",
+    [
+        (["--nowelcome", "--file", "f", "--executes"]),
+        (["--file", "f", "--executes"]),
+    ],
+)
+def test_is_not_valid_executes(chosen_arguments):
+    """Check that valid argument combinations do verify correctly."""
+    parsed_arguments = arguments.parse(chosen_arguments)
+    verified_arguments = arguments.is_valid_executes(parsed_arguments)
+    assert verified_arguments is False
+
+
+@pytest.mark.parametrize(
+    "chosen_arguments",
+    [
         (
             [
                 "--nowelcome",
