@@ -111,7 +111,7 @@ def test_json_detection_not_found():
 
 
 def test_find_in_empty_dictionary_min():
-    """Check if the None value is found in an empty dictionary"""
+    """Check if the None value is found in an empty dictionary."""
     input = {}
     found_values = util.get_first_minimum_value(input)
     assert found_values[0] is None
@@ -119,7 +119,7 @@ def test_find_in_empty_dictionary_min():
 
 
 def test_find_in_empty_dictionary_max():
-    """Check if the None value is found in an empty dictionary"""
+    """Check if the None value is found in an empty dictionary."""
     input = {}
     found_values = util.get_first_maximum_value(input)
     assert found_values[0] is None
@@ -127,7 +127,7 @@ def test_find_in_empty_dictionary_max():
 
 
 def test_find_maximum_in_dictionary_single_max():
-    """Check if the maximum value is found in a dictionary"""
+    """Check if the maximum value is found in a dictionary."""
     input = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 43}
     found_values = util.get_first_maximum_value(input)
     assert found_values[0] == "Mike"
@@ -135,7 +135,7 @@ def test_find_maximum_in_dictionary_single_max():
 
 
 def test_find_maximum_in_dictionary_multiple_max():
-    """Check if the maximum value is found in a dictionary"""
+    """Check if the maximum value is found in a dictionary."""
     input = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 43, "Robert": 52}
     found_values = util.get_first_maximum_value(input)
     assert found_values[0] == "Mike"
@@ -143,7 +143,7 @@ def test_find_maximum_in_dictionary_multiple_max():
 
 
 def test_find_minimum_in_dictionary_single_min():
-    """Check if the minimum value is found in a dictionary"""
+    """Check if the minimum value is found in a dictionary."""
     input = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 43}
     found_values = util.get_first_minimum_value(input)
     assert found_values[0] == "Sarah"
@@ -151,7 +151,7 @@ def test_find_minimum_in_dictionary_single_min():
 
 
 def test_find_minimum_in_dictionary_multiple_min():
-    """Check if the minimum value is found in a dictionary"""
+    """Check if the minimum value is found in a dictionary."""
     input = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 43, "Gina": 12}
     found_values = util.get_first_minimum_value(input)
     assert found_values[0] == "Sarah"
