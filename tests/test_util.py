@@ -179,7 +179,7 @@ def test_relational_operator_exacted_false_exacted():
     assert relation_value == 100
 
 
-def test_number_to_words_ordinal():
+def test_number_to_words_ordinal_and_cardinal():
     """Check to see if numbers can be converted to ordinal or cardinal words."""
     # note that ordinal is the default
     number_as_word = util.get_number_as_words(42)
