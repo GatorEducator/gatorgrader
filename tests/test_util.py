@@ -3,6 +3,7 @@
 import json
 import os
 
+from gator import constants
 from gator import files
 from gator import util
 
@@ -176,3 +177,13 @@ def test_relational_operator_exacted_false_exacted():
     relation_boolean, relation_value = util.greater_than_equal_exacted(100, 10, True)
     assert relation_boolean is False
     assert relation_value == 100
+
+
+def test_number_to_words_ordinal():
+    """Check to see if numbers can be converted to ordinal or cardinal words."""
+    # note that ordinal is the default
+    number_as_word = util.get_number_as_words(42)
+    assert number_as_word == "forty-second"
+    # it is also possible to request cardinal words
+    number_as_word = util.get_number_as_words(42, constants.words.Cardinal)
+    assert number_as_word == "forty-two"
