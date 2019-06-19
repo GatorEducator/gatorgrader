@@ -560,6 +560,38 @@ def test_is_valid_comments_valid(chosen_arguments):
 @pytest.mark.parametrize(
     "chosen_arguments",
     [
+        (["--nowelcome", "--directory", "D", "--file", "f", "--exists"]),
+        (["--nowelcome", "--file", "f", "--directory", "D", "--exists"]),
+        (["--file", "f", "--directory", "D", "--exists"]),
+        (["--directory", "D", "--file", "F", "--exists"]),
+    ],
+)
+def test_is_valid_exists(chosen_arguments):
+    """Check that valid argument combinations do verify correctly."""
+    parsed_arguments = arguments.parse(chosen_arguments)
+    verified_arguments = arguments.is_valid_exists(parsed_arguments)
+    assert verified_arguments is True
+
+
+@pytest.mark.parametrize(
+    "chosen_arguments",
+    [
+        (["--nowelcome", "--file", "f", "--exists"]),
+        (["--nowelcome", "--directory", "D", "--exists"]),
+        (["--file", "f", "--exists"]),
+        (["--directory", "D", "--exists"]),
+    ],
+)
+def test_is_not_valid_exists(chosen_arguments):
+    """Check that valid argument combinations do not verify correctly."""
+    parsed_arguments = arguments.parse(chosen_arguments)
+    verified_arguments = arguments.is_valid_exists(parsed_arguments)
+    assert verified_arguments is False
+
+
+@pytest.mark.parametrize(
+    "chosen_arguments",
+    [
         (
             [
                 "--nowelcome",
