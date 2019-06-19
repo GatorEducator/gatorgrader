@@ -6,6 +6,8 @@ from gator import files
 import json
 import os
 
+from num2words import num2words
+
 
 def verify_gatorgrader_home(current_gatorgrader_home):
     """Verify that the GATORGRADER_HOME variable is set correctly."""
@@ -88,3 +90,8 @@ def greater_than_equal_exacted(first, second, exact=False):
     if exact and first == second:
         return True, first
     return False, first
+
+
+def get_number_as_words(number, format=constants.words.Ordinal):
+    """Return a textual version of the provided word."""
+    return num2words(number, to=format)
