@@ -503,6 +503,17 @@ def test_exact_count_check_not_valid(chosen_arguments):
     assert verified_arguments is False
 
 
+@pytest.mark.parametrize(
+    "chosen_arguments",
+    [(["--nowelcome", "--directory", "D", "--file", "f", "--words", "50"])],
+)
+def test_exact_count_check_is_not_valid_cover_branch(chosen_arguments):
+    """Check that invalid argument combinations do not verify correctly."""
+    parsed_arguments = arguments.parse(chosen_arguments)
+    verified_arguments = arguments.is_valid_exact(parsed_arguments)
+    assert verified_arguments is False
+
+
 # }}}
 
 # Region: Verified Arguments Tests for helper functions {{{
