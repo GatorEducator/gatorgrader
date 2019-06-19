@@ -90,6 +90,8 @@ words = create_constants(
     Total="word(s) in total",
     In_A="in a",
     In_Every="in every",
+    In_The="in the",
     Cardinal="cardinal",
-    Ordinal="ordinal"
+    Ordinal="ordinal",
+    Paragraph="paragraph"
 )
