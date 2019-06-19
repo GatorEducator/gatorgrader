@@ -3,9 +3,6 @@
 from gator import constants
 from gator import files
 
-from itertools import groupby
-from operator import itemgetter
-
 import json
 import os
 
