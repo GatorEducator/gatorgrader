@@ -82,8 +82,10 @@ def test_words_constant_defined():
     assert constants.words.Total == "word(s) in total"
     assert constants.words.In_A == "in a"
     assert constants.words.In_Every == "in every"
+    assert constants.words.In_The == "in the"
     assert constants.words.Cardinal == "cardinal"
     assert constants.words.Ordinal == "ordinal"
+    assert constants.words.Paragraph == "paragraph"
 
 
 def test_environmentvariables_constant_defined():
@@ -197,8 +199,10 @@ def test_words_constant_cannot_redefine():
         constants.words.Total = CANNOT_SET_CONSTANT_VARIABLE
         constants.words.In_A = CANNOT_SET_CONSTANT_VARIABLE
         constants.words.In_Every = CANNOT_SET_CONSTANT_VARIABLE
+        constants.words.In_The = CANNOT_SET_CONSTANT_VARIABLE
         constants.words.Cardinal = CANNOT_SET_CONSTANT_VARIABLE
         constants.words.Ordinal = CANNOT_SET_CONSTANT_VARIABLE
+        constants.words.Paragraph = CANNOT_SET_CONSTANT_VARIABLE
 
 
 def test_environmentvariables_constant_cannot_redefine():
