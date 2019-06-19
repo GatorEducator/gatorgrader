@@ -7,6 +7,7 @@ name = "pypi"
 gitpython = "*"
 requests = ">=2.20.0"
 commonmark = "*"
+num2words = "*"
 
 [dev-packages]
 pylint = "*"
