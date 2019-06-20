@@ -32,17 +32,32 @@ def test_run_broken_command_returns_nonzero():
     assert code != 0
 
 
-def test_run_command_grab_output_as_string(tmpdir):
+def test_run_command_grab_output_as_string_correct_command(tmpdir):
     """Check that invocation of command produces correct captured output."""
     tmpdir.mkdir("Hello1")
     tmpdir.mkdir("Hello2")
     tmpdir.mkdir("Hello3")
     assert len(tmpdir.listdir()) == 3
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/"
+    # note that this test case passes even when run in AppVeyor CI
+    # thus suggesting that the ls command is supported on Windows
     output = run.specified_command_get_output("ls " + directory)
     assert "Hello1" in output
     assert "Hello2" in output
     assert "Hello3" in output
+
+
+def test_run_command_grab_output_as_string_incorrect_command(tmpdir):
+    """Check that invocation of command produces correct captured output."""
+    tmpdir.mkdir("Hello1")
+    tmpdir.mkdir("Hello2")
+    tmpdir.mkdir("Hello3")
+    assert len(tmpdir.listdir()) == 3
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/"
+    # this command will not work correctly because it does not exist
+    # this means that it should not produce any output
+    output = run.specified_command_get_output("gus " + directory)
+    assert output == ""
 
 
 def test_run_invalid_output():
