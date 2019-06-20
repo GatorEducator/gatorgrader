@@ -65,6 +65,18 @@ def test_gatorgrader_home_is_set_after_os_dictionary_set_no_trailing():
     assert "gatorgrader" in gatorgrader_home
 
 
+def test_gatorgrader_home_verification_working_not_verified_none_given():
+    """Check that GATORGRADER_HOME verification is working."""
+    gatorgrader_home_verified = util.verify_gatorgrader_home(None)
+    assert gatorgrader_home_verified is NOT_VERIFIED
+
+
+def test_gatorgrader_home_verification_working_not_verified_blank_given():
+    """Check that GATORGRADER_HOME verification is working."""
+    gatorgrader_home_verified = util.verify_gatorgrader_home("")
+    assert gatorgrader_home_verified is NOT_VERIFIED
+
+
 def test_gatorgrader_home_verification_working_verified(tmp_path):
     """Check that GATORGRADER_HOME verification is working."""
     # this must be a valid directory on the filesystem
