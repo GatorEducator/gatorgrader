@@ -605,10 +605,7 @@ def test_is_valid_executes(chosen_arguments):
 
 @pytest.mark.parametrize(
     "chosen_arguments",
-    [
-        (["--nowelcome", "--file", "f", "--executes"]),
-        (["--file", "f", "--executes"]),
-    ],
+    [(["--nowelcome", "--file", "f", "--executes"]), (["--file", "f", "--executes"])],
 )
 def test_is_not_valid_executes(chosen_arguments):
     """Check that valid argument combinations do verify correctly."""
