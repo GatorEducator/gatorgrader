@@ -118,6 +118,14 @@ def invoke_all_comment_checks(
                 comments.count_multiline_python_comment,
                 exact,
             )
+    # check comments in a not-supported language
+    # currently the only valid options are:
+    # --> single-line
+    # --> multiple-line
+    # this means that this check will fail because
+    # it will not find any of the specified comments
+    else:
+        pass
     # create the message and the diagnostic
     if not exact:
         # create an "at least" message, which is the default
