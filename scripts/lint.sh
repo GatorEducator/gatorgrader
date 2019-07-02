@@ -37,7 +37,7 @@ PATHS="gator tests"
 
 # define all of the linters to iteratively run
 declare -A LINTERS
-LINTERS=( ["black"]="pipenv run black $CHECK $FILES" ["pylint"]="pipenv run pylint $FILES" ["flake8"]="pipenv run flake8 $FILES" ["bandit"]="pipenv run bandit -c bandit.yml $FILES" ["radon"]="pipenv run radon mi $FILES" ["xenon"]="xenon --max-absolute D --max-modules B --max-average B -c $PATHS" ["pydocstyle"]="pipenv run pydocstyle $FILES" )
+LINTERS=( ["black"]="pipenv run black $CHECK $FILES" ["pylint"]="pipenv run pylint $FILES" ["flake8"]="pipenv run flake8 $FILES" ["bandit"]="pipenv run bandit -c bandit.yml $FILES" ["radon"]="pipenv run radon mi $FILES" ["xenon"]="pipenv run xenon --max-absolute D --max-modules B --max-average B -c $PATHS" ["pydocstyle"]="pipenv run pydocstyle $FILES" )
 
 # run each of the already configured linters
 for tool in "${!LINTERS[@]}"; do
