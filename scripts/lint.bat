@@ -13,7 +13,7 @@ dir /b /s | findstr "\\*.py$" | findstr /v "\\\.venv\\" > .xyzfiles
 for /f "Tokens=* Delims=" %%x in (.xyzfiles) do set FILES=!FILES! %%x
 del .xyzfiles
 
-set PATHS=gator tests
+set GATOR=gator
 
 echo -- Running black
 pipenv run black %CHECK% %FILES%
@@ -70,7 +70,7 @@ if ERRORLEVEL 1 (
 )
 
 echo -- Running xenon
-pipenv run xenon --max-absolute D --max-modules B --max-average B -c %PATHS%
+pipenv run xenon --max-absolute D --max-modules B --max-average B -c %GATOR%
 if ERRORLEVEL 1 (
     echo -- Failed
     set PASSED=false
