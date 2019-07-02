@@ -67,15 +67,6 @@ if ERRORLEVEL 1 (
     echo -- Passed
 )
 
-echo -- Running xenon
-pipenv run xenon --max-absolute D --max-modules B --max-average B -c gator tests
-if ERRORLEVEL 1 (
-    echo -- Failed
-    set PASSED=false
-) else (
-    echo -- Passed
-)
-
 if "%PASSED%"=="true" (
     exit /b 0
 ) else (
