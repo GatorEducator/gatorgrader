@@ -6,6 +6,8 @@ from gator import files
 import json
 import os
 
+from num2words import num2words
+
 
 def verify_gatorgrader_home(current_gatorgrader_home):
     """Verify that the GATORGRADER_HOME variable is set correctly."""
@@ -55,6 +57,29 @@ def get_symbol_answer(boolean_value):
     return "✘"
 
 
+def get_first_value(input_dictionary, finder=min):
+    """Return the values matched by a finder function."""
+    # pick the key and value that is matched by the finder
+    # note that the return is in the format (key, value)
+    # the dictionary is empty, so return None for the key and value
+    if not input_dictionary:
+        return (None, None)
+    # the dictionary is not empty, so return the located (key, value)
+    return finder(
+        input_dictionary.items(), key=lambda input_dictionary: input_dictionary[1]
+    )
+
+
+def get_first_maximum_value(input_dictionary):
+    """Return the first maximum value."""
+    return get_first_value(input_dictionary, max)
+
+
+def get_first_minimum_value(input_dictionary):
+    """Return the first minimum value."""
+    return get_first_value(input_dictionary, min)
+
+
 def is_json(potential_json):
     """Determine if a string is in JSON format."""
     try:
@@ -71,3 +96,25 @@ def greater_than_equal_exacted(first, second, exact=False):
     if exact and first == second:
         return True, first
     return False, first
+
+
+def get_number_as_words(number, format=constants.words.Ordinal):
+    """Return a textual version of the provided word."""
+    return num2words(number, to=format)
+
+
+def get_word_diagnostic(word_count_dictionary):
+    """Create a full diagnostic based on the dictionary of (paragraph, word counts)."""
+    # create a diagnostics like "in the third paragraph" based on the dictionary
+    # that contains the words counts in each of the paragraphs of a document
+    if word_count_dictionary:
+        paragraph_number_details = get_first_minimum_value(word_count_dictionary)
+        paragraph_number = paragraph_number_details[0]
+        paragraph_number_as_word = get_number_as_words(paragraph_number)
+        paragraph_number_as_word_phrase = (
+            constants.words.In_The + constants.markers.Space + paragraph_number_as_word
+        )
+        return paragraph_number_as_word_phrase
+    # since there are no paragraphs and no counts of words because the dictionary
+    # is empty, return the empty string instead of a diagnostic phrase
+    return constants.markers.Nothing

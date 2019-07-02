@@ -82,7 +82,7 @@ def invoke_all_comment_checks(
     if comment_type == constants.comments.Single_Line:
         # check comments in Java
         if language == constants.languages.Java:
-            met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
+            met_or_exceeded_count, actual_count, _ = entities.entity_greater_than_count(
                 filecheck,
                 directory,
                 expected_count,
@@ -91,7 +91,7 @@ def invoke_all_comment_checks(
             )
         # check comments in Python
         if language == constants.languages.Python:
-            met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
+            met_or_exceeded_count, actual_count, _ = entities.entity_greater_than_count(
                 filecheck,
                 directory,
                 expected_count,
@@ -102,7 +102,7 @@ def invoke_all_comment_checks(
     elif comment_type == constants.comments.Multiple_Line:
         # check comments in Java
         if language == constants.languages.Java:
-            met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
+            met_or_exceeded_count, actual_count, _ = entities.entity_greater_than_count(
                 filecheck,
                 directory,
                 expected_count,
@@ -111,13 +111,21 @@ def invoke_all_comment_checks(
             )
         # check comments in Python
         if language == constants.languages.Python:
-            met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
+            met_or_exceeded_count, actual_count, _ = entities.entity_greater_than_count(
                 filecheck,
                 directory,
                 expected_count,
                 comments.count_multiline_python_comment,
                 exact,
             )
+    # check comments in a not-supported language
+    # currently the only valid options are:
+    # --> single-line
+    # --> multiple-line
+    # this means that this check will fail because
+    # it will not find any of the specified comments
+    else:
+        pass
     # create the message and the diagnostic
     if not exact:
         # create an "at least" message, which is the default
@@ -158,7 +166,7 @@ def invoke_all_comment_checks(
 def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=False):
     """Perform the paragraph check and return the results."""
     met_or_exceeded_count = 0
-    met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
+    met_or_exceeded_count, actual_count, _ = entities.entity_greater_than_count(
         filecheck, directory, expected_count, fragments.count_paragraphs, exact
     )
     # create the message and the diagnostic
@@ -197,10 +205,13 @@ def invoke_all_word_count_checks(
 ):
     """Perform the word count check and return the results."""
     met_or_exceeded_count = 0
-    met_or_exceeded_count, actual_count = entities.entity_greater_than_count(
+    met_or_exceeded_count, actual_count, actual_count_dictionary = entities.entity_greater_than_count(
         filecheck, directory, expected_count, count_function
     )
     # create the message and the diagnostic
+    # note that the conclusion variable is customized so that it
+    # displays the correct message and diagnostic based on whether
+    # the check was for a "total words" or a "minimum words" check
     if not exact:
         # create an "at least" message, which is the default
         message = (
@@ -225,9 +236,18 @@ def invoke_all_word_count_checks(
             + constants.markers.Space
             + conclusion
         )
-    # create a diagnostic message and report the result
+    # Create a diagnostic message and report the result
+    # replace "in every" with "in a" and a specific paragraph number.
+    # This diagnostic signals the fact that there was at least
+    # a single paragraph that had a word count below the standard
+    # set for all of the paragraphs in the technical writing
+    word_diagnostic = util.get_word_diagnostic(actual_count_dictionary)
     diagnostic = (
-        "Found " + str(actual_count) + " word(s) in a paragraph of the specified file"
+        "Found "
+        + str(actual_count)
+        + constants.markers.Space
+        + conclusion.replace(constants.words.In_Every, word_diagnostic)
+        + constants.markers.Space
     )
     report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
@@ -272,7 +292,7 @@ def invoke_all_fragment_checks(
 ):
     """Perform the check for a fragment existence in file or contents and return the results."""
     met_or_exceeded_count = 0
-    met_or_exceeded_count, actual_count = fragments.specified_entity_greater_than_count(
+    met_or_exceeded_count, actual_count, actual_count_dictionary = fragments.specified_entity_greater_than_count(
         fragment,
         fragments.count_specified_fragment,
         expected_count,
@@ -356,7 +376,7 @@ def invoke_all_regex_checks(
 ):
     """Perform the check for a regex existence in file or contents and return the results."""
     met_or_exceeded_count = 0
-    met_or_exceeded_count, actual_count = fragments.specified_entity_greater_than_count(
+    met_or_exceeded_count, actual_count, actual_count_dictionary = fragments.specified_entity_greater_than_count(
         regex,
         fragments.count_specified_regex,
         expected_count,

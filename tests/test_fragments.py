@@ -34,7 +34,9 @@ from gator import fragments
 )
 def test_paragraphs_zero_or_one(writing_string, expected_count):
     """Check that it can detect zero or one paragraphs."""
-    assert fragments.count_paragraphs(writing_string) == expected_count
+    actual_paragraph_count, _ = fragments.count_paragraphs(writing_string)
+    assert actual_paragraph_count == expected_count
+    # assert fragments.count_paragraphs(writing_string) == expected_count
 
 
 @pytest.mark.parametrize(
@@ -58,38 +60,44 @@ def test_paragraphs_zero_or_one(writing_string, expected_count):
 )
 def test_paragraphs_many(writing_string, expected_count):
     """Check that it can detect two or more paragraphs."""
-    assert fragments.count_paragraphs(writing_string) == expected_count
+    actual_paragraph_count, _ = fragments.count_paragraphs(writing_string)
+    assert actual_paragraph_count == expected_count
+    # assert fragments.count_paragraphs(writing_string) == expected_count
 
 
 @pytest.mark.parametrize(
-    "writing_string,expected_count",
+    "writing_string,expected_count, expected_paragraph_count",
     [
-        ("", 0),
-        ("hello world! Writing a lot.\n\nsingle.", 1),
-        ("hello world! Writing a lot.\n\nnew one.", 2),
-        ("hello world! Writing a lot.\n\nNew one. Question?", 3),
-        ("This should be `five` words", 5),
-        ("This should still be `six` word's", 6),
-        ("The command `pipenv run pytest` should test", 7),
+        ("", 0, 0),
+        ("hello world! Writing a lot.\n\nsingle.", 1, 2),
+        ("hello world! Writing a lot.\n\nnew one.", 2, 2),
+        ("hello world! Writing a lot.\n\nNew one. Question?", 3, 2),
+        ("This should be `five` words", 5, 1),
+        ("This should still be `six` word's", 6, 1),
+        ("The command `pipenv run pytest` should test", 7, 1),
         (
             "The method test.main was called. Hello world! Writing a lot.\n\n"
             "New one. Question? Fun!",
             4,
+            2,
         ),
         (
             "New one. Question? Fun! Nice!\n\n"
             "The method test.main was called. Hello world! Writing a lot.",
             5,
+            2,
         ),
         (
             "The method `test.main` was called. Hello world! Example? Writing.\n\n"
             "New one. Question? Fun! Nice!",
             5,
+            2,
         ),
         (
             "The method test.main was called.\nHello world! Example? Writing.\n\n"
             "New one. Question? Fun! Nice!",
             5,
+            2,
         ),
         # code blocks
         (
@@ -97,12 +105,14 @@ def test_paragraphs_many(writing_string, expected_count):
             "function_call()\n```\n\nHello world! Example? Writing.\n\n"
             "New one. Question? Fun! Nice!",
             4,
+            3,
         ),
         (
             "Here is some code in an inline code block: `def test_function():`. "
             "Hello world! Example? Writing.\n\n"
             "New one. `Code?` Question? Fun! Nice!",
             6,
+            2,
         ),
         # images
         (
@@ -110,22 +120,30 @@ def test_paragraphs_many(writing_string, expected_count):
             "Hello world! Example? Writing.\n\n"
             "New one. [Image](https://example.com/image.png) Question? Fun! Nice!",
             6,
+            2,
         ),
         # links
-        ("[This link is five words](www.url.com)", 5),
+        ("[This link is five words](www.url.com)", 5, 1),
         # emoji
-        (":thumbsup: is an emoji", 4),
+        (":thumbsup: is an emoji", 4, 1),
         # new lines
-        ("One sentence is\nanother's problem.", 5),
-        ("One sentence's\ngreat delusion.", 4),
+        ("One sentence is\nanother's problem.", 5, 1),
+        ("One sentence's\ngreat delusion.", 4, 1),
     ],
 )
-def test_words_different_min_counts(writing_string, expected_count):
+def test_words_different_min_counts(
+    writing_string, expected_count, expected_paragraph_count
+):
     """Check that it can detect different counts of words."""
-    # only check the minimum count
-    # note that the default summarization function in a minimum
-    assert fragments.count_words(writing_string) == expected_count
-    assert fragments.count_words(writing_string, min) == expected_count
+    # check the summarized value and the size of the dictionary
+    # --> implicit use of the min function, which is the default
+    actual_count, actual_count_dictionary = fragments.count_words(writing_string)
+    assert actual_count == expected_count
+    assert len(actual_count_dictionary) == expected_paragraph_count
+    # --> explicit use of the min function, which is now a parameter
+    actual_count, actual_count_dictionary = fragments.count_words(writing_string, min)
+    assert len(actual_count_dictionary) == expected_paragraph_count
+    assert actual_count == expected_count
 
 
 @pytest.mark.parametrize(
@@ -190,7 +208,10 @@ def test_words_different_min_counts(writing_string, expected_count):
 def test_minimum_words_different_min_counts(writing_string, expected_count):
     """Check that it can detect different counts of words."""
     # only check the minimum count
-    assert fragments.count_minimum_words(writing_string) == expected_count
+    actual_count, actual_count_dictionary = fragments.count_minimum_words(
+        writing_string
+    )
+    assert actual_count == expected_count
 
 
 @pytest.mark.parametrize(
@@ -255,7 +276,8 @@ def test_minimum_words_different_min_counts(writing_string, expected_count):
 def test_total_words_different_sum_counts(writing_string, expected_count):
     """Check that it can detect different counts of total words."""
     # only check the sum count
-    assert fragments.count_total_words(writing_string) == expected_count
+    actual_count, actual_count_dictionary = fragments.count_total_words(writing_string)
+    assert actual_count == expected_count
 
 
 @pytest.mark.parametrize(
@@ -320,7 +342,10 @@ def test_total_words_different_sum_counts(writing_string, expected_count):
 def test_words_different_sum_counts(writing_string, expected_count):
     """Check that it can detect different counts of total words."""
     # only check the sum count
-    assert fragments.count_words(writing_string, sum) == expected_count
+    # does not check size of dictionary as that was
+    # checked in a previous parameterized test case
+    actual_count, actual_count_dictionary = fragments.count_words(writing_string, sum)
+    assert actual_count == expected_count
 
 
 @pytest.mark.parametrize(
@@ -384,15 +409,15 @@ def test_count_entities_from_file(tmpdir):
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
-    count = fragments.count_entities(
+    count, _ = fragments.count_entities(
         "hello", fragments.count_specified_fragment, hello_file, directory, ""
     )
     assert count == 1
-    count = fragments.count_entities(
+    count, _ = fragments.count_entities(
         "world", fragments.count_specified_fragment, hello_file, directory, ""
     )
     assert count == 1
-    count = fragments.count_entities(
+    count, _ = fragments.count_entities(
         "planet", fragments.count_specified_fragment, hello_file, directory, ""
     )
     assert count == 0
@@ -401,15 +426,15 @@ def test_count_entities_from_file(tmpdir):
 def test_count_entities_from_contents():
     """Check that counting fragments in a string works correctly."""
     value = "/* hello world */"
-    count = fragments.count_entities(
+    count, _ = fragments.count_entities(
         "hello", fragments.count_specified_fragment, contents=value
     )
     assert count == 1
-    count = fragments.count_entities(
+    count, _ = fragments.count_entities(
         "world", fragments.count_specified_fragment, contents=value
     )
     assert count == 1
-    count = fragments.count_entities(
+    count, _ = fragments.count_entities(
         "planet", fragments.count_specified_fragment, contents=value
     )
     assert count == 0
@@ -423,12 +448,12 @@ def test_count_entities_from_file_with_threshold(tmpdir):
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
-    exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
+    exceeds_threshold, actual_count, _ = fragments.specified_entity_greater_than_count(
         "hello", fragments.count_specified_fragment, 10, hello_file, directory, ""
     )
     assert actual_count == 1
     assert exceeds_threshold is False
-    exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
+    exceeds_threshold, actual_count, _ = fragments.specified_entity_greater_than_count(
         "hello", fragments.count_specified_fragment, 1, hello_file, directory, ""
     )
     assert actual_count == 1
@@ -438,12 +463,12 @@ def test_count_entities_from_file_with_threshold(tmpdir):
 def test_count_entities_from_contents_with_threshold():
     """Check that counting fragments with threshold in a string works correctly."""
     value = "/* hello world */"
-    exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
+    exceeds_threshold, actual_count, _ = fragments.specified_entity_greater_than_count(
         "hello", fragments.count_specified_fragment, 10, contents=value
     )
     assert actual_count == 1
     assert exceeds_threshold is False
-    exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
+    exceeds_threshold, actual_count, _ = fragments.specified_entity_greater_than_count(
         "hello", fragments.count_specified_fragment, 1, contents=value
     )
     assert actual_count == 1
@@ -670,12 +695,12 @@ def test_chosen_regex_zero_or_one(writing_string, chosen_regex, expected_count):
             3,
         ),
         (
-            "<footer>happyness</footer> <footer>everything</footer>",
+            "<footer>happiness</footer> <footer>everything</footer>",
             r"<footer>(.*?)<\/footer>",
             2,
         ),
         (
-            "<footer>happyness</footer> <footer>everything</footer>",
+            "<footer>happiness</footer> <footer>everything</footer>",
             r"<footer>(.*)<\/footer>",
             1,
         ),
@@ -697,15 +722,15 @@ def test_count_regex_from_file(tmpdir):
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
-    count = fragments.count_entities(
+    count, _ = fragments.count_entities(
         r"\\begin(.*?)\\end", fragments.count_specified_regex, hello_file, directory
     )
     assert count == 1
-    count = fragments.count_entities(
+    count, _ = fragments.count_entities(
         r"planet", fragments.count_specified_regex, hello_file, directory, ""
     )
     assert count == 0
-    count = fragments.count_entities(
+    count, _ = fragments.count_entities(
         r"invalid[^]", fragments.count_specified_regex, hello_file, directory, ""
     )
     assert count == -1
@@ -714,15 +739,15 @@ def test_count_regex_from_file(tmpdir):
 def test_count_regex_from_contents():
     """Check that counting regex in a string works correctly."""
     value = "\\begin{document} hello! \\end{document}"
-    count = fragments.count_entities(
+    count, _ = fragments.count_entities(
         r"\\begin(.*?)\\end", fragments.count_specified_regex, contents=value
     )
     assert count == 1
-    count = fragments.count_entities(
+    count, _ = fragments.count_entities(
         r"planet", fragments.count_specified_regex, contents=value
     )
     assert count == 0
-    count = fragments.count_entities(
+    count, _ = fragments.count_entities(
         r"invalid[^]", fragments.count_specified_regex, contents=value
     )
     assert count == -1
@@ -736,17 +761,17 @@ def test_count_regex_from_file_with_threshold(tmpdir):
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
-    exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
+    exceeds_threshold, actual_count, _ = fragments.specified_entity_greater_than_count(
         r"\\begin(.*?)\\end", fragments.count_specified_regex, 2, hello_file, directory
     )
     assert actual_count == 1
     assert exceeds_threshold is False
-    exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
+    exceeds_threshold, actual_count, _ = fragments.specified_entity_greater_than_count(
         r"\\begin(.*?)\\end", fragments.count_specified_regex, 1, hello_file, directory
     )
     assert actual_count == 1
     assert exceeds_threshold is True
-    exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
+    exceeds_threshold, actual_count, _ = fragments.specified_entity_greater_than_count(
         r"invalid[^]", fragments.count_specified_regex, 0, hello_file, directory
     )
 
@@ -757,17 +782,17 @@ def test_count_regex_from_file_with_threshold(tmpdir):
 def test_count_regex_from_contents_with_threshold():
     """Check that counting regex with threshold in a string works correctly."""
     value = "\\begin{document} hello! \\end{document}"
-    exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
+    exceeds_threshold, actual_count, _ = fragments.specified_entity_greater_than_count(
         r"\\begin(.*?)\\end", fragments.count_specified_regex, 10, contents=value
     )
     assert actual_count == 1
     assert exceeds_threshold is False
-    exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
+    exceeds_threshold, actual_count, _ = fragments.specified_entity_greater_than_count(
         r"\\begin(.*?)\\end", fragments.count_specified_regex, 1, contents=value
     )
     assert actual_count == 1
     assert exceeds_threshold is True
-    exceeds_threshold, actual_count = fragments.specified_entity_greater_than_count(
+    exceeds_threshold, actual_count, _ = fragments.specified_entity_greater_than_count(
         r"invalid[^]", fragments.count_specified_regex, 0, contents=value
     )
     assert actual_count == -1

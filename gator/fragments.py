@@ -18,7 +18,6 @@ def get_paragraphs(contents):
     mode_looking = True
     paragraph_list = []
     counter = 0
-
     # iterate through the markdown to find paragraphs and add their contents to paragraph_list
     for subnode, enter in ast.walker():
         if mode_looking:
@@ -43,14 +42,13 @@ def get_paragraphs(contents):
                 paragraph_content += constants.markers.Newline
             elif subnode.literal is not None:
                 paragraph_content += subnode.literal
-
         # track the how deep into the tree the search currently is
         if subnode.is_container():
             if enter:
                 counter += 1
             else:
                 counter -= 1
-
+    # return the list of the collected paragraphs
     return paragraph_list
 
 
@@ -87,27 +85,42 @@ def is_blank_line(line):
 def count_paragraphs(contents):
     """Count the number of paragraphs in the writing."""
     matching_paragraphs = get_paragraphs(contents)
-    return len(matching_paragraphs)
+    # return an empty dictionary because this function is
+    # passed as a function to other functions interchangeably
+    # with the count_words function which must return two parameters:
+    # (1) the count of words and (2) the dictionary of word counts
+    return len(matching_paragraphs), {}
 
 
 def count_words(contents, summarizer=min):
     """Count the total number of words in writing using a summarization function."""
+    # create a list for a count of the words in each paragraph
+    word_counts = []
+    # create a dictionary to map a paragraph number
+    # to the count of the number of words in the paragraph
+    paragraph_word_counts = {}
     # retrieve all of the paragraphs in the contents
     # word counting only works for technical writing in Markdown
     paragraphs = get_paragraphs(contents)
-    # count all of the words in each paragraph
-    word_counts = []
-    for para in paragraphs:
+    # iterate through each paragraph and count its words
+    # note that using start=1 means that enumerate will
+    # index the first paragraph with the value of 1
+    for index, para in enumerate(paragraphs, start=1):
+        # for para in paragraphs:
         # split the string by whitespace (e.g., newlines or spaces) and punctuation
         words = re.sub(WHITESPACE_RE, constants.markers.Space, para).split()
-        word_counts.append(len(words))
+        # count the number of words and keep track
+        # of the count for this paragraph in the list and dictionary
+        word_count = len(words)
+        word_counts.append(word_count)
+        paragraph_word_counts[index] = word_count
     # word counts exist in the list and thus we can use the provided
     # summarizer (e.g., a sum or a min function) to summarize the count
-    if word_counts:
-        return summarizer(word_counts)
+    if word_counts and paragraph_word_counts:
+        return summarizer(word_counts), paragraph_word_counts
     # counting did not work correctly (probably because there were
-    # no paragraphs), so return 0
-    return 0
+    # no paragraphs), so return 0 to indicate that there were no words
+    return constants.codes.No_Words, paragraph_word_counts
 
 
 def count_minimum_words(contents):
@@ -150,11 +163,16 @@ def specified_entity_greater_than_count(
 ):
     """Determine if the entity count is greater than expected."""
     # count the fragments/regex in either a file in a directory or String contents
-    file_entity_count = count_entities(
+    file_entity_count, file_entity_count_dictionary = count_entities(
         chosen_fragment, checking_function, given_file, containing_directory, contents
     )
     # check the condition and also return file_entity_count
-    return util.greater_than_equal_exacted(file_entity_count, expected_count, exact)
+    condition_truth, value = util.greater_than_equal_exacted(
+        file_entity_count, expected_count, exact
+    )
+    # also return an empty dictionary since this function does not
+    # need to count details about multiple entities
+    return condition_truth, value, {}
 
 
 # pylint: disable=bad-continuation
@@ -181,7 +199,9 @@ def count_entities(
         # read the text from the file and the check for the chosen fragment
         file_contents = file_for_checking.read_text()
         file_contents_count = checking_function(file_contents, chosen_fragment)
-    return file_contents_count
+    # also return an empty dictionary since this function does not
+    # need to count details about multiple entities
+    return file_contents_count, {}
 
 
 # pylint: disable=bad-continuation

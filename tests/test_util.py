@@ -3,6 +3,7 @@
 import json
 import os
 
+from gator import constants
 from gator import files
 from gator import util
 
@@ -64,6 +65,18 @@ def test_gatorgrader_home_is_set_after_os_dictionary_set_no_trailing():
     assert "gatorgrader" in gatorgrader_home
 
 
+def test_gatorgrader_home_verification_working_not_verified_none_given():
+    """Check that GATORGRADER_HOME verification is working."""
+    gatorgrader_home_verified = util.verify_gatorgrader_home(None)
+    assert gatorgrader_home_verified is NOT_VERIFIED
+
+
+def test_gatorgrader_home_verification_working_not_verified_blank_given():
+    """Check that GATORGRADER_HOME verification is working."""
+    gatorgrader_home_verified = util.verify_gatorgrader_home("")
+    assert gatorgrader_home_verified is NOT_VERIFIED
+
+
 def test_gatorgrader_home_verification_working_verified(tmp_path):
     """Check that GATORGRADER_HOME verification is working."""
     # this must be a valid directory on the filesystem
@@ -109,6 +122,54 @@ def test_json_detection_not_found():
     assert is_valid_json is False
 
 
+def test_find_in_empty_dictionary_min():
+    """Check if the None value is found in an empty dictionary."""
+    input = {}
+    found_values = util.get_first_minimum_value(input)
+    assert found_values[0] is None
+    assert found_values[1] is None
+
+
+def test_find_in_empty_dictionary_max():
+    """Check if the None value is found in an empty dictionary."""
+    input = {}
+    found_values = util.get_first_maximum_value(input)
+    assert found_values[0] is None
+    assert found_values[1] is None
+
+
+def test_find_maximum_in_dictionary_single_max():
+    """Check if the maximum value is found in a dictionary."""
+    input = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 43}
+    found_values = util.get_first_maximum_value(input)
+    assert found_values[0] == "Mike"
+    assert found_values[1] == 52
+
+
+def test_find_maximum_in_dictionary_multiple_max():
+    """Check if the maximum value is found in a dictionary."""
+    input = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 43, "Robert": 52}
+    found_values = util.get_first_maximum_value(input)
+    assert found_values[0] == "Mike"
+    assert found_values[1] == 52
+
+
+def test_find_minimum_in_dictionary_single_min():
+    """Check if the minimum value is found in a dictionary."""
+    input = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 43}
+    found_values = util.get_first_minimum_value(input)
+    assert found_values[0] == "Sarah"
+    assert found_values[1] == 12
+
+
+def test_find_minimum_in_dictionary_multiple_min():
+    """Check if the minimum value is found in a dictionary."""
+    input = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 43, "Gina": 12}
+    found_values = util.get_first_minimum_value(input)
+    assert found_values[0] == "Sarah"
+    assert found_values[1] == 12
+
+
 def test_relational_operator_exacted_true_not_exacted():
     """Check to see if the exacted relational operator returns True, no exacting."""
     relation_boolean, relation_value = util.greater_than_equal_exacted(100, 10)
@@ -144,3 +205,34 @@ def test_relational_operator_exacted_false_exacted():
     relation_boolean, relation_value = util.greater_than_equal_exacted(100, 10, True)
     assert relation_boolean is False
     assert relation_value == 100
+
+
+def test_number_to_words_ordinal_and_cardinal():
+    """Check to see if numbers can be converted to ordinal or cardinal words."""
+    # note that ordinal is the default
+    number_as_word = util.get_number_as_words(42)
+    assert number_as_word == "forty-second"
+    # it is also possible to request cardinal words
+    number_as_word = util.get_number_as_words(42, constants.words.Cardinal)
+    assert number_as_word == "forty-two"
+
+
+def test_word_diagnostic_single_min_first():
+    """Check to see if diagnostic is produced with a single minimum value."""
+    word_count_dictionary = {1: 4, 2: 5, 3: 10}
+    word_diagnostic = util.get_word_diagnostic(word_count_dictionary)
+    assert word_diagnostic == "in the first"
+
+
+def test_word_diagnostic_single_min_last():
+    """Check to see if diagnostic is produced with a single minimum value."""
+    word_count_dictionary = {1: 10, 2: 5, 3: 4}
+    word_diagnostic = util.get_word_diagnostic(word_count_dictionary)
+    assert word_diagnostic == "in the third"
+
+
+def test_word_diagnostic_empty_dictionary():
+    """Check to see if diagnostic is produced with an empty dictionary."""
+    word_count_dictionary = {}
+    word_diagnostic = util.get_word_diagnostic(word_count_dictionary)
+    assert word_diagnostic == ""

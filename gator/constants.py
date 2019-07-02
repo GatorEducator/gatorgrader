@@ -19,7 +19,7 @@ def create_constants(name, *args, **kwargs):
 arguments = create_constants("arguments", Incorrect=2, Void=[])
 
 # define the codes for return values
-codes = create_constants("codes", Error=1, Success=0)
+codes = create_constants("codes", Error=1, Success=0, No_Words=0)
 
 # define the types of comments
 comments = create_constants(
@@ -85,5 +85,13 @@ versioncontrol = create_constants("versioncontrol", Master="master", No_Commits=
 
 # define the words diagnostic messages
 words = create_constants(
-    "words", Minimum="word(s) in every paragraph", Total="word(s) in total"
+    "words",
+    Minimum="word(s) in every paragraph",
+    Total="word(s) in total",
+    In_A="in a",
+    In_Every="in every",
+    In_The="in the",
+    Cardinal="cardinal",
+    Ordinal="ordinal",
+    Paragraph="paragraph",
 )
