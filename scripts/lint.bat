@@ -13,7 +13,7 @@ dir /b /s | findstr "\\*.py$" | findstr /v "\\\.venv\\" > .xyzfiles
 for /f "Tokens=* Delims=" %%x in (.xyzfiles) do set FILES=!FILES! %%x
 del .xyzfiles
 
-set PATHS="gator tests"
+set PATHS=gator tests
 
 echo -- Running black
 pipenv run black %CHECK% %FILES%
