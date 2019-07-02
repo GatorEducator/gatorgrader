@@ -59,6 +59,9 @@ cache:
 # set GATORGRADER_HOME environment variable
 before_script:
   - export GATORGRADER_HOME="$TRAVIS_BUILD_DIR"
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 
 # perform testing:
 # --> run the test suite and generate coverage with Pipfile script
