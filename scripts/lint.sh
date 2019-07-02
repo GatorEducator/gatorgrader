@@ -28,6 +28,13 @@ FILES="$FILES *.py"
 # xenon cannot accept a lists of files, so give paths instead
 PATHS="gator tests"
 
+# Notes about the linters:
+# - black checks and fixes Python code formatting
+# - pylint and flake8 check Python code
+# - bandit finds security problems in Python code
+# - radon checks code quality for diagnostic purposes
+# - xenon returns an error code for code quality thresholds
+
 # define all of the linters to iteratively run
 declare -A LINTERS
 LINTERS=( ["black"]="pipenv run black $CHECK $FILES" ["pylint"]="pipenv run pylint $FILES" ["flake8"]="pipenv run flake8 $FILES" ["bandit"]="pipenv run bandit -c bandit.yml $FILES" ["radon"]="pipenv run radon mi $FILES" ["xenon"]="xenon --max-absolute D --max-modules B --max-average B -c $PATHS" ["pydocstyle"]="pipenv run pydocstyle $FILES" )
