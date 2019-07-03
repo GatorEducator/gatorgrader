@@ -4,8 +4,8 @@
 # making our Git history clean, maintainable, and easy to access for
 # all of our contributors. Commit messages are very important to us,
 # which is why we have a strict commit message policy in place.
-# Please use the following guidelines to format all your commit
-# messages:
+# Please use this template to format all your commit messages:
+#
 #     <type>(<scope>): <subject>
 #
 # Please note that:
