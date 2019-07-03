@@ -196,7 +196,7 @@ def count_entities(
     # the context for this condition is when the function checks
     # the contents of a specified file
     elif file_for_checking.is_file() and contents is constants.markers.Nothing:
-        # read the text from the file and the check for the chosen fragment
+        # read the text from the file and then check for the chosen fragment
         file_contents = file_for_checking.read_text()
         file_contents_count = checking_function(file_contents, chosen_fragment)
     # also return an empty dictionary since this function does not
