@@ -1,3 +1,4 @@
+
 # Hello GatorGrader contributor!
 #
 # We just wanted to let you know that we care a great deal about
@@ -18,18 +19,18 @@
 #             * feat (feature)
 #             * fix (bug fix)
 #             * docs (documentation)
-#             * style (formatting, missing semicolons, …)
-#             * refactor
-#             * test (when adding missing tests)
-#             * chore (maintain)
+#             * style (fix formatting)
+#             * refactor (improve the code, no new features)
+#             * test (add new test(s))
+#             * chore (maintenance or infrastructure)
 #       + <scope> can be anything specifying the place of the commit
 #                 change
 #       + <subject> is a very short description of the change, in
 #                   the following format:
-#             * imperative, present tense: “change” not
-#               “changed”/“changes”
-#             * no capitalised first letter
-#             * no dot (.) at the end
+#             * Imperative, present tense: "change" not
+#               "changed" or "changes"
+#             * Capitalised first letter
+#             * Dot (.) at the end
 #
 # Thanks for following the GatorGrader commit message template!
 # References: https://backlog.com/blog/git-commit-messages-bold-daring/
