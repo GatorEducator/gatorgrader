@@ -1,0 +1,35 @@
+# Hello GatorGrader contributor!
+#
+# We just wanted to let you know that we care a great deal about
+# making our Git history clean, maintainable, and easy to access for
+# all of our contributors. Commit messages are very important to us,
+# which is why we have a strict commit message policy in place.
+# Please use the following guidelines to format all your commit
+# messages:
+#     <type>(<scope>): <subject>
+#
+# Please note that:
+#
+#  - The message is a single line of about 72 characters that
+#    contains a succinct description of the change. It contains a
+#    type, an optional scope, and a subject
+#       + <type> describes the kind of change that this commit is
+#                providing. Allowed types are:
+#             * feat (feature)
+#             * fix (bug fix)
+#             * docs (documentation)
+#             * style (formatting, missing semicolons, …)
+#             * refactor
+#             * test (when adding missing tests)
+#             * chore (maintain)
+#       + <scope> can be anything specifying the place of the commit
+#                 change
+#       + <subject> is a very short description of the change, in
+#                   the following format:
+#             * imperative, present tense: “change” not
+#               “changed”/“changes”
+#             * no capitalised first letter
+#             * no dot (.) at the end
+#
+# Thanks for following the GatorGrader commit message template!
+# References: https://backlog.com/blog/git-commit-messages-bold-daring/
