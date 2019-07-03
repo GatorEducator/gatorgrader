@@ -31,6 +31,7 @@
 #               "changed" or "changes"
 #             * Capitalised first letter
 #             * Dot (.) at the end
+#             * No spelling mistakes
 #
 # Thanks for following the GatorGrader commit message template!
 # References: https://backlog.com/blog/git-commit-messages-bold-daring/
