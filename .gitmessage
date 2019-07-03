@@ -17,15 +17,14 @@
 #    type, an optional scope, and a subject
 #       + <type> describes the kind of change that this commit is
 #                providing. Allowed types are:
-#             * feat (feature)
-#             * fix (bug fix)
-#             * docs (documentation)
-#             * style (fix formatting)
+#             * feat (add feature)
+#             * fix (fix defect)
+#             * docs (add documentation)
+#             * style (improve/fix formatting)
 #             * refactor (improve the code, no new features)
-#             * test (add new test(s))
+#             * test (add test(s))
 #             * chore (maintenance or infrastructure)
-#       + <scope> can be anything specifying the place of the commit
-#                 change
+#       + <scope> can be anything specifying commit change place
 #       + <subject> is a very short description of the change, in
 #                   the following format:
 #             * Imperative, present tense: "change" not
