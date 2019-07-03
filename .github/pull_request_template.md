@@ -2,6 +2,7 @@
 <!-- Please ensure that reviewers are assigned -->
 
 ### What is the current behavior?
+
 <!-- You can link to an open issue here -->
 
 ### What is the new behavior if this PR is merged?
@@ -16,6 +17,10 @@
 
 This PR is a <!-- REQUIRED: replace this comment with one of ["small change", "feature", "compatibility breaking update", "non-versioned change"] -->
 that fixes #<!-- replace this comment with an issue number if applicable -->
+
+<!-- We required the above line statement because GatorGrader uses: -->
+<!-- https://github.com/Michionlion/pr-tag-release -->
+<!-- to automatically generate a tag and a release from a merged PR -->
 
 #### Developers
 
