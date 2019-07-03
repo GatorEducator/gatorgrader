@@ -13,8 +13,8 @@
 # Please note that:
 #
 #  - The message is a single line of about 72 characters that
-#    contains a succinct description of the change. It contains a
-#    type, an optional scope, and a subject
+#    contains a succinct description of the change. It contains an
+#    optional type, an optional scope, and a required subject
 #       + <type> describes the kind of change that this commit is
 #                providing. Allowed types are:
 #             * feat (add feature)
