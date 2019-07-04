@@ -20,6 +20,7 @@
 #             * feat (add feature)
 #             * fix (fix defect)
 #             * docs (add or modify user documentation)
+#             * coms (add or modify code documentation)
 #             * style (improve/fix formatting)
 #             * refactor (improve the code, no new features)
 #             * test (add or modify test(s))
