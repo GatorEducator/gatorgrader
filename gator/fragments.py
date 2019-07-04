@@ -184,21 +184,22 @@ def count_entities(
     contents=constants.markers.Nothing,
 ):
     """Count fragments for the file in the directory (or contents) and a fragment."""
-    # create a Path object to the chosen file in the containing directory
-    file_for_checking = files.create_path(file=given_file, home=containing_directory)
     file_contents_count = 0
-    # file is not available and the contents are provided
-    # the context for this condition is when the function checks
-    # the output from the execution of a specified command
-    if not file_for_checking.is_file() and contents is not constants.markers.Nothing:
-        file_contents_count = checking_function(contents, chosen_fragment)
-    # file is available and the contents are not provided
-    # the context for this condition is when the function checks
-    # the contents of a specified file
-    elif file_for_checking.is_file() and contents is constants.markers.Nothing:
-        # read the text from the file and then check for the chosen fragment
-        file_contents = file_for_checking.read_text()
-        file_contents_count = checking_function(file_contents, chosen_fragment)
+    for file_for_checking in files.create_paths(file=given_file, home=containing_directory):
+        # create a Path object to the chosen file in the containing directory
+        # file_for_checking = files.create_path(file=given_file, home=containing_directory)
+        # file is not available and the contents are provided
+        # the context for this condition is when the function checks
+        # the output from the execution of a specified command
+        if not file_for_checking.is_file() and contents is not constants.markers.Nothing:
+            file_contents_count = checking_function(contents, chosen_fragment)
+        # file is available and the contents are not provided
+        # the context for this condition is when the function checks
+        # the contents of a specified file
+        elif file_for_checking.is_file() and contents is constants.markers.Nothing:
+            # read the text from the file and then check for the chosen fragment
+            file_contents = file_for_checking.read_text()
+            file_contents_count = checking_function(file_contents, chosen_fragment)
     # also return an empty dictionary since this function does not
     # need to count details about multiple entities
     return file_contents_count, {}
