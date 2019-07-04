@@ -370,11 +370,6 @@ def invoke_all_fragment_checks(
         + constants.markers.Space
         + "or the output"
     )
-    # diagnostic = (
-    # "Found "
-    # + str(actual_count)
-    # + " fragment(s) in the output or the specified file"
-    # )
     report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
