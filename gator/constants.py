@@ -45,6 +45,7 @@ markers = create_constants(
     Nothing="",
     Space=" ",
     Tab="   ",
+    File="in a file",
     Invalid=-1,
 )
 
