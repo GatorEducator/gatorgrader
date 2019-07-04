@@ -31,9 +31,6 @@ def test_create_one_file_path_with_none_middle(tmpdir):
     hello_file.write("content")
     assert hello_file.read() == "content"
     assert len(tmpdir.listdir()) == 1
-    print("tmpdir: " + str(tmpdir))
-    print("tmpdir basename: " + tmpdir.basename)
-    print("tmpdir dirname: " + tmpdir.dirname)
     created_path = files.create_path(
         tmpdir.basename, file="hello.txt", home=tmpdir.dirname
     )
