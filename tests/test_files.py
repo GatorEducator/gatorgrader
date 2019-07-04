@@ -49,7 +49,7 @@ def test_create_non_glob_path_with_none_middle(tmpdir):
 
 
 def test_one_glob_case_sensitive_handling(tmpdir):
-    """Ensure that creating a globbed path works correctly."""
+    """Ensure that creating a non-matching globbed path does not return paths."""
     hello_file_one = tmpdir.join("hello1.txt")
     hello_file_one.write("content")
     hello_file_two = tmpdir.join("hello2.txt")
