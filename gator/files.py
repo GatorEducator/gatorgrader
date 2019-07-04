@@ -18,17 +18,21 @@ def create_paths(*args, file="", home):
     # --> a single file (i.e., hello.py)
     file_or_glob_path = create_path(*args, file=file, home=home)
     # the created path is a file, so we can yield it to caller
-    if file_or_glob_path.is_file():
+    try:
+        if file_or_glob_path.is_file():
+            yield file_or_glob_path
+        # the created path is not a file, so determine if it is a glob
+        else:
+            # Pathlib does not support globs of absolute directories, so use glob
+            # create a list of all files matched by the glob
+            home_directory_globbed = [Path(p) for p in glob(str(file_or_glob_path))]
+            # iterate through the list and yield the files as matching Path objects
+            for current_file in home_directory_globbed:
+                current_file_path = create_path(*args, file=current_file, home=home)
+                yield current_file_path
+    # on Windows, is_file on a glob will throw an OSError
+    except OSError:
         yield file_or_glob_path
-    # the created path is not a file, so determine if it is a glob
-    else:
-        # Pathlib does not support globs of absolute directories, so use glob
-        # create a list of all files matched by the glob
-        home_directory_globbed = [Path(p) for p in glob(str(file_or_glob_path))]
-        # iterate through the list and yield the files as matching Path objects
-        for current_file in home_directory_globbed:
-            current_file_path = create_path(*args, file=current_file, home=home)
-            yield current_file_path
 
 
 def create_path(*args, file="", home):
