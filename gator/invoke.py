@@ -366,10 +366,9 @@ def invoke_all_fragment_checks(
         + constants.markers.Space
         + "fragment(s)"
         + constants.markers.Space
-        + "in the output or"
-        + constants.markers.Space
         + fragment_diagnostic
         + constants.markers.Space
+        + "or the output"
     )
     # diagnostic = (
     # "Found "
