@@ -17,7 +17,7 @@ MULTILINECOMMENT_RE_PYTHON = r'^[ \t]*"""(.*?)"""[ \t]*$'
 
 # Note that all of these functions also return an empty dictionary
 # (i.e., {}) so that it matches the return signature of the
-# other analagous function that counts the words and returns
+# other analogous function that counts the words and returns
 # a dictionary of the {number of a paragraph, word count in paragraph}
 
 
