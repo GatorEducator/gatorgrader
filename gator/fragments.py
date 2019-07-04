@@ -172,7 +172,7 @@ def specified_entity_greater_than_count(
     )
     # also return an empty dictionary since this function does not
     # need to count details about multiple entities
-    return condition_truth, value, {}
+    return condition_truth, value, file_entity_count_dictionary
 
 
 # pylint: disable=bad-continuation
@@ -185,29 +185,39 @@ def count_entities(
 ):
     """Count fragments for the file in the directory (or contents) and a fragment."""
     file_contents_count = 0
+    file_contents_count_dictionary = {}
+    # file is not available and the contents are provided
+    # the context for this condition is when the function checks
+    # the output from the execution of a specified command
+    if (
+        contents is not constants.markers.Nothing
+        and given_file is constants.markers.Nothing
+    ):
+        file_contents_count = checking_function(contents, chosen_fragment)
+        return file_contents_count, file_contents_count_dictionary
     for file_for_checking in files.create_paths(
         file=given_file, home=containing_directory
     ):
         # create a Path object to the chosen file in the containing directory
-        # file_for_checking = files.create_path(file=given_file, home=containing_directory)
-        # file is not available and the contents are provided
-        # the context for this condition is when the function checks
-        # the output from the execution of a specified command
-        if (
-            not file_for_checking.is_file()
-            and contents is not constants.markers.Nothing
-        ):
-            file_contents_count = checking_function(contents, chosen_fragment)
         # file is available and the contents are not provided
         # the context for this condition is when the function checks
         # the contents of a specified file
-        elif file_for_checking.is_file() and contents is constants.markers.Nothing:
+        if file_for_checking.is_file() and contents is constants.markers.Nothing:
             # read the text from the file and then check for the chosen fragment
             file_contents = file_for_checking.read_text()
             file_contents_count = checking_function(file_contents, chosen_fragment)
+            print("the current file: " + file_for_checking.name)
+            print("found a count in the file: " + str(file_contents_count))
+            file_contents_count_dictionary[file_for_checking.name] = file_contents_count
     # also return an empty dictionary since this function does not
     # need to count details about multiple entities
-    return file_contents_count, {}
+    print("dictionary: ")
+    print(file_contents_count_dictionary)
+    minimum_pair = util.get_first_minimum_value(file_contents_count_dictionary)
+    file_contents_count = minimum_pair[1]
+    print("minimum pair: " + str(minimum_pair))
+    print("file_contents_count: " + str(file_contents_count))
+    return file_contents_count, file_contents_count_dictionary
 
 
 # pylint: disable=bad-continuation
