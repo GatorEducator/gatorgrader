@@ -14,19 +14,12 @@ def create_cwd_path():
 def create_paths(*args, file="", home):
     """Create a generator of Path objects for a glob with varying sub-path count."""
     file_or_glob_path = create_path(*args, file=file, home=home)
-    print("trying to make: " + str(file_or_glob_path))
     if file_or_glob_path.is_file():
-        print("it is a file")
         yield file_or_glob_path
     else:
-        print("maybe it is a glob?")
-        home_directory = create_path(*args, file=".", home=home)
-        print("home directory: " + str(home_directory))
         home_directory_globbed = [Path(p) for p in glob(str(file_or_glob_path))]
-        # for current_file in home_directory.glob(str(file_or_glob_path)):
         for current_file in home_directory_globbed:
             current_file_path = create_path(*args, file=current_file, home=home)
-            print("current_file_path: " + str(current_file_path))
             yield current_file_path
 
 
