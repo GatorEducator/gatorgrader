@@ -3,7 +3,7 @@
 from gator import files
 
 
-# Region: Glob Tests {{{
+# Region: Glob Tests for create_paths {{{
 
 
 def test_create_one_glob_path_with_none_middle(tmpdir):
@@ -22,10 +22,28 @@ def test_create_one_glob_path_with_none_middle(tmpdir):
     ):
         assert ".txt" in str(created_path)
 
+
+def test_create_non_glob_path_with_none_middle(tmpdir):
+    """Ensure that creating a globbed path works correctly."""
+    hello_file_one = tmpdir.join("hello1.txt")
+    hello_file_one.write("content")
+    hello_file_two = tmpdir.join("hello2.txt")
+    hello_file_two.write("content")
+    assert len(tmpdir.listdir()) == 2
+    created_paths = list(files.create_paths(
+        tmpdir.basename, file="hello1.txt", home=tmpdir.dirname
+    ))
+    assert len(created_paths) == 1
+    created_paths = list(files.create_paths(
+        tmpdir.basename, file="hello2.txt", home=tmpdir.dirname
+    ))
+    assert len(created_paths) == 1
+
+
 # }}}
 
 
-# Region: Non-Glob Tests {{{
+# Region: Non-Glob Tests for create_path {{{
 
 
 def test_create_one_file_path_with_none_middle(tmpdir):
