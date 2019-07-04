@@ -36,7 +36,6 @@ def count_entities(given_file, containing_directory, checking_function):
         file_contents = file_for_checking.read_text()
         # use the provided checking_function to check the contents of the file
         # note this works since Python supports passing a function to a function
-        # print(checking_function)
         file_contents_count, file_contents_count_dictionary = checking_function(
             file_contents
         )
