@@ -5,8 +5,6 @@ import platform
 from gator import files
 
 # define the operating systems on which to run processes
-LINUX = "Linux"
-MAC = "Darwin"
 WINDOWS = "Windows"
 
 
@@ -62,7 +60,8 @@ def test_one_glob_case_sensitive_handling(tmpdir):
     hello_file_two = tmpdir.join("hello2.txt")
     hello_file_two.write("content")
     system_name = platform.system()
-    if system_name is LINUX or MAC:
+    print("running on: " + system_name)
+    if system_name is not WINDOWS:
         assert len(tmpdir.listdir()) == 2
         created_paths = list(
             files.create_paths(tmpdir.basename, file="*.TXT", home=tmpdir.dirname)
@@ -74,7 +73,7 @@ def test_one_glob_case_sensitive_handling(tmpdir):
             files.create_paths(tmpdir.basename, file="*.TXT", home=tmpdir.dirname)
         )
         assert len(created_paths) == 0
-    if system_name is LINUX or MAC:
+    if system_name is not WINDOWS:
         for created_path in files.create_paths(
             tmpdir.basename, file="HELLO*", home=tmpdir.dirname
         ):
