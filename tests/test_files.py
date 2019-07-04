@@ -3,12 +3,35 @@
 from gator import files
 
 
+def test_create_one_glob_path_with_none_middle(tmpdir):
+    """Ensure that creating a globbed path works correctly."""
+    hello_file_one = tmpdir.join("hello1.txt")
+    hello_file_one.write("content")
+    hello_file_two = tmpdir.join("hello2.txt")
+    hello_file_two.write("content")
+    assert len(tmpdir.listdir()) == 2
+    print("tmpdir: " + str(tmpdir))
+    print("tmpdir basename: " + tmpdir.basename)
+    print("tmpdir dirname: " + tmpdir.dirname)
+    created_paths = list(files.create_paths(
+        tmpdir.basename, file="*.txt", home=tmpdir.dirname
+    ))
+    assert len(created_paths) == 2
+    for created_path in files.create_paths(
+        tmpdir.basename, file="*.txt", home=tmpdir.dirname
+    ):
+        print(str(created_path))
+
+
 def test_create_one_file_path_with_none_middle(tmpdir):
     """Ensure that creating a single file path works correctly."""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
     hello_file.write("content")
     assert hello_file.read() == "content"
     assert len(tmpdir.listdir()) == 1
+    print("tmpdir: " + str(tmpdir))
+    print("tmpdir basename: " + tmpdir.basename)
+    print("tmpdir dirname: " + tmpdir.dirname)
     created_path = files.create_path(
         tmpdir.basename, file="hello.txt", home=tmpdir.dirname
     )
