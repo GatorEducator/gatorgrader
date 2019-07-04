@@ -126,16 +126,16 @@ def test_find_in_empty_dictionary_min():
     """Check if the None value is found in an empty dictionary."""
     input = {}
     found_values = util.get_first_minimum_value(input)
-    assert found_values[0] is None
-    assert found_values[1] is None
+    assert found_values[0] == 0
+    assert found_values[1] == 0
 
 
 def test_find_in_empty_dictionary_max():
     """Check if the None value is found in an empty dictionary."""
     input = {}
     found_values = util.get_first_maximum_value(input)
-    assert found_values[0] is None
-    assert found_values[1] is None
+    assert found_values[0] == 0
+    assert found_values[1] == 0
 
 
 def test_find_maximum_in_dictionary_single_max():
