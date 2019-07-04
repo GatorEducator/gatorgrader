@@ -185,13 +185,18 @@ def count_entities(
 ):
     """Count fragments for the file in the directory (or contents) and a fragment."""
     file_contents_count = 0
-    for file_for_checking in files.create_paths(file=given_file, home=containing_directory):
+    for file_for_checking in files.create_paths(
+        file=given_file, home=containing_directory
+    ):
         # create a Path object to the chosen file in the containing directory
         # file_for_checking = files.create_path(file=given_file, home=containing_directory)
         # file is not available and the contents are provided
         # the context for this condition is when the function checks
         # the output from the execution of a specified command
-        if not file_for_checking.is_file() and contents is not constants.markers.Nothing:
+        if (
+            not file_for_checking.is_file()
+            and contents is not constants.markers.Nothing
+        ):
             file_contents_count = checking_function(contents, chosen_fragment)
         # file is available and the contents are not provided
         # the context for this condition is when the function checks
