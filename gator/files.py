@@ -21,6 +21,7 @@ def create_paths(*args, file="", home):
     file_or_glob_path = create_path(*args, file=file, home=home)
     home_directory_globbed = [Path(p) for p in glob(str(file_or_glob_path))]
     # iterate through the list and yield the files as matching Path objects
+    # if there are files that are incorrect, they will not be in the list
     for current_file in home_directory_globbed:
         current_file_path = create_path(*args, file=current_file, home=home)
         yield current_file_path
