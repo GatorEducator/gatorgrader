@@ -72,7 +72,7 @@ def test_one_glob_case_sensitive_handling(tmpdir):
         created_paths = list(
             files.create_paths(tmpdir.basename, file="*.TXT", home=tmpdir.dirname)
         )
-        assert len(created_paths) == 0
+        assert len(created_paths) == 2
     if system_name is not WINDOWS:
         for created_path in files.create_paths(
             tmpdir.basename, file="HELLO*", home=tmpdir.dirname
