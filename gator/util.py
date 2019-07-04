@@ -61,9 +61,9 @@ def get_first_value(input_dictionary, finder=min):
     """Return the values matched by a finder function."""
     # pick the key and value that is matched by the finder
     # note that the return is in the format (key, value)
-    # the dictionary is empty, so return None for the key and value
+    # the dictionary is empty, so return 0 for the key and value
     if not input_dictionary:
-        return (None, None)
+        return (0, 0)
     # the dictionary is not empty, so return the located (key, value)
     return finder(
         input_dictionary.items(), key=lambda input_dictionary: input_dictionary[1]
