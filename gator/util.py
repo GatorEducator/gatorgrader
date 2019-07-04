@@ -118,3 +118,17 @@ def get_word_diagnostic(word_count_dictionary):
     # since there are no paragraphs and no counts of words because the dictionary
     # is empty, return the empty string instead of a diagnostic phrase
     return constants.markers.Nothing
+
+
+def get_file_diagnostic(file_count_dictionary):
+    """Create a full diagnostic based on the dictionary of (file name, entity counts)."""
+    # create a diagnostics like "in the <filename>" based on the dictionary
+    # that contains the fragment counts in each of the files with a wildcard
+    if file_count_dictionary:
+        file_details = get_first_minimum_value(file_count_dictionary)
+        file_name = file_details[0]
+        file_name_phrase = constants.words.In_The + constants.markers.Space + file_name
+        return file_name_phrase
+    # since there are no file names and no counts of entities because the dictionary
+    # is empty, return the empty string instead of a diagnostic phrase
+    return constants.markers.Nothing
