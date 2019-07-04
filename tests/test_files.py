@@ -25,6 +25,9 @@ def test_create_one_glob_path_with_none_middle(tmpdir):
 # }}}
 
 
+# Region: Non-Glob Tests {{{
+
+
 def test_create_one_file_path_with_none_middle(tmpdir):
     """Ensure that creating a single file path works correctly."""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
@@ -261,3 +264,5 @@ def test_many_files_not_found_in_subdirectory(tmpdir):
         tmpdir.basename, "sub", file="README_not_there.md", home=tmpdir.dirname
     )
     assert was_file_found is False
+
+# }}}
