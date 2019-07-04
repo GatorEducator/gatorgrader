@@ -198,13 +198,12 @@ def count_entities(
     for file_for_checking in files.create_paths(
         file=given_file, home=containing_directory
     ):
-        # file is available and the contents are not provided
+        # an actual file is available and command contents are not provided
         # the context for this condition is when the function checks file contents
-        if file_for_checking.is_file() and contents is constants.markers.Nothing:
-            # read the text from the file and then check for the chosen fragment
-            file_contents = file_for_checking.read_text()
-            file_contents_count = checking_function(file_contents, chosen_fragment)
-            file_contents_count_dictionary[file_for_checking.name] = file_contents_count
+        # read the text from the file and then check for the chosen fragment
+        file_contents = file_for_checking.read_text()
+        file_contents_count = checking_function(file_contents, chosen_fragment)
+        file_contents_count_dictionary[file_for_checking.name] = file_contents_count
     # return the minimum value and the entire dictionary of counts
     minimum_pair = util.get_first_minimum_value(file_contents_count_dictionary)
     file_contents_count = minimum_pair[1]
