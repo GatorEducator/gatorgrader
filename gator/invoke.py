@@ -357,11 +357,25 @@ def invoke_all_fragment_checks(
                 + "' fragment"
             )
     # produce the diagnostic and report the result
+    print("Working with this dictionary: ")
+    print(actual_count_dictionary)
+    fragment_diagnostic = util.get_file_diagnostic(actual_count_dictionary)
     diagnostic = (
         "Found "
         + str(actual_count)
-        + " fragment(s) in the output or the specified file"
+        + constants.markers.Space
+        + "fragment(s)"
+        + constants.markers.Space
+        + "in the output or"
+        + constants.markers.Space
+        + fragment_diagnostic
+        + constants.markers.Space
     )
+    # diagnostic = (
+    # "Found "
+    # + str(actual_count)
+    # + " fragment(s) in the output or the specified file"
+    # )
     report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
