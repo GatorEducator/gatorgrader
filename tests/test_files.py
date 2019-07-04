@@ -66,6 +66,24 @@ def test_one_glob_case_sensitive_handling(tmpdir):
     assert len(created_paths) == 0
 
 
+def test_garbage_glob_returns_no_matching_paths(tmpdir):
+    """Ensure that creating a garbage globbed path returns no matches."""
+    hello_file_one = tmpdir.join("hello1.txt")
+    hello_file_one.write("content")
+    hello_file_two = tmpdir.join("hello2.txt")
+    hello_file_two.write("content")
+    assert len(tmpdir.listdir()) == 2
+    created_paths = list(
+        files.create_paths(tmpdir.basename, file="FAKE&&&FDF$$#**", home=tmpdir.dirname)
+    )
+    assert len(created_paths) == 0
+    for created_path in files.create_paths(
+        tmpdir.basename, file="FAKE&&&FDF$$#**", home=tmpdir.dirname
+    ):
+        assert ".txt" in str(created_path)
+    assert len(created_paths) == 0
+
+
 # }}}
 
 
