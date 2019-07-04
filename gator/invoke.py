@@ -430,7 +430,7 @@ def invoke_all_regex_checks(
                 + regex
                 + "' regular expression"
             )
-        # creeate an "exact" message, which is opt-in
+        # create an "exact" message, which is opt-in
         else:
             message = (
                 "The command output"
