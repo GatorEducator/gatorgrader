@@ -60,7 +60,6 @@ def test_one_glob_case_sensitive_handling(tmpdir):
     hello_file_two = tmpdir.join("hello2.txt")
     hello_file_two.write("content")
     system_name = platform.system()
-    print("running on: " + system_name)
     if system_name is not WINDOWS:
         assert len(tmpdir.listdir()) == 2
         created_paths = list(
