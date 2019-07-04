@@ -357,8 +357,6 @@ def invoke_all_fragment_checks(
                 + "' fragment"
             )
     # produce the diagnostic and report the result
-    print("Working with this dictionary: ")
-    print(actual_count_dictionary)
     fragment_diagnostic = util.get_file_diagnostic(actual_count_dictionary)
     diagnostic = (
         "Found "
