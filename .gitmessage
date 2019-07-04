@@ -19,10 +19,10 @@
 #                providing. Allowed types are:
 #             * feat (add feature)
 #             * fix (fix defect)
-#             * docs (add documentation)
+#             * docs (add user documentation)
 #             * style (improve/fix formatting)
 #             * refactor (improve the code, no new features)
-#             * test (add test(s))
+#             * test (add or modify test(s))
 #             * chore (maintenance or infrastructure)
 #       + <scope> can be anything specifying commit change place
 #       + <subject> is a very short description of the change, in
