@@ -130,5 +130,5 @@ def get_file_diagnostic(file_count_dictionary):
         file_name_phrase = constants.words.In_The + constants.markers.Space + file_name
         return file_name_phrase
     # since there are no file names and no counts of entities because the dictionary
-    # is empty, return the empty string instead of a diagnostic phrase
-    return constants.markers.Nothing
+    # is empty, return the "in a file" string instead of a diagnostic phrase
+    return constants.markers.File
