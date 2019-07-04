@@ -19,7 +19,7 @@
 #                providing. Allowed types are:
 #             * feat (add feature)
 #             * fix (fix defect)
-#             * docs (add user documentation)
+#             * docs (add or modify user documentation)
 #             * style (improve/fix formatting)
 #             * refactor (improve the code, no new features)
 #             * test (add or modify test(s))
