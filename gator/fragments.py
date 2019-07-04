@@ -166,6 +166,9 @@ def specified_entity_greater_than_count(
     file_entity_count, file_entity_count_dictionary = count_entities(
         chosen_fragment, checking_function, given_file, containing_directory, contents
     )
+    print("specified, file_entity_count: " + file_entity_count)
+    print("file_entity_count_dictionary")
+    print(file_entity_count_dictionary)
     # check the condition and also return file_entity_count
     condition_truth, value = util.greater_than_equal_exacted(
         file_entity_count, expected_count, exact
@@ -207,8 +210,7 @@ def count_entities(
             file_contents = file_for_checking.read_text()
             file_contents_count = checking_function(file_contents, chosen_fragment)
             file_contents_count_dictionary[file_for_checking.name] = file_contents_count
-    # also return an empty dictionary since this function does not
-    # need to count details about multiple entities
+    # return the minimum value and the entire dictionary of counts
     minimum_pair = util.get_first_minimum_value(file_contents_count_dictionary)
     file_contents_count = minimum_pair[1]
     return file_contents_count, file_contents_count_dictionary
