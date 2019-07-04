@@ -13,9 +13,9 @@ def test_create_one_glob_path_with_none_middle(tmpdir):
     hello_file_two = tmpdir.join("hello2.txt")
     hello_file_two.write("content")
     assert len(tmpdir.listdir()) == 2
-    created_paths = list(files.create_paths(
-        tmpdir.basename, file="*.txt", home=tmpdir.dirname
-    ))
+    created_paths = list(
+        files.create_paths(tmpdir.basename, file="*.txt", home=tmpdir.dirname)
+    )
     assert len(created_paths) == 2
     for created_path in files.create_paths(
         tmpdir.basename, file="*.txt", home=tmpdir.dirname
@@ -30,13 +30,13 @@ def test_create_non_glob_path_with_none_middle(tmpdir):
     hello_file_two = tmpdir.join("hello2.txt")
     hello_file_two.write("content")
     assert len(tmpdir.listdir()) == 2
-    created_paths = list(files.create_paths(
-        tmpdir.basename, file="hello1.txt", home=tmpdir.dirname
-    ))
+    created_paths = list(
+        files.create_paths(tmpdir.basename, file="hello1.txt", home=tmpdir.dirname)
+    )
     assert len(created_paths) == 1
-    created_paths = list(files.create_paths(
-        tmpdir.basename, file="hello2.txt", home=tmpdir.dirname
-    ))
+    created_paths = list(
+        files.create_paths(tmpdir.basename, file="hello2.txt", home=tmpdir.dirname)
+    )
     assert len(created_paths) == 1
 
 
@@ -282,5 +282,6 @@ def test_many_files_not_found_in_subdirectory(tmpdir):
         tmpdir.basename, "sub", file="README_not_there.md", home=tmpdir.dirname
     )
     assert was_file_found is False
+
 
 # }}}
