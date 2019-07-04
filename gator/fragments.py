@@ -198,10 +198,8 @@ def count_entities(
     for file_for_checking in files.create_paths(
         file=given_file, home=containing_directory
     ):
-        # create a Path object to the chosen file in the containing directory
         # file is available and the contents are not provided
-        # the context for this condition is when the function checks
-        # the contents of a specified file
+        # the context for this condition is when the function checks file contents
         if file_for_checking.is_file() and contents is constants.markers.Nothing:
             # read the text from the file and then check for the chosen fragment
             file_contents = file_for_checking.read_text()
