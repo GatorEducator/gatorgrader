@@ -206,17 +206,11 @@ def count_entities(
             # read the text from the file and then check for the chosen fragment
             file_contents = file_for_checking.read_text()
             file_contents_count = checking_function(file_contents, chosen_fragment)
-            print("the current file: " + file_for_checking.name)
-            print("found a count in the file: " + str(file_contents_count))
             file_contents_count_dictionary[file_for_checking.name] = file_contents_count
     # also return an empty dictionary since this function does not
     # need to count details about multiple entities
-    print("dictionary: ")
-    print(file_contents_count_dictionary)
     minimum_pair = util.get_first_minimum_value(file_contents_count_dictionary)
     file_contents_count = minimum_pair[1]
-    print("minimum pair: " + str(minimum_pair))
-    print("file_contents_count: " + str(file_contents_count))
     return file_contents_count, file_contents_count_dictionary
 
 
