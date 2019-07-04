@@ -166,9 +166,6 @@ def specified_entity_greater_than_count(
     file_entity_count, file_entity_count_dictionary = count_entities(
         chosen_fragment, checking_function, given_file, containing_directory, contents
     )
-    print("specified, file_entity_count: " + file_entity_count)
-    print("file_entity_count_dictionary")
-    print(file_entity_count_dictionary)
     # check the condition and also return file_entity_count
     condition_truth, value = util.greater_than_equal_exacted(
         file_entity_count, expected_count, exact
