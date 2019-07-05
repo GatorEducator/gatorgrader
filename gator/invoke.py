@@ -166,7 +166,7 @@ def invoke_all_comment_checks(
         "Found "
         + str(actual_count)
         + constants.markers.Space
-        + "fragment(s)"
+        + "comment(s)"
         + constants.markers.Space
         + fragment_diagnostic
         + constants.markers.Space
