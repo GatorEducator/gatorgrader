@@ -43,9 +43,7 @@ def count_entities(given_file, containing_directory, checking_function):
             file_contents
         )
         # associate these file counts with the filename in a dictionary
-        file_counts_dictionary[
-            file_for_checking.name
-        ] = file_contents_count_dictionary
+        file_counts_dictionary[file_for_checking.name] = file_contents_count_dictionary
     # find the minimum count for all paragraphs across all of the files
     # assume that nothing was found and the count is zero and prove otherwise
     file_contents_count_overall = 0
