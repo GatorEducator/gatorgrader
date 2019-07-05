@@ -173,7 +173,6 @@ def invoke_all_comment_checks(
         + "or the output"
     )
     report_result(met_or_exceeded_count, message, diagnostic)
-    # diagnostic = "Found " + str(actual_count) + " comment(s) in the specified file"
     # report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
@@ -184,8 +183,6 @@ def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=Fals
     met_or_exceeded_count, actual_count, actual_count_dictionary = entities.entity_greater_than_count(
         filecheck, directory, expected_count, fragments.count_paragraphs, exact
     )
-    # print("actual_count_dictionary")
-    # print(actual_count_dictionary)
     # create the message and the diagnostic
     if not exact:
         # create an "at least" message, which is the default
