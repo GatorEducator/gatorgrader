@@ -35,18 +35,17 @@ def count_entities(given_file, containing_directory, checking_function):
         # create an empty dictionary of the counts
         file_contents_count_dictionary = {}
         # a valid file exists and thus it is acceptable to perform the checking
-        if file_for_checking.is_file():
-            # extract the text from the file_for_checking
-            file_contents = file_for_checking.read_text()
-            # use the provided checking_function to check the contents of the file
-            # note this works since Python supports passing a function to a function
-            file_contents_count, file_contents_count_dictionary = checking_function(
-                file_contents
-            )
-            # associate these file counts with the filename in a dictionary
-            file_counts_dictionary[
-                file_for_checking.name
-            ] = file_contents_count_dictionary
+        # extract the text from the file_for_checking
+        file_contents = file_for_checking.read_text()
+        # use the provided checking_function to check the contents of the file
+        # note this works since Python supports passing a function to a function
+        file_contents_count, file_contents_count_dictionary = checking_function(
+            file_contents
+        )
+        # associate these file counts with the filename in a dictionary
+        file_counts_dictionary[
+            file_for_checking.name
+        ] = file_contents_count_dictionary
     # find the minimum count for all paragraphs across all of the files
     # assume that nothing was found and the count is zero and prove otherwise
     file_contents_count_overall = 0
