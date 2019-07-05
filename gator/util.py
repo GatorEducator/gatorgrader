@@ -57,6 +57,19 @@ def get_symbol_answer(boolean_value):
     return "✘"
 
 
+def flatten_dictionary_values(input_dictionary):
+    """Flatten by extracting the value from the dictionary that is a value."""
+    flat_dictionary = {}
+    for filename, file_count_dictionary in input_dictionary.items():
+        # the internal dictionary will have a single key,value pair
+        # extract the value and then store it in the flat_dictionary
+        for key in file_count_dictionary:
+            extracted_value = file_count_dictionary[key]
+            flat_dictionary[filename] = extracted_value
+            break
+    return flat_dictionary
+
+
 def get_first_value_deep(input_dictionary, finder=min):
     """Return all deep values matched by a finder function."""
     filename_count_dictionary = {}
