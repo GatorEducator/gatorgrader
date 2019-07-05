@@ -122,6 +122,53 @@ def test_json_detection_not_found():
     assert is_valid_json is False
 
 
+def test_relational_operator_exacted_true_not_exacted():
+    """Check to see if the exacted relational operator returns True, no exacting."""
+    relation_boolean, relation_value = util.greater_than_equal_exacted(100, 10)
+    assert relation_boolean is True
+    assert relation_value == 100
+    relation_boolean, relation_value = util.greater_than_equal_exacted(100, 10, False)
+    assert relation_boolean is True
+    assert relation_value == 100
+
+
+def test_relational_operator_exacted_true_exacted():
+    """Check to see if the exacted relational operator returns True."""
+    relation_boolean, relation_value = util.greater_than_equal_exacted(100, 100, True)
+    assert relation_boolean is True
+    assert relation_value == 100
+
+
+def test_relational_operator_exacted_false_not_exacted():
+    """Check to see if the exacted relational operator returns False, no exacting."""
+    relation_boolean, relation_value = util.greater_than_equal_exacted(10, 100)
+    assert relation_boolean is False
+    assert relation_value == 10
+    relation_boolean, relation_value = util.greater_than_equal_exacted(10, 100, False)
+    assert relation_boolean is False
+    assert relation_value == 10
+
+
+def test_relational_operator_exacted_false_exacted():
+    """Check to see if the exacted relational operator returns False."""
+    relation_boolean, relation_value = util.greater_than_equal_exacted(10, 100, True)
+    assert relation_boolean is False
+    assert relation_value == 10
+    relation_boolean, relation_value = util.greater_than_equal_exacted(100, 10, True)
+    assert relation_boolean is False
+    assert relation_value == 100
+
+
+def test_number_to_words_ordinal_and_cardinal():
+    """Check to see if numbers can be converted to ordinal or cardinal words."""
+    # note that ordinal is the default
+    number_as_word = util.get_number_as_words(42)
+    assert number_as_word == "forty-second"
+    # it is also possible to request cardinal words
+    number_as_word = util.get_number_as_words(42, constants.words.Cardinal)
+    assert number_as_word == "forty-two"
+
+
 def test_find_in_empty_dictionary_min():
     """Check if the None value is found in an empty dictionary."""
     input = {}
@@ -168,53 +215,6 @@ def test_find_minimum_in_dictionary_multiple_min():
     found_values = util.get_first_minimum_value(input)
     assert found_values[0] == "Sarah"
     assert found_values[1] == 12
-
-
-def test_relational_operator_exacted_true_not_exacted():
-    """Check to see if the exacted relational operator returns True, no exacting."""
-    relation_boolean, relation_value = util.greater_than_equal_exacted(100, 10)
-    assert relation_boolean is True
-    assert relation_value == 100
-    relation_boolean, relation_value = util.greater_than_equal_exacted(100, 10, False)
-    assert relation_boolean is True
-    assert relation_value == 100
-
-
-def test_relational_operator_exacted_true_exacted():
-    """Check to see if the exacted relational operator returns True."""
-    relation_boolean, relation_value = util.greater_than_equal_exacted(100, 100, True)
-    assert relation_boolean is True
-    assert relation_value == 100
-
-
-def test_relational_operator_exacted_false_not_exacted():
-    """Check to see if the exacted relational operator returns False, no exacting."""
-    relation_boolean, relation_value = util.greater_than_equal_exacted(10, 100)
-    assert relation_boolean is False
-    assert relation_value == 10
-    relation_boolean, relation_value = util.greater_than_equal_exacted(10, 100, False)
-    assert relation_boolean is False
-    assert relation_value == 10
-
-
-def test_relational_operator_exacted_false_exacted():
-    """Check to see if the exacted relational operator returns False."""
-    relation_boolean, relation_value = util.greater_than_equal_exacted(10, 100, True)
-    assert relation_boolean is False
-    assert relation_value == 10
-    relation_boolean, relation_value = util.greater_than_equal_exacted(100, 10, True)
-    assert relation_boolean is False
-    assert relation_value == 100
-
-
-def test_number_to_words_ordinal_and_cardinal():
-    """Check to see if numbers can be converted to ordinal or cardinal words."""
-    # note that ordinal is the default
-    number_as_word = util.get_number_as_words(42)
-    assert number_as_word == "forty-second"
-    # it is also possible to request cardinal words
-    number_as_word = util.get_number_as_words(42, constants.words.Cardinal)
-    assert number_as_word == "forty-two"
 
 
 def test_word_diagnostic_single_min_first():
