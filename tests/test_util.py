@@ -122,6 +122,32 @@ def test_json_detection_not_found():
     assert is_valid_json is False
 
 
+def test_flatten_dictionary():
+    """Check to see if the dictionary is flattened correctly."""
+    input_dictionary = {
+        "leave.py": {1: 4},
+        "run.py": {1: 8},
+        "entities.py": {1: 18},
+        "files.py": {1: 33},
+        "display.py": {1: 0},
+        "util.py": {1: 26},
+        "markdown.py": {1: 6},
+        "__init__.py": {1: 0},
+        "arguments.py": {1: 107},
+        "comments.py": {1: 6},
+        "orchestrate.py": {1: 38},
+        "constants.py": {1: 28},
+        "report.py": {1: 19},
+        "invoke.py": {1: 89},
+        "fragments.py": {1: 68},
+        "repository.py": {1: 18},
+    }
+    flat_input_dictionary = util.flatten_dictionary_values(input_dictionary)
+    print(flat_input_dictionary)
+    assert flat_input_dictionary["leave.py"] == 4
+    assert flat_input_dictionary["run.py"] == 8
+
+
 def test_relational_operator_exacted_true_not_exacted():
     """Check to see if the exacted relational operator returns True, no exacting."""
     relation_boolean, relation_value = util.greater_than_equal_exacted(100, 10)
