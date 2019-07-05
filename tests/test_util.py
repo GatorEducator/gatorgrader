@@ -236,3 +236,153 @@ def test_word_diagnostic_empty_dictionary():
     word_count_dictionary = {}
     word_diagnostic = util.get_word_diagnostic(word_count_dictionary)
     assert word_diagnostic == ""
+
+
+def test_find_minimum_in_dictionary_single_max_deep():
+    """Check if the maximum value is found in a dictionary deep."""
+    input_file_one = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 43}
+    input_file_two = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 43}
+    input_file_three = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 1}
+    outer_dictionary = {
+        "input_file_one": input_file_one,
+        "input_file_two": input_file_two,
+        "input_file_three": input_file_three,
+    }
+    util.get_first_value_deep(outer_dictionary, finder=min)
+
+
+def test_find_minimum_in_dictionary_single_max_deep_words():
+    """Check to see if diagnostic is produced with a single minimum value."""
+    input_file_one = {1: 10, 2: 5, 3: 4}
+    input_file_two = {1: 10, 2: 5, 3: 4}
+    input_file_three = {1: 10, 2: 5, 3: 1}
+    outer_dictionary = {
+        "input_file_one": input_file_one,
+        "input_file_two": input_file_two,
+        "input_file_three": input_file_three,
+    }
+    util.get_first_value_deep(outer_dictionary, finder=min)
+
+
+def test_find_minimum_in_dictionary_single_max_deep_words_diagnostic():
+    """Check to see if diagnostic is produced with a single minimum value."""
+    input_file_one = {1: 10, 2: 5, 3: 4}
+    input_file_two = {1: 10, 2: 5, 3: 4}
+    input_file_three = {1: 10, 2: 5, 3: 1}
+    outer_dictionary = {
+        "input_file_one": input_file_one,
+        "input_file_two": input_file_two,
+        "input_file_three": input_file_three,
+    }
+    util.get_word_diagnostic(outer_dictionary)
+
+
+def test_find_minimum_in_dictionary_single_max_deep_words_diagnostic_realistic():
+    """Check to see if diagnostic is produced with a single minimum value."""
+    outer_dictionary = {
+        "README.md": {
+            1: 3,
+            2: 12,
+            3: 82,
+            4: 2,
+            5: 152,
+            6: 51,
+            7: 68,
+            8: 66,
+            9: 104,
+            10: 1,
+            11: 53,
+            12: 102,
+            13: 59,
+            14: 47,
+            15: 98,
+            16: 123,
+            17: 34,
+            18: 42,
+            19: 108,
+            20: 8,
+            21: 11,
+        },
+        "LICENSE.md": {
+            1: 29,
+            2: 17,
+            3: 98,
+            4: 77,
+            5: 45,
+            6: 55,
+            7: 35,
+            8: 49,
+            9: 112,
+            10: 64,
+            11: 11,
+            12: 12,
+            13: 16,
+            14: 25,
+            15: 50,
+            16: 15,
+            17: 58,
+            18: 36,
+            19: 90,
+            20: 27,
+            21: 41,
+            22: 118,
+            23: 124,
+            24: 19,
+            25: 14,
+            26: 76,
+            27: 113,
+            28: 22,
+            29: 41,
+            30: 70,
+            31: 76,
+            32: 25,
+            33: 39,
+            34: 101,
+            35: 38,
+            36: 30,
+            37: 136,
+            38: 67,
+            39: 109,
+            40: 76,
+            41: 46,
+            42: 85,
+            43: 69,
+            44: 34,
+            45: 96,
+            46: 42,
+            47: 26,
+            48: 47,
+            49: 58,
+            50: 60,
+            51: 50,
+            52: 88,
+            53: 41,
+            54: 96,
+            55: 77,
+            56: 34,
+            57: 83,
+            58: 36,
+            59: 63,
+            60: 148,
+            61: 73,
+            62: 163,
+            63: 30,
+            64: 110,
+            65: 84,
+            66: 44,
+            67: 83,
+            68: 40,
+            69: 33,
+            70: 88,
+            71: 105,
+            72: 61,
+            73: 41,
+            74: 51,
+            75: 13,
+            76: 21,
+            77: 36,
+            78: 46,
+            79: 65,
+        },
+    }
+    util.get_word_diagnostic(outer_dictionary)
