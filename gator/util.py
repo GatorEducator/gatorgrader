@@ -58,7 +58,7 @@ def get_symbol_answer(boolean_value):
 
 
 def get_first_value_deep(input_dictionary, finder=min):
-    """Iteratively return values matched by a finder function."""
+    """Iteratively return deep values matched by a finder function."""
     filename_count_dictionary = {}
     for filename, paragraph_count_dictionary in input_dictionary.items():
         filename_minimum = get_first_value(paragraph_count_dictionary, finder)
