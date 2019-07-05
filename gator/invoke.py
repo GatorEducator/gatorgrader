@@ -212,7 +212,9 @@ def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=Fals
             + "paragraph(s)"
         )
     # produce the diagnostic and report the result
-    flat_actual_count_dictionary = util.flatten_dictionary_values(actual_count_dictionary)
+    flat_actual_count_dictionary = util.flatten_dictionary_values(
+        actual_count_dictionary
+    )
     fragment_diagnostic = util.get_file_diagnostic(flat_actual_count_dictionary)
     diagnostic = (
         "Found "
