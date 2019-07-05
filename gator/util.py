@@ -63,10 +63,9 @@ def flatten_dictionary_values(input_dictionary):
     for filename, file_count_dictionary in input_dictionary.items():
         # the internal dictionary will have a single key,value pair
         # extract the value and then store it in the flat_dictionary
-        for key in file_count_dictionary:
-            extracted_value = file_count_dictionary[key]
-            flat_dictionary[filename] = extracted_value
-            break
+        key = next(iter(file_count_dictionary))
+        extracted_value = file_count_dictionary[key]
+        flat_dictionary[filename] = extracted_value
     return flat_dictionary
 
 
