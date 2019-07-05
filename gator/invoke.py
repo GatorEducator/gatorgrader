@@ -241,13 +241,21 @@ def invoke_all_word_count_checks(
     # This diagnostic signals the fact that there was at least
     # a single paragraph that had a word count below the standard
     # set for all of the paragraphs in the technical writing
-    word_diagnostic = util.get_word_diagnostic(actual_count_dictionary)
+    # across all of the files specified (i.e., those matched by wildcards)
+    word_diagnostic, filename = util.get_word_diagnostic(actual_count_dictionary)
+    # there is no need for a filename diagnostic unless there are multiple results
+    filename_diagnostic = ""
+    # there is a filename, which means that there was a wildcard specified
+    # and thus this diagnostic is for one file; give name at the end
+    if filename:
+        filename_diagnostic = "of file" + constants.markers.Space + filename
     diagnostic = (
         "Found "
         + str(actual_count)
         + constants.markers.Space
         + conclusion.replace(constants.words.In_Every, word_diagnostic)
         + constants.markers.Space
+        + filename_diagnostic
     )
     report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
