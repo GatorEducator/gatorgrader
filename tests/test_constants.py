@@ -20,6 +20,7 @@ def test_markers_constant_defined():
     assert constants.markers.No_Diagnostic == ""
     assert constants.markers.Nothing == ""
     assert constants.markers.Space == " "
+    assert constants.markers.Of_File == "of file"
     assert constants.markers.File == "in a file"
     assert constants.markers.First == 1
     assert constants.markers.Invalid == -1
@@ -119,6 +120,8 @@ def test_markers_constant_cannot_redefine():
         constants.markers.Space = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
         constants.markers.Tab = CANNOT_SET_CONSTANT_VARIABLE
+    with pytest.raises(AttributeError):
+        constants.markers.Of_File = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
         constants.markers.File = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
