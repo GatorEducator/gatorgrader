@@ -219,16 +219,18 @@ def test_find_minimum_in_dictionary_multiple_min():
 
 def test_word_diagnostic_single_min_first():
     """Check to see if diagnostic is produced with a single minimum value."""
-    word_count_dictionary = {1: 4, 2: 5, 3: 10}
+    word_count_dictionary_file_one = {1: 4, 2: 5, 3: 10}
+    word_count_dictionary = {"file_one": word_count_dictionary_file_one}
     word_diagnostic = util.get_word_diagnostic(word_count_dictionary)
-    assert word_diagnostic == "in the first"
+    assert word_diagnostic[0] == "in the first"
 
 
 def test_word_diagnostic_single_min_last():
     """Check to see if diagnostic is produced with a single minimum value."""
-    word_count_dictionary = {1: 10, 2: 5, 3: 4}
+    word_count_dictionary_file_one = {1: 10, 2: 5, 3: 4}
+    word_count_dictionary = {"file_one": word_count_dictionary_file_one}
     word_diagnostic = util.get_word_diagnostic(word_count_dictionary)
-    assert word_diagnostic == "in the third"
+    assert word_diagnostic[0] == "in the third"
 
 
 def test_word_diagnostic_empty_dictionary():
