@@ -237,7 +237,7 @@ def test_word_diagnostic_empty_dictionary():
     """Check to see if diagnostic is produced with an empty dictionary."""
     word_count_dictionary = {}
     word_diagnostic = util.get_word_diagnostic(word_count_dictionary)
-    assert word_diagnostic == ""
+    assert word_diagnostic == ("", "")
 
 
 def test_find_minimum_in_dictionary_single_max_deep():
