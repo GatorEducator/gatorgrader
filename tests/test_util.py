@@ -250,11 +250,13 @@ def test_find_minimum_in_dictionary_single_max_deep():
         "input_file_two": input_file_two,
         "input_file_three": input_file_three,
     }
-    util.get_first_maximum_value_deep(outer_dictionary)
+    found = util.get_first_maximum_value_deep(outer_dictionary)
+    assert found[0] == "input_file_one"
+    assert found[1] == ("Mike", 52)
 
 
 def test_find_minimum_in_dictionary_single_max_deep_words():
-    """Check to see if diagnostic is produced with a single minimum value."""
+    """Check if the minimum value is found in a dictionary deep."""
     input_file_one = {1: 10, 2: 5, 3: 4}
     input_file_two = {1: 10, 2: 5, 3: 4}
     input_file_three = {1: 10, 2: 5, 3: 1}
@@ -263,7 +265,9 @@ def test_find_minimum_in_dictionary_single_max_deep_words():
         "input_file_two": input_file_two,
         "input_file_three": input_file_three,
     }
-    util.get_first_minimum_value_deep(outer_dictionary)
+    found = util.get_first_minimum_value_deep(outer_dictionary)
+    assert found[0] == "input_file_three"
+    assert found[1] == (3, 1)
 
 
 def test_find_minimum_in_dictionary_single_max_deep_words_diagnostic():
