@@ -141,7 +141,8 @@ def get_word_diagnostic(word_count_dictionary):
         return paragraph_number_as_word_phrase, filename_for_paragraph_number_details
     # since there are no paragraphs and no counts of words because the dictionary
     # is empty, return the empty string instead of a diagnostic phrase
-    return constants.markers.Nothing
+    # for both the paragraph number as word phrase and the filename
+    return constants.markers.Nothing, constants.markers.Nothing
 
 
 def get_file_diagnostic(file_count_dictionary):
