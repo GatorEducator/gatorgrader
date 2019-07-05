@@ -23,6 +23,7 @@
 #             * coms (add or modify code documentation)
 #             * style (improve code or doc formatting)
 #             * refactor (improve the code, no new features)
+#             * perf (improve performance, no new features)
 #             * test (add or modify test(s))
 #             * chore (maintenance or infrastructure)
 #       + <scope> can be anything specifying commit change place
