@@ -2,6 +2,7 @@
 
 import re
 
+from gator import constants
 
 # References for the regular expressions:
 # https://stackoverflow.com/questions/15423658/regular-expression-for-single-line-comments
@@ -25,7 +26,8 @@ def count_singleline_java_comment(contents):
     """Count the number of singleline Java comments in the code."""
     pattern = re.compile(SINGLELINECOMMENT_RE_JAVA, re.MULTILINE | re.VERBOSE)
     matches = pattern.findall(contents)
-    return len(matches), {}
+    matches_count = len(matches)
+    return matches_count, {constants.markers.First: matches_count}
 
 
 def count_singleline_python_comment(contents):
