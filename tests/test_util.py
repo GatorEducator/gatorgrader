@@ -143,7 +143,6 @@ def test_flatten_dictionary():
         "repository.py": {1: 18},
     }
     flat_input_dictionary = util.flatten_dictionary_values(input_dictionary)
-    print(flat_input_dictionary)
     assert flat_input_dictionary["leave.py"] == 4
     assert flat_input_dictionary["run.py"] == 8
 
