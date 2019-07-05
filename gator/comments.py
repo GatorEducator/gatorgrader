@@ -34,18 +34,21 @@ def count_singleline_python_comment(contents):
     """Count the number of singleline Python comments in the code."""
     pattern = re.compile(SINGLELINECOMMENT_RE_PYTHON, re.MULTILINE)
     matches = pattern.findall(contents)
-    return len(matches), {}
+    matches_count = len(matches)
+    return matches_count, {constants.markers.First: matches_count}
 
 
 def count_multiline_java_comment(contents):
     """Count the number of multiline Java comments in the code."""
     pattern = re.compile(MULTILINECOMMENT_RE_JAVA, re.MULTILINE)
     matches = pattern.findall(contents)
-    return len(matches), {}
+    matches_count = len(matches)
+    return matches_count, {constants.markers.First: matches_count}
 
 
 def count_multiline_python_comment(contents):
     """Count the number of multiline Python comments in the code."""
     pattern = re.compile(MULTILINECOMMENT_RE_PYTHON, re.MULTILINE | re.DOTALL)
     matches = pattern.findall(contents)
-    return len(matches), {}
+    matches_count = len(matches)
+    return matches_count, {constants.markers.First: matches_count}
