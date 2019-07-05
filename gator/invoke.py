@@ -181,9 +181,11 @@ def invoke_all_comment_checks(
 def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=False):
     """Perform the paragraph check and return the results."""
     met_or_exceeded_count = 0
-    met_or_exceeded_count, actual_count, _ = entities.entity_greater_than_count(
+    met_or_exceeded_count, actual_count, actual_count_dictionary = entities.entity_greater_than_count(
         filecheck, directory, expected_count, fragments.count_paragraphs, exact
     )
+    # print("actual_count_dictionary")
+    # print(actual_count_dictionary)
     # create the message and the diagnostic
     if not exact:
         # create an "at least" message, which is the default
@@ -209,8 +211,20 @@ def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=Fals
             + constants.markers.Space
             + "paragraph(s)"
         )
+    # produce the diagnostic and report the result
+    flat_actual_count_dictionary = util.flatten_dictionary_values(actual_count_dictionary)
+    fragment_diagnostic = util.get_file_diagnostic(flat_actual_count_dictionary)
+    diagnostic = (
+        "Found "
+        + str(actual_count)
+        + constants.markers.Space
+        + "paragraph(s)"
+        + constants.markers.Space
+        + fragment_diagnostic
+        + constants.markers.Space
+        + constants.markers.File
+    )
     # create the diagnostic and then report the result
-    diagnostic = "Found " + str(actual_count) + " paragraph(s) in the specified file"
     report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
