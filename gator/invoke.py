@@ -78,11 +78,12 @@ def invoke_all_comment_checks(
     """Perform the comment check and return the results."""
     met_or_exceeded_count = 0
     actual_count = 0
+    comment_count_details = {}
     # check single-line comments
     if comment_type == constants.comments.Single_Line:
         # check comments in Java
         if language == constants.languages.Java:
-            met_or_exceeded_count, actual_count, _ = entities.entity_greater_than_count(
+            met_or_exceeded_count, actual_count, comment_count_details = entities.entity_greater_than_count(
                 filecheck,
                 directory,
                 expected_count,
@@ -91,7 +92,7 @@ def invoke_all_comment_checks(
             )
         # check comments in Python
         if language == constants.languages.Python:
-            met_or_exceeded_count, actual_count, _ = entities.entity_greater_than_count(
+            met_or_exceeded_count, actual_count, comment_count_details = entities.entity_greater_than_count(
                 filecheck,
                 directory,
                 expected_count,
@@ -158,8 +159,22 @@ def invoke_all_comment_checks(
             + " comment(s)"
         )
     # create the diagnostic and the report the result
-    diagnostic = "Found " + str(actual_count) + " comment(s) in the specified file"
+    # produce the diagnostic and report the result
+    flat_comment_count_details = util.flatten_dictionary_values(comment_count_details)
+    fragment_diagnostic = util.get_file_diagnostic(flat_comment_count_details)
+    diagnostic = (
+        "Found "
+        + str(actual_count)
+        + constants.markers.Space
+        + "fragment(s)"
+        + constants.markers.Space
+        + fragment_diagnostic
+        + constants.markers.Space
+        + "or the output"
+    )
     report_result(met_or_exceeded_count, message, diagnostic)
+    # diagnostic = "Found " + str(actual_count) + " comment(s) in the specified file"
+    # report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
 
