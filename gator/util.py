@@ -168,4 +168,4 @@ def get_file_diagnostic(file_count_dictionary):
         return file_name_phrase
     # since there are no file names and no counts of entities because the dictionary
     # is empty, return the "in a file" string instead of a diagnostic phrase
-    return constants.markers.File
+    return constants.markers.In_A_File
