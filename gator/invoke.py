@@ -249,11 +249,15 @@ def invoke_all_word_count_checks(
     # and thus this diagnostic is for one file; give name at the end
     if filename:
         filename_diagnostic = "of file" + constants.markers.Space + filename
+    # since there is a word_diagnostic, add it to the conclusion of diagnostic
+    # otherwise, the conclusion will always contain "in every"
+    if word_diagnostic:
+        conclusion = conclusion.replace(constants.words.In_Every, word_diagnostic)
     diagnostic = (
         "Found "
         + str(actual_count)
         + constants.markers.Space
-        + conclusion.replace(constants.words.In_Every, word_diagnostic)
+        + conclusion
         + constants.markers.Space
         + filename_diagnostic
     )
