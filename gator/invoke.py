@@ -103,7 +103,7 @@ def invoke_all_comment_checks(
     elif comment_type == constants.comments.Multiple_Line:
         # check comments in Java
         if language == constants.languages.Java:
-            met_or_exceeded_count, actual_count, _ = entities.entity_greater_than_count(
+            met_or_exceeded_count, actual_count, comment_count_details = entities.entity_greater_than_count(
                 filecheck,
                 directory,
                 expected_count,
@@ -112,7 +112,7 @@ def invoke_all_comment_checks(
             )
         # check comments in Python
         if language == constants.languages.Python:
-            met_or_exceeded_count, actual_count, _ = entities.entity_greater_than_count(
+            met_or_exceeded_count, actual_count, comment_count_details = entities.entity_greater_than_count(
                 filecheck,
                 directory,
                 expected_count,
