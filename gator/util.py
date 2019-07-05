@@ -57,6 +57,16 @@ def get_symbol_answer(boolean_value):
     return "✘"
 
 
+def get_first_value_deep(input_dictionary, finder=min):
+    """Iteratively return values matched by a finder function."""
+    filename_count_dictionary = {}
+    for filename, paragraph_count_dictionary in input_dictionary.items():
+        filename_minimum = get_first_value(paragraph_count_dictionary, finder)
+        filename_count_dictionary[filename] = filename_minimum
+    outer_found_value = get_first_value(filename_count_dictionary, finder)
+    return outer_found_value
+
+
 def get_first_value(input_dictionary, finder=min):
     """Return the values matched by a finder function."""
     # pick the key and value that is matched by the finder
@@ -78,6 +88,16 @@ def get_first_maximum_value(input_dictionary):
 def get_first_minimum_value(input_dictionary):
     """Return the first minimum value."""
     return get_first_value(input_dictionary, min)
+
+
+def get_first_maximum_value_deep(input_dictionary):
+    """Return the first maximum value deep."""
+    return get_first_value_deep(input_dictionary, max)
+
+
+def get_first_minimum_value_deep(input_dictionary):
+    """Return the first minimum value deep."""
+    return get_first_value_deep(input_dictionary, min)
 
 
 def is_json(potential_json):
@@ -108,13 +128,17 @@ def get_word_diagnostic(word_count_dictionary):
     # create a diagnostics like "in the third paragraph" based on the dictionary
     # that contains the words counts in each of the paragraphs of a document
     if word_count_dictionary:
-        paragraph_number_details = get_first_minimum_value(word_count_dictionary)
+        paragraph_number_details_list = get_first_minimum_value_deep(
+            word_count_dictionary
+        )
+        filename_for_paragraph_number_details = paragraph_number_details_list[0]
+        paragraph_number_details = paragraph_number_details_list[1]
         paragraph_number = paragraph_number_details[0]
         paragraph_number_as_word = get_number_as_words(paragraph_number)
         paragraph_number_as_word_phrase = (
             constants.words.In_The + constants.markers.Space + paragraph_number_as_word
         )
-        return paragraph_number_as_word_phrase
+        return paragraph_number_as_word_phrase, filename_for_paragraph_number_details
     # since there are no paragraphs and no counts of words because the dictionary
     # is empty, return the empty string instead of a diagnostic phrase
     return constants.markers.Nothing
