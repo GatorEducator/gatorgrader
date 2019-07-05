@@ -248,7 +248,9 @@ def invoke_all_word_count_checks(
     # there is a filename, which means that there was a wildcard specified
     # and thus this diagnostic is for one file; give name at the end
     if filename:
-        filename_diagnostic = constants.markers.Of_File + constants.markers.Space + filename
+        filename_diagnostic = (
+            constants.markers.Of_File + constants.markers.Space + filename
+        )
     # since there is a word_diagnostic, add it to the conclusion of diagnostic
     # otherwise, the conclusion will always contain "in every"
     if word_diagnostic:
