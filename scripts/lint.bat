@@ -49,6 +49,15 @@ if ERRORLEVEL 1 (
     echo -- Passed
 )
 
+echo -- Running radon cc
+pipenv run radon cc %FILES%
+if ERRORLEVEL 1 (
+    echo -- Failed
+    set PASSED=false
+) else (
+    echo -- Passed
+)
+
 if "%PASSED%"=="true" (
     exit /b 0
 ) else (
