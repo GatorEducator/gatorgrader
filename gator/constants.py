@@ -29,6 +29,9 @@ comments = create_constants(
 # define the environment variables for the program
 environmentvariables = create_constants("environmentvariables", Home="GATORGRADER_HOME")
 
+# define reference function names in the program
+functions = create_constants("functions", Count_Total_Words="count_total_words")
+
 # define the programming languages for comment checks
 languages = create_constants("languages", "Java", "Python")
 
