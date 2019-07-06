@@ -40,15 +40,6 @@ if ERRORLEVEL 1 (
     echo -- Passed
 )
 
-echo -- Running bandit
-pipenv run bandit -c bandit.yml %FILES%
-if ERRORLEVEL 1 (
-    echo -- Failed
-    set PASSED=false
-) else (
-    echo -- Passed
-)
-
 echo -- Running pydocstyle
 pipenv run pydocstyle %FILES%
 if ERRORLEVEL 1 (
