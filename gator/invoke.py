@@ -433,12 +433,6 @@ def invoke_all_regex_checks(
         contents,
         exact,
     )
-    print("met_or_exceeded_count")
-    print(met_or_exceeded_count)
-    print("actual_count")
-    print(actual_count)
-    print("actual_count_dictionary")
-    print(actual_count_dictionary)
     # create a message for a file in directory
     if (
         filecheck is not constants.markers.Nothing
@@ -494,11 +488,25 @@ def invoke_all_regex_checks(
                 + regex
                 + "' regular expression"
             )
+    # only construct a diagnostic for a file if needed
+    conclusion = ""
+    # use the default name of the file
+    violating_file_name = filecheck
+    # since a wildcard was specified, pick the file that most violates the check
+    if actual_count_dictionary and filecheck is not constants.markers.Nothing:
+        violating_entity_details = util.get_first_value(actual_count_dictionary)
+        violating_file_name = violating_entity_details[0]
+    # create a conclusion to tag onto the diagnostic's ending
+    if filecheck is not constants.markers.Nothing:
+        conclusion = "or " + violating_file_name
     # create the diagnostic message and report the result
     diagnostic = (
         "Found "
         + str(actual_count)
-        + " matches of the regular expression in output or specified file"
+        + constants.markers.Space
+        + "match(es) of the regular expression in output"
+        + constants.markers.Space
+        + conclusion
     )
     report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
