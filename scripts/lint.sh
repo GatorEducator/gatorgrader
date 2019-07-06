@@ -37,6 +37,9 @@ MODULE="gator"
 #   --> cc is for calculating cyclomatic complexity
 #   --> mi is for calculating maintainability index
 # - xenon returns an error code for code quality thresholds
+#   --> absolute: worst tolerable score for a function or block
+#   --> modules: worst tolerable score for a module
+#   --> average: worst tolerable average score across a module
 
 # define all of the linters to iteratively run
 declare -A LINTERS
