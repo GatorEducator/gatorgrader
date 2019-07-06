@@ -97,6 +97,11 @@ def test_environmentvariables_constant_defined():
     assert constants.environmentvariables.Home == "GATORGRADER_HOME"
 
 
+def test_functions_constant_defined():
+    """Check correctness for the variables in the functions constant."""
+    assert constants.functions.Count_Total_Words == "count_total_words"
+
+
 def test_languages_constant_cannot_redefine():
     """Check cannot redefine the variables in the languages constant."""
     with pytest.raises(AttributeError):
