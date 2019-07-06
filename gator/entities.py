@@ -1,7 +1,8 @@
 """Count entities with provided functions."""
 
-from gator import util
+from gator import constants
 from gator import files
+from gator import util
 
 
 # pylint: disable=bad-continuation
@@ -65,7 +66,7 @@ def count_entities(given_file, containing_directory, checking_function):
     file_contents_count_overall = file_contents_count
     # there is a dictionary of counts for files, so deeply find the minimum
     # as long as the count is not of the total words in a file or output
-    if file_counts_dictionary and checking_function.__name__ != "count_total_words":
+    if file_counts_dictionary and checking_function.__name__ != constants.functions.Count_Total_Words:
         file_contents_count_overall = util.get_first_minimum_value_deep(
             file_counts_dictionary
         )[1][1]
