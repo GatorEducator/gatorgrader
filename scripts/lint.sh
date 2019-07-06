@@ -25,19 +25,22 @@ fi
 # lint all of the Python source code files
 FILES="$FILES *.py"
 
-# xenon cannot accept a lists of files, so give paths instead
-PATHS="gator tests"
+# xenon cannot accept a lists of files or directories,
+# so give the directory of the main module instead
+MODULE="gator"
 
 # Notes about the linters run on Linux and MacOS:
 # - black checks and fixes Python code formatting
 # - pylint and flake8 check Python code
 # - bandit finds security problems in Python code
 # - radon checks code quality for diagnostic purposes
+#   --> cc is for calculating cyclomatic complexity
+#   --> mi is for calculating maintainability index
 # - xenon returns an error code for code quality thresholds
 
 # define all of the linters to iteratively run
 declare -A LINTERS
-LINTERS=( ["black"]="pipenv run black $CHECK $FILES" ["pylint"]="pipenv run pylint $FILES" ["flake8"]="pipenv run flake8 $FILES" ["bandit"]="pipenv run bandit -c bandit.yml $FILES" ["radon"]="pipenv run radon mi $FILES" ["xenon"]="pipenv run xenon --max-absolute D --max-modules B --max-average B -c $PATHS" ["pydocstyle"]="pipenv run pydocstyle $FILES" )
+LINTERS=( ["black"]="pipenv run black $CHECK $FILES" ["pylint"]="pipenv run pylint $FILES" ["flake8"]="pipenv run flake8 $FILES" ["bandit"]="pipenv run bandit -c bandit.yml $FILES" ["radon-cc"]="pipenv run radon cc $FILES" ["radon-mi"]="pipenv run radon mi $FILES" ["xenon"]="pipenv run xenon --max-absolute D --max-modules B --max-average B $MODULE" ["pydocstyle"]="pipenv run pydocstyle $FILES" )
 
 # run each of the already configured linters
 for tool in "${!LINTERS[@]}"; do
