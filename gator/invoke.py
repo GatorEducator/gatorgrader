@@ -433,6 +433,12 @@ def invoke_all_regex_checks(
         contents,
         exact,
     )
+    print("met_or_exceeded_count")
+    print(met_or_exceeded_count)
+    print("actual_count")
+    print(actual_count)
+    print("actual_count_dictionary")
+    print(actual_count_dictionary)
     # create a message for a file in directory
     if (
         filecheck is not constants.markers.Nothing
@@ -492,7 +498,7 @@ def invoke_all_regex_checks(
     diagnostic = (
         "Found "
         + str(actual_count)
-        + " matches of the specified regular expression in the output or the specified file"
+        + " matches of the regular expression in output or specified file"
     )
     report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
