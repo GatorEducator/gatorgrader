@@ -28,7 +28,7 @@ FILES="$FILES *.py"
 # xenon cannot accept a lists of files, so give paths instead
 PATHS="gator tests"
 
-# Notes about the linters:
+# Notes about the linters run on Linux and MacOS:
 # - black checks and fixes Python code formatting
 # - pylint and flake8 check Python code
 # - bandit finds security problems in Python code
