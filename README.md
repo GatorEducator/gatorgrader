@@ -1,4 +1,4 @@
-# Gator Grader
+# GatorGrader
 
 ![Image of Logo](https://raw.githubusercontent.com/GatorEducator/gatorgrader/master/.github/gatorgraderlogo.png)
 
