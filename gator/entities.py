@@ -24,6 +24,8 @@ def count_entities(given_file, containing_directory, checking_function):
     """Count the number of entities for the file(s) in the directory."""
     # create an empty dictionary of filenames and an internal dictionary
     file_counts_dictionary = {}
+    # if the file is not found in the directory, the count is zero
+    file_contents_count = 0
     # create a path for the given file and its containing directory
     # note that this call does not specify any *args and thus there
     # are no directories between the home directory and the file
@@ -60,11 +62,12 @@ def count_entities(given_file, containing_directory, checking_function):
             ] = file_contents_count_dictionary
     # find the minimum count for all paragraphs across all of the files
     # assume that nothing was found and the count is zero and prove otherwise
-    file_contents_count_overall = 0
+    file_contents_count_overall = file_contents_count
     # there is a dictionary of counts for files, so deeply find the minimum
-    if file_counts_dictionary:
+    # as long as the count is not of the total words in a file or output
+    if file_counts_dictionary and checking_function.__name__ != "count_total_words":
         file_contents_count_overall = util.get_first_minimum_value_deep(
             file_counts_dictionary
         )[1][1]
-    # return the overall minimum count and the nested file count dictionary
+    # return the overall requested count and the nested file count dictionary
     return file_contents_count_overall, file_counts_dictionary
