@@ -173,12 +173,12 @@ pipenv run lint --check
 ## Running GatorGrader
 
 Students and instructors most commonly use GatorGrader through its [Gradle
-plugin](https://github.com/GatorEducator/gatorgradle). If you want to run
-GatorGrader, After installing
-GatorGrader's application dependencies with Pipenv, you can learn about the
-supported checks and their defaults by typing `pipenv run python3 gatorgrader.py
---help` in a terminal window. GatorGrader employs many checks to ensure that you
-configure it with the correct command-line arguments.
+plugin](https://github.com/GatorEducator/gatorgradle), specify the requested
+checks in a `config/gatorgrader.yml` file. If you want to run GatorGrader as a
+stand-along Python application, you should first install it's application
+dependencies with Pipenv and then learn about the supported checks and their
+defaults by typing `pipenv run python3 gatorgrader.py --help` in a terminal
+window.
 
 ## GatorGrader in Action
 
