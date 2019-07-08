@@ -12,17 +12,20 @@ The only tool you'll need to ensure your student's code and writing is up to spe
 
 ## Table of Contents
 
-- [Quickstart Guide](#quickstart-guide)
-- [Key Features](#key-features)
-- [What Do People Think about GatorGrader?](#what-do-people-think-about-gatorgrader)
-- [Installing GatorGrader](#installing-gatorgrader)
-- [Testing GatorGrader](#testing-gatorgrader)
-- [Running GatorGrader](#running-gatorgrader)
-- [GatorGrader in Action](#gatorgrader-in-action)
-- [Comparison to Existing Tools](#comparison-to-existing-tools)
-- [Presentations](#presentations)
-- [Contributing](#contributing)
-- [Contributors](#contributors)
+* [Table of Contents](#table-of-contents)
+* [Quickstart Guide](#quickstart-guide)
+* [Key Features](#key-features)
+* [What Do People Think about GatorGrader?](#what-do-people-think-about-gatorgrader)
+* [Installing GatorGrader](#installing-gatorgrader)
+* [Testing GatorGrader](#testing-gatorgrader)
+  + [Automated Testing](#automated-testing)
+  + [Test Coverage](#test-coverage)
+  + [Code Linting](#code-linting)
+* [Running GatorGrader](#running-gatorgrader)
+* [Comparison to Existing Tools](#comparison-to-existing-tools)
+* [Presentations](#presentations)
+* [Contributing](#contributing)
+* [Contributors](#contributors)
 
 ## Quickstart Guide
 
@@ -140,6 +143,8 @@ successfully, you have officially installed GatorGrader!
 
 ## Testing GatorGrader
 
+### Automated Testing
+
 The developers use [Pytest](https://docs.pytest.org/en/latest/) for testing
 GatorGrader. Depending on your goals, there are several different configurations
 in which you can run the provided test suite. If you want to run the test suite
@@ -150,6 +155,8 @@ terminal window.
 pipenv run test
 ```
 
+### Test Coverage
+
 Along with running the test suite, the developers of GatorGrader used statement
 and branch coverage to inform their testing activities. To see the current
 coverage of the tests while also highlighting the lines that are not currently
@@ -158,6 +165,8 @@ covered by the tests, you can type this command in a terminal window.
 ```bash
 pipenv run cover
 ```
+
+### Code Linting
 
 The developers of GatorGrader use linting and code formatting tools, such as
 [Pylint](https://github.com/PyCQA/pylint),
@@ -172,7 +181,7 @@ pipenv run lint --check
 
 ## Running GatorGrader
 
-Students and instructors most commonly use GatorGrader through its [Gradle
+Students and instructors normally use GatorGrader through its [Gradle
 plugin](https://github.com/GatorEducator/gatorgradle), specify the requested
 checks in a `config/gatorgrader.yml` file. When run through Gradle, GatorGrader
 reports each check that it performed, additionally sharing a diagnostic message
@@ -182,9 +191,7 @@ dependencies with Pipenv and then learn about the supported checks and their
 defaults by typing `pipenv run python3 gatorgrader.py --help` in a terminal
 window.
 
-## GatorGrader in Action
-
-Instructors commonly use GatorGrader in conjunction with other tools that check
+Instructors often run GatorGrader in conjunction with other tools that check
 source code and technical writing. For instance, in the Java-based introductory
 Computer Science classes at the institution of the developers, the submissions
 are verified by [Checkstyle](https://github.com/checkstyle/checkstyle), thereby
@@ -194,10 +201,10 @@ files that contain writing must meet the standards described in the [Markdown
 Syntax Guide](https://guides.github.com/features/mastering-markdown/), meaning
 that all Markdown files must pass the checks performed by the [Markdown linting
 tool](https://github.com/markdownlint/markdownlint). These assignments also
-require that all submitted technical writing adheres to the standards set by the
-[Proselint tool](http://proselint.com/). Since GatorGrader can run an arbitrary
-command and check its error code, it is also possible to integrate it with a
-wide variety of other linters and code formatters.
+require that all submitted technical writing adheres to the standards set by
+the [Proselint tool](http://proselint.com/). Since GatorGrader can run an
+arbitrary command and check its error code, it is also possible to integrate it
+with a wide variety of other linters and code formatters.
 
 ## Comparison to Existing Tools
 
