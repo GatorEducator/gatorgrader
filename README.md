@@ -78,19 +78,19 @@ Classroom](https://classroom.github.com/). Feedback from the teaching assistants
 and students who use GatorGrader has been positive. Here is what people think
 about GatorGrader!
 
-> This tool suite made it easier for me to talk with students about
-> technical requirements. It helped me to make complex assignments
-> more accessible to students. **Maria Kim**
+> This tool suite made it easier for me to talk with students about technical
+> requirements. It helped me to make complex assignments more accessible to
+> students. **Maria Kim**, teaching assistant
 
 <!-- -->
-> GatorGrader encouraged me to add better code comments and try out
-> language constructs that I would not have otherwise investigated.
-> The tool was a big help this semester! **Samatha Darris**
+> GatorGrader encouraged me to add better code comments and try out language
+> constructs that I would not have otherwise investigated. The tool was a big
+> help this semester! **Samatha Darris**, student
 
 <!-- -->
-> GatorGrader is like having a constant coach! I liked receiving
-> feedback on the quality of my source code and writing before
-> turning in the final version of my lab. **Anna Yeager**
+> GatorGrader is like having a constant coach! I liked receiving feedback on the
+> quality of my source code and writing before turning in the final version of
+> my lab. **Anna Yeager**, student
 
 ## Installing GatorGrader
 
