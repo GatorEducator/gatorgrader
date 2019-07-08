@@ -182,25 +182,20 @@ window.
 
 ## GatorGrader in Action
 
-GatorGrader is commonly used in conjunction with other tools that check source
-code and technical writing. For instance, in the introductory Computer Science
-classes at the institution of the developers, the submissions are verified by
-[Checkstyle](https://github.com/checkstyle/checkstyle) and thus the Java source
-code must adhere to all of the requirements in the [Google Java Style
-Guide](https://google.github.io/styleguide/javaguide.html). Moreover, Markdown
+Instructors commonly use GatorGrader in conjunction with other tools that check
+source code and technical writing. For instance, in the Java-based introductory
+Computer Science classes at the institution of the developers, the submissions
+are verified by [Checkstyle](https://github.com/checkstyle/checkstyle), thereby
+ensuring that the Java source code adheres to the requirements in the [Google
+Java Style Guide](https://google.github.io/styleguide/javaguide.html). Markdown
 files that contain writing must meet the standards described in the [Markdown
 Syntax Guide](https://guides.github.com/features/mastering-markdown/), meaning
 that all Markdown files must pass the checks performed by the [Markdown linting
-tool](https://github.com/markdownlint/markdownlint). Finally, all submitted
-technical writing must adhere to the writing standards set by the [Proselint
-tool](http://proselint.com/).
-
-The solution repositories for the laboratory and practical assignments in
-Computer Science courses at Allegheny College are kept private. However, the
-"starter" repositories for assignments are publicly available so as to support
-their integration into [GitHub Classroom](https://classroom.github.com/). As
-GatorGrader continues to be adopted by more courses, we will expand this list of
-GitHub repositories that provide starting code templates.
+tool](https://github.com/markdownlint/markdownlint). These assignments also
+require that all submitted technical writing adheres to the standards set by the
+[Proselint tool](http://proselint.com/). Since GatorGrader can run arbitrary an
+command and check its error code, it is also possible to integrate it with a
+wide variety of other linters and code formatters.
 
 ## Comparison to Existing Tools
 
