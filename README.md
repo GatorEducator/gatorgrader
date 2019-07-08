@@ -21,39 +21,43 @@ and documentation for different languages:
 [Java](https://github.com/GatorEducator/java-starter),
 [LaTeX](https://github.com/GatorEducator/latex-assignment-starter), and [HTML
 with CSS](https://github.com/GatorEducator/html-css-assignment-starter). These
-examples show how to integrate GatorGrader with
-[GitHub](https://classroom.github.com/) and [Travis CI](https://travis-ci.com/).
-Using GatorGrader with its Gradle plugin ensures that everything is installed
-automatically when you type `gradle grade` in your terminal window.
+examples show how to integrate GatorGrader with [GitHub
+Classroom](https://classroom.github.com/) and [Travis
+CI](https://travis-ci.com/). Using GatorGrader with its Gradle plugin ensures
+that everything is installed automatically when you type `gradle grade` in your
+terminal window.
 
 ## Key Features
 
-For instance:
+GatorGrader automatically checks the work of technical writers and programmers.
+It can:
 
-* Can automatically check and assess the work of writers and programmers.
+* Use its [Gradle plugin](https://github.com/GatorEducator/gatorgradle) to check
+  projects written in a wide variety of languages (e.g., Java, Python, LaTeX,
+  HTML, and CSS).
 
-* Can be used in conjunction with [GatorGradle](https://github.com/GatorEducator/gatorgradle)
-  to check Gradle projects
+* Integrate with [GitHub Classroom](https://classroom.github.com/) to check
+  solution and starter repositories created for professors and students,
+  respectively.
 
-* Can be used to check "solution" and "starter" GitHub Classroom repositories
+* Run in a cloud-based environment like [Travis CI](https://travis-ci.com/) or
+  on the command-line of a developer's workstation.
 
-* Can use GatorGrader in a cloud base environment (e.g. Travis CI) or through
-  command-line.
+* Operated as a "batteries included" grading tool, supporting automated checks
+  like the following:
 
-* Effectively integrates into many diverse workflows and development environments.
+  * Do files exist in the correct directories with the requested names?
 
-* Can be used with any text-based programming language or document.
+  * Does technical writing contain the desired number of words and paragraphs?
 
-* Can check for sentence fragments and text and regular expression fragments.
+  * Does source code contain the designated number of language-specific comments?
 
-* Can check to see if required files exist and are in the correct directory, and
-  that the directory exists.
+  * Does source code or technical writing contain required fragments or regular
+    expressions?
 
-* Can check for a specified number of single line or multi-line comments in source code.
+  * Does a command execute correctly and produce the expected output?
 
-* Can check the number of words and paragraphs in Markdown files.
-
-* Can check for a required minimum number of Git commits.
+  * Does a GitHub repository contain the anticipated number of commits?
 
 Designed for use with [GitHub](https://github.com/), [GitHub
 Classroom](https://classroom.github.com/), [Travis CI](https://travis-ci.com/),
