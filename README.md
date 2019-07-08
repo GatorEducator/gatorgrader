@@ -244,16 +244,18 @@ following list includes some of our recent presentations:
 
 Are you interested in contributing to
 [GatorGrader](https://github.com/GatorEducator/gatorgrader),
-[GatorGradle](https://github.com/GatorEducator/gatorgradle), or
-any of the sample labs ([Java](https://github.com/GatorEducator/java-assigment-starter), [LaTeX](https://github.com/GatorEducator/latex-assignment-starter), [HTML with CSS](https://github.com/GatorEducator/html-css-assignment-starter))?
-Our development team uses the [GitHub Flow
+[GatorGradle](https://github.com/GatorEducator/gatorgradle), or any of the
+sample labs ([Java](https://github.com/GatorEducator/java-assigment-starter),
+[LaTeX](https://github.com/GatorEducator/latex-assignment-starter), [HTML with
+CSS](https://github.com/GatorEducator/html-css-assignment-starter))? The
+development team uses the [GitHub Flow
 Model](https://guides.github.com/introduction/flow/) to guide our engineering of
 these tools and we invite you to also follow it as you make a contribution. Of
 course, if you have any problems with installing, testing, or using GatorGrader,
 then please raise an issue associated with this Git repository using the
-"Issues" link at the top of this site. The contributors to GatorGrader will do
-all that they can to resolve your issue and ensure that the entire tool works
-well in your teaching and development environment.
+"Issues" link at the top of this site. The maintainers of GatorGrader will do
+all that they can to resolve your issue and ensure that the tool works well in
+your teaching and development environment.
 
 ## Contributors
 
