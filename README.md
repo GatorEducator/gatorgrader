@@ -42,7 +42,7 @@ It can:
 * Run in a cloud-based environment like [Travis CI](https://travis-ci.com/) or
   on the command-line of a developer's workstation.
 
-* Operated as a "batteries included" grading tool, supporting automated checks
+* Operate as a "batteries included" grading tool, supporting automated checks
   like the following:
 
   * Do files exist in the correct directories with the requested names?
@@ -65,9 +65,8 @@ introductory and application-oriented classes using languages like Markdown,
 Java, Python, JavaScript, CSS, and HTML. GatorGrader does not aim to solve
 problems related to building and linting a project or managing an assignment's
 submission, instead integrating with systems like [Gradle](https://gradle.org/),
-[GitHub](https://github.com/), [GitHub
-Classroom](https://classroom.github.com/), and to effectively handle those
-tasks.
+[GitHub](https://github.com/), [GitHub Classroom](https://classroom.github.com/)
+to effectively handle those tasks.
 
 ## What Do People Think about GatorGrader?
 
