@@ -32,8 +32,8 @@ GatorGrader automatically checks the work of technical writers and programmers.
 It can:
 
 * Use its [Gradle plugin](https://github.com/GatorEducator/gatorgradle) to check
-  projects written in a wide variety of languages (e.g., Java, Python, LaTeX,
-  HTML, and CSS).
+  projects implemented and documented in a wide variety of languages (e.g.,
+  Java, Python, LaTeX, Markdown, HTML, and CSS).
 
 * Integrate with [GitHub Classroom](https://classroom.github.com/) to check
   solution and starter repositories created for professors and students,
@@ -45,16 +45,20 @@ It can:
 * Operate as a "batteries included" grading tool, supporting automated checks
   like the following:
 
-  * Do files exist in the correct directories with the requested names?
+  * Does a file exist in the correct directory with the requested name?
 
   * Does technical writing contain the desired number of words and paragraphs?
 
   * Does source code contain the designated number of language-specific comments?
 
-  * Does source code or technical writing contain required fragments or regular
-    expressions?
+  * Does source code or technical writing contain a required fragment or match
+    specified a regular expression?
 
-  * Does a command execute correctly and produce the expected output?
+  * Does a command execute correctly and produce the expected number of output
+    lines?
+
+  * Does a command execute and produce output containing a fragment or matching
+    a regular expression?
 
   * Does a GitHub repository contain the anticipated number of commits?
 
