@@ -10,6 +10,20 @@ The only tool you'll need to ensure your student's code and writing is up to spe
 
 [![Build Status](https://api.travis-ci.org/GatorEducator/gatorgrader.svg?branch=master)](https://travis-ci.org/GatorEducator/gatorgrader) [![Windows Build Status](https://ci.appveyor.com/api/projects/status/github/gatoreducator/gatorgrader?branch=master&svg=true)](https://ci.appveyor.com/project/GatorEducator/gatorgrader/branch/master) [![codecov.io](http://codecov.io/github/GatorEducator/gatorgrader/coverage.svg?branch=master)](http://codecov.io/github/GatorEducator/gatorgrader?branch=master) [![codacy.com](https://api.codacy.com/project/badge/Grade/3dade81be6dc467b8e34cde66eb5cdc6)](https://www.codacy.com/app/GatorEducator/gatorgrader?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=GatorEducator/gatorgrader&amp;utm_campaign=Badge_Grade) [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-orange.svg)](https://github.com/GatorEducator/gatorgrader/graphs/commit-activity) [![GitHub license](https://img.shields.io/github/license/GatorEducator/gatorgrader.svg)](https://github.com/GatorEducator/gatorgrader/blob/master/LICENSE.md) [![All Contributors](https://img.shields.io/badge/all_contributors-32-orange.svg?style=flat)](#contributors)
 
+## Table of Contents
+
+- [Quickstart Guide](#quickstart-guide)
+- [Key Features](#key-features)
+- [What Do People Think about GatorGrader?](#what-do-people-think-about-gatorgrader)
+- [Installing GatorGrader](#installing-gatorgrader)
+- [Testing GatorGrader](#testing-gatorgrader)
+- [Running GatorGrader](#running-gatorgrader)
+- [GatorGrader in Action](#gatorgrader-in-action)
+- [Comparison to Existing Tools](#comparison-to-existing-tools)
+- [Presentations](#presentations)
+- [Contributing](#contributing)
+- [Contributors](#contributors)
+
 ## Quickstart Guide
 
 Want to quickly get up and running with GatorGrader? If you have an existing
@@ -159,11 +173,13 @@ pipenv run lint --check
 
 ## Running GatorGrader
 
-GatorGrader can automatically perform simple checks on both writing and source
-code. You can learn about GatorGrader's checks and defaults by typing `pipenv
-run python3 gatorgrader.py --help` in your terminal window and/or following the
-provided link. GatorGrader employs many checks to ensure that you configure it
-with the correct command-line arguments.
+Students and instructors most commonly use GatorGrader through its [Gradle
+plugin](https://github.com/GatorEducator/gatorgradle). If you want to run
+GatorGrader, After installing
+GatorGrader's application dependencies with Pipenv, you can learn about the
+supported checks and their defaults by typing `pipenv run python3 gatorgrader.py
+--help` in a terminal window. GatorGrader employs many checks to ensure that you
+configure it with the correct command-line arguments.
 
 ## GatorGrader in Action
 
