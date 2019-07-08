@@ -219,14 +219,15 @@ Other automated grading tools include:
 - [WebCat](https://github.com/web-cat): "all-in-one plugin for full processing and feedback generation"
 
 Designed for instructors who want an alternative to simple scripts or
-stand-alone platforms that do not integrate with infrastructure like GitHub and
-Travis CI, GatorGrader is a tool that automatically checks the work of technical
-writers and programmers. Unlike other tools, GatorGrader provides a "batteries
-included" approach to automated grading that makes it easy for instructors to
-combine existing checks for projects implemented in a wide variety of
-programming languages. GatorGrader's developers take its engineering seriously,
-maintaining standards-compliant source code, a test suite with 100% statement
-and branch coverage, and top-notch source code and user documentation.
+stand-alone platforms that do not integrate with industry-standard
+infrastructure like GitHub and Travis CI, GatorGrader is a tool that
+automatically checks the work of technical writers and programmers. Unlike other
+systems, GatorGrader provides a "batteries included" approach to automated
+grading that makes it easy for instructors to combine existing checks for
+projects implemented in a wide variety of programming languages. GatorGrader's
+developers take its engineering seriously, maintaining standards-compliant
+source code, a test suite with 100% statement and branch coverage, and top-notch
+source code and user documentation.
 
 ## Presentations
 
