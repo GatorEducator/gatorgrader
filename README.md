@@ -208,38 +208,10 @@ with a wide variety of other linters and code formatters.
 
 ## Comparison to Existing Tools
 
-In today's world, there are so many new up and coming systems in the study of
-Computer Science. The most noticeable change is the amount of automated
-grading systems that are being created by schools and companies. Three that can
-be referenced when talking about GatorGrader are:
-
-1. [CS50 Harvard](https://github.com/cs50/check50)
-2. [Submitty](https://github.com/Submitty/Submitty)
-3. [Web Cat](https://github.com/web-cat/web-cat-plugin-JavaTddPlugin)
-
-When it comes to CS50 Harvard, the first step to a great program is
-documentation, however, that is what they are lacking but it is something that
-we can assure you is a priority on our side. It does not seem like CS50 is
-known for its integration within multiple classes or languages. It only makes
-direct references to the use in a CS50 class at Harvard and nothing about what
-languages that encompasses. However, when it comes to our tool GatorGrader,
-it can be used on classes that have languages such as Java, HTML, or even
-LaTex.
-
-For Submitty, there tool rather similar to ours. However, the one difference is
-that they are modeling more of a GitHub type of tool. In other words, they are
-modeling a system that will hold assignments and leave them there for grading.
-Besides questions that may already have programmed answers, other checks like
-those that accompany a test case being written, seem like they must be hand
-graded. Therefore, it eliminates the idea of an automated grading system.
-In contrast, GatorGrader does all the grading for you. You input checks into
-a `yml` file and when students submit their work, the checks are checked to see
-if they have been fulfilled. Therefore, eliminating the need for the professor
-to hand grade an assignment.
-
-Web Cat is a private grading system that one needs an account or access too.
-Therefore, it is impossible to be open for other users that do not have
-or specifically want Web Cat.
+- [check50](https://github.com/cs50/check50): "a tool for checking student code"
+- [Classroom Assistant](https://classroom.github.com/assistant): "desktop application to help you get student repositories for grading"
+- [Submitty](https://github.com/Submitty/Submitty): "homework submission, automated grading, and TA grading system"
+- [WebCat](https://github.com/web-cat): "full processing and feedback generation"
 
 ## Presentations
 
