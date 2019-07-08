@@ -81,6 +81,11 @@ Classroom](https://classroom.github.com/). Feedback from the teaching assistants
 and students who use GatorGrader has been positive. Here is what people think
 about GatorGrader!
 
+> GitHub Classroom, Travis CI, and GatorGrader made it easier for me to
+> effectively deliver programming labs in and introductory computer science
+> course. **Janyl Jumadinova**, instructor
+
+<!-- -->
 > This tool suite made it easier for me to talk with students about technical
 > requirements. It helped me to make complex assignments more accessible to
 > students. **Maria Kim**, teaching assistant
