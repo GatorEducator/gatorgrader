@@ -121,21 +121,21 @@ successfully, you have officially installed GatorGrader!
 
 ## Testing GatorGrader
 
-GatorGrader uses [Pytest](https://docs.pytest.org/en/latest/) for testing.
-Depending on your goals, there are several different configurations in which
-you can run the provided test suite. If you want to run the test suite to see
-if all of the test cases are correctly passing, then you can type the first
-(located below) in your terminal window. Along with running the test suite,
-the developers of GatorGrader used statement coverage to inform their testing
-of the tool. To see the current coverage of the tests while also highlighting
-the lines that are not currently covered by the tests, type the second command
-below in your terminal window.
+The project maintainers use [Pytest](https://docs.pytest.org/en/latest/) for
+testing GatorGrader. Depending on your goals, there are several different
+configurations in which you can run the provided test suite. If you want to run
+the test suite to see if the test cases are passing, then you can type this
+command in a terminal window.
+
 
 ```bash
 pipenv run test
 ```
 
-or
+Along with running the test suite, the developers of GatorGrader used statement
+and branch coverage to inform their testing activities. To see the current
+coverage of the tests while also highlighting the lines that are not currently
+covered by the tests, you can type this command in a terminal window.
 
 ```bash
 pipenv run cover
