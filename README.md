@@ -121,11 +121,11 @@ successfully, you have officially installed GatorGrader!
 
 ## Testing GatorGrader
 
-The project maintainers use [Pytest](https://docs.pytest.org/en/latest/) for
-testing GatorGrader. Depending on your goals, there are several different
-configurations in which you can run the provided test suite. If you want to run
-the test suite to see if the test cases are passing, then you can type this
-command in a terminal window.
+The developers use [Pytest](https://docs.pytest.org/en/latest/) for testing
+GatorGrader. Depending on your goals, there are several different configurations
+in which you can run the provided test suite. If you want to run the test suite
+to see if the test cases are passing, then you can type this command in a
+terminal window.
 
 
 ```bash
@@ -139,6 +139,17 @@ covered by the tests, you can type this command in a terminal window.
 
 ```bash
 pipenv run cover
+```
+
+The developers of GatorGrader use linting and code formatting tools, such as
+[Pylint](https://github.com/PyCQA/pylint),
+[Pydocstyle](https://github.com/PyCQA/pydocstyle), and
+[Black](https://github.com/python/black). After installing of of GatorGrader's
+development dependencies with Pipenv, you can run all of the linters by typing
+this command in a terminal window.
+
+```bash
+pipenv run lint --check
 ```
 
 ## Running GatorGrader
