@@ -68,9 +68,9 @@ GatorGrader helps instructors automatically check student submissions in both
 introductory and application-oriented classes using languages like Markdown,
 Java, Python, JavaScript, CSS, and HTML. GatorGrader does not aim to solve
 problems related to building and linting a project or managing an assignment's
-submission, instead integrating with systems like [Gradle](https://gradle.org/),
-[GitHub](https://github.com/), [GitHub Classroom](https://classroom.github.com/)
-to effectively handle those tasks.
+submission, instead integrating with existing tools and systems like
+[Gradle](https://gradle.org/), [GitHub](https://github.com/), [GitHub
+Classroom](https://classroom.github.com/) to effectively handle those tasks.
 
 ## What Do People Think about GatorGrader?
 
