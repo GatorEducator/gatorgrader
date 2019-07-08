@@ -174,8 +174,10 @@ pipenv run lint --check
 
 Students and instructors most commonly use GatorGrader through its [Gradle
 plugin](https://github.com/GatorEducator/gatorgradle), specify the requested
-checks in a `config/gatorgrader.yml` file. If you want to run GatorGrader as a
-stand-along Python application, you should first install it's application
+checks in a `config/gatorgrader.yml` file. When run through Gradle, GatorGrader
+reports each check that it performed, additionally sharing a diagnostic message
+for each check that did not pass. Individuals who want to run GatorGrader as a
+stand-alone Python application, should first install it's application
 dependencies with Pipenv and then learn about the supported checks and their
 defaults by typing `pipenv run python3 gatorgrader.py --help` in a terminal
 window.
@@ -193,7 +195,7 @@ Syntax Guide](https://guides.github.com/features/mastering-markdown/), meaning
 that all Markdown files must pass the checks performed by the [Markdown linting
 tool](https://github.com/markdownlint/markdownlint). These assignments also
 require that all submitted technical writing adheres to the standards set by the
-[Proselint tool](http://proselint.com/). Since GatorGrader can run arbitrary an
+[Proselint tool](http://proselint.com/). Since GatorGrader can run an arbitrary
 command and check its error code, it is also possible to integrate it with a
 wide variety of other linters and code formatters.
 
