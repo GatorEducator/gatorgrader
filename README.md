@@ -146,7 +146,6 @@ in which you can run the provided test suite. If you want to run the test suite
 to see if the test cases are passing, then you can type this command in a
 terminal window.
 
-
 ```bash
 pipenv run test
 ```
