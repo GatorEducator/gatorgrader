@@ -208,10 +208,25 @@ with a wide variety of other linters and code formatters.
 
 ## Comparison to Existing Tools
 
+Other automated grading tools include:
+
+- [autograde-github-classroom](https://github.com/apanangadan/autograde-github-classroom): "scripts to download and grade submissions to Github Classroom"
 - [check50](https://github.com/cs50/check50): "a tool for checking student code"
 - [Classroom Assistant](https://classroom.github.com/assistant): "desktop application to help you get student repositories for grading"
+- [nbgrader](https://github.com/jupyter/nbgrader): "a system for assigning and grading notebooks"
+- [nerfherder](https://github.com/kevinwortman/nerfherder): "scripts for automating grading with GitHub Classroom and Moodle"
 - [Submitty](https://github.com/Submitty/Submitty): "homework submission, automated grading, and TA grading system"
-- [WebCat](https://github.com/web-cat): "full processing and feedback generation"
+- [WebCat](https://github.com/web-cat): "all-in-one plugin for full processing and feedback generation"
+
+Designed for instructors who want an alternative to simple scripts or
+stand-alone platforms that do not integrate with infrastructure like GitHub and
+Travis CI, GatorGrader is a tool that automatically checks the work of technical
+writers and programmers. Unlike other tools, GatorGrader provides a "batteries
+included" approach to automated grading that makes it easy for instructors to
+combine existing checks for projects implemented in a wide variety of
+programming languages. GatorGrader's developers take its engineering seriously,
+maintaining standards-compliant source code, a test suite with 100% statement
+and branch coverage, and top-notch source code and user documentation.
 
 ## Presentations
 
