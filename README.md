@@ -234,7 +234,7 @@ source code and user documentation.
 GatorGrader's creators give presentations about the development, use, and
 assessment of the tool. Please contact one of the developers if you would like
 to feature a presentation about GatorGrader at your technical conference. The
-following list includes some of our recent presentations:
+following list includes some of our team's recent presentations:
 
 - [A Hands-on Guide to Teaching Programming with GitHub, Travis CI, and Python](https://speakerdeck.com/gkapfham/a-hands-on-guide-to-teaching-programming-with-github-travis-ci-and-python) <br> *at PyOhio 2018*
 - [Using GitHub, Travis CI, and Python to Introduce Collaborative Software Development](https://speakerdeck.com/gkapfham/using-github-travis-ci-and-python-to-introduce-collaborative-software-development) <br> *at PyCon Education Summit 2018*
@@ -245,9 +245,10 @@ following list includes some of our recent presentations:
 Are you interested in contributing to
 [GatorGrader](https://github.com/GatorEducator/gatorgrader),
 [GatorGradle](https://github.com/GatorEducator/gatorgradle), or any of the
-sample labs ([Java](https://github.com/GatorEducator/java-assigment-starter),
-[LaTeX](https://github.com/GatorEducator/latex-assignment-starter), [HTML with
-CSS](https://github.com/GatorEducator/html-css-assignment-starter))? The
+sample labs (e.g.,
+[Java](https://github.com/GatorEducator/java-assigment-starter),
+[LaTeX](https://github.com/GatorEducator/latex-assignment-starter), or [HTML
+with CSS](https://github.com/GatorEducator/html-css-assignment-starter))? The
 development team uses the [GitHub Flow
 Model](https://guides.github.com/introduction/flow/) to guide our engineering of
 these tools and we invite you to also follow it as you make a contribution. Of
