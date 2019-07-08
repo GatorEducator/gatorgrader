@@ -52,7 +52,7 @@ It can:
   * Does source code contain the designated number of language-specific comments?
 
   * Does source code or technical writing contain a required fragment or match
-    specified a regular expression?
+    a specified regular expression?
 
   * Does a command execute correctly and produce the expected number of output
     lines?
@@ -97,14 +97,16 @@ about GatorGrader!
 
 ## Installing GatorGrader
 
-Installing GatorGrader is not necessary if the intended use case includes
-[GatorGradle](https://github.com/GatorEducator/gatorgradle). If a separate
-installation is needed, however, you should first install
-[Pipenv](https://github.com/pypa/pipenv) by following Pipenv's installation
-instructions. Please also be sure that you have installed Git on your computer
-and that you can run Git commands in a terminal window. Then, you can type the
-following command in your terminal window to clone GatorGrader's GitHub
-repository:
+Installing GatorGrader is not necessary if you intend to use it through its
+[Gradle plugin](https://github.com/GatorEducator/gatorgradle). If you want to
+participate in the development of GatorGrader, the project maintainers suggest
+the use of [Pyenv](https://github.com/pyenv/pyenv) to install Python 3.6 or
+above. In addition to installing [Git](https://git-scm.com/) to access the
+project's GitHub repository, you should also install
+[Pipenv](https://github.com/pypa/pipenv) for its support of package and virtual
+environment management. After completing the installation of these tools, you
+can type the following command in your terminal window to clone GatorGrader's
+GitHub repository:
 
 ```bash
 git clone https://github.com/GatorEducator/gatorgrader.git
