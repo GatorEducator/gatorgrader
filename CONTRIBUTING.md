@@ -1,7 +1,7 @@
 # How to Contribute
 
 Thank you for taking time to contribute to GatorGrader! This guide will help you
-to effectively contribute to this project.
+to effectively contribute to the project.
 
 ## Table of Contents
 
@@ -18,9 +18,8 @@ to effectively contribute to this project.
 
 ## Code of Conduct
 
-This repository and everyone contributing to is subject to follow the [code of
-conduct](CODE_OF_CONDUCT.md). Should you choose to contribute, the project's
-maintainers will expect you to uphold this code. Please report any violations to
+We ask that everyone contributing to this project follow the [code of
+conduct](CODE_OF_CONDUCT.md). Please report any violations to
 [@gkapfham](https://github.com/gkapfham).
 
 ## Raising an Issue
@@ -39,8 +38,8 @@ template when you are describing your issue.
 The development team uses the [GitHub Flow
 Model](https://guides.github.com/introduction/flow/) to guide our engineering of
 these tools and we invite you to also follow it as you make a contribution. If
-you have a new feature or bug fix that you want to the project maintainers to
-merge into GatorGrader, then you should make a [pull
+you have a new feature or bug fix that you want the project maintainers to merge
+into GatorGrader, then you should make a [pull
 request](https://github.com/GatorEducator/gatorgrader/pulls). Please follow the
 provided template when you are describing your pull request, bearing in mind
 that the project maintainers will not merge any pull requests that do not adhere
