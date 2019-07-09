@@ -13,20 +13,20 @@ speed!
 
 ## Table of Contents
 
-- [Table of Contents](#table-of-contents)
-- [Quickstart Guide](#quickstart-guide)
-- [Key Features](#key-features)
-- [What Do People Think about GatorGrader?](#what-do-people-think-about-gatorgrader)
-- [Installing GatorGrader](#installing-gatorgrader)
-- [Testing GatorGrader](#testing-gatorgrader)
+* [Table of Contents](#table-of-contents)
+* [Quickstart Guide](#quickstart-guide)
+* [Key Features](#key-features)
+* [What Do People Think about GatorGrader?](#what-do-people-think-about-gatorgrader)
+* [Installing GatorGrader](#installing-gatorgrader)
+* [Testing GatorGrader](#testing-gatorgrader)
   + [Automated Testing](#automated-testing)
   + [Test Coverage](#test-coverage)
   + [Code Linting](#code-linting)
-- [Running GatorGrader](#running-gatorgrader)
-- [Comparison to Existing Tools](#comparison-to-existing-tools)
-- [Presentations](#presentations)
-- [Contributing](#contributing)
-- [Contributors](#contributors)
+* [Running GatorGrader](#running-gatorgrader)
+* [Comparison to Other Tools](#comparison-to-other-tools)
+* [Presentations](#presentations)
+* [Contributing](#contributing)
+* [Contributors](#contributors)
 
 ## Quickstart Guide
 
