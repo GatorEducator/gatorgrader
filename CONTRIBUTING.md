@@ -18,10 +18,10 @@ to effectively contribute to this project.
 
 ## Code of Conduct
 
-This repository and everyone contributing to is subject to follow the adopted
-[code of conduct](CODE_OF_CONDUCT.md). Should you choose to contribute, the
-project's maintainers will expect you to uphold this code. Please report any
-violations to [@gkapfham](https://github.com/gkapfham).
+This repository and everyone contributing to is subject to follow the [code of
+conduct](CODE_OF_CONDUCT.md). Should you choose to contribute, the project's
+maintainers will expect you to uphold this code. Please report any violations to
+[@gkapfham](https://github.com/gkapfham).
 
 ## Raising an Issue
 
@@ -41,9 +41,9 @@ merge into GatorGrader, then you should make a [pull
 request](https://github.com/GatorEducator/gatorgrader/pulls). Please follow the
 provided template when you are describing your pull request, bearing in mind
 that the project maintainers will not merge any pull requests that do not adhere
-to the template or break the any aspects of the automated build. You should read
-the following subsection to learn more about the coding standards to which all
-of GatorGrader's contributors adhere.
+to the template or break any aspects of the automated build. You should read the
+following subsection to learn more about the coding standards to which all of
+GatorGrader's contributors adhere.
 
 ## Project Standards
 
