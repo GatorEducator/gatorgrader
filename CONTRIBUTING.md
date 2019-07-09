@@ -22,43 +22,110 @@ This repository and everyone contributing to is subject to follow the adopted
 project's maintainers will expect you to uphold this code. Please report any
 violations to [@gkapfham](https://github.com/gkapfham).
 
-## Raising an issue
+## Raising an Issue
 
 First, check the [Issue
 Tracker](https://github.com/GatorEducator/gatorgrader/issues) to make sure it
-has not already been made there. If it would be a new issue, go ahead and [raise
-it](https://github.com/GatorEducator/gatorgrader/issues/new)! We just ask that
-you:
+that someone has not already raised your issue. If you have a new issue to
+raise, go ahead and [raise
+it](https://github.com/GatorEducator/gatorgrader/issues/new/choose)! At this
+point you should decide if your issue is a "Bug report" or a "Feature request"
+and then click the green "Get started" button. Please follow the provided
+template when you are describing your issue.
 
-## Making a pull request
+## Making a Pull Request
 
-When making a [pull request](https://github.com/AVMf/avmf/pulls), we ask that you do the following:
-* give it a descriptive title
-* include language that will close all issues it is proposing fixes for
-* describe any issues that it is proposing to fix that are not in the issue tracker to give a greater idea as to why the pull request should be approved
-* fully describes all of the changes it is proposing and why succinctly states why they should be approved
-* add any labels that apply to it
-  * or suggest labels if you do not have permission to add them
-* includes all relevant updates to documentation if warranted by the proposed changes
+If you have a new feature or bug fix that you want to the project maintainers to
+merge into GatorGrader, then you should make a [pull
+request](https://github.com/GatorEducator/gatorgrader/pulls). Please follow the
+provided template when you are describing your pull request, bearing in mind
+that the project maintainers will not merge any pull requests that do not adhere
+to the template or break the any aspects of the automated build. You should read
+the following subsection to learn more about the coding standards to which all
+of GatorGrader's contributors adhere.
 
-## Coding standards
+## Project Standards
 
-All of the following subsections must be adhered to:
+### Development Environment
 
-### Code style
+If you want to participate in the development of GatorGrader, the project
+maintainers suggest the use of [Pyenv](https://github.com/pyenv/pyenv) to
+install Python 3.6 or above. In addition to installing
+[Git](https://git-scm.com/) to access the project's GitHub repository, you
+should also install [Pipenv](https://github.com/pypa/pipenv) for its support of
+package and virtual environment management. After completing the installation of
+these tools, you can type the following command in your terminal window to clone
+GatorGrader's GitHub repository:
 
-All of the code in the repository is written in Java and must conform to the [Google check style for Java](https://google.github.io/styleguide/javaguide.html) so that all code is in a single form. Currently, the requirement for having Javadoc comments is disabled, but they should be included with new code.
+```bash
+git clone https://github.com/GatorEducator/gatorgrader.git
+```
 
-### Testing
+If you are not already a member of GatorGrader's development team, then we
+suggest that you fork its GitHub repository and use that repository for your
+work. If you plan to develop new features for GatorGrader or if you want to run
+the tool's test suite in [Pytest](https://github.com/pytest-dev/pytest), then
+you will need to install the developer dependencies by typing `pipenv install
+--dev` in the directory that contains GatorGrader. If you want to use
+GatorGrader, then you can type `pipenv install` instead. Once these commands are
+completed successfully, you have officially installed GatorGrader!
 
-All pull requests should either maintain the current level of code coverage or increase it. Any amount of coverage lost will not be accepted and the pull request will not be merged. Test cases should be made to cover any new code added. This should be kept in mind while writing code so that it can tested easily and as much of it can be covered as possible. The goal will always be to have as high of a code coverage as possible and ultimately everything, or as much as possible if not everything can be refactored to be covered.
+### Automated Testing
 
-## Updating .gitignore file
+The developers use [Pytest](https://docs.pytest.org/en/latest/) for testing
+GatorGrader. There are several different ways in which you can run the provided
+test suite. If you want to run the test suite to see if the test cases are
+passing, then you can type this command in a terminal window.
 
-The `.gitignore` file should be updated to include any and all origins of where local files could originate and be added to the repository when they should not. The website [gitignore.io](https://gitignore.io/) may be of use for finding what should be added to the file based off of what is used while working on this project. It typically provides everything that should be considered for a given tool, IDE, etc. but does not always include everything. Care should also be taken in case parts of the `.gitignore` file generated by the site are taken out or have additional parts included with them when a newly generated version is being added to the file.
+```bash
+pipenv run test
+```
 
-## External resources
+### Test Coverage
 
-If you would like more information on the repository and project as whole, feel free to read the [paper](https://mcminn.io/publications/c43.html) associated with it or visit its [website](http://avmframework.org/).
+Along with running the test suite, the developers of GatorGrader use statement
+and branch coverage to inform their testing activities. Please make sure that
+you maintain 100% statement and branch coverage as you add new features or
+introduce bug fixes. If it is not possible for you to maintain complete
+statement and branch coverage, please document the circumstances in your pull
+request. To see the coverage of the tests while also highlighting the lines that
+are not currently covered by the tests, you can type this command in a terminal
+window.
 
-Thanks for taking the time to read this!
+```bash
+pipenv run cover
+```
+
+### Code Linting
+
+The developers of GatorGrader use linting and code formatting tools, such as
+[Pylint](https://github.com/PyCQA/pylint),
+[Pydocstyle](https://github.com/PyCQA/pydocstyle), and
+[Black](https://github.com/python/black). Please make sure that the source code
+in your pull request fully adheres to the project's coding standard as enforced
+by all of the automated linting tools. If it is not possible for you to maintain
+compliance with these tools, then please document the circumstances in your pull
+request. If you have installed GatorGrader's development dependencies with
+Pipenv, you can run all of the linters by typing this command in a terminal
+window.
+
+```bash
+pipenv run lint --check
+```
+
+### Continuous Integration
+
+GatorGrader is a Python 3 application that we build and test in Linux and MacOS
+on Travis CI and in Windows on AppVeyor. Whenever feasible, we run all tests and
+checks on all three of these operating systems and the most recent version of
+Python versions 3.6 and 3.7
+
+## External Resources
+
+GatorGrader's creators give presentations about the development, use, and
+assessment of the tool. To better understand the goals of GatorGrader, you can
+review the following list of presentations given by our team.
+
+- [A Hands-on Guide to Teaching Programming with GitHub, Travis CI, and Python](https://speakerdeck.com/gkapfham/a-hands-on-guide-to-teaching-programming-with-github-travis-ci-and-python) <br> *at PyOhio 2018*
+- [Using GitHub, Travis CI, and Python to Introduce Collaborative Software Development](https://speakerdeck.com/gkapfham/using-github-travis-ci-and-python-to-introduce-collaborative-software-development) <br> *at PyCon Education Summit 2018*
+- [Using Python, Travis CI, and GitHub to Effectively Teach Programming](https://speakerdeck.com/gkapfham/using-python-travis-ci-and-github-to-effectively-teach-programming) <br> *at PyGotham 2018*
