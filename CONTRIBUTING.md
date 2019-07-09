@@ -8,10 +8,12 @@ to effectively contribute to this project.
 * [Code of Conduct](#code-of-conduct)
 * [Raising an Issue](#raising-an-issue)
 * [Making a Pull Request](#making-a-pull-request)
-* [Coding Standards](#coding-standards)
-  * [Code Style](#code-style)
-  * [Testing](#testing)
-* [Updating .gitignore File](#updating_.gitignore_file)
+* [Project Standards](#project-standards)
+  + [Development Environment](#development-environment)
+  + [Automated Testing](#automated-testing)
+  + [Test Coverage](#test-coverage)
+  + [Code Linting](#code-linting)
+  + [Continuous Integration](#continuous-integration)
 * [External Resources](#external-resources)
 
 ## Code of Conduct
