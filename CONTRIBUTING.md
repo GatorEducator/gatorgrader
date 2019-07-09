@@ -26,9 +26,9 @@ maintainers will expect you to uphold this code. Please report any violations to
 ## Raising an Issue
 
 First, check the [Issue
-Tracker](https://github.com/GatorEducator/gatorgrader/issues) to make sure it
-that someone has not already raised your issue. If you have a new issue to
-raise, go ahead and [raise
+Tracker](https://github.com/GatorEducator/gatorgrader/issues) to make sure that
+someone has not already raised your issue. If you have a new issue to raise, go
+ahead and [raise
 it](https://github.com/GatorEducator/gatorgrader/issues/new/choose)! At this
 point you should decide if your issue is a "Bug report" or a "Feature request"
 and then click the green "Get started" button. Please follow the provided
