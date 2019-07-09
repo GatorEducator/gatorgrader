@@ -4,32 +4,31 @@ Thank you for taking time to contribute to GatorGrader! This guide should help
 you effectively do so by following the systems already in place for maintaining
 the repository.
 
-## Table of contents
+## Table of Contents
 
-* [Code of conduct](#code-of-conduct)
-* [Raising an issue](#raising-an-issue)
-* [Making a pull request](#making-a-pull-request)
-* [Coding standards](#coding-standards)
-  * [Code style](#code-style)
+* [Code of Conduct](#code-of-conduct)
+* [Raising an Issue](#raising-an-issue)
+* [Making a Pull Request](#making-a-pull-request)
+* [Coding Standards](#coding-standards)
+  * [Code Style](#code-style)
   * [Testing](#testing)
-* [Updating .gitignore file](#updating_.gitignore_file)
-* [External resources](#external-resources)
+* [Updating .gitignore File](#updating_.gitignore_file)
+* [External Resources](#external-resources)
 
-## Code of conduct
+## Code of Conduct
 
 This repository and everyone contributing to is subject to follow the adopted
-[code of conduct](CODE_OF_CONDUCT.md). Should you choose to contribute, you will
-be expected to uphold this code. Please report any violations to
-[@gkapfham](https://github.com/gkapfham).
+[code of conduct](CODE_OF_CONDUCT.md). Should you choose to contribute, the
+project's maintainers will expect you to uphold this code. Please report any
+violations to [@gkapfham](https://github.com/gkapfham).
 
 ## Raising an issue
 
-First, check the [Issue Tracker](https://github.com/AVMf/avmf/issues) to make sure it has not already been made there. If it would be a new issue, go ahead and [raise it](https://github.com/AVMf/avmf/issues/new)! We just ask that you:
-* give it a descriptive title
-* provide any relevant information
-* add any labels that apply to it
-  * or suggest labels if you do not have permission to add them
-* reference any other related issues
+First, check the [Issue
+Tracker](https://github.com/GatorEducator/gatorgrader/issues) to make sure it
+has not already been made there. If it would be a new issue, go ahead and [raise
+it](https://github.com/GatorEducator/gatorgrader/issues/new)! We just ask that
+you:
 
 ## Making a pull request
 
