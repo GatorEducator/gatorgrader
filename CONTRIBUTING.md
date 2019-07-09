@@ -42,10 +42,10 @@ have a new feature or bug fix that you want the project maintainers to merge
 into GatorGrader, then you should make a [pull
 request](https://github.com/GatorEducator/gatorgrader/pulls). Please follow the
 provided template when you are describing your pull request, bearing in mind
-that the project maintainers will not merge any pull requests that do not adhere
-to the template or break any aspects of the automated build. You should read the
-following subsection to learn more about the project standards to which all of
-GatorGrader's contributors adhere.
+that the project maintainers will not merge any pull requests that either do not
+adhere to the template or break any aspects of the automated build. You should
+read the following subsection to learn more about the project standards to which
+all of GatorGrader's contributors adhere.
 
 ## Project Standards
 
@@ -103,7 +103,7 @@ pipenv run cover
 
 ### Code Linting
 
-The developers of GatorGrader use linting and code formatting tools, such as
+The developers of GatorGrader use linting and code formatting tools such as
 [Pylint](https://github.com/PyCQA/pylint),
 [Pydocstyle](https://github.com/PyCQA/pydocstyle), and
 [Black](https://github.com/python/black). Please make sure that the source code
