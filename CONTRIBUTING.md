@@ -1,8 +1,7 @@
 # How to Contribute
 
-Thank you for taking time to contribute to GatorGrader! This guide should help
-you effectively do so by following the systems already in place for maintaining
-the repository.
+Thank you for taking time to contribute to GatorGrader! This guide will help you
+to effectively contribute to this project.
 
 ## Table of Contents
 
