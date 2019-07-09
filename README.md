@@ -193,17 +193,18 @@ defaults by typing `pipenv run python3 gatorgrader.py --help` in a terminal
 window.
 
 Instructors often run GatorGrader in conjunction with other tools that check
-source code and technical writing. For instance, in the Java-based introductory
-Computer Science classes at the institution of the developers, the submissions
-are verified by [Checkstyle](https://github.com/checkstyle/checkstyle), thereby
-ensuring that the Java source code adheres to the requirements in the [Google
-Java Style Guide](https://google.github.io/styleguide/javaguide.html). Markdown
-files that contain writing must meet the standards described in the [Markdown
-Syntax Guide](https://guides.github.com/features/mastering-markdown/), meaning
-that all Markdown files must pass the checks performed by the [Markdown linting
-tool](https://github.com/markdownlint/markdownlint). These assignments also
-require that all submitted technical writing adheres to the standards set by
-the [Proselint tool](http://proselint.com/). Since GatorGrader can run an
+source code and technical writing. For instance, in a Java-based introductory
+course, instructors could verify student submissions with
+[Checkstyle](https://github.com/checkstyle/checkstyle), thereby ensuring that
+the Java source code adheres to the requirements in the [Google Java Style
+Guide](https://google.github.io/styleguide/javaguide.html). In this course, an
+instructor could require that Markdown files with technical writing meet the
+standards described in the [Markdown Syntax
+Guide](https://guides.github.com/features/mastering-markdown/), meaning that all
+Markdown files must pass the checks performed by the [Markdown linting
+tool](https://github.com/markdownlint/markdownlint). These assignments could
+also require that all submitted technical writing must adhere to the standards
+set by the [Proselint tool](http://proselint.com/). Since GatorGrader can run an
 arbitrary command and check its error code, it is also possible to integrate it
 with a wide variety of other linters, code formatters, and testing tools.
 
