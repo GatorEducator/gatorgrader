@@ -53,22 +53,23 @@ maintainers suggest the use of [Pyenv](https://github.com/pyenv/pyenv) to
 install Python 3.6 or above. In addition to installing
 [Git](https://git-scm.com/) to access the project's GitHub repository, you
 should also install [Pipenv](https://github.com/pypa/pipenv) for its support of
-package and virtual environment management. After completing the installation of
-these tools, you can type the following command in your terminal window to clone
-GatorGrader's GitHub repository:
+package and virtual environment management. The project's maintainers do not
+require the use of a specific text editor on integrated development environment.
+Once you have installed Git, Pyenv, and Pipenv, you can type the following
+command in your terminal window to clone GatorGrader's GitHub repository:
 
 ```bash
 git clone https://github.com/GatorEducator/gatorgrader.git
 ```
 
 If you are not already a member of GatorGrader's development team, then we
-suggest that you fork its GitHub repository and use that repository for your
-work. If you plan to develop new features for GatorGrader or if you want to run
-the tool's test suite in [Pytest](https://github.com/pytest-dev/pytest), then
-you will need to install the developer dependencies by typing `pipenv install
---dev` in the directory that contains GatorGrader. If you want to use
-GatorGrader, then you can type `pipenv install` instead. Once these commands are
-completed successfully, you have officially installed GatorGrader!
+suggest that you fork its GitHub repository and use it for the work that you
+intend to contribute. If you plan to develop new features for GatorGrader or if
+you want to run the tool's test suite in
+[Pytest](https://github.com/pytest-dev/pytest), then you will need to install
+the developer dependencies by typing `pipenv install --dev` in the directory
+that contains GatorGrader. If you want to use GatorGrader, then you can type
+`pipenv install` instead.
 
 ### Automated Testing
 
