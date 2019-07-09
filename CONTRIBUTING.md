@@ -42,7 +42,7 @@ request](https://github.com/GatorEducator/gatorgrader/pulls). Please follow the
 provided template when you are describing your pull request, bearing in mind
 that the project maintainers will not merge any pull requests that do not adhere
 to the template or break any aspects of the automated build. You should read the
-following subsection to learn more about the coding standards to which all of
+following subsection to learn more about the project standards to which all of
 GatorGrader's contributors adhere.
 
 ## Project Standards
@@ -51,13 +51,14 @@ GatorGrader's contributors adhere.
 
 If you want to participate in the development of GatorGrader, the project
 maintainers suggest the use of [Pyenv](https://github.com/pyenv/pyenv) to
-install Python 3.6 or above. In addition to installing
-[Git](https://git-scm.com/) to access the project's GitHub repository, you
-should also install [Pipenv](https://github.com/pypa/pipenv) for its support of
-package and virtual environment management. The project's maintainers do not
-require the use of a specific text editor on integrated development environment.
-Once you have installed Git, Pyenv, and Pipenv, you can type the following
-command in your terminal window to clone GatorGrader's GitHub repository:
+install the latest release of Python 3.6 and/or Python 3.7. In addition to
+installing [Git](https://git-scm.com/) to access the project's GitHub
+repository, you should also install [Pipenv](https://github.com/pypa/pipenv) for
+its support of package and virtual environment management. The project's
+maintainers do not require the use of a specific text editor on integrated
+development environment. Once you have installed Git, Pyenv, and Pipenv, you can
+type the following command in your terminal window to clone GatorGrader's GitHub
+repository:
 
 ```bash
 git clone https://github.com/GatorEducator/gatorgrader.git
@@ -65,12 +66,12 @@ git clone https://github.com/GatorEducator/gatorgrader.git
 
 If you are not already a member of GatorGrader's development team, then we
 suggest that you fork its GitHub repository and use it for the work that you
-intend to contribute. If you plan to develop new features for GatorGrader or if
-you want to run the tool's test suite in
-[Pytest](https://github.com/pytest-dev/pytest), then you will need to install
-the developer dependencies by typing `pipenv install --dev` in the directory
-that contains GatorGrader. If you want to use GatorGrader, then you can type
-`pipenv install` instead.
+intend to contribute. If you plan to develop new features for GatorGrader then
+you will want to run the tool's test suite in
+[Pytest](https://github.com/pytest-dev/pytest). Therefore, you will need to
+install the developer dependencies by typing `pipenv install --dev` in the
+directory that contains GatorGrader. If you want to use GatorGrader, then you
+can type `pipenv install`.
 
 ### Automated Testing
 
@@ -106,10 +107,10 @@ The developers of GatorGrader use linting and code formatting tools, such as
 [Black](https://github.com/python/black). Please make sure that the source code
 in your pull request fully adheres to the project's coding standard as enforced
 by all of the automated linting tools. If it is not possible for you to maintain
-compliance with these tools, then please document the circumstances in your pull
-request. If you have installed GatorGrader's development dependencies with
-Pipenv, you can run all of the linters by typing this command in a terminal
-window.
+compliance with the checks made by these tools, then please document the
+circumstances in your pull request. If you have installed GatorGrader's
+development dependencies with Pipenv, you can run all of the linters by typing
+this command in a terminal window.
 
 ```bash
 pipenv run lint --check
@@ -117,10 +118,10 @@ pipenv run lint --check
 
 ### Continuous Integration
 
-GatorGrader is a Python 3 application that we build and test in Linux and MacOS
-on Travis CI and in Windows on AppVeyor. Whenever feasible, we run all tests and
-checks on all three of these operating systems and the most recent version of
-Python versions 3.6 and 3.7
+GatorGrader is a Python 3 application that the developers build and test in
+Linux and MacOS on Travis CI and in Windows on AppVeyor. Whenever feasible, we
+run all tests and checks on all three of these operating systems and the most
+recent version of Python versions 3.6 and 3.7.
 
 ## External Resources
 
