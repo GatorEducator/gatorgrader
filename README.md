@@ -92,7 +92,7 @@ Classroom](https://classroom.github.com/) to effectively handle those tasks.
 
 ## What Do People Think about GatorGrader?
 
-GatorGrader addresses some of the challenges that an instructor faces when
+GatorGrader addresses many of the challenges that an instructor faces when
 designing automated checks for the source code or technical writing that a
 student submits through an assignment on [GitHub
 Classroom](https://classroom.github.com/). Feedback from the teaching assistants
