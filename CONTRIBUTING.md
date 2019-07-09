@@ -37,8 +37,8 @@ template when you are describing your issue.
 
 The development team uses the [GitHub Flow
 Model](https://guides.github.com/introduction/flow/) to guide our engineering of
-these tools and we invite you to also follow it as you make a contribution. If
-you have a new feature or bug fix that you want the project maintainers to merge
+this tool and we invite you to also follow it as you make a contribution. If you
+have a new feature or bug fix that you want the project maintainers to merge
 into GatorGrader, then you should make a [pull
 request](https://github.com/GatorEducator/gatorgrader/pulls). Please follow the
 provided template when you are describing your pull request, bearing in mind
