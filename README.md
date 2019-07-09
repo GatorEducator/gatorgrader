@@ -208,7 +208,7 @@ set by the [Proselint tool](http://proselint.com/). Since GatorGrader can run an
 arbitrary command and check its error code, it is also possible to integrate it
 with a wide variety of other linters, code formatters, and testing tools.
 
-## Comparison to Existing Tools
+## Comparison to Other Tools
 
 Other automated grading tools include:
 
