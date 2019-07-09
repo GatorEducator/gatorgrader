@@ -13,7 +13,6 @@ speed!
 
 ## Table of Contents
 
-* [Table of Contents](#table-of-contents)
 * [Quickstart Guide](#quickstart-guide)
 * [Key Features](#key-features)
 * [What Do People Think about GatorGrader?](#what-do-people-think-about-gatorgrader)
