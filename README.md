@@ -138,8 +138,8 @@ git clone https://github.com/GatorEducator/gatorgrader.git
 If you plan to develop new features for GatorGrader or if you want to run the
 tool's test suite in [Pytest](https://github.com/pytest-dev/pytest), then you
 will need to install the developer dependencies by typing `pipenv install --dev`
-in the directory that contains GatorGrader. If you only want to use GatorGrader,
-then you can type `pipenv install` instead. Once these commands are completed
+in the directory that contains GatorGrader. If you want to use GatorGrader, then
+you can type `pipenv install` instead. Once these commands are completed
 successfully, you have officially installed GatorGrader!
 
 ## Testing GatorGrader
