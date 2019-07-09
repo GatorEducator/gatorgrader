@@ -158,7 +158,7 @@ pipenv run test
 
 ### Test Coverage
 
-Along with running the test suite, the developers of GatorGrader used statement
+Along with running the test suite, the developers of GatorGrader use statement
 and branch coverage to inform their testing activities. To see the coverage of
 the tests while also highlighting the lines that are not currently covered by
 the tests, you can type this command in a terminal window.
