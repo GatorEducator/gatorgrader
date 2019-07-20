@@ -78,11 +78,12 @@ def invoke_all_comment_checks(
     """Perform the comment check and return the results."""
     met_or_exceeded_count = 0
     actual_count = 0
+    comment_count_details = {}
     # check single-line comments
     if comment_type == constants.comments.Single_Line:
         # check comments in Java
         if language == constants.languages.Java:
-            met_or_exceeded_count, actual_count, _ = entities.entity_greater_than_count(
+            met_or_exceeded_count, actual_count, comment_count_details = entities.entity_greater_than_count(
                 filecheck,
                 directory,
                 expected_count,
@@ -91,7 +92,7 @@ def invoke_all_comment_checks(
             )
         # check comments in Python
         if language == constants.languages.Python:
-            met_or_exceeded_count, actual_count, _ = entities.entity_greater_than_count(
+            met_or_exceeded_count, actual_count, comment_count_details = entities.entity_greater_than_count(
                 filecheck,
                 directory,
                 expected_count,
@@ -102,7 +103,7 @@ def invoke_all_comment_checks(
     elif comment_type == constants.comments.Multiple_Line:
         # check comments in Java
         if language == constants.languages.Java:
-            met_or_exceeded_count, actual_count, _ = entities.entity_greater_than_count(
+            met_or_exceeded_count, actual_count, comment_count_details = entities.entity_greater_than_count(
                 filecheck,
                 directory,
                 expected_count,
@@ -111,7 +112,7 @@ def invoke_all_comment_checks(
             )
         # check comments in Python
         if language == constants.languages.Python:
-            met_or_exceeded_count, actual_count, _ = entities.entity_greater_than_count(
+            met_or_exceeded_count, actual_count, comment_count_details = entities.entity_greater_than_count(
                 filecheck,
                 directory,
                 expected_count,
@@ -158,15 +159,28 @@ def invoke_all_comment_checks(
             + " comment(s)"
         )
     # create the diagnostic and the report the result
-    diagnostic = "Found " + str(actual_count) + " comment(s) in the specified file"
+    # produce the diagnostic and report the result
+    flat_comment_count_details = util.flatten_dictionary_values(comment_count_details)
+    fragment_diagnostic = util.get_file_diagnostic(flat_comment_count_details)
+    diagnostic = (
+        "Found "
+        + str(actual_count)
+        + constants.markers.Space
+        + "comment(s)"
+        + constants.markers.Space
+        + fragment_diagnostic
+        + constants.markers.Space
+        + "or the output"
+    )
     report_result(met_or_exceeded_count, message, diagnostic)
+    # report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
 
 def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=False):
     """Perform the paragraph check and return the results."""
     met_or_exceeded_count = 0
-    met_or_exceeded_count, actual_count, _ = entities.entity_greater_than_count(
+    met_or_exceeded_count, actual_count, actual_count_dictionary = entities.entity_greater_than_count(
         filecheck, directory, expected_count, fragments.count_paragraphs, exact
     )
     # create the message and the diagnostic
@@ -194,8 +208,22 @@ def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=Fals
             + constants.markers.Space
             + "paragraph(s)"
         )
+    # produce the diagnostic and report the result
+    flat_actual_count_dictionary = util.flatten_dictionary_values(
+        actual_count_dictionary
+    )
+    fragment_diagnostic = util.get_file_diagnostic(flat_actual_count_dictionary)
+    diagnostic = (
+        "Found "
+        + str(actual_count)
+        + constants.markers.Space
+        + "paragraph(s)"
+        + constants.markers.Space
+        + fragment_diagnostic
+        + constants.markers.Space
+        + constants.markers.File
+    )
     # create the diagnostic and then report the result
-    diagnostic = "Found " + str(actual_count) + " paragraph(s) in the specified file"
     report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
@@ -241,13 +269,27 @@ def invoke_all_word_count_checks(
     # This diagnostic signals the fact that there was at least
     # a single paragraph that had a word count below the standard
     # set for all of the paragraphs in the technical writing
-    word_diagnostic = util.get_word_diagnostic(actual_count_dictionary)
+    # across all of the files specified (i.e., those matched by wildcards)
+    word_diagnostic, filename = util.get_word_diagnostic(actual_count_dictionary)
+    # there is no need for a filename diagnostic unless there are multiple results
+    filename_diagnostic = constants.markers.Nothing
+    # there is a filename, which means that there was a wildcard specified
+    # and thus this diagnostic is for one file; give name at the end
+    if filename:
+        filename_diagnostic = (
+            constants.markers.Of_File + constants.markers.Space + filename
+        )
+    # since there is a word_diagnostic, add it to the conclusion of diagnostic
+    # otherwise, the conclusion will always contain "in every"
+    if word_diagnostic:
+        conclusion = conclusion.replace(constants.words.In_Every, word_diagnostic)
     diagnostic = (
         "Found "
         + str(actual_count)
         + constants.markers.Space
-        + conclusion.replace(constants.words.In_Every, word_diagnostic)
+        + conclusion
         + constants.markers.Space
+        + filename_diagnostic
     )
     report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
@@ -357,10 +399,16 @@ def invoke_all_fragment_checks(
                 + "' fragment"
             )
     # produce the diagnostic and report the result
+    fragment_diagnostic = util.get_file_diagnostic(actual_count_dictionary)
     diagnostic = (
         "Found "
         + str(actual_count)
-        + " fragment(s) in the output or the specified file"
+        + constants.markers.Space
+        + "fragment(s)"
+        + constants.markers.Space
+        + fragment_diagnostic
+        + constants.markers.Space
+        + "or the output"
     )
     report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
@@ -430,7 +478,7 @@ def invoke_all_regex_checks(
                 + regex
                 + "' regular expression"
             )
-        # creeate an "exact" message, which is opt-in
+        # create an "exact" message, which is opt-in
         else:
             message = (
                 "The command output"
@@ -440,11 +488,25 @@ def invoke_all_regex_checks(
                 + regex
                 + "' regular expression"
             )
+    # only construct a diagnostic for a file if needed
+    conclusion = ""
+    # use the default name of the file
+    violating_file_name = filecheck
+    # since a wildcard was specified, pick the file that most violates the check
+    if actual_count_dictionary and filecheck is not constants.markers.Nothing:
+        violating_entity_details = util.get_first_value(actual_count_dictionary)
+        violating_file_name = violating_entity_details[0]
+    # create a conclusion to tag onto the diagnostic's ending
+    if filecheck is not constants.markers.Nothing:
+        conclusion = "or " + violating_file_name
     # create the diagnostic message and report the result
     diagnostic = (
         "Found "
         + str(actual_count)
-        + " matches of the specified regular expression in the output or the specified file"
+        + constants.markers.Space
+        + "match(es) of the regular expression in output"
+        + constants.markers.Space
+        + conclusion
     )
     report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count

@@ -2,12 +2,26 @@
 
 from gator import constants
 
+from glob import glob
 from pathlib import Path
 
 
 def create_cwd_path():
     """Create a Path object for the current working directory."""
     return Path.cwd()
+
+
+def create_paths(*args, file="", home):
+    """Create a generator of Path objects for a glob with varying sub-path count."""
+    # attempt to create the path that could contain:
+    # --> a glob (e.g., *.py) or
+    # --> a single file (e.g., hello.py)
+    # Pathlib does not support globs of absolute directories, so use glob
+    # to create a list of all files matched by the glob
+    file_or_glob_path = create_path(*args, file=file, home=home)
+    home_directory_globbed = [Path(p) for p in glob(str(file_or_glob_path))]
+    # return this list of Path objects resulting from glob application
+    return home_directory_globbed
 
 
 def create_path(*args, file="", home):

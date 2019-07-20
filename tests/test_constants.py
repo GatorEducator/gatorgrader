@@ -20,6 +20,10 @@ def test_markers_constant_defined():
     assert constants.markers.No_Diagnostic == ""
     assert constants.markers.Nothing == ""
     assert constants.markers.Space == " "
+    assert constants.markers.In_A_File == "in a file"
+    assert constants.markers.Of_File == "of file"
+    assert constants.markers.File == "file"
+    assert constants.markers.First == 1
     assert constants.markers.Invalid == -1
 
 
@@ -93,6 +97,11 @@ def test_environmentvariables_constant_defined():
     assert constants.environmentvariables.Home == "GATORGRADER_HOME"
 
 
+def test_functions_constant_defined():
+    """Check correctness for the variables in the functions constant."""
+    assert constants.functions.Count_Total_Words == "count_total_words"
+
+
 def test_languages_constant_cannot_redefine():
     """Check cannot redefine the variables in the languages constant."""
     with pytest.raises(AttributeError):
@@ -117,6 +126,14 @@ def test_markers_constant_cannot_redefine():
         constants.markers.Space = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
         constants.markers.Tab = CANNOT_SET_CONSTANT_VARIABLE
+    with pytest.raises(AttributeError):
+        constants.markers.Of_File = CANNOT_SET_CONSTANT_VARIABLE
+    with pytest.raises(AttributeError):
+        constants.markers.In_A_File = CANNOT_SET_CONSTANT_VARIABLE
+    with pytest.raises(AttributeError):
+        constants.markers.File = CANNOT_SET_CONSTANT_VARIABLE
+    with pytest.raises(AttributeError):
+        constants.markers.First = 1
     with pytest.raises(AttributeError):
         constants.markers.Invalid = 10
 

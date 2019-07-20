@@ -354,7 +354,7 @@ def test_perform_actions_display_welcome_and_ready_check_regex_file(
     counted_newlines = captured.out.count("\n")
     assert "GatorGrader" in captured.out
     assert "regular expression" in captured.out
-    assert "Found 0 matches" in captured.out
+    assert "Found 0 match(es)" in captured.out
     assert counted_newlines == 7
     assert exit_code == 1
 
@@ -401,7 +401,7 @@ def test_perform_actions_display_welcome_and_ready_check_regex_command(
     counted_newlines = captured.out.count("\n")
     assert "GatorGrader" in captured.out
     assert "regular expression" in captured.out
-    assert "Found 0 matches" in captured.out
+    assert "Found 0 match(es)" in captured.out
     assert counted_newlines == 7
     assert exit_code == 1
 
