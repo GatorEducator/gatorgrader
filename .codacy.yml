@@ -3,3 +3,7 @@ exclude_paths:
   - 'tests/**'
   - '.github/**'
   - '.github/**/*'
+  - 'LICENSE.md'
+  - 'README.md'
+  - 'CODE_OF_CONDUCT.md'
+  - 'CONTRIBUTING.md'
