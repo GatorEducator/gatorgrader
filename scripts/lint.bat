@@ -40,8 +40,8 @@ if ERRORLEVEL 1 (
     echo -- Passed
 )
 
-echo -- Running bandit
-pipenv run bandit -c bandit.yml %FILES%
+echo -- Running pydocstyle
+pipenv run pydocstyle %FILES%
 if ERRORLEVEL 1 (
     echo -- Failed
     set PASSED=false
@@ -49,8 +49,26 @@ if ERRORLEVEL 1 (
     echo -- Passed
 )
 
-echo -- Running pydocstyle
-pipenv run pydocstyle %FILES%
+echo -- Running radon cc
+pipenv run radon cc %FILES%
+if ERRORLEVEL 1 (
+    echo -- Failed
+    set PASSED=false
+) else (
+    echo -- Passed
+)
+
+echo -- Running radon mi
+pipenv run radon cc %FILES%
+if ERRORLEVEL 1 (
+    echo -- Failed
+    set PASSED=false
+) else (
+    echo -- Passed
+)
+
+echo -- Running xenon
+pipenv run xenon --max-absolute D --max-modules B --max-average A gator
 if ERRORLEVEL 1 (
     echo -- Failed
     set PASSED=false
