@@ -1,2 +1,5 @@
+---
 exclude_paths:
   - 'tests/**'
+  - '.github/**'
+  - '.github/**/*'
