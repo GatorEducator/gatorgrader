@@ -23,6 +23,8 @@ mutmut = "*"
 bandit = "*"
 codacy-coverage = "*"
 pydocstyle = "*"
+radon = "*"
+xenon = "*"
 
 [pipenv]
 allow_prereleases = true
