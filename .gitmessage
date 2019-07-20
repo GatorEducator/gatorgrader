@@ -14,15 +14,17 @@
 #
 #  - The message is a single line of about 72 characters that
 #    contains a succinct description of the change. It contains an
-#    optional type, an optional scope, and a required subject
+#    encouraged type, an optional scope, and a required subject.
 #       + <type> describes the kind of change that this commit is
 #                providing. Allowed types are:
 #             * feat (add feature)
 #             * fix (fix defect)
-#             * docs (add documentation)
-#             * style (improve/fix formatting)
+#             * docs (add or modify user documentation)
+#             * coms (add or modify code documentation)
+#             * style (improve code or doc formatting)
 #             * refactor (improve the code, no new features)
-#             * test (add test(s))
+#             * perf (improve performance, no new features)
+#             * test (add or modify test(s))
 #             * chore (maintenance or infrastructure)
 #       + <scope> can be anything specifying commit change place
 #       + <subject> is a very short description of the change, in

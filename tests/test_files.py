@@ -1,6 +1,121 @@
 """Test cases for the files module."""
 
+import platform
+
 from gator import files
+
+# define the operating systems on which to run processes
+WINDOWS = "Windows"
+
+
+# Region: Glob Tests for create_paths {{{
+
+
+def test_create_one_glob_path_with_none_middle(tmpdir):
+    """Ensure that creating a globbed path works correctly."""
+    hello_file_one = tmpdir.join("hello1.txt")
+    hello_file_one.write("content")
+    hello_file_two = tmpdir.join("hello2.txt")
+    hello_file_two.write("content")
+    assert len(tmpdir.listdir()) == 2
+    created_paths = list(
+        files.create_paths(tmpdir.basename, file="*.txt", home=tmpdir.dirname)
+    )
+    assert len(created_paths) == 2
+    for created_path in files.create_paths(
+        tmpdir.basename, file="*.txt", home=tmpdir.dirname
+    ):
+        assert ".txt" in str(created_path)
+    created_paths = list(
+        files.create_paths(tmpdir.basename, file="hello*", home=tmpdir.dirname)
+    )
+    assert len(created_paths) == 2
+    for created_path in files.create_paths(
+        tmpdir.basename, file="hello*", home=tmpdir.dirname
+    ):
+        assert ".txt" in str(created_path)
+
+
+def test_create_non_glob_path_with_none_middle(tmpdir):
+    """Ensure that creating a non-globbed path with get_paths works correctly."""
+    hello_file_one = tmpdir.join("hello1.txt")
+    hello_file_one.write("content")
+    hello_file_two = tmpdir.join("hello2.txt")
+    hello_file_two.write("content")
+    assert len(tmpdir.listdir()) == 2
+    created_paths = list(
+        files.create_paths(tmpdir.basename, file="hello1.txt", home=tmpdir.dirname)
+    )
+    assert len(created_paths) == 1
+    created_paths = list(
+        files.create_paths(tmpdir.basename, file="hello2.txt", home=tmpdir.dirname)
+    )
+    assert len(created_paths) == 1
+
+
+def test_one_glob_case_sensitive_handling(tmpdir):
+    """Ensure that creating a non-matching globbed path does not return paths."""
+    hello_file_one = tmpdir.join("hello1.txt")
+    hello_file_one.write("content")
+    hello_file_two = tmpdir.join("hello2.txt")
+    hello_file_two.write("content")
+    system_name = platform.system()
+    if system_name is not WINDOWS:
+        assert len(tmpdir.listdir()) == 2
+        created_paths = list(
+            files.create_paths(tmpdir.basename, file="*.TXT", home=tmpdir.dirname)
+        )
+        assert len(created_paths) == 0
+    elif system_name is WINDOWS:
+        assert len(tmpdir.listdir()) == 2
+        created_paths = list(
+            files.create_paths(tmpdir.basename, file="*.TXT", home=tmpdir.dirname)
+        )
+        assert len(created_paths) == 2
+    if system_name is not WINDOWS:
+        for created_path in files.create_paths(
+            tmpdir.basename, file="HELLO*", home=tmpdir.dirname
+        ):
+            assert ".txt" in str(created_path)
+        assert len(created_paths) == 0
+    elif system_name is WINDOWS:
+        for created_path in files.create_paths(
+            tmpdir.basename, file="HELLO*", home=tmpdir.dirname
+        ):
+            assert ".txt" in str(created_path)
+        assert len(created_paths) == 2
+
+
+def test_garbage_glob_file_returns_no_matching_paths(tmpdir):
+    """Ensure that creating a garbage globbed path returns no matches."""
+    hello_file_one = tmpdir.join("hello1.txt")
+    hello_file_one.write("content")
+    hello_file_two = tmpdir.join("hello2.txt")
+    hello_file_two.write("content")
+    assert len(tmpdir.listdir()) == 2
+    created_paths = list(
+        files.create_paths(tmpdir.basename, file="FAKE&&&FDF$$#**", home=tmpdir.dirname)
+    )
+    assert len(created_paths) == 0
+
+
+def test_garbage_glob_ext_returns_no_matching_paths(tmpdir):
+    """Ensure that creating a garbage globbed path returns no matches."""
+    hello_file_one = tmpdir.join("hello1.txt")
+    hello_file_one.write("content")
+    hello_file_two = tmpdir.join("hello2.txt")
+    hello_file_two.write("content")
+    assert len(tmpdir.listdir()) == 2
+    created_paths = list(
+        files.create_paths(tmpdir.basename, file="*.FAKE", home=tmpdir.dirname)
+    )
+    assert len(created_paths) == 0
+
+
+# }}}
+
+
+# Region: Non-Glob Tests for create_path {{{
 
 
 def test_create_one_file_path_with_none_middle(tmpdir):
@@ -239,3 +354,6 @@ def test_many_files_not_found_in_subdirectory(tmpdir):
         tmpdir.basename, "sub", file="README_not_there.md", home=tmpdir.dirname
     )
     assert was_file_found is False
+
+
+# }}}
