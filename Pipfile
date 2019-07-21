@@ -8,6 +8,7 @@ gitpython = "*"
 requests = ">=2.20.0"
 commonmark = "*"
 num2words = "*"
+tox = "*"
 
 [dev-packages]
 pylint = "*"
