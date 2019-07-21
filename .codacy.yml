@@ -1,4 +1,15 @@
 ---
+engines:
+  duplication:
+    enabled: true
+    exclude_paths:
+      - 'test/**'
+      - '.github/**'
+      - '.github/**/*'
+      - 'LICENSE.md'
+      - 'README.md'
+      - 'CODE_OF_CONDUCT.md'
+      - 'CONTRIBUTING.md'
 exclude_paths:
   - 'tests/**'
   - '.github/**'
