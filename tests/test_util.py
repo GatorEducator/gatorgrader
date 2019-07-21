@@ -7,6 +7,8 @@ from gator import constants
 from gator import files
 from gator import util
 
+from pathlib import Path
+
 VERIFIED = True
 NOT_VERIFIED = False
 
@@ -51,7 +53,7 @@ def test_gatorgrader_home_is_set():
 
 def test_gatorgrader_home_is_set_after_os_dictionary_set():
     """Ensure that the GATORGRADER_HOME environment variable is set."""
-    os.environ["GATORGRADER_HOME"] = "/home/gkapfham/working/source/gatorgrader/"
+    os.environ["GATORGRADER_HOME"] = str(Path.cwd())
     gatorgrader_home = util.get_gatorgrader_home()
     assert gatorgrader_home is not None
     assert "gatorgrader" in gatorgrader_home
@@ -59,7 +61,7 @@ def test_gatorgrader_home_is_set_after_os_dictionary_set():
 
 def test_gatorgrader_home_is_set_after_os_dictionary_set_no_trailing():
     """Ensure that the GATORGRADER_HOME environment variable is set."""
-    os.environ["GATORGRADER_HOME"] = "/home/gkapfham/working/source/gatorgrader"
+    os.environ["GATORGRADER_HOME"] = str(Path.cwd())
     gatorgrader_home = util.get_gatorgrader_home()
     assert gatorgrader_home is not None
     assert "gatorgrader" in gatorgrader_home
