@@ -13,8 +13,8 @@ os:
 env:
   # run build and test on two multiple versions of Python
   matrix:
-    - PYENV_VERSION=3.7.2
-    - PYENV_VERSION=3.6.3
+    - PYENV_VERSION=3.7.3
+    - PYENV_VERSION=3.6.8
   # configure all of the needed global variables
   # note that the secure entries reference access tokens
   # that support secure access to remote services
