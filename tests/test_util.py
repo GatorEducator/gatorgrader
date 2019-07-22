@@ -67,6 +67,14 @@ def test_gatorgrader_home_is_set_after_os_dictionary_set_no_trailing(tmpdir):
     assert "gatorgrader" in gatorgrader_home
 
 
+def test_gatorgrader_home_is_set_after_os_dictionary_set_wrong_directory(tmpdir):
+    """Ensure that the GATORGRADER_HOME environment variable is set."""
+    os.environ["GATORGRADER_HOME"] = str(tmpdir) + "/" + "INCORRECT"
+    gatorgrader_home = util.get_gatorgrader_home()
+    assert gatorgrader_home is not None
+    assert "gatorgrader" in gatorgrader_home
+
+
 def test_gatorgrader_home_verification_working_not_verified_none_given():
     """Check that GATORGRADER_HOME verification is working."""
     gatorgrader_home_verified = util.verify_gatorgrader_home(None)
