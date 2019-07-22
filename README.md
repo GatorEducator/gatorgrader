@@ -202,7 +202,7 @@ invoke -c .tasks cover --pyenv 3.6.8 --pyenv 3.7.3
 ```
 
 You can switch the version to which Pipenv is bound by running the following
-command that adopts Python 3.7.3.
+command that adopts, for instance, Python 3.7.3.
 
 ```
 invoke -c .tasks switch --pyenv=3.7.3
