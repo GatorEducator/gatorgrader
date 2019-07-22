@@ -20,6 +20,7 @@ speed!
 * [Testing GatorGrader](#testing-gatorgrader)
   + [Automated Testing](#automated-testing)
   + [Test Coverage](#test-coverage)
+  + [Testing with Multiple Python Versions](#testing-with-multiple-python-versions)
   + [Code Linting](#code-linting)
 * [Running GatorGrader](#running-gatorgrader)
 * [Comparison to Other Tools](#comparison-to-other-tools)
