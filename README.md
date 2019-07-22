@@ -265,7 +265,7 @@ stand-alone platforms that do not integrate with industry-standard
 infrastructure like GitHub and Travis CI, GatorGrader is a tool that
 automatically checks the work of technical writers and programmers. Unlike other
 systems, GatorGrader provides a "batteries included" approach to automated
-grading that makes it easy for instructors to combine existing checks for
+grading that makes it easy for instructors to combine well-tested checks for
 projects implemented in a wide variety of programming languages. GatorGrader's
 developers take its engineering seriously, maintaining standards-compliant
 source code, a test suite with 100% statement and branch coverage, and top-notch
