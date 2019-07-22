@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "26c3f2b3678404765ce9eaeb6ec9752cb253db09b10d7c4d43354825f4b9d031"
+            "sha256": "d0329e92a3c51edbe0457412d86f5c07545e84a21d9fd05cbae99c942a04fd0e"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -209,13 +209,6 @@
             ],
             "version": "==0.3.9"
         },
-        "colorlog": {
-            "hashes": [
-                "sha256:31378a98b965c9f2bc5fb58c906e0e6d8d2922f6b8229c39903711da5b490fc2",
-                "sha256:45e76dc65c0ed0e8c27175c00b18d92016dc58a6feff62e168819a2bca26df68"
-            ],
-            "version": "==3.2.0"
-        },
         "coverage": {
             "hashes": [
                 "sha256:108efa19b676e62590a7a13084098e35183479c0d9608131c20b0921c5a72dc0",
@@ -342,6 +335,15 @@
             ],
             "version": "==0.18"
         },
+        "invoke": {
+            "hashes": [
+                "sha256:4f4de934b15c2276caa4fbc5a3b8a61c0eb0b234f2be1780d2b793321995c2d6",
+                "sha256:dc492f8f17a0746e92081aec3f86ae0b4750bf41607ea2ad87e5a7b5705121b7",
+                "sha256:eb6f9262d4d25b40330fb21d1e99bf0f85011ccc3526980f8a3eaedd4b43892e"
+            ],
+            "index": "pypi",
+            "version": "==1.2.0"
+        },
         "isort": {
             "hashes": [
                 "sha256:54da7e92468955c4fceacd0c86bd0ec997b0e1ee80d97f67c35a78b719dccab1",
@@ -434,14 +436,6 @@
             ],
             "index": "pypi",
             "version": "==0.3.1"
-        },
-        "nox": {
-            "hashes": [
-                "sha256:e90091ca3d4c06a4bc1112ad07740ed0836498057fb2d867d1eb8e8a928fc5f4",
-                "sha256:ea464eeab05cd81317ac09e30dcce07388e41458777b167b35b26ce60b60bd8e"
-            ],
-            "index": "pypi",
-            "version": "==2019.5.30"
         },
         "packaging": {
             "hashes": [
@@ -662,13 +656,6 @@
                 "sha256:dbe59173209418ae49d485b87d1681aefa36252ee85884c31346debd19463232"
             ],
             "version": "==1.25.3"
-        },
-        "virtualenv": {
-            "hashes": [
-                "sha256:861bbce3a418110346c70f5c7a696fdcf23a261424e1d28aa4f9362fc2ccbc19",
-                "sha256:ba8ce6a961d842320681fb90a3d564d0e5134f41dacd0e2bae7f02441dde2d52"
-            ],
-            "version": "==16.6.2"
         },
         "wcwidth": {
             "hashes": [
