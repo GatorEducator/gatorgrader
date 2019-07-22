@@ -9,7 +9,7 @@ def switch(c, pyenv="3.7.3"):
     # select current_pyenv as the version of Python
     c.run("pyenv local " + pyenv)
     # create the virtualenv managed by Pipenv with current_pyenv
-    c.run("pipenv install --python=`pyenv which python` --dev")
+    c.run("pipenv install --skip-lock --python=`pyenv which python` --dev")
     # display diagnostic information about new version of Python
     c.run("python --version")
 
@@ -24,7 +24,7 @@ def test(c, pyenv):
         # select current_pyenv as the version of Python
         c.run("pyenv local " + current_pyenv)
         # create the virtualenv managed by Pipenv with current_pyenv
-        c.run("pipenv install --python=`pyenv which python` --dev")
+        c.run("pipenv install --skip-lock --python=`pyenv which python` --dev")
         # display diagnostic information about new version of Python
         c.run("python --version")
         # run the test suite and collect coverage information
