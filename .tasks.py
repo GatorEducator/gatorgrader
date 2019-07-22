@@ -6,6 +6,7 @@ from invoke import task
 @task(iterable=['pyenv'])
 def test(c, pyenv):
     """Run tests with Pytest after full setup of each provided Pyenv version."""
+    # run the test suite for all of the provided versions of Python managed by Pyenv
     for current_pyenv in pyenv:
         print("Python version: " + current_pyenv)
         # select current_pyenv as the version of Python
