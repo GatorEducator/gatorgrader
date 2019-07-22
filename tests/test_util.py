@@ -7,8 +7,6 @@ from gator import constants
 from gator import files
 from gator import util
 
-from pathlib import Path
-
 VERIFIED = True
 NOT_VERIFIED = False
 
