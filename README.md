@@ -140,7 +140,7 @@ tool's test suite in [Pytest](https://github.com/pytest-dev/pytest), then you
 will need to install the developer dependencies by typing ``pipenv install
 --python=`pyenv which python` --dev`` in the directory that contains
 GatorGrader. If you want to use GatorGrader, then you can type ``pipenv install
---python=`pyenv which python` `` instead. Once these commands are completed
+--python=`pyenv which python` `` instead. Once these commands complete
 successfully, you have officially installed GatorGrader! Note that running these
 commands will ensure that Pipenv creates a virtual environment for GatorGrader
 that is bound to the version of Python that Pyenv is set to use.
