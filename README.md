@@ -38,10 +38,11 @@ and documentation for different languages:
 [Java](https://github.com/GatorEducator/java-starter),
 [LaTeX](https://github.com/GatorEducator/latex-assignment-starter), and [HTML
 with CSS](https://github.com/GatorEducator/html-css-assignment-starter). These
-examples show how to integrate GatorGrader with [GitHub
+examples also show how to integrate GatorGrader with [GitHub
 Classroom](https://classroom.github.com/) and [Travis
-CI](https://travis-ci.com/). The Gradle plugin for GatorGrader will install it
-automatically when you type `gradle grade` in a terminal window.
+CI](https://travis-ci.com/). When you follow these examples, the Gradle plugin
+for GatorGrader will install it automatically when you run `gradle grade` in a
+terminal window.
 
 ## Key Features
 
