@@ -155,6 +155,27 @@ terminal window.
 pipenv run test
 ```
 
+The previous command will run the test suite in the version of Python to which
+Pipenv was bound. If you have installed multiple versions of Python with Pyenv
+and you want to iteratively bind Pipenv to each version and then run the test
+suite, then you should first run these commands to install
+[Pipx](https://github.com/pipxproject/pipx) and use Pipx to install
+[Invoke](https://github.com/pyinvoke/invoke).
+
+```bash
+pip install pipx --user
+python -m userpath append ~/.local/bin
+pipx install invoke
+```
+
+Now you can run the test suite in the specified versions of Python with the
+following command. This example command will run the test suite in Python 3.6.8
+and Python 3.7.3.
+
+```bash
+invoke -c .tasks test --pyenv 3.6.8 --pyenv 3.7.3
+```
+
 ### Test Coverage
 
 Along with running the test suite, the developers of GatorGrader use statement
