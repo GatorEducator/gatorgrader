@@ -51,17 +51,19 @@ def test_gatorgrader_home_is_set():
     )
 
 
-def test_gatorgrader_home_is_set_after_os_dictionary_set():
+def test_gatorgrader_home_is_set_after_os_dictionary_set(tmpdir):
     """Ensure that the GATORGRADER_HOME environment variable is set."""
-    os.environ["GATORGRADER_HOME"] = str(Path.cwd())
+    tmpdir.mkdir("gatorgrader")
+    os.environ["GATORGRADER_HOME"] = str(tmpdir) + "/" + "gatorgrader/"
     gatorgrader_home = util.get_gatorgrader_home()
     assert gatorgrader_home is not None
     assert "gatorgrader" in gatorgrader_home
 
 
-def test_gatorgrader_home_is_set_after_os_dictionary_set_no_trailing():
+def test_gatorgrader_home_is_set_after_os_dictionary_set_no_trailing(tmpdir):
     """Ensure that the GATORGRADER_HOME environment variable is set."""
-    os.environ["GATORGRADER_HOME"] = str(Path.cwd())
+    tmpdir.mkdir("gatorgrader")
+    os.environ["GATORGRADER_HOME"] = str(tmpdir) + "/" + "gatorgrader"
     gatorgrader_home = util.get_gatorgrader_home()
     assert gatorgrader_home is not None
     assert "gatorgrader" in gatorgrader_home
