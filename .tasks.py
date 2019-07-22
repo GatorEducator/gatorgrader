@@ -28,7 +28,7 @@ def switch(c, pyenv="3.7.3"):
     internal_switch(c, pyenv)
 
 
-@task(iterable=['pyenv'])
+@task(iterable=["pyenv"])
 def cover(c, pyenv):
     """Run coverage-monitored tests with Pytest after full setup of each provided Pyenv version."""
     # Note that this task will leave a developer in the last specified version of Python
@@ -40,7 +40,7 @@ def cover(c, pyenv):
         internal_cover(c, cover=True)
 
 
-@task(iterable=['pyenv'])
+@task(iterable=["pyenv"])
 def test(c, pyenv):
     """Run tests with Pytest after full setup of each provided Pyenv version."""
     # Note that this task will leave a developer in the last specified version of Python
