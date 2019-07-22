@@ -38,7 +38,6 @@ def cover(c, pyenv):
         internal_switch(c, current_pyenv)
         # run the test suite and collect coverage information
         internal_cover(c, cover=True)
-        # c.run("pipenv run cover")
 
 
 @task(iterable=['pyenv'])
@@ -51,4 +50,3 @@ def test(c, pyenv):
         internal_switch(c, current_pyenv)
         # run the test suite
         internal_cover(c, cover=False)
-        # c.run("pipenv run test")
