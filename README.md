@@ -149,11 +149,11 @@ that is bound to the version of Python that Pyenv set for use.
 
 ### Automated Testing
 
-The developers use [Pytest](https://docs.pytest.org/en/latest/) for testing
-GatorGrader. Depending on your goals, there are several different configurations
-in which you can run the provided test suite. If you want to run the test suite
-to see if the test cases are passing, then you can type this command in a
-terminal window.
+The developers use [Pytest](https://docs.pytest.org/en/latest/) for the testing
+of GatorGrader. Depending on your goals, there are several different
+configurations in which you can run the provided test suite. If you want to run
+the test suite to see if the test cases are passing, then you can run this
+command in a terminal window.
 
 ```
 pipenv run test
@@ -164,7 +164,7 @@ pipenv run test
 Along with running the test suite, the developers of GatorGrader use statement
 and branch coverage to inform their testing activities. To see the coverage of
 the tests while also highlighting the lines that are not currently covered by
-the tests, you can type this command in a terminal window.
+the tests, you can run this command in a terminal window.
 
 ```
 pipenv run cover
@@ -194,17 +194,17 @@ invoke -c .tasks test --pyenv 3.6.8 --pyenv 3.7.3
 ```
 
 If you want to track test coverage while running the tests in both Python 3.6.8
-and 3.7.3 you can type the following command.
+and 3.7.3, then you can run the following command.
 
 ```
 invoke -c .tasks cover --pyenv 3.6.8 --pyenv 3.7.3
 ```
 
 You can switch the version to which Pipenv is bound by running the following
-command.
+command that adopts Python 3.7.3.
 
 ```
-invoke -c .tasks cover --pyenv 3.6.8 --pyenv 3.7.3
+invoke -c .tasks switch --pyenv=3.7.3
 ```
 
 ### Code Linting
