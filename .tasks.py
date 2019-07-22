@@ -3,6 +3,15 @@
 from invoke import task
 
 
+def internal_cover(c, cover=True):
+    """Run the test suite, optionally with coverage tracking enabled."""
+    # run test suite with coverage analysis
+    if cover:
+        c.run("pipenv run cover")
+    # run test suite without coverage analysis
+    c.run("pipenv run test")
+
+
 def internal_switch(c, pyenv="3.7.3"):
     """Switch the version of Python managed by Pipenv to specified version."""
     # select current_pyenv as the version of Python
@@ -27,14 +36,9 @@ def cover(c, pyenv):
     for current_pyenv in pyenv:
         print("Python version: " + current_pyenv)
         internal_switch(c, current_pyenv)
-        # select current_pyenv as the version of Python
-        # c.run("pyenv local " + current_pyenv)
-        # create the virtualenv managed by Pipenv with current_pyenv
-        # c.run("pipenv install --skip-lock --python=`pyenv which python` --dev")
-        # display diagnostic information about new version of Python
-        # c.run("python --version")
         # run the test suite and collect coverage information
-        c.run("pipenv run cover")
+        internal_cover(c, cover=True)
+        # c.run("pipenv run cover")
 
 
 @task(iterable=['pyenv'])
@@ -45,11 +49,6 @@ def test(c, pyenv):
     for current_pyenv in pyenv:
         print("Python version: " + current_pyenv)
         internal_switch(c, current_pyenv)
-        # select current_pyenv as the version of Python
-        # c.run("pyenv local " + current_pyenv)
-        # create the virtualenv managed by Pipenv with current_pyenv
-        # c.run("pipenv install --skip-lock --python=`pyenv which python` --dev")
-        # display diagnostic information about new version of Python
-        # c.run("python --version")
-        # run the test suite and collect coverage information
-        c.run("pipenv run test")
+        # run the test suite
+        internal_cover(c, cover=False)
+        # c.run("pipenv run test")
