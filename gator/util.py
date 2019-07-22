@@ -15,6 +15,8 @@ def verify_gatorgrader_home(current_gatorgrader_home):
     # a directory is verified if:
     # 1) it exists on the file system
     # 2) is ends in the word "gatorgrader"
+    print()
+    print("verify: " + str(current_gatorgrader_home))
     verified_gatorgrader_home = False
     # pylint: disable=bad-continuation
     if current_gatorgrader_home is not None:
@@ -27,6 +29,7 @@ def verify_gatorgrader_home(current_gatorgrader_home):
             and possible_gatorgrader_home.name == constants.paths.Home
         ):
             verified_gatorgrader_home = True
+    print("status: " + str(verified_gatorgrader_home))
     return verified_gatorgrader_home
 
 
