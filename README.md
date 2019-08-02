@@ -20,6 +20,7 @@ speed!
 * [Testing GatorGrader](#testing-gatorgrader)
   + [Automated Testing](#automated-testing)
   + [Test Coverage](#test-coverage)
+  + [Testing with Multiple Python Versions](#testing-with-multiple-python-versions)
   + [Code Linting](#code-linting)
 * [Running GatorGrader](#running-gatorgrader)
 * [Comparison to Other Tools](#comparison-to-other-tools)
@@ -201,7 +202,7 @@ invoke -c .tasks cover --pyenv 3.6.8 --pyenv 3.7.3
 ```
 
 You can switch the version to which Pipenv is bound by running the following
-command that adopts Python 3.7.3.
+command that adopts, for instance, Python 3.7.3.
 
 ```
 invoke -c .tasks switch --pyenv=3.7.3
