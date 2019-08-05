@@ -177,13 +177,19 @@ pipenv run cover
 The previous two commands are restricted to running the test suite in the
 version of Python to which Pipenv was bound. If you have installed multiple
 versions of Python with Pyenv and you want to iteratively bind Pipenv to each
-version and then run the test suite, then you should first run these commands to
-install [Pipx](https://github.com/pipxproject/pipx) and use Pipx to install
-[Invoke](https://github.com/pyinvoke/invoke).
+version and then run the test suite, then you should first run the following
+commands to install [Pipx](https://github.com/pipxproject/pipx) and use Pipx to
+install [Invoke](https://github.com/pyinvoke/invoke). The first of these three
+commands will install `pipx`, a program that supports the execution of Python
+packages in isolated environments. The second command makes the directory
+`~/.local/bin/` a part of the search path for executable Python programs and the
+third one installs the `invoke` command so that it is available on your
+workstation outside of a virtual environment managed by Pipenv, thereby ensuring
+that it is always available to run tasks.
 
 ```
 pip install pipx --user
-python -m userpath append ~/.local/bin
+python -m userpath append ~/.local/bin/
 pipx install invoke
 ```
 
