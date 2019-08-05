@@ -151,8 +151,9 @@ that is bound to the version of Python that Pyenv set for use.
 The developers use [Pytest](https://docs.pytest.org/en/latest/) for the testing
 of GatorGrader. Depending on your goals, there are several different
 configurations in which you can run the provided test suite. If you want to run
-the test suite to see if the test cases are passing, then you can run this
-command in a terminal window.
+the test suite to see if the test cases are passing, then running this command
+in a terminal window will perform testing with the version of Python to which
+Pipenv's virtual environment is currently bound.
 
 ```
 pipenv run test
@@ -161,9 +162,11 @@ pipenv run test
 ### Test Coverage
 
 Along with running the test suite, the developers of GatorGrader use statement
-and branch coverage to inform their testing activities. To see the coverage of
+and branch coverage to enhance their testing activities. To see the coverage of
 the tests while also highlighting the lines that are not currently covered by
-the tests, you can run this command in a terminal window.
+the tests, you can run this command in a terminal window. As with the previous
+command, this will run the tests in the version of Python to which Pipenv's
+virtual environment is currently bound.
 
 ```
 pipenv run cover
@@ -171,11 +174,11 @@ pipenv run cover
 
 ### Testing with Multiple Python Versions
 
-The previous two commands will run the test suite in the version of Python to
-which Pipenv was bound. If you have installed multiple versions of Python with
-Pyenv and you want to iteratively bind Pipenv to each version and then run the
-test suite, then you should first run these commands to install
-[Pipx](https://github.com/pipxproject/pipx) and use Pipx to install
+The previous two commands are restricted to running the test suite in the
+version of Python to which Pipenv was bound. If you have installed multiple
+versions of Python with Pyenv and you want to iteratively bind Pipenv to each
+version and then run the test suite, then you should first run these commands to
+install [Pipx](https://github.com/pipxproject/pipx) and use Pipx to install
 [Invoke](https://github.com/pyinvoke/invoke).
 
 ```
