@@ -192,21 +192,21 @@ following command. This example command will run the test suite in Python 3.6.8
 and Python 3.7.3.
 
 ```
-invoke -c .tasks test --pyenv 3.6.8 --pyenv 3.7.3
+invoke -c scripts/tasks test --pyenv 3.6.8 --pyenv 3.7.3
 ```
 
 If you want to track test coverage while running the tests in both Python 3.6.8
 and 3.7.3, then you can run the following command.
 
 ```
-invoke -c .tasks cover --pyenv 3.6.8 --pyenv 3.7.3
+invoke -c scripts/tasks cover --pyenv 3.6.8 --pyenv 3.7.3
 ```
 
 You can switch the version to which Pipenv is bound by running the following
 command that adopts, for instance, Python 3.7.3.
 
 ```
-invoke -c .tasks switch --pyenv=3.7.3
+invoke -c scripts/tasks switch --pyenv 3.7.3
 ```
 
 ### Code Linting
