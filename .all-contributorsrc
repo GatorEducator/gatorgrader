@@ -324,6 +324,16 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "deedoubledub",
+      "name": "David Wagner",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1869605?v=4",
+      "profile": "http://www.deedoubledub.com",
+      "contributions": [
+        "ideas",
+        "userTesting"
+      ]
     }
   ],
   "contributorsPerLine": 10,
