@@ -20,6 +20,7 @@ speed!
 * [Testing GatorGrader](#testing-gatorgrader)
   + [Automated Testing](#automated-testing)
   + [Test Coverage](#test-coverage)
+  + [Testing with Multiple Python Versions](#testing-with-multiple-python-versions)
   + [Code Linting](#code-linting)
 * [Running GatorGrader](#running-gatorgrader)
 * [Comparison to Other Tools](#comparison-to-other-tools)
@@ -38,10 +39,11 @@ and documentation for different languages:
 [Java](https://github.com/GatorEducator/java-starter),
 [LaTeX](https://github.com/GatorEducator/latex-assignment-starter), and [HTML
 with CSS](https://github.com/GatorEducator/html-css-assignment-starter). These
-examples show how to integrate GatorGrader with [GitHub
+examples also show how to integrate GatorGrader with [GitHub
 Classroom](https://classroom.github.com/) and [Travis
-CI](https://travis-ci.com/). The Gradle plugin for GatorGrader will install it
-automatically when you type `gradle grade` in a terminal window.
+CI](https://travis-ci.com/). When you follow these examples, the Gradle plugin
+for GatorGrader will install it automatically when you run `gradle grade` in a
+terminal window.
 
 ## Key Features
 
@@ -136,34 +138,81 @@ git clone https://github.com/GatorEducator/gatorgrader.git
 
 If you plan to develop new features for GatorGrader or if you want to run the
 tool's test suite in [Pytest](https://github.com/pytest-dev/pytest), then you
-will need to install the developer dependencies by typing `pipenv install --dev`
-in the directory that contains GatorGrader. If you want to use GatorGrader, then
-you can type `pipenv install` instead. Once these commands are completed
-successfully, you have officially installed GatorGrader!
+will need to install the developer dependencies by typing ``pipenv install --python="$(pyenv which python)" --dev`` in the directory that contains
+GatorGrader. If you want to use GatorGrader, then you can type ``pipenv install --python="$(pyenv which python)"`` instead. Once these commands complete
+successfully, you have officially installed GatorGrader! Note that running these
+commands will ensure that Pipenv creates a virtual environment for GatorGrader
+that is bound to the version of Python that Pyenv set for use.
 
 ## Testing GatorGrader
 
 ### Automated Testing
 
-The developers use [Pytest](https://docs.pytest.org/en/latest/) for testing
-GatorGrader. Depending on your goals, there are several different configurations
-in which you can run the provided test suite. If you want to run the test suite
-to see if the test cases are passing, then you can type this command in a
-terminal window.
+The developers use [Pytest](https://docs.pytest.org/en/latest/) for the testing
+of GatorGrader. Depending on your goals, there are several different
+configurations in which you can run the provided test suite. If you want to run
+the test suite to see if the test cases are passing, then running this command
+in a terminal window will perform testing with the version of Python to which
+Pipenv's virtual environment is currently bound.
 
-```bash
+```
 pipenv run test
 ```
 
 ### Test Coverage
 
 Along with running the test suite, the developers of GatorGrader use statement
-and branch coverage to inform their testing activities. To see the coverage of
+and branch coverage to enhance their testing activities. To see the coverage of
 the tests while also highlighting the lines that are not currently covered by
-the tests, you can type this command in a terminal window.
+the tests, you can run this command in a terminal window. As with the previous
+command, this will run the tests in the version of Python to which Pipenv's
+virtual environment is currently bound.
 
-```bash
+```
 pipenv run cover
+```
+
+### Testing with Multiple Python Versions
+
+The previous two commands are restricted to running the test suite in the
+version of Python to which Pipenv was bound. If you have installed multiple
+versions of Python with Pyenv and you want to iteratively bind Pipenv to each
+version and then run the test suite, then you should first run the following
+commands to install [Pipx](https://github.com/pipxproject/pipx) and use Pipx to
+install [Invoke](https://github.com/pyinvoke/invoke). The first of these three
+commands will install `pipx`, a program that supports the execution of Python
+packages in isolated environments. The second command makes the directory
+`~/.local/bin/` a part of the search path for executable Python programs and the
+third one installs the `invoke` command so that it is available on your
+workstation outside of a virtual environment managed by Pipenv, thereby ensuring
+that it is always available to run tasks.
+
+```
+pip install pipx --user
+python -m userpath append ~/.local/bin/
+pipx install invoke
+```
+
+Now you can run the test suite in the specified versions of Python with the
+following command. This example command will run the test suite in Python 3.6.8
+and Python 3.7.3.
+
+```
+invoke -c scripts/tasks test --pyenv 3.6.8 --pyenv 3.7.3
+```
+
+If you want to track test coverage while running the tests in both Python 3.6.8
+and 3.7.3, then you can run the following command.
+
+```
+invoke -c scripts/tasks cover --pyenv 3.6.8 --pyenv 3.7.3
+```
+
+You can switch the version to which Pipenv is bound by running the following
+command that adopts, for instance, Python 3.7.3.
+
+```
+invoke -c scripts/tasks switch --pyenv 3.7.3
 ```
 
 ### Code Linting
@@ -224,11 +273,11 @@ stand-alone platforms that do not integrate with industry-standard
 infrastructure like GitHub and Travis CI, GatorGrader is a tool that
 automatically checks the work of technical writers and programmers. Unlike other
 systems, GatorGrader provides a "batteries included" approach to automated
-grading that makes it easy for instructors to combine existing checks for
-projects implemented in a wide variety of programming languages. GatorGrader's
-developers take its engineering seriously, maintaining standards-compliant
-source code, a test suite with 100% statement and branch coverage, and top-notch
-source code and user documentation.
+grading that makes it easy for instructors to combine well-tested checks for
+projects that students implement in a wide variety of programming languages.
+GatorGrader's developers take its engineering seriously, maintaining
+standards-compliant source code, a test suite with 100% statement and branch
+coverage, and top-notch source code and user documentation.
 
 ## Presentations
 
@@ -307,4 +356,6 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+This project follows the
+[all-contributors](https://github.com/all-contributors/all-contributors)
+specification. Contributions of any kind are welcome!
