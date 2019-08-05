@@ -9,7 +9,8 @@ def internal_cover(c, cover=True):
     if cover:
         c.run("pipenv run cover")
     # run test suite without coverage analysis
-    c.run("pipenv run test")
+    else:
+        c.run("pipenv run test")
 
 
 def internal_switch(c, pyenv="3.7.3"):
