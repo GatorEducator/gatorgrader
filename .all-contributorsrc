@@ -331,7 +331,9 @@
       "avatar_url": "https://avatars1.githubusercontent.com/u/23369060?v=4",
       "profile": "https://github.com/MaddyKapfhammer",
       "contributions": [
-        "doc"
+        "doc",
+        "infra",
+        "test"
       ]
     }
   ],
