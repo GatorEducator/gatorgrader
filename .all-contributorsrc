@@ -324,6 +324,16 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "jjumadinova",
+      "name": "Janyl Jumadinova",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/9140572?v=4",
+      "profile": "http://www.cs.allegheny.edu/sites/jjumadinova/",
+      "contributions": [
+        "ideas",
+        "userTesting"
+      ]
     }
   ],
   "contributorsPerLine": 10,
