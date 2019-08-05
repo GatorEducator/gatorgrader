@@ -301,7 +301,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://github.com/quigley-c"><img src="https://avatars1.githubusercontent.com/u/35495466?v=4" width="64px;" alt="Carson Quigley"/><br /><sub><b>Carson Quigley</b></sub></a><br /><a href="https://github.com/GatorEducator/gatorgrader/commits?author=quigley-c" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/yeej2"><img src="https://avatars1.githubusercontent.com/u/22895281?v=4" width="64px;" alt="Joshua Yee"/><br /><sub><b>Joshua Yee</b></sub></a><br /><a href="https://github.com/GatorEducator/gatorgrader/commits?author=yeej2" title="Code">💻</a> <a href="https://github.com/GatorEducator/gatorgrader/commits?author=yeej2" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/MaddyKapfhammer"><img src="https://avatars1.githubusercontent.com/u/23369060?v=4" width="64px;" alt="Madelyn Kapfhammer"/><br /><sub><b>Madelyn Kapfhammer</b></sub></a><br /><a href="https://github.com/GatorEducator/gatorgrader/commits?author=MaddyKapfhammer" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/MaddyKapfhammer"><img src="https://avatars1.githubusercontent.com/u/23369060?v=4" width="64px;" alt="Madelyn Kapfhammer"/><br /><sub><b>Madelyn Kapfhammer</b></sub></a><br /><a href="https://github.com/GatorEducator/gatorgrader/commits?author=MaddyKapfhammer" title="Documentation">📖</a> <a href="#infra-MaddyKapfhammer" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/GatorEducator/gatorgrader/commits?author=MaddyKapfhammer" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
