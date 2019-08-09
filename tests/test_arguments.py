@@ -9,12 +9,6 @@ VERIFIED = True
 NOT_VERIFIED = False
 
 
-@pytest.fixture
-def verifiable_gg_args():
-    """Return arguments that are verifiable."""
-    return ["check_commits"]
-
-
 def test_no_arguments_incorrect_system_exit(capsys):
     """No command-line arguments causes SystemExit crash of argparse with error output."""
     with pytest.raises(SystemExit):
@@ -39,8 +33,8 @@ def test_no_arguments_incorrect_system_exit_not_verified(capsys):
     _ = capsys.readouterr()
 
 
-def test_basic_check_correct(verifiable_gg_args):
-    """Run arguments with verifiable arguments and it is verified."""
-    gg_arguments = arguments.parse(verifiable_gg_args)
+def test_basic_check_correct():
+    """When given verifiable arguments, there is no error and it is verified."""
+    gg_arguments = arguments.parse(["check_commits"])
     gg_args_verified = arguments.verify(gg_arguments)
     assert gg_args_verified == VERIFIED
