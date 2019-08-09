@@ -1,6 +1,5 @@
-"""Tests for the input and checking of command-line arguments."""
+"""Tests for the input and verification of command-line arguments."""
 
-import argparse
 import pytest
 
 from gator import arguments
