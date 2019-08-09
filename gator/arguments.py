@@ -28,7 +28,7 @@ def parse(args):
 
     # CHECK: the name of the check
     # REQUIRED? Yes
-    # CORRECT WHEN: always, selects a check and asks it to verify arguments further
+    # CORRECT WHEN: always, selects a check and asks it to verify its own arguments
     gg_parser.add_argument("check", metavar='CHECK', help="check to run on technical writing or source code", type=str)
 
     # }}}
@@ -42,4 +42,6 @@ def verify(args):
     """Check if the arguments are correct."""
     # assume that the arguments are not valid and prove otherwise
     verified_arguments = False
+    if args.check is not None:
+        verified_arguments = True
     return verified_arguments
