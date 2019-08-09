@@ -3,6 +3,10 @@
 from invoke import task
 
 
+# the default version of Python for use in invoke tasks
+DEFAULT_PYENV_VERSION = "3.7.3"
+
+
 def internal_cover(c, cover=True):
     """Run the test suite, optionally with coverage tracking enabled."""
     # run test suite with coverage analysis
@@ -13,7 +17,7 @@ def internal_cover(c, cover=True):
         c.run("pipenv run test")
 
 
-def internal_switch(c, pyenv="3.7.3"):
+def internal_switch(c, pyenv=DEFAULT_PYENV_VERSION):
     """Switch the version of Python managed by Pipenv to specified version."""
     # select current_pyenv as the version of Python
     c.run("pyenv local " + pyenv)
@@ -24,7 +28,7 @@ def internal_switch(c, pyenv="3.7.3"):
 
 
 @task
-def switch(c, pyenv="3.7.3"):
+def switch(c, pyenv=DEFAULT_PYENV_VERSION):
     """Task to switch the version of Python managed by Pipenv to specified version."""
     internal_switch(c, pyenv)
 
