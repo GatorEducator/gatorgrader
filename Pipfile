@@ -24,6 +24,7 @@ codacy-coverage = "*"
 pydocstyle = "*"
 radon = "*"
 xenon = "*"
+pluginbase = "*"
 
 [pipenv]
 allow_prereleases = true
