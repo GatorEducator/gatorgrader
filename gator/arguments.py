@@ -29,7 +29,7 @@ def parse(args):
     # CHECK: the name of the check
     # REQUIRED? Yes
     # CORRECT WHEN: always, selects a check and asks it to verify arguments further
-    gg_parser.add_argument("check", help="the chosen check", type=str, required=True)
+    gg_parser.add_argument("check", help="the chosen check", type=str)
 
     # }}}
 
