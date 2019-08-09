@@ -25,8 +25,8 @@ REPORT = sys.modules[constants.modules.Report]
 OUTPUT_TYPE = getattr(REPORT, constants.outputs.Text)
 
 
-def check_arguments(system_arguments):
-    """Check the arguments return the desired actions to perform."""
+def get_checker(system_arguments):
+    """Identify the chosen checker."""
     # parse and verify the arguments
     actions = []
     gg_arguments = arguments.parse(system_arguments)
@@ -369,7 +369,7 @@ def check(system_arguments):
     # Only step: check the arguments
     step_results = []
     check_results = []
-    gg_arguments, arguments_actions = check_arguments(system_arguments)
+    gg_arguments, arguments_actions = get_checker(system_arguments)
     step_results = perform(arguments_actions)
     check_results.extend(step_results)
     # Section: Perform one of these checks
