@@ -22,14 +22,14 @@ def parse(args):
     # JSON: output reports in JSON?
     # REQUIRED? No
     # CORRECT WHEN: always, only changes report output
-    gg_parser.add_argument("--json", help="print reports in JSON", action="store_true")
+    gg_parser.add_argument("--json", help="print report in JSON", action="store_true")
 
     # Positional Arguments {{{
 
     # CHECK: the name of the check
     # REQUIRED? Yes
     # CORRECT WHEN: always, selects a check and asks it to verify arguments further
-    gg_parser.add_argument("check", help="check to run on technical writing or source code", type=str)
+    gg_parser.add_argument("check", metavar='CHECK', help="check to run on technical writing or source code", type=str)
 
     # }}}
 
