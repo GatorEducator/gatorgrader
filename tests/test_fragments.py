@@ -487,11 +487,37 @@ def test_count_single_line_from_file(tmpdir):
     assert count == 1
 
 
+def test_count_single_line_from_empty_file(tmpdir):
+    """Check that counting lines in an empty file works correctly."""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
+    hello_file = "Hello.java"
+    count = fragments.count_lines(hello_file, directory, "")
+    assert count == 0
+
+
+def test_count_single_line_from_incorrect_file(tmpdir):
+    """Check that counting lines in an incorrect file works correctly."""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
+    hello_file = "HelloWrong.java"
+    count = fragments.count_lines(hello_file, directory, "")
+    assert count == 0
+
+
 def test_count_single_line_from_contents():
     """Check that counting lines in contents works correctly."""
     hello_contents = "Hello.java"
     count = fragments.count_lines("", "", hello_contents)
     assert count == 1
+
+
+def test_count_single_line_from_empty_contents():
+    """Check that counting lines in contents works correctly."""
+    count = fragments.count_lines("", "", "")
+    assert count == 0
 
 
 def test_count_single_line_from_file_with_threshold(tmpdir):
