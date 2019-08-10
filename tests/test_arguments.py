@@ -38,3 +38,40 @@ def test_basic_check_correct():
     gg_arguments = arguments.parse(["check_commits"])
     gg_args_verified = arguments.verify(gg_arguments)
     assert gg_args_verified == VERIFIED
+
+
+@pytest.mark.parametrize(
+    "commandline_arguments",
+    [
+        (["--json", "check_commits"]),
+        (["--json", "--nowelcome", "check_commits"]),
+        (["--nowelcome", "check_commits"]),
+    ],
+)
+def test_optional_commandline_arguments_can_verify(commandline_arguments):
+    """Check that correct optional command-line arguments check correctly."""
+    gg_arguments = arguments.parse(commandline_arguments)
+    gg_args_verified = arguments.verify(gg_arguments)
+    assert gg_args_verified is True
+
+
+@pytest.mark.parametrize(
+    "commandline_arguments",
+    [
+        (["--jsonFF", "check_commits"]),
+        (["--json", "--nowelcomeFF", "check_commits"]),
+        (["--nowelcomeFF", "check_commits"]),
+    ],
+)
+def test_optional_commandline_arguments_cannot_verify(commandline_arguments, capsys):
+    """Check that incorrect optional command-line arguments check correctly."""
+    with pytest.raises(SystemExit):
+        _ = arguments.parse(commandline_arguments)
+    captured = capsys.readouterr()
+    # there is no standard output
+    counted_newlines = captured.out.count("\n")
+    assert counted_newlines == 0
+    # standard error has two lines from pytest
+    assert "usage:" in captured.err
+    counted_newlines = captured.err.count("\n")
+    assert counted_newlines == 2
