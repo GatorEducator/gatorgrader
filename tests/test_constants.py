@@ -113,7 +113,9 @@ def test_help_constant_defined():
     """Check correctness for the variables in the help constant."""
     assert constants.help.No_Welcome == "do not display the welcome message"
     assert constants.help.Json == "print the status report in JSON"
-    assert constants.help.Check == "check to run on the technical writing or source code"
+    assert (
+        constants.help.Check == "check to run on the technical writing or source code"
+    )
 
 
 def test_metavars_constant_defined():
