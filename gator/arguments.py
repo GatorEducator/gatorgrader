@@ -14,6 +14,16 @@ def parse(args):
 
     # Optional Arguments {{{
 
+    # CHECKERDIR: the directory of user-provided checkers
+    # REQUIRED? No
+    # CORRECT WHEN: it is a valid directory
+    parser.add_argument(
+        constants.commandlines.Checker_Dir,
+        metavar=constants.metavars.Dir,
+        help=constants.help.Checker_Dir,
+        type=str,
+    )
+
     # NOWELCOME: do not display the welcome message?
     # REQUIRED? No
     # CORRECT WHEN: always, only changes output on screen
