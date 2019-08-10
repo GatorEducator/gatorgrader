@@ -9,8 +9,6 @@ from gator import checkers
 if __name__ == "__main__":
     # get the source of all the linters
     checker_source = checkers.get_source()
-    print("checker_source")
-    print(str(checker_source.list_plugins()))
     exit_code = 0
     # orchestrate check(s) of the specified deliverable(s)
     exit_code = orchestrate.check(sys.argv[1:])
