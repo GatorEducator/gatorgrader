@@ -193,7 +193,6 @@ def test_singleline_python_comments_zero_or_one(code_string, expected_count):
         code_string
     )
     assert count_of_singleline_python_comments == expected_count
-    # assert comments.count_singleline_python_comment(code_string) == expected_count
 
 
 @pytest.mark.parametrize(
@@ -222,7 +221,6 @@ def test_singleline_java_comments_many(code_string, expected_count):
         code_string
     )
     assert count_of_singleline_java_comments == expected_count
-    # assert comments.count_singleline_java_comment(code_string) == expected_count
 
 
 @pytest.mark.parametrize(
@@ -251,7 +249,6 @@ def test_singleline_python_comments_many(code_string, expected_count):
         code_string
     )
     assert count_of_singleline_python_comments == expected_count
-    # assert comments.count_singleline_python_comment(code_string) == expected_count
 
 
 @pytest.mark.parametrize(
@@ -269,7 +266,6 @@ def test_singleline_java_comments_mixed(code_string, expected_count):
         code_string
     )
     assert count_of_singleline_java_comments == expected_count
-    # assert comments.count_singleline_java_comment(code_string) == expected_count
 
 
 @pytest.mark.parametrize(
@@ -289,7 +285,6 @@ def test_singleline_python_comments_mixed(code_string, expected_count):
         code_string
     )
     assert count_of_singleline_python_comments == expected_count
-    # assert comments.count_singleline_python_comment(code_string) == expected_count
 
 
 @pytest.mark.parametrize(
@@ -323,7 +318,6 @@ def test_multiline_java_comments_zero_or_one(code_string, expected_count):
         code_string
     )
     assert count_of_multiline_java_comments == expected_count
-    # assert comments.count_multiline_java_comment(code_string) == expected_count
 
 
 @pytest.mark.parametrize(
@@ -357,7 +351,6 @@ def test_multiline_python_comments_zero_or_one(code_string, expected_count):
         code_string
     )
     assert count_of_multiline_python_comments == expected_count
-    # assert comments.count_multiline_python_comment(code_string) == expected_count
 
 
 @pytest.mark.parametrize(
@@ -378,7 +371,6 @@ def test_multiline_java_comments_two(code_string, expected_count):
         code_string
     )
     assert count_of_multiline_java_comments == expected_count
-    # assert comments.count_multiline_java_comment(code_string) == expected_count
 
 
 @pytest.mark.parametrize(
@@ -399,7 +391,6 @@ def test_multiline_python_comments_two(code_string, expected_count):
         code_string
     )
     assert count_of_multiline_python_comments == expected_count
-    # assert comments.count_multiline_python_comment(code_string) == expected_count
 
 
 @pytest.mark.parametrize(
@@ -418,7 +409,6 @@ def test_multiline_java_comments_mixed(code_string, expected_count):
         code_string
     )
     assert count_of_multiline_java_comments == expected_count
-    # assert comments.count_multiline_java_comment(code_string) == expected_count
 
 
 @pytest.mark.parametrize(
@@ -438,7 +428,6 @@ def test_multiline_python_comments_mixed(code_string, expected_count):
         code_string
     )
     assert count_of_multiline_python_comments == expected_count
-    # assert comments.count_multiline_python_comment(code_string) == expected_count
 
 
 @pytest.mark.parametrize(
@@ -458,7 +447,6 @@ def test_multiline_java_comments_many(code_string, expected_count):
         code_string
     )
     assert count_of_multiline_java_comments == expected_count
-    # assert comments.count_multiline_java_comment(code_string) == expected_count
 
 
 @pytest.mark.parametrize(
@@ -478,4 +466,3 @@ def test_multiline_python_comments_many(code_string, expected_count):
         code_string
     )
     assert count_of_multiline_python_comments == expected_count
-    # assert comments.count_multiline_python_comment(code_string) == expected_count
