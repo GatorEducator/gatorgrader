@@ -110,3 +110,29 @@ With more `code blocks` and maybe an ![Image](www.example.com)."""
     )
     assert actual_count == 2
     assert exactly is True
+
+
+def test_count_fragments_from_empty_file(tmpdir):
+    """Check that counting tags in a file works correctly if file is empty."""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.md")
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
+    hello_file = "Hello.md"
+    exceeds_threshold, actual_count = markdown.specified_tag_greater_than_count(
+        "code", markdown.count_specified_tag, 3, hello_file, directory
+    )
+    assert actual_count == 0
+    assert exceeds_threshold is False
+
+
+def test_count_fragments_from_incorrect_file(tmpdir):
+    """Check that counting tags in a file works correctly if file does not exist."""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.md")
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
+    hello_file = "HelloWrong.md"
+    exceeds_threshold, actual_count = markdown.specified_tag_greater_than_count(
+        "code", markdown.count_specified_tag, 3, hello_file, directory
+    )
+    assert actual_count == 0
+    assert exceeds_threshold is False
