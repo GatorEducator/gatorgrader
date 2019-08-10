@@ -67,6 +67,11 @@ def test_outputs_constant_defined():
     assert constants.outputs.Text == "TEXT"
 
 
+def test_packages_constant_defined():
+    """Check correctness for the variables in the packages constant."""
+    assert constants.packages.Checks == "gator.checks"
+
+
 def test_results_constant_defined():
     """Check correctness for the variables in the results constant."""
     assert constants.results.Check == "check"
@@ -243,6 +248,12 @@ def test_outputs_constant_cannot_redefine():
         constants.outputs.Json = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
         constants.outputs.Text = CANNOT_SET_CONSTANT_VARIABLE
+
+
+def test_packages_constant_cannot_redefine():
+    """Check cannot redefine the variables in the packages constant."""
+    with pytest.raises(AttributeError):
+        constants.packages.Checks = CANNOT_SET_CONSTANT_VARIABLE
 
 
 def test_results_constant_cannot_redefine():
