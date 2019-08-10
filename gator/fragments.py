@@ -1,5 +1,7 @@
 """Retrieve and count the contents of a file."""
 
+import snoop
+
 import re
 import commonmark
 
@@ -226,15 +228,17 @@ def specified_source_greater_than_count(
     return util.greater_than_equal_exacted(file_line_count, expected_count, exact)
 
 
+# @snoop
 def count_lines(
     given_file=constants.markers.Nothing,
     containing_directory=constants.markers.Nothing,
     contents=constants.markers.Nothing,
 ):
-    """Count lines for the file in the directory (or contents)."""
+    """Count lines for the file in the directory, or alternatively, provided contents."""
+    # assume that the count of the file's lines or the lines in provided contents is zero
+    file_contents_count = 0
     # create a Path object to the chosen file in the containing directory
     file_for_checking = files.create_path(file=given_file, home=containing_directory)
-    file_contents_count = 0
     # file is not available and the contents are provided
     # the context for this condition is when the function checks
     # the output from the execution of a specified command
@@ -243,7 +247,7 @@ def count_lines(
         file_contents_count = len(line_list)
     # file is available and the contents are not provided
     # the context for this condition is when the function checks
-    # the contents of a specified file
+    # the contents of a specified file that exists on the filesystem
     elif file_for_checking.is_file() and contents is constants.markers.Nothing:
         file_contents = file_for_checking.read_text()
         line_list = get_line_list(file_contents)
