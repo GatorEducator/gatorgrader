@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "98b2db77bdfa6149638c0c5d5bb90b000ffe51f37431445ad03014fb2436c876"
+            "sha256": "89aa3b57570efbf7026d8304996d9c7dd96cb5c2a873c7eed696f171c63a883d"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -116,6 +116,13 @@
             ],
             "version": "==2.2.5"
         },
+        "asttokens": {
+            "hashes": [
+                "sha256:0e7d99e7221b7b937200383b26620803083d71cc065c967e20c756aaf0acfdaf",
+                "sha256:55c00658f9e0fa7e031529c719e8bb2cdbad0ad973aaff08faf6bfdaa96ca4ed"
+            ],
+            "version": "==1.1.13"
+        },
         "atomicwrites": {
             "hashes": [
                 "sha256:03472c30eb2c5d1ba9227e4c2ca66ab8287fbfbbda3888aa93dc2e28fc6811b4",
@@ -159,6 +166,12 @@
                 "sha256:fc323ffcaeaed0e0a02bf4d117757b98aed530d9ed4531e3e15460124c106691"
             ],
             "version": "==3.0.4"
+        },
+        "cheap-repr": {
+            "hashes": [
+                "sha256:675e6fc43bcad39f796f588d492bbc402baa4efde164fdb1b3f50264779278a6"
+            ],
+            "version": "==0.4.1"
         },
         "click": {
             "hashes": [
@@ -228,6 +241,12 @@
                 "sha256:c70dd71abe5a8c85e55e12c19bd91ccfeec11a6e99044204511f9ed547d48451"
             ],
             "version": "==0.3"
+        },
+        "executing": {
+            "hashes": [
+                "sha256:41588d9f8e0ebf6333b37da4f944ac22ba7cb3545ab47612d3ba1722f1fdb0b4"
+            ],
+            "version": "==0.2.0"
         },
         "flake8": {
             "hashes": [
@@ -433,6 +452,13 @@
             ],
             "version": "==2.1.1"
         },
+        "pygments": {
+            "hashes": [
+                "sha256:71e430bc85c88a430f000ac1d9b331d2407f681d6f6aec95e8bcfbc3df5b0127",
+                "sha256:881c4c157e45f30af185c1ffe8d549d48ac9127433f2c380c24b84572ad66297"
+            ],
+            "version": "==2.4.2"
+        },
         "pylint": {
             "hashes": [
                 "sha256:5d77031694a5fb97ea95e828c8d10fc770a1df6eb3906067aaed42201a8a6a09",
@@ -453,14 +479,6 @@
                 "sha256:d9338df12903bbf5d65a0e4e87c2161968b10d2e489652bb47001d82a9b028b4"
             ],
             "version": "==2.4.2"
-        },
-        "pysnooper": {
-            "hashes": [
-                "sha256:ca91e943aec0de6dec6fc3ff68917c643aa879f4dc4409baa979a0fd38cdb844",
-                "sha256:eb4e9e951cb3432236a749a03367eec952c48f72a603cfc172fd542b584dfd22"
-            ],
-            "index": "pypi",
-            "version": "==0.2.5"
         },
         "pytest": {
             "hashes": [
@@ -526,6 +544,13 @@
                 "sha256:29a9ffa0497e7f2be94ca0ed1ca1aa3cd4cf25a1f6b4f5f87f74b46ed91d609a"
             ],
             "version": "==2.0.5"
+        },
+        "snoop": {
+            "hashes": [
+                "sha256:2a55c9b65dfcab471b3dea56efe634ed2d25df80a8109e86587afa9fb56aab9f"
+            ],
+            "index": "pypi",
+            "version": "==0.2.1"
         },
         "snowballstemmer": {
             "hashes": [
