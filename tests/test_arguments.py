@@ -61,6 +61,8 @@ def test_optional_commandline_arguments_can_verify(commandline_arguments):
         (["--jsonFF", "check_commits"]),
         (["--json", "--nowelcomeFF", "check_commits"]),
         (["--nowelcomeFF", "check_commits"]),
+        (["--checkerdir", "check_commits"]),
+        (["--checkerdirFF", "directory", "check_commits"]),
     ],
 )
 def test_optional_commandline_arguments_cannot_verify(commandline_arguments, capsys):
