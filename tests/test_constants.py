@@ -116,6 +116,11 @@ def test_help_constant_defined():
     assert constants.help.Check == "check to run on the technical writing or source code"
 
 
+def test_metavars_constant_defined():
+    """Check correctness for the variables in the metavar constant."""
+    assert constants.metavars.Check == "CHECK"
+
+
 def test_languages_constant_cannot_redefine():
     """Check cannot redefine the variables in the languages constant."""
     with pytest.raises(AttributeError):
@@ -196,6 +201,12 @@ def test_help_constant_cannot_redefine():
         constants.help.Json = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
         constants.help.Check = CANNOT_SET_CONSTANT_VARIABLE
+
+
+def test_metavars_constant_cannot_redefine():
+    """Check cannot redefine the variables in the metavars constant."""
+    with pytest.raises(AttributeError):
+        constants.metavars.Check = CANNOT_SET_CONSTANT_VARIABLE
 
 
 def test_arguments_constant_cannot_redefine():
