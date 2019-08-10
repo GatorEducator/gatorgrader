@@ -324,6 +324,17 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "MaddyKapfhammer",
+      "name": "Madelyn Kapfhammer",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/23369060?v=4",
+      "profile": "https://github.com/MaddyKapfhammer",
+      "contributions": [
+        "doc",
+        "infra",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 10,

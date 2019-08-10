@@ -127,6 +127,10 @@ Session.vim
 .netrwhist
 *~
 
+# VS Code #
+######################
+.vscode
+
 # Java #
 ######################
 *.ear
