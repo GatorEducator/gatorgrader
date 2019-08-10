@@ -1,7 +1,5 @@
 """Retrieve and count the contents of a file."""
 
-import snoop
-
 import re
 import commonmark
 
@@ -228,7 +226,6 @@ def specified_source_greater_than_count(
     return util.greater_than_equal_exacted(file_line_count, expected_count, exact)
 
 
-# @snoop
 def count_lines(
     given_file=constants.markers.Nothing,
     containing_directory=constants.markers.Nothing,
