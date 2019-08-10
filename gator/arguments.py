@@ -1,4 +1,4 @@
-"""Handle the arguments provided to GatorGrader."""
+"""Handle the top-level command-line arguments provided to GatorGrader."""
 
 from gator import constants
 
@@ -16,20 +16,29 @@ def parse(args):
     # REQUIRED? No
     # CORRECT WHEN: always, only changes output on screen
     gg_parser.add_argument(
-        "--nowelcome", help="do not display the welcome message", action="store_true"
+        constants.commandlines.No_Welcome,
+        help=constants.help.No_Welcome,
+        action="store_true",
     )
 
     # JSON: output reports in JSON?
     # REQUIRED? No
     # CORRECT WHEN: always, only changes report output
-    gg_parser.add_argument("--json", help="print report in JSON", action="store_true")
+    gg_parser.add_argument(
+        constants.commandlines.Json, help=constants.help.Json, action="store_true"
+    )
 
     # Positional Arguments {{{
 
     # CHECK: the name of the check
     # REQUIRED? Yes
     # CORRECT WHEN: always, selects a check and asks it to verify its own arguments
-    gg_parser.add_argument("check", metavar='CHECK', help="check to run on technical writing or source code", type=str)
+    gg_parser.add_argument(
+        constants.commandlines.Check,
+        metavar=constants.metavars.Check,
+        help=constants.help.Check,
+        type=str,
+    )
 
     # }}}
 
