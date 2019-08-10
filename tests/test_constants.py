@@ -102,6 +102,20 @@ def test_functions_constant_defined():
     assert constants.functions.Count_Total_Words == "count_total_words"
 
 
+def test_commandlines_constant_defined():
+    """Check correctness for the variables in the commandlines constant."""
+    assert constants.commandlines.No_Welcome == "--nowelcome"
+    assert constants.commandlines.Json == "--json"
+    assert constants.commandlines.Check == "check"
+
+
+def test_help_constant_defined():
+    """Check correctness for the variables in the help constant."""
+    assert constants.help.No_Welcome == "do not display the welcome message"
+    assert constants.help.Json == "print the status report in JSON"
+    assert constants.help.Check == "check to run on the technical writing or source code"
+
+
 def test_languages_constant_cannot_redefine():
     """Check cannot redefine the variables in the languages constant."""
     with pytest.raises(AttributeError):
@@ -162,6 +176,26 @@ def test_codes_constant_cannot_redefine():
         constants.codes.Error = 10
     with pytest.raises(AttributeError):
         constants.codes.No_Words = 10
+
+
+def test_commandlines_constant_cannot_redefine():
+    """Check cannot redefine the variables in the commandlines constant."""
+    with pytest.raises(AttributeError):
+        constants.commandlines.No_Welcome = CANNOT_SET_CONSTANT_VARIABLE
+    with pytest.raises(AttributeError):
+        constants.commandlines.Json = CANNOT_SET_CONSTANT_VARIABLE
+    with pytest.raises(AttributeError):
+        constants.commandlines.Check = CANNOT_SET_CONSTANT_VARIABLE
+
+
+def test_help_constant_cannot_redefine():
+    """Check cannot redefine the variables in the help constant."""
+    with pytest.raises(AttributeError):
+        constants.help.No_Welcome = CANNOT_SET_CONSTANT_VARIABLE
+    with pytest.raises(AttributeError):
+        constants.help.Json = CANNOT_SET_CONSTANT_VARIABLE
+    with pytest.raises(AttributeError):
+        constants.help.Check = CANNOT_SET_CONSTANT_VARIABLE
 
 
 def test_arguments_constant_cannot_redefine():
