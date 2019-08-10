@@ -25,6 +25,7 @@ pydocstyle = "*"
 radon = "*"
 xenon = "*"
 pluginbase = "*"
+pysnooper = "*"
 
 [pipenv]
 allow_prereleases = true
