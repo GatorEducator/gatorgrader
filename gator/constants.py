@@ -21,6 +21,13 @@ arguments = create_constants("arguments", Incorrect=2, Void=[])
 # define the codes for return values
 codes = create_constants("codes", Error=1, Success=0, No_Words=0)
 
+# define the command-line arguments
+# note that "--" arguments are optional
+# and those without "--" are positional
+commandlines = create_constants(
+    "commandlines", No_Welcome="--nowelcome", Json="--json", Check="check"
+)
+
 # define the types of comments
 comments = create_constants(
     "comments", Multiple_Line="multiple-line", Single_Line="single-line"
@@ -31,6 +38,14 @@ environmentvariables = create_constants("environmentvariables", Home="GATORGRADE
 
 # define reference function names in the program
 functions = create_constants("functions", Count_Total_Words="count_total_words")
+
+# define the help messages for command-line arguments
+help = create_constants(
+    "help",
+    No_Welcome="do not display the welcome message",
+    Json="print the status report in JSON",
+    Check="check to run on the technical writing or source code",
+)
 
 # define the programming languages for comment checks
 languages = create_constants("languages", "Java", "Python")
@@ -54,6 +69,9 @@ markers = create_constants(
     First=1,
     Invalid=-1,
 )
+
+# define the metavars
+metavars = create_constants("metavars", Check="CHECK")
 
 # define the names of modules in the system
 # note that this only defines those modules
