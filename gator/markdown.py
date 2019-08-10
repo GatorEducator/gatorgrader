@@ -10,12 +10,11 @@ def count_specified_tag(contents, tag):
     """Count the specified markdown tag in the string contents."""
     ast = commonmark.Parser().parse(contents)
     tag_count = 0
-
+    # iteratively check all of the nodes in the AST of the markdown file
     for subnode, enter in ast.walker():
-        # Check to see if the current subnode is an open node of the specified tag
+        # check to see if the current subnode is an open node of the specified tag
         if subnode.t == tag and enter:
             tag_count += 1
-
     return tag_count
 
 
@@ -37,6 +36,5 @@ def specified_tag_greater_than_count(
         # read the contents of the file and then check for the chosen tag
         file_contents = file_for_checking.read_text()
         file_tag_count = checking_function(file_contents, chosen_tag)
-
     # check the condition and also return file_tag_count
     return util.greater_than_equal_exacted(file_tag_count, expected_count, exact)
