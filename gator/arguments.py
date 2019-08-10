@@ -12,6 +12,8 @@ def parse(args):
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
 
+    # Optional Arguments {{{
+
     # NOWELCOME: do not display the welcome message?
     # REQUIRED? No
     # CORRECT WHEN: always, only changes output on screen
@@ -27,6 +29,8 @@ def parse(args):
     gg_parser.add_argument(
         constants.commandlines.Json, help=constants.help.Json, action="store_true"
     )
+
+    # }}}
 
     # Positional Arguments {{{
 
