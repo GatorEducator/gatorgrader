@@ -36,8 +36,8 @@ def test_no_arguments_incorrect_system_exit_not_verified(capsys):
 def test_basic_check_correct():
     """When given verifiable arguments, there is no error and it is verified."""
     gg_arguments = arguments.parse(["check_commits"])
-    gg_args_verified = arguments.verify(gg_arguments)
-    assert gg_args_verified == VERIFIED
+    args_verified = arguments.verify(gg_arguments)
+    assert args_verified == VERIFIED
 
 
 @pytest.mark.parametrize(
@@ -51,8 +51,8 @@ def test_basic_check_correct():
 def test_optional_commandline_arguments_can_verify(commandline_arguments):
     """Check that correct optional command-line arguments check correctly."""
     gg_arguments = arguments.parse(commandline_arguments)
-    gg_args_verified = arguments.verify(gg_arguments)
-    assert gg_args_verified is True
+    args_verified = arguments.verify(gg_arguments)
+    assert args_verified is True
 
 
 @pytest.mark.parametrize(
@@ -77,3 +77,27 @@ def test_optional_commandline_arguments_cannot_verify(commandline_arguments, cap
     assert "usage:" in captured.err
     counted_newlines = captured.err.count("\n")
     assert counted_newlines == 2
+
+
+def test_checkerdir_is_valid_arguments_verify(tmpdir):
+    """Check that command-line argument with valid directory verifies."""
+    _ = tmpdir.mkdir("checks").join("check_messages.py")
+    assert len(tmpdir.listdir()) == 1
+    # this directory exists on the file system and verification should work
+    checker_directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "checks"
+    commandline_arguments = ["--checkerdir", checker_directory, "check_messages"]
+    gg_arguments = arguments.parse(commandline_arguments)
+    args_verified = arguments.verify(gg_arguments)
+    assert args_verified is True
+
+
+def test_checkerdir_is_not_valid_arguments_verify(tmpdir):
+    """Check that command-line argument with valid directory verifies."""
+    _ = tmpdir.mkdir("checks").join("check_messages.py")
+    assert len(tmpdir.listdir()) == 1
+    # this directory does not exist on the file system and verification should not work
+    checker_directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "checksWRONG"
+    commandline_arguments = ["--checkerdir", checker_directory, "check_messages"]
+    gg_arguments = arguments.parse(commandline_arguments)
+    args_verified = arguments.verify(gg_arguments)
+    assert args_verified is False
