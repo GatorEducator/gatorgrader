@@ -104,6 +104,7 @@ def test_functions_constant_defined():
 
 def test_commandlines_constant_defined():
     """Check correctness for the variables in the commandlines constant."""
+    assert constants.commandlines.Checker_Dir == "--checkerdir"
     assert constants.commandlines.No_Welcome == "--nowelcome"
     assert constants.commandlines.Json == "--json"
     assert constants.commandlines.Check == "check"
@@ -111,6 +112,7 @@ def test_commandlines_constant_defined():
 
 def test_help_constant_defined():
     """Check correctness for the variables in the help constant."""
+    assert constants.help.Checker_Dir == "directory containing user-provided checks"
     assert constants.help.No_Welcome == "do not display the welcome message"
     assert constants.help.Json == "print the status report in JSON"
     assert (
@@ -188,6 +190,8 @@ def test_codes_constant_cannot_redefine():
 def test_commandlines_constant_cannot_redefine():
     """Check cannot redefine the variables in the commandlines constant."""
     with pytest.raises(AttributeError):
+        constants.commandlines.Checker_Dir = CANNOT_SET_CONSTANT_VARIABLE
+    with pytest.raises(AttributeError):
         constants.commandlines.No_Welcome = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
         constants.commandlines.Json = CANNOT_SET_CONSTANT_VARIABLE
@@ -197,6 +201,8 @@ def test_commandlines_constant_cannot_redefine():
 
 def test_help_constant_cannot_redefine():
     """Check cannot redefine the variables in the help constant."""
+    with pytest.raises(AttributeError):
+        constants.help.Checker_Dir = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
         constants.help.No_Welcome = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
