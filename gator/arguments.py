@@ -1,6 +1,7 @@
 """Handle the top-level command-line arguments provided to GatorGrader."""
 
 from gator import constants
+from gator import files
 
 import argparse
 
@@ -63,8 +64,14 @@ def parse(args):
 
 def verify(args):
     """Check if the arguments are correct."""
-    # assume that the arguments are not valid and prove otherwise
-    verified_arguments = False
-    if args.check is not None:
-        verified_arguments = True
+    # assume the arguments are valid, then prove otherwise
+    verified_arguments = True
+    # CHECKERDIR: an external directory of checks was specified
+    # ENSURE: this directory is a valid directory
+    if args.checkerdir is not None:
+        # assume that it is not a valid directory, then prove otherwise
+        verified_arguments = False
+        checkerdir_path = files.create_path(file="", home=args.checkerdir)
+        if checkerdir_path.is_dir():
+            verified_arguments = True
     return verified_arguments
