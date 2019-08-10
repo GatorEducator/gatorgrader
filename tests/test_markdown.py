@@ -50,7 +50,7 @@ def test_chosen_tag_zero_or_one(writing_string, chosen_tag, expected_count):
         ),
         ("hello world the fox `code1` and `code3` and `code2`.", "code", 3),
         (
-            "hello world `coding` !!%^(@after) ```misformatted code``` writing"
+            "hello world `coding` !!%^(@after) ```mis-formatted code``` writing"
             "a lot\n\n```\nblock\nof\ncode\n```\n",
             "code_block",
             1,
