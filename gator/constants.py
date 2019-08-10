@@ -25,7 +25,11 @@ codes = create_constants("codes", Error=1, Success=0, No_Words=0)
 # note that "--" arguments are optional
 # and those without "--" are positional
 commandlines = create_constants(
-    "commandlines", No_Welcome="--nowelcome", Json="--json", Check="check"
+    "commandlines",
+    Checker_Dir="--checkerdir",
+    No_Welcome="--nowelcome",
+    Json="--json",
+    Check="check",
 )
 
 # define the types of comments
@@ -42,6 +46,7 @@ functions = create_constants("functions", Count_Total_Words="count_total_words")
 # define the help messages for command-line arguments
 help = create_constants(
     "help",
+    Checker_Dir="directory containing user-provided checks",
     No_Welcome="do not display the welcome message",
     Json="print the status report in JSON",
     Check="check to run on the technical writing or source code",
@@ -71,7 +76,7 @@ markers = create_constants(
 )
 
 # define the metavars
-metavars = create_constants("metavars", Check="CHECK")
+metavars = create_constants("metavars", Check="CHECK", Dir="DIR")
 
 # define the names of modules in the system
 # note that this only defines those modules
