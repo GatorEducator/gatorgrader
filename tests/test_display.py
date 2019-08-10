@@ -31,3 +31,23 @@ def test_dislay_invalid_produce_output_line_count(capsys):
     assert "Incorrect" in captured.out
     assert counted_newlines == 2
     assert captured.err == ""
+
+
+def test_display_message_with_newline(capsys):
+    """Check that the message function produces output lines."""
+    display.message("Example message")
+    captured = capsys.readouterr()
+    counted_newlines = captured.out.count("\n")
+    assert "Example message" in captured.out
+    assert counted_newlines == 2
+    assert captured.err == ""
+
+
+def test_display_message_with_additional_newline(capsys):
+    """Check that the message function produces output lines."""
+    display.message("Example message\n")
+    captured = capsys.readouterr()
+    counted_newlines = captured.out.count("\n")
+    assert "Example message" in captured.out
+    assert counted_newlines == 3
+    assert captured.err == ""
