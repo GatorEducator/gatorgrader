@@ -83,6 +83,7 @@ metavars = create_constants("metavars", Check="CHECK", Dir="DIR")
 # that are reflectively called through their names
 modules = create_constants(
     "modules",
+    Checks="gator.checks",
     Display="gator.display",
     Invoke="gator.invoke",
     Report="gator.report",
@@ -91,6 +92,9 @@ modules = create_constants(
 
 # define the output formats
 outputs = create_constants("outputs", Json="JSON", Text="TEXT")
+
+# define the names of packages used in pluginbase
+packages = create_constants("packages", Checks="gator.checks")
 
 # define the paths for use with Pathlib:
 # --> Current_Directory: this will describe a shortcut to current directory
