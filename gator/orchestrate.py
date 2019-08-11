@@ -1,4 +1,4 @@
-"""Orchestrate the checks performed on writing and source code."""
+"""Orchestrate the preliminary actions and checks performed on writing and source code."""
 
 import sys
 
@@ -25,26 +25,33 @@ REPORT = sys.modules[constants.modules.Report]
 OUTPUT_TYPE = getattr(REPORT, constants.outputs.Text)
 
 
-def get_checker(system_arguments):
-    """Identify the chosen checker."""
-    # parse and verify the arguments
-    actions = []
-    gg_arguments = arguments.parse(system_arguments)
-    # Action: display the welcome message
-    if gg_arguments.nowelcome is not True:
-        actions.append([DISPLAY, "welcome_message", constants.arguments.Void])
-    if gg_arguments.json is True:
+def verify_arguments(system_arguments):
+    """Verify and return the parsed command-line arguments."""
+    # parse the command-line arguments
+    parsed_arguments = arguments.parse(system_arguments)
+    # verify the command-line arguments
+    did_verify_arguments = arguments.verify(parsed_arguments)
+    return parsed_arguments, did_verify_arguments
+
+
+def get_actions(parsed_arguments, verification_status):
+    """Get the actions to perform before running any specified checker."""
+    needed_actions = []
+    # Needed Action: display the welcome message
+    if parsed_arguments.nowelcome is not True:
+        needed_actions.append([DISPLAY, "welcome_message", constants.arguments.Void])
+    # Needed Action: configure to produce JSON output for external interface
+    if parsed_arguments.json is True:
         # pylint: disable=global-statement
         global OUTPUT_TYPE
         OUTPUT_TYPE = getattr(REPORT, constants.outputs.Json)
-    did_verify_arguments = arguments.verify(gg_arguments)
-    # arguments are incorrect
-    if did_verify_arguments is False:
-        # Action: display incorrect arguments message
-        actions.append([DISPLAY, "incorrect_message", constants.arguments.Void])
-        # Action: exit the program
-        actions.append([RUN, "run_exit", [constants.arguments.Incorrect]])
-    return gg_arguments, actions
+    # arguments were not verified, create actions for error message display and an exit
+    if verification_status is False:
+        # Needed Action: display incorrect arguments message
+        needed_actions.append([DISPLAY, "incorrect_message", constants.arguments.Void])
+        # Needed Action: exit the program
+        needed_actions.append([RUN, "run_exit", [constants.arguments.Incorrect]])
+    return needed_actions
 
 
 def check_commits(system_arguments):
@@ -347,7 +354,7 @@ def check_executes_command(system_arguments):
     return actions
 
 
-def perform(actions):
+def perform_actions(actions):
     """Perform the specified actions."""
     results = []
     # iteratively run all of the actions in the list
@@ -363,55 +370,58 @@ def perform(actions):
     return results
 
 
+# @snoop
 def check(system_arguments):
     """Orchestrate a full check of the specified deliverables."""
     # Section: Initialize
-    # Only step: check the arguments
-    step_results = []
-    check_results = []
-    gg_arguments, arguments_actions = get_checker(system_arguments)
-    step_results = perform(arguments_actions)
-    check_results.extend(step_results)
-    # Section: Perform one of these checks
-    # Note that GatorGrader only performs a single check
-    # The Gradle plugin can run multiple GatorGrader checks in parallel
-    # Make new checks available by adding them to this list of check names
-    checks = [
-        "check_commits",
-        "check_exists",
-        "check_single",
-        "check_multiple",
-        "check_paragraphs",
-        "check_words",
-        "check_total_words",
-        "check_markdown_file",
-        "check_fragment_file",
-        "check_fragment_command",
-        "check_count_file",
-        "check_count_command",
-        "check_executes_command",
-        "check_regex_file",
-        "check_regex_command",
-    ]
-    # iterate through all of the possible checks
-    # each of the a_check:
-    # --> is a string of a name of a check function
-    # --> is called reflectively through the getattr function
-    # --> will only result in actions if the arguments signal to call it
-    for a_check in checks:
-        # reflectively create the checking function
-        check_to_invoke = getattr(ORCHESTRATE, a_check)
-        # call the checking function and get actions
-        actions = check_to_invoke(gg_arguments)
-        # perform the actions and get results
-        step_results = perform(actions)
-        # store the results from these actions
-        check_results.extend(step_results)
-    # Section: Output the report
-    # Only step: get the report's details, produce the output, and display it
-    produced_output = report.output(report.get_result(), OUTPUT_TYPE)
-    display.message(produced_output)
-    # Section: Return control back to __main__ in gatorgrader
-    # Only step: determine the correct exit code for the checks
-    correct_exit_code = leave.get_code(check_results)
-    return correct_exit_code
+    # step_results = []
+    # check_results = []
+    # Step: Verify the arguments
+    parsed_arguments, verification_status = verify_arguments(system_arguments)
+    # Step: Get and perform the preliminary actions before running a checker
+    actions = get_actions(parsed_arguments, verification_status)
+    perform_actions(actions)
+    # check_results.extend(step_results)
+    # # Section: Perform one of these checks
+    # # Note that GatorGrader only performs a single check
+    # # The Gradle plugin can run multiple GatorGrader checks in parallel
+    # # Make new checks available by adding them to this list of check names
+    # checks = [
+    #     "check_commits",
+    #     "check_exists",
+    #     "check_single",
+    #     "check_multiple",
+    #     "check_paragraphs",
+    #     "check_words",
+    #     "check_total_words",
+    #     "check_markdown_file",
+    #     "check_fragment_file",
+    #     "check_fragment_command",
+    #     "check_count_file",
+    #     "check_count_command",
+    #     "check_executes_command",
+    #     "check_regex_file",
+    #     "check_regex_command",
+    # ]
+    # # iterate through all of the possible checks
+    # # each check:
+    # # --> is a string of a name of a check function
+    # # --> is called reflectively through the getattr function
+    # # --> will only result in actions if the arguments signal to call it
+    # for a_check in checks:
+    #     # reflectively create the checking function
+    #     check_to_invoke = getattr(ORCHESTRATE, a_check)
+    #     # call the checking function and get actions
+    #     actions = check_to_invoke(gg_arguments)
+    #     # perform the actions and get results
+    #     step_results = perform(actions)
+    #     # store the results from these actions
+    #     check_results.extend(step_results)
+    # # Section: Output the report
+    # # Only step: get the report's details, produce the output, and display it
+    # produced_output = report.output(report.get_result(), OUTPUT_TYPE)
+    # display.message(produced_output)
+    # # Section: Return control back to __main__ in gatorgrader
+    # # Only step: determine the correct exit code for the checks
+    # correct_exit_code = leave.get_code(check_results)
+    # return correct_exit_code
