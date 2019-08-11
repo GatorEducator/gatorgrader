@@ -49,7 +49,7 @@ help = create_constants(
     Checker_Dir="directory containing user-provided checks",
     No_Welcome="do not display the welcome message",
     Json="print the status report in JSON",
-    Check="check to run on the technical writing or source code",
+    Check="check to perform on the technical writing or source code",
 )
 
 # define the programming languages for comment checks
