@@ -8,7 +8,7 @@ from gator import checkers
 
 if __name__ == "__main__":
     # get the source of all the linters
-    checker_source = checkers.get_source()
+    checker_source = checkers.get_sources()
     # assume that the checks pass and prove otherwise
     exit_code = 0
     # orchestrate check(s) of the specified deliverable(s)
