@@ -16,9 +16,9 @@ def reset_results_dictionary():
 @pytest.mark.parametrize(
     "commandline_arguments",
     [
-        (["--json", "check_commits"]),
-        (["--json", "--nowelcome", "check_commits"]),
-        (["--nowelcome", "check_commits"]),
+        (["--json", "CHECK"]),
+        (["--json", "--nowelcome", "CHECK"]),
+        (["--nowelcome", "CHECK"]),
     ],
 )
 def test_verify_arguments(commandline_arguments):
@@ -28,6 +28,27 @@ def test_verify_arguments(commandline_arguments):
     )
     assert parsed_arguments is not None
     assert verification_status is True
+
+
+@pytest.mark.parametrize(
+    "commandline_arguments, expected_verification, action_count",
+    [
+        (["check_commits"], True, 1),
+        (["--json", "CHECK"], True, 1),
+        (["--json", "--nowelcome", "CHECK"], True, 0),
+        (["--nowelcome", "CHECK"], True, 0),
+        (["--nowelcome", "--checkerdir", "WRONG", "CHECK"], False, 2),
+    ],
+)
+def test_get_actions(commandline_arguments, expected_verification, action_count):
+    """Check if the generation of preliminary actions works from orchestrate."""
+    parsed_arguments, verification_status = orchestrate.verify_arguments(
+        commandline_arguments
+    )
+    assert parsed_arguments is not None
+    assert verification_status is expected_verification
+    needed_actions = orchestrate.get_actions(parsed_arguments, verification_status)
+    assert len(needed_actions) == action_count
 
 
 def test_perform_actions_no_parameters_welcome(capsys):
