@@ -47,6 +47,11 @@ def test_codes_constant_defined():
     assert constants.codes.No_Words == 0
 
 
+def test_checkers_constant_defined():
+    """Check correctness for the variables in the checkers constant."""
+    assert constants.checkers.Internal_Checkers_Dir == "./gator/checks"
+
+
 def test_arguments_constant_defined():
     """Check correctness for the variables in the arguments constant."""
     assert constants.arguments.Incorrect == 2
@@ -191,6 +196,12 @@ def test_codes_constant_cannot_redefine():
         constants.codes.Error = 10
     with pytest.raises(AttributeError):
         constants.codes.No_Words = 10
+
+
+def test_checkers_constant_cannot_redefine():
+    """Check cannot redefine the variables in the checkers constant."""
+    with pytest.raises(AttributeError):
+        constants.checkers.Internal_Checkers_Dir = CANNOT_SET_CONSTANT_VARIABLE
 
 
 def test_commandlines_constant_cannot_redefine():
