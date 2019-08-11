@@ -22,7 +22,7 @@ arguments = create_constants("arguments", Incorrect=2, Void=[])
 codes = create_constants("codes", Error=1, Success=0, No_Words=0)
 
 # define details about the checkers
-checkers = create_constants("checkers", Internal_Checkers="./gator/checks")
+checkers = create_constants("checkers", Internal_Checkers_Dir="./gator/checks")
 
 # define the command-line arguments
 # note that "--" arguments are optional
