@@ -25,6 +25,13 @@ def parse(args):
         type=str,
     )
 
+    # JSON: output reports in JSON?
+    # REQUIRED? No
+    # CORRECT WHEN: always, only changes report output
+    parser.add_argument(
+        constants.commandlines.Json, help=constants.help.Json, action="store_true"
+    )
+
     # NOWELCOME: do not display the welcome message?
     # REQUIRED? No
     # CORRECT WHEN: always, only changes output on screen
@@ -32,13 +39,6 @@ def parse(args):
         constants.commandlines.No_Welcome,
         help=constants.help.No_Welcome,
         action="store_true",
-    )
-
-    # JSON: output reports in JSON?
-    # REQUIRED? No
-    # CORRECT WHEN: always, only changes report output
-    parser.add_argument(
-        constants.commandlines.Json, help=constants.help.Json, action="store_true"
     )
 
     # }}}
