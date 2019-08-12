@@ -24,6 +24,15 @@ def get_chosen_check(args):
     return chosen_check
 
 
+def verify_check_existence(check, source):
+    """Verify that the requested check is available from the source(s)."""
+    check_exists = False
+    check_list = source.list_plugins()
+    if check in check_list:
+        check_exists = True
+    return check_exists
+
+
 def get_source(checker_paths=[]):
     """Load all of the checkers using pluginbase."""
     # define the "package" in which the checks reside
