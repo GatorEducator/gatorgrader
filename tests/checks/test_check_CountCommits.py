@@ -21,3 +21,25 @@ def test_no_arguments_incorrect_system_exit(capsys):
     assert "usage:" in captured.err
     counted_newlines = captured.err.count("\n")
     assert counted_newlines == 2
+
+
+@pytest.mark.parametrize(
+    "commandline_arguments",
+    [
+        (["--countWRONG", "5"]),
+        (["--count", "5", "--exactWRONG"]),
+        (["--exact"]),
+    ],
+)
+def test_optional_commandline_arguments_cannot_verify(commandline_arguments, capsys):
+    """Check that incorrect optional command-line arguments check correctly."""
+    with pytest.raises(SystemExit):
+        _ = check_CountCommits.parse(commandline_arguments)
+    captured = capsys.readouterr()
+    # there is no standard output
+    counted_newlines = captured.out.count("\n")
+    assert counted_newlines == 0
+    # standard error has two lines from pytest
+    assert "usage:" in captured.err
+    counted_newlines = captured.err.count("\n")
+    assert counted_newlines == 2
