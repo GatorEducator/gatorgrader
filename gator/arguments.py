@@ -72,6 +72,7 @@ def verify(args):
         # assume that it is not a valid directory, then prove otherwise
         verified_arguments = False
         checkerdir_path = files.create_path(file="", home=args.checkerdir)
+        # the directory does exist, so this argument is verified
         if checkerdir_path.is_dir():
             verified_arguments = True
     return verified_arguments
