@@ -50,7 +50,7 @@ def test_load_checkers_list_is_not_empty_default_input():
     # the source for the plugins is not empty
     assert checker_source is not None
     # the source for the plugins contains plugins
-    # that adhere to the naming scheme "check_<ACTION>"
+    # that adhere to the naming scheme "check_<ACTION><ENTITY>"
     # for instance "check_commits"
     # we know that this should be true because all
     # internal GatorGrader plugins adhere to this convention
