@@ -5,8 +5,15 @@ from gator import arguments
 from gator import checkers
 
 
+def test_check_transformation():
+    """Ensure that check name transformation works correctly."""
+    check_name_on_commandline = "CountCommits"
+    transformed_check_name = checkers.transform_check(check_name_on_commandline)
+    assert transformed_check_name == "check_CountCommits"
+
+
 def test_checkerdir_extraction_from_commandline_arguments(tmpdir):
-    """Check that command-line argument extraction works in checker function if specified checkerdir."""
+    """Ensure that command-line argument extraction works in checker function if specified checkerdir."""
     _ = tmpdir.mkdir("checks").join("check_messages.py")
     assert len(tmpdir.listdir()) == 1
     checker_directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "checks"
@@ -19,7 +26,7 @@ def test_checkerdir_extraction_from_commandline_arguments(tmpdir):
 
 
 def test_empty_checkerdir_extraction_from_commandline_arguments(tmpdir):
-    """Check that command-line argument extraction works in checker function if empty checkerdir."""
+    """Ensure that command-line argument extraction works in checker function if empty checkerdir."""
     _ = tmpdir.mkdir("checks").join("check_messages.py")
     assert len(tmpdir.listdir()) == 1
     commandline_arguments = ["check_messages"]
@@ -31,7 +38,7 @@ def test_empty_checkerdir_extraction_from_commandline_arguments(tmpdir):
 
 
 def test_check_extraction_from_commandline_arguments(tmpdir):
-    """Check that command-line argument extraction works in checker function."""
+    """Ensure that command-line argument extraction works in checker function."""
     checker = "check_CountCommits"
     _ = tmpdir.mkdir("checks").join(checker + ".py")
     assert len(tmpdir.listdir()) == 1
@@ -45,7 +52,7 @@ def test_check_extraction_from_commandline_arguments(tmpdir):
 
 
 def test_load_checkers_list_is_not_empty_default_input():
-    """Ensures checker loading results in non-empty list with defaults."""
+    """Ensure that checker loading results in non-empty list with defaults."""
     checker_source = checkers.get_source()
     # the source for the plugins is not empty
     assert checker_source is not None
@@ -59,7 +66,7 @@ def test_load_checkers_list_is_not_empty_default_input():
 
 
 def test_load_checkers_list_is_not_empt_blank_input():
-    """Ensures checker loading results in non-empty list with defaults."""
+    """Ensure that checker loading results in non-empty list with defaults."""
     # this case would occur on the command-line when
     # the checkerdir is not specified as an argument
     checker_source = checkers.get_source([""])
@@ -75,7 +82,7 @@ def test_load_checkers_list_is_not_empt_blank_input():
 
 
 def test_load_checkers_list_is_not_empty_provided_input(tmpdir):
-    """Ensures checker loading results in non-empty list with provided list."""
+    """Ensure that checker loading results in non-empty list with provided list."""
     checker_file = tmpdir.mkdir("internal_checkers").join("check_testing.py")
     checker_file.write("a checker")
     checker_directory = (
@@ -89,7 +96,7 @@ def test_load_checkers_list_is_not_empty_provided_input(tmpdir):
 
 
 def test_load_checkers_list_is_not_empty_check_exists_with_provided_input(tmpdir):
-    """Ensures checker loading results in non-empty list containing check with provided list."""
+    """Ensure that checker loading results in non-empty list containing check with provided list."""
     checker_file = tmpdir.mkdir("internal_checkers").join("check_testing.py")
     checker_file.write("a checker")
     checker_directory = (
