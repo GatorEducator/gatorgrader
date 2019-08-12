@@ -1,7 +1,21 @@
 """Tests for the loading, verification, and use of plugin-based checkers."""
 
 
+from gator import arguments
 from gator import checkers
+
+
+def test_checkerdir_extraction_from_commandline_arguments(tmpdir):
+    """Check that command-line argument extraction works in checker function."""
+    _ = tmpdir.mkdir("checks").join("check_messages.py")
+    assert len(tmpdir.listdir()) == 1
+    checker_directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "checks"
+    commandline_arguments = ["--checkerdir", checker_directory, "check_messages"]
+    gg_arguments = arguments.parse(commandline_arguments)
+    args_verified = arguments.verify(gg_arguments)
+    assert args_verified is True
+    found_checker_directory = checkers.get_checker_dir(gg_arguments)
+    assert found_checker_directory == checker_directory
 
 
 def test_load_checkers_list_is_not_empty_default_input():
