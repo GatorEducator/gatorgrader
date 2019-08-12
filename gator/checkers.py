@@ -24,6 +24,14 @@ def get_chosen_check(args):
     return chosen_check
 
 
+def transform_chosen_check(check):
+    """Transform the chosen check from the provided command-line arguments."""
+    # add "check_" to the name of the checker so that it looks like, for instance,
+    # "check_CountCommits" when "CountCommits" is chosen on command-line
+    transformed_check = constants.checkers.Check_Prefix + check
+    return transformed_check
+
+
 def verify_check_existence(check, source):
     """Verify that the requested check is available from the source(s)."""
     check_exists = False
