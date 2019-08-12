@@ -10,7 +10,11 @@ from pluginbase import PluginBase
 
 def get_checker_dir(args):
     """Extract the checker directory from the provided command-line arguments."""
-    checker_directory = args.checkerdir
+    # assume that the checkerdir does not exist and re-assign if found
+    checker_directory = constants.markers.Nothing
+    # the checkerdir was specified and thus it should be returned
+    if args.checkerdir is not None:
+        checker_directory = args.checkerdir
     return checker_directory
 
 
