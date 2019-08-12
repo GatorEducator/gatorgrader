@@ -24,8 +24,8 @@ codes = create_constants("codes", Error=1, Success=0, No_Words=0)
 # define details about the checkers
 checkers = create_constants(
     "checkers",
-    Plugin_Base_Identifier="GatorGraderPluginBase",
     Internal_Checkers_Dir="./gator/checks",
+    Plugin_Base_Identifier="GatorGraderPluginBase",
 )
 
 # define the command-line arguments
@@ -33,10 +33,10 @@ checkers = create_constants(
 # and those without "--" are positional
 commandlines = create_constants(
     "commandlines",
-    Checker_Dir="--checkerdir",
-    No_Welcome="--nowelcome",
-    Json="--json",
     Check="check",
+    Checker_Dir="--checkerdir",
+    Json="--json",
+    No_Welcome="--nowelcome",
 )
 
 # define the types of comments
@@ -53,10 +53,10 @@ functions = create_constants("functions", Count_Total_Words="count_total_words")
 # define the help messages for command-line arguments
 help = create_constants(
     "help",
-    Checker_Dir="directory containing user-provided checks",
-    No_Welcome="do not display the welcome message",
-    Json="print the status report in JSON",
     Check="check to perform on the technical writing or source code",
+    Checker_Dir="directory containing user-provided checks",
+    Json="print the status report in JSON",
+    No_Welcome="do not display the welcome message",
 )
 
 # define the programming languages for comment checks
