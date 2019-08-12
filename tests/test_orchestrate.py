@@ -23,7 +23,7 @@ def reset_results_dictionary():
 )
 def test_verify_arguments(commandline_arguments):
     """Check if the verification of arguments works from orchestrate."""
-    parsed_arguments, verification_status = orchestrate.verify_arguments(
+    parsed_arguments, verification_status = orchestrate.parse_verify_arguments(
         commandline_arguments
     )
     assert parsed_arguments is not None
@@ -42,7 +42,7 @@ def test_verify_arguments(commandline_arguments):
 )
 def test_get_actions(commandline_arguments, expected_verification, action_count):
     """Check if the generation of preliminary actions works from orchestrate."""
-    parsed_arguments, verification_status = orchestrate.verify_arguments(
+    parsed_arguments, verification_status = orchestrate.parse_verify_arguments(
         commandline_arguments
     )
     assert parsed_arguments is not None
