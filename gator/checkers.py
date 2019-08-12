@@ -5,13 +5,17 @@ from gator import constants
 from pluginbase import PluginBase
 
 import snoop
+
 snoop.install(color="rrt")
 
 
 @snoop
-def get_sources(checker_paths=[]):
+def get_source(checker_paths=[]):
     """Load all of the checkers using pluginbase."""
     checker_base = PluginBase(package=constants.packages.Checks)
     all_checker_paths = checker_paths + [constants.checkers.Internal_Checkers_Dir]
-    checker_source = checker_base.make_plugin_source(searchpath=all_checker_paths)
+    checker_source = checker_base.make_plugin_source(
+        identifier=constants.checkers.Plugin_Base_Identifier,
+        searchpath=all_checker_paths,
+    )
     return checker_source
