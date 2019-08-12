@@ -29,6 +29,10 @@ def get_source(checker_paths=[]):
     # define the "package" in which the checks reside
     # the term "package" corresponds to "module.sub-module"
     checker_base = PluginBase(package=constants.packages.Checks)
+    # remove any directories from the path listings that are Nothing (i.e., "")
+    # this case occurs when the optional --checkerdir is not provided on command-line
+    if constants.markers.Nothing in checker_paths:
+        checker_paths.remove(constants.markers.Nothing)
     # create the listing of the paths that could contain checkers
     all_checker_paths = checker_paths + [constants.checkers.Internal_Checkers_Dir]
     # create and return a source of checkers using PluginBase
