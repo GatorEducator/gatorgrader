@@ -227,6 +227,7 @@ tags
 tags.lock
 tags.temp
 tags.tmp
+.maketags
 
 # Extra files #
 ######################
