@@ -23,7 +23,9 @@ def test_load_checkers_list_is_not_empty_provided_input(tmpdir):
     # create a single checker in a new directory
     checker_file = tmpdir.mkdir("internal_checkers").join("check_testing.py")
     checker_file.write("a checker")
-    checker_directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "internal_checkers"
+    checker_directory = (
+        tmpdir.dirname + "/" + tmpdir.basename + "/" + "internal_checkers"
+    )
     list_of_checker_directories = [checker_directory]
     checker_source = checkers.get_source(list_of_checker_directories)
     assert checker_source is not None
