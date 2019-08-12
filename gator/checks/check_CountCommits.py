@@ -4,38 +4,36 @@ from gator import constants
 
 import argparse
 
+# import snoop
+# snoop.install(color="rrt")
+
 
 def parse(args):
     """Parse the arguments provided on the command-line."""
     # create the parser with the default help formatter
     parser = argparse.ArgumentParser(
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        description="CHECK: CountCommits",
     )
 
-    # Required "Optional" Arguments {{{
+    # Required Named Checker Arguments {{{
+
+    required_group = parser.add_argument_group("Required Checker Arguments")
 
     # COUNT: the number of commits
     # REQUIRED? Yes
-    # CORRECT WHEN: it is a number
-    parser.add_argument(
-        constants.commandlines.Checker_Dir,
-        metavar=constants.metavars.Dir,
-        help=constants.help.Checker_Dir,
-        type=str,
+    required_group.add_argument(
+        "--count", type=int, help="minimum number of git commits", required=True
     )
 
     # }}}
 
-    # Positional Arguments {{{
+    # Optional Named Checker Arguments {{{
 
-    # CHECK: the name of the check
-    # REQUIRED? Yes
-    # CORRECT WHEN: always, selects a check and asks it to verify its own arguments
-    parser.add_argument(
-        constants.commandlines.Check,
-        metavar=constants.metavars.Check,
-        help=constants.help.Check,
-        type=str,
+    # EXACT: perform exact checking for commit counts (i.e,. "==" instead of ">=")
+    # REQUIRED? No
+    required_group.add_argument(
+        "--exact", help="equals instead of a minimum number", action="store_true"
     )
 
     # }}}
@@ -43,4 +41,3 @@ def parse(args):
     # call argparse's parse_args function and return result
     arguments_finished = parser.parse_args(args)
     return arguments_finished
-
