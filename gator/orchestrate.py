@@ -395,7 +395,12 @@ def check(system_arguments):
     # --> the directory specified on the command-line
     external_checker_directory = checkers.get_checker_dir(parsed_arguments)
     checker_source = checkers.get_source([external_checker_directory])
-    print(checker_source.list_plugins())
+    # Step: Get and transform the name of the chosen checker and
+    # then prepare for running it by ensuring that it is:
+    # --> available for use (i.e., pluginbase found and loaded it)
+    check = checkers.get_chosen_check(parsed_arguments)
+    check_file = checkers.transform_chosen_check(check)
+    checker_exists = checkers.verify_check_existence(check_file, checker_source)
 
     # check_results.extend(step_results)
     # # Section: Perform one of these checks
