@@ -11,6 +11,7 @@ import argparse
 def parse(args):
     """Parse the arguments provided on the command-line."""
     # create the parser with the default help formatter
+    # use a new description since this is a stand-alone check
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
         description="CHECK: CountCommits",
