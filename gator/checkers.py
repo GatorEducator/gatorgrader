@@ -24,7 +24,7 @@ def get_chosen_check(args):
     return chosen_check
 
 
-def transform_chosen_check(check):
+def transform_check(check):
     """Transform the chosen check from the provided command-line arguments."""
     # add "check_" to the name of the checker so that it looks like, for instance,
     # "check_CountCommits" when "CountCommits" is chosen on command-line
