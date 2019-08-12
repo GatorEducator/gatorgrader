@@ -399,7 +399,7 @@ def check(system_arguments):
     # then prepare for running it by ensuring that it is:
     # --> available for use (i.e., pluginbase found and loaded it)
     check = checkers.get_chosen_check(parsed_arguments)
-    check_file = checkers.transform_chosen_check(check)
+    check_file = checkers.transform_check(check)
     checker_exists = checkers.verify_check_existence(check_file, checker_source)
 
     # check_results.extend(step_results)
