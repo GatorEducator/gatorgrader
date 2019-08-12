@@ -76,7 +76,6 @@ def test_load_checkers_list_is_not_empt_blank_input():
 
 def test_load_checkers_list_is_not_empty_provided_input(tmpdir):
     """Ensures checker loading results in non-empty list with provided list."""
-    # create a single checker in a new directory
     checker_file = tmpdir.mkdir("internal_checkers").join("check_testing.py")
     checker_file.write("a checker")
     checker_directory = (
@@ -87,3 +86,21 @@ def test_load_checkers_list_is_not_empty_provided_input(tmpdir):
     assert checker_source is not None
     checker_source_list = checker_source.list_plugins()
     assert len(checker_source_list) >= 1
+
+
+def test_load_checkers_list_is_not_empty_check_exists_with_provided_input(tmpdir):
+    """Ensures checker loading results in non-empty list containing check with provided list."""
+    checker_file = tmpdir.mkdir("internal_checkers").join("check_testing.py")
+    checker_file.write("a checker")
+    checker_directory = (
+        tmpdir.dirname + "/" + tmpdir.basename + "/" + "internal_checkers"
+    )
+    list_of_checker_directories = [checker_directory]
+    checker_source = checkers.get_source(list_of_checker_directories)
+    assert checker_source is not None
+    checker_source_list = checker_source.list_plugins()
+    assert len(checker_source_list) >= 1
+    assert checkers.verify_check_existence("check_testing", checker_source) is True
+    assert (
+        checkers.verify_check_existence("check_testing_WRONG", checker_source) is False
+    )
