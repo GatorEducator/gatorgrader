@@ -3,7 +3,6 @@
 import sys
 
 from gator import orchestrate
-from gator import checkers
 
 
 if __name__ == "__main__":
