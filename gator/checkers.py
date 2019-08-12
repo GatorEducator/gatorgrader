@@ -9,6 +9,12 @@ from pluginbase import PluginBase
 
 
 # @snoop
+def get_checker_dir(args):
+    """Extract the checker directory from the provided command-line arguments."""
+    checker_directory = args.checkerdir
+    return checker_directory
+
+
 def get_source(checker_paths=[]):
     """Load all of the checkers using pluginbase."""
     # define the "package" in which the checks reside
