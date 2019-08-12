@@ -8,11 +8,16 @@ from pluginbase import PluginBase
 # snoop.install(color="rrt")
 
 
-# @snoop
 def get_checker_dir(args):
     """Extract the checker directory from the provided command-line arguments."""
     checker_directory = args.checkerdir
     return checker_directory
+
+
+def get_chosen_check(args):
+    """Extract the chosen check from the provided command-line arguments."""
+    chosen_check = args.check
+    return chosen_check
 
 
 def get_source(checker_paths=[]):
