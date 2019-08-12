@@ -18,6 +18,20 @@ def test_checkerdir_extraction_from_commandline_arguments(tmpdir):
     assert found_checker_directory == checker_directory
 
 
+def test_check_extraction_from_commandline_arguments(tmpdir):
+    """Check that command-line argument extraction works in checker function."""
+    checker = "check_CountCommits"
+    _ = tmpdir.mkdir("checks").join(checker + ".py")
+    assert len(tmpdir.listdir()) == 1
+    checker_directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "checks"
+    commandline_arguments = ["--checkerdir", checker_directory, checker]
+    gg_arguments = arguments.parse(commandline_arguments)
+    args_verified = arguments.verify(gg_arguments)
+    assert args_verified is True
+    found_check = checkers.get_chosen_check(gg_arguments)
+    assert found_check == checker
+
+
 def test_load_checkers_list_is_not_empty_default_input():
     """Ensures checker loading results in non-empty list with defaults."""
     checker_source = checkers.get_source()
