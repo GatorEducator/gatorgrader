@@ -26,6 +26,7 @@ checkers = create_constants(
     "checkers",
     Internal_Checkers_Dir="./gator/checks",
     Plugin_Base_Identifier="GatorGraderPluginBase",
+    Check_Prefix="check_",
 )
 
 # define the command-line arguments
