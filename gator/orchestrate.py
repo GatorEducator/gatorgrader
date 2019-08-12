@@ -3,15 +3,20 @@
 import sys
 
 from gator import arguments
+from gator import checkers
 from gator import constants
 
-# from gator import display
 # from gator import leave
 # from gator import report
 
 # pylint: disable=unused-import
+from gator import display  # noqa: F401
 from gator import invoke  # noqa: F401
 from gator import run  # noqa: F401
+
+import snoop
+
+snoop.install(color="rrt")
 
 # define the name of this module
 ORCHESTRATE = sys.modules[__name__]
@@ -26,8 +31,8 @@ REPORT = sys.modules[constants.modules.Report]
 OUTPUT_TYPE = getattr(REPORT, constants.outputs.Text)
 
 
-def verify_arguments(system_arguments):
-    """Verify and return the parsed command-line arguments."""
+def parse_verify_arguments(system_arguments):
+    """Parse, verify and then return the parsed command-line arguments."""
     # parse the command-line arguments
     parsed_arguments = arguments.parse(system_arguments)
     # verify the command-line arguments
@@ -53,6 +58,22 @@ def get_actions(parsed_arguments, verification_status):
         # Needed Action: exit the program
         needed_actions.append([RUN, "run_exit", [constants.arguments.Incorrect]])
     return needed_actions
+
+
+def perform_actions(actions):
+    """Perform the specified actions."""
+    results = []
+    # iteratively run all of the actions in the list
+    for module, function, parameters in actions:
+        function_to_invoke = getattr(module, function)
+        # no parameters were specified, do not pass
+        if parameters == []:
+            function_result = function_to_invoke()
+        # parameters were specified, do pass
+        else:
+            function_result = function_to_invoke(*parameters)
+        results.append(function_result)
+    return results
 
 
 def check_commits(system_arguments):
@@ -355,33 +376,27 @@ def check_executes_command(system_arguments):
     return actions
 
 
-def perform_actions(actions):
-    """Perform the specified actions."""
-    results = []
-    # iteratively run all of the actions in the list
-    for module, function, parameters in actions:
-        function_to_invoke = getattr(module, function)
-        # no parameters were specified, do not pass
-        if parameters == []:
-            function_result = function_to_invoke()
-        # parameters were specified, do pass
-        else:
-            function_result = function_to_invoke(*parameters)
-        results.append(function_result)
-    return results
-
-
-# @snoop
+@snoop
 def check(system_arguments):
     """Orchestrate a full check of the specified deliverables."""
     # Section: Initialize
     # step_results = []
     # check_results = []
-    # Step: Verify the arguments
-    parsed_arguments, verification_status = verify_arguments(system_arguments)
+    # Step: Parse and then verify the arguments
+    parsed_arguments, verification_status = parse_verify_arguments(system_arguments)
     # Step: Get and perform the preliminary actions before running a checker
+    # if the arguments did not parse or verify correctly, then:
+    # --> argparse will cause the program to crash with an error OR
+    # --> one of the actions will be to print the help message and exist
     actions = get_actions(parsed_arguments, verification_status)
     perform_actions(actions)
+    # Step: Get the source of all the checkers available from either:
+    # --> the internal directory of checkers (e.g., "./gator/checks")
+    # --> the directory specified on the command-line
+    external_checker_directory = checkers.get_checker_dir(parsed_arguments)
+    checker_source = checkers.get_source([external_checker_directory])
+    print(checker_source.list_plugins())
+
     # check_results.extend(step_results)
     # # Section: Perform one of these checks
     # # Note that GatorGrader only performs a single check
