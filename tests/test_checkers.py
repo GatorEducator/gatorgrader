@@ -18,7 +18,7 @@ def test_checkerdir_extraction_from_commandline_arguments(tmpdir):
     assert len(tmpdir.listdir()) == 1
     checker_directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "checks"
     commandline_arguments = ["--checkerdir", checker_directory, "check_messages"]
-    gg_arguments = arguments.parse(commandline_arguments)
+    gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
     args_verified = arguments.verify(gg_arguments)
     assert args_verified is True
     found_checker_directory = checkers.get_checker_dir(gg_arguments)
@@ -30,7 +30,7 @@ def test_empty_checkerdir_extraction_from_commandline_arguments(tmpdir):
     _ = tmpdir.mkdir("checks").join("check_messages.py")
     assert len(tmpdir.listdir()) == 1
     commandline_arguments = ["check_messages"]
-    gg_arguments = arguments.parse(commandline_arguments)
+    gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
     args_verified = arguments.verify(gg_arguments)
     assert args_verified is True
     found_checker_directory = checkers.get_checker_dir(gg_arguments)
@@ -44,7 +44,7 @@ def test_check_extraction_from_commandline_arguments(tmpdir):
     assert len(tmpdir.listdir()) == 1
     checker_directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "checks"
     commandline_arguments = ["--checkerdir", checker_directory, checker]
-    gg_arguments = arguments.parse(commandline_arguments)
+    gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
     args_verified = arguments.verify(gg_arguments)
     assert args_verified is True
     found_check = checkers.get_chosen_check(gg_arguments)
