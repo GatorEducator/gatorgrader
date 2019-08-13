@@ -14,9 +14,8 @@ from gator import display  # noqa: F401
 from gator import invoke  # noqa: F401
 from gator import run  # noqa: F401
 
-import snoop
-
-snoop.install(color="rrt")
+# import snoop
+# snoop.install(color="rrt")
 
 # define the name of this module
 ORCHESTRATE = sys.modules[__name__]
@@ -32,12 +31,12 @@ OUTPUT_TYPE = getattr(REPORT, constants.outputs.Text)
 
 
 def parse_verify_arguments(system_arguments):
-    """Parse, verify and then return the parsed command-line arguments."""
+    """Parse, verify, and then return the parsed command-line arguments."""
     # parse the command-line arguments
-    parsed_arguments = arguments.parse(system_arguments)
+    parsed_arguments, remaining_arguments = arguments.parse(system_arguments)
     # verify the command-line arguments
     did_verify_arguments = arguments.verify(parsed_arguments)
-    return parsed_arguments, did_verify_arguments
+    return parsed_arguments, remaining_arguments, did_verify_arguments
 
 
 def get_actions(parsed_arguments, verification_status):
@@ -376,14 +375,13 @@ def check_executes_command(system_arguments):
     return actions
 
 
-@snoop
 def check(system_arguments):
     """Orchestrate a full check of the specified deliverables."""
     # Section: Initialize
     # step_results = []
     # check_results = []
     # Step: Parse and then verify the arguments
-    parsed_arguments, verification_status = parse_verify_arguments(system_arguments)
+    parsed_arguments, remaining_arguments, verification_status = parse_verify_arguments(system_arguments)
     # Step: Get and perform the preliminary actions before running a checker
     # if the arguments did not parse or verify correctly, then:
     # --> argparse will cause the program to crash with an error OR
