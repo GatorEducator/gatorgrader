@@ -381,7 +381,9 @@ def check(system_arguments):
     # step_results = []
     # check_results = []
     # Step: Parse and then verify the arguments
-    parsed_arguments, remaining_arguments, verification_status = parse_verify_arguments(system_arguments)
+    parsed_arguments, remaining_arguments, verification_status = parse_verify_arguments(
+        system_arguments
+    )
     # Step: Get and perform the preliminary actions before running a checker
     # if the arguments did not parse or verify correctly, then:
     # --> argparse will cause the program to crash with an error OR
