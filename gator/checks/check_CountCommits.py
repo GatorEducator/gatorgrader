@@ -1,11 +1,6 @@
 """Check that a repository has the required number of commits."""
 
-from gator import constants
-
 import argparse
-
-# import snoop
-# snoop.install(color="rrt")
 
 
 def parse(args):
