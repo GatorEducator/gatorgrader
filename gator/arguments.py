@@ -5,6 +5,9 @@ from gator import files
 
 import argparse
 
+# import snoop
+# snoop.install(color="rrt")
+
 
 def parse(args):
     """Parse the arguments provided on the command-line."""
@@ -58,8 +61,8 @@ def parse(args):
     # }}}
 
     # call argparse's parse_args function and return result
-    arguments_finished = parser.parse_args(args)
-    return arguments_finished
+    arguments_finished, arguments_remaining = parser.parse_known_args(args)
+    return arguments_finished, arguments_remaining
 
 
 def verify(args):
