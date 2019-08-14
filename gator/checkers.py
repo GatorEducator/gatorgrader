@@ -64,10 +64,12 @@ def get_source(checker_paths=[]):
         checker_paths.remove(constants.markers.Nothing)
     # create the listing of the paths that could contain checkers
     all_checker_paths = checker_paths + [constants.checkers.Internal_Checkers_Dir]
-    # create and return a source of checkers using PluginBase
-    # the documentation for this function advices that you
+    # Create and return a source of checkers using PluginBase.
+    # The documentation for this function advices that you
     # give an identifier to the source for the plugins
-    # because this will support saving and transfer, if needed
+    # because this will support saving and transfer, if needed.
+    # Only perform this operation if the checker source is None,
+    # meaning that it has not already been initialized.
     # pylint: disable=global-statement
     global CHECKER_SOURCE
     if CHECKER_SOURCE is None:
