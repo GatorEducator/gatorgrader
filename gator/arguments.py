@@ -11,9 +11,10 @@ import argparse
 
 def parse(args):
     """Parse the arguments provided on the command-line."""
-    # create the parser with the default help formatter
+    # create the parser with the raw test help formatter
+    # that will maintain the newlines and spaces in the epilog
     parser = argparse.ArgumentParser(
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+        add_help=True, formatter_class=argparse.RawTextHelpFormatter
     )
 
     # Optional Arguments {{{
@@ -46,9 +47,9 @@ def parse(args):
 
     # }}}
 
-    # Positional Arguments {{{
+    # Required Positional Argument {{{
 
-    # CHECK: the name of the check
+    # CHECK: the name of the check (e.g., CheckCommits or, optionally ListChecks)
     # REQUIRED? Yes
     # CORRECT WHEN: always, selects a check and asks it to verify its own arguments
     parser.add_argument(
@@ -60,7 +61,11 @@ def parse(args):
 
     # }}}
 
-    # call argparse's parse_args function and return result
+    # add an epilog to explain how to list all of the available checks,
+    # including those checks that are internal and user-provided
+    parser.epilog = "check listing:\r\n  list all checks with ListChecks for CHECK\r\n  usage: gatorgrader.py ListChecks"
+    # call argparse's parse_known_args function that will recognize all
+    # matching arguments and those that remain to be parsed and return them both
     arguments_finished, arguments_remaining = parser.parse_known_args(args)
     return arguments_finished, arguments_remaining
 
