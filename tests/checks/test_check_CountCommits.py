@@ -5,10 +5,6 @@ import pytest
 from gator.checks import check_CountCommits
 
 
-VERIFIED = True
-NOT_VERIFIED = False
-
-
 def test_no_arguments_incorrect_system_exit(capsys):
     """No command-line arguments causes SystemExit crash of argparse with error output."""
     with pytest.raises(SystemExit):
