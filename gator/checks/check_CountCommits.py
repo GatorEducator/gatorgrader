@@ -39,8 +39,10 @@ def get_parser():
     return parser
 
 
-def use_parser(parser, args):
+def parse(args, parser=None):
     """Use the parser on the provided arguments."""
     # call argparse's parse_args function and return result
+    if parser is None:
+        parser = get_parser()
     arguments_finished = parser.parse_args(args)
     return arguments_finished
