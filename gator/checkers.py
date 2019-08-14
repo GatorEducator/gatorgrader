@@ -25,6 +25,8 @@ def get_checker_dir(args):
 
 def get_chosen_check(args):
     """Extract the chosen check from the provided command-line arguments."""
+    # GatorGrader's argument parser will store the specified check in the
+    # check variable inside of the provided args; access this and return it
     chosen_check = args.check
     return chosen_check
 
@@ -80,6 +82,9 @@ def reset_source():
     """Reset the source of the checkers."""
     # pylint: disable=global-statement
     global CHECKER_SOURCE
+    # if the checker source was previously created, then
+    # cleanup all of the state from that source and then
+    # reset it to None to indicate it must be re-created
     if CHECKER_SOURCE is not None:
         CHECKER_SOURCE.cleanup()
         CHECKER_SOURCE = None
@@ -93,7 +98,7 @@ def get_check_help(check_source):
     check_list = check_source.list_plugins()
     for check_name in check_list:
         active_check = check_source.load_plugin(check_name)
-        # determine if the active check has a function to get the parser
+        # the active check has a function to get the parser
         if hasattr(active_check, constants.checkers.Get_Parser_Function):
             active_check_parser = active_check.get_parser()
             # extract the help message by redirecting standard output to a string
