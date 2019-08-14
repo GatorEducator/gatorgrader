@@ -4,6 +4,9 @@ from gator import constants
 
 from pluginbase import PluginBase
 
+import io
+from contextlib import redirect_stdout
+
 # import snoop
 # snoop.install(color="rrt")
 
@@ -32,10 +35,15 @@ def transform_check(check):
     return transformed_check
 
 
-def verify_check_existence(check, source):
+def verify_check_existence(check, check_source):
     """Verify that the requested check is available from the source(s)."""
     check_exists = False
-    check_list = source.list_plugins()
+    # list each of the checks by name as they are available in the
+    # --> internal source that comes with GatorGrader
+    # --> the external source specified by user on the command-line
+    check_list = check_source.list_plugins()
+    # if the name of the check is in the list of plugins
+    # then we can confirm its existence
     if check in check_list:
         check_exists = True
     return check_exists
@@ -61,3 +69,18 @@ def get_source(checker_paths=[]):
         searchpath=all_checker_paths,
     )
     return checker_source
+
+
+def get_check_help(check_source):
+    """Extract the help message from each checker available in the source from pluginbase."""
+    help_message = ""
+    check_list = check_source.list_plugins()
+    for check_name in check_list:
+        active_check = check_source.load_plugin(check_name)
+        if hasattr(active_check, 'get_parser'):
+            active_check_parser = active_check.get_parser()
+        with io.StringIO() as buf, redirect_stdout(buf):
+            active_check_parser.print_help()
+            active_check_parser_help = buf.getvalue()
+            help_message = active_check_parser_help
+    return help_message
