@@ -24,9 +24,10 @@ codes = create_constants("codes", Error=1, Success=0, No_Words=0)
 # define details about the checkers
 checkers = create_constants(
     "checkers",
-    Internal_Checkers_Dir="./gator/checks",
-    Plugin_Base_Identifier="GatorGraderPluginBase",
     Check_Prefix="check_",
+    Internal_Checkers_Dir="./gator/checks",
+    Get_Parser_Function="get_parser",
+    Plugin_Base_Identifier="GatorGraderPluginBase",
 )
 
 # define the command-line arguments
