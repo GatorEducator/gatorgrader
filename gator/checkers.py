@@ -73,14 +73,23 @@ def get_source(checker_paths=[]):
 
 def get_check_help(check_source):
     """Extract the help message from each checker available in the source from pluginbase."""
-    help_message = ""
+    # assume that no checkers are available and thus there is no help message
+    help_message = constants.markers.Nothing
+    # iterate through the list of checkers available from pluginbase
     check_list = check_source.list_plugins()
     for check_name in check_list:
         active_check = check_source.load_plugin(check_name)
-        if hasattr(active_check, 'get_parser'):
+        # determine if the active check has a function to get the parser
+        if hasattr(active_check, constants.checkers.Get_Parser_Function):
             active_check_parser = active_check.get_parser()
-        with io.StringIO() as buf, redirect_stdout(buf):
+        # extract the help message by redirecting standard output to a string
+        with io.StringIO() as buffer, redirect_stdout(buffer):
             active_check_parser.print_help()
-            active_check_parser_help = buf.getvalue()
-            help_message = active_check_parser_help
+            active_check_parser_help = buffer.getvalue()
+            # this is the first help message, so directly add it
+            if help_message is constants.markers.Nothing:
+                help_message = active_check_parser_help
+            # there are one or more help messages, so separate and then add it
+            else:
+                help_message = constants.markers.Newline + active_check_parser_help
     return help_message
