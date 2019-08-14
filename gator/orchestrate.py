@@ -11,11 +11,11 @@ from gator import constants
 
 # pylint: disable=unused-import
 from gator import display  # noqa: F401
-from gator import invoke  # noqa: F401
-from gator import run  # noqa: F401
+from gator import invoke   # noqa: F401
+from gator import run      # noqa: F401
 
-# import snoop
-# snoop.install(color="rrt")
+import snoop
+snoop.install(color="rrt")
 
 # define the name of this module
 ORCHESTRATE = sys.modules[__name__]
@@ -384,17 +384,17 @@ def check(system_arguments):
     parsed_arguments, remaining_arguments, verification_status = parse_verify_arguments(
         system_arguments
     )
+    # Step: Get the source of all the checkers available from either:
+    # --> the internal directory of checkers (e.g., "./gator/checks")
+    # --> the directory specified on the command-line
+    external_checker_directory = checkers.get_checker_dir(parsed_arguments)
+    checker_source = checkers.get_source([external_checker_directory])
     # Step: Get and perform the preliminary actions before running a checker
     # if the arguments did not parse or verify correctly, then:
     # --> argparse will cause the program to crash with an error OR
     # --> one of the actions will be to print the help message and exist
     actions = get_actions(parsed_arguments, verification_status)
     perform_actions(actions)
-    # Step: Get the source of all the checkers available from either:
-    # --> the internal directory of checkers (e.g., "./gator/checks")
-    # --> the directory specified on the command-line
-    external_checker_directory = checkers.get_checker_dir(parsed_arguments)
-    checker_source = checkers.get_source([external_checker_directory])
     # Step: Get and transform the name of the chosen checker and
     # then prepare for running it by ensuring that it is:
     # --> available for use (i.e., pluginbase found and loaded it)
