@@ -2,6 +2,8 @@
 
 import argparse
 
+from gator import checkers
+
 
 def get_parser():
     """Get a parser for the arguments provided on the command-line."""
@@ -41,9 +43,4 @@ def get_parser():
 
 def parse(args, parser=None):
     """Use the parser on the provided arguments."""
-    # there is no parser, so create it first before parsing
-    if parser is None:
-        parser = get_parser()
-    # call argparse's parse_args function and return result
-    arguments_finished = parser.parse_args(args)
-    return arguments_finished
+    checkers.parse(get_parser, args, parser)
