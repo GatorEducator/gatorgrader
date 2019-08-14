@@ -401,6 +401,7 @@ def check(system_arguments):
     check = checkers.get_chosen_check(parsed_arguments)
     check_file = checkers.transform_check(check)
     checker_exists = checkers.verify_check_existence(check_file, checker_source)
+    print(checker_exists)
 
     # check_results.extend(step_results)
     # # Section: Perform one of these checks
