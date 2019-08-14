@@ -15,6 +15,7 @@ CHECKER_SOURCE = None
 
 def parse(get_parser, args, parser=None):
     """Use the parser on the provided arguments."""
+    # this function is called by all checks in gator.checks
     # there is no parser, so create it first before parsing
     if parser is None:
         parser = get_parser()
