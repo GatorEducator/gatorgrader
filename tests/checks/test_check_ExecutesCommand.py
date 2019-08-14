@@ -23,7 +23,7 @@ def test_no_arguments_incorrect_system_exit(capsys):
     "commandline_arguments",
     [(["--commandWRONG", "echo"]), (["--command", "run", "--WRONG"]), (["--command"])],
 )
-def test_optional_commandline_arguments_cannot_verify(commandline_arguments, capsys):
+def test_required_commandline_arguments_cannot_parse(commandline_arguments, capsys):
     """Check that incorrect optional command-line arguments check correctly."""
     with pytest.raises(SystemExit):
         _ = check_ExecutesCommand.parse(commandline_arguments)
@@ -41,7 +41,18 @@ def test_optional_commandline_arguments_cannot_verify(commandline_arguments, cap
     "commandline_arguments",
     [(["--command", "run_command_first"]), (["--command", "run_command_second"])],
 )
-def test_optional_commandline_arguments_can_verify(commandline_arguments, not_raises):
+def test_required_commandline_arguments_can_parse(commandline_arguments, not_raises):
     """Check that correct optional command-line arguments check correctly."""
     with not_raises(SystemExit):
         _ = check_ExecutesCommand.parse(commandline_arguments)
+
+
+@pytest.mark.parametrize(
+    "commandline_arguments",
+    [(["--command", "run_command_first"]), (["--command", "run_command_second"])],
+)
+def test_optional_commandline_arguments_can_parse_created_parser(commandline_arguments, not_raises):
+    """Check that correct optional command-line arguments check correctly."""
+    with not_raises(SystemExit):
+        parser = check_ExecutesCommand.get_parser()
+        _ = check_ExecutesCommand.parse(commandline_arguments, parser)
