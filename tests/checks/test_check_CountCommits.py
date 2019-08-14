@@ -35,3 +35,13 @@ def test_optional_commandline_arguments_cannot_verify(commandline_arguments, cap
     assert "usage:" in captured.err
     counted_newlines = captured.err.count("\n")
     assert counted_newlines == 2
+
+
+@pytest.mark.parametrize(
+    "commandline_arguments",
+    [(["--count", "5"]), (["--count", "5", "--exact"])],
+)
+def test_optional_commandline_arguments_can_verify(commandline_arguments, not_raises):
+    """Check that correct optional command-line arguments check correctly."""
+    with not_raises(SystemExit):
+        _ = check_CountCommits.parse(commandline_arguments)
