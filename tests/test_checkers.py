@@ -92,6 +92,7 @@ def test_load_checkers_list_is_not_empt_blank_input():
 def test_load_checkers_list_is_not_empty_provided_input(tmpdir):
     """Ensure that checker loading results in non-empty list with provided list."""
     checker_file = tmpdir.mkdir("internal_checkers").join("check_testing.py")
+    # this must be valid Python code because it will be loaded by pluginbase
     checker_file.write('"' 'a checker"' "")
     checker_directory = (
         tmpdir.dirname + "/" + tmpdir.basename + "/" + "internal_checkers"
@@ -107,6 +108,7 @@ def test_load_checkers_list_is_not_empty_check_exists_with_provided_input(tmpdir
     """Ensure that checker loading results in non-empty list containing check with provided list."""
     checkers.reset_source()
     checker_file = tmpdir.mkdir("internal_checkers").join("check_testing.py")
+    # this must be valid Python code because it will be loaded by pluginbase
     checker_file.write('"' 'a checker"' "")
     checker_directory = (
         tmpdir.dirname + "/" + tmpdir.basename + "/" + "internal_checkers"
