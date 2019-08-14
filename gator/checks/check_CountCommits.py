@@ -3,18 +3,19 @@
 import argparse
 
 
-def parse(args):
-    """Parse the arguments provided on the command-line."""
+def get_parser():
+    """Get a parser for the arguments provided on the command-line."""
     # create the parser with the default help formatter
     # use a new description since this is a stand-alone check
     parser = argparse.ArgumentParser(
+        prog="CountCommits",
+        description="Check Provided by GatorGrader: CountCommits",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-        description="CHECK: CountCommits",
     )
 
     # Required Named Checker Arguments {{{
 
-    required_group = parser.add_argument_group("Required Checker Arguments")
+    required_group = parser.add_argument_group("required checker arguments")
 
     # COUNT: the number of commits
     # REQUIRED? Yes
@@ -26,14 +27,20 @@ def parse(args):
 
     # Optional Named Checker Arguments {{{
 
+    optional_group = parser.add_argument_group("optional checker arguments")
+
     # EXACT: perform exact checking for commit counts (i.e,. "==" instead of ">=")
     # REQUIRED? No
-    required_group.add_argument(
+    optional_group.add_argument(
         "--exact", help="equals instead of a minimum number", action="store_true"
     )
 
     # }}}
+    return parser
 
+
+def use_parser(parser, args):
+    """Use the parser on the provided arguments."""
     # call argparse's parse_args function and return result
     arguments_finished = parser.parse_args(args)
     return arguments_finished
