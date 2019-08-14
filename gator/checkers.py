@@ -111,6 +111,14 @@ def get_checks_help(check_source):
                 if help_message is constants.markers.Nothing:
                     help_message = active_check_parser_help
                 # there are one or more help messages, so separate and then add it
+                # to the running help message. This would form a full help message like:
+                # HELP-MESSAGE-1 \n HELP-MESSAGE-2 \n ... HELP-MESSAGE-n
+                # for a total of n HELP-MESSAGES for the n available checkers in pluginbase
                 else:
-                    help_message = constants.markers.Newline + active_check_parser_help
+                    help_message = (
+                        constants.markers.Newline
+                        + help_message
+                        + constants.markers.Newline
+                        + active_check_parser_help
+                    )
     return help_message
