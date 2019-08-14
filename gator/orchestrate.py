@@ -11,10 +11,11 @@ from gator import constants
 
 # pylint: disable=unused-import
 from gator import display  # noqa: F401
-from gator import invoke   # noqa: F401
-from gator import run      # noqa: F401
+from gator import invoke  # noqa: F401
+from gator import run  # noqa: F401
 
 import snoop
+
 snoop.install(color="rrt")
 
 # define the name of this module
@@ -30,13 +31,18 @@ REPORT = sys.modules[constants.modules.Report]
 OUTPUT_TYPE = getattr(REPORT, constants.outputs.Text)
 
 
-def parse_verify_arguments(system_arguments):
-    """Parse, verify, and then return the parsed command-line arguments."""
+def parse_arguments(system_arguments):
+    """Parse and then return the parsed command-line arguments and the parser."""
     # parse the command-line arguments
     parsed_arguments, remaining_arguments = arguments.parse(system_arguments)
+    return parsed_arguments, remaining_arguments
+
+
+def verify_arguments(parsed_arguments):
+    """Parse, verify, and then return the parsed command-line arguments."""
     # verify the command-line arguments
     did_verify_arguments = arguments.verify(parsed_arguments)
-    return parsed_arguments, remaining_arguments, did_verify_arguments
+    return did_verify_arguments
 
 
 def get_actions(parsed_arguments, verification_status):
@@ -377,25 +383,26 @@ def check_executes_command(system_arguments):
 
 def check(system_arguments):
     """Orchestrate a full check of the specified deliverables."""
-    # Section: Initialize
+    # *Section: Initialize
     # step_results = []
     # check_results = []
-    # Step: Parse and then verify the arguments
-    parsed_arguments, remaining_arguments, verification_status = parse_verify_arguments(
+    # **Step: Parse and then verify the arguments
+    parsed_arguments, remaining_arguments = parse_arguments(
         system_arguments
     )
-    # Step: Get the source of all the checkers available from either:
+    verification_status = verify_arguments(parsed_arguments)
+    # **Step: Get the source of all the checkers available from either:
     # --> the internal directory of checkers (e.g., "./gator/checks")
     # --> the directory specified on the command-line
     external_checker_directory = checkers.get_checker_dir(parsed_arguments)
     checker_source = checkers.get_source([external_checker_directory])
-    # Step: Get and perform the preliminary actions before running a checker
+    # **Step: Get and perform the preliminary actions before running a checker
     # if the arguments did not parse or verify correctly, then:
     # --> argparse will cause the program to crash with an error OR
     # --> one of the actions will be to print the help message and exist
     actions = get_actions(parsed_arguments, verification_status)
     perform_actions(actions)
-    # Step: Get and transform the name of the chosen checker and
+    # **Step: Get and transform the name of the chosen checker and
     # then prepare for running it by ensuring that it is:
     # --> available for use (i.e., pluginbase found and loaded it)
     check = checkers.get_chosen_check(parsed_arguments)
