@@ -51,7 +51,9 @@ def test_required_commandline_arguments_can_parse(commandline_arguments, not_rai
     "commandline_arguments",
     [(["--command", "run_command_first"]), (["--command", "run_command_second"])],
 )
-def test_optional_commandline_arguments_can_parse_created_parser(commandline_arguments, not_raises):
+def test_optional_commandline_arguments_can_parse_created_parser(
+    commandline_arguments, not_raises
+):
     """Check that correct optional command-line arguments check correctly."""
     with not_raises(SystemExit):
         parser = check_ExecutesCommand.get_parser()
