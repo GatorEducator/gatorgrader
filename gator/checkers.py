@@ -10,6 +10,8 @@ from contextlib import redirect_stdout
 # import snoop
 # snoop.install(color="rrt")
 
+CHECKER_SOURCE = None
+
 
 def get_checker_dir(args):
     """Extract the checker directory from the provided command-line arguments."""
@@ -64,11 +66,23 @@ def get_source(checker_paths=[]):
     # the documentation for this function advices that you
     # give an identifier to the source for the plugins
     # because this will support saving and transfer, if needed
-    checker_source = checker_base.make_plugin_source(
-        identifier=constants.checkers.Plugin_Base_Identifier,
-        searchpath=all_checker_paths,
-    )
-    return checker_source
+    # pylint: disable=global-statement
+    global CHECKER_SOURCE
+    if CHECKER_SOURCE is None:
+        CHECKER_SOURCE = checker_base.make_plugin_source(
+            identifier=constants.checkers.Plugin_Base_Identifier,
+            searchpath=all_checker_paths,
+        )
+    return CHECKER_SOURCE
+
+
+def reset_source():
+    """Reset the source of the checkers."""
+    # pylint: disable=global-statement
+    global CHECKER_SOURCE
+    if CHECKER_SOURCE is not None:
+        CHECKER_SOURCE.cleanup()
+        CHECKER_SOURCE = None
 
 
 def get_check_help(check_source):
