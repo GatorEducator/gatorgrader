@@ -38,6 +38,7 @@ commandlines = create_constants(
     Check="check",
     Checker_Dir="--checkerdir",
     Json="--json",
+    List_Checks="--listchecks",
     No_Welcome="--nowelcome",
 )
 
@@ -55,9 +56,10 @@ functions = create_constants("functions", Count_Total_Words="count_total_words")
 # define the help messages for command-line arguments
 help = create_constants(
     "help",
-    Check="check to perform on the technical writing or source code",
+    Check="check to perform on the writing or source code",
     Checker_Dir="directory containing user-provided checks",
     Json="print the status report in JSON",
+    List_Checks="list the internal and user-provided checks",
     No_Welcome="do not display the welcome message",
 )
 
