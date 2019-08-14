@@ -46,6 +46,7 @@ def test_basic_check_correct():
         (["--json", "check_commits"]),
         (["--json", "--nowelcome", "check_commits"]),
         (["--nowelcome", "check_commits"]),
+        (["--checkerdir", "./gator/checks", "check_commits"]),
     ],
 )
 def test_optional_commandline_arguments_can_verify(commandline_arguments):
