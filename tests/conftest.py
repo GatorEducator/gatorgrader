@@ -15,7 +15,7 @@ sys.path.insert(0, PREVIOUS_DIRECTORY + GO_BACK_A_DIRECTORY)
 
 
 @pytest.fixture(scope="session")
-def not_raises():
+def not_raises():  # noqa: D202
     """Delete the check that an exception is not raised during test execution."""
 
     @contextmanager
