@@ -4,6 +4,14 @@
 from gator import arguments
 from gator import checkers
 
+import pytest
+
+
+@pytest.fixture(scope="module", autouse=True)
+def reset_checker_source():
+    """Before running a test in this suite always reset the source of the checkers in pluginbase."""
+    checkers.reset_source()
+
 
 def test_check_transformation():
     """Ensure that check name transformation works correctly."""
@@ -84,7 +92,7 @@ def test_load_checkers_list_is_not_empt_blank_input():
 def test_load_checkers_list_is_not_empty_provided_input(tmpdir):
     """Ensure that checker loading results in non-empty list with provided list."""
     checker_file = tmpdir.mkdir("internal_checkers").join("check_testing.py")
-    checker_file.write("a checker")
+    checker_file.write('"' 'a checker"' "")
     checker_directory = (
         tmpdir.dirname + "/" + tmpdir.basename + "/" + "internal_checkers"
     )
@@ -97,8 +105,9 @@ def test_load_checkers_list_is_not_empty_provided_input(tmpdir):
 
 def test_load_checkers_list_is_not_empty_check_exists_with_provided_input(tmpdir):
     """Ensure that checker loading results in non-empty list containing check with provided list."""
+    checkers.reset_source()
     checker_file = tmpdir.mkdir("internal_checkers").join("check_testing.py")
-    checker_file.write("a checker")
+    checker_file.write('"' 'a checker"' "")
     checker_directory = (
         tmpdir.dirname + "/" + tmpdir.basename + "/" + "internal_checkers"
     )
@@ -113,10 +122,30 @@ def test_load_checkers_list_is_not_empty_check_exists_with_provided_input(tmpdir
     )
 
 
-def test_check_extraction_from_commandline_arguments_has_help_single_checker(tmpdir):
+def test_check_extraction_from_commandline_arguments_has_help_single_checker():
     """Ensure that checker finding and help extraction works for a provided checker."""
     checker = "check_CountCommits"
-    _ = tmpdir.mkdir("checks").join(checker + ".py")
+    commandline_arguments = [checker]
+    gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+    args_verified = arguments.verify(gg_arguments)
+    assert args_verified is True
+    found_check = checkers.get_chosen_check(gg_arguments)
+    assert found_check == checker
+    checker_source = checkers.get_source()
+    check_helps = checkers.get_check_help(checker_source)
+    assert check_helps != ""
+    assert "CountCommits" in check_helps
+    counted_newlines = check_helps.count("\n")
+    assert counted_newlines > 0
+
+
+def test_check_extraction_from_commandline_arguments_has_help_two_checkers_one_invalid(
+    tmpdir
+):
+    """Ensure that checker finding and help extraction works for a provided checker."""
+    invalid_checker = "check_IncorrectChecker"
+    checker = "check_CountCommits"
+    _ = tmpdir.mkdir("checks").join(invalid_checker + ".py")
     assert len(tmpdir.listdir()) == 1
     checker_directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "checks"
     commandline_arguments = ["--checkerdir", checker_directory, checker]
