@@ -130,7 +130,7 @@ def test_help_constant_defined():
     assert constants.help.Json == "print the status report in JSON"
     assert (
         constants.help.Check
-        == "check to perform on the technical writing or source code"
+        == "check to perform on the writing or source code"
     )
 
 
