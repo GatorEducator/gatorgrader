@@ -124,6 +124,23 @@ def test_load_checkers_list_is_not_empty_check_exists_with_provided_input(tmpdir
     )
 
 
+def test_check_extraction_from_commandline_arguments_has_overall_help_when_no_checker():
+    """Ensure that checker finding and help extraction works for a provided checker."""
+    checker = "check_CountCommits_Invalid"
+    commandline_arguments = [checker]
+    gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+    args_verified = arguments.verify(gg_arguments)
+    assert args_verified is True
+    found_check = checkers.get_chosen_check(gg_arguments)
+    assert found_check == checker
+    checker_source = checkers.get_source()
+    check_helps = checkers.get_checks_help(checker_source)
+    assert check_helps != ""
+    assert "CountCommits" in check_helps
+    counted_newlines = check_helps.count("\n")
+    assert counted_newlines > 0
+
+
 def test_check_extraction_from_commandline_arguments_has_help_single_checker():
     """Ensure that checker finding and help extraction works for a provided checker."""
     checker = "check_CountCommits"
@@ -134,7 +151,7 @@ def test_check_extraction_from_commandline_arguments_has_help_single_checker():
     found_check = checkers.get_chosen_check(gg_arguments)
     assert found_check == checker
     checker_source = checkers.get_source()
-    check_helps = checkers.get_check_help(checker_source)
+    check_helps = checkers.get_checks_help(checker_source)
     assert check_helps != ""
     assert "CountCommits" in check_helps
     counted_newlines = check_helps.count("\n")
@@ -157,7 +174,7 @@ def test_check_extraction_from_commandline_arguments_has_help_two_checkers_one_i
     found_check = checkers.get_chosen_check(gg_arguments)
     assert found_check == checker
     checker_source = checkers.get_source()
-    check_helps = checkers.get_check_help(checker_source)
+    check_helps = checkers.get_checks_help(checker_source)
     assert check_helps != ""
     assert "CountCommits" in check_helps
     counted_newlines = check_helps.count("\n")
