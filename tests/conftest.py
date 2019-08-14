@@ -17,6 +17,7 @@ sys.path.insert(0, PREVIOUS_DIRECTORY + GO_BACK_A_DIRECTORY)
 @pytest.fixture(scope="session")
 def not_raises():
     """Delete the check that an exception is not raised during test execution."""
+
     @contextmanager
     def _not_raises(ExpectedException):
         """Define internal function to ensure that ExpectedException is not raised."""
@@ -26,4 +27,5 @@ def not_raises():
             raise AssertionError(f"Raised exception {error} when it should not!")
         except Exception as error:
             raise AssertionError(f"An unexpected exception {error} raised.")
+
     return _not_raises
