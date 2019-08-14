@@ -13,6 +13,16 @@ from contextlib import redirect_stdout
 CHECKER_SOURCE = None
 
 
+def parse(get_parser, args, parser=None):
+    """Use the parser on the provided arguments."""
+    # there is no parser, so create it first before parsing
+    if parser is None:
+        parser = get_parser()
+    # call argparse's parse_args function and return result
+    arguments_finished = parser.parse_args(args)
+    return arguments_finished
+
+
 def get_checker_dir(args):
     """Extract the checker directory from the provided command-line arguments."""
     # assume that the checkerdir does not exist and re-assign if found
