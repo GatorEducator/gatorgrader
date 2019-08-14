@@ -92,7 +92,7 @@ def reset_source():
         CHECKER_SOURCE = None
 
 
-def get_check_help(check_source):
+def get_checks_help(check_source):
     """Extract the help message from each checker available in the source from pluginbase."""
     # assume that no checkers are available and thus there is no help message
     help_message = constants.markers.Nothing
