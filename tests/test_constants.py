@@ -128,10 +128,7 @@ def test_help_constant_defined():
     assert constants.help.Checker_Dir == "directory containing user-provided checks"
     assert constants.help.No_Welcome == "do not display the welcome message"
     assert constants.help.Json == "print the status report in JSON"
-    assert (
-        constants.help.Check
-        == "check to perform on the writing or source code"
-    )
+    assert constants.help.Check == "check to perform on the writing or source code"
 
 
 def test_metavars_constant_defined():
