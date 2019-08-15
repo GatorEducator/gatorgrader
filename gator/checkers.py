@@ -15,6 +15,7 @@ from pluginbase import PluginBase
 CHECKER_SOURCE = None
 
 
+# @snoop
 def parse(get_parser, args, parser=None):
     """Use the parser on the provided arguments."""
     # this function is called by all checks in gator.checks
@@ -123,13 +124,21 @@ def get_check_help(active_check):
     return active_check_parser_help
 
 
-def get_checks_help(check_source):
+def get_checks_help(check_source, namecontains=None):
     """Extract the help message from all checkers available in the source from pluginbase."""
     # assume that no checkers are available and thus there is no help message
     help_message = constants.markers.Nothing
-    # iterate through the list of checkers available from pluginbase
+    # extract the list of checkers available from pluginbase
     check_list = check_source.list_plugins()
-    for check_name in check_list:
+    # a namecontains is provided for the filtering to ensure that each check
+    # contains the provided name pattern (i.e., must contain "Comment")
+    filtered_check_list = check_list
+    if namecontains is not None:
+        filtered_check_list = [
+            check_name for check_name in check_list if namecontains in check_name
+        ]
+    # iterate through the names of the checks, extracting their help messages
+    for check_name in filtered_check_list:
         # reflectively create a check from its name
         active_check = check_source.load_plugin(check_name)
         # if possible, get the complete help message from this check
