@@ -402,16 +402,17 @@ def check(system_arguments):
     # **Step: Get and transform the name of the chosen checker and
     # then prepare for running it by ensuring that it is:
     # --> available for use (i.e., pluginbase found and loaded it)
-    check = checkers.get_chosen_check(parsed_arguments)
-    check_file = checkers.transform_check(check)
+    check_name = checkers.get_chosen_check(parsed_arguments)
+    check_file = checkers.transform_check(check_name)
     check_exists = checkers.verify_check_existence(check_file, checker_source)
-    # TODO: **Step: Verify that the chosen check is valid:
+    # **Step: Verify that the chosen check is valid:
     # --> has the correct functions
     check_verified = True
     # **Step: Perform the check
     if check_exists and check_verified:
+        check = checker_source.load_plugin(check_file)
         check_result = check.act(parsed_arguments, remaining_arguments)
-    print(check_result)
+        print("**" + check_result + "**")
 
     # check_results.extend(step_results)
     # # Section: Perform one of these checks
