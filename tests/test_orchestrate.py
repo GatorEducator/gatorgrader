@@ -26,9 +26,7 @@ def test_verify_arguments(commandline_arguments):
     parsed_arguments, remaining_arguments = orchestrate.parse_arguments(
         commandline_arguments
     )
-    verification_status = orchestrate.verify_arguments(
-        parsed_arguments
-    )
+    verification_status = orchestrate.verify_arguments(parsed_arguments)
     assert parsed_arguments is not None
     assert verification_status is True
 
@@ -48,9 +46,7 @@ def test_get_actions(commandline_arguments, expected_verification, action_count)
     parsed_arguments, remaining_arguments = orchestrate.parse_arguments(
         commandline_arguments
     )
-    verification_status = orchestrate.verify_arguments(
-        parsed_arguments
-    )
+    verification_status = orchestrate.verify_arguments(parsed_arguments)
     assert parsed_arguments is not None
     assert verification_status is expected_verification
     needed_actions = orchestrate.get_actions(parsed_arguments, verification_status)
