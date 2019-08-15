@@ -1,11 +1,13 @@
 """Load checkers using a plugin-based approach."""
 
+import io
+from contextlib import redirect_stdout
+
+import os
+
 from gator import constants
 
 from pluginbase import PluginBase
-
-import io
-from contextlib import redirect_stdout
 
 # import snoop
 # snoop.install(color="rrt")
@@ -114,6 +116,10 @@ def get_check_help(active_check):
         with io.StringIO() as buffer, redirect_stdout(buffer):
             active_check_parser.print_help()
             active_check_parser_help = buffer.getvalue()
+    # delete blank lines from the help message to improve formatting
+    active_check_parser_help = os.linesep.join(
+        [line for line in active_check_parser_help.splitlines() if line]
+    )
     return active_check_parser_help
 
 
@@ -129,11 +135,12 @@ def get_checks_help(check_source):
         # if possible, get the complete help message from this check
         active_check_parser_help = get_check_help(active_check)
         # this is the first help message, so directly add it
+        # with a blank line to separate any additional messages
         if help_message is constants.markers.Nothing:
-            help_message = active_check_parser_help
+            help_message = active_check_parser_help + constants.markers.Newline
         # there are one or more help messages, so separate and then add it
         # to the running help message. This would form a full help message like:
-        # HELP-MESSAGE-1 \n HELP-MESSAGE-2 \n ... HELP-MESSAGE-n
+        # HELP-MESSAGE-1 BLANK-LINE HELP-MESSAGE-2 BLANK-LINE ... HELP-MESSAGE-n
         # for a total of n HELP-MESSAGES for the n available checkers in pluginbase
         else:
             help_message = (
@@ -141,5 +148,6 @@ def get_checks_help(check_source):
                 + help_message
                 + constants.markers.Newline
                 + active_check_parser_help
+                + constants.markers.Newline
             )
     return help_message
