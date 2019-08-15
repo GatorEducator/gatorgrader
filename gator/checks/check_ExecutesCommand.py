@@ -37,4 +37,4 @@ def get_parser():
 
 def parse(args, parser=None):
     """Use the parser on the provided arguments."""
-    checkers.parse(get_parser, args, parser)
+    return checkers.parse(get_parser, args, parser)
