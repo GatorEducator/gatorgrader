@@ -17,7 +17,7 @@ def get_parser():
 
     # Required Named Checker Arguments {{{
 
-    required_group = parser.add_argument_group("required checker arguments")
+    required_group = parser.add_argument_group("required check arguments")
 
     # COUNT: the number of commits
     # REQUIRED? Yes
@@ -29,7 +29,7 @@ def get_parser():
 
     # Optional Named Checker Arguments {{{
 
-    optional_group = parser.add_argument_group("optional checker arguments")
+    optional_group = parser.add_argument_group("optional check arguments")
 
     # EXACT: perform exact checking for commit counts (i.e,. "==" instead of ">=")
     # REQUIRED? No
