@@ -2,8 +2,6 @@
 
 import pytest
 
-from pluginbase import PluginBase
-
 from gator import arguments
 from gator import checkers
 from gator.checks import check_ListChecks
