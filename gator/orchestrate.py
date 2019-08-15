@@ -386,7 +386,7 @@ def check(system_arguments):
     # *Section: Initialize
     # step_results = []
     # check_results = []
-    # **Step: Parse and then verify the arguments
+    # **Step: Parse and then verify the arguments, extract remaining arguments
     parsed_arguments, remaining_arguments = parse_arguments(
         system_arguments
     )
