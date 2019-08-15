@@ -9,8 +9,8 @@ from gator import constants
 
 from pluginbase import PluginBase
 
-import snoop
-snoop.install(color="rrt")
+# import snoop
+# snoop.install(color="rrt")
 
 CHECKER_SOURCE = None
 
@@ -124,7 +124,6 @@ def get_check_help(active_check):
     return active_check_parser_help
 
 
-@snoop
 def get_checks_help(check_source, namecontains=None):
     """Extract the help message from all checkers available in the source from pluginbase."""
     # assume that no checkers are available and thus there is no help message
@@ -156,9 +155,7 @@ def get_checks_help(check_source, namecontains=None):
             # this is the last check so do not add the trailing blank line
             if check_count == len(filtered_check_list) - 1:
                 help_message = (
-                    help_message
-                    + constants.markers.Newline
-                    + active_check_parser_help
+                    help_message + constants.markers.Newline + active_check_parser_help
                 )
             # this is not last check so add the trailing blank line
             else:
