@@ -387,9 +387,7 @@ def check(system_arguments):
     # step_results = []
     # check_results = []
     # **Step: Parse and then verify the arguments, extract remaining arguments
-    parsed_arguments, remaining_arguments = parse_arguments(
-        system_arguments
-    )
+    parsed_arguments, remaining_arguments = parse_arguments(system_arguments)
     verification_status = verify_arguments(parsed_arguments)
     # **Step: Get the source of all the checkers available from either:
     # --> the internal directory of checkers (e.g., "./gator/checks")
