@@ -103,33 +103,43 @@ def reset_source():
         CHECKER_SOURCE = None
 
 
+def get_check_help(active_check):
+    """Extract the help message from a checker available in the source from pluginbase."""
+    # assume that the active check does not have a help message
+    active_check_parser_help = constants.markers.Nothing
+    # the active check has a function to get the parser
+    if hasattr(active_check, constants.checkers.Get_Parser_Function):
+        active_check_parser = active_check.get_parser()
+        # extract the help message by redirecting standard output to a string
+        with io.StringIO() as buffer, redirect_stdout(buffer):
+            active_check_parser.print_help()
+            active_check_parser_help = buffer.getvalue()
+    return active_check_parser_help
+
+
 def get_checks_help(check_source):
-    """Extract the help message from each checker available in the source from pluginbase."""
+    """Extract the help message from all checkers available in the source from pluginbase."""
     # assume that no checkers are available and thus there is no help message
     help_message = constants.markers.Nothing
     # iterate through the list of checkers available from pluginbase
     check_list = check_source.list_plugins()
     for check_name in check_list:
+        # reflectively create a check from its name
         active_check = check_source.load_plugin(check_name)
-        # the active check has a function to get the parser
-        if hasattr(active_check, constants.checkers.Get_Parser_Function):
-            active_check_parser = active_check.get_parser()
-            # extract the help message by redirecting standard output to a string
-            with io.StringIO() as buffer, redirect_stdout(buffer):
-                active_check_parser.print_help()
-                active_check_parser_help = buffer.getvalue()
-                # this is the first help message, so directly add it
-                if help_message is constants.markers.Nothing:
-                    help_message = active_check_parser_help
-                # there are one or more help messages, so separate and then add it
-                # to the running help message. This would form a full help message like:
-                # HELP-MESSAGE-1 \n HELP-MESSAGE-2 \n ... HELP-MESSAGE-n
-                # for a total of n HELP-MESSAGES for the n available checkers in pluginbase
-                else:
-                    help_message = (
-                        constants.markers.Newline
-                        + help_message
-                        + constants.markers.Newline
-                        + active_check_parser_help
-                    )
+        # if possible, get the complete help message from this check
+        active_check_parser_help = get_check_help(active_check)
+        # this is the first help message, so directly add it
+        if help_message is constants.markers.Nothing:
+            help_message = active_check_parser_help
+        # there are one or more help messages, so separate and then add it
+        # to the running help message. This would form a full help message like:
+        # HELP-MESSAGE-1 \n HELP-MESSAGE-2 \n ... HELP-MESSAGE-n
+        # for a total of n HELP-MESSAGES for the n available checkers in pluginbase
+        else:
+            help_message = (
+                constants.markers.Newline
+                + help_message
+                + constants.markers.Newline
+                + active_check_parser_help
+            )
     return help_message
