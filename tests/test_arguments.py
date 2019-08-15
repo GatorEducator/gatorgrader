@@ -35,7 +35,7 @@ def test_no_arguments_incorrect_system_exit_not_verified(capsys):
 
 def test_basic_check_correct():
     """When given verifiable arguments, there is no error and it is verified."""
-    gg_arguments, remaining_arguments = arguments.parse(["check_commits"])
+    gg_arguments, remaining_arguments = arguments.parse(["CheckCommits"])
     args_verified = arguments.verify(gg_arguments)
     assert args_verified == VERIFIED
 
@@ -43,10 +43,10 @@ def test_basic_check_correct():
 @pytest.mark.parametrize(
     "commandline_arguments",
     [
-        (["--json", "check_commits"]),
-        (["--json", "--nowelcome", "check_commits"]),
-        (["--nowelcome", "check_commits"]),
-        (["--checkerdir", "./gator/checks", "check_commits"]),
+        (["--json", "CheckCommits"]),
+        (["--json", "--nowelcome", "CheckCommits"]),
+        (["--nowelcome", "CheckCommits"]),
+        (["--checkerdir", "./gator/checks", "CheckCommits"]),
     ],
 )
 def test_optional_commandline_arguments_can_verify(commandline_arguments):
@@ -58,11 +58,11 @@ def test_optional_commandline_arguments_can_verify(commandline_arguments):
 
 def test_checkerdir_is_valid_arguments_verify(tmpdir):
     """Check that command-line argument with valid directory verifies."""
-    _ = tmpdir.mkdir("checks").join("check_messages.py")
+    _ = tmpdir.mkdir("checks").join("check_FakeMessages.py")
     assert len(tmpdir.listdir()) == 1
     # this directory exists on the file system and verification should work
     checker_directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "checks"
-    commandline_arguments = ["--checkerdir", checker_directory, "check_messages"]
+    commandline_arguments = ["--checkerdir", checker_directory, "check_FakeMessages"]
     gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
     args_verified = arguments.verify(gg_arguments)
     assert args_verified is True
@@ -70,11 +70,11 @@ def test_checkerdir_is_valid_arguments_verify(tmpdir):
 
 def test_checkerdir_is_not_valid_arguments_verify(tmpdir):
     """Check that command-line argument with valid directory verifies."""
-    _ = tmpdir.mkdir("checks").join("check_messages.py")
+    _ = tmpdir.mkdir("checks").join("check_FakeMessages.py")
     assert len(tmpdir.listdir()) == 1
     # this directory does not exist on the file system and verification should not work
     checker_directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "checksWRONG"
-    commandline_arguments = ["--checkerdir", checker_directory, "check_messages"]
+    commandline_arguments = ["--checkerdir", checker_directory, "check_FakeMessages"]
     gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
     args_verified = arguments.verify(gg_arguments)
     assert args_verified is False
