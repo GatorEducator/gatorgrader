@@ -412,7 +412,7 @@ def check(system_arguments):
     if check_exists and check_verified:
         check = checker_source.load_plugin(check_file)
         check_result = check.act(parsed_arguments, remaining_arguments)
-        print("**" + check_result + "**")
+        print(check_result)
 
     # check_results.extend(step_results)
     # # Section: Perform one of these checks
