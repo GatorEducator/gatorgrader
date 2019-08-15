@@ -9,13 +9,12 @@ from gator import constants
 
 from pluginbase import PluginBase
 
-# import snoop
-# snoop.install(color="rrt")
+import snoop
+snoop.install(color="rrt")
 
 CHECKER_SOURCE = None
 
 
-# @snoop
 def parse(get_parser, args, parser=None):
     """Use the parser on the provided arguments."""
     # this function is called by all checks in gator.checks
@@ -106,6 +105,7 @@ def reset_source():
         CHECKER_SOURCE = None
 
 
+# @snoop
 def get_check_help(active_check):
     """Extract the help message from a checker available in the source from pluginbase."""
     # assume that the active check does not have a help message
@@ -124,6 +124,7 @@ def get_check_help(active_check):
     return active_check_parser_help
 
 
+@snoop
 def get_checks_help(check_source, namecontains=None):
     """Extract the help message from all checkers available in the source from pluginbase."""
     # assume that no checkers are available and thus there is no help message
@@ -138,7 +139,7 @@ def get_checks_help(check_source, namecontains=None):
             check_name for check_name in check_list if namecontains in check_name
         ]
     # iterate through the names of the checks, extracting their help messages
-    for check_name in filtered_check_list:
+    for check_count, check_name in enumerate(filtered_check_list):
         # reflectively create a check from its name
         active_check = check_source.load_plugin(check_name)
         # if possible, get the complete help message from this check
@@ -147,16 +148,24 @@ def get_checks_help(check_source, namecontains=None):
         # with a blank line to separate any additional messages
         if help_message is constants.markers.Nothing:
             help_message = active_check_parser_help + constants.markers.Newline
-        # there are one or more help messages, so separate and then add it
+        # there are one or more help messages, so separate and then add this one
         # to the running help message. This would form a full help message like:
         # HELP-MESSAGE-1 BLANK-LINE HELP-MESSAGE-2 BLANK-LINE ... HELP-MESSAGE-n
         # for a total of n HELP-MESSAGES for the n available checkers in pluginbase
         else:
-            help_message = (
-                constants.markers.Newline
-                + help_message
-                + constants.markers.Newline
-                + active_check_parser_help
-                + constants.markers.Newline
-            )
+            # this is the last check so do not add the trailing blank line
+            if check_count == len(filtered_check_list) - 1:
+                help_message = (
+                    help_message
+                    + constants.markers.Newline
+                    + active_check_parser_help
+                )
+            # this is not last check so add the trailing blank line
+            else:
+                help_message = (
+                    help_message
+                    + constants.markers.Newline
+                    + active_check_parser_help
+                    + constants.markers.Newline
+                )
     return help_message
