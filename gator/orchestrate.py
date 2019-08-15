@@ -14,9 +14,8 @@ from gator import display  # noqa: F401
 from gator import invoke  # noqa: F401
 from gator import run  # noqa: F401
 
-import snoop
-
-snoop.install(color="rrt")
+# import snoop
+# snoop.install(color="rrt")
 
 # define the name of this module
 ORCHESTRATE = sys.modules[__name__]
