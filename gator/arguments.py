@@ -14,8 +14,13 @@ def parse(args):
     # create the parser with the raw test help formatter
     # that will maintain the newlines and spaces in the epilog
     parser = argparse.ArgumentParser(
-        add_help=True, formatter_class=argparse.RawTextHelpFormatter
+        prog="gatorgrader.py",
+        formatter_class=argparse.RawTextHelpFormatter,
     )
+
+    # assign a label to indicate that there is only one
+    # required argument; also use "required" instead of "positional"
+    parser._positionals.title = "required argument"
 
     # Optional Arguments {{{
 
@@ -63,7 +68,7 @@ def parse(args):
 
     # add an epilog to explain how to list all of the available checks,
     # including those checks that are internal and user-provided
-    parser.epilog = "check listing:\r\n  list all checks with ListChecks for CHECK\r\n  usage: gatorgrader.py ListChecks"
+    parser.epilog = "check listing:\r\n  list all available checks with CHECK as ListChecks\r\n  usage: gatorgrader.py ListChecks"
     # call argparse's parse_known_args function that will recognize all
     # matching arguments and those that remain to be parsed and return them both
     arguments_finished, arguments_remaining = parser.parse_known_args(args)
