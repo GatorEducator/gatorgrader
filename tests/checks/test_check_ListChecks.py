@@ -76,6 +76,7 @@ def test_optional_commandline_arguments_can_parse_created_parser(
         (["--json", "--nowelcome", "ListChecks"]),
         (["--nowelcome", "ListChecks"]),
         (["--checkerdir", "./gator/checks", "ListChecks"]),
+        (["--checkerdir", "./gator/checks", "ListChecks", "--namecontains", "Com"]),
     ],
 )
 def test_act_produces_output(commandline_arguments):
