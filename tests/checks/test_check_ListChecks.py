@@ -20,7 +20,8 @@ def test_no_arguments_correct_system_exit(not_raises):
     "commandline_arguments",
     [
         (["--namecontainsWRONG", "5"]),
-        (["--namecontains", "count_*", "--namecontainsWRONG"]),
+        (["--namecontainsWRONG", "count_*"]),
+        (["--namecontainsWRONG"]),
         (["--namecontains"]),
     ],
 )
@@ -55,7 +56,8 @@ def test_required_commandline_arguments_can_parse(commandline_arguments, not_rai
     "commandline_arguments",
     [
         (["--namecontains", "check_"]),
-        (["--namecontains", "commit", "--namecontains", "Count"]),
+        (["--namecontains", "commit"]),
+        (["--namecontains", "Count"]),
     ],
 )
 def test_optional_commandline_arguments_can_parse_created_parser(
