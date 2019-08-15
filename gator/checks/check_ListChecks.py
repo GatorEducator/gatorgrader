@@ -4,12 +4,10 @@ import argparse
 
 from gator import checkers
 
-import snoop
+# import snoop
+# snoop.install(color="rrt")
 
-snoop.install(color="rrt")
 
-
-@snoop
 def get_parser():
     """Get a parser for the arguments provided on the command-line."""
     # create the parser with the default help formatter
