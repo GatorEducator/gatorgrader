@@ -10,6 +10,8 @@ import pytest
 @pytest.fixture(scope="module", autouse=True)
 def reset_checker_source():
     """Before running a test in this suite always reset the source of the checkers in pluginbase."""
+    # note that performing this reset ensures test independence and
+    # avoids test flakiness for single-test runs or different test orderings
     checkers.reset_source()
 
 
