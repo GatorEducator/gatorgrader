@@ -396,7 +396,7 @@ def check(system_arguments):
     # **Step: Get and perform the preliminary actions before running a checker
     # if the arguments did not parse or verify correctly, then:
     # --> argparse will cause the program to crash with an error OR
-    # --> one of the actions will be to print the help message and exist
+    # --> one of the actions will be to print the help message and exit
     actions = get_actions(parsed_arguments, verification_status)
     perform_actions(actions)
     # **Step: Get and transform the name of the chosen checker and
