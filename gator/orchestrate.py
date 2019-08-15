@@ -404,8 +404,14 @@ def check(system_arguments):
     # --> available for use (i.e., pluginbase found and loaded it)
     check = checkers.get_chosen_check(parsed_arguments)
     check_file = checkers.transform_check(check)
-    checker_exists = checkers.verify_check_existence(check_file, checker_source)
-    print(checker_exists)
+    check_exists = checkers.verify_check_existence(check_file, checker_source)
+    # TODO: **Step: Verify that the chosen check is valid:
+    # --> has the correct functions
+    check_verified = True
+    # **Step: Perform the check
+    if check_exists and check_verified:
+        check_result = check.act(parsed_arguments, remaining_arguments)
+    print(check_result)
 
     # check_results.extend(step_results)
     # # Section: Perform one of these checks
