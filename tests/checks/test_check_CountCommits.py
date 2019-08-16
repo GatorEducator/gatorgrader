@@ -64,9 +64,9 @@ def test_optional_commandline_arguments_can_parse_created_parser(
 @pytest.mark.parametrize(
     "commandline_arguments, expected_result",
     [
+        (["CountCommits", "--count", "0"], True),
         (["CountCommits", "--count", "5"], True),
         (["CountCommits", "--count", "5", "--exact"], False),
-        (["CountCommitsWRONG", "--count", "5"], False),
     ],
 )
 def test_act_produces_output(commandline_arguments, expected_result):
