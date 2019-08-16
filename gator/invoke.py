@@ -11,9 +11,8 @@ from gator import repository
 from gator import run
 from gator import util
 
-import snoop
-
-snoop.install(color="rrt")
+# import snoop
+# snoop.install(color="rrt")
 
 
 def report_result(status, message, diagnostic):
@@ -26,7 +25,6 @@ def report_result(status, message, diagnostic):
         report.set_result(message, status, diagnostic)
 
 
-@snoop
 def invoke_commits_check(student_repository, expected_count, exact=False):
     """Check to see if the repository has more than specified commits."""
     # inspect the Git repository internals for the commits
