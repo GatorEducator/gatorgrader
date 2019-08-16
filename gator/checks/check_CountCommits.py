@@ -39,7 +39,10 @@ def get_parser():
     # EXACT: perform exact checking for commit counts (i.e,. "==" instead of ">=")
     # REQUIRED? No
     optional_group.add_argument(
-        "--exact", help="equals instead of a minimum number", action="store_true"
+        "--exact",
+        help="equals instead of a minimum number",
+        default=False,
+        action="store_true",
     )
 
     # }}}
@@ -58,12 +61,11 @@ def act(main_parsed_arguments, check_remaining_arguments):
     # --> count is required to specify the commit count threshold
     # --> exact is optional, but will either be True or False and False by default
     check_parsed_arguments = parse(check_remaining_arguments)
+    # Directly run the check since at least one of the argument's for it is mandatory.
+    # This means that the use of check_CountCommits would have already failed by this
+    # point since argparse will exit the program if the command-line argument is not provided
     count = check_parsed_arguments.count
     exact = check_parsed_arguments.exact
-    # run the check since the parameters to it are verified
-    if checkers.verify_arguments([count, exact]):
-        return [
-            invoke.invoke_commits_check(constants.paths.Current_Directory, count, exact)
-        ]
-    # one or both of the parameters are not specified and thus the command is an error
-    return [constants.codes.Error]
+    return [
+        invoke.invoke_commits_check(constants.paths.Current_Directory, count, exact)
+    ]
