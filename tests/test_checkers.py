@@ -22,6 +22,64 @@ def test_check_transformation():
     assert transformed_check_name == "check_CountCommits"
 
 
+@pytest.mark.parametrize(
+    "commandline_arguments",
+    [
+        (["--json", "ListChecks"]),
+        (["--json", "--nowelcome", "ListChecks"]),
+        (["--nowelcome", "ListChecks"]),
+        (["--checkerdir", "./gator/checks", "ListChecks"]),
+        (["--checkerdir", "./gator/checks", "ListChecks", "--namecontains", "Com"]),
+    ],
+)
+def test_check_function_verification_separate(commandline_arguments):
+    """Ensure that check verification works for standard functions."""
+    parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+    args_verified = arguments.verify(parsed_arguments)
+    assert args_verified is True
+    external_checker_directory = checkers.get_checker_dir(parsed_arguments)
+    checker_source = checkers.get_source([external_checker_directory])
+    check_name = checkers.get_chosen_check(parsed_arguments)
+    check_file = checkers.transform_check(check_name)
+    check_exists = checkers.verify_check_existence(check_file, checker_source)
+    assert check_exists is True
+    check = checker_source.load_plugin(check_file)
+    assert checkers.verify_check_function(check, "act") is True
+    assert checkers.verify_check_function(check, "get_parser") is True
+    assert checkers.verify_check_function(check, "parse") is True
+
+
+@pytest.mark.parametrize(
+    "commandline_arguments",
+    [
+        (["--json", "ListChecks"]),
+        (["--json", "--nowelcome", "ListChecks"]),
+        (["--nowelcome", "ListChecks"]),
+        (["--checkerdir", "./gator/checks", "ListChecks"]),
+        (["--checkerdir", "./gator/checks", "ListChecks", "--namecontains", "Com"]),
+    ],
+)
+def test_check_function_verification_list(commandline_arguments):
+    """Ensure that check verification works for standard functions."""
+    parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+    args_verified = arguments.verify(parsed_arguments)
+    assert args_verified is True
+    external_checker_directory = checkers.get_checker_dir(parsed_arguments)
+    checker_source = checkers.get_source([external_checker_directory])
+    check_name = checkers.get_chosen_check(parsed_arguments)
+    check_file = checkers.transform_check(check_name)
+    check_exists = checkers.verify_check_existence(check_file, checker_source)
+    assert check_exists is True
+    # create the check
+    check = checker_source.load_plugin(check_file)
+    # verify that the check has the provided functions, specified separately
+    assert (
+        checkers.verify_check_functions(check, ["act", "get_parser", "parse"]) is True
+    )
+    # verify that the check has the provided functions, specified according to defaults
+    assert checkers.verify_check_functions(check) is True
+
+
 def test_checkerdir_extraction_from_commandline_arguments(tmpdir):
     """Ensure that command-line argument extraction works in checker function if specified checkerdir."""
     _ = tmpdir.mkdir("checks").join("check_messages.py")
