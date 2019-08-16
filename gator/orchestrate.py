@@ -15,6 +15,7 @@ from gator import invoke  # noqa: F401
 from gator import run  # noqa: F401
 
 import snoop
+
 snoop.install(color="rrt")
 
 # define the name of this module
@@ -455,4 +456,4 @@ def check(system_arguments):
     # # Section: Return control back to __main__ in gatorgrader
     # # Only step: determine the correct exit code for the checks
     # correct_exit_code = leave.get_code(check_results)
-    #and  return correct_exit_code
+    # and  return correct_exit_code
