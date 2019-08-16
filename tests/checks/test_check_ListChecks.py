@@ -22,6 +22,9 @@ def test_no_arguments_correct_system_exit(not_raises):
         (["--namecontainsWRONG", "count_*"]),
         (["--namecontainsWRONG"]),
         (["--namecontains"]),
+        (["CheckWrongName"]),
+        (["ListChecksWrongName"]),
+        (["ListChecksW"]),
     ],
 )
 def test_optional_commandline_arguments_cannot_verify(commandline_arguments, capsys):
