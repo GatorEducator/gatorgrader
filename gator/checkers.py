@@ -58,6 +58,19 @@ def transform_check(check):
     return transformed_check
 
 
+def verify_arguments(args):
+    """Verify that the provided arguments are all not None."""
+    # assume that you have not found a None yet
+    found_none = False
+    # iteratively look for a None through the arguments
+    for arg in args:
+        # indicate that a None was found
+        if arg is None:
+            found_none = True
+    # if a None was found, then do not verify the arguments
+    return not found_none
+
+
 def verify_check_existence(check, check_source):
     """Verify that the requested check is available from the source(s)."""
     check_exists = False
