@@ -14,8 +14,8 @@ from gator import display  # noqa: F401
 from gator import invoke  # noqa: F401
 from gator import run  # noqa: F401
 
-# import snoop
-# snoop.install(color="rrt")
+import snoop
+snoop.install(color="rrt")
 
 # define the name of this module
 ORCHESTRATE = sys.modules[__name__]
@@ -361,6 +361,7 @@ def check_executes_command(system_arguments):
     return actions
 
 
+# @snoop
 def check(system_arguments):
     """Orchestrate a full check of the specified deliverables."""
     # *Section: Initialize
@@ -388,14 +389,20 @@ def check(system_arguments):
     check_file = checkers.transform_check(check_name)
     check_exists = checkers.verify_check_existence(check_file, checker_source)
     # **Step: Load the check and verify that it is valid:
-    # --> has the correct functions
     check_verified = False
-    check = checker_source.load_plugin(check_file)
-    check_verified = checkers.verify_check_functions(check)
-    # **Step: Perform the check if it exists and it is verified
-    if check_exists and check_verified:
-        check_result = check.act(parsed_arguments, remaining_arguments)
-        check_results.extend(check_result)
+    check = None
+    if check_exists:
+        check = checker_source.load_plugin(check_file)
+        check_verified = checkers.verify_check_functions(check)
+    # produce error message and exit because the check is not valid
+    if not check_exists or not check_verified:
+        # do not potentially produce the welcome message again
+        parsed_arguments.nowelcome = True
+        actions = get_actions(parsed_arguments, check_verified)
+        perform_actions(actions)
+    # **Step: Perform the check since it exists and it is verified
+    check_result = check.act(parsed_arguments, remaining_arguments)
+    check_results.extend(check_result)
     # *Section: Output the report
     # Only step: get the report's details, produce the output, and display it
     produced_output = report.output(report.get_result(), OUTPUT_TYPE)
@@ -448,4 +455,4 @@ def check(system_arguments):
     # # Section: Return control back to __main__ in gatorgrader
     # # Only step: determine the correct exit code for the checks
     # correct_exit_code = leave.get_code(check_results)
-    # return correct_exit_code
+    #and  return correct_exit_code
