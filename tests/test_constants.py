@@ -52,7 +52,9 @@ def test_checkers_constant_defined():
     assert constants.checkers.Internal_Checkers_Dir == "./gator/checks"
     assert constants.checkers.Plugin_Base_Identifier == "GatorGraderPluginBase"
     assert constants.checkers.Check_Prefix == "check_"
-    assert constants.checkers.Get_Parser_Function == "get_parser"
+    assert constants.checkers.Function_Get_Parser == "get_parser"
+    assert constants.checkers.Function_Act == "act"
+    assert constants.checkers.Function_Parse == "parse"
 
 
 def test_arguments_constant_defined():
@@ -207,7 +209,11 @@ def test_checkers_constant_cannot_redefine():
     with pytest.raises(AttributeError):
         constants.checkers.Check_Prefix = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
-        constants.checkers.Get_Parser_Function = CANNOT_SET_CONSTANT_VARIABLE
+        constants.checkers.Function_Get_Parser = CANNOT_SET_CONSTANT_VARIABLE
+    with pytest.raises(AttributeError):
+        constants.checkers.Function_Act = CANNOT_SET_CONSTANT_VARIABLE
+    with pytest.raises(AttributeError):
+        constants.checkers.Function_Parse = CANNOT_SET_CONSTANT_VARIABLE
 
 
 def test_commandlines_constant_cannot_redefine():
