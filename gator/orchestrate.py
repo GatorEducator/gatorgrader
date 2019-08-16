@@ -80,25 +80,6 @@ def perform_actions(actions):
     return results
 
 
-def check_commits(system_arguments):
-    """Check the commits to the git repository and return desired actions."""
-    actions = []
-    # the repository is the current directory containing work to check
-    if system_arguments.commits is not None:
-        actions.append(
-            [
-                INVOKE,
-                "invoke_commits_check",
-                [
-                    constants.paths.Current_Directory,
-                    system_arguments.commits,
-                    system_arguments.exact,
-                ],
-            ]
-        )
-    return actions
-
-
 def check_exists(system_arguments):
     """Check the existence of a file in directory and return desired actions."""
     actions = []
