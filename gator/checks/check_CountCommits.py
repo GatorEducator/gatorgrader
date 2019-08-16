@@ -3,6 +3,12 @@
 import argparse
 
 from gator import checkers
+from gator import constants
+from gator import invoke
+
+import snoop
+
+snoop.install(color="rrt")
 
 
 def get_parser():
@@ -44,3 +50,22 @@ def get_parser():
 def parse(args, parser=None):
     """Use the parser on the provided arguments."""
     return checkers.parse(get_parser, args, parser)
+
+
+@snoop
+# pylint: disable=unused-argument
+def act(main_parsed_arguments, check_remaining_arguments):
+    """Perform the action for this check."""
+    # extract the two arguments for this check
+    # --> count is required to specify the commit count threshold
+    # --> exact is optional, but will either be True or False and False by default
+    check_parsed_arguments = parse(check_remaining_arguments)
+    count = check_parsed_arguments.count
+    exact = check_parsed_arguments.exact
+    # both of the parameters to the check are specified and thus it is run
+    if count is not None and exact is not None:
+        return [
+            invoke.invoke_commits_check(constants.paths.Current_Directory, count, exact)
+        ]
+    # one or both of the parameters are not specified and thus the command is an error
+    return [constants.codes.Error]
