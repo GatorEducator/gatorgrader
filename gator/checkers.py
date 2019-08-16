@@ -65,8 +65,13 @@ def verify_arguments(args):
     # iteratively look for a None through the arguments
     for arg in args:
         # indicate that a None was found
+        # stop running the for loop since None's existence is established
+        # this short-circuit behavior also ensure that the function works
+        # when you are checking that an object is not None so that you
+        # can then access a field inside of that object
         if arg is None:
             found_none = True
+            break
     # if a None was found, then do not verify the arguments
     return not found_none
 
