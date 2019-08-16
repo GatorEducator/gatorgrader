@@ -26,7 +26,9 @@ checkers = create_constants(
     "checkers",
     Check_Prefix="check_",
     Internal_Checkers_Dir="./gator/checks",
-    Get_Parser_Function="get_parser",
+    Function_Act="act",
+    Function_Get_Parser="get_parser",
+    Function_Parse="parse",
     Plugin_Base_Identifier="GatorGraderPluginBase",
 )
 
