@@ -6,8 +6,8 @@ from gator import arguments
 from gator import checkers
 from gator import constants
 
-# from gator import leave
-# from gator import report
+from gator import leave
+from gator import report
 
 # pylint: disable=unused-import
 from gator import display  # noqa: F401
@@ -384,7 +384,7 @@ def check(system_arguments):
     """Orchestrate a full check of the specified deliverables."""
     # *Section: Initialize
     # step_results = []
-    # check_results = []
+    check_results = []
     # **Step: Parse and then verify the arguments, extract remaining arguments
     parsed_arguments, remaining_arguments = parse_arguments(system_arguments)
     verification_status = verify_arguments(parsed_arguments)
@@ -399,20 +399,30 @@ def check(system_arguments):
     # --> one of the actions will be to print the help message and exit
     actions = get_actions(parsed_arguments, verification_status)
     perform_actions(actions)
+    # *Section: Perform the check
     # **Step: Get and transform the name of the chosen checker and
     # then prepare for running it by ensuring that it is:
     # --> available for use (i.e., pluginbase found and loaded it)
     check_name = checkers.get_chosen_check(parsed_arguments)
     check_file = checkers.transform_check(check_name)
     check_exists = checkers.verify_check_existence(check_file, checker_source)
-    # **Step: Verify that the chosen check is valid:
+    # **Step: Load the check and verify that it is valid:
     # --> has the correct functions
-    check_verified = True
-    # **Step: Perform the check
+    check_verified = False
+    check = checker_source.load_plugin(check_file)
+    check_verified = checkers.verify_check_functions(check)
+    # **Step: Perform the check if it exists and it is verified
     if check_exists and check_verified:
-        check = checker_source.load_plugin(check_file)
         check_result = check.act(parsed_arguments, remaining_arguments)
-        print(check_result)
+        check_results.extend(check_result)
+    # *Section: Output the report
+    # Only step: get the report's details, produce the output, and display it
+    produced_output = report.output(report.get_result(), OUTPUT_TYPE)
+    display.message(produced_output)
+    # Section: Return control back to __main__ in gatorgrader
+    # Only step: determine the correct exit code for the checks
+    correct_exit_code = leave.get_code(check_results)
+    return correct_exit_code
 
     # check_results.extend(step_results)
     # # Section: Perform one of these checks
