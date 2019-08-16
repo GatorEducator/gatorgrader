@@ -72,12 +72,22 @@ def test_check_function_verification_list(commandline_arguments):
     assert check_exists is True
     # create the check
     check = checker_source.load_plugin(check_file)
-    # verify that the check has the provided functions, specified separately
+    # verify that the check has the functions, specified separately
     assert (
         checkers.verify_check_functions(check, ["act", "get_parser", "parse"]) is True
     )
-    # verify that the check has the provided functions, specified according to defaults
+    # verify that the check has the functions, specified according to defaults
     assert checkers.verify_check_functions(check) is True
+    # verify that the check does not have the provided functions, specified separately
+    assert (
+        checkers.verify_check_functions(check, ["actWRONG", "get_parser", "parse"]) is False
+    )
+    assert (
+        checkers.verify_check_functions(check, ["act", "get_parserWRONG", "parse"]) is False
+    )
+    assert (
+        checkers.verify_check_functions(check, ["actWRONG", "get_parser", "parseWRONG"]) is False
+    )
 
 
 def test_checkerdir_extraction_from_commandline_arguments(tmpdir):
