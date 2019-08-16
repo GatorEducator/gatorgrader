@@ -63,7 +63,11 @@ def test_optional_commandline_arguments_can_parse_created_parser(
 
 @pytest.mark.parametrize(
     "commandline_arguments, expected_result",
-    [(["CountCommits", "--count", "5"], True), (["CountCommits", "--count", "5", "--exact"], False)],
+    [
+        (["CountCommits", "--count", "5"], True),
+        (["CountCommits", "--count", "5", "--exact"], False),
+        (["CountCommitsWRONG", "--count", "5"], False),
+    ],
 )
 def test_act_produces_output(commandline_arguments, expected_result):
     """Check that using the check produces output."""
@@ -78,11 +82,11 @@ def test_act_produces_output(commandline_arguments, expected_result):
     assert check_exists is True
     check = checker_source.load_plugin(check_file)
     check_result = check.act(parsed_arguments, remaining_arguments)
-    # the result is True
+    # check the result
     assert check_result is not None
     assert len(check_result) == 1
     assert check_result[0] is expected_result
-    # the report contains expected results
+    # check the contents of the report
     assert report.get_result() is not None
     assert len(report.get_result()["check"]) > 1
     assert report.get_result()["outcome"] is expected_result
