@@ -54,10 +54,9 @@ def act(main_parsed_arguments, check_remaining_arguments):
     # --> the directory specified on the command-line
     external_checker_directory = checkers.get_checker_dir(main_parsed_arguments)
     checker_source = checkers.get_source([external_checker_directory])
-    # filter the names of checks with check_parsed_arguments?
-    if (
-        check_parsed_arguments is not None
-        and check_parsed_arguments.namecontains is not None
+    # must filter the names of checks with check_parsed_arguments.namecontains filter
+    if checkers.verify_arguments(
+        [check_parsed_arguments, check_parsed_arguments.namecontains]
     ):
         help_messages = checkers.get_checks_help(
             checker_source, check_parsed_arguments.namecontains
