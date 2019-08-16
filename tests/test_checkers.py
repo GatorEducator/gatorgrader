@@ -95,12 +95,12 @@ def test_check_function_verification_list(commandline_arguments):
 
 def test_argument_not_none_verification():
     """Ensure that checking of the arguments is not None is working correctly."""
-    assert checkers.verify_arguments(["act", "get_parser", "parse"]) is True
-    assert checkers.verify_arguments([5, "get_parser", "parse"]) is True
-    assert checkers.verify_arguments([5, False, "parse"]) is True
-    assert checkers.verify_arguments([5, None, "parse"]) is False
-    assert checkers.verify_arguments([None]) is False
-    assert checkers.verify_arguments([]) is True
+    assert checkers.verify_arguments_not_none(["act", "get_parser", "parse"]) is True
+    assert checkers.verify_arguments_not_none([5, "get_parser", "parse"]) is True
+    assert checkers.verify_arguments_not_none([5, False, "parse"]) is True
+    assert checkers.verify_arguments_not_none([5, None, "parse"]) is False
+    assert checkers.verify_arguments_not_none([None]) is False
+    assert checkers.verify_arguments_not_none([]) is True
 
 
 def test_checkerdir_extraction_from_commandline_arguments(tmpdir):
