@@ -6,9 +6,8 @@ from gator import checkers
 from gator import constants
 from gator import invoke
 
-import snoop
-
-snoop.install(color="rrt")
+# import snoop
+# snoop.install(color="rrt")
 
 
 def get_parser():
@@ -52,7 +51,6 @@ def parse(args, parser=None):
     return checkers.parse(get_parser, args, parser)
 
 
-@snoop
 # pylint: disable=unused-argument
 def act(main_parsed_arguments, check_remaining_arguments):
     """Perform the action for this check."""
