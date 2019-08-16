@@ -14,7 +14,11 @@ from pluginbase import PluginBase
 
 CHECKER_SOURCE = None
 
-DEFAULT_FUNCTIONS = ["act", "get_parser", "parse"]
+DEFAULT_FUNCTIONS = [
+    constants.checkers.Function_Act,
+    constants.checkers.Function_Get_Parser,
+    constants.checkers.Function_Parse,
+]
 
 
 def parse(get_parser, args, parser=None):
@@ -133,7 +137,7 @@ def get_check_help(active_check):
     # assume that the active check does not have a help message
     active_check_parser_help = constants.markers.Nothing
     # the active check has a function to get the parser
-    if hasattr(active_check, constants.checkers.Get_Parser_Function):
+    if hasattr(active_check, constants.checkers.Function_Get_Parser):
         active_check_parser = active_check.get_parser()
         # extract the help message by redirecting standard output to a string
         with io.StringIO() as buffer, redirect_stdout(buffer):
