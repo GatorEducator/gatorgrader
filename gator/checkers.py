@@ -58,7 +58,7 @@ def transform_check(check):
     return transformed_check
 
 
-def verify_arguments(args):
+def verify_arguments_not_none(args):
     """Verify that the provided arguments are all not None."""
     # assume that you have not found a None yet
     found_none = False
