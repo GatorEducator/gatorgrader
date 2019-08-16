@@ -4,6 +4,7 @@ import pytest
 
 from gator import arguments
 from gator import checkers
+from gator import report
 from gator.checks import check_ListChecks
 
 
@@ -90,5 +91,12 @@ def test_act_produces_output(commandline_arguments):
     assert check_exists is True
     check = checker_source.load_plugin(check_file)
     check_result = check.act(parsed_arguments, remaining_arguments)
+    # the result is True
     assert check_result is not None
-    assert len(check_result) > 1
+    assert len(check_result) == 1
+    assert check_result[0] is True
+    # the report contains expected results
+    assert report.get_result() is not None
+    assert len(report.get_result()["check"]) > 1
+    assert report.get_result()["outcome"] is True
+    assert report.get_result()["diagnostic"] == ""
