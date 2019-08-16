@@ -14,6 +14,8 @@ from pluginbase import PluginBase
 
 CHECKER_SOURCE = None
 
+DEFAULT_FUNCTIONS = ["act", "get_parser", "parse"]
+
 
 def parse(get_parser, args, parser=None):
     """Use the parser on the provided arguments."""
@@ -64,6 +66,26 @@ def verify_check_existence(check, check_source):
     if check in check_list:
         check_exists = True
     return check_exists
+
+
+def verify_check_function(check, function):
+    """Verify that the requested check has a function."""
+    # the specified check, a module loaded by pluginbase, has the specified function
+    if hasattr(check, function):
+        return True
+    # the specified check does not have the function, so do not verify it
+    return False
+
+
+def verify_check_functions(check, functions=DEFAULT_FUNCTIONS):
+    """Verify that the requested check has the required functions."""
+    # perform verification on the specified check, a module loaded by pluginbase,
+    # for all of the provided functions, which are, DEFAULT_FUNCTIONS by default
+    verify_status_results = [
+        verify_check_function(check, function) for function in functions
+    ]
+    # verify the status of the check as long as all values in verify_status_results are True
+    return all(verify_status_results)
 
 
 def get_source(checker_paths=[]):
