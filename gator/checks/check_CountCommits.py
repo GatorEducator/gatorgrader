@@ -63,7 +63,7 @@ def act(main_parsed_arguments, check_remaining_arguments):
     count = check_parsed_arguments.count
     exact = check_parsed_arguments.exact
     # run the check since the parameters to it are verified
-    if checkers.verify([count, exact]):
+    if checkers.verify_arguments([count, exact]):
         return [
             invoke.invoke_commits_check(constants.paths.Current_Directory, count, exact)
         ]
