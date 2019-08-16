@@ -3,6 +3,8 @@
 import argparse
 
 from gator import checkers
+from gator import constants
+from gator import invoke
 
 # import snoop
 # snoop.install(color="rrt")
@@ -61,6 +63,12 @@ def act(main_parsed_arguments, check_remaining_arguments):
         help_messages = checkers.get_checks_help(
             checker_source, check_parsed_arguments.namecontains
         )
+    # no need to filter the help menus based on name containment
     else:
         help_messages = checkers.get_checks_help(checker_source)
-    return help_messages
+    # there is no diagnostic message because this check always passes
+    diagnostic = constants.markers.Nothing
+    did_check_pass = True
+    # use invoke to create a report that can be returned as output
+    invoke.report_result(did_check_pass, help_messages, diagnostic)
+    return [did_check_pass]
