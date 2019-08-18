@@ -24,7 +24,7 @@ def test_no_arguments_incorrect_system_exit(capsys):
 
 
 def test_no_arguments_incorrect_system_exit_not_verified(capsys):
-    """No command-line arguments causes SystemExit crash and is not verified."""
+    """Ensure that no command-line arguments causes SystemExit crash and is not verified."""
     with pytest.raises(SystemExit):
         gg_arguments, remaining_arguments = arguments.parse([])
         arguments_args_verified = arguments.verify(gg_arguments)
@@ -34,7 +34,7 @@ def test_no_arguments_incorrect_system_exit_not_verified(capsys):
 
 
 def test_basic_check_correct():
-    """When given verifiable arguments, there is no error and it is verified."""
+    """Ensure when given verifiable arguments, there is no error and it is verified."""
     gg_arguments, remaining_arguments = arguments.parse(["CheckCommits"])
     args_verified = arguments.verify(gg_arguments)
     assert args_verified == VERIFIED
@@ -78,3 +78,18 @@ def test_checkerdir_is_not_valid_arguments_verify(tmpdir):
     gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
     args_verified = arguments.verify(gg_arguments)
     assert args_verified is False
+
+
+def test_help_produces_output(capsys):
+    """Ensure that when given a request for help, it is produced correctly."""
+    with pytest.raises(SystemExit):
+        _ = arguments.parse(["--help"])
+    captured = capsys.readouterr()
+    # there is no standard output
+    counted_newlines = captured.out.count("\n")
+    assert counted_newlines > 0
+    # standard error has lines produced by specialized print_help
+    assert "required argument:" in captured.out
+    assert "usage:" in captured.out
+    assert "all checks:" in captured.out
+    assert "internal checks:" in captured.out
