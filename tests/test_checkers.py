@@ -15,6 +15,13 @@ def reset_checker_source():
     checkers.reset_source()
 
 
+def test_reset_checker_source():
+    """Ensure that reset of the checker source works correctly."""
+    assert checkers.CHECKER_SOURCE is None
+    checkers.reset_source()
+    assert checkers.CHECKER_SOURCE is None
+
+
 def test_check_transformation():
     """Ensure that check name transformation works correctly."""
     check_name_on_commandline = "CountCommits"
