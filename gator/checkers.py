@@ -149,8 +149,7 @@ def reset_source():
         CHECKER_SOURCE = None
 
 
-# @snoop
-def get_check_help(active_check):
+def get_check_help(active_check, indent=""):
     """Extract the help message from a checker available in the source from pluginbase."""
     # assume that the active check does not have a help message
     active_check_parser_help = constants.markers.Nothing
@@ -163,12 +162,12 @@ def get_check_help(active_check):
             active_check_parser_help = buffer.getvalue()
     # delete blank lines from the help message to improve formatting
     active_check_parser_help = os.linesep.join(
-        [line for line in active_check_parser_help.splitlines() if line]
+        [indent + line for line in active_check_parser_help.splitlines() if line]
     )
     return active_check_parser_help
 
 
-def get_checks_help(check_source, namecontains=None):
+def get_checks_help(check_source, namecontains=None, indent=""):
     """Extract the help message from all checkers available in the source from pluginbase."""
     # assume that no checkers are available and thus there is no help message
     help_message = constants.markers.Nothing
@@ -186,7 +185,7 @@ def get_checks_help(check_source, namecontains=None):
         # reflectively create a check from its name
         active_check = check_source.load_plugin(check_name)
         # if possible, get the complete help message from this check
-        active_check_parser_help = get_check_help(active_check)
+        active_check_parser_help = get_check_help(active_check, indent)
         # this is the first help message, so directly add it
         # with a blank line to separate any additional messages
         if help_message is constants.markers.Nothing:
