@@ -26,3 +26,8 @@ def message(requested_message):
     """Display any requested message and then a newline."""
     print(requested_message)
     print()
+
+
+def line(message=""):
+    """Display a newline."""
+    print(message)
