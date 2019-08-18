@@ -80,6 +80,7 @@ markers = create_constants(
     No_Diagnostic="",
     Nothing="",
     Space=" ",
+    Indent="  ",
     Tab="   ",
     File="file",
     Of_File="of file",
