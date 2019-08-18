@@ -14,10 +14,6 @@ from gator import display  # noqa: F401
 from gator import invoke  # noqa: F401
 from gator import run  # noqa: F401
 
-import snoop
-
-snoop.install(color="rrt")
-
 # define the name of this module
 ORCHESTRATE = sys.modules[__name__]
 
@@ -32,8 +28,7 @@ OUTPUT_TYPE = getattr(REPORT, constants.outputs.Text)
 
 
 def parse_arguments(system_arguments):
-    """Parse and then return the parsed command-line arguments and the parser."""
-    # parse the command-line arguments
+    """Parse and then return the parsed command-line arguments and those that remain."""
     parsed_arguments, remaining_arguments = arguments.parse(system_arguments)
     return parsed_arguments, remaining_arguments
 
