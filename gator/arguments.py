@@ -37,8 +37,7 @@ def parse(args):
     # that will maintain the newlines and spaces in the epilog
     # parser = argparse.ArgumentParser(
     parser = GatorGraderArgumentParser(
-        prog="gatorgrader.py",
-        formatter_class=argparse.RawTextHelpFormatter
+        prog="gatorgrader.py", formatter_class=argparse.RawTextHelpFormatter
     )
 
     # assign a label to indicate that there is only one
