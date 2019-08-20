@@ -38,7 +38,7 @@ def test_verify_arguments(commandline_arguments):
         (["--json", "CHECK"], True, 1),
         (["--json", "--nowelcome", "CHECK"], True, 0),
         (["--nowelcome", "CHECK"], True, 0),
-        (["--nowelcome", "--checkerdir", "WRONG", "CHECK"], False, 2),
+        (["--nowelcome", "--checkerdir", "WRONG", "CHECK"], False, 3),
     ],
 )
 def test_get_actions(commandline_arguments, expected_verification, action_count):
