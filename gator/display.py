@@ -22,6 +22,12 @@ def incorrect_message():
     print()
 
 
+def help_reminder():
+    """Display a message to remind for the use of help."""
+    print("Use --help to show details about GatorGrader's use.")
+    print()
+
+
 def message(requested_message):
     """Display any requested message and then a newline."""
     print(requested_message)
