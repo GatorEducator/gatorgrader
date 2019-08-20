@@ -64,6 +64,7 @@ def test_check_function_verification_separate(commandline_arguments):
         (["--nowelcome", "ListChecks"]),
         (["--checkerdir", "./gator/checks", "ListChecks"]),
         (["--checkerdir", "./gator/checks", "ListChecks", "--namecontains", "Com"]),
+        (["--checkerdir", "./gator/checks", "ListChecks", "--namecontains", "Exec"]),
     ],
 )
 def test_check_function_verification_list(commandline_arguments):
@@ -267,5 +268,28 @@ def test_check_extraction_from_commandline_arguments_has_help_two_checkers_one_i
     check_helps = checkers.get_checks_help(checker_source)
     assert check_helps != ""
     assert "CountCommits" in check_helps
+    counted_newlines = check_helps.count("\n")
+    assert counted_newlines > 0
+
+
+def test_check_extraction_from_commandline_arguments_has_help_single_checker_filtered():
+    """Ensure that checker finding and help extraction works for a single filtered check."""
+    checker = "ListChecks"
+    commandline_arguments = [
+        "--checkerdir",
+        "./gator/checks",
+        "ListChecks",
+        "--namecontains",
+        "Exec",
+    ]
+    gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+    args_verified = arguments.verify(gg_arguments)
+    assert args_verified is True
+    found_check = checkers.get_chosen_check(gg_arguments)
+    assert found_check == checker
+    checker_source = checkers.get_source()
+    check_helps = checkers.get_checks_help(checker_source, namecontains="Exec")
+    assert check_helps != ""
+    assert "Exec" in check_helps
     counted_newlines = check_helps.count("\n")
     assert counted_newlines > 0
