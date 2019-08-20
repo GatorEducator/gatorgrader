@@ -33,6 +33,16 @@ def test_dislay_invalid_produce_output_line_count(capsys):
     assert captured.err == ""
 
 
+def test_reminder_produce_output_line_count(capsys):
+    """Check that the help reminder function produces output lines."""
+    display.help_reminder()
+    captured = capsys.readouterr()
+    counted_newlines = captured.out.count("\n")
+    assert "--help" in captured.out
+    assert counted_newlines == 2
+    assert captured.err == ""
+
+
 def test_display_message_with_newline(capsys):
     """Check that the message function produces output lines."""
     display.message("Example message")
