@@ -63,7 +63,7 @@ def act(main_parsed_arguments, check_remaining_arguments):
         [check_parsed_arguments, check_parsed_arguments.namecontains]
     ):
         help_messages = checkers.get_checks_help(
-            checker_source, check_parsed_arguments.namecontains
+            checker_source, namecontains=check_parsed_arguments.namecontains
         )
     # no need to filter the help menus based on name containment
     else:
