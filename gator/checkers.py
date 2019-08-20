@@ -9,8 +9,8 @@ from gator import constants
 
 from pluginbase import PluginBase
 
-# import snoop
-# snoop.install(color="rrt")
+import snoop
+snoop.install(color="rrt")
 
 CHECKER_SOURCE = None
 
@@ -187,9 +187,13 @@ def get_checks_help(check_source, namecontains=None, indent=""):
         # if possible, get the complete help message from this check
         active_check_parser_help = get_check_help(active_check, indent)
         # this is the first help message, so directly add it
-        # with a blank line to separate any additional messages
         if help_message is constants.markers.Nothing:
-            help_message = active_check_parser_help + constants.markers.Newline
+            # this is the only help message, so add it without a blank line
+            if check_count == len(filtered_check_list) - 1:
+                help_message = active_check_parser_help
+            # there are other help messages, so add a blank line to separate
+            else:
+                help_message = active_check_parser_help + constants.markers.Newline
         # there are one or more help messages, so separate and then add this one
         # to the running help message. This would form a full help message like:
         # HELP-MESSAGE-1 BLANK-LINE HELP-MESSAGE-2 BLANK-LINE ... HELP-MESSAGE-n
