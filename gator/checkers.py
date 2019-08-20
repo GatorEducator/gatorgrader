@@ -9,9 +9,6 @@ from gator import constants
 
 from pluginbase import PluginBase
 
-import snoop
-snoop.install(color="rrt")
-
 CHECKER_SOURCE = None
 
 DEFAULT_FUNCTIONS = [
