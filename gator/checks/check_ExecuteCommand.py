@@ -11,8 +11,8 @@ def get_parser():
     # create the parser with the default help formatter
     # use a new description since this is a stand-alone check
     parser = argparse.ArgumentParser(
-        prog="ExecutesCommand",
-        description="Check Provided by GatorGrader: ExecutesCommand",
+        prog="ExecuteCommand",
+        description="Check Provided by GatorGrader: ExecuteCommand",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
 
