@@ -20,7 +20,7 @@ def get_parser():
 
     required_group = parser.add_argument_group("required checker arguments")
 
-    # COUNT: the number of commits
+    # COMMAND: the command to execute
     # REQUIRED? Yes
     required_group.add_argument(
         "--command", type=str, help="command to execute", required=True
