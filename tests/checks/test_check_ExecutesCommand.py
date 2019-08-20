@@ -1,17 +1,17 @@
-"""Tests for ExecutesCommand's input and verification of command-line arguments."""
+"""Tests for ExecuteCommand's input and verification of command-line arguments."""
 
 import pytest
 
 from gator import arguments
 from gator import checkers
 from gator import report
-from gator.checks import check_ExecutesCommand
+from gator.checks import check_ExecuteCommand
 
 
 def test_no_arguments_incorrect_system_exit(capsys):
     """No command-line arguments causes SystemExit crash of argparse with error output."""
     with pytest.raises(SystemExit):
-        _ = check_ExecutesCommand.parse([])
+        _ = check_ExecuteCommand.parse([])
     captured = capsys.readouterr()
     # there is no standard output
     counted_newlines = captured.out.count("\n")
@@ -29,7 +29,7 @@ def test_no_arguments_incorrect_system_exit(capsys):
 def test_required_commandline_arguments_cannot_parse(commandline_arguments, capsys):
     """Check that incorrect optional command-line arguments check correctly."""
     with pytest.raises(SystemExit):
-        _ = check_ExecutesCommand.parse(commandline_arguments)
+        _ = check_ExecuteCommand.parse(commandline_arguments)
     captured = capsys.readouterr()
     # there is no standard output
     counted_newlines = captured.out.count("\n")
@@ -47,7 +47,7 @@ def test_required_commandline_arguments_cannot_parse(commandline_arguments, caps
 def test_required_commandline_arguments_can_parse(commandline_arguments, not_raises):
     """Check that correct optional command-line arguments check correctly."""
     with not_raises(SystemExit):
-        _ = check_ExecutesCommand.parse(commandline_arguments)
+        _ = check_ExecuteCommand.parse(commandline_arguments)
 
 
 @pytest.mark.parametrize(
@@ -59,15 +59,15 @@ def test_optional_commandline_arguments_can_parse_created_parser(
 ):
     """Check that correct optional command-line arguments check correctly."""
     with not_raises(SystemExit):
-        parser = check_ExecutesCommand.get_parser()
-        _ = check_ExecutesCommand.parse(commandline_arguments, parser)
+        parser = check_ExecuteCommand.get_parser()
+        _ = check_ExecuteCommand.parse(commandline_arguments, parser)
 
 
 @pytest.mark.parametrize(
     "commandline_arguments, expected_result",
     [
-        (["ExecutesCommand", "--command", "WrongCommand"], False),
-        (["ExecutesCommand", "--command", 'echo "CorrectCommand"'], True),
+        (["ExecuteCommand", "--command", "WrongCommand"], False),
+        (["ExecuteCommand", "--command", 'echo "CorrectCommand"'], True),
     ],
 )
 def test_act_produces_output(commandline_arguments, expected_result):
