@@ -67,7 +67,7 @@ def test_optional_commandline_arguments_can_parse_created_parser(
     "commandline_arguments, expected_result",
     [
         (["ExecutesCommand", "--command", "WrongCommand"], False),
-        (["ExecutesCommand", "--command", "echo \"CorrectCommand\""], True),
+        (["ExecutesCommand", "--command", 'echo "CorrectCommand"'], True),
     ],
 )
 def test_act_produces_output(commandline_arguments, expected_result):
