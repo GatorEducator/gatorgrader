@@ -55,6 +55,8 @@ def get_actions(parsed_arguments, verification_status):
     if verification_status is False:
         # Needed Action: display incorrect arguments message
         needed_actions.append([DISPLAY, "incorrect_message", constants.arguments.Void])
+        # Needed Action: display a message to remind about using help
+        needed_actions.append([DISPLAY, "help_reminder", constants.arguments.Void])
         # Needed Action: exit the program
         needed_actions.append([RUN, "run_exit", [constants.arguments.Incorrect]])
     return needed_actions
