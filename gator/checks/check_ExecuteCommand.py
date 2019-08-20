@@ -45,8 +45,7 @@ def parse(args, parser=None):
 def act(main_parsed_arguments, check_remaining_arguments):
     """Perform the action for this check."""
     # extract the two arguments for this check:
-    # --> count is required to specify the commit count threshold
-    # --> exact is optional, but will either be True or False and False by default
+    # --> command is required to specify the commit count threshold
     check_parsed_arguments = parse(check_remaining_arguments)
     # Directly run the check since at least one of the argument's for it is mandatory.
     # This means that the use of check_CountCommits would have already failed by this
