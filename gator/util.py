@@ -36,10 +36,19 @@ def get_gatorgrader_home():
     # the current_gatorgrader_home is acceptable, so use it
     if verify_gatorgrader_home(current_gatorgrader_home) is not False:
         gatorgrader_home = current_gatorgrader_home
-    # the current GATORGRADER_HOME is not valid, so create the
-    # home for this program to be the current working directory
+    # The current GATORGRADER_HOME is not valid, so create the
+    # home for this program to be the directory from which
+    # GatorGrader is currently run. For instance, when GatorGrader is
+    # run through its Gradle plugin, this directory would be:
+    # <USER HOME DIRECTORY>/.local/share/gatorgrader/gator/
     else:
-        gatorgrader_home = str(files.create_cwd_path())
+        gatorgrader_home = str(files.create_program_path())
+    return gatorgrader_home
+
+
+def get_project_home():
+    """Return the directory containing the project files."""
+    gatorgrader_home = str(files.create_cwd_path())
     return gatorgrader_home
 
 
