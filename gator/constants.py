@@ -25,7 +25,7 @@ codes = create_constants("codes", Error=1, Success=0, No_Words=0)
 checkers = create_constants(
     "checkers",
     Check_Prefix="check_",
-    Internal_Checkers_Dir="./gator/checks",
+    Internal_Checkers_Dir="gator/checks",
     Function_Act="act",
     Function_Get_Parser="get_parser",
     Function_Parse="parse",
