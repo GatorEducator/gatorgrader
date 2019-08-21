@@ -48,8 +48,8 @@ def invoke_commits_check(student_repository, expected_count, exact=False):
 
 def invoke_file_in_directory_check(filecheck, directory):
     """Check to see if the file is in the directory."""
-    # get the home directory for checking and then check for file
-    gatorgrader_home = util.get_gatorgrader_home()
+    # get the project directory for checking and then check for file
+    gatorgrader_home = util.get_project_home()
     was_file_found = files.check_file_in_directory(
         directory, file=filecheck, home=gatorgrader_home
     )
