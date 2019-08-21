@@ -8,6 +8,7 @@ gitpython = "*"
 requests = ">=2.20.0"
 commonmark = "*"
 num2words = "*"
+pluginbase = "*"
 
 [dev-packages]
 pylint = "*"
@@ -24,7 +25,6 @@ codacy-coverage = "*"
 pydocstyle = "*"
 radon = "*"
 xenon = "*"
-pluginbase = "*"
 snoop = "*"
 
 [pipenv]
