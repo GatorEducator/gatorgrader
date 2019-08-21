@@ -118,6 +118,8 @@ def get_source(checker_paths=[]):
         checker_paths.remove(constants.markers.Nothing)
     # create the listing of the paths that could contain checkers
     all_checker_paths = checker_paths + [constants.checkers.Internal_Checkers_Dir]
+    print("all_checker_paths")
+    print(all_checker_paths)
     # Create and return a source of checkers using PluginBase.
     # The documentation for this function advices that you
     # give an identifier to the source for the plugins

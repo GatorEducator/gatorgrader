@@ -13,6 +13,7 @@ from gator import report
 from gator import display  # noqa: F401
 from gator import invoke  # noqa: F401
 from gator import run  # noqa: F401
+from gator import util
 
 # define the name of this module
 ORCHESTRATE = sys.modules[__name__]
@@ -371,6 +372,7 @@ def check(system_arguments):
     # **Step: Get the source of all the checkers available from either:
     # --> the internal directory of checkers (e.g., "./gator/checks")
     # --> the directory specified on the command-line
+    print("GatorGrader home: " + util.get_gatorgrader_home())
     external_checker_directory = checkers.get_checker_dir(parsed_arguments)
     checker_source = checkers.get_source([external_checker_directory])
     # **Step: Get and perform the preliminary actions before running a checker
