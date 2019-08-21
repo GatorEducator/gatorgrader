@@ -6,6 +6,8 @@ from contextlib import redirect_stdout
 import os
 
 from gator import constants
+from gator import files
+from gator import util
 
 from pluginbase import PluginBase
 
@@ -117,7 +119,10 @@ def get_source(checker_paths=[]):
     if constants.markers.Nothing in checker_paths:
         checker_paths.remove(constants.markers.Nothing)
     # create the listing of the paths that could contain checkers
-    all_checker_paths = checker_paths + [constants.checkers.Internal_Checkers_Dir]
+    internal_checker_path = files.create_path(
+        constants.checkers.Internal_Checkers_Dir, home=util.get_gatorgrader_home()
+    )
+    all_checker_paths = checker_paths + [str(internal_checker_path)]
     # Create and return a source of checkers using PluginBase.
     # The documentation for this function advices that you
     # give an identifier to the source for the plugins
