@@ -35,11 +35,15 @@ def get_gatorgrader_home():
     current_gatorgrader_home = os.environ.get(constants.environmentvariables.Home)
     # the current_gatorgrader_home is acceptable, so use it
     if verify_gatorgrader_home(current_gatorgrader_home) is not False:
+        print("GATORGRADER_HOME was set by environment variable")
         gatorgrader_home = current_gatorgrader_home
     # the current GATORGRADER_HOME is not valid, so create the
     # home for this program to be the current working directory
     else:
+        print("GATORGRADER_HOME was not set by environment variable")
         gatorgrader_home = str(files.create_cwd_path())
+    print("gatorgrader_home")
+    print(gatorgrader_home)
     return gatorgrader_home
 
 
