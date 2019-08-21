@@ -5,6 +5,7 @@ from gator import files
 
 import json
 import os
+import sys
 
 from num2words import num2words
 
@@ -44,6 +45,7 @@ def get_gatorgrader_home():
         gatorgrader_home = str(files.create_cwd_path())
     print("gatorgrader_home")
     print(gatorgrader_home)
+    print(os.path.dirname(os.path.realpath(sys.argv[0])))
     return gatorgrader_home
 
 
