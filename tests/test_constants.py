@@ -50,7 +50,7 @@ def test_codes_constant_defined():
 
 def test_checkers_constant_defined():
     """Check correctness for the variables in the checkers constant."""
-    assert constants.checkers.Internal_Checkers_Dir == "./gator/checks"
+    assert constants.checkers.Internal_Checkers_Dir == "gator/checks"
     assert constants.checkers.Plugin_Base_Identifier == "GatorGraderPluginBase"
     assert constants.checkers.Check_Prefix == "check_"
     assert constants.checkers.Function_Get_Parser == "get_parser"
