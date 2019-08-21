@@ -15,7 +15,9 @@ def create_cwd_path():
 
 def create_program_path():
     """Create a Path object for the directory from which GatorGrader is run."""
-    return create_path(home=sys.argv[0])
+    program_path = sys.argv[0]
+    program_path = program_path.replace("gatorgrader.py", ".")
+    return create_path(home=program_path)
 
 
 def create_paths(*args, file="", home):
