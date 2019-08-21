@@ -42,7 +42,7 @@ def test_gatorgrader_home_is_set():
     # by default to the home directory. These assertions
     # use Pathlib objects to do the comparison so as to
     # ensure that they pass across all operating systems
-    current_working_directory = files.create_cwd_path()
+    current_working_directory = files.create_program_path()
     assert gatorgrader_home is not None
     assert files.create_path(home=gatorgrader_home) == files.create_path(
         home=current_working_directory
