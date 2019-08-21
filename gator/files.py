@@ -5,10 +5,17 @@ from gator import constants
 from glob import glob
 from pathlib import Path
 
+import sys
+
 
 def create_cwd_path():
     """Create a Path object for the current working directory."""
     return Path.cwd()
+
+
+def create_program_path():
+    """Create a Path object for the directory from which GatorGrader is run."""
+    return create_path(home=sys.argv[0])
 
 
 def create_paths(*args, file="", home):
