@@ -450,7 +450,7 @@ def invoke_all_regex_checks(
                 + directory
                 + " has at least "
                 + str(expected_count)
-                + " matches of the '"
+                + " match(es) of the '"
                 + regex
                 + "' regular expression"
             )
@@ -463,7 +463,7 @@ def invoke_all_regex_checks(
                 + directory
                 + " has exactly "
                 + str(expected_count)
-                + " matches of the '"
+                + " match(es) of the '"
                 + regex
                 + "' regular expression"
             )
@@ -477,7 +477,7 @@ def invoke_all_regex_checks(
                 "The command output"
                 + " has at least "
                 + str(expected_count)
-                + " matches of the '"
+                + " match(es) of the '"
                 + regex
                 + "' regular expression"
             )
@@ -487,7 +487,7 @@ def invoke_all_regex_checks(
                 "The command output"
                 + " has exactly "
                 + str(expected_count)
-                + " matches of the '"
+                + " match(es) of the '"
                 + regex
                 + "' regular expression"
             )
