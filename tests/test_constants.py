@@ -18,6 +18,7 @@ def test_markers_constant_defined():
     assert constants.markers.Empty == b""
     assert constants.markers.Newline == "\n"
     assert constants.markers.No_Diagnostic == ""
+    assert constants.markers.Command_Error == "Command_No_Output"
     assert constants.markers.Nothing == ""
     assert constants.markers.Space == " "
     assert constants.markers.Indent == "  "
@@ -162,6 +163,8 @@ def test_markers_constant_cannot_redefine():
         constants.markers.Newline = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
         constants.markers.No_Diagnostic = CANNOT_SET_CONSTANT_VARIABLE
+    with pytest.raises(AttributeError):
+        constants.markers.Command_Error = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
         constants.markers.Nothing = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
