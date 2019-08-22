@@ -35,7 +35,6 @@ def parse(args):
     """Parse the arguments provided on the command-line."""
     # create the parser with the raw test help formatter
     # that will maintain the newlines and spaces in the epilog
-    # parser = argparse.ArgumentParser(
     parser = GatorGraderArgumentParser(
         prog=constants.program.Name, formatter_class=argparse.RawTextHelpFormatter
     )
