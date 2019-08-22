@@ -119,6 +119,10 @@ paths = create_constants(
     "paths", Current_Directory=".", Current_Directory_Glob="*.*", Home="gatorgrader"
 )
 
+# define the details about the program:
+# --> Name: the name of the program that is run
+program = create_constants("program", Name="gatorgrader.py")
+
 # define the names of fields in the result table
 # note that the variable name can be capitalized
 # however, the contents of the constant cannot be
