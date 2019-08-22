@@ -4,6 +4,7 @@ engines:
     enabled: true
     exclude_paths:
       - 'test/**'
+      - 'gator/checks/**'
       - '.github/**'
       - '.github/**/*'
       - 'LICENSE.md'
