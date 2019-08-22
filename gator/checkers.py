@@ -123,6 +123,7 @@ def get_source(checker_paths=[]):
         constants.checkers.Internal_Checkers_Dir, home=util.get_gatorgrader_home()
     )
     all_checker_paths = checker_paths + [str(internal_checker_path)]
+    print(all_checker_paths)
     # Create and return a source of checkers using PluginBase.
     # The documentation for this function advices that you
     # give an identifier to the source for the plugins
@@ -163,6 +164,9 @@ def get_check_help(active_check, indent=""):
             active_check_parser.print_help()
             active_check_parser_help = buffer.getvalue()
     # delete blank lines from the help message to improve formatting
+    # note that if there were no valid checks, then active_check_parser_help
+    # will not contain any content (i.e., it is constants.markers.Nothing)
+    # and thus this next line of code will still result in the same Nothing
     active_check_parser_help = os.linesep.join(
         [indent + line for line in active_check_parser_help.splitlines() if line]
     )
