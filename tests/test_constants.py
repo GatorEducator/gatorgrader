@@ -35,6 +35,11 @@ def test_paths_constant_defined():
     assert constants.paths.Home == "gatorgrader"
 
 
+def test_programconstant_defined():
+    """Check correctness for the variables in the program constant."""
+    assert constants.program.Name == "gatorgrader.py"
+
+
 def test_markdown_constant_defined():
     """Check correctness for the variables in the markdown constant."""
     assert constants.markdown.Paragraph == "paragraph"
@@ -183,6 +188,12 @@ def test_paths_constant_cannot_redefine():
         constants.paths.Current_Directory = CANNOT_SET_CONSTANT_VARIABLE
         constants.paths.Current_Directory_Glob = CANNOT_SET_CONSTANT_VARIABLE
         constants.paths.Home = CANNOT_SET_CONSTANT_VARIABLE
+
+
+def test_program_constant_cannot_redefine():
+    """Check cannot redefine the variables in the program constant."""
+    with pytest.raises(AttributeError):
+        constants.program.Name = CANNOT_SET_CONSTANT_VARIABLE
 
 
 def test_markdown_constant_cannot_redefine():
