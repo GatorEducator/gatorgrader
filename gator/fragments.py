@@ -193,6 +193,12 @@ def count_entities(
         contents is not constants.markers.Nothing
         and given_file is constants.markers.Nothing
     ):
+        # The command ran and produced an error, which means that its output
+        # is technically "" or Nothing. So, set it to Nothing so that the
+        # checking_function can determine that none of the entity exists in it
+        if contents is constants.markers.Command_Error:
+            contents = constants.markers.Nothing
+        # run the checking_function to look for fragments in the contents
         file_contents_count = checking_function(contents, chosen_fragment)
         return file_contents_count, file_contents_count_dictionary
     for file_for_checking in files.create_paths(
