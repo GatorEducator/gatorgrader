@@ -280,25 +280,6 @@ def check_count_file(system_arguments):
     return actions
 
 
-def check_fragment_command(system_arguments):
-    """Check the existence of fragment in a command's output and return desired actions."""
-    actions = []
-    if system_arguments.fragment is not None and system_arguments.command is not None:
-        actions.append(
-            [
-                INVOKE,
-                "invoke_all_command_fragment_checks",
-                [
-                    system_arguments.command,
-                    system_arguments.fragment,
-                    system_arguments.count,
-                    system_arguments.exact,
-                ],
-            ]
-        )
-    return actions
-
-
 def check_regex_command(system_arguments):
     """Check the existence of regex in a command's output and return desired actions."""
     actions = []
