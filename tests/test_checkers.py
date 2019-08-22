@@ -269,18 +269,23 @@ def test_check_extraction_from_commandline_arguments_has_help_two_checkers_one_i
     """Ensure that checker finding and help extraction works for a provided checker."""
     testargs = [os.getcwd()]
     with patch.object(sys, "argv", testargs):
-        invalid_checker = "check_IncorrectChecker"
+        checker_file = tmpdir.mkdir("internal_checkers").join("check_testing.py")
+        # this must be valid Python code because it will be loaded by pluginbase
+        checker_file.write('"' 'a checker"' "")
+        checker_directory = (
+            tmpdir.dirname + "/" + tmpdir.basename + "/" + "internal_checkers"
+        )
         checker = "check_CountCommits"
-        _ = tmpdir.mkdir("checks").join(invalid_checker + ".py")
         assert len(tmpdir.listdir()) == 1
-        checker_directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "checks"
         commandline_arguments = ["--checkerdir", checker_directory, checker]
         gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
         args_verified = arguments.verify(gg_arguments)
         assert args_verified is True
         found_check = checkers.get_chosen_check(gg_arguments)
         assert found_check == checker
-        checker_source = checkers.get_source()
+        # ensure that get_checks_help does not try to create a help
+        # message for an invalid check that does not have a get_parser function
+        checker_source = checkers.get_source([checker_directory])
         check_helps = checkers.get_checks_help(checker_source)
         assert check_helps != ""
         assert "CountCommits" in check_helps
