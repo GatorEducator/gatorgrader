@@ -68,9 +68,31 @@ def act(main_parsed_arguments, check_remaining_arguments):
     # no need to filter the help menus based on name containment
     else:
         help_messages = checkers.get_checks_help(checker_source)
-    # there is no diagnostic message because this check always passes
-    diagnostic = constants.markers.Nothing
-    did_check_pass = True
+    # create a label that explains the meaning of the check
+    label = "Find the available checks that match an optional pattern"
+    # there were no checks that matched, which means:
+    # --> only the label is display, without any help messages
+    # --> the diagnostic should indicate that the search failed
+    # --> the check "failed", ensuring that the diagnostic appears
+    if help_messages is constants.markers.Nothing:
+        help_messages = label
+        diagnostic = "Could not find any matching checks"
+        did_check_pass = False
+    # there were checks that matched, which means:
+    # --> the label is display, then newlines, and then all matching help messages
+    # --> the diagnostic should not appear since the search succeeded
+    else:
+        # add a label to the first line of the help messages
+        # then add a blank line and then add the messages themselves
+        help_messages = (
+            label
+            + constants.markers.Newline
+            + constants.markers.Newline
+            + help_messages
+        )
+        # there is no diagnostic message because this check passed
+        diagnostic = constants.markers.Nothing
+        did_check_pass = True
     # use invoke to create a report that can be returned as output
     invoke.report_result(did_check_pass, help_messages, diagnostic)
     return [did_check_pass]
