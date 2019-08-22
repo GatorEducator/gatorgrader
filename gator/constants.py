@@ -78,6 +78,7 @@ markers = create_constants(
     Empty=b"",
     Newline="\n",
     No_Diagnostic="",
+    Command_Error="Command_No_Output",
     Nothing="",
     Space=" ",
     Indent="  ",
