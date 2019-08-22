@@ -521,6 +521,14 @@ def invoke_all_command_fragment_checks(
 ):
     """Perform the check for a fragment existence in the output of a command."""
     command_output = run.specified_command_get_output(command)
+    # Since the command did not produce any output (i.e., its output is "" or
+    # Nothing), we need to indicate that this was a command error. This will
+    # later signal that, since this command error-ed, the tool should convert
+    # the output to "" (i.e., Nothing) instead of looking for a file in a directory.
+    # The tool needs this conditional logic since the checking of fragments is
+    # overloaded for files in directories and the output of commands.
+    if command_output is constants.markers.Nothing:
+        command_output = constants.markers.Command_Error
     return invoke_all_fragment_checks(
         expected_fragment,
         expected_count,
