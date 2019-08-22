@@ -1,4 +1,4 @@
-"""Check that a command executes without error."""
+"""Check that a command's output produces a specified amount."""
 
 import argparse
 
