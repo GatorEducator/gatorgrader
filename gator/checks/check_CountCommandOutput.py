@@ -65,8 +65,8 @@ def act(main_parsed_arguments, check_remaining_arguments):
     # --> exact is optional, but will either be True or False and False by default
     check_parsed_arguments = parse(check_remaining_arguments)
     # Directly run the check since at least one of the argument's for it is mandatory.
-    # This means that the use of check_CountCommits would have already failed by this
-    # point since argparse will exit the program if the command-line argument is not provided
+    # This means that the use of check_CountCommandOutput would have already failed by this
+    # point since argparse will exit the program if a command-line argument is not provided.
     command = check_parsed_arguments.command
     count = check_parsed_arguments.count
     exact = check_parsed_arguments.exact
