@@ -118,12 +118,15 @@ def get_source(checker_paths=[]):
     # this case occurs when the optional --checkerdir is not provided on command-line
     if constants.markers.Nothing in checker_paths:
         checker_paths.remove(constants.markers.Nothing)
-    # create the listing of the paths that could contain checkers
+    # Create the directory where the internal checkers live inside of GatorGrader.
+    # Note that this directory includes the home for GatorGrader, which can be set
+    # by an environment variable and otherwise defaults to the directory from which
+    # GatorGrader was run and then the directory where internal checkers are stored.
     internal_checker_path = files.create_path(
         constants.checkers.Internal_Checkers_Dir, home=util.get_gatorgrader_home()
     )
+    # create the listing of the paths that could contain checkers
     all_checker_paths = checker_paths + [str(internal_checker_path)]
-    print(all_checker_paths)
     # Create and return a source of checkers using PluginBase.
     # The documentation for this function advices that you
     # give an identifier to the source for the plugins
