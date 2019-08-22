@@ -161,7 +161,6 @@ def test_act_produces_output(commandline_arguments, expected_result):
         # check the result
         assert check_result is not None
         assert len(check_result) == 1
-        print(check_result)
         assert check_result[0] is expected_result
         # check the contents of the report
         assert report.get_result() is not None
