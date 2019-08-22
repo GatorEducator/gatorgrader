@@ -87,9 +87,29 @@ def test_optional_commandline_arguments_can_parse_created_parser(
     "commandline_arguments, expected_result",
     [
         (["CountCommandOutput", "--command", "WrongCommand", "--count", "0"], True),
-        (["CountCommandOutput", "--command", "WrongCommand", "--count", "0", "--exact"], True),
+        (
+            [
+                "CountCommandOutput",
+                "--command",
+                "WrongCommand",
+                "--count",
+                "0",
+                "--exact",
+            ],
+            True,
+        ),
         (["CountCommandOutput", "--command", "WrongCommand", "--count", "1000"], False),
-        (["CountCommandOutput", "--command", "WrongCommand", "--count", "1000", "--exact"], False),
+        (
+            [
+                "CountCommandOutput",
+                "--command",
+                "WrongCommand",
+                "--count",
+                "1000",
+                "--exact",
+            ],
+            False,
+        ),
         (
             [
                 "CountCommandOutput",
