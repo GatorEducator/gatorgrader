@@ -359,7 +359,6 @@ def check_executes_command(system_arguments):
     return actions
 
 
-# @snoop
 def check(system_arguments):
     """Orchestrate a full check of the specified deliverables."""
     # *Section: Initialize
