@@ -125,7 +125,9 @@ def get_source(checker_paths=[]):
     internal_checker_path = files.create_path(
         constants.checkers.Internal_Checkers_Dir, home=util.get_gatorgrader_home()
     )
-    # create the listing of the paths that could contain checkers
+    # create the listing of the paths that could contain checkers, including
+    # all of the provided paths for external checkers and the directory that
+    # contains all of the internal checkers provided by GatorGrader
     all_checker_paths = checker_paths + [str(internal_checker_path)]
     # Create and return a source of checkers using PluginBase.
     # The documentation for this function advices that you
