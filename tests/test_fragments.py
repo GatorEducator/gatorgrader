@@ -440,6 +440,26 @@ def test_count_entities_from_contents():
     assert count == 0
 
 
+def test_count_entities_from_contents_mimic_command_no_output():
+    """Check that counting fragments in a string works correctly if from an error-ed command."""
+    # this is a signal to indicate that a command error-ed and thus the output
+    # of the command is actually "", meaning it did not produce output
+    value = "Command_No_Output"
+    # none of the calls to count_entities should be able to count anything
+    count, _ = fragments.count_entities(
+        "hello", fragments.count_specified_fragment, contents=value
+    )
+    assert count == 0
+    count, _ = fragments.count_entities(
+        "world", fragments.count_specified_fragment, contents=value
+    )
+    assert count == 0
+    count, _ = fragments.count_entities(
+        "planet", fragments.count_specified_fragment, contents=value
+    )
+    assert count == 0
+
+
 def test_count_entities_from_file_with_threshold(tmpdir):
     """Check that counting fragments in a file with threshold works correctly."""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
