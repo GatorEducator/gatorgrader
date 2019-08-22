@@ -280,25 +280,6 @@ def check_count_file(system_arguments):
     return actions
 
 
-def check_regex_command(system_arguments):
-    """Check the existence of regex in a command's output and return desired actions."""
-    actions = []
-    if system_arguments.regex is not None and system_arguments.command is not None:
-        actions.append(
-            [
-                INVOKE,
-                "invoke_all_command_regex_checks",
-                [
-                    system_arguments.command,
-                    system_arguments.regex,
-                    system_arguments.count,
-                    system_arguments.exact,
-                ],
-            ]
-        )
-    return actions
-
-
 def check(system_arguments):
     """Orchestrate a full check of the specified deliverables."""
     # *Section: Initialize
