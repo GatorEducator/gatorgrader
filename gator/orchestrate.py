@@ -318,30 +318,6 @@ def check_regex_command(system_arguments):
     return actions
 
 
-def check_count_command(system_arguments):
-    """Check the count of lines in a command's output and return desired actions."""
-    actions = []
-    # pylint: disable=bad-continuation
-    if (
-        system_arguments.count is not None
-        and system_arguments.command is not None
-        and system_arguments.fragment is None
-        and system_arguments.regex is None
-    ):
-        actions.append(
-            [
-                INVOKE,
-                "invoke_all_command_count_checks",
-                [
-                    system_arguments.command,
-                    system_arguments.count,
-                    system_arguments.exact,
-                ],
-            ]
-        )
-    return actions
-
-
 def check_executes_command(system_arguments):
     """Check whether or not a command executes without error and return desired actions."""
     actions = []
