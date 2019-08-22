@@ -37,7 +37,7 @@ def test_no_arguments_incorrect_system_exit(capsys):
     ],
 )
 def test_required_commandline_arguments_cannot_parse(commandline_arguments, capsys):
-    """Check that incorrect optional command-line arguments check correctly."""
+    """Ensure that incorrect optional command-line arguments check correctly."""
     with pytest.raises(SystemExit):
         _ = check_CountCommandOutput.parse(commandline_arguments)
     captured = capsys.readouterr()
@@ -60,7 +60,7 @@ def test_required_commandline_arguments_cannot_parse(commandline_arguments, caps
     ],
 )
 def test_required_commandline_arguments_can_parse(commandline_arguments, not_raises):
-    """Check that correct optional command-line arguments check correctly."""
+    """Ensure that correct optional command-line arguments check correctly."""
     with not_raises(SystemExit):
         _ = check_CountCommandOutput.parse(commandline_arguments)
 
@@ -77,7 +77,7 @@ def test_required_commandline_arguments_can_parse(commandline_arguments, not_rai
 def test_optional_commandline_arguments_can_parse_created_parser(
     commandline_arguments, not_raises
 ):
-    """Check that correct optional command-line arguments check correctly."""
+    """Ensure that correct optional command-line arguments check correctly."""
     with not_raises(SystemExit):
         parser = check_CountCommandOutput.get_parser()
         _ = check_CountCommandOutput.parse(commandline_arguments, parser)
@@ -124,7 +124,7 @@ def test_optional_commandline_arguments_can_parse_created_parser(
     ],
 )
 def test_act_produces_output(commandline_arguments, expected_result):
-    """Check that using the check produces output."""
+    """Ensure that using the check produces output."""
     testargs = [os.getcwd()]
     with patch.object(sys, "argv", testargs):
         parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
