@@ -11,9 +11,6 @@ from gator import repository
 from gator import run
 from gator import util
 
-# import snoop
-# snoop.install(color="rrt")
-
 
 def report_result(status, message, diagnostic):
     """Set the report after running a check."""
@@ -50,9 +47,18 @@ def invoke_file_in_directory_check(filecheck, directory):
     """Check to see if the file is in the directory."""
     # get the project directory for checking and then check for file
     gatorgrader_home = util.get_project_home()
-    was_file_found = files.check_file_in_directory(
-        directory, file=filecheck, home=gatorgrader_home
-    )
+    # the directory is absolute, meaning that it does not need to be
+    # rooted in the context of GatorGrader's home directory
+    directory_path = files.create_path(home=directory)
+    if directory_path.is_absolute():
+        was_file_found = files.check_file_in_directory(file=filecheck, home=directory)
+    # the directory is not absolute, meaning that it should be rooted
+    # in the context of GatorGrader's home directory. Note that this is
+    # normally the case when GatorGrader is used through a Gradle configuration
+    else:
+        was_file_found = files.check_file_in_directory(
+            directory, file=filecheck, home=gatorgrader_home
+        )
     # construct the message about whether or not the file exists
     message = (
         "The file "
