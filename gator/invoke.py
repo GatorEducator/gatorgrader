@@ -45,15 +45,16 @@ def invoke_commits_check(student_repository, expected_count, exact=False):
 
 def invoke_file_in_directory_check(filecheck, directory):
     """Check to see if the file is in the directory."""
-    # get the project directory for checking and then check for file
+    # get the project home, which contains the content subject to checking
     gatorgrader_home = util.get_project_home()
-    # the directory is absolute, meaning that it does not need to be
-    # rooted in the context of GatorGrader's home directory
+    # get the project directory for checking and then check for file
     directory_path = files.create_path(home=directory)
+    # the directory is absolute, meaning that it does not need to be
+    # rooted in the context of the project directory
     if directory_path.is_absolute():
         was_file_found = files.check_file_in_directory(file=filecheck, home=directory)
     # the directory is not absolute, meaning that it should be rooted
-    # in the context of GatorGrader's home directory. Note that this is
+    # in the context of the project directory. Note that this is
     # normally the case when GatorGrader is used through a Gradle configuration
     else:
         was_file_found = files.check_file_in_directory(
