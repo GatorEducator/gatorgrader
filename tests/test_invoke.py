@@ -2,7 +2,11 @@
 
 import sys
 
+import os
 import pytest
+import sys
+
+from unittest.mock import patch
 
 from gator import constants
 from gator import fragments
@@ -51,6 +55,23 @@ def test_file_exists_in_directory_check(reset_results_dictionary, tmpdir):
     assert details[constants.results.Outcome] is True
     assert "exists in" in details[constants.results.Check]
     assert details[constants.results.Diagnostic] == ""
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
+def test_file_exists_in_directory_check_test_file(reset_results_dictionary):
+    """Check that invocation of file existence check works correctly."""
+    testargs = [os.getcwd()]
+    with patch.object(sys, "argv", testargs):
+        directory = "tests"
+        test_file = "test_invoke.py"
+        invoke.invoke_file_in_directory_check(test_file, directory)
+        details = report.get_result()
+        # file is found in the specified directory
+        assert details is not None
+        assert details[constants.results.Outcome] is True
+        assert "exists in" in details[constants.results.Check]
+        assert details[constants.results.Diagnostic] == ""
 
 
 # pylint: disable=unused-argument

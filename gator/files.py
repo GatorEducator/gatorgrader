@@ -7,6 +7,10 @@ from pathlib import Path
 
 import sys
 
+import snoop
+
+snoop.install(color="rrt")
+
 
 def create_cwd_path():
     """Create a Path object for the current working directory."""
@@ -89,6 +93,7 @@ def case_sensitive_check_file_in_directory(*args, file, home):
     return file_found
 
 
+# @snoop
 def check_file_in_directory(*args, file, home):
     """Return True if the specified file is in the directory."""
     # perform the standard check that relies on the operating system
