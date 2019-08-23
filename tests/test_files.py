@@ -18,8 +18,18 @@ def test_create_one_glob_path_with_none_middle(tmpdir):
     hello_file_two = tmpdir.join("hello2.txt")
     hello_file_two.write("content")
     assert len(tmpdir.listdir()) == 2
+    # *.txt
     created_paths = list(
         files.create_paths(tmpdir.basename, file="*.txt", home=tmpdir.dirname)
+    )
+    assert len(created_paths) == 2
+    # *.*
+    created_paths = list(
+        files.create_paths(tmpdir.basename, file="*.*", home=tmpdir.dirname)
+    )
+    # *
+    created_paths = list(
+        files.create_paths(tmpdir.basename, file="*", home=tmpdir.dirname)
     )
     assert len(created_paths) == 2
     for created_path in files.create_paths(
