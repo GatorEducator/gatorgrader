@@ -106,7 +106,6 @@ def test_act_produces_output(
         new_file = tmpdir.mkdir(containing_directory).join(chosen_file)
         new_file.write("\\begin{document} hello! \\end{document}")
         assert new_file.read() == "\\begin{document} hello! \\end{document}"
-        print(tmpdir.listdir())
         assert len(tmpdir.listdir()) == 1
         overall_directory = (
             tmpdir.dirname + "/" + tmpdir.basename + "/" + containing_directory
@@ -135,7 +134,6 @@ def test_act_produces_output(
         # assert check_result[0] is expected_result
         # check the contents of the report
         assert report.get_result() is not None
-        print(report.get_result())
         assert len(report.get_result()["check"]) > 1
         assert report.get_result()["outcome"] is expected_result
         if expected_result:
