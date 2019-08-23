@@ -117,7 +117,7 @@ packages = create_constants("packages", Checks="gator.checks")
 #     in the current directory
 # --> Home: the name that must exist at the end of the project's home directory
 paths = create_constants(
-    "paths", Current_Directory=".", Current_Directory_Glob="*.*", Home="gatorgrader"
+    "paths", Current_Directory=".", Current_Directory_Glob="*", Home="gatorgrader"
 )
 
 # define the details about the program:
