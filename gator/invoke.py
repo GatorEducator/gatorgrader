@@ -11,9 +11,8 @@ from gator import repository
 from gator import run
 from gator import util
 
-import snoop
-
-snoop.install(color="rrt")
+# import snoop
+# snoop.install(color="rrt")
 
 
 def report_result(status, message, diagnostic):

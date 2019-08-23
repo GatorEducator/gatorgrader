@@ -7,9 +7,8 @@ from pathlib import Path
 
 import sys
 
-import snoop
-
-snoop.install(color="rrt")
+# import snoop
+# snoop.install(color="rrt")
 
 
 def create_cwd_path():
