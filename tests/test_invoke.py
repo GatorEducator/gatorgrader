@@ -1,7 +1,5 @@
 """Test cases for the invoke module.."""
 
-import sys
-
 import os
 import pytest
 import sys
