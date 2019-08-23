@@ -78,20 +78,6 @@ def perform_actions(actions):
     return results
 
 
-def check_exists(system_arguments):
-    """Check the existence of a file in directory and return desired actions."""
-    actions = []
-    if system_arguments.exists is True:
-        actions.append(
-            [
-                INVOKE,
-                "invoke_file_in_directory_check",
-                [system_arguments.file, system_arguments.directory],
-            ]
-        )
-    return actions
-
-
 def check_single(system_arguments):
     """Check the existence of single-line comments in a file and return desired actions."""
     actions = []
