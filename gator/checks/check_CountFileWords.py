@@ -43,6 +43,7 @@ def get_parser():
         type=int,
         metavar="COUNT",
         help="how many total words should exist in the file",
+        required=True,
     )
 
     # }}}
