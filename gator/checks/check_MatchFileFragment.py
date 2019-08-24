@@ -40,10 +40,7 @@ def get_parser():
     # FRAGMENT: the fragment that should appear in the command's output
     # REQUIRED? Yes
     required_group.add_argument(
-        "--fragment",
-        type=str,
-        help="fragment that exists in the file",
-        required=True,
+        "--fragment", type=str, help="fragment that exists in the file", required=True
     )
 
     # COUNT: the number of lines of output
@@ -94,4 +91,8 @@ def act(main_parsed_arguments, check_remaining_arguments):
     file = check_parsed_arguments.file
     directory = check_parsed_arguments.directory
     exact = check_parsed_arguments.exact
-    return [invoke.invoke_all_fragment_checks(fragment, count, file, directory, constants.markers.Nothing, exact)]
+    return [
+        invoke.invoke_all_fragment_checks(
+            fragment, count, file, directory, constants.markers.Nothing, exact
+        )
+    ]
