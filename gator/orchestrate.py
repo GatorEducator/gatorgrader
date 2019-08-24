@@ -215,19 +215,19 @@ def check(system_arguments):
     # # The Gradle plugin can run multiple GatorGrader checks in parallel
     # # Make new checks available by adding them to this list of check names
     # checks = [
-    #     "check_commits",
-    #     "check_exists",
+    #     "check_commits", D
+    #     "check_exists", D
     #     "check_single",
     #     "check_multiple",
     #     "check_paragraphs",
-    #     "check_words",
-    #     "check_total_words",
+    #     "check_words", D
+    #     "check_total_words", D
     #     "check_markdown_file",
-    #     "check_fragment_file",
-    #     "check_fragment_command",
-    #     "check_count_file",
-    #     "check_count_command",
-    #     "check_executes_command",
-    #     "check_regex_file",
-    #     "check_regex_command",
+    #     "check_fragment_file", D
+    #     "check_fragment_command", D
+    #     "check_count_file", D
+    #     "check_count_command", D
+    #     "check_executes_command", D
+    #     "check_regex_file", D
+    #     "check_regex_command", D
     # ]
