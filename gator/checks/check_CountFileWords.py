@@ -3,7 +3,6 @@
 import argparse
 
 from gator import checkers
-from gator import constants
 from gator import invoke
 
 
