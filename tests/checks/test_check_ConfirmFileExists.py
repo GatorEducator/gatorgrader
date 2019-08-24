@@ -34,7 +34,7 @@ def test_no_arguments_incorrect_system_exit(capsys):
         (["--fileWRONG", "filename"]),
         (["--file", "filename", "--WRONG"]),
         (["--file", "filename", "--directory"]),
-        (["--file", "filename", "--directoryWRONG", "filename"]),
+        (["--file", "filename", "--directoryWRONG", "directory"]),
     ],
 )
 def test_required_commandline_arguments_cannot_parse(commandline_arguments, capsys):
