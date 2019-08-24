@@ -239,33 +239,6 @@ def check_markdown_file(system_arguments):
     return actions
 
 
-def check_count_file(system_arguments):
-    """Check the count of lines in a file and return desired actions."""
-    actions = []
-    # pylint: disable=bad-continuation
-    if (
-        system_arguments.count is not None
-        and system_arguments.file is not None
-        and system_arguments.fragment is None
-        and system_arguments.regex is None
-        and system_arguments.markdown is None
-    ):
-        actions.append(
-            [
-                INVOKE,
-                "invoke_all_count_checks",
-                [
-                    system_arguments.count,
-                    system_arguments.file,
-                    system_arguments.directory,
-                    constants.markers.Nothing,
-                    system_arguments.exact,
-                ],
-            ]
-        )
-    return actions
-
-
 def check(system_arguments):
     """Orchestrate a full check of the specified deliverables."""
     # *Section: Initialize
