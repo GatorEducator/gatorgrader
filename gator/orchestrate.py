@@ -139,27 +139,6 @@ def check_paragraphs(system_arguments):
     return actions
 
 
-def check_fragment_file(system_arguments):
-    """Check the existence of fragment in a file and return desired actions."""
-    actions = []
-    if system_arguments.fragment is not None and system_arguments.file is not None:
-        actions.append(
-            [
-                INVOKE,
-                "invoke_all_fragment_checks",
-                [
-                    system_arguments.fragment,
-                    system_arguments.count,
-                    system_arguments.file,
-                    system_arguments.directory,
-                    constants.markers.Nothing,
-                    system_arguments.exact,
-                ],
-            ]
-        )
-    return actions
-
-
 def check_regex_file(system_arguments):
     """Check the existence of regex in a file and return desired actions."""
     actions = []
