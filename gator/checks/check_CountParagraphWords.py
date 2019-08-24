@@ -43,6 +43,7 @@ def get_parser():
         type=int,
         metavar="COUNT",
         help="how many words should exist in every paragraph",
+        required=True,
     )
 
     # }}}
