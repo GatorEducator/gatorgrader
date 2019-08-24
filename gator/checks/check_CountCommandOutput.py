@@ -29,7 +29,11 @@ def get_parser():
     # COUNT: the number of lines of output
     # REQUIRED? Yes
     required_group.add_argument(
-        "--count", type=int, metavar="COUNT", help="how many of an entity should exist", required=True
+        "--count",
+        type=int,
+        metavar="COUNT",
+        help="how many of an entity should exist",
+        required=True,
     )
 
     # }}}
