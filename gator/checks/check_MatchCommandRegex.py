@@ -70,6 +70,7 @@ def act(main_parsed_arguments, check_remaining_arguments):
     """Perform the action for this check."""
     # extract the two arguments for this check:
     # --> command is required to specify the command to perform
+    # --> regex is the regular expression that should match the command's output
     # --> count is required to specify the commit count threshold
     # --> exact is optional, but will either be True or False and False by default
     check_parsed_arguments = parse(check_remaining_arguments)
