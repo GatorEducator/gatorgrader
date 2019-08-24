@@ -71,7 +71,7 @@ def act(main_parsed_arguments, check_remaining_arguments):
     # extract the two arguments for this check:
     # --> command is required to specify the command to perform
     # --> fragment is the content that should appear in the command's output
-    # --> count is required to specify the commit count threshold
+    # --> count is required to specify the number of fragments to appear in the output
     # --> exact is optional, but will either be True or False and False by default
     check_parsed_arguments = parse(check_remaining_arguments)
     # Directly run the check since at least one of the argument's for it is mandatory.
