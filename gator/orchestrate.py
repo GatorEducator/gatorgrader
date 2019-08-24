@@ -139,27 +139,6 @@ def check_paragraphs(system_arguments):
     return actions
 
 
-def check_regex_file(system_arguments):
-    """Check the existence of regex in a file and return desired actions."""
-    actions = []
-    if system_arguments.regex is not None and system_arguments.file is not None:
-        actions.append(
-            [
-                INVOKE,
-                "invoke_all_regex_checks",
-                [
-                    system_arguments.regex,
-                    system_arguments.count,
-                    system_arguments.file,
-                    system_arguments.directory,
-                    constants.markers.Nothing,
-                    system_arguments.exact,
-                ],
-            ]
-        )
-    return actions
-
-
 def check_markdown_file(system_arguments):
     """Check the existence of markdown in a file and return desired actions."""
     actions = []
@@ -252,25 +231,3 @@ def check(system_arguments):
     #     "check_regex_file",
     #     "check_regex_command",
     # ]
-    # # iterate through all of the possible checks
-    # # each check:
-    # # --> is a string of a name of a check function
-    # # --> is called reflectively through the getattr function
-    # # --> will only result in actions if the arguments signal to call it
-    # for a_check in checks:
-    #     # reflectively create the checking function
-    #     check_to_invoke = getattr(ORCHESTRATE, a_check)
-    #     # call the checking function and get actions
-    #     actions = check_to_invoke(gg_arguments)
-    #     # perform the actions and get results
-    #     step_results = perform(actions)
-    #     # store the results from these actions
-    #     check_results.extend(step_results)
-    # # Section: Output the report
-    # # Only step: get the report's details, produce the output, and display it
-    # produced_output = report.output(report.get_result(), OUTPUT_TYPE)
-    # display.message(produced_output)
-    # # Section: Return control back to __main__ in gatorgrader
-    # # Only step: determine the correct exit code for the checks
-    # correct_exit_code = leave.get_code(check_results)
-    # and  return correct_exit_code
