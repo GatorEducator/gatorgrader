@@ -71,7 +71,8 @@ def parse(args, parser=None):
 def act(main_parsed_arguments, check_remaining_arguments):
     """Perform the action for this check."""
     # extract the two arguments for this check:
-    # --> command is required to specify the command to perform
+    # --> file is the name of the file for which the search is conducted
+    # --> directory is the name of the directory that should contain the specified file
     # --> count is required to specify the commit count threshold
     # --> exact is optional, but will either be True or False and False by default
     check_parsed_arguments = parse(check_remaining_arguments)
@@ -82,12 +83,4 @@ def act(main_parsed_arguments, check_remaining_arguments):
     file = check_parsed_arguments.file
     directory = check_parsed_arguments.directory
     exact = check_parsed_arguments.exact
-    # "invoke_all_count_checks",
-    # [
-    #     system_arguments.count,
-    #     system_arguments.file,
-    #     system_arguments.directory,
-    #     constants.markers.Nothing,
-    #     system_arguments.exact,
-    # ],
     return [invoke.invoke_all_count_checks(count, file, directory, constants.markers.Nothing, exact)]
