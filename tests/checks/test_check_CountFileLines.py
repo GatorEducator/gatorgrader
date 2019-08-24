@@ -97,38 +97,7 @@ def test_optional_commandline_arguments_can_parse_created_parser(
                 "--directory",
                 "containing_directory",
                 "--count",
-                "1"
-            ],
-            "file_to_find",
-            "containing_directory",
-            "1",
-            True,
-        ),
-        (
-            [
-                "CountFileLines",
-                "--file",
-                "file_to_find",
-                "--directory",
-                "containing_directory",
-                "--count",
-                "100"
-            ],
-            "file_to_find",
-            "containing_directory",
-            "100",
-            False,
-        ),
-        (
-            [
-                "CountFileLines",
-                "--file",
-                "file_to_find",
-                "--directory",
-                "containing_directory",
-                "--count",
                 "1",
-                "--exact"
             ],
             "file_to_find",
             "containing_directory",
@@ -144,17 +113,53 @@ def test_optional_commandline_arguments_can_parse_created_parser(
                 "containing_directory",
                 "--count",
                 "100",
-                "--exact"
             ],
             "file_to_find",
             "containing_directory",
             "100",
             False,
-        )
+        ),
+        (
+            [
+                "CountFileLines",
+                "--file",
+                "file_to_find",
+                "--directory",
+                "containing_directory",
+                "--count",
+                "1",
+                "--exact",
+            ],
+            "file_to_find",
+            "containing_directory",
+            "1",
+            True,
+        ),
+        (
+            [
+                "CountFileLines",
+                "--file",
+                "file_to_find",
+                "--directory",
+                "containing_directory",
+                "--count",
+                "100",
+                "--exact",
+            ],
+            "file_to_find",
+            "containing_directory",
+            "100",
+            False,
+        ),
     ],
 )
 def test_act_produces_output(
-    commandline_arguments, chosen_file, containing_directory, provided_count, expected_result, tmpdir
+    commandline_arguments,
+    chosen_file,
+    containing_directory,
+    provided_count,
+    expected_result,
+    tmpdir,
 ):
     """Check that using the check produces output."""
     testargs = [os.getcwd()]
@@ -173,7 +178,7 @@ def test_act_produces_output(
             "--directory",
             overall_directory,
             "--count",
-            provided_count
+            provided_count,
         ]
         parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
         args_verified = arguments.verify(parsed_arguments)
