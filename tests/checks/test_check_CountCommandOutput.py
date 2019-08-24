@@ -53,8 +53,8 @@ def test_required_commandline_arguments_cannot_parse(commandline_arguments, caps
 @pytest.mark.parametrize(
     "commandline_arguments",
     [
-        (["--command", "run_command_first"]),
-        (["--command", "run_command_second"]),
+        (["--count", "5", "--command", "run_command_first"]),
+        (["--count", "5", "--command", "run_command_second"]),
         (["--command", "run_command_first", "--count", "5"]),
         (["--command", "run_command_first", "--count", "5", "--exact"]),
     ],
@@ -68,8 +68,8 @@ def test_required_commandline_arguments_can_parse(commandline_arguments, not_rai
 @pytest.mark.parametrize(
     "commandline_arguments",
     [
-        (["--command", "run_command_first"]),
-        (["--command", "run_command_second"]),
+        (["--count", "5", "--command", "run_command_first"]),
+        (["--count", "5", "--command", "run_command_second"]),
         (["--command", "run_command_first", "--count", "5"]),
         (["--command", "run_command_first", "--count", "5", "--exact"]),
     ],
