@@ -39,7 +39,10 @@ def get_parser():
     # COUNT: the number of lines of output
     # REQUIRED? Yes
     required_group.add_argument(
-        "--count", type=int, metavar="COUNT", help="how many words should exist in every paragraph"
+        "--count",
+        type=int,
+        metavar="COUNT",
+        help="how many words should exist in every paragraph",
     )
 
     # }}}
