@@ -165,8 +165,13 @@ def test_act_produces_output(
     testargs = [os.getcwd()]
     with patch.object(sys, "argv", testargs):
         new_file = tmpdir.mkdir(containing_directory).join(chosen_file)
-        new_file.write("paragraph one \n\n paragraph two two \n\n paragraph three three three")
-        assert new_file.read() == "paragraph one \n\n paragraph two two \n\n paragraph three three three"
+        new_file.write(
+            "paragraph one \n\n paragraph two two \n\n paragraph three three three"
+        )
+        assert (
+            new_file.read()
+            == "paragraph one \n\n paragraph two two \n\n paragraph three three three"
+        )
         assert len(tmpdir.listdir()) == 1
         overall_directory = (
             tmpdir.dirname + "/" + tmpdir.basename + "/" + containing_directory
