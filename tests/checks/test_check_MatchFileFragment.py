@@ -200,7 +200,7 @@ def test_optional_commandline_arguments_can_parse_created_parser(
                 "--count",
                 "1",
                 "--fragment",
-                "hello"
+                "hello",
             ],
             "file_to_find",
             "containing_directory",
@@ -217,7 +217,7 @@ def test_optional_commandline_arguments_can_parse_created_parser(
                 "--count",
                 "100",
                 "--fragment",
-                "hello"
+                "hello",
             ],
             "file_to_find",
             "containing_directory",
@@ -235,7 +235,7 @@ def test_optional_commandline_arguments_can_parse_created_parser(
                 "1",
                 "--exact",
                 "--fragment",
-                "hello"
+                "hello",
             ],
             "file_to_find",
             "containing_directory",
@@ -253,7 +253,7 @@ def test_optional_commandline_arguments_can_parse_created_parser(
                 "100",
                 "--exact",
                 "--fragment",
-                "hello"
+                "hello",
             ],
             "file_to_find",
             "containing_directory",
@@ -289,7 +289,7 @@ def test_act_produces_output(
             "--count",
             provided_count,
             "--fragment",
-            "hello"
+            "hello",
         ]
         parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
         args_verified = arguments.verify(parsed_arguments)
