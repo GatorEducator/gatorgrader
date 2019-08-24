@@ -39,7 +39,7 @@ def get_parser():
     # COUNT: the number of lines of output
     # REQUIRED? Yes
     required_group.add_argument(
-        "--count", type=int, metavar="COUNT", help="how many words should exist"
+        "--count", type=int, metavar="COUNT", help="how many total words should exist in the file"
     )
 
     # }}}
