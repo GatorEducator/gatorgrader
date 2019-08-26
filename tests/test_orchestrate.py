@@ -209,3 +209,42 @@ def test_check_produces_correct_output(commandline_arguments, expected_result, c
         assert captured.out != ""
         assert counted_newlines > 5
         assert "has exactly" in captured.out or "has at least" in captured.out
+
+
+@pytest.mark.parametrize(
+    "commandline_arguments",
+    [
+        (
+            [
+                "CheckDoesNotExist",
+                "--command",
+                "WrongCommand",
+                "--fragment",
+                "NoFragment",
+                "--count",
+                "0",
+            ],
+        ),
+        (
+            [
+                "ListCheck",
+                "--listcheckdoesnothave",
+                "--fragment",
+                "NoFragment",
+                "--count",
+                "0",
+                "--exact",
+            ],
+        ),
+    ],
+)
+def test_check_produces_correct_output_for_incorrect_check_specification(commandline_arguments, capsys):
+    """Ensure that using the check produces output."""
+    with pytest.raises(SystemExit):
+        _ = orchestrate.check(commandline_arguments)
+    captured = capsys.readouterr()
+    counted_newlines = captured.out.count("\n")
+    assert captured.err == ""
+    assert captured.out != ""
+    assert "Incorrect command-line arguments." in captured.out
+    assert counted_newlines > 5
