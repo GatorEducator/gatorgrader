@@ -356,7 +356,7 @@ def test_optional_commandline_arguments_can_parse_created_parser(
         ),
     ],
 )
-def test_act_produces_output(
+def test_act_produces_output_python(
     commandline_arguments,
     chosen_file,
     containing_directory,
@@ -481,7 +481,7 @@ def test_act_produces_output(
         ),
     ],
 )
-def test_act_produces_output(
+def test_act_produces_output_java(
     commandline_arguments,
     chosen_file,
     containing_directory,
