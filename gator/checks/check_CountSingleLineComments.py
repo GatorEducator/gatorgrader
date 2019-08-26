@@ -12,8 +12,8 @@ def get_parser():
     # create the parser with the default help formatter
     # use a new description since this is a stand-alone check
     parser = argparse.ArgumentParser(
-        prog="CountFileLines",
-        description="Check Provided by GatorGrader: CountFileLines",
+        prog="CountSingleLineComments",
+        description="Check Provided by GatorGrader: CountSingleLineComments",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
 
@@ -43,7 +43,7 @@ def get_parser():
         "--count",
         type=int,
         metavar="COUNT",
-        help="how many lines should exist",
+        help="how many comments should exist",
         required=True,
     )
 
@@ -53,7 +53,7 @@ def get_parser():
         "--language",
         type=str,
         choices=[constants.languages.Java, constants.languages.Python],
-        help="language for the single comments",
+        help="language for the comments",
     )
 
     # }}}
@@ -91,7 +91,7 @@ def act(main_parsed_arguments, check_remaining_arguments):
     # --> exact is optional, but will either be True or False and False by default
     check_parsed_arguments = parse(check_remaining_arguments)
     # Directly run the check since at least one of the argument's for it is mandatory.
-    # This means that the use of check_CountFileLines would have already failed by this
+    # This means that the use of check_CountSingleLineComments would have already failed by this
     # point since argparse will exit the program if a command-line argument is not provided.
     count = check_parsed_arguments.count
     file = check_parsed_arguments.file
