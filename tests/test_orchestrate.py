@@ -238,7 +238,9 @@ def test_check_produces_correct_output(commandline_arguments, expected_result, c
         ),
     ],
 )
-def test_check_produces_correct_output_for_incorrect_check_specification(commandline_arguments, capsys):
+def test_check_produces_correct_output_for_incorrect_check_specification(
+    commandline_arguments, capsys
+):
     """Ensure that using the check produces output."""
     with pytest.raises(SystemExit):
         _ = orchestrate.check(commandline_arguments)
