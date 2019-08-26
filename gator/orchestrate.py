@@ -120,25 +120,6 @@ def check_multiple(system_arguments):
     return actions
 
 
-def check_paragraphs(system_arguments):
-    """Check the existence of paragraphs in a file and return desired actions."""
-    actions = []
-    if system_arguments.paragraphs is not None:
-        actions.append(
-            [
-                INVOKE,
-                "invoke_all_paragraph_checks",
-                [
-                    system_arguments.file,
-                    system_arguments.directory,
-                    system_arguments.paragraphs,
-                    system_arguments.exact,
-                ],
-            ]
-        )
-    return actions
-
-
 def check(system_arguments):
     """Orchestrate a full check of the specified deliverables."""
     # *Section: Initialize
