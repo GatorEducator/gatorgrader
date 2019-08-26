@@ -197,7 +197,7 @@ def test_perform_actions_single_parameter_exit(capsys):
         ),
     ],
 )
-def test_act_produces_output(commandline_arguments, expected_result, capsys):
+def test_check_produces_correct_output(commandline_arguments, expected_result, capsys):
     """Ensure that using the check produces output."""
     testargs = [os.getcwd()]
     with patch.object(sys, "argv", testargs):
