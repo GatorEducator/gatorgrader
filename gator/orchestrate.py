@@ -127,26 +127,3 @@ def check(system_arguments):
     # Only step: determine the correct exit code for the checks
     correct_exit_code = leave.get_code(check_results)
     return correct_exit_code
-
-    # check_results.extend(step_results)
-    # # Section: Perform one of these checks
-    # # Note that GatorGrader only performs a single check
-    # # The Gradle plugin can run multiple GatorGrader checks in parallel
-    # # Make new checks available by adding them to this list of check names
-    # checks = [
-    #     "check_commits", D
-    #     "check_exists", D
-    #     "check_single",
-    #     "check_multiple",
-    #     "check_paragraphs",
-    #     "check_words", D
-    #     "check_total_words", D
-    #     "check_markdown_file",
-    #     "check_fragment_file", D
-    #     "check_fragment_command", D
-    #     "check_count_file", D
-    #     "check_count_command", D
-    #     "check_executes_command", D
-    #     "check_regex_file", D
-    #     "check_regex_command", D
-    # ]
