@@ -241,6 +241,42 @@ def test_file_exists_in_directory_check_total_words_exact(
 
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
+def test_file_exists_in_directory_check_words_wildcards(reset_results_dictionary, tmpdir):
+    """Check that the checking of words works correctly."""
+    reflection_file = tmpdir.mkdir("sub").join("reflection.md")
+    reflection_file.write(
+        "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
+    )
+    assert (
+        reflection_file.read()
+        == "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
+    )
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
+    reflection_file = "*.md"
+    invoke.invoke_all_word_count_checks(
+        reflection_file,
+        directory,
+        4,
+        fragments.count_minimum_words,
+        constants.words.Minimum,
+    )
+    details = report.get_result()
+    assert details is not None
+    report.reset()
+    invoke.invoke_all_word_count_checks(
+        reflection_file,
+        directory,
+        200,
+        fragments.count_minimum_words,
+        constants.words.Minimum,
+    )
+    details = report.get_result()
+    assert details is not None
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check_fragments(reset_results_dictionary, tmpdir):
     """Check that the checking of fragments in a file works correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
@@ -676,39 +712,3 @@ def test_run_command_does_execute_correctly_would_make_output(
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/"
     executed_yes = invoke.invoke_all_command_executes_checks("ls " + directory)
     assert executed_yes is True
-
-
-# pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
-def test_file_exists_in_directory_check_words_wildcards(reset_results_dictionary, tmpdir):
-    """Check that the checking of words works correctly."""
-    reflection_file = tmpdir.mkdir("sub").join("reflection.md")
-    reflection_file.write(
-        "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
-    )
-    assert (
-        reflection_file.read()
-        == "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
-    )
-    assert len(tmpdir.listdir()) == 1
-    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
-    reflection_file = "*.md"
-    invoke.invoke_all_word_count_checks(
-        reflection_file,
-        directory,
-        4,
-        fragments.count_minimum_words,
-        constants.words.Minimum,
-    )
-    details = report.get_result()
-    assert details is not None
-    report.reset()
-    invoke.invoke_all_word_count_checks(
-        reflection_file,
-        directory,
-        200,
-        fragments.count_minimum_words,
-        constants.words.Minimum,
-    )
-    details = report.get_result()
-    assert details is not None
