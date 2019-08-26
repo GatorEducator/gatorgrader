@@ -76,7 +76,7 @@ def act(main_parsed_arguments, check_remaining_arguments):
     # extract the two arguments for this check:
     # --> file is the name of the file for which the search is conducted
     # --> directory is the name of the directory that should contain the specified file
-    # --> count is required to specify the expected number of lines in the file
+    # --> count is required to specify the expected number of paragraphs in the file
     # --> exact is optional, but will either be True or False and False by default
     check_parsed_arguments = parse(check_remaining_arguments)
     # Directly run the check since at least one of the argument's for it is mandatory.
