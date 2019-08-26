@@ -78,27 +78,6 @@ def perform_actions(actions):
     return results
 
 
-def check_multiple(system_arguments):
-    """Check the existence of multiple-line comments in a file and return desired actions."""
-    actions = []
-    if system_arguments.multiple is not None:
-        actions.append(
-            [
-                INVOKE,
-                "invoke_all_comment_checks",
-                [
-                    system_arguments.file,
-                    system_arguments.directory,
-                    system_arguments.multiple,
-                    constants.comments.Multiple_Line,
-                    system_arguments.language,
-                    system_arguments.exact,
-                ],
-            ]
-        )
-    return actions
-
-
 def check(system_arguments):
     """Orchestrate a full check of the specified deliverables."""
     # *Section: Initialize
