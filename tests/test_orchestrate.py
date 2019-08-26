@@ -197,22 +197,15 @@ def test_perform_actions_single_parameter_exit(capsys):
         ),
     ],
 )
-def test_act_produces_output(commandline_arguments, expected_result):
+def test_act_produces_output(commandline_arguments, expected_result, capsys):
     """Ensure that using the check produces output."""
     testargs = [os.getcwd()]
     with patch.object(sys, "argv", testargs):
         check_exit_code = orchestrate.check(commandline_arguments)
-        print(check_exit_code)
-        # # check the result
-        # assert check_result is not None
-        # assert len(check_result) == 1
-        # assert check_result[0] is expected_result
-        # # check the contents of the report
-        # assert report.get_result() is not None
-        # assert len(report.get_result()["check"]) > 1
-        # assert report.get_result()["outcome"] is expected_result
-        # if expected_result:
-        #     assert report.get_result()["diagnostic"] == ""
-        # else:
-        #     assert report.get_result()["diagnostic"] != ""
-
+        captured = capsys.readouterr()
+        counted_newlines = captured.out.count("\n")
+        assert check_exit_code == expected_result
+        assert captured.err == ''
+        assert captured.out != ''
+        assert counted_newlines > 5
+        assert "has exactly" in captured.out or "has at least" in captured.out
