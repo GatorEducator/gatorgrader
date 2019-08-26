@@ -37,11 +37,65 @@ def test_no_arguments_incorrect_system_exit(capsys):
         (["--file", "filename", "--directoryWRONG", "directory"]),
         (["--file", "filename", "--directory", "directory", "--count"]),
         (["--file", "filename", "--directory", "directory", "--countWRONG", "5"]),
-        (["--file", "filename", "--directory", "directory", "--count", "5", "--language"]),
-        (["--file", "filename", "--directory", "directory", "--count", "5", "--language", "PythonNotLanguage"]),
-        (["--file", "filename", "--directory", "directory", "--count", "5", "--language", "JavaNotLanguage"]),
-        (["--file", "filename", "--directory", "directory", "--count", "5", "--languageWRONG", "Java"]),
-        (["--file", "filename", "--directory", "directory", "--count", "5", "--languageWRONG", "Python"]),
+        (
+            [
+                "--file",
+                "filename",
+                "--directory",
+                "directory",
+                "--count",
+                "5",
+                "--language",
+            ]
+        ),
+        (
+            [
+                "--file",
+                "filename",
+                "--directory",
+                "directory",
+                "--count",
+                "5",
+                "--language",
+                "PythonNotLanguage",
+            ]
+        ),
+        (
+            [
+                "--file",
+                "filename",
+                "--directory",
+                "directory",
+                "--count",
+                "5",
+                "--language",
+                "JavaNotLanguage",
+            ]
+        ),
+        (
+            [
+                "--file",
+                "filename",
+                "--directory",
+                "directory",
+                "--count",
+                "5",
+                "--languageWRONG",
+                "Java",
+            ]
+        ),
+        (
+            [
+                "--file",
+                "filename",
+                "--directory",
+                "directory",
+                "--count",
+                "5",
+                "--languageWRONG",
+                "Python",
+            ]
+        ),
     ],
 )
 def test_required_commandline_arguments_cannot_parse(commandline_arguments, capsys):
@@ -61,12 +115,78 @@ def test_required_commandline_arguments_cannot_parse(commandline_arguments, caps
 @pytest.mark.parametrize(
     "commandline_arguments",
     [
-        (["--file", "filename", "--directory", "directoryname", "--count", "5", "--language", "Python"]),
-        (["--file", "filename", "--directory", "directoryname", "--count", "5", "--language", "Java"]),
-        (["--directory", "directoryname", "--file", "filename", "--count", "5", "--language", "Python"]),
-        (["--directory", "directoryname", "--file", "filename", "--count", "5", "--language", "Java"]),
-        (["--count", "5", "--directory", "directoryname", "--file", "filename", "--language", "Python"]),
-        (["--directory", "directoryname", "--count", "5", "--file", "filename", "--language", "Java"]),
+        (
+            [
+                "--file",
+                "filename",
+                "--directory",
+                "directoryname",
+                "--count",
+                "5",
+                "--language",
+                "Python",
+            ]
+        ),
+        (
+            [
+                "--file",
+                "filename",
+                "--directory",
+                "directoryname",
+                "--count",
+                "5",
+                "--language",
+                "Java",
+            ]
+        ),
+        (
+            [
+                "--directory",
+                "directoryname",
+                "--file",
+                "filename",
+                "--count",
+                "5",
+                "--language",
+                "Python",
+            ]
+        ),
+        (
+            [
+                "--directory",
+                "directoryname",
+                "--file",
+                "filename",
+                "--count",
+                "5",
+                "--language",
+                "Java",
+            ]
+        ),
+        (
+            [
+                "--count",
+                "5",
+                "--directory",
+                "directoryname",
+                "--file",
+                "filename",
+                "--language",
+                "Python",
+            ]
+        ),
+        (
+            [
+                "--directory",
+                "directoryname",
+                "--count",
+                "5",
+                "--file",
+                "filename",
+                "--language",
+                "Java",
+            ]
+        ),
     ],
 )
 def test_required_commandline_arguments_can_parse(commandline_arguments, not_raises):
@@ -78,12 +198,78 @@ def test_required_commandline_arguments_can_parse(commandline_arguments, not_rai
 @pytest.mark.parametrize(
     "commandline_arguments",
     [
-        (["--file", "filename", "--directory", "directoryname", "--count", "5", "--language", "Python"]),
-        (["--file", "filename", "--directory", "directoryname", "--count", "5", "--language", "Java"]),
-        (["--directory", "directoryname", "--file", "filename", "--count", "5", "--language", "Python"]),
-        (["--directory", "directoryname", "--file", "filename", "--count", "5", "--language", "Java"]),
-        (["--count", "5", "--directory", "directoryname", "--file", "filename", "--language", "Python"]),
-        (["--directory", "directoryname", "--count", "5", "--file", "filename", "--language", "Java"]),
+        (
+            [
+                "--file",
+                "filename",
+                "--directory",
+                "directoryname",
+                "--count",
+                "5",
+                "--language",
+                "Python",
+            ]
+        ),
+        (
+            [
+                "--file",
+                "filename",
+                "--directory",
+                "directoryname",
+                "--count",
+                "5",
+                "--language",
+                "Java",
+            ]
+        ),
+        (
+            [
+                "--directory",
+                "directoryname",
+                "--file",
+                "filename",
+                "--count",
+                "5",
+                "--language",
+                "Python",
+            ]
+        ),
+        (
+            [
+                "--directory",
+                "directoryname",
+                "--file",
+                "filename",
+                "--count",
+                "5",
+                "--language",
+                "Java",
+            ]
+        ),
+        (
+            [
+                "--count",
+                "5",
+                "--directory",
+                "directoryname",
+                "--file",
+                "filename",
+                "--language",
+                "Python",
+            ]
+        ),
+        (
+            [
+                "--directory",
+                "directoryname",
+                "--count",
+                "5",
+                "--file",
+                "filename",
+                "--language",
+                "Java",
+            ]
+        ),
     ],
 )
 def test_optional_commandline_arguments_can_parse_created_parser(
@@ -106,7 +292,7 @@ def test_optional_commandline_arguments_can_parse_created_parser(
                 "--directory",
                 "containing_directory",
                 "--language",
-                "Python"
+                "Python",
                 "--count",
                 "1",
             ],
@@ -123,7 +309,7 @@ def test_optional_commandline_arguments_can_parse_created_parser(
                 "--directory",
                 "containing_directory",
                 "--language",
-                "Python"
+                "Python",
                 "--count",
                 "100",
             ],
@@ -140,7 +326,7 @@ def test_optional_commandline_arguments_can_parse_created_parser(
                 "--directory",
                 "containing_directory",
                 "--language",
-                "Python"
+                "Python",
                 "--count",
                 "1",
                 "--exact",
@@ -158,7 +344,7 @@ def test_optional_commandline_arguments_can_parse_created_parser(
                 "--directory",
                 "containing_directory",
                 "--language",
-                "Python"
+                "Python",
                 "--count",
                 "100",
                 "--exact",
@@ -197,7 +383,7 @@ def test_act_produces_output(
             "--count",
             provided_count,
             "--language",
-            "Python"
+            "Python",
         ]
         parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
         args_verified = arguments.verify(parsed_arguments)
@@ -235,8 +421,7 @@ def test_act_produces_output(
                 "--directory",
                 "containing_directory",
                 "--language",
-                "Java"
-                "--count",
+                "Java" "--count",
                 "1",
             ],
             "file_to_find",
@@ -252,8 +437,7 @@ def test_act_produces_output(
                 "--directory",
                 "containing_directory",
                 "--language",
-                "Java"
-                "--count",
+                "Java" "--count",
                 "100",
             ],
             "file_to_find",
@@ -269,8 +453,7 @@ def test_act_produces_output(
                 "--directory",
                 "containing_directory",
                 "--language",
-                "Java"
-                "--count",
+                "Java" "--count",
                 "1",
                 "--exact",
             ],
@@ -287,8 +470,7 @@ def test_act_produces_output(
                 "--directory",
                 "containing_directory",
                 "--language",
-                "Java"
-                "--count",
+                "Java" "--count",
                 "100",
                 "--exact",
             ],
@@ -326,7 +508,7 @@ def test_act_produces_output(
             "--count",
             provided_count,
             "--language",
-            "Java"
+            "Java",
         ]
         parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
         args_verified = arguments.verify(parsed_arguments)
