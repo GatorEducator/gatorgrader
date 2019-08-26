@@ -197,7 +197,6 @@ def test_act_produces_output(
         # assert check_result[0] is expected_result
         # check the contents of the report
         assert report.get_result() is not None
-        print(report.get_result())
         assert len(report.get_result()["check"]) > 1
         assert report.get_result()["outcome"] is expected_result
         if expected_result:
