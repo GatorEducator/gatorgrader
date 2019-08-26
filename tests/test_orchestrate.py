@@ -1,6 +1,10 @@
 """Test cases for the orchestrate module."""
 
 import pytest
+import os
+import sys
+
+from unittest.mock import patch
 
 from gator import constants
 from gator import orchestrate
@@ -86,3 +90,129 @@ def test_perform_actions_single_parameter_exit(capsys):
         orchestrate.perform_actions(actions)
     assert pytest_wrapped_e.type == SystemExit
     assert pytest_wrapped_e.value.code == 2
+
+
+@pytest.mark.parametrize(
+    "commandline_arguments, expected_result",
+    [
+        (
+            [
+                "MatchCommandFragment",
+                "--command",
+                "WrongCommand",
+                "--fragment",
+                "NoFragment",
+                "--count",
+                "0",
+            ],
+            0,
+        ),
+        (
+            [
+                "MatchCommandFragment",
+                "--command",
+                "WrongCommand",
+                "--fragment",
+                "NoFragment",
+                "--count",
+                "0",
+                "--exact",
+            ],
+            0,
+        ),
+        (
+            [
+                "MatchCommandFragment",
+                "--command",
+                "WrongCommand",
+                "--fragment",
+                "NoFragment",
+                "--count",
+                "1000",
+            ],
+            1,
+        ),
+        (
+            [
+                "MatchCommandFragment",
+                "--command",
+                "WrongCommand",
+                "--fragment",
+                "NoFragment",
+                "--count",
+                "1000",
+                "--exact",
+            ],
+            1,
+        ),
+        (
+            [
+                "MatchCommandFragment",
+                "--command",
+                'echo "CorrectCommand"',
+                "--fragment",
+                "Corr",
+                "--count",
+                "1",
+            ],
+            0,
+        ),
+        (
+            [
+                "MatchCommandFragment",
+                "--command",
+                'echo "CorrectCommand"',
+                "--fragment",
+                "Corr",
+                "--count",
+                "2",
+                "--exact",
+            ],
+            1,
+        ),
+        (
+            [
+                "MatchCommandFragment",
+                "--command",
+                'echo "CorrectCommand"',
+                "--fragment",
+                "Corr",
+                "--count",
+                "100",
+            ],
+            1,
+        ),
+        (
+            [
+                "MatchCommandFragment",
+                "--command",
+                'echo "CorrectCommand"',
+                "--fragment",
+                "Corr",
+                "--count",
+                "100",
+                "--exact",
+            ],
+            1,
+        ),
+    ],
+)
+def test_act_produces_output(commandline_arguments, expected_result):
+    """Ensure that using the check produces output."""
+    testargs = [os.getcwd()]
+    with patch.object(sys, "argv", testargs):
+        check_exit_code = orchestrate.check(commandline_arguments)
+        print(check_exit_code)
+        # # check the result
+        # assert check_result is not None
+        # assert len(check_result) == 1
+        # assert check_result[0] is expected_result
+        # # check the contents of the report
+        # assert report.get_result() is not None
+        # assert len(report.get_result()["check"]) > 1
+        # assert report.get_result()["outcome"] is expected_result
+        # if expected_result:
+        #     assert report.get_result()["diagnostic"] == ""
+        # else:
+        #     assert report.get_result()["diagnostic"] != ""
+
