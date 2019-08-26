@@ -205,7 +205,7 @@ def test_act_produces_output(commandline_arguments, expected_result, capsys):
         captured = capsys.readouterr()
         counted_newlines = captured.out.count("\n")
         assert check_exit_code == expected_result
-        assert captured.err == ''
-        assert captured.out != ''
+        assert captured.err == ""
+        assert captured.out != ""
         assert counted_newlines > 5
         assert "has exactly" in captured.out or "has at least" in captured.out
