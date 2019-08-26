@@ -620,7 +620,7 @@ def invoke_all_markdown_checks(
             + str(expected_count)
             + " of the '"
             + markdown_tag
-            + "' elements"
+            + "' tag"
         )
     # create an "exact" message which is an opt-in
     else:
@@ -633,7 +633,7 @@ def invoke_all_markdown_checks(
             + str(expected_count)
             + " of the '"
             + markdown_tag
-            + "' elements"
+            + "' tag"
         )
     # create the diagnostic and report the result
     diagnostic = "Found " + str(actual_count) + " element(s) in the specified file"
