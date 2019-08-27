@@ -11,9 +11,6 @@ from gator import repository
 from gator import run
 from gator import util
 
-# import snoop
-# snoop.install(color="rrt")
-
 
 def report_result(status, message, diagnostic):
     """Set the report after running a check."""
@@ -641,7 +638,7 @@ def invoke_all_markdown_checks(
             + "' tag"
         )
     # Produce the diagnostic and report the result.
-    # if a wildcard (i.e., "*.py") was given for the filename, then
+    # If a wildcard (i.e., "*.py") was given for the filename, then
     # this diagnostic is customized for the file that first breaks the check.
     fragment_diagnostic = util.get_file_diagnostic(count_dictionary)
     diagnostic = (
@@ -667,7 +664,10 @@ def invoke_all_count_checks(
 ):
     """Perform the check for the count of lines in file or contents and return the results."""
     met_or_exceeded_count = 0
-    met_or_exceeded_count, actual_count = fragments.specified_source_greater_than_count(
+    (
+        met_or_exceeded_count,
+        actual_count,
+    ), actual_count_dictionary = fragments.specified_source_greater_than_count(
         expected_count, filecheck, directory, contents, exact
     )
     # create a message for a file in directory
@@ -705,11 +705,25 @@ def invoke_all_count_checks(
             message = (
                 "The command output" + " has exactly " + str(expected_count) + " lines"
             )
+    # Produce the diagnostic and report the result.
+    # If a wildcard (i.e., "*.py") was given for the filename, then
+    # this diagnostic is customized for the file that first breaks the check.
+    fragment_diagnostic = util.get_file_diagnostic(actual_count_dictionary)
     diagnostic = (
-        "Found " + str(actual_count) + " line(s) in the output or the specified file"
+        "Found "
+        + str(actual_count)
+        + constants.markers.Space
+        + "line(s)"
+        + constants.markers.Space
+        + fragment_diagnostic
+        + constants.markers.Space
+        + "or the output"
     )
-    report_result(met_or_exceeded_count, message, diagnostic)
-    return met_or_exceeded_count
+    # extract the result as to whether or not the check passed
+    extracted_result = met_or_exceeded_count[0]
+    # use the created diagnostic to report the result
+    report_result(extracted_result, message, diagnostic)
+    return extracted_result
 
 
 def invoke_all_command_count_checks(command, expected_count, exact=False):
