@@ -122,6 +122,23 @@ def test_garbage_glob_ext_returns_no_matching_paths(tmpdir):
     assert len(created_paths) == 0
 
 
+def test_garbage_glob_file_returns_no_matching_paths_more_garbage_markdown_names(tmpdir):
+    """Ensure that creating a garbage globbed path returns no matches."""
+    hello_file_one = tmpdir.join("hello1.txt")
+    hello_file_one.write("content")
+    hello_file_two = tmpdir.join("hello2.txt")
+    hello_file_two.write("content")
+    assert len(tmpdir.listdir()) == 2
+    created_paths = list(
+        files.create_paths(tmpdir.basename, file="%*#@@--(*.md)Hello.md", home=tmpdir.dirname)
+    )
+    assert len(created_paths) == 0
+    created_paths = list(
+        files.create_paths(tmpdir.basename, file="Hello.md%*#@@--(*.md)", home=tmpdir.dirname)
+    )
+    assert len(created_paths) == 0
+
+
 # }}}
 
 
