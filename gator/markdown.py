@@ -28,13 +28,25 @@ def specified_tag_greater_than_count(
     exact=False,
 ):
     """Determine if the tag count is greater than expected in a given file."""
-    # create a Path object to the chosen file in the containing directory
-    file_for_checking = files.create_path(file=given_file, home=containing_directory)
+    # Use these two variables to keep track of tag counts for multiple files.
+    # The idea is that file_contents_count_dictionary will store (key, value) pairs
+    # where the key is the file and the count is the number of entities in that file.
     file_tag_count = 0
-    # the specified file is a valid done and thus it is suitable for checking
-    if file_for_checking.is_file():
-        # read the contents of the file and then check for the chosen tag
-        file_contents = file_for_checking.read_text()
-        file_tag_count = checking_function(file_contents, chosen_tag)
-    # check the condition and also return file_tag_count
-    return util.greater_than_equal_exacted(file_tag_count, expected_count, exact)
+    file_tags_count_dictionary = {}
+    # create a Path object to the chosen file in the containing directory, accounting
+    # for the fact that a wildcard like "*.md" will create multiple paths
+    for file_for_checking in files.create_paths(
+        file=given_file, home=containing_directory
+    ):
+        file_tag_count = 0
+        # the specified file is a valid done and thus it is suitable for checking
+        if file_for_checking.is_file():
+            # read the contents of the file and then check for the chosen tag
+            file_contents = file_for_checking.read_text()
+            file_tag_count = checking_function(file_contents, chosen_tag)
+            file_tags_count_dictionary[file_for_checking.name] = file_tag_count
+    # return the minimum value and the entire dictionary of counts
+    minimum_pair = util.get_first_minimum_value(file_tags_count_dictionary)
+    file_tags_count = minimum_pair[1]
+    # check the condition and also return file_tags_count
+    return util.greater_than_equal_exacted(file_tags_count, expected_count, exact), file_tags_count_dictionary
