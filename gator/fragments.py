@@ -184,6 +184,9 @@ def count_entities(
     contents=constants.markers.Nothing,
 ):
     """Count fragments for the file in the directory (or contents) and a fragment."""
+    # Use these two variables to keep track of entity counts for multiple files.
+    # The idea is that file_contents_count_dictionary will store (key, value) pairs
+    # where the key is the file and the count is the number of entities in that file.
     file_contents_count = 0
     file_contents_count_dictionary = {}
     # file is not available and the contents are provided
