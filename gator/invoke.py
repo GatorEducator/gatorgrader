@@ -601,7 +601,9 @@ def invoke_all_markdown_checks(
 ):
     """Perform the check for a markdown tag existence in a file and return the results."""
     met_or_exceeded_count = 0
-    met_or_exceeded_count, actual_count = markdown.specified_tag_greater_than_count(
+    # perform the count, saving the details in a way that preserves information if the
+    # filecheck was given as a wildcard (i.e., "*.py")
+    (met_or_exceeded_count, actual_count), count_dictionary = markdown.specified_tag_greater_than_count(
         markdown_tag,
         markdown.count_specified_tag,
         expected_count,
@@ -635,8 +637,19 @@ def invoke_all_markdown_checks(
             + markdown_tag
             + "' tag"
         )
+    # Produce the diagnostic and report the result.
+    # if a wildcard (i.e., "*.py") was given for the filename, then
+    # this diagnostic is customized for the file that first breaks the check.
+    fragment_diagnostic = util.get_file_diagnostic(count_dictionary)
+    diagnostic = (
+        "Found "
+        + str(actual_count)
+        + constants.markers.Space
+        + "tag(s)"
+        + constants.markers.Space
+        + fragment_diagnostic
+    )
     # create the diagnostic and report the result
-    diagnostic = "Found " + str(actual_count) + " element(s) in the specified file"
     report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
