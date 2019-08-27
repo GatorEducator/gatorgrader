@@ -31,20 +31,20 @@ def specified_tag_greater_than_count(
     # Use these two variables to keep track of tag counts for multiple files.
     # The idea is that file_contents_count_dictionary will store (key, value) pairs
     # where the key is the file and the count is the number of entities in that file.
-    file_tag_count = 0
+    file_tags_count = 0
     file_tags_count_dictionary = {}
-    # create a Path object to the chosen file in the containing directory, accounting
-    # for the fact that a wildcard like "*.md" will create multiple paths
+    # Create a Path object to the chosen file in the containing directory, accounting
+    # for the fact that a wildcard like "*.md" will create multiple paths. Note that
+    # the create_paths function can only return valid paths, regardless of input.
     for file_for_checking in files.create_paths(
         file=given_file, home=containing_directory
     ):
         file_tag_count = 0
-        # the specified file is a valid one and thus it is suitable for checking
-        if file_for_checking.is_file():
-            # read the contents of the file and then check for the chosen tag
-            file_contents = file_for_checking.read_text()
-            file_tag_count = checking_function(file_contents, chosen_tag)
-            file_tags_count_dictionary[file_for_checking.name] = file_tag_count
+        # since the specified file must be valid and thus suitable for checking,
+        # read the contents of the file and then check for the chosen tag
+        file_contents = file_for_checking.read_text()
+        file_tag_count = checking_function(file_contents, chosen_tag)
+        file_tags_count_dictionary[file_for_checking.name] = file_tag_count
     # return the minimum value and the entire dictionary of counts
     minimum_pair = util.get_first_minimum_value(file_tags_count_dictionary)
     file_tags_count = minimum_pair[1]
