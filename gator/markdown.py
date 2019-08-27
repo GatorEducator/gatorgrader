@@ -29,7 +29,7 @@ def specified_tag_greater_than_count(
 ):
     """Determine if the tag count is greater than expected in given file(s)."""
     # Use these two variables to keep track of tag counts for multiple files.
-    # The idea is that file_contents_count_dictionary will store (key, value) pairs
+    # The idea is that file_tags_count_dictionary will store (key, value) pairs
     # where the key is the file and the count is the number of entities in that file.
     file_tags_count = 0
     file_tags_count_dictionary = {}
