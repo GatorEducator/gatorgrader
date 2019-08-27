@@ -39,7 +39,7 @@ def specified_tag_greater_than_count(
         file=given_file, home=containing_directory
     ):
         file_tag_count = 0
-        # the specified file is a valid done and thus it is suitable for checking
+        # the specified file is a valid one and thus it is suitable for checking
         if file_for_checking.is_file():
             # read the contents of the file and then check for the chosen tag
             file_contents = file_for_checking.read_text()
