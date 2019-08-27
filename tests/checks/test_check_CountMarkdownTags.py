@@ -463,7 +463,7 @@ of GatorGrader. Depending on your goals, there are several different..."""
             provided_count,
             "--tag",
             "heading",
-            "--exact"
+            "--exact",
         ]
         parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
         args_verified = arguments.verify(parsed_arguments)

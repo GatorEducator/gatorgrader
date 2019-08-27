@@ -241,7 +241,9 @@ def test_file_exists_in_directory_check_total_words_exact(
 
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
-def test_file_exists_in_directory_check_words_wildcards(reset_results_dictionary, tmpdir):
+def test_file_exists_in_directory_check_words_wildcards(
+    reset_results_dictionary, tmpdir
+):
     """Check that the checking of words works correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
     reflection_file.write(

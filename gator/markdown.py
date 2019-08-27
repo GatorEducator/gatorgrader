@@ -49,4 +49,7 @@ def specified_tag_greater_than_count(
     minimum_pair = util.get_first_minimum_value(file_tags_count_dictionary)
     file_tags_count = minimum_pair[1]
     # check the condition and also return file_tags_count
-    return util.greater_than_equal_exacted(file_tags_count, expected_count, exact), file_tags_count_dictionary
+    return (
+        util.greater_than_equal_exacted(file_tags_count, expected_count, exact),
+        file_tags_count_dictionary,
+    )

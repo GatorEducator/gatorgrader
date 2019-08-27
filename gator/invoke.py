@@ -603,7 +603,10 @@ def invoke_all_markdown_checks(
     met_or_exceeded_count = 0
     # perform the count, saving the details in a way that preserves information if the
     # filecheck was given as a wildcard (i.e., "*.py")
-    (met_or_exceeded_count, actual_count), count_dictionary = markdown.specified_tag_greater_than_count(
+    (
+        met_or_exceeded_count,
+        actual_count,
+    ), count_dictionary = markdown.specified_tag_greater_than_count(
         markdown_tag,
         markdown.count_specified_tag,
         expected_count,
