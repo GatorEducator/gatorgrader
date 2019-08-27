@@ -251,3 +251,28 @@ def test_count_fragments_from_incorrect_file_wildcard(tmpdir):
     )
     assert actual_count == 0
     assert exceeds_threshold is False
+
+
+def test_count_fragments_from_incorrect_wildcard(tmpdir):
+    """Check that counting tags in a file works correctly if wildcard is incorrect."""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.md")
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
+    hello_file = "%*#@@--(*.md)Hello.md"
+    (
+        exceeds_threshold,
+        actual_count,
+    ), count_dictionary = markdown.specified_tag_greater_than_count(
+        "code", markdown.count_specified_tag, 3, hello_file, directory
+    )
+    assert actual_count == 0
+    assert exceeds_threshold is False
+    hello_file = "Hello.md%*#@@--(*.md)"
+    (
+        exceeds_threshold,
+        actual_count,
+    ), count_dictionary = markdown.specified_tag_greater_than_count(
+        "code", markdown.count_specified_tag, 3, hello_file, directory
+    )
+    assert actual_count == 0
+    assert exceeds_threshold is False
