@@ -562,6 +562,57 @@ def test_count_single_line_from_file_with_threshold(tmpdir):
     assert exceeds_threshold[0] is False
 
 
+def test_count_single_line_from_file_with_threshold_and_wildcards(tmpdir):
+    """Check that counting lines in a file with threshold works correctly."""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
+    hello_file.write("/* hello world */")
+    assert hello_file.read() == "/* hello world */"
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
+    hello_file = "*.java"
+    (
+        exceeds_threshold,
+        actual_count,
+    ), _ = fragments.specified_source_greater_than_count(1, hello_file, directory, "")
+    assert actual_count == 1
+    assert exceeds_threshold[0] is True
+    (
+        exceeds_threshold,
+        actual_count,
+    ), _ = fragments.specified_source_greater_than_count(100, hello_file, directory, "")
+    assert actual_count == 1
+    assert exceeds_threshold[0] is False
+    hello_file = "*.*"
+    (
+        exceeds_threshold,
+        actual_count,
+    ), _ = fragments.specified_source_greater_than_count(1, hello_file, directory, "")
+    assert actual_count == 1
+    assert exceeds_threshold[0] is True
+    (
+        exceeds_threshold,
+        actual_count,
+    ), _ = fragments.specified_source_greater_than_count(100, hello_file, directory, "")
+    assert actual_count == 1
+    assert exceeds_threshold[0] is False
+
+
+def test_count_no_line_from_incorrect_file(tmpdir):
+    """Ensure that counting lines in a garbage file works correctly."""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
+    hello_file.write("/* hello world */")
+    assert hello_file.read() == "/* hello world */"
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
+    hello_file = "#$#@ll*.java&&@@@"
+    (
+        exceeds_threshold,
+        actual_count,
+    ), _ = fragments.specified_source_greater_than_count(1, hello_file, directory, "")
+    assert actual_count == 0
+    assert exceeds_threshold[0] is False
+
+
 def test_count_multiple_lines_from_file(tmpdir):
     """Check that counting lines in a file works correctly."""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
