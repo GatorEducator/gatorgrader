@@ -295,6 +295,35 @@ def test_find_minimum_in_dictionary_single_max_deep():
     assert found[1] == ("Mike", 52)
 
 
+def test_find_minimum_in_dictionary_single_equal_deep_all_not_same():
+    """Check if the maximum value is found in a dictionary deep."""
+    input_file_one = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 43}
+    input_file_two = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 43}
+    input_file_three = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 1}
+    outer_dictionary = {
+        "input_file_one": input_file_one,
+        "input_file_two": input_file_two,
+        "input_file_three": input_file_three,
+    }
+    found = util.get_first_not_equal_value_deep(outer_dictionary, 43)
+    assert found[0] == "input_file_one"
+    assert found[1] == ("John", 21)
+
+
+def test_find_minimum_in_dictionary_single_equal_deep_all_same():
+    """Check if the maximum value is found in a dictionary deep."""
+    input_file_one = {"John": 21, "Mike": 21, "Sarah": 21, "Bob": 21}
+    input_file_two = {"John": 21, "Mike": 21, "Sarah": 21, "Bob": 21}
+    input_file_three = {"John": 21, "Mike": 21, "Sarah": 21, "Bob": 21}
+    outer_dictionary = {
+        "input_file_one": input_file_one,
+        "input_file_two": input_file_two,
+        "input_file_three": input_file_three,
+    }
+    found = util.get_first_not_equal_value_deep(outer_dictionary, 21)
+    assert found == {}
+
+
 def test_find_minimum_in_dictionary_single_max_deep_words():
     """Check if the minimum value is found in a dictionary deep."""
     input_file_one = {1: 10, 2: 5, 3: 4}
