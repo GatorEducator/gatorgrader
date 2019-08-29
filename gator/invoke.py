@@ -172,7 +172,6 @@ def invoke_all_comment_checks(
             + " comment(s)"
         )
     # create the diagnostic and the report the result
-    # produce the diagnostic and report the result
     flat_comment_count_details = util.flatten_dictionary_values(comment_count_details)
     fragment_diagnostic = util.get_file_diagnostic(flat_comment_count_details)
     diagnostic = (
@@ -186,7 +185,6 @@ def invoke_all_comment_checks(
         + "or the output"
     )
     report_result(met_or_exceeded_count, message, diagnostic)
-    # report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
 
