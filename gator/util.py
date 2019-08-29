@@ -8,6 +8,9 @@ import os
 
 from num2words import num2words
 
+# import snoop
+# snoop.install(color="rrt")
+
 
 def verify_gatorgrader_home(current_gatorgrader_home):
     """Verify that the GATORGRADER_HOME variable is set correctly."""
@@ -79,13 +82,39 @@ def flatten_dictionary_values(input_dictionary):
 
 
 def get_first_value_deep(input_dictionary, finder=min):
-    """Return all deep values matched by a finder function."""
+    """Return the first deep value matched by a finder function."""
     filename_count_dictionary = {}
     for filename, paragraph_count_dictionary in input_dictionary.items():
         filename_minimum = get_first_value(paragraph_count_dictionary, finder)
         filename_count_dictionary[filename] = filename_minimum
     outer_found_value = get_first_value(filename_count_dictionary, finder)
     return outer_found_value
+
+
+def get_first_not_equal_value_deep(input_dictionary, value):
+    """Return first deep value not equal to the provided value."""
+    # assume that no values are found
+    filename_count_dictionary = {}
+    found = False
+    # iterate through the input_dictionary, looking for the first value
+    # that is not equal to the provided value, capturing details when found
+    for filename, paragraph_count_dictionary in input_dictionary.items():
+        # a non-matching value has not yet been found
+        if not found:
+            # look through the items in the inner dictionary
+            for item, count in paragraph_count_dictionary.items():
+                # Found a specific item with a value not equal to the provided one.
+                # Now, record the details about that item, indicate that it was
+                # found so as to leave this loop and the outer one as well.
+                if count != value:
+                    filename_count_dictionary[filename] = (item, count)
+                    found = True
+                    break
+    # a value was found that is not equal to the provided value, so return it
+    if found:
+        return next(iter(filename_count_dictionary.items()))
+    # all of the values are equal to the provided value, so return an empty dictionary
+    return filename_count_dictionary
 
 
 def get_first_value(input_dictionary, finder=min):
@@ -144,11 +173,11 @@ def get_number_as_words(number, format=constants.words.Ordinal):
     return num2words(number, to=format)
 
 
-def get_word_diagnostic(word_count_dictionary):
+def get_word_diagnostic(word_count_dictionary, equals_count=constants.markers.Invalid):
     """Create a full diagnostic based on the dictionary of (paragraph, word counts)."""
     # create a diagnostics like "in the third paragraph" based on the dictionary
     # that contains the words counts in each of the paragraphs of a document
-    if word_count_dictionary:
+    if word_count_dictionary and equals_count is constants.markers.Invalid:
         paragraph_number_details_list = get_first_minimum_value_deep(
             word_count_dictionary
         )
@@ -160,6 +189,19 @@ def get_word_diagnostic(word_count_dictionary):
             constants.words.In_The + constants.markers.Space + paragraph_number_as_word
         )
         return paragraph_number_as_word_phrase, filename_for_paragraph_number_details
+    elif word_count_dictionary and equals_count is not constants.markers.Invalid:
+        paragraph_number_details_list = get_first_not_equal_value_deep(
+            word_count_dictionary, equals_count
+        )
+        if paragraph_number_details_list:
+            filename_for_paragraph_number_details = paragraph_number_details_list[0]
+            paragraph_number_details = paragraph_number_details_list[1]
+            paragraph_number = paragraph_number_details[0]
+            paragraph_number_as_word = get_number_as_words(paragraph_number)
+            paragraph_number_as_word_phrase = (
+                constants.words.In_The + constants.markers.Space + paragraph_number_as_word
+            )
+            return paragraph_number_as_word_phrase, filename_for_paragraph_number_details
     # since there are no paragraphs and no counts of words because the dictionary
     # is empty, return the empty string instead of a diagnostic phrase
     # for both the paragraph number as word phrase and the filename
