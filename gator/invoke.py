@@ -172,12 +172,8 @@ def invoke_all_comment_checks(
             + language
             + " comment(s)"
         )
-    # create the diagnostic and the report the result
-    # flat_comment_count_details = util.flatten_dictionary_values(comment_count_details)
     # get the "most minimal" actual_count from the flattened report from previously run check
     # diagnostic_details = util.get_first_minimum_value(flat_comment_count_details)
-    # if diagnostic_details:
-    # actual_count = diagnostic_details[1]
     fragment_diagnostic = util.get_file_diagnostic(
         comment_count_details, expected_count
     )
