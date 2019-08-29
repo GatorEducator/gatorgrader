@@ -4,6 +4,9 @@ from gator import constants
 from gator import files
 from gator import util
 
+# import snoop
+# snoop.install(color="rrt")
+
 
 # pylint: disable=bad-continuation
 def entity_greater_than_count(
@@ -14,11 +17,18 @@ def entity_greater_than_count(
     file_entity_count, file_entity_count_dictionary = count_entities(
         given_file, containing_directory, checking_function
     )
-    # check the condition and also return file_entity_count
-    condition_result, value = util.greater_than_equal_exacted(
-        file_entity_count, expected_count, exact
-    )
-    return condition_result, value, file_entity_count_dictionary
+    value_dictionary = file_entity_count_dictionary[
+        next(iter(file_entity_count_dictionary.keys()))
+    ]
+    condition_result_list = []
+    for file_in_dict, file_entity_count_in_dict in value_dictionary.items():
+        # check the condition and also return file_entity_count
+        condition_result, value = util.greater_than_equal_exacted(
+            file_entity_count_in_dict, expected_count, exact
+        )
+        condition_result_list.append(condition_result)
+    final_condition_result = all(condition_result_list)
+    return final_condition_result, value, file_entity_count_dictionary
 
 
 def count_entities(given_file, containing_directory, checking_function):
