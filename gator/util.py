@@ -177,6 +177,8 @@ def get_word_diagnostic(word_count_dictionary, equals_count=constants.markers.In
     """Create a full diagnostic based on the dictionary of (paragraph, word counts)."""
     # create a diagnostics like "in the third paragraph" based on the dictionary
     # that contains the words counts in each of the paragraphs of a document
+    # --> Case: the equals_count is invalid, so look "deeply" for the first minimum value
+    # to report in the appropriately phrased diagnostic message
     if word_count_dictionary and equals_count is constants.markers.Invalid:
         paragraph_number_details_list = get_first_minimum_value_deep(
             word_count_dictionary
@@ -188,20 +190,30 @@ def get_word_diagnostic(word_count_dictionary, equals_count=constants.markers.In
         paragraph_number_as_word_phrase = (
             constants.words.In_The + constants.markers.Space + paragraph_number_as_word
         )
+        # since there will always be a minimum value, go ahead and return it
         return paragraph_number_as_word_phrase, filename_for_paragraph_number_details
+    # --> Case: the equals_count is not invalid, so look "deeply" for the first value
+    # that is not equal to the provided value stored in equals_count
     elif word_count_dictionary and equals_count is not constants.markers.Invalid:
         paragraph_number_details_list = get_first_not_equal_value_deep(
             word_count_dictionary, equals_count
         )
+        # since a value was found that is not equal to equals_count, create a diagnostic
+        # message using the appropriate phrasing and then return it
         if paragraph_number_details_list:
             filename_for_paragraph_number_details = paragraph_number_details_list[0]
             paragraph_number_details = paragraph_number_details_list[1]
             paragraph_number = paragraph_number_details[0]
             paragraph_number_as_word = get_number_as_words(paragraph_number)
             paragraph_number_as_word_phrase = (
-                constants.words.In_The + constants.markers.Space + paragraph_number_as_word
+                constants.words.In_The
+                + constants.markers.Space
+                + paragraph_number_as_word
             )
-            return paragraph_number_as_word_phrase, filename_for_paragraph_number_details
+            return (
+                paragraph_number_as_word_phrase,
+                filename_for_paragraph_number_details,
+            )
     # since there are no paragraphs and no counts of words because the dictionary
     # is empty, return the empty string instead of a diagnostic phrase
     # for both the paragraph number as word phrase and the filename
