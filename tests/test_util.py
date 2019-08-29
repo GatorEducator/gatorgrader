@@ -349,7 +349,10 @@ def test_find_minimum_in_dictionary_single_max_deep_words_diagnostic():
         "input_file_two": input_file_two,
         "input_file_three": input_file_three,
     }
-    util.get_word_diagnostic(outer_dictionary)
+    diagnostic = util.get_word_diagnostic(outer_dictionary)
+    assert diagnostic is not None
+    assert diagnostic[0] == "in the third"
+    assert diagnostic[1] == "input_file_three"
 
 
 def test_find_minimum_in_dictionary_single_max_deep_words_diagnostic_realistic():
