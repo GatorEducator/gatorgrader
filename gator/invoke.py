@@ -242,7 +242,6 @@ def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=Fals
     return met_or_exceeded_count
 
 
-@snoop
 def invoke_all_minimum_word_count_checks(
     filecheck, directory, expected_count, count_function, conclusion, exact=False
 ):
@@ -279,7 +278,7 @@ def invoke_all_minimum_word_count_checks(
             + constants.markers.Space
             + conclusion
         )
-    # Create a diagnostic message and report the result
+    # create a diagnostic message and report the result
     # replace "in every" with "in a" and a specific paragraph number.
     # This diagnostic signals the fact that there was at least
     # a single paragraph that had a word count below the standard
@@ -312,35 +311,6 @@ def invoke_all_minimum_word_count_checks(
     return met_or_exceeded_count
 
 
-# def invoke_all_minimum_word_count_checks(
-#     filecheck, directory, expected_count, exact=False
-# ):
-#     """Perform the minimum word count check and return the results."""
-#     return invoke_all_word_count_checks(
-#         filecheck,
-#         directory,
-#         expected_count,
-#         fragments.count_minimum_words,
-#         constants.words.Minimum,
-#         exact,
-#     )
-
-
-# def invoke_all_total_word_count_checks(
-#     filecheck, directory, expected_count, exact=False
-# ):
-#     """Perform the total word count check and return the results."""
-#     return invoke_all_word_count_checks(
-#         filecheck,
-#         directory,
-#         expected_count,
-#         fragments.count_total_words,
-#         constants.words.Total,
-#         exact,
-#     )
-
-
-@snoop
 def invoke_all_total_word_count_checks(
     filecheck, directory, expected_count, count_function, conclusion, exact=False
 ):
