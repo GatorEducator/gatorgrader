@@ -11,8 +11,9 @@ from gator import repository
 from gator import run
 from gator import util
 
-# import snoop
-# snoop.install(color="rrt")
+import snoop
+
+snoop.install(color="rrt")
 
 
 def report_result(status, message, diagnostic):
@@ -171,9 +172,23 @@ def invoke_all_comment_checks(
             + language
             + " comment(s)"
         )
+    print("actual_count before")
+    print(actual_count)
+    print("comment_count_details")
+    print(comment_count_details)
     # create the diagnostic and the report the result
-    flat_comment_count_details = util.flatten_dictionary_values(comment_count_details)
-    fragment_diagnostic = util.get_file_diagnostic(flat_comment_count_details)
+    # flat_comment_count_details = util.flatten_dictionary_values(comment_count_details)
+    # get the "most minimal" actual_count from the flattened report from previously run check
+    # diagnostic_details = util.get_first_minimum_value(flat_comment_count_details)
+    # if diagnostic_details:
+    # actual_count = diagnostic_details[1]
+    print("***expected_count")
+    print(expected_count)
+    fragment_diagnostic = util.get_file_diagnostic(
+        comment_count_details, expected_count
+    )
+    print("fragment_diagnostic")
+    print(str(fragment_diagnostic))
     diagnostic = (
         "Found "
         + str(actual_count)
@@ -239,7 +254,8 @@ def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=Fals
     return met_or_exceeded_count
 
 
-def invoke_all_word_count_checks(
+@snoop
+def invoke_all_minimum_word_count_checks(
     filecheck, directory, expected_count, count_function, conclusion, exact=False
 ):
     """Perform the word count check and return the results."""
@@ -308,32 +324,100 @@ def invoke_all_word_count_checks(
     return met_or_exceeded_count
 
 
-def invoke_all_minimum_word_count_checks(
-    filecheck, directory, expected_count, exact=False
-):
-    """Perform the minimum word count check and return the results."""
-    return invoke_all_word_count_checks(
-        filecheck,
-        directory,
-        expected_count,
-        fragments.count_minimum_words,
-        constants.words.Minimum,
-        exact,
-    )
+# def invoke_all_minimum_word_count_checks(
+#     filecheck, directory, expected_count, exact=False
+# ):
+#     """Perform the minimum word count check and return the results."""
+#     return invoke_all_word_count_checks(
+#         filecheck,
+#         directory,
+#         expected_count,
+#         fragments.count_minimum_words,
+#         constants.words.Minimum,
+#         exact,
+#     )
 
 
+# def invoke_all_total_word_count_checks(
+#     filecheck, directory, expected_count, exact=False
+# ):
+#     """Perform the total word count check and return the results."""
+#     return invoke_all_word_count_checks(
+#         filecheck,
+#         directory,
+#         expected_count,
+#         fragments.count_total_words,
+#         constants.words.Total,
+#         exact,
+#     )
+
+
+@snoop
 def invoke_all_total_word_count_checks(
-    filecheck, directory, expected_count, exact=False
+    filecheck, directory, expected_count, count_function, conclusion, exact=False
 ):
-    """Perform the total word count check and return the results."""
-    return invoke_all_word_count_checks(
-        filecheck,
-        directory,
-        expected_count,
-        fragments.count_total_words,
-        constants.words.Total,
-        exact,
+    """Perform the word count check and return the results."""
+    met_or_exceeded_count = False
+    met_or_exceeded_count, actual_count, actual_count_dictionary = entities.entity_greater_than_count_total(
+        filecheck, directory, expected_count, count_function, exact
     )
+    met_or_exceeded_count = util.greater_than_equal_exacted(
+        actual_count, expected_count, exact
+    )[0]
+    # create the message and the diagnostic
+    if not exact:
+        # create an "at least" message, which is the default
+        message = (
+            "The "
+            + filecheck
+            + " in "
+            + directory
+            + " has at least "
+            + str(expected_count)
+            + constants.markers.Space
+            + conclusion
+        )
+    else:
+        # create an "exact" message, which is an opt-in
+        message = (
+            "The "
+            + filecheck
+            + " in "
+            + directory
+            + " has exactly "
+            + str(expected_count)
+            + constants.markers.Space
+            + conclusion
+        )
+    # create a diagnostic message and report the result
+    word_diagnostic, filename = util.get_word_diagnostic(
+        actual_count_dictionary, expected_count
+    )
+    # there is no need for a filename diagnostic unless there are multiple results
+    filename_diagnostic = constants.markers.Nothing
+    # there is a filename, which means that there was a wildcard specified
+    # and thus this diagnostic is for one file; give name at the end
+    filename_count = expected_count
+    if filename:
+        filename_diagnostic = (
+            constants.markers.Of_File + constants.markers.Space + filename
+        )
+        sum_actual_count_dictionary = util.sum_dictionary_values(
+            actual_count_dictionary
+        )
+        filename_count = sum_actual_count_dictionary[filename]
+    # since there is a word_diagnostic, add it to the conclusion of diagnostic
+    # otherwise, the conclusion will always contain "in every"
+    diagnostic = (
+        "Found "
+        + str(filename_count)
+        + constants.markers.Space
+        + conclusion
+        + constants.markers.Space
+        + filename_diagnostic
+    )
+    report_result(met_or_exceeded_count, message, diagnostic)
+    return met_or_exceeded_count
 
 
 # pylint: disable=bad-continuation
