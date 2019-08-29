@@ -198,8 +198,10 @@ def get_word_diagnostic(word_count_dictionary, equals_count=constants.markers.In
         paragraph_number_details_list = get_first_not_equal_value_deep(
             word_count_dictionary, equals_count
         )
-        # since a value was found that is not equal to equals_count, create a diagnostic
-        # message using the appropriate phrasing and then return it
+        # Since a value was found that is not equal to equals_count, create a diagnostic
+        # message using the appropriate phrasing and then return it. Otherwise, if the
+        # paragraph_number_details_list is still {}, this means that a not-equal value
+        # was not found and thus this case cannot cause the function to return
         if paragraph_number_details_list:
             filename_for_paragraph_number_details = paragraph_number_details_list[0]
             paragraph_number_details = paragraph_number_details_list[1]
