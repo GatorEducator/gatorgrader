@@ -11,6 +11,9 @@ from gator import repository
 from gator import run
 from gator import util
 
+# import snoop
+# snoop.install(color="rrt")
+
 
 def report_result(status, message, diagnostic):
     """Set the report after running a check."""
@@ -244,7 +247,7 @@ def invoke_all_word_count_checks(
     """Perform the word count check and return the results."""
     met_or_exceeded_count = 0
     met_or_exceeded_count, actual_count, actual_count_dictionary = entities.entity_greater_than_count(
-        filecheck, directory, expected_count, count_function
+        filecheck, directory, expected_count, count_function, exact
     )
     # create the message and the diagnostic
     # note that the conclusion variable is customized so that it
@@ -280,7 +283,9 @@ def invoke_all_word_count_checks(
     # a single paragraph that had a word count below the standard
     # set for all of the paragraphs in the technical writing
     # across all of the files specified (i.e., those matched by wildcards)
-    word_diagnostic, filename = util.get_word_diagnostic(actual_count_dictionary)
+    word_diagnostic, filename = util.get_word_diagnostic(
+        actual_count_dictionary, expected_count
+    )
     # there is no need for a filename diagnostic unless there are multiple results
     filename_diagnostic = constants.markers.Nothing
     # there is a filename, which means that there was a wildcard specified
@@ -294,8 +299,8 @@ def invoke_all_word_count_checks(
     if word_diagnostic:
         conclusion = conclusion.replace(constants.words.In_Every, word_diagnostic)
     diagnostic = (
-        "Found "
-        + str(actual_count)
+        "Did not find "
+        + str(expected_count)
         + constants.markers.Space
         + conclusion
         + constants.markers.Space
