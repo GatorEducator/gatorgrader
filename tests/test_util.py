@@ -367,8 +367,8 @@ def test_find_minimum_in_dictionary_single_max_deep_words_diagnostic_all_same():
     }
     diagnostic = util.get_word_diagnostic(outer_dictionary, 10)
     assert diagnostic is not None
-    assert diagnostic[0] == ''
-    assert diagnostic[1] == ''
+    assert diagnostic[0] == ""
+    assert diagnostic[1] == ""
 
 
 def test_find_minimum_in_dictionary_single_max_deep_words_diagnostic_realistic():
