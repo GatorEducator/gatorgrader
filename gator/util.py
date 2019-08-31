@@ -235,7 +235,6 @@ def get_word_diagnostic(word_count_dictionary, equals_count=constants.markers.In
     return constants.markers.Nothing, constants.markers.Nothing
 
 
-@snoop
 def get_file_diagnostic(file_count_dictionary):
     """Create a full diagnostic based on the dictionary of (file name, entity counts)."""
     # create a diagnostics like "in the <filename>" based on the dictionary
@@ -250,7 +249,6 @@ def get_file_diagnostic(file_count_dictionary):
     return constants.markers.In_A_File
 
 
-@snoop
 def get_file_diagnostic_deep(file_count_dictionary):
     """Create a full diagnostic based on the deep dictionary of (file name, entity-counts dictionary)."""
     # create a diagnostics like "in the <filename>" based on the dictionary
