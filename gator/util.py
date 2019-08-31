@@ -94,6 +94,7 @@ def flatten_dictionary_values(input_dictionary):
     return flat_dictionary
 
 
+@snoop
 def get_first_value_deep(input_dictionary, finder=min):
     """Return the first deep value matched by a finder function."""
     filename_count_dictionary = {}
@@ -249,6 +250,7 @@ def get_file_diagnostic(file_count_dictionary):
     return constants.markers.In_A_File
 
 
+@snoop
 def get_file_diagnostic_deep(file_count_dictionary):
     """Create a full diagnostic based on the deep dictionary of (file name, entity-counts dictionary)."""
     # create a diagnostics like "in the <filename>" based on the dictionary
@@ -256,11 +258,13 @@ def get_file_diagnostic_deep(file_count_dictionary):
     if file_count_dictionary:
         file_details = get_first_minimum_value_deep(file_count_dictionary)
         file_name = file_details[0]
+        file_count = file_details[1][1]
         file_name_phrase = constants.words.In_The + constants.markers.Space + file_name
-        return file_name_phrase
+        return file_name_phrase, file_count
     # since there are no file names and no counts of entities because the dictionary
-    # is empty, return the "in a file" string instead of a diagnostic phrase
-    return constants.markers.In_A_File
+    # is empty, return the "in a file" string instead of a diagnostic phrase. Also,
+    # return a count of zero to indicate that nothing was found
+    return constants.markers.In_A_File, 0
 
 
 # def get_file_diagnostic(file_count_dictionary, equals_count=constants.markers.Invalid):
