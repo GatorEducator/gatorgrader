@@ -3,6 +3,8 @@
 import argparse
 
 from gator import checkers
+from gator import constants
+from gator import fragments
 from gator import invoke
 
 
@@ -86,4 +88,13 @@ def act(main_parsed_arguments, check_remaining_arguments):
     file = check_parsed_arguments.file
     directory = check_parsed_arguments.directory
     exact = check_parsed_arguments.exact
-    return [invoke.invoke_all_minimum_word_count_checks(file, directory, count, exact)]
+    return [
+        invoke.invoke_all_minimum_word_count_checks(
+            file,
+            directory,
+            count,
+            fragments.count_minimum_words,
+            constants.words.Minimum,
+            exact,
+        )
+    ]
