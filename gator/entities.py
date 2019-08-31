@@ -59,7 +59,9 @@ def entity_greater_than_count(
     file_entity_count, file_entity_count_dictionary = count_entities(
         given_file, containing_directory, checking_function
     )
-    final_check_result = util.greater_than_equal_exacted(file_entity_count, expected_count, exact)
+    final_check_result = util.greater_than_equal_exacted(
+        file_entity_count, expected_count, exact
+    )
     final_check_result = final_check_result[0]
     return final_check_result, file_entity_count, file_entity_count_dictionary
 
