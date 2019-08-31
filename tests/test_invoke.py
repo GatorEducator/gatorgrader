@@ -128,7 +128,7 @@ def test_file_exists_in_directory_check_words(reset_results_dictionary, tmpdir):
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     reflection_file = "reflection.md"
-    invoke.invoke_all_word_count_checks(
+    invoke.invoke_all_minimum_word_count_checks(
         reflection_file,
         directory,
         4,
@@ -138,7 +138,7 @@ def test_file_exists_in_directory_check_words(reset_results_dictionary, tmpdir):
     details = report.get_result()
     assert details is not None
     report.reset()
-    invoke.invoke_all_word_count_checks(
+    invoke.invoke_all_minimum_word_count_checks(
         reflection_file,
         directory,
         200,
