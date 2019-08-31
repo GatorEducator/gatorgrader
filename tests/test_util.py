@@ -280,6 +280,22 @@ def test_word_diagnostic_empty_dictionary():
     assert word_diagnostic == ("", "")
 
 
+def test_sum_dictionary_values():
+    """Check if the maximum value is found in a dictionary deep."""
+    input_file_one = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 43}
+    input_file_two = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 43}
+    input_file_three = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 1}
+    outer_dictionary = {
+        "input_file_one": input_file_one,
+        "input_file_two": input_file_two,
+        "input_file_three": input_file_three,
+    }
+    sum_dictionary = util.sum_dictionary_values(outer_dictionary)
+    assert sum_dictionary["input_file_one"] == (21 + 52 + 12 + 43)
+    assert sum_dictionary["input_file_two"] == (21 + 52 + 12 + 43)
+    assert sum_dictionary["input_file_three"] == (21 + 52 + 12 + 1)
+
+
 def test_find_minimum_in_dictionary_single_max_deep():
     """Check if the maximum value is found in a dictionary deep."""
     input_file_one = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 43}
