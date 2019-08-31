@@ -86,6 +86,7 @@ def invoke_file_in_directory_check(filecheck, directory):
 
 
 # pylint: disable=bad-continuation
+# @snoop
 def invoke_all_comment_checks(
     filecheck, directory, expected_count, comment_type, language, exact=False
 ):
@@ -174,9 +175,7 @@ def invoke_all_comment_checks(
         )
     # get the "most minimal" actual_count from the flattened report from previously run check
     # diagnostic_details = util.get_first_minimum_value(flat_comment_count_details)
-    fragment_diagnostic = util.get_file_diagnostic(
-        comment_count_details, expected_count
-    )
+    fragment_diagnostic = util.get_file_diagnostic_deep(comment_count_details)
     diagnostic = (
         "Found "
         + str(actual_count)
@@ -242,6 +241,7 @@ def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=Fals
     return met_or_exceeded_count
 
 
+@snoop
 def invoke_all_minimum_word_count_checks(
     filecheck, directory, expected_count, count_function, conclusion, exact=False
 ):
@@ -251,9 +251,6 @@ def invoke_all_minimum_word_count_checks(
         filecheck, directory, expected_count, count_function, exact
     )
     # create the message and the diagnostic
-    # note that the conclusion variable is customized so that it
-    # displays the correct message and diagnostic based on whether
-    # the check was for a "total words" or a "minimum words" check
     if not exact:
         # create an "at least" message, which is the default
         message = (
@@ -295,13 +292,27 @@ def invoke_all_minimum_word_count_checks(
         filename_diagnostic = (
             constants.markers.Of_File + constants.markers.Space + filename
         )
-    # since there is a word_diagnostic, add it to the conclusion of diagnostic
-    # otherwise, the conclusion will always contain "in every"
+    # since there is a word_diagnostic, this means that there is a need to customize
+    # the diagnostic message because the check is not going to pass correctly
     if word_diagnostic:
         conclusion = conclusion.replace(constants.words.In_Every, word_diagnostic)
+        # the actual_count may vary depending on whether the check is checking for exact
+        # equality or if there is a minimum threshold that the inputs must satisfy
+        # --> exactness is not required, so find the minimum value across all inputs
+        if not exact:
+            actual_count = util.get_first_minimum_value_deep(actual_count_dictionary)[
+                1
+            ][1]
+        # --> exactness is required, so the first value that does not match the specified value
+        elif exact:
+            actual_count = util.get_first_not_equal_value_deep(
+                actual_count_dictionary, expected_count
+            )[1][1]
+        # create the diagnostic message using all of the parts, specifically highlighting
+        # the ways in which the check failed, thereby improving a person's debugging process
     diagnostic = (
-        "Did not find "
-        + str(expected_count)
+        "Found "
+        + str(actual_count)
         + constants.markers.Space
         + conclusion
         + constants.markers.Space
