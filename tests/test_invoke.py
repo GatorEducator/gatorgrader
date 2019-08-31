@@ -164,7 +164,7 @@ def test_file_exists_in_directory_check_words_exact(reset_results_dictionary, tm
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     reflection_file = "reflection.md"
-    invoke.invoke_all_word_count_checks(
+    invoke.invoke_all_minimum_word_count_checks(
         reflection_file,
         directory,
         4,
@@ -174,7 +174,7 @@ def test_file_exists_in_directory_check_words_exact(reset_results_dictionary, tm
     details = report.get_result()
     assert details is not None
     report.reset()
-    invoke.invoke_all_word_count_checks(
+    invoke.invoke_all_minimum_word_count_checks(
         reflection_file,
         directory,
         200,
@@ -200,11 +200,23 @@ def test_file_exists_in_directory_check_total_words(reset_results_dictionary, tm
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     reflection_file = "reflection.md"
-    invoke.invoke_all_total_word_count_checks(reflection_file, directory, 12)
+    invoke.invoke_all_total_word_count_checks(
+        reflection_file,
+        directory,
+        12,
+        fragments.count_total_words,
+        constants.words.Total,
+    )
     details = report.get_result()
     assert details is not None
     report.reset()
-    invoke.invoke_all_total_word_count_checks(reflection_file, directory, 100)
+    invoke.invoke_all_total_word_count_checks(
+        reflection_file,
+        directory,
+        100,
+        fragments.count_total_words,
+        constants.words.Total,
+    )
     details = report.get_result()
     assert details is not None
 
@@ -226,14 +238,30 @@ def test_file_exists_in_directory_check_total_words_exact(
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     reflection_file = "reflection.md"
+    # invoke.invoke_all_total_word_count_checks(
+    # reflection_file, directory, 12, exact=True
+    # )
     invoke.invoke_all_total_word_count_checks(
-        reflection_file, directory, 12, exact=True
+        reflection_file,
+        directory,
+        12,
+        fragments.count_total_words,
+        constants.words.Total,
+        exact=True,
     )
     details = report.get_result()
     assert details is not None
     report.reset()
+    # invoke.invoke_all_total_word_count_checks(
+    # reflection_file, directory, 100, exact=True
+    # )
     invoke.invoke_all_total_word_count_checks(
-        reflection_file, directory, 100, exact=True
+        reflection_file,
+        directory,
+        100,
+        fragments.count_total_words,
+        constants.words.Total,
+        exact=True,
     )
     details = report.get_result()
     assert details is not None
@@ -256,7 +284,7 @@ def test_file_exists_in_directory_check_words_wildcards(
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     reflection_file = "*.md"
-    invoke.invoke_all_word_count_checks(
+    invoke.invoke_all_minimum_word_count_checks(
         reflection_file,
         directory,
         4,
@@ -266,7 +294,7 @@ def test_file_exists_in_directory_check_words_wildcards(
     details = report.get_result()
     assert details is not None
     report.reset()
-    invoke.invoke_all_word_count_checks(
+    invoke.invoke_all_minimum_word_count_checks(
         reflection_file,
         directory,
         200,
