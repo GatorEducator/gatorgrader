@@ -566,7 +566,7 @@ def test_comment_counts_check_multiple_java_invalid_check(
     assert details is not None
     report.reset()
     # this check cannot pass because of the fact that it asks
-    # for standard-line comments, which are not supported by this function
+    # for "standard-line" comments, which are not supported by this function
     invoke.invoke_all_comment_checks(hello_file, directory, 1, "standard-line", "Java")
     details = report.get_result()
     assert details is not None
