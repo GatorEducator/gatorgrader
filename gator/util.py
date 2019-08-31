@@ -94,7 +94,7 @@ def flatten_dictionary_values(input_dictionary):
     return flat_dictionary
 
 
-@snoop
+# @snoop
 def get_first_value_deep(input_dictionary, finder=min):
     """Return the first deep value matched by a finder function."""
     filename_count_dictionary = {}
@@ -250,7 +250,7 @@ def get_file_diagnostic(file_count_dictionary):
     return constants.markers.In_A_File
 
 
-@snoop
+# @snoop
 def get_file_diagnostic_deep(file_count_dictionary):
     """Create a full diagnostic based on the deep dictionary of (file name, entity-counts dictionary)."""
     # create a diagnostics like "in the <filename>" based on the dictionary
