@@ -4,11 +4,53 @@ from gator import constants
 from gator import files
 from gator import util
 
-# import snoop
-# snoop.install(color="rrt")
+import snoop
+
+snoop.install(color="rrt")
 
 
 # pylint: disable=bad-continuation
+@snoop
+def entity_greater_than_count_total(
+    given_file, containing_directory, expected_count, checking_function, exact=False
+):
+    """Return a count and determination if entity count is greater than expected."""
+    # call the count_entities function in this module
+    file_entity_count, file_entity_count_dictionary = count_entities(
+        given_file, containing_directory, checking_function
+    )
+    count_status = False
+    if file_entity_count > expected_count:
+        count_status = True
+    return count_status, file_entity_count, file_entity_count_dictionary
+
+
+# # pylint: disable=bad-continuation
+# @snoop
+# def entity_greater_than_count(
+#     given_file, containing_directory, expected_count, checking_function, exact=False
+# ):
+#     """Return a count and determination if entity count is greater than expected."""
+#     # call the count_entities function in this module
+#     file_entity_count, file_entity_count_dictionary = count_entities(
+#         given_file, containing_directory, checking_function
+#     )
+#     value_dictionary = file_entity_count_dictionary[
+#         next(iter(file_entity_count_dictionary.keys()))
+#     ]
+#     condition_result_list = []
+#     for file_in_dict, file_entity_count_in_dict in value_dictionary.items():
+#         # check the condition and also return file_entity_count
+#         condition_result, value = util.greater_than_equal_exacted(
+#             file_entity_count_in_dict, expected_count, exact
+#         )
+#         condition_result_list.append(condition_result)
+#     final_condition_result = all(condition_result_list)
+#     return final_condition_result, value, file_entity_count_dictionary
+
+
+# pylint: disable=bad-continuation
+@snoop
 def entity_greater_than_count(
     given_file, containing_directory, expected_count, checking_function, exact=False
 ):
@@ -17,20 +59,24 @@ def entity_greater_than_count(
     file_entity_count, file_entity_count_dictionary = count_entities(
         given_file, containing_directory, checking_function
     )
-    value_dictionary = file_entity_count_dictionary[
-        next(iter(file_entity_count_dictionary.keys()))
-    ]
-    condition_result_list = []
-    for file_in_dict, file_entity_count_in_dict in value_dictionary.items():
-        # check the condition and also return file_entity_count
-        condition_result, value = util.greater_than_equal_exacted(
-            file_entity_count_in_dict, expected_count, exact
-        )
-        condition_result_list.append(condition_result)
-    final_condition_result = all(condition_result_list)
-    return final_condition_result, value, file_entity_count_dictionary
+    final_check_result = util.greater_than_equal_exacted(file_entity_count, expected_count, exact)
+    final_check_result = final_check_result[0]
+    return final_check_result, file_entity_count, file_entity_count_dictionary
+    # value_dictionary = file_entity_count_dictionary[
+    #     next(iter(file_entity_count_dictionary.keys()))
+    # ]
+    # condition_result_list = []
+    # for file_in_dict, file_entity_count_in_dict in value_dictionary.items():
+    #     # check the condition and also return file_entity_count
+    #     condition_result, value = util.greater_than_equal_exacted(
+    #         file_entity_count_in_dict, expected_count, exact
+    #     )
+    #     condition_result_list.append(condition_result)
+    # final_condition_result = all(condition_result_list)
+    # return final_condition_result, value, file_entity_count_dictionary
 
 
+@snoop
 def count_entities(given_file, containing_directory, checking_function):
     """Count the number of entities for the file(s) in the directory."""
     # create an empty dictionary of filenames and an internal dictionary
