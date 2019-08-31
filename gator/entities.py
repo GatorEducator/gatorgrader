@@ -62,21 +62,8 @@ def entity_greater_than_count(
     final_check_result = util.greater_than_equal_exacted(file_entity_count, expected_count, exact)
     final_check_result = final_check_result[0]
     return final_check_result, file_entity_count, file_entity_count_dictionary
-    # value_dictionary = file_entity_count_dictionary[
-    #     next(iter(file_entity_count_dictionary.keys()))
-    # ]
-    # condition_result_list = []
-    # for file_in_dict, file_entity_count_in_dict in value_dictionary.items():
-    #     # check the condition and also return file_entity_count
-    #     condition_result, value = util.greater_than_equal_exacted(
-    #         file_entity_count_in_dict, expected_count, exact
-    #     )
-    #     condition_result_list.append(condition_result)
-    # final_condition_result = all(condition_result_list)
-    # return final_condition_result, value, file_entity_count_dictionary
 
 
-@snoop
 def count_entities(given_file, containing_directory, checking_function):
     """Count the number of entities for the file(s) in the directory."""
     # create an empty dictionary of filenames and an internal dictionary
