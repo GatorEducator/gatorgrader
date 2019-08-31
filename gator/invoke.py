@@ -174,8 +174,9 @@ def invoke_all_comment_checks(
             + " comment(s)"
         )
     # get the "most minimal" actual_count from the flattened report from previously run check
-    # diagnostic_details = util.get_first_minimum_value(flat_comment_count_details)
-    fragment_diagnostic = util.get_file_diagnostic_deep(comment_count_details)
+    fragment_diagnostic, fragment_count = util.get_file_diagnostic_deep(comment_count_details)
+    if fragment_diagnostic:
+        actual_count = fragment_count
     diagnostic = (
         "Found "
         + str(actual_count)
