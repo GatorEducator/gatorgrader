@@ -244,7 +244,7 @@ def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=Fals
     return met_or_exceeded_count
 
 
-@snoop
+# @snoop
 def invoke_all_minimum_word_count_checks(
     filecheck, directory, expected_count, count_function, conclusion, exact=False
 ):
