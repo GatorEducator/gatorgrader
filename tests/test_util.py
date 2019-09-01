@@ -348,6 +348,14 @@ def test_find_not_equal_value_deep_all_same():
     assert found == {}
 
 
+def test_get_file_diagnostic_deep_exact_empty_dictionary():
+    """Check if getting a file diagnostic with an empty dictionary works."""
+    empty_dictionary = {}
+    value = 10
+    found = util.get_file_diagnostic_deep_exact(empty_dictionary, value)
+    assert found == ('in a file', 0)
+
+
 def test_find_not_equal_value_not_deep():
     """Check if the maximum value is found in a dictionary deep."""
     input_file_one = {"John": 21, "Mike": 21, "Sarah": 21, "Bob": 21}
