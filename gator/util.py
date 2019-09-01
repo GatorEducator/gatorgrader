@@ -262,7 +262,11 @@ def get_file_diagnostic(file_count_dictionary):
         return file_name_phrase
     # since there are no file names and no counts of entities because the dictionary
     # is empty, return a diagnostic to indicate that the file is unknown
-    return constants.words.In_The + constants.markers.Space + constants.markers.Unknown_File
+    return (
+        constants.words.In_The
+        + constants.markers.Space
+        + constants.markers.Unknown_File
+    )
 
 
 def get_file_diagnostic_deep_not_exact(file_count_dictionary):
