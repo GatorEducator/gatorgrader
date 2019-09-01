@@ -129,6 +129,8 @@ def get_first_not_equal_value_deep(input_dictionary, value):
 
 def get_first_not_equal_value(input_dictionary, value):
     """Return the first value not equal to the provided value."""
+    # assume that no not equal items are found and use (0, 0) as the markers
+    # to indicate that the first not equal value was not found after search
     found_item = 0
     found_count = 0
     # search through the keys and values (i.e., items and counts), looking
