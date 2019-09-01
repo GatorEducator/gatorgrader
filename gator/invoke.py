@@ -742,6 +742,8 @@ def invoke_all_markdown_checks(
         + "tag(s)"
         + constants.markers.Space
         + fragment_diagnostic
+        + constants.markers.Space
+        + constants.markers.File
     )
     # create the diagnostic and report the result
     report_result(met_or_exceeded_count, message, diagnostic)
@@ -805,7 +807,9 @@ def invoke_all_count_checks(
     fragment_diagnostic = util.get_file_diagnostic(actual_count_dictionary)
     # when the file is "unknown" then this means that the content is from a command
     # and thus it is better to use the generic phrase "file" instead of this default
-    fragment_diagnostic = fragment_diagnostic.replace(constants.markers.Unknown_File, constants.markers.File)
+    fragment_diagnostic = fragment_diagnostic.replace(
+        constants.markers.Unknown_File, constants.markers.File
+    )
     diagnostic = (
         "Found "
         + str(actual_count)
