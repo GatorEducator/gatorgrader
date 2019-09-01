@@ -86,7 +86,7 @@ def invoke_file_in_directory_check(filecheck, directory):
 
 
 # pylint: disable=bad-continuation
-@snoop
+# @snoop
 def invoke_all_comment_checks(
     filecheck, directory, expected_count, comment_type, language, exact=False
 ):
@@ -347,7 +347,7 @@ def invoke_all_minimum_word_count_checks(
     return met_or_exceeded_count
 
 
-@snoop
+# @snoop
 def invoke_all_total_word_count_checks(
     filecheck, directory, expected_count, count_function, conclusion, exact=False
 ):
