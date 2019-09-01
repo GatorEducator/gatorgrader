@@ -11,6 +11,10 @@ from gator import repository
 from gator import run
 from gator import util
 
+import snoop
+
+snoop.install(color="rrt")
+
 
 def report_result(status, message, diagnostic):
     """Set the report after running a check."""
@@ -261,6 +265,7 @@ def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=Fals
     return met_or_exceeded_count
 
 
+# @snoop
 def invoke_all_minimum_word_count_checks(
     filecheck, directory, expected_count, count_function, conclusion, exact=False
 ):
@@ -322,7 +327,7 @@ def invoke_all_minimum_word_count_checks(
             actual_count = util.get_first_minimum_value_deep(actual_count_dictionary)[
                 1
             ][1]
-        # --> exactness is required, so the first value that does not match the specified value
+        # --> exactness is required, so find the first value that does not match the specified value
         elif exact:
             actual_count = util.get_first_not_equal_value_deep(
                 actual_count_dictionary, expected_count
