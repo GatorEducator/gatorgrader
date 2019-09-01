@@ -8,9 +8,6 @@ import os
 
 from num2words import num2words
 
-# import snoop
-# snoop.install(color="rrt")
-
 
 def verify_gatorgrader_home(current_gatorgrader_home):
     """Verify that the GATORGRADER_HOME variable is set correctly."""
@@ -134,10 +131,12 @@ def get_first_not_equal_value(input_dictionary, value):
     """Return the first value not equal to the provided value."""
     found_item = 0
     found_count = 0
+    # search through the keys and values (i.e., items and counts), looking
+    # for one that is not equal to the provided value
     for item, count in input_dictionary.items():
         # Found a specific item with a value not equal to the provided one.
         # Now, record the details about that item, indicate that it was
-        # found so as to leave this loop and the outer one as well.
+        # found so as to leave this loop and then the function
         if count != value:
             found_count = count
             found_item = item
