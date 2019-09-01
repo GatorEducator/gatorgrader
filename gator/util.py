@@ -287,15 +287,19 @@ def get_file_diagnostic_deep_not_exact(file_count_dictionary):
     return constants.markers.In_A_File, 0
 
 
-@snoop
 def get_file_diagnostic_deep_exact(file_count_dictionary, value):
     """Create a full diagnostic based on the deep dictionary of (file name, entity-counts dictionary)."""
     # create a diagnostics like "in the <filename>" based on the dictionary
     # that contains the fragment counts in each of the files with a wildcard
     if file_count_dictionary:
         file_details = get_first_not_equal_value_deep(file_count_dictionary, value)
+        # No values were found after a deep non-equality search, which means that either
+        # this was a "non-deep" dictionary or there are no matching values. Try a non-deep
+        # search which will return (0, 0) when nothing is also found, thereby signalling
+        # that, in fact, there are no exact matches in the data set.
         if file_details == {}:
             file_details = get_first_not_equal_value(file_count_dictionary, value)
+        # there is some type of exact match in the data set, so extract and return it
         if file_details != {} and file_details != (0, 0):
             file_name = file_details[0]
             file_count = file_details[1][1]
