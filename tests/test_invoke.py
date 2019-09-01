@@ -170,6 +170,7 @@ def test_file_exists_in_directory_check_words_exact(reset_results_dictionary, tm
         4,
         fragments.count_minimum_words,
         constants.words.Minimum,
+        True
     )
     details = report.get_result()
     assert details is not None
@@ -180,6 +181,7 @@ def test_file_exists_in_directory_check_words_exact(reset_results_dictionary, tm
         200,
         fragments.count_minimum_words,
         constants.words.Minimum,
+        True
     )
     details = report.get_result()
     assert details is not None
