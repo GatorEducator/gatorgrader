@@ -131,6 +131,21 @@ def get_first_not_equal_value_deep(input_dictionary, value):
     return filename_count_dictionary
 
 
+def get_first_not_equal_value(input_dictionary, value):
+    """Return the first value not equal to the provided value."""
+    found_item = 0
+    found_count = 0
+    for item, count in input_dictionary.items():
+        # Found a specific item with a value not equal to the provided one.
+        # Now, record the details about that item, indicate that it was
+        # found so as to leave this loop and the outer one as well.
+        if count != value:
+            found_count = count
+            found_item = item
+            break
+    return found_item, found_count
+
+
 def get_first_value(input_dictionary, finder=min):
     """Return the values matched by a finder function."""
     # pick the key and value that is matched by the finder
@@ -246,12 +261,11 @@ def get_file_diagnostic(file_count_dictionary):
         file_name_phrase = constants.words.In_The + constants.markers.Space + file_name
         return file_name_phrase
     # since there are no file names and no counts of entities because the dictionary
-    # is empty, return the "in a file" string instead of a diagnostic phrase
-    return constants.markers.In_A_File
+    # is empty, return a diagnostic to indicate that the file is unknown
+    return constants.words.In_The + constants.markers.Space + constants.markers.Unknown_File
 
 
-# @snoop
-def get_file_diagnostic_deep(file_count_dictionary):
+def get_file_diagnostic_deep_not_exact(file_count_dictionary):
     """Create a full diagnostic based on the deep dictionary of (file name, entity-counts dictionary)."""
     # create a diagnostics like "in the <filename>" based on the dictionary
     # that contains the fragment counts in each of the files with a wildcard
@@ -265,6 +279,31 @@ def get_file_diagnostic_deep(file_count_dictionary):
     # is empty, return the "in a file" string instead of a diagnostic phrase. Also,
     # return a count of zero to indicate that nothing was found
     return constants.markers.In_A_File, 0
+
+
+# @snoop
+def get_file_diagnostic_deep_exact(file_count_dictionary, value):
+    """Create a full diagnostic based on the deep dictionary of (file name, entity-counts dictionary)."""
+    # create a diagnostics like "in the <filename>" based on the dictionary
+    # that contains the fragment counts in each of the files with a wildcard
+    if file_count_dictionary:
+        file_details = get_first_not_equal_value_deep(file_count_dictionary, value)
+        if file_details == {}:
+            file_details = get_first_not_equal_value(file_count_dictionary, value)
+        file_name = file_details[0]
+        file_count = file_details[1][1]
+        file_name_phrase = constants.words.In_The + constants.markers.Space + file_name
+        return file_name_phrase, file_count
+    # since there are no file names and no counts of entities because the dictionary
+    # is empty, return the "in a file" string instead of a diagnostic phrase. Also,
+    # return a count of zero to indicate that nothing was found
+    return constants.markers.In_A_File, 0
+
+
+# @snoop
+def get_file_diagnostic_deep(file_count_dictionary):
+    """Create a full diagnostic based on the deep dictionary of (file name, entity-counts dictionary)."""
+    return get_file_diagnostic_deep_not_exact(file_count_dictionary)
 
 
 # def get_file_diagnostic(file_count_dictionary, equals_count=constants.markers.Invalid):
