@@ -178,6 +178,8 @@ def invoke_all_comment_checks(
         actual_count = util.get_first_minimum_value_deep(comment_count_details)
         if actual_count != (0, 0):
             actual_count = actual_count[1][1]
+        else:
+            actual_count = 0
         # get the "most minimal" actual_count from the flattened report from previously run check
         fragment_diagnostic, fragment_count = util.get_file_diagnostic_deep_not_exact(
             comment_count_details
