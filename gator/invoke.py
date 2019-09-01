@@ -86,7 +86,7 @@ def invoke_file_in_directory_check(filecheck, directory):
 
 
 # pylint: disable=bad-continuation
-# @snoop
+@snoop
 def invoke_all_comment_checks(
     filecheck, directory, expected_count, comment_type, language, exact=False
 ):
@@ -173,12 +173,32 @@ def invoke_all_comment_checks(
             + language
             + " comment(s)"
         )
-    # get the "most minimal" actual_count from the flattened report from previously run check
-    fragment_diagnostic, fragment_count = util.get_file_diagnostic_deep(
-        comment_count_details
-    )
-    if fragment_diagnostic:
-        actual_count = fragment_count
+    if not exact:
+        # actual_count = util.get_first_minimum_value_deep(comment_count_details)[1][1]
+        actual_count = util.get_first_minimum_value_deep(comment_count_details)
+        if actual_count != (0, 0):
+            actual_count = actual_count[1][1]
+        # get the "most minimal" actual_count from the flattened report from previously run check
+        fragment_diagnostic, fragment_count = util.get_file_diagnostic_deep_not_exact(
+            comment_count_details
+        )
+    # --> exactness is required, so the first value that does not match the specified value
+    elif exact:
+        fragment_diagnostic, fragment_count = util.get_file_diagnostic_deep_exact(
+            comment_count_details, expected_count
+        )
+        new_actual_count = util.get_first_not_equal_value_deep(
+            comment_count_details, expected_count
+        )
+        if new_actual_count == {}:
+            new_actual_count = util.get_first_not_equal_value(
+                comment_count_details, expected_count
+            )
+        if new_actual_count != (0, 0):
+            new_actual_count = new_actual_count[1][1]
+            if new_actual_count != actual_count:
+                met_or_exceeded_count = False
+                actual_count = new_actual_count
     diagnostic = (
         "Found "
         + str(actual_count)
