@@ -356,6 +356,34 @@ def test_get_file_diagnostic_deep_exact_empty_dictionary():
     assert found == ("in a file", 0)
 
 
+def test_get_file_diagnostic_deep_exact_deep_dictionary_not_equal():
+    """Check if getting a file diagnostic with a non-deep dictionary works."""
+    input_file_one = {"John": 21, "Mike": 21, "Sarah": 21, "Bob": 21}
+    input_file_two = {"John": 21, "Mike": 21, "Sarah": 21, "Bob": 21}
+    input_file_three = {"John": 21, "Mike": 21, "Sarah": 21, "Bob": 22}
+    outer_dictionary = {
+        "input_file_one": input_file_one,
+        "input_file_two": input_file_two,
+        "input_file_three": input_file_three,
+    }
+    found = util.get_file_diagnostic_deep_exact(outer_dictionary, 21)
+    assert found != {}
+
+
+def test_get_file_diagnostic_deep_exact_deep_dictionary_all_equal():
+    """Check if getting a file diagnostic with a non-deep dictionary works."""
+    input_file_one = {"John": 21, "Mike": 21, "Sarah": 21, "Bob": 21}
+    input_file_two = {"John": 21, "Mike": 21, "Sarah": 21, "Bob": 21}
+    input_file_three = {"John": 21, "Mike": 21, "Sarah": 21, "Bob": 21}
+    outer_dictionary = {
+        "input_file_one": input_file_one,
+        "input_file_two": input_file_two,
+        "input_file_three": input_file_three,
+    }
+    found = util.get_file_diagnostic_deep_exact(outer_dictionary, 21)
+    assert found == ('in a file', 0)
+
+
 def test_get_file_diagnostic_deep_not_exact_empty_dictionary():
     """Check if getting a file diagnostic with an empty dictionary works."""
     empty_dictionary = {}
