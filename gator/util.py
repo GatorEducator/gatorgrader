@@ -303,7 +303,9 @@ def get_file_diagnostic_deep_exact(file_count_dictionary, value):
         if file_details != {} and file_details != (0, 0):
             file_name = file_details[0]
             file_count = file_details[1][1]
-            file_name_phrase = constants.words.In_The + constants.markers.Space + file_name
+            file_name_phrase = (
+                constants.words.In_The + constants.markers.Space + file_name
+            )
             return file_name_phrase, file_count
     # since there are no file names and no counts of entities because the dictionary
     # is empty, return the "in a file" string instead of a diagnostic phrase. Also,
