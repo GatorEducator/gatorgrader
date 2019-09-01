@@ -11,9 +11,8 @@ from gator import repository
 from gator import run
 from gator import util
 
-import snoop
-
-snoop.install(color="rrt")
+# import snoop
+# snoop.install(color="rrt")
 
 
 def report_result(status, message, diagnostic):
@@ -504,6 +503,11 @@ def invoke_all_fragment_checks(
             )
     # produce the diagnostic and report the result
     fragment_diagnostic = util.get_file_diagnostic(actual_count_dictionary)
+    # when the file is "unknown" then this means that the content is from a command
+    # and thus it is better to use the generic phrase "file" instead of this default
+    fragment_diagnostic = fragment_diagnostic.replace(
+        constants.markers.Unknown_File, constants.markers.File
+    )
     diagnostic = (
         "Found "
         + str(actual_count)

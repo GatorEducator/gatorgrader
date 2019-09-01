@@ -4,9 +4,8 @@ from gator import constants
 from gator import files
 from gator import util
 
-import snoop
-
-snoop.install(color="rrt")
+# import snoop
+# snoop.install(color="rrt")
 
 
 # pylint: disable=bad-continuation

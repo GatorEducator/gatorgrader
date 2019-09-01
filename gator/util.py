@@ -8,9 +8,8 @@ import os
 
 from num2words import num2words
 
-import snoop
-
-snoop.install(color="rrt")
+# import snoop
+# snoop.install(color="rrt")
 
 
 def verify_gatorgrader_home(current_gatorgrader_home):
