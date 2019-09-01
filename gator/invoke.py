@@ -168,8 +168,8 @@ def invoke_all_comment_checks(
             + language
             + " comment(s)"
         )
+    # --> exactness is not required, so find the first minimum value
     if not exact:
-        # actual_count = util.get_first_minimum_value_deep(comment_count_details)[1][1]
         actual_count = util.get_first_minimum_value_deep(comment_count_details)
         if actual_count != (0, 0):
             actual_count = actual_count[1][1]
@@ -179,7 +179,7 @@ def invoke_all_comment_checks(
         fragment_diagnostic, fragment_count = util.get_file_diagnostic_deep_not_exact(
             comment_count_details
         )
-    # --> exactness is required, so the first value that does not match the specified value
+    # --> exactness is required, so find the first value that does not match the specified value
     elif exact:
         fragment_diagnostic, fragment_count = util.get_file_diagnostic_deep_exact(
             comment_count_details, expected_count
