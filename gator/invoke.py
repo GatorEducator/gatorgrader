@@ -345,6 +345,7 @@ def invoke_all_minimum_word_count_checks(
     return met_or_exceeded_count
 
 
+@snoop
 def invoke_all_total_word_count_checks(
     filecheck, directory, expected_count, count_function, conclusion, exact=False
 ):
@@ -398,16 +399,28 @@ def invoke_all_total_word_count_checks(
             actual_count_dictionary
         )
         filename_count = sum_actual_count_dictionary[filename]
-    # since there is a word_diagnostic, add it to the conclusion of diagnostic
-    # otherwise, the conclusion will always contain "in every"
-    diagnostic = (
-        "Found "
-        + str(filename_count)
-        + constants.markers.Space
-        + conclusion
-        + constants.markers.Space
-        + filename_diagnostic
-    )
+    if filename_diagnostic is not constants.markers.Nothing:
+        diagnostic = (
+            "Found "
+            + str(filename_count)
+            + constants.markers.Space
+            + conclusion
+            + constants.markers.Space
+            + filename_diagnostic
+        )
+    else:
+        diagnostic = (
+            "Did not find "
+            + str(filename_count)
+            + constants.markers.Space
+            + conclusion
+            + constants.markers.Space
+            + constants.words.In_The
+            + constants.markers.Space
+            + constants.markers.Unknown_File
+            + constants.markers.Space
+            + constants.markers.File
+        )
     report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
