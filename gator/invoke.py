@@ -803,6 +803,9 @@ def invoke_all_count_checks(
     # If a wildcard (i.e., "*.py") was given for the filename, then
     # this diagnostic is customized for the file that first breaks the check.
     fragment_diagnostic = util.get_file_diagnostic(actual_count_dictionary)
+    # when the file is "unknown" then this means that the content is from a command
+    # and thus it is better to use the generic phrase "file" instead of this default
+    fragment_diagnostic = fragment_diagnostic.replace(constants.markers.Unknown_File, constants.markers.File)
     diagnostic = (
         "Found "
         + str(actual_count)
