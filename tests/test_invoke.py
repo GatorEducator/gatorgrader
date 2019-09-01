@@ -151,6 +151,42 @@ def test_file_exists_in_directory_check_words(reset_results_dictionary, tmpdir):
 
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
+def test_file_exists_in_directory_check_words_no_matching_file(reset_results_dictionary, tmpdir):
+    """Check that the checking of words works correctly."""
+    reflection_file = tmpdir.mkdir("sub").join("reflection.md")
+    reflection_file.write(
+        "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
+    )
+    assert (
+        reflection_file.read()
+        == "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
+    )
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
+    reflection_file = "reflectionWRONG.md"
+    invoke.invoke_all_minimum_word_count_checks(
+        reflection_file,
+        directory,
+        4,
+        fragments.count_minimum_words,
+        constants.words.Minimum,
+    )
+    details = report.get_result()
+    assert details is not None
+    report.reset()
+    invoke.invoke_all_minimum_word_count_checks(
+        reflection_file,
+        directory,
+        200,
+        fragments.count_minimum_words,
+        constants.words.Minimum,
+    )
+    details = report.get_result()
+    assert details is not None
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check_words_exact(reset_results_dictionary, tmpdir):
     """Check that the checking of words works exact correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
