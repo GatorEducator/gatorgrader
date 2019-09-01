@@ -138,8 +138,10 @@ def get_first_not_equal_value(input_dictionary, value):
     for item, count in input_dictionary.items():
         # Found a specific item with a value not equal to the provided one.
         # Now, record the details about that item, indicate that it was
-        # found so as to leave this loop and then the function
-        if count != value:
+        # found so as to leave this loop and then the function.
+        # Maybe Risky: only do a comparison with ints. This handles the case when
+        # a not-deep search was perform and then this function was called.
+        if isinstance(count, int) and count != value:
             found_count = count
             found_item = item
             break
@@ -285,6 +287,7 @@ def get_file_diagnostic_deep_not_exact(file_count_dictionary):
     return constants.markers.In_A_File, 0
 
 
+@snoop
 def get_file_diagnostic_deep_exact(file_count_dictionary, value):
     """Create a full diagnostic based on the deep dictionary of (file name, entity-counts dictionary)."""
     # create a diagnostics like "in the <filename>" based on the dictionary
@@ -293,10 +296,11 @@ def get_file_diagnostic_deep_exact(file_count_dictionary, value):
         file_details = get_first_not_equal_value_deep(file_count_dictionary, value)
         if file_details == {}:
             file_details = get_first_not_equal_value(file_count_dictionary, value)
-        file_name = file_details[0]
-        file_count = file_details[1][1]
-        file_name_phrase = constants.words.In_The + constants.markers.Space + file_name
-        return file_name_phrase, file_count
+        if file_details != {} and file_details != (0, 0):
+            file_name = file_details[0]
+            file_count = file_details[1][1]
+            file_name_phrase = constants.words.In_The + constants.markers.Space + file_name
+            return file_name_phrase, file_count
     # since there are no file names and no counts of entities because the dictionary
     # is empty, return the "in a file" string instead of a diagnostic phrase. Also,
     # return a count of zero to indicate that nothing was found
