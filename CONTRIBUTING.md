@@ -125,6 +125,25 @@ Linux and MacOS on Travis CI and in Windows on AppVeyor. Whenever feasible, we
 run all tests and checks on all three of these operating systems and the most
 recent version of Python versions 3.6 and 3.7.
 
+### Program Debugging
+
+The developers of GatorGrader use [Snoop](https://github.com/alexmojaki/snoop)
+to suppert interactive debugging in circumstances when, say, a test case fails
+or the program crashes during manual testing. You can enable Snoop-based
+debugging for a specific Python module by adding the following code to the top
+of the file, substituting `rrt` for a [color
+scheme](https://help.farbox.com/pygments.html) that you enjoy using.
+
+```python
+import snoop
+snoop.install(color="rrt")
+```
+
+For any Python function for which you want to enable Snoop-based debugging, you
+can add the `@snoop` annotation immediately before the declaration of the
+function. More details about the use of Snoop for debugging are available on
+Snoop's GitHub repository.
+
 ## External Resources
 
 GatorGrader's creators give presentations about the development, use, and
