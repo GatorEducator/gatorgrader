@@ -73,7 +73,10 @@ script:
   - mdl CONTRIBUTING.md
   - mdl CODE_OF_CONDUCT.md
 
-# report information to CodeCov and Codacy
+# report information to CodeCov and Codacy and tag the release of a pull request:
+# --> Report coverage to CodeCov, which ensures that coverages does not drop by more than a threshold
+# --> Report coverage to Codacy, which reports changes at various levels of granularity
+# --> Automatically apply a release tag to the pull request using pr-tag-release
 after_success:
   - pipenv run codecov
   - pipenv run python-codacy-coverage -r coverage.xml
