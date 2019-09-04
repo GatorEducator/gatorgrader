@@ -6,9 +6,6 @@ from gator import checkers
 from gator import constants
 from gator import invoke
 
-# import snoop
-# snoop.install(color="rrt")
-
 
 def get_parser():
     """Get a parser for the arguments provided on the command-line."""

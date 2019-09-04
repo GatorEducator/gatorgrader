@@ -90,7 +90,6 @@ def flatten_dictionary_values(input_dictionary):
     return flat_dictionary
 
 
-# @snoop
 def get_first_value_deep(input_dictionary, finder=min):
     """Return the first deep value matched by a finder function."""
     filename_count_dictionary = {}

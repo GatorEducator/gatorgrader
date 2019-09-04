@@ -4,12 +4,8 @@ from gator import constants
 from gator import files
 from gator import util
 
-# import snoop
-# snoop.install(color="rrt")
-
 
 # pylint: disable=bad-continuation
-# @snoop
 def entity_greater_than_count_total(
     given_file, containing_directory, expected_count, checking_function, exact=False
 ):
@@ -26,7 +22,6 @@ def entity_greater_than_count_total(
 
 
 # pylint: disable=bad-continuation
-# @snoop
 def entity_greater_than_count(
     given_file, containing_directory, expected_count, checking_function, exact=False
 ):

@@ -11,9 +11,6 @@ from gator import repository
 from gator import run
 from gator import util
 
-# import snoop
-# snoop.install(color="rrt")
-
 
 def report_result(status, message, diagnostic):
     """Set the report after running a check."""
@@ -264,7 +261,6 @@ def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=Fals
     return met_or_exceeded_count
 
 
-# @snoop
 def invoke_all_minimum_word_count_checks(
     filecheck, directory, expected_count, count_function, conclusion, exact=False
 ):
