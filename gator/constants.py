@@ -83,12 +83,14 @@ markers = create_constants(
     In_A_File="in a file",
     Invalid=-1,
     Newline="\n",
+    No="No",
     No_Diagnostic="",
     Nothing="",
     Of_File="of file",
     Space=" ",
     Tab="   ",
     Unknown_File="unknown",
+    Yes="Yes",
 )
 
 # define the metavars
