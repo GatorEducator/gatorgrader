@@ -42,8 +42,7 @@ def get_parser():
     required_group.add_argument(
         "--count",
         type=int,
-        metavar="COUNT",
-        help="how many comments should exist",
+        help="how many single-line comments should exist",
         required=True,
     )
 
@@ -53,7 +52,7 @@ def get_parser():
         "--language",
         type=str,
         choices=[constants.languages.Java, constants.languages.Python],
-        help="language for the comments",
+        help="language for the single-line comments",
     )
 
     # }}}
