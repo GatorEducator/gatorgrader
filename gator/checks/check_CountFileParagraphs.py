@@ -42,7 +42,7 @@ def get_parser():
         "--count",
         type=int,
         metavar="COUNT",
-        help="how many lines should exist",
+        help="how many paragraphs should exist",
         required=True,
     )
 
