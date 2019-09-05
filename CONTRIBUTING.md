@@ -14,6 +14,7 @@ to effectively contribute to the project.
   + [Test Coverage](#test-coverage)
   + [Code Linting](#code-linting)
   + [Continuous Integration](#continuous-integration)
+  + [Program Debugging](#program-debugging)
 * [External Resources](#external-resources)
 
 ## Code of Conduct
