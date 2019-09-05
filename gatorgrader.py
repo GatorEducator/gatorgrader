@@ -6,8 +6,6 @@ from gator import orchestrate
 
 
 if __name__ == "__main__":
-    # assume that the checks pass and prove otherwise
-    exit_code = 0
     # orchestrate check(s) of the specified deliverable(s)
     exit_code = orchestrate.check(sys.argv[1:])
     # exit the program with the correct code
