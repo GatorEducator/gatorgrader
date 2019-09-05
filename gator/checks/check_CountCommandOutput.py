@@ -31,7 +31,6 @@ def get_parser():
     required_group.add_argument(
         "--count",
         type=int,
-        metavar="COUNT",
         help="how many of lines of output should exist",
         required=True,
     )
