@@ -268,7 +268,7 @@ def test_act_produces_output(
     provided_count,
     expected_result,
     tmpdir,
-    load_checker
+    load_checker,
 ):
     """Check that using the check produces output."""
     test_contents = """
@@ -416,7 +416,7 @@ def test_act_produces_output_with_exact(
     provided_count,
     expected_result,
     tmpdir,
-    load_checker
+    load_checker,
 ):
     """Check that using the check produces output."""
     test_contents = """
