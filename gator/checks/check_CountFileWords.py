@@ -43,7 +43,6 @@ def get_parser():
     required_group.add_argument(
         "--count",
         type=int,
-        metavar="COUNT",
         help="how many total words should exist in the file",
         required=True,
     )
