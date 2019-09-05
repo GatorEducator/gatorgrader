@@ -23,7 +23,7 @@ def get_parser():
     # COMMAND: the command to execute
     # REQUIRED? Yes
     required_group.add_argument(
-        "--command", type=str, help="command to execute", required=True
+        "--command", type=str, metavar="CMD", help="command to execute", required=True
     )
 
     # FRAGMENT: the fragment that should appear in the command's output
@@ -31,6 +31,7 @@ def get_parser():
     required_group.add_argument(
         "--fragment",
         type=str,
+        metavar="FRAG",
         help="fragment that exists in command output",
         required=True,
     )
@@ -38,11 +39,7 @@ def get_parser():
     # COUNT: the number of lines of output
     # REQUIRED? Yes
     required_group.add_argument(
-        "--count",
-        type=int,
-        metavar="COUNT",
-        help="how many of an entity should exist",
-        required=True,
+        "--count", type=int, help="how many of fragment should exist", required=True
     )
 
     # }}}
