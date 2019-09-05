@@ -32,7 +32,7 @@ def get_parser():
         "--count",
         type=int,
         metavar="COUNT",
-        help="how many of an entity should exist",
+        help="how many of lines of output should exist",
         required=True,
     )
 
