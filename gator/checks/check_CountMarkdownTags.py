@@ -5,6 +5,8 @@ import argparse
 from gator import checkers
 from gator import invoke
 
+import os
+
 
 def get_parser():
     """Get a parser for the arguments provided on the command-line."""
@@ -13,7 +15,7 @@ def get_parser():
     parser = argparse.ArgumentParser(
         prog="CountMarkdownTags",
         description="Check Provided by GatorGrader: CountMarkdownTags",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
 
     # Required Named Checker Arguments {{{
@@ -68,7 +70,11 @@ def get_parser():
 
     # add an epilog to list some of the available tags
     # including those checks that are internal and user-provided
-    parser.epilog = "examples of available tags:\r\n  code, code_block, heading, image, link, list, paragraph\r\n  reference: https://spec.commonmark.org/0.29/"
+    parser.epilog = (
+        "examples of available tags: code, code_block, heading, image, link, list, paragraph"
+        + os.linesep
+        + "markdown tag reference: https://spec.commonmark.org/0.29/"
+    )
 
     return parser
 
