@@ -37,22 +37,23 @@ def get_parser():
         required=True,
     )
 
-    # COUNT: the number of lines of output
+    # COUNT: the number of multiple-line comments
     # REQUIRED? Yes
     required_group.add_argument(
         "--count",
         type=int,
-        help="how many lines should exist",
+        help="how many multiple-line comments should exist",
         required=True,
     )
 
-    # LANGUAGE: whether the check is for single-line comments in Java or Python
+    # LANGUAGE: whether the check is for multiple-line comments in Java or Python
     # REQUIRED? Yes
     required_group.add_argument(
         "--language",
         type=str,
+        metavar="LANG",
         choices=[constants.languages.Java, constants.languages.Python],
-        help="language for the comments",
+        help="language for the multiple-line comments",
     )
 
     # }}}
@@ -85,7 +86,7 @@ def act(main_parsed_arguments, check_remaining_arguments):
     # extract the two arguments for this check:
     # --> file is the name of the file for which the search is conducted
     # --> directory is the name of the directory that should contain the specified file
-    # --> count is required to specify the expected number of paragraphs in the file
+    # --> count is required to specify the expected number of multiple-line comments in the file
     # --> language is the programming language for the comments, either Python or Java
     # --> exact is optional, but will either be True or False and False by default
     check_parsed_arguments = parse(check_remaining_arguments)
