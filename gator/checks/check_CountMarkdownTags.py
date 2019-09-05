@@ -46,10 +46,7 @@ def get_parser():
     # COUNT: the number of lines of output
     # REQUIRED? Yes
     required_group.add_argument(
-        "--count",
-        type=int,
-        help="how many tag instances should exist",
-        required=True,
+        "--count", type=int, help="how many tag instances should exist", required=True
     )
 
     # }}}
@@ -71,7 +68,7 @@ def get_parser():
 
     # add an epilog to list some of the available tags
     # including those checks that are internal and user-provided
-    parser.epilog = "examples of available tags:\r\n  code, heading, image, link, list, paragraph\r\n  reference: https://spec.commonmark.org/0.29/"
+    parser.epilog = "examples of available tags:\r\n  code, code_block, heading, image, link, list, paragraph\r\n  reference: https://spec.commonmark.org/0.29/"
 
     return parser
 
