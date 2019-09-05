@@ -40,10 +40,7 @@ def get_parser():
     # COUNT: the number of lines of output
     # REQUIRED? Yes
     required_group.add_argument(
-        "--count",
-        type=int,
-        help="how many lines should exist",
-        required=True,
+        "--count", type=int, help="how many lines should exist", required=True
     )
 
     # }}}
