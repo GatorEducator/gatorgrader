@@ -484,7 +484,7 @@ def test_act_produces_output_java(
     provided_count,
     expected_result,
     tmpdir,
-    load_checker
+    load_checker,
 ):
     """Check that using the check produces output."""
     testargs = [os.getcwd()]
