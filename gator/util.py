@@ -31,7 +31,7 @@ def verify_gatorgrader_home(current_gatorgrader_home):
 
 
 def get_gatorgrader_home():
-    """Return GATORGRADER_HOME environment variable if is valid directory."""
+    """Return GATORGRADER_HOME environment variable if it is valid directory."""
     current_gatorgrader_home = os.environ.get(constants.environmentvariables.Home)
     # the current_gatorgrader_home is acceptable, so use it
     if verify_gatorgrader_home(current_gatorgrader_home) is not False:
