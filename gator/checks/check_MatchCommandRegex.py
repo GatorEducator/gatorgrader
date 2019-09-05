@@ -23,7 +23,7 @@ def get_parser():
     # COMMAND: the command to execute
     # REQUIRED? Yes
     required_group.add_argument(
-        "--command", type=str, help="command to execute", required=True
+        "--command", type=str, metavar="CMD", help="command to execute", required=True
     )
 
     # REGEX: the regular expression that should match the command's output
@@ -38,10 +38,7 @@ def get_parser():
     # COUNT: the number of regular expression matches
     # REQUIRED? Yes
     required_group.add_argument(
-        "--count",
-        type=int,
-        help="how many regex matches should exist",
-        required=True,
+        "--count", type=int, help="how many regex matches should exist", required=True
     )
 
     # }}}
