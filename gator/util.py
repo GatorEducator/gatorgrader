@@ -62,8 +62,8 @@ def get_human_answer(boolean_value):
 def get_symbol_answer(boolean_value):
     """Return a symbol response for the boolean_value."""
     if boolean_value is True:
-        return "✔"
-    return "✘"
+        return constants.markers.Checkmark
+    return constants.markers.Xmark
 
 
 def sum_dictionary_values(input_dictionary):
