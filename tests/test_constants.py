@@ -28,6 +28,8 @@ def test_markers_constant_defined():
     assert constants.markers.File == "file"
     assert constants.markers.First == 1
     assert constants.markers.Invalid == -1
+    assert constants.markers.Yes == "Yes"
+    assert constants.markers.No == "No"
 
 
 def test_paths_constant_defined():
@@ -186,6 +188,10 @@ def test_markers_constant_cannot_redefine():
         constants.markers.First = 1
     with pytest.raises(AttributeError):
         constants.markers.Invalid = 10
+    with pytest.raises(AttributeError):
+        constants.markers.Yes = "Yes"
+    with pytest.raises(AttributeError):
+        constants.markers.No = "No"
 
 
 def test_paths_constant_cannot_redefine():
