@@ -75,6 +75,7 @@ markdown = create_constants("markdown", Paragraph="paragraph", Softbreak="softbr
 markers = create_constants(
     "markers",
     Arrow="➔",
+    Checkmark="✔",
     Command_Error="Command_No_Output",
     Empty=b"",
     File="file",
@@ -90,6 +91,7 @@ markers = create_constants(
     Space=" ",
     Tab="   ",
     Unknown_File="unknown",
+    Xmark="✘",
     Yes="Yes",
 )
 
