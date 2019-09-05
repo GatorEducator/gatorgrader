@@ -19,9 +19,23 @@ def reset_checker_source():
     checkers.reset_source()
 
 
-def test_reset_checker_source():
+def test_reset_checker_source(load_checker):
     """Ensure that reset of the checker source works correctly."""
     assert checkers.CHECKER_SOURCE is None
+    testargs = [os.getcwd()]
+    commandline_arguments = [
+        "CountCommandOutput",
+        "--command",
+        'echo "CorrectCommand"',
+        "--count",
+        "100",
+    ]
+    with patch.object(sys, "argv", testargs):
+        parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+        args_verified = arguments.verify(parsed_arguments)
+        assert args_verified is True
+        check_exists, checker_source, check_file = load_checker(parsed_arguments)
+        assert check_exists is True
     checkers.reset_source()
     assert checkers.CHECKER_SOURCE is None
 
