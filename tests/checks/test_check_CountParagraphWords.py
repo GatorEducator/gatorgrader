@@ -8,7 +8,6 @@ from unittest.mock import patch
 
 
 from gator import arguments
-from gator import checkers
 from gator import report
 from gator.checks import check_CountParagraphWords
 
