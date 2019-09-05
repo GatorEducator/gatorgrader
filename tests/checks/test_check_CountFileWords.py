@@ -8,7 +8,6 @@ from unittest.mock import patch
 
 
 from gator import arguments
-from gator import checkers
 from gator import report
 from gator.checks import check_CountFileWords
 
@@ -160,6 +159,7 @@ def test_act_produces_output(
     provided_count,
     expected_result,
     tmpdir,
+    load_checker,
 ):
     """Check that using the check produces output."""
     testargs = [os.getcwd()]
@@ -188,11 +188,7 @@ def test_act_produces_output(
         parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
         args_verified = arguments.verify(parsed_arguments)
         assert args_verified is True
-        external_checker_directory = checkers.get_checker_dir(parsed_arguments)
-        checker_source = checkers.get_source([external_checker_directory])
-        check_name = checkers.get_chosen_check(parsed_arguments)
-        check_file = checkers.transform_check(check_name)
-        check_exists = checkers.verify_check_existence(check_file, checker_source)
+        check_exists, checker_source, check_file = load_checker(parsed_arguments)
         assert check_exists is True
         check = checker_source.load_plugin(check_file)
         check_result = check.act(parsed_arguments, remaining_arguments)
