@@ -42,7 +42,6 @@ def get_parser():
     required_group.add_argument(
         "--count",
         type=int,
-        metavar="COUNT",
         help="how many lines should exist",
         required=True,
     )
