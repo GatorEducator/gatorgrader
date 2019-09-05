@@ -75,20 +75,20 @@ markdown = create_constants("markdown", Paragraph="paragraph", Softbreak="softbr
 markers = create_constants(
     "markers",
     Arrow="➔",
+    Command_Error="Command_No_Output",
     Empty=b"",
+    File="file",
+    First=1,
+    Indent="  ",
+    In_A_File="in a file",
+    Invalid=-1,
     Newline="\n",
     No_Diagnostic="",
-    Command_Error="Command_No_Output",
     Nothing="",
-    Space=" ",
-    Indent="  ",
-    Tab="   ",
-    File="file",
     Of_File="of file",
-    In_A_File="in a file",
+    Space=" ",
+    Tab="   ",
     Unknown_File="unknown",
-    First=1,
-    Invalid=-1,
 )
 
 # define the metavars
