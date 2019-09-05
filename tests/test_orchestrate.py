@@ -236,6 +236,36 @@ def test_check_produces_correct_output(commandline_arguments, expected_result, c
                 "--exact",
             ],
         ),
+        (
+            [
+                "CountCommandOutput",
+                "--commanddoesnothave",
+                'echo "CorrectCommand"',
+                "--count",
+                "100",
+                "--exact",
+            ],
+        ),
+        (
+            [
+                "CountCommandOutput",
+                "--command",
+                'echo "CorrectCommand"',
+                "--countdoesnothave",
+                "100",
+                "--exact",
+            ],
+        ),
+        (
+            [
+                "CountCommandOutput",
+                "--command",
+                'echo "CorrectCommand"',
+                "--countdoesnothave",
+                "100",
+                "--exactnotcorrect",
+            ],
+        ),
     ],
 )
 def test_check_produces_correct_output_for_incorrect_check_specification(
