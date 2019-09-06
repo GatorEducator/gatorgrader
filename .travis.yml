@@ -9,7 +9,7 @@ os:
 
 # ignore the virtualenv that Travis creates
 # setup a secure login to CodeCov
-# set env variables for different jobs
+# set environment variables for different jobs
 env:
   # run build and test on two multiple versions of Python
   matrix:
@@ -33,7 +33,7 @@ before_install:
   - wget https://github.com/praekeltfoundation/travis-pyenv/releases/latest/download/setup-pyenv.sh
   - source setup-pyenv.sh
 
-# command to install dependencies (from Pipfile, not Pipfile.lock)
+# run commands to install dependencies (from Pipfile, not Pipfile.lock)
 # cannot use locked dependencies because of possible version changes
 # between PYENV_VERSION versions
 install:
@@ -48,9 +48,9 @@ notifications:
     on_success: change
     on_failure: always
 
-# use a cache to improve performance
-# cache pip installations
-# cache pyenv installations
+# use a cache to improve performance:
+# --> cache pip installations
+# --> cache pyenv installations
 cache:
   directories:
     - $HOME/.pyenv_cache
@@ -73,11 +73,14 @@ script:
   - mdl CONTRIBUTING.md
   - mdl CODE_OF_CONDUCT.md
 
-# report information to CodeCov and Codacy
+# report information to CodeCov and Codacy and tag the release of a pull request:
+# --> Report coverage to CodeCov, which ensures that coverages does not drop by more than a threshold
+# --> Report coverage to Codacy, which reports changes at various levels of granularity
+# --> Automatically apply a release tag to the pull request using pr-tag-release
 after_success:
   - pipenv run codecov
   - pipenv run python-codacy-coverage -r coverage.xml
-  - test "$PYENV_VERSION" = "3.7.2" && test "$TRAVIS_OS_NAME" = "linux" &&
+  - test "$PYENV_VERSION" = "3.7.3" && test "$TRAVIS_OS_NAME" = "linux" &&
     wget https://github.com/Michionlion/pr-tag-release/releases/latest/download/pr_tag_release.sh &&
     source pr_tag_release.sh
 

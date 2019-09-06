@@ -21,6 +21,29 @@ arguments = create_constants("arguments", Incorrect=2, Void=[])
 # define the codes for return values
 codes = create_constants("codes", Error=1, Success=0, No_Words=0)
 
+# define details about the checkers
+checkers = create_constants(
+    "checkers",
+    Check_Prefix="check_",
+    Internal_Checkers_Dir="gator/checks",
+    Function_Act="act",
+    Function_Get_Parser="get_parser",
+    Function_Parse="parse",
+    Plugin_Base_Identifier="GatorGraderPluginBase",
+)
+
+# define the command-line arguments
+# note that "--" arguments are optional
+# and those without "--" are positional
+commandlines = create_constants(
+    "commandlines",
+    Check="check",
+    Checker_Dir="--checkerdir",
+    Json="--json",
+    List_Checks="--listchecks",
+    No_Welcome="--nowelcome",
+)
+
 # define the types of comments
 comments = create_constants(
     "comments", Multiple_Line="multiple-line", Single_Line="single-line"
@@ -32,6 +55,16 @@ environmentvariables = create_constants("environmentvariables", Home="GATORGRADE
 # define reference function names in the program
 functions = create_constants("functions", Count_Total_Words="count_total_words")
 
+# define the help messages for command-line arguments
+help = create_constants(
+    "help",
+    Check="check to perform on the writing or source code",
+    Checker_Dir="directory containing user-provided checks",
+    Json="print the status report in JSON",
+    List_Checks="list the internal and user-provided checks",
+    No_Welcome="do not display the welcome message",
+)
+
 # define the programming languages for comment checks
 languages = create_constants("languages", "Java", "Python")
 
@@ -42,24 +75,35 @@ markdown = create_constants("markdown", Paragraph="paragraph", Softbreak="softbr
 markers = create_constants(
     "markers",
     Arrow="➔",
+    Checkmark="✔",
+    Command_Error="Command_No_Output",
     Empty=b"",
+    File="file",
+    First=1,
+    Indent="  ",
+    In_A_File="in a file",
+    Invalid=-1,
     Newline="\n",
+    No="No",
     No_Diagnostic="",
     Nothing="",
+    Of_File="of file",
     Space=" ",
     Tab="   ",
-    File="file",
-    Of_File="of file",
-    In_A_File="in a file",
-    First=1,
-    Invalid=-1,
+    Unknown_File="unknown",
+    Xmark="✘",
+    Yes="Yes",
 )
+
+# define the metavars
+metavars = create_constants("metavars", Check="CHECK", Dir="DIR")
 
 # define the names of modules in the system
 # note that this only defines those modules
 # that are reflectively called through their names
 modules = create_constants(
     "modules",
+    Checks="gator.checks",
     Display="gator.display",
     Invoke="gator.invoke",
     Report="gator.report",
@@ -69,14 +113,21 @@ modules = create_constants(
 # define the output formats
 outputs = create_constants("outputs", Json="JSON", Text="TEXT")
 
+# define the names of packages used in pluginbase
+packages = create_constants("packages", Checks="gator.checks")
+
 # define the paths for use with Pathlib:
 # --> Current_Directory: this will describe a shortcut to current directory
 # --> Current_Directory_Glob: will find all files (including dotfiles)
 #     in the current directory
 # --> Home: the name that must exist at the end of the project's home directory
 paths = create_constants(
-    "paths", Current_Directory=".", Current_Directory_Glob="*.*", Home="gatorgrader"
+    "paths", Current_Directory=".", Current_Directory_Glob="*", Home="gatorgrader"
 )
+
+# define the details about the program:
+# --> Name: the name of the program that is run
+program = create_constants("program", Name="gatorgrader.py")
 
 # define the names of fields in the result table
 # note that the variable name can be capitalized

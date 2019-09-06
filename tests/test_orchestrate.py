@@ -1,6 +1,10 @@
 """Test cases for the orchestrate module."""
 
 import pytest
+import os
+import sys
+
+from unittest.mock import patch
 
 from gator import constants
 from gator import orchestrate
@@ -13,11 +17,51 @@ def reset_results_dictionary():
     report.reset()
 
 
+@pytest.mark.parametrize(
+    "commandline_arguments",
+    [
+        (["--json", "CHECK"]),
+        (["--json", "--nowelcome", "CHECK"]),
+        (["--nowelcome", "CHECK"]),
+    ],
+)
+def test_verify_arguments(commandline_arguments):
+    """Check if the verification of arguments works from orchestrate."""
+    parsed_arguments, remaining_arguments = orchestrate.parse_arguments(
+        commandline_arguments
+    )
+    verification_status = orchestrate.verify_arguments(parsed_arguments)
+    assert parsed_arguments is not None
+    assert verification_status is True
+
+
+@pytest.mark.parametrize(
+    "commandline_arguments, expected_verification, action_count",
+    [
+        (["check_commits"], True, 1),
+        (["--json", "CHECK"], True, 1),
+        (["--json", "--nowelcome", "CHECK"], True, 0),
+        (["--nowelcome", "CHECK"], True, 0),
+        (["--nowelcome", "--checkerdir", "WRONG", "CHECK"], False, 3),
+    ],
+)
+def test_get_actions(commandline_arguments, expected_verification, action_count):
+    """Check if the generation of preliminary actions works from orchestrate."""
+    parsed_arguments, remaining_arguments = orchestrate.parse_arguments(
+        commandline_arguments
+    )
+    verification_status = orchestrate.verify_arguments(parsed_arguments)
+    assert parsed_arguments is not None
+    assert verification_status is expected_verification
+    needed_actions = orchestrate.get_actions(parsed_arguments, verification_status)
+    assert len(needed_actions) == action_count
+
+
 def test_perform_actions_no_parameters_welcome(capsys):
     """Check to see if perform can invoke welcome action with no parameters."""
     actions = []
     actions.append([orchestrate.DISPLAY, "welcome_message", []])
-    orchestrate.perform(actions)
+    orchestrate.perform_actions(actions)
     captured = capsys.readouterr()
     counted_newlines = captured.out.count("\n")
     assert "GatorGrader" in captured.out
@@ -29,7 +73,7 @@ def test_perform_actions_no_parameters_incorrect(capsys):
     """Check to see if perform can invoke welcome action with no parameters."""
     actions = []
     actions.append([orchestrate.DISPLAY, "incorrect_message", []])
-    orchestrate.perform(actions)
+    orchestrate.perform_actions(actions)
     captured = capsys.readouterr()
     counted_newlines = captured.out.count("\n")
     assert "Incorrect" in captured.out
@@ -43,469 +87,196 @@ def test_perform_actions_single_parameter_exit(capsys):
     actions = []
     with pytest.raises(SystemExit) as pytest_wrapped_e:
         actions.append([orchestrate.RUN, "run_exit", [constants.arguments.Incorrect]])
-        orchestrate.perform(actions)
+        orchestrate.perform_actions(actions)
     assert pytest_wrapped_e.type == SystemExit
     assert pytest_wrapped_e.value.code == 2
 
 
-def test_perform_actions_display_welcome_and_exit_check_arguments(capsys):
-    """Check the argument verification, messages, and exit."""
-    chosen_arguments = ["--directory", "D", "--file", "f"]
-    with pytest.raises(SystemExit) as pytest_wrapped_e:
-        arguments, actions = orchestrate.check_arguments(chosen_arguments)
-        assert arguments is not None
-        orchestrate.perform(actions)
-    assert pytest_wrapped_e.type == SystemExit
-    assert pytest_wrapped_e.value.code == 2
-    captured = capsys.readouterr()
-    counted_newlines = captured.out.count("\n")
-    assert "GatorGrader" in captured.out
-    assert counted_newlines == 6
+@pytest.mark.parametrize(
+    "commandline_arguments, expected_result",
+    [
+        (
+            [
+                "MatchCommandFragment",
+                "--command",
+                "WrongCommand",
+                "--fragment",
+                "NoFragment",
+                "--count",
+                "0",
+            ],
+            0,
+        ),
+        (
+            [
+                "MatchCommandFragment",
+                "--command",
+                "WrongCommand",
+                "--fragment",
+                "NoFragment",
+                "--count",
+                "0",
+                "--exact",
+            ],
+            0,
+        ),
+        (
+            [
+                "MatchCommandFragment",
+                "--command",
+                "WrongCommand",
+                "--fragment",
+                "NoFragment",
+                "--count",
+                "1000",
+            ],
+            1,
+        ),
+        (
+            [
+                "MatchCommandFragment",
+                "--command",
+                "WrongCommand",
+                "--fragment",
+                "NoFragment",
+                "--count",
+                "1000",
+                "--exact",
+            ],
+            1,
+        ),
+        (
+            [
+                "MatchCommandFragment",
+                "--command",
+                'echo "CorrectCommand"',
+                "--fragment",
+                "Corr",
+                "--count",
+                "1",
+            ],
+            0,
+        ),
+        (
+            [
+                "MatchCommandFragment",
+                "--command",
+                'echo "CorrectCommand"',
+                "--fragment",
+                "Corr",
+                "--count",
+                "2",
+                "--exact",
+            ],
+            1,
+        ),
+        (
+            [
+                "MatchCommandFragment",
+                "--command",
+                'echo "CorrectCommand"',
+                "--fragment",
+                "Corr",
+                "--count",
+                "100",
+            ],
+            1,
+        ),
+        (
+            [
+                "MatchCommandFragment",
+                "--command",
+                'echo "CorrectCommand"',
+                "--fragment",
+                "Corr",
+                "--count",
+                "100",
+                "--exact",
+            ],
+            1,
+        ),
+    ],
+)
+def test_check_produces_correct_output(commandline_arguments, expected_result, capsys):
+    """Ensure that using the check produces output."""
+    testargs = [os.getcwd()]
+    with patch.object(sys, "argv", testargs):
+        check_exit_code = orchestrate.check(commandline_arguments)
+        captured = capsys.readouterr()
+        counted_newlines = captured.out.count("\n")
+        assert check_exit_code == expected_result
+        assert captured.err == ""
+        assert captured.out != ""
+        assert counted_newlines > 5
+        assert "has exactly" in captured.out or "has at least" in captured.out
 
 
-def test_perform_actions_display_welcome_and_exit_check(capsys):
-    """Check the argument verification, messages, and exit."""
-    chosen_arguments = ["--directory", "D", "--file", "f"]
-    with pytest.raises(SystemExit) as pytest_wrapped_e:
-        orchestrate.check(chosen_arguments)
-    assert pytest_wrapped_e.type == SystemExit
-    assert pytest_wrapped_e.value.code == 2
-    captured = capsys.readouterr()
-    counted_newlines = captured.out.count("\n")
-    assert "GatorGrader" in captured.out
-    assert counted_newlines == 6
-
-
-def test_perform_actions_display_welcome_and_ready_check_arguments(capsys):
-    """Check the argument verification, messages, and continue."""
-    chosen_arguments = ["--directory", "D", "--file", "f", "--exists"]
-    arguments, actions = orchestrate.check_arguments(chosen_arguments)
-    orchestrate.perform(actions)
-    captured = capsys.readouterr()
-    counted_newlines = captured.out.count("\n")
-    assert arguments is not None
-    assert "GatorGrader" in captured.out
-    assert counted_newlines == 4
-
-
-# pylint: disable=redefined-outer-name
-# pylint: disable=bad-continuation
-def test_perform_actions_display_welcome_and_ready_check_commit(
-    capsys, reset_results_dictionary
+@pytest.mark.parametrize(
+    "commandline_arguments",
+    [
+        (
+            [
+                "CheckDoesNotExist",
+                "--command",
+                "WrongCommand",
+                "--fragment",
+                "NoFragment",
+                "--count",
+                "0",
+            ],
+        ),
+        (
+            [
+                "ListCheck",
+                "--listcheckdoesnothave",
+                "--fragment",
+                "NoFragment",
+                "--count",
+                "0",
+                "--exact",
+            ],
+        ),
+        (
+            [
+                "CountCommandOutput",
+                "--commanddoesnothave",
+                'echo "CorrectCommand"',
+                "--count",
+                "100",
+                "--exact",
+            ],
+        ),
+        (
+            [
+                "CountCommandOutput",
+                "--command",
+                'echo "CorrectCommand"',
+                "--countdoesnothave",
+                "100",
+                "--exact",
+            ],
+        ),
+        (
+            [
+                "CountCommandOutput",
+                "--command",
+                'echo "CorrectCommand"',
+                "--countdoesnothave",
+                "100",
+                "--exactnotcorrect",
+            ],
+        ),
+    ],
+)
+def test_check_produces_correct_output_for_incorrect_check_specification(
+    commandline_arguments, capsys
 ):
-    """Check the argument verification, messages, and continue."""
-    chosen_arguments = ["--commits", "33"]
-    exit_code = orchestrate.check(chosen_arguments)
+    """Ensure that using the check produces output."""
+    with pytest.raises(SystemExit):
+        _ = orchestrate.check(commandline_arguments)
     captured = capsys.readouterr()
     counted_newlines = captured.out.count("\n")
-    assert "GatorGrader" in captured.out
-    assert counted_newlines == 6
-    assert exit_code == 0
-
-
-# pylint: disable=redefined-outer-name
-# pylint: disable=bad-continuation
-def test_perform_actions_display_welcome_and_ready_check_exists(
-    capsys, reset_results_dictionary
-):
-    """Check the argument verification, messages, and continue."""
-    chosen_arguments = ["--directory", "D", "--file", "f", "--exists"]
-    exit_code = orchestrate.check(chosen_arguments)
-    captured = capsys.readouterr()
-    counted_newlines = captured.out.count("\n")
-    assert "GatorGrader" in captured.out
-    assert counted_newlines == 7
-    assert exit_code == 1
-
-
-# pylint: disable=redefined-outer-name
-# pylint: disable=bad-continuation
-def test_perform_actions_display_welcome_and_ready_check_comments_single(
-    capsys, reset_results_dictionary
-):
-    """Check the argument verification, messages, and continue."""
-    chosen_arguments = [
-        "--directory",
-        "D",
-        "--file",
-        "f",
-        "--single",
-        "2",
-        "--language",
-        "Java",
-    ]
-    exit_code = orchestrate.check(chosen_arguments)
-    captured = capsys.readouterr()
-    counted_newlines = captured.out.count("\n")
-    assert "GatorGrader" in captured.out
-    assert counted_newlines == 7
-    assert exit_code == 1
-
-
-# pylint: disable=redefined-outer-name
-# pylint: disable=bad-continuation
-def test_perform_actions_display_welcome_and_ready_check_comments_mult(
-    capsys, reset_results_dictionary
-):
-    """Check the argument verification, messages, and continue."""
-    chosen_arguments = [
-        "--directory",
-        "D",
-        "--file",
-        "f",
-        "--multiple",
-        "2",
-        "--language",
-        "Java",
-    ]
-    exit_code = orchestrate.check(chosen_arguments)
-    captured = capsys.readouterr()
-    counted_newlines = captured.out.count("\n")
-    assert "GatorGrader" in captured.out
-    assert counted_newlines == 7
-    assert exit_code == 1
-
-
-# pylint: disable=redefined-outer-name
-# pylint: disable=bad-continuation
-def test_perform_actions_display_welcome_and_ready_check_comments_single_python(
-    capsys, reset_results_dictionary
-):
-    """Check the argument verification, messages, and continue."""
-    chosen_arguments = [
-        "--directory",
-        "D",
-        "--file",
-        "f",
-        "--single",
-        "2",
-        "--language",
-        "Python",
-    ]
-    exit_code = orchestrate.check(chosen_arguments)
-    captured = capsys.readouterr()
-    counted_newlines = captured.out.count("\n")
-    assert "GatorGrader" in captured.out
-    assert counted_newlines == 7
-    assert exit_code == 1
-
-
-# pylint: disable=redefined-outer-name
-# pylint: disable=bad-continuation
-def test_perform_actions_display_welcome_and_ready_check_comments_mult_python(
-    capsys, reset_results_dictionary
-):
-    """Check the argument verification, messages, and continue."""
-    chosen_arguments = [
-        "--directory",
-        "D",
-        "--file",
-        "f",
-        "--multiple",
-        "2",
-        "--language",
-        "Python",
-    ]
-    exit_code = orchestrate.check(chosen_arguments)
-    captured = capsys.readouterr()
-    counted_newlines = captured.out.count("\n")
-    assert "GatorGrader" in captured.out
-    assert counted_newlines == 7
-    assert exit_code == 1
-
-
-# pylint: disable=redefined-outer-name
-# pylint: disable=bad-continuation
-def test_perform_actions_display_welcome_and_ready_check_paragraphs(
-    capsys, reset_results_dictionary
-):
-    """Check the argument verification, messages, and continue."""
-    chosen_arguments = ["--directory", "D", "--file", "f", "--paragraphs", "2"]
-    exit_code = orchestrate.check(chosen_arguments)
-    captured = capsys.readouterr()
-    counted_newlines = captured.out.count("\n")
-    assert "GatorGrader" in captured.out
-    assert counted_newlines == 7
-    assert exit_code == 1
-
-
-# pylint: disable=redefined-outer-name
-# pylint: disable=bad-continuation
-def test_perform_actions_display_welcome_and_ready_check_words(
-    capsys, reset_results_dictionary
-):
-    """Check the argument verification, messages, and continue."""
-    chosen_arguments = ["--directory", "D", "--file", "f", "--words", "2"]
-    exit_code = orchestrate.check(chosen_arguments)
-    captured = capsys.readouterr()
-    counted_newlines = captured.out.count("\n")
-    assert "GatorGrader" in captured.out
-    assert counted_newlines == 7
-    assert exit_code == 1
-
-
-# pylint: disable=redefined-outer-name
-# pylint: disable=bad-continuation
-def test_perform_actions_display_welcome_and_ready_check_totals_words(
-    capsys, reset_results_dictionary
-):
-    """Check the argument verification, messages, and continue."""
-    chosen_arguments = ["--directory", "D", "--file", "f", "--total-words", "2"]
-    exit_code = orchestrate.check(chosen_arguments)
-    captured = capsys.readouterr()
-    counted_newlines = captured.out.count("\n")
-    assert "GatorGrader" in captured.out
-    assert counted_newlines == 7
-    assert exit_code == 1
-
-
-# pylint: disable=redefined-outer-name
-# pylint: disable=bad-continuation
-def test_perform_actions_display_welcome_and_ready_check_fragment_file(
-    capsys, reset_results_dictionary
-):
-    """Check the argument verification, messages, and continue."""
-    chosen_arguments = [
-        "--directory",
-        "D",
-        "--file",
-        "f",
-        "--fragment",
-        "GatorGrader",
-        "--count",
-        "2",
-    ]
-    exit_code = orchestrate.check(chosen_arguments)
-    captured = capsys.readouterr()
-    counted_newlines = captured.out.count("\n")
-    assert "GatorGrader" in captured.out
-    assert counted_newlines == 7
-    assert exit_code == 1
-
-
-# pylint: disable=redefined-outer-name
-# pylint: disable=bad-continuation
-def test_perform_actions_display_welcome_and_ready_check_markdown_tag_file(
-    capsys, reset_results_dictionary
-):
-    """Check the argument verification, messages, and continue."""
-    chosen_arguments = [
-        "--directory",
-        "D",
-        "--file",
-        "f",
-        "--markdown",
-        "code",
-        "--count",
-        "2",
-    ]
-    exit_code = orchestrate.check(chosen_arguments)
-    captured = capsys.readouterr()
-    counted_newlines = captured.out.count("\n")
-    assert "GatorGrader" in captured.out
-    assert counted_newlines == 7
-    assert exit_code == 1
-
-
-# pylint: disable=redefined-outer-name
-# pylint: disable=bad-continuation
-def test_perform_actions_display_welcome_and_ready_check_markdown_tag_exact_file(
-    capsys, reset_results_dictionary
-):
-    """Check the argument verification, messages, and continue."""
-    chosen_arguments = [
-        "--directory",
-        "D",
-        "--file",
-        "f",
-        "--markdown",
-        "code",
-        "--count",
-        "2",
-        "--exact",
-    ]
-    exit_code = orchestrate.check(chosen_arguments)
-    captured = capsys.readouterr()
-    counted_newlines = captured.out.count("\n")
-    assert "GatorGrader" in captured.out
-    assert "exactly" in captured.out
-    assert counted_newlines == 7
-    assert exit_code == 1
-
-
-# pylint: disable=redefined-outer-name
-# pylint: disable=bad-continuation
-def test_perform_actions_display_welcome_and_ready_check_regex_file(
-    capsys, reset_results_dictionary
-):
-    """Check the argument verification, messages, and continue."""
-    chosen_arguments = [
-        "--directory",
-        "D",
-        "--file",
-        "f",
-        "--regex",
-        r"\\begin(.*?)\\end",
-        "--count",
-        "1",
-    ]
-    exit_code = orchestrate.check(chosen_arguments)
-    captured = capsys.readouterr()
-    counted_newlines = captured.out.count("\n")
-    assert "GatorGrader" in captured.out
-    assert "regular expression" in captured.out
-    assert "Found 0 match(es)" in captured.out
-    assert counted_newlines == 7
-    assert exit_code == 1
-
-
-# pylint: disable=redefined-outer-name
-# pylint: disable=bad-continuation
-def test_perform_actions_display_welcome_and_ready_check_count_file(
-    capsys, reset_results_dictionary
-):
-    """Check the argument verification, messages, and continue."""
-    chosen_arguments = ["--directory", "D", "--file", "f", "--count", "2"]
-    exit_code = orchestrate.check(chosen_arguments)
-    captured = capsys.readouterr()
-    counted_newlines = captured.out.count("\n")
-    assert "GatorGrader" in captured.out
-    assert counted_newlines == 7
-    assert exit_code == 1
-
-
-# pylint: disable=redefined-outer-name
-# pylint: disable=bad-continuation
-def test_perform_actions_display_welcome_and_ready_check_fragment_command(
-    capsys, reset_results_dictionary
-):
-    """Check the argument verification, messages, and continue."""
-    chosen_arguments = ["--command", "ls", "--fragment", "GatorGrader", "--count", "2"]
-    exit_code = orchestrate.check(chosen_arguments)
-    captured = capsys.readouterr()
-    counted_newlines = captured.out.count("\n")
-    assert "GatorGrader" in captured.out
-    assert counted_newlines == 7
-    assert exit_code == 1
-
-
-# pylint: disable=redefined-outer-name
-# pylint: disable=bad-continuation
-def test_perform_actions_display_welcome_and_ready_check_regex_command(
-    capsys, reset_results_dictionary
-):
-    """Check the argument verification, messages, and continue for regex output."""
-    chosen_arguments = ["--command", "ls", "--regex", r"G\S{4}G\S{4}r", "--count", "1"]
-    exit_code = orchestrate.check(chosen_arguments)
-    captured = capsys.readouterr()
-    counted_newlines = captured.out.count("\n")
-    assert "GatorGrader" in captured.out
-    assert "regular expression" in captured.out
-    assert "Found 0 match(es)" in captured.out
-    assert counted_newlines == 7
-    assert exit_code == 1
-
-
-# pylint: disable=redefined-outer-name
-# pylint: disable=bad-continuation
-def test_perform_actions_display_welcome_and_ready_check_count_command(
-    capsys, reset_results_dictionary
-):
-    """Check the argument verification, messages, and continue."""
-    chosen_arguments = ["--command", "ls", "--count", "2"]
-    exit_code = orchestrate.check(chosen_arguments)
-    captured = capsys.readouterr()
-    counted_newlines = captured.out.count("\n")
-    assert "GatorGrader" in captured.out
-    assert counted_newlines == 6
-    assert exit_code == 0
-
-
-# pylint: disable=redefined-outer-name
-# pylint: disable=bad-continuation
-def test_perform_actions_display_welcome_and_ready_check_count_command_json(
-    capsys, reset_results_dictionary
-):
-    """Check the argument verification, messages, and continue for JSON output."""
-    chosen_arguments = ["--nowelcome", "--command", "ls", "--count", "2", "--json"]
-    exit_code = orchestrate.check(chosen_arguments)
-    captured = capsys.readouterr()
-    counted_newlines = captured.out.count("\n")
-    assert "GatorGrader" not in captured.out
-    assert counted_newlines == 2
-    assert exit_code == 0
-
-
-# pylint: disable=redefined-outer-name
-# pylint: disable=bad-continuation
-def test_perform_actions_display_welcome_and_ready_check_command(
-    capsys, reset_results_dictionary
-):
-    """Check the argument verification, messages, and continue."""
-    chosen_arguments = ["--command", "ls", "--executes"]
-    exit_code = orchestrate.check(chosen_arguments)
-    captured = capsys.readouterr()
-    counted_newlines = captured.out.count("\n")
-    assert "GatorGrader" in captured.out
-    assert counted_newlines == 6
-    assert exit_code == 0
-
-
-# pylint: disable=redefined-outer-name
-# pylint: disable=bad-continuation
-def test_perform_actions_display_welcome_and_ready_check_command_not_working(
-    capsys, reset_results_dictionary
-):
-    """Check the argument verification, messages, and continue."""
-    chosen_arguments = ["--command", "false", "--executes"]
-    exit_code = orchestrate.check(chosen_arguments)
-    captured = capsys.readouterr()
-    counted_newlines = captured.out.count("\n")
-    assert "GatorGrader" in captured.out
-    assert counted_newlines == 6
-    assert exit_code == 1
-
-
-# pylint: disable=redefined-outer-name
-# pylint: disable=bad-continuation
-def test_perform_actions_display_welcome_and_ready_check_command_working(
-    capsys, reset_results_dictionary
-):
-    """Check the argument verification, messages, and continue."""
-    chosen_arguments = ["--command", "true", "--executes"]
-    exit_code = orchestrate.check(chosen_arguments)
-    captured = capsys.readouterr()
-    counted_newlines = captured.out.count("\n")
-    assert "GatorGrader" in captured.out
-    assert counted_newlines == 6
-    assert exit_code == 0
-
-
-# pylint: disable=redefined-outer-name
-# pylint: disable=bad-continuation
-def test_perform_actions_display_welcome_and_ready_check_command_failing(
-    capsys, reset_results_dictionary
-):
-    """Check the argument verification, messages, and continue."""
-    chosen_arguments = ["--command", "true", "--count", "2"]
-    exit_code = orchestrate.check(chosen_arguments)
-    captured = capsys.readouterr()
-    counted_newlines = captured.out.count("\n")
-    assert "GatorGrader" in captured.out
-    assert counted_newlines == 6
-    assert exit_code == 1
-
-
-# pylint: disable=redefined-outer-name
-# pylint: disable=bad-continuation
-def test_perform_actions_display_welcome_and_ready_check_command_failing_exact(
-    capsys, reset_results_dictionary
-):
-    """Check the argument verification, messages, and continue."""
-    chosen_arguments = ["--command", "true", "--count", "2", "--exact"]
-    exit_code = orchestrate.check(chosen_arguments)
-    captured = capsys.readouterr()
-    counted_newlines = captured.out.count("\n")
-    assert "GatorGrader" in captured.out
-    assert counted_newlines == 6
-    assert exit_code == 1
+    assert captured.err == ""
+    assert captured.out != ""
+    assert "Incorrect command-line arguments." in captured.out
+    assert counted_newlines > 5

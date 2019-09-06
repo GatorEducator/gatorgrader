@@ -18,20 +18,32 @@ def test_markers_constant_defined():
     assert constants.markers.Empty == b""
     assert constants.markers.Newline == "\n"
     assert constants.markers.No_Diagnostic == ""
+    assert constants.markers.Command_Error == "Command_No_Output"
     assert constants.markers.Nothing == ""
     assert constants.markers.Space == " "
+    assert constants.markers.Indent == "  "
     assert constants.markers.In_A_File == "in a file"
+    assert constants.markers.Unknown_File == "unknown"
     assert constants.markers.Of_File == "of file"
     assert constants.markers.File == "file"
     assert constants.markers.First == 1
     assert constants.markers.Invalid == -1
+    assert constants.markers.Yes == "Yes"
+    assert constants.markers.No == "No"
+    assert constants.markers.Checkmark == "✔"
+    assert constants.markers.Xmark == "✘"
 
 
 def test_paths_constant_defined():
     """Check correctness for the variables in the paths constant."""
     assert constants.paths.Current_Directory == "."
-    assert constants.paths.Current_Directory_Glob == "*.*"
+    assert constants.paths.Current_Directory_Glob == "*"
     assert constants.paths.Home == "gatorgrader"
+
+
+def test_programconstant_defined():
+    """Check correctness for the variables in the program constant."""
+    assert constants.program.Name == "gatorgrader.py"
 
 
 def test_markdown_constant_defined():
@@ -45,6 +57,16 @@ def test_codes_constant_defined():
     assert constants.codes.Error == 1
     assert constants.codes.Success == 0
     assert constants.codes.No_Words == 0
+
+
+def test_checkers_constant_defined():
+    """Check correctness for the variables in the checkers constant."""
+    assert constants.checkers.Internal_Checkers_Dir == "gator/checks"
+    assert constants.checkers.Plugin_Base_Identifier == "GatorGraderPluginBase"
+    assert constants.checkers.Check_Prefix == "check_"
+    assert constants.checkers.Function_Get_Parser == "get_parser"
+    assert constants.checkers.Function_Act == "act"
+    assert constants.checkers.Function_Parse == "parse"
 
 
 def test_arguments_constant_defined():
@@ -65,6 +87,11 @@ def test_outputs_constant_defined():
     """Check correctness for the variables in the outputs constant."""
     assert constants.outputs.Json == "JSON"
     assert constants.outputs.Text == "TEXT"
+
+
+def test_packages_constant_defined():
+    """Check correctness for the variables in the packages constant."""
+    assert constants.packages.Checks == "gator.checks"
 
 
 def test_results_constant_defined():
@@ -102,6 +129,27 @@ def test_functions_constant_defined():
     assert constants.functions.Count_Total_Words == "count_total_words"
 
 
+def test_commandlines_constant_defined():
+    """Check correctness for the variables in the commandlines constant."""
+    assert constants.commandlines.Checker_Dir == "--checkerdir"
+    assert constants.commandlines.No_Welcome == "--nowelcome"
+    assert constants.commandlines.Json == "--json"
+    assert constants.commandlines.Check == "check"
+
+
+def test_help_constant_defined():
+    """Check correctness for the variables in the help constant."""
+    assert constants.help.Checker_Dir == "directory containing user-provided checks"
+    assert constants.help.No_Welcome == "do not display the welcome message"
+    assert constants.help.Json == "print the status report in JSON"
+    assert constants.help.Check == "check to perform on the writing or source code"
+
+
+def test_metavars_constant_defined():
+    """Check correctness for the variables in the metavar constant."""
+    assert constants.metavars.Check == "CHECK"
+
+
 def test_languages_constant_cannot_redefine():
     """Check cannot redefine the variables in the languages constant."""
     with pytest.raises(AttributeError):
@@ -121,9 +169,13 @@ def test_markers_constant_cannot_redefine():
     with pytest.raises(AttributeError):
         constants.markers.No_Diagnostic = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
+        constants.markers.Command_Error = CANNOT_SET_CONSTANT_VARIABLE
+    with pytest.raises(AttributeError):
         constants.markers.Nothing = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
         constants.markers.Space = CANNOT_SET_CONSTANT_VARIABLE
+    with pytest.raises(AttributeError):
+        constants.markers.Indent = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
         constants.markers.Tab = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
@@ -131,11 +183,21 @@ def test_markers_constant_cannot_redefine():
     with pytest.raises(AttributeError):
         constants.markers.In_A_File = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
+        constants.markers.Unknown_File = CANNOT_SET_CONSTANT_VARIABLE
+    with pytest.raises(AttributeError):
         constants.markers.File = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
         constants.markers.First = 1
     with pytest.raises(AttributeError):
         constants.markers.Invalid = 10
+    with pytest.raises(AttributeError):
+        constants.markers.Yes = "Yes"
+    with pytest.raises(AttributeError):
+        constants.markers.No = "No"
+    with pytest.raises(AttributeError):
+        constants.markers.Checkmark = "✔"
+    with pytest.raises(AttributeError):
+        constants.markers.Xmark = "✘"
 
 
 def test_paths_constant_cannot_redefine():
@@ -144,6 +206,12 @@ def test_paths_constant_cannot_redefine():
         constants.paths.Current_Directory = CANNOT_SET_CONSTANT_VARIABLE
         constants.paths.Current_Directory_Glob = CANNOT_SET_CONSTANT_VARIABLE
         constants.paths.Home = CANNOT_SET_CONSTANT_VARIABLE
+
+
+def test_program_constant_cannot_redefine():
+    """Check cannot redefine the variables in the program constant."""
+    with pytest.raises(AttributeError):
+        constants.program.Name = CANNOT_SET_CONSTANT_VARIABLE
 
 
 def test_markdown_constant_cannot_redefine():
@@ -162,6 +230,52 @@ def test_codes_constant_cannot_redefine():
         constants.codes.Error = 10
     with pytest.raises(AttributeError):
         constants.codes.No_Words = 10
+
+
+def test_checkers_constant_cannot_redefine():
+    """Check cannot redefine the variables in the checkers constant."""
+    with pytest.raises(AttributeError):
+        constants.checkers.Internal_Checkers_Dir = CANNOT_SET_CONSTANT_VARIABLE
+    with pytest.raises(AttributeError):
+        constants.checkers.Plugin_Base_Identifier = CANNOT_SET_CONSTANT_VARIABLE
+    with pytest.raises(AttributeError):
+        constants.checkers.Check_Prefix = CANNOT_SET_CONSTANT_VARIABLE
+    with pytest.raises(AttributeError):
+        constants.checkers.Function_Get_Parser = CANNOT_SET_CONSTANT_VARIABLE
+    with pytest.raises(AttributeError):
+        constants.checkers.Function_Act = CANNOT_SET_CONSTANT_VARIABLE
+    with pytest.raises(AttributeError):
+        constants.checkers.Function_Parse = CANNOT_SET_CONSTANT_VARIABLE
+
+
+def test_commandlines_constant_cannot_redefine():
+    """Check cannot redefine the variables in the commandlines constant."""
+    with pytest.raises(AttributeError):
+        constants.commandlines.Checker_Dir = CANNOT_SET_CONSTANT_VARIABLE
+    with pytest.raises(AttributeError):
+        constants.commandlines.No_Welcome = CANNOT_SET_CONSTANT_VARIABLE
+    with pytest.raises(AttributeError):
+        constants.commandlines.Json = CANNOT_SET_CONSTANT_VARIABLE
+    with pytest.raises(AttributeError):
+        constants.commandlines.Check = CANNOT_SET_CONSTANT_VARIABLE
+
+
+def test_help_constant_cannot_redefine():
+    """Check cannot redefine the variables in the help constant."""
+    with pytest.raises(AttributeError):
+        constants.help.Checker_Dir = CANNOT_SET_CONSTANT_VARIABLE
+    with pytest.raises(AttributeError):
+        constants.help.No_Welcome = CANNOT_SET_CONSTANT_VARIABLE
+    with pytest.raises(AttributeError):
+        constants.help.Json = CANNOT_SET_CONSTANT_VARIABLE
+    with pytest.raises(AttributeError):
+        constants.help.Check = CANNOT_SET_CONSTANT_VARIABLE
+
+
+def test_metavars_constant_cannot_redefine():
+    """Check cannot redefine the variables in the metavars constant."""
+    with pytest.raises(AttributeError):
+        constants.metavars.Check = CANNOT_SET_CONSTANT_VARIABLE
 
 
 def test_arguments_constant_cannot_redefine():
@@ -190,6 +304,12 @@ def test_outputs_constant_cannot_redefine():
         constants.outputs.Json = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
         constants.outputs.Text = CANNOT_SET_CONSTANT_VARIABLE
+
+
+def test_packages_constant_cannot_redefine():
+    """Check cannot redefine the variables in the packages constant."""
+    with pytest.raises(AttributeError):
+        constants.packages.Checks = CANNOT_SET_CONSTANT_VARIABLE
 
 
 def test_results_constant_cannot_redefine():

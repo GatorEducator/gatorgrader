@@ -5,10 +5,21 @@ from gator import constants
 from glob import glob
 from pathlib import Path
 
+import sys
+
 
 def create_cwd_path():
     """Create a Path object for the current working directory."""
     return Path.cwd()
+
+
+def create_program_path():
+    """Create a Path object for the directory from which GatorGrader is run."""
+    program_path = sys.argv[0]
+    program_path = program_path.replace(
+        constants.program.Name, constants.paths.Current_Directory
+    )
+    return create_path(home=program_path)
 
 
 def create_paths(*args, file="", home):
@@ -65,7 +76,9 @@ def case_sensitive_check_file_in_directory(*args, file, home):
     # of the specified file, including "dotfiles"
     # note that this glob will not capture directories and files that
     # are in sub-directories of the parent directory
-    file_parent_glob = file_parent.glob(constants.paths.Current_Directory_Glob)
+    file_parent_glob = create_paths(
+        file=constants.paths.Current_Directory_Glob, home=file_parent
+    )
     # assume that the file with the correct name has not been found
     # and prove otherwise by iterating through the generator of files
     file_found = False

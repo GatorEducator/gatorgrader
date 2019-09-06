@@ -45,11 +45,21 @@ def invoke_commits_check(student_repository, expected_count, exact=False):
 
 def invoke_file_in_directory_check(filecheck, directory):
     """Check to see if the file is in the directory."""
-    # get the home directory for checking and then check for file
-    gatorgrader_home = util.get_gatorgrader_home()
-    was_file_found = files.check_file_in_directory(
-        directory, file=filecheck, home=gatorgrader_home
-    )
+    # get the project home, which contains the content subject to checking
+    gatorgrader_home = util.get_project_home()
+    # get the project directory for checking and then check for file
+    directory_path = files.create_path(home=directory)
+    # the directory is absolute, meaning that it does not need to be
+    # rooted in the context of the project directory
+    if directory_path.is_absolute():
+        was_file_found = files.check_file_in_directory(file=filecheck, home=directory)
+    # the directory is not absolute, meaning that it should be rooted
+    # in the context of the project directory. Note that this is
+    # normally the case when GatorGrader is used through a Gradle configuration
+    else:
+        was_file_found = files.check_file_in_directory(
+            directory, file=filecheck, home=gatorgrader_home
+        )
     # construct the message about whether or not the file exists
     message = (
         "The file "
@@ -158,10 +168,34 @@ def invoke_all_comment_checks(
             + language
             + " comment(s)"
         )
-    # create the diagnostic and the report the result
-    # produce the diagnostic and report the result
-    flat_comment_count_details = util.flatten_dictionary_values(comment_count_details)
-    fragment_diagnostic = util.get_file_diagnostic(flat_comment_count_details)
+    # --> exactness is not required, so find the first minimum value
+    if not exact:
+        actual_count = util.get_first_minimum_value_deep(comment_count_details)
+        if actual_count != (0, 0):
+            actual_count = actual_count[1][1]
+        else:
+            actual_count = 0
+        # get the "most minimal" actual_count from the flattened report from previously run check
+        fragment_diagnostic, fragment_count = util.get_file_diagnostic_deep_not_exact(
+            comment_count_details
+        )
+    # --> exactness is required, so find the first value that does not match the specified value
+    elif exact:
+        fragment_diagnostic, fragment_count = util.get_file_diagnostic_deep_exact(
+            comment_count_details, expected_count
+        )
+        new_actual_count = util.get_first_not_equal_value_deep(
+            comment_count_details, expected_count
+        )
+        if new_actual_count == {}:
+            new_actual_count = util.get_first_not_equal_value(
+                comment_count_details, expected_count
+            )
+        if new_actual_count != (0, 0):
+            new_actual_count = new_actual_count[1][1]
+            if new_actual_count != actual_count:
+                met_or_exceeded_count = False
+                actual_count = new_actual_count
     diagnostic = (
         "Found "
         + str(actual_count)
@@ -173,7 +207,6 @@ def invoke_all_comment_checks(
         + "or the output"
     )
     report_result(met_or_exceeded_count, message, diagnostic)
-    # report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
 
@@ -228,18 +261,15 @@ def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=Fals
     return met_or_exceeded_count
 
 
-def invoke_all_word_count_checks(
+def invoke_all_minimum_word_count_checks(
     filecheck, directory, expected_count, count_function, conclusion, exact=False
 ):
     """Perform the word count check and return the results."""
     met_or_exceeded_count = 0
     met_or_exceeded_count, actual_count, actual_count_dictionary = entities.entity_greater_than_count(
-        filecheck, directory, expected_count, count_function
+        filecheck, directory, expected_count, count_function, exact
     )
     # create the message and the diagnostic
-    # note that the conclusion variable is customized so that it
-    # displays the correct message and diagnostic based on whether
-    # the check was for a "total words" or a "minimum words" check
     if not exact:
         # create an "at least" message, which is the default
         message = (
@@ -264,13 +294,15 @@ def invoke_all_word_count_checks(
             + constants.markers.Space
             + conclusion
         )
-    # Create a diagnostic message and report the result
+    # create a diagnostic message and report the result
     # replace "in every" with "in a" and a specific paragraph number.
     # This diagnostic signals the fact that there was at least
     # a single paragraph that had a word count below the standard
     # set for all of the paragraphs in the technical writing
     # across all of the files specified (i.e., those matched by wildcards)
-    word_diagnostic, filename = util.get_word_diagnostic(actual_count_dictionary)
+    word_diagnostic, filename = util.get_word_diagnostic(
+        actual_count_dictionary, expected_count
+    )
     # there is no need for a filename diagnostic unless there are multiple results
     filename_diagnostic = constants.markers.Nothing
     # there is a filename, which means that there was a wildcard specified
@@ -279,10 +311,24 @@ def invoke_all_word_count_checks(
         filename_diagnostic = (
             constants.markers.Of_File + constants.markers.Space + filename
         )
-    # since there is a word_diagnostic, add it to the conclusion of diagnostic
-    # otherwise, the conclusion will always contain "in every"
+    # since there is a word_diagnostic, this means that there is a need to customize
+    # the diagnostic message because the check is not going to pass correctly
     if word_diagnostic:
         conclusion = conclusion.replace(constants.words.In_Every, word_diagnostic)
+        # the actual_count may vary depending on whether the check is checking for exact
+        # equality or if there is a minimum threshold that the inputs must satisfy
+        # --> exactness is not required, so find the minimum value across all inputs
+        if not exact:
+            actual_count = util.get_first_minimum_value_deep(actual_count_dictionary)[
+                1
+            ][1]
+        # --> exactness is required, so find the first value that does not match the specified value
+        elif exact:
+            actual_count = util.get_first_not_equal_value_deep(
+                actual_count_dictionary, expected_count
+            )[1][1]
+        # create the diagnostic message using all of the parts, specifically highlighting
+        # the ways in which the check failed, thereby improving a person's debugging process
     diagnostic = (
         "Found "
         + str(actual_count)
@@ -295,32 +341,83 @@ def invoke_all_word_count_checks(
     return met_or_exceeded_count
 
 
-def invoke_all_minimum_word_count_checks(
-    filecheck, directory, expected_count, exact=False
-):
-    """Perform the minimum word count check and return the results."""
-    return invoke_all_word_count_checks(
-        filecheck,
-        directory,
-        expected_count,
-        fragments.count_minimum_words,
-        constants.words.Minimum,
-        exact,
-    )
-
-
 def invoke_all_total_word_count_checks(
-    filecheck, directory, expected_count, exact=False
+    filecheck, directory, expected_count, count_function, conclusion, exact=False
 ):
-    """Perform the total word count check and return the results."""
-    return invoke_all_word_count_checks(
-        filecheck,
-        directory,
-        expected_count,
-        fragments.count_total_words,
-        constants.words.Total,
-        exact,
+    """Perform the word count check and return the results."""
+    met_or_exceeded_count = False
+    met_or_exceeded_count, actual_count, actual_count_dictionary = entities.entity_greater_than_count_total(
+        filecheck, directory, expected_count, count_function, exact
     )
+    met_or_exceeded_count = util.greater_than_equal_exacted(
+        actual_count, expected_count, exact
+    )[0]
+    # create the message and the diagnostic
+    if not exact:
+        # create an "at least" message, which is the default
+        message = (
+            "The "
+            + filecheck
+            + " in "
+            + directory
+            + " has at least "
+            + str(expected_count)
+            + constants.markers.Space
+            + conclusion
+        )
+    else:
+        # create an "exact" message, which is an opt-in
+        message = (
+            "The "
+            + filecheck
+            + " in "
+            + directory
+            + " has exactly "
+            + str(expected_count)
+            + constants.markers.Space
+            + conclusion
+        )
+    # create a diagnostic message and report the result
+    word_diagnostic, filename = util.get_word_diagnostic(
+        actual_count_dictionary, expected_count
+    )
+    # there is no need for a filename diagnostic unless there are multiple results
+    filename_diagnostic = constants.markers.Nothing
+    # there is a filename, which means that there was a wildcard specified
+    # and thus this diagnostic is for one file; give name at the end
+    filename_count = expected_count
+    if filename:
+        filename_diagnostic = (
+            constants.markers.Of_File + constants.markers.Space + filename
+        )
+        sum_actual_count_dictionary = util.sum_dictionary_values(
+            actual_count_dictionary
+        )
+        filename_count = sum_actual_count_dictionary[filename]
+    if filename_diagnostic is not constants.markers.Nothing:
+        diagnostic = (
+            "Found "
+            + str(filename_count)
+            + constants.markers.Space
+            + conclusion
+            + constants.markers.Space
+            + filename_diagnostic
+        )
+    else:
+        diagnostic = (
+            "Did not find "
+            + str(filename_count)
+            + constants.markers.Space
+            + conclusion
+            + constants.markers.Space
+            + constants.words.In_The
+            + constants.markers.Space
+            + constants.markers.Unknown_File
+            + constants.markers.Space
+            + constants.markers.File
+        )
+    report_result(met_or_exceeded_count, message, diagnostic)
+    return met_or_exceeded_count
 
 
 # pylint: disable=bad-continuation
@@ -400,6 +497,11 @@ def invoke_all_fragment_checks(
             )
     # produce the diagnostic and report the result
     fragment_diagnostic = util.get_file_diagnostic(actual_count_dictionary)
+    # when the file is "unknown" then this means that the content is from a command
+    # and thus it is better to use the generic phrase "file" instead of this default
+    fragment_diagnostic = fragment_diagnostic.replace(
+        constants.markers.Unknown_File, constants.markers.File
+    )
     diagnostic = (
         "Found "
         + str(actual_count)
@@ -447,7 +549,7 @@ def invoke_all_regex_checks(
                 + directory
                 + " has at least "
                 + str(expected_count)
-                + " matches of the '"
+                + " match(es) of the '"
                 + regex
                 + "' regular expression"
             )
@@ -460,7 +562,7 @@ def invoke_all_regex_checks(
                 + directory
                 + " has exactly "
                 + str(expected_count)
-                + " matches of the '"
+                + " match(es) of the '"
                 + regex
                 + "' regular expression"
             )
@@ -474,7 +576,7 @@ def invoke_all_regex_checks(
                 "The command output"
                 + " has at least "
                 + str(expected_count)
-                + " matches of the '"
+                + " match(es) of the '"
                 + regex
                 + "' regular expression"
             )
@@ -484,7 +586,7 @@ def invoke_all_regex_checks(
                 "The command output"
                 + " has exactly "
                 + str(expected_count)
-                + " matches of the '"
+                + " match(es) of the '"
                 + regex
                 + "' regular expression"
             )
@@ -518,6 +620,14 @@ def invoke_all_command_fragment_checks(
 ):
     """Perform the check for a fragment existence in the output of a command."""
     command_output = run.specified_command_get_output(command)
+    # Since the command did not produce any output (i.e., its output is "" or
+    # Nothing), we need to indicate that this was a command error. This will
+    # later signal that, since this command error-ed, the tool should convert
+    # the output to "" (i.e., Nothing) instead of looking for a file in a directory.
+    # The tool needs this conditional logic since the checking of fragments is
+    # overloaded for files in directories and the output of commands.
+    if command_output is constants.markers.Nothing:
+        command_output = constants.markers.Command_Error
     return invoke_all_fragment_checks(
         expected_fragment,
         expected_count,
@@ -533,7 +643,15 @@ def invoke_all_command_regex_checks(
     command, expected_regex, expected_count, exact=False
 ):
     """Perform the check for a regex existence in the output of a command."""
+    # Since the command did not produce any output (i.e., its output is "" or
+    # Nothing), we need to indicate that this was a command error. This will
+    # later signal that, since this command error-ed, the tool should convert
+    # the output to "" (i.e., Nothing) instead of looking for a file in a directory.
+    # The tool needs this conditional logic since the checking of fragments is
+    # overloaded for files in directories and the output of commands.
     command_output = run.specified_command_get_output(command)
+    if command_output is constants.markers.Nothing:
+        command_output = constants.markers.Command_Error
     return invoke_all_regex_checks(
         expected_regex,
         expected_count,
@@ -572,7 +690,12 @@ def invoke_all_markdown_checks(
 ):
     """Perform the check for a markdown tag existence in a file and return the results."""
     met_or_exceeded_count = 0
-    met_or_exceeded_count, actual_count = markdown.specified_tag_greater_than_count(
+    # perform the count, saving the details in a way that preserves information if the
+    # filecheck was given as a wildcard (i.e., "*.py")
+    (
+        met_or_exceeded_count,
+        actual_count,
+    ), count_dictionary = markdown.specified_tag_greater_than_count(
         markdown_tag,
         markdown.count_specified_tag,
         expected_count,
@@ -591,7 +714,7 @@ def invoke_all_markdown_checks(
             + str(expected_count)
             + " of the '"
             + markdown_tag
-            + "' elements"
+            + "' tag"
         )
     # create an "exact" message which is an opt-in
     else:
@@ -604,10 +727,23 @@ def invoke_all_markdown_checks(
             + str(expected_count)
             + " of the '"
             + markdown_tag
-            + "' elements"
+            + "' tag"
         )
+    # Produce the diagnostic and report the result.
+    # If a wildcard (i.e., "*.py") was given for the filename, then
+    # this diagnostic is customized for the file that first breaks the check.
+    fragment_diagnostic = util.get_file_diagnostic(count_dictionary)
+    diagnostic = (
+        "Found "
+        + str(actual_count)
+        + constants.markers.Space
+        + "tag(s)"
+        + constants.markers.Space
+        + fragment_diagnostic
+        + constants.markers.Space
+        + constants.markers.File
+    )
     # create the diagnostic and report the result
-    diagnostic = "Found " + str(actual_count) + " element(s) in the specified file"
     report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
 
@@ -622,7 +758,10 @@ def invoke_all_count_checks(
 ):
     """Perform the check for the count of lines in file or contents and return the results."""
     met_or_exceeded_count = 0
-    met_or_exceeded_count, actual_count = fragments.specified_source_greater_than_count(
+    (
+        met_or_exceeded_count,
+        actual_count,
+    ), actual_count_dictionary = fragments.specified_source_greater_than_count(
         expected_count, filecheck, directory, contents, exact
     )
     # create a message for a file in directory
@@ -660,11 +799,30 @@ def invoke_all_count_checks(
             message = (
                 "The command output" + " has exactly " + str(expected_count) + " lines"
             )
-    diagnostic = (
-        "Found " + str(actual_count) + " line(s) in the output or the specified file"
+    # Produce the diagnostic and report the result.
+    # If a wildcard (i.e., "*.py") was given for the filename, then
+    # this diagnostic is customized for the file that first breaks the check.
+    fragment_diagnostic = util.get_file_diagnostic(actual_count_dictionary)
+    # when the file is "unknown" then this means that the content is from a command
+    # and thus it is better to use the generic phrase "file" instead of this default
+    fragment_diagnostic = fragment_diagnostic.replace(
+        constants.markers.Unknown_File, constants.markers.File
     )
-    report_result(met_or_exceeded_count, message, diagnostic)
-    return met_or_exceeded_count
+    diagnostic = (
+        "Found "
+        + str(actual_count)
+        + constants.markers.Space
+        + "line(s)"
+        + constants.markers.Space
+        + fragment_diagnostic
+        + constants.markers.Space
+        + "or the output"
+    )
+    # extract the result as to whether or not the check passed
+    extracted_result = met_or_exceeded_count[0]
+    # use the created diagnostic to report the result
+    report_result(extracted_result, message, diagnostic)
+    return extracted_result
 
 
 def invoke_all_command_count_checks(command, expected_count, exact=False):

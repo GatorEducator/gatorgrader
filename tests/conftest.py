@@ -3,8 +3,52 @@
 import os
 import sys
 
+import pytest
+
+from contextlib import contextmanager
+
+from gator import checkers
+
+
 GO_BACK_A_DIRECTORY = "/../"
 
 # set the system path to contain the previous directory
 PREVIOUS_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, PREVIOUS_DIRECTORY + GO_BACK_A_DIRECTORY)
+
+# define two fixtures for use in the test suites
+# --> load_checker
+# --> not_raises
+
+
+@pytest.fixture(scope="session")
+def load_checker():  # noqa: D202
+    """Load a checker using pluginbase."""
+
+    def _load_checker(parsed_arguments):
+        """Define internal function to load a checker using pluginbase."""
+        external_checker_directory = checkers.get_checker_dir(parsed_arguments)
+        checker_source = checkers.get_source([external_checker_directory])
+        check_name = checkers.get_chosen_check(parsed_arguments)
+        check_file = checkers.transform_check(check_name)
+        check_exists = checkers.verify_check_existence(check_file, checker_source)
+        return (check_exists, checker_source, check_file)
+
+    return _load_checker
+
+
+@pytest.fixture(scope="session")
+def not_raises():  # noqa: D202
+    """Delete the check that an exception is not raised during test execution."""
+
+    @contextmanager
+    def _not_raises(ExpectedException):
+        """Define internal function to ensure that ExpectedException is not raised."""
+        try:
+            yield
+        except ExpectedException as error:
+            raise AssertionError(f"Raised exception {error} when it should not!")
+        except Exception as error:
+            raise AssertionError(f"An unexpected exception {error} raised.")
+
+    return _not_raises

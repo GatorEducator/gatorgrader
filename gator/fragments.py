@@ -184,6 +184,9 @@ def count_entities(
     contents=constants.markers.Nothing,
 ):
     """Count fragments for the file in the directory (or contents) and a fragment."""
+    # Use these two variables to keep track of entity counts for multiple files.
+    # The idea is that file_contents_count_dictionary will store (key, value) pairs
+    # where the key is the file and the count is the number of entities in that file.
     file_contents_count = 0
     file_contents_count_dictionary = {}
     # file is not available and the contents are provided
@@ -193,6 +196,12 @@ def count_entities(
         contents is not constants.markers.Nothing
         and given_file is constants.markers.Nothing
     ):
+        # The command ran and produced an error, which means that its output
+        # is technically "" or Nothing. So, set it to Nothing so that the
+        # checking_function can determine that none of the entity exists in it
+        if contents is constants.markers.Command_Error:
+            contents = constants.markers.Nothing
+        # run the checking_function to look for fragments in the contents
         file_contents_count = checking_function(contents, chosen_fragment)
         return file_contents_count, file_contents_count_dictionary
     for file_for_checking in files.create_paths(
@@ -219,11 +228,21 @@ def specified_source_greater_than_count(
     exact=False,
 ):
     """Determine if the line count is greater than expected."""
-    # count the fragments in either a file in a directory or String contents
-    file_line_count = count_lines(given_file, containing_directory, contents)
+    # count the fragments in either a file in a directory or str contents,
+    # with the str contents coming from the output from running a command
+    file_lines_count, file_contents_count_dictionary = count_lines(
+        given_file, containing_directory, contents
+    )
     # the fragment count is at or above the threshold
-    # check the condition and also return file_fragment_count
-    return util.greater_than_equal_exacted(file_line_count, expected_count, exact)
+    # check the condition and also return the file_lines_count
+    # and the dictionary itself so as to support good diagnostics
+    return (
+        (
+            util.greater_than_equal_exacted(file_lines_count, expected_count, exact),
+            file_lines_count,
+        ),
+        file_contents_count_dictionary,
+    )
 
 
 def count_lines(
@@ -231,24 +250,43 @@ def count_lines(
     containing_directory=constants.markers.Nothing,
     contents=constants.markers.Nothing,
 ):
-    """Count lines for the file in the directory (or contents)."""
-    # create a Path object to the chosen file in the containing directory
-    file_for_checking = files.create_path(file=given_file, home=containing_directory)
+    """Count lines for the file in the directory, or alternatively, provided contents."""
+    # Use these two variables to keep track of line counts for multiple files.
+    # The idea is that file_contents_count_dictionary will store (key, value) pairs
+    # where the key is the file and the count is the number of entities in that file.
     file_contents_count = 0
-    # file is not available and the contents are provided
+    file_contents_count_dictionary = {}
+    # the contents are provided and thus there is no file or directory
     # the context for this condition is when the function checks
     # the output from the execution of a specified command
-    if not file_for_checking.is_file() and contents is not constants.markers.Nothing:
+    if contents is not constants.markers.Nothing:
         line_list = get_line_list(contents)
         file_contents_count = len(line_list)
-    # file is available and the contents are not provided
+    # file is and directory are available and thus there are no contents
     # the context for this condition is when the function checks
-    # the contents of a specified file
-    elif file_for_checking.is_file() and contents is constants.markers.Nothing:
-        file_contents = file_for_checking.read_text()
-        line_list = get_line_list(file_contents)
-        file_contents_count = len(line_list)
-    return file_contents_count
+    # the number of lines in a specific file in a specific directory
+    elif (
+        given_file is not constants.markers.Nothing
+        and containing_directory is not constants.markers.Nothing
+    ):
+        # Create a Path object to the chosen file in the containing directory, accounting
+        # for the fact that a wildcard like "*.md" will create multiple paths. Note that
+        # the create_paths function can only return valid paths, regardless of input.
+        for file_for_checking in files.create_paths(
+            file=given_file, home=containing_directory
+        ):
+            file_contents_count = 0
+            # file is available and the contents are not provided
+            # the context for this condition is when the function checks
+            # the contents of a specified file that exists on the filesystem
+            file_contents = file_for_checking.read_text()
+            line_list = get_line_list(file_contents)
+            file_contents_count = len(line_list)
+            file_contents_count_dictionary[file_for_checking.name] = file_contents_count
+        # return the minimum value and the entire dictionary of counts
+        minimum_pair = util.get_first_minimum_value(file_contents_count_dictionary)
+        file_contents_count = minimum_pair[1]
+    return file_contents_count, file_contents_count_dictionary
 
 
 def is_valid_regex(regex):

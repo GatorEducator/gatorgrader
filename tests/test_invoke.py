@@ -1,8 +1,10 @@
 """Test cases for the invoke module.."""
 
+import os
+import pytest
 import sys
 
-import pytest
+from unittest.mock import patch
 
 from gator import constants
 from gator import fragments
@@ -46,9 +48,28 @@ def test_file_exists_in_directory_check(reset_results_dictionary, tmpdir):
     hello_file = "hello.txt"
     invoke.invoke_file_in_directory_check(hello_file, directory)
     details = report.get_result()
+    # file is found in the specified directory
     assert details is not None
-    assert details[constants.results.Diagnostic] is not None
-    assert details[constants.results.Diagnostic]
+    assert details[constants.results.Outcome] is True
+    assert "exists in" in details[constants.results.Check]
+    assert details[constants.results.Diagnostic] == ""
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
+def test_file_exists_in_directory_check_test_file(reset_results_dictionary):
+    """Check that invocation of file existence check works correctly."""
+    testargs = [os.getcwd()]
+    with patch.object(sys, "argv", testargs):
+        directory = "tests"
+        test_file = "test_invoke.py"
+        invoke.invoke_file_in_directory_check(test_file, directory)
+        details = report.get_result()
+        # file is found in the specified directory
+        assert details is not None
+        assert details[constants.results.Outcome] is True
+        assert "exists in" in details[constants.results.Check]
+        assert details[constants.results.Diagnostic] == ""
 
 
 # pylint: disable=unused-argument
@@ -107,7 +128,7 @@ def test_file_exists_in_directory_check_words(reset_results_dictionary, tmpdir):
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     reflection_file = "reflection.md"
-    invoke.invoke_all_word_count_checks(
+    invoke.invoke_all_minimum_word_count_checks(
         reflection_file,
         directory,
         4,
@@ -117,7 +138,45 @@ def test_file_exists_in_directory_check_words(reset_results_dictionary, tmpdir):
     details = report.get_result()
     assert details is not None
     report.reset()
-    invoke.invoke_all_word_count_checks(
+    invoke.invoke_all_minimum_word_count_checks(
+        reflection_file,
+        directory,
+        200,
+        fragments.count_minimum_words,
+        constants.words.Minimum,
+    )
+    details = report.get_result()
+    assert details is not None
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
+def test_file_exists_in_directory_check_words_no_matching_file(
+    reset_results_dictionary, tmpdir
+):
+    """Check that the checking of words works correctly."""
+    reflection_file = tmpdir.mkdir("sub").join("reflection.md")
+    reflection_file.write(
+        "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
+    )
+    assert (
+        reflection_file.read()
+        == "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
+    )
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
+    reflection_file = "reflectionWRONG.md"
+    invoke.invoke_all_minimum_word_count_checks(
+        reflection_file,
+        directory,
+        4,
+        fragments.count_minimum_words,
+        constants.words.Minimum,
+    )
+    details = report.get_result()
+    assert details is not None
+    report.reset()
+    invoke.invoke_all_minimum_word_count_checks(
         reflection_file,
         directory,
         200,
@@ -143,22 +202,24 @@ def test_file_exists_in_directory_check_words_exact(reset_results_dictionary, tm
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     reflection_file = "reflection.md"
-    invoke.invoke_all_word_count_checks(
+    invoke.invoke_all_minimum_word_count_checks(
         reflection_file,
         directory,
         4,
         fragments.count_minimum_words,
         constants.words.Minimum,
+        True,
     )
     details = report.get_result()
     assert details is not None
     report.reset()
-    invoke.invoke_all_word_count_checks(
+    invoke.invoke_all_minimum_word_count_checks(
         reflection_file,
         directory,
         200,
         fragments.count_minimum_words,
         constants.words.Minimum,
+        True,
     )
     details = report.get_result()
     assert details is not None
@@ -179,11 +240,61 @@ def test_file_exists_in_directory_check_total_words(reset_results_dictionary, tm
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     reflection_file = "reflection.md"
-    invoke.invoke_all_total_word_count_checks(reflection_file, directory, 12)
+    invoke.invoke_all_total_word_count_checks(
+        reflection_file,
+        directory,
+        12,
+        fragments.count_total_words,
+        constants.words.Total,
+    )
     details = report.get_result()
     assert details is not None
     report.reset()
-    invoke.invoke_all_total_word_count_checks(reflection_file, directory, 100)
+    invoke.invoke_all_total_word_count_checks(
+        reflection_file,
+        directory,
+        100,
+        fragments.count_total_words,
+        constants.words.Total,
+    )
+    details = report.get_result()
+    assert details is not None
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
+def test_file_exists_in_directory_check_total_words_file_not_exists(
+    reset_results_dictionary, tmpdir
+):
+    """Check that the checking of total words works correctly."""
+    reflection_file = tmpdir.mkdir("sub").join("reflection.md")
+    reflection_file.write(
+        "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
+    )
+    assert (
+        reflection_file.read()
+        == "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
+    )
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
+    reflection_file = "reflectionWRONG.md"
+    invoke.invoke_all_total_word_count_checks(
+        reflection_file,
+        directory,
+        12,
+        fragments.count_total_words,
+        constants.words.Total,
+    )
+    details = report.get_result()
+    assert details is not None
+    report.reset()
+    invoke.invoke_all_total_word_count_checks(
+        reflection_file,
+        directory,
+        100,
+        fragments.count_total_words,
+        constants.words.Total,
+    )
     details = report.get_result()
     assert details is not None
 
@@ -205,14 +316,68 @@ def test_file_exists_in_directory_check_total_words_exact(
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     reflection_file = "reflection.md"
+    # invoke.invoke_all_total_word_count_checks(
+    # reflection_file, directory, 12, exact=True
+    # )
     invoke.invoke_all_total_word_count_checks(
-        reflection_file, directory, 12, exact=True
+        reflection_file,
+        directory,
+        12,
+        fragments.count_total_words,
+        constants.words.Total,
+        exact=True,
     )
     details = report.get_result()
     assert details is not None
     report.reset()
+    # invoke.invoke_all_total_word_count_checks(
+    # reflection_file, directory, 100, exact=True
+    # )
     invoke.invoke_all_total_word_count_checks(
-        reflection_file, directory, 100, exact=True
+        reflection_file,
+        directory,
+        100,
+        fragments.count_total_words,
+        constants.words.Total,
+        exact=True,
+    )
+    details = report.get_result()
+    assert details is not None
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
+def test_file_exists_in_directory_check_words_wildcards(
+    reset_results_dictionary, tmpdir
+):
+    """Check that the checking of words works correctly."""
+    reflection_file = tmpdir.mkdir("sub").join("reflection.md")
+    reflection_file.write(
+        "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
+    )
+    assert (
+        reflection_file.read()
+        == "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
+    )
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
+    reflection_file = "*.md"
+    invoke.invoke_all_minimum_word_count_checks(
+        reflection_file,
+        directory,
+        4,
+        fragments.count_minimum_words,
+        constants.words.Minimum,
+    )
+    details = report.get_result()
+    assert details is not None
+    report.reset()
+    invoke.invoke_all_minimum_word_count_checks(
+        reflection_file,
+        directory,
+        200,
+        fragments.count_minimum_words,
+        constants.words.Minimum,
     )
     details = report.get_result()
     assert details is not None
@@ -479,7 +644,7 @@ def test_comment_counts_check_multiple_java_invalid_check(
     assert details is not None
     report.reset()
     # this check cannot pass because of the fact that it asks
-    # for standard-line comments, which are not supported by this function
+    # for "standard-line" comments, which are not supported by this function
     invoke.invoke_all_comment_checks(hello_file, directory, 1, "standard-line", "Java")
     details = report.get_result()
     assert details is not None

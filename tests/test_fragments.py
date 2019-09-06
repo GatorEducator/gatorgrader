@@ -1,4 +1,4 @@
-"""Test cases for the fragments module.."""
+"""Test cases for the fragments module."""
 
 import pytest
 
@@ -440,6 +440,26 @@ def test_count_entities_from_contents():
     assert count == 0
 
 
+def test_count_entities_from_contents_mimic_command_no_output():
+    """Check that counting fragments in a string works correctly if from an error-ed command."""
+    # this is a signal to indicate that a command error-ed and thus the output
+    # of the command is actually "", meaning it did not produce output
+    value = "Command_No_Output"
+    # none of the calls to count_entities should be able to count anything
+    count, _ = fragments.count_entities(
+        "hello", fragments.count_specified_fragment, contents=value
+    )
+    assert count == 0
+    count, _ = fragments.count_entities(
+        "world", fragments.count_specified_fragment, contents=value
+    )
+    assert count == 0
+    count, _ = fragments.count_entities(
+        "planet", fragments.count_specified_fragment, contents=value
+    )
+    assert count == 0
+
+
 def test_count_entities_from_file_with_threshold(tmpdir):
     """Check that counting fragments in a file with threshold works correctly."""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
@@ -483,15 +503,41 @@ def test_count_single_line_from_file(tmpdir):
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
-    count = fragments.count_lines(hello_file, directory, "")
+    count, _ = fragments.count_lines(hello_file, directory, "")
     assert count == 1
+
+
+def test_count_single_line_from_empty_file(tmpdir):
+    """Check that counting lines in an empty file works correctly."""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
+    hello_file = "Hello.java"
+    count, _ = fragments.count_lines(hello_file, directory, "")
+    assert count == 0
+
+
+def test_count_single_line_from_incorrect_file(tmpdir):
+    """Check that counting lines in an incorrect file works correctly."""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
+    hello_file = "HelloWrong.java"
+    count, _ = fragments.count_lines(hello_file, directory, "")
+    assert count == 0
 
 
 def test_count_single_line_from_contents():
     """Check that counting lines in contents works correctly."""
     hello_contents = "Hello.java"
-    count = fragments.count_lines("", "", hello_contents)
+    count, _ = fragments.count_lines("", "", hello_contents)
     assert count == 1
+
+
+def test_count_single_line_from_empty_contents():
+    """Check that counting lines in contents works correctly."""
+    count, _ = fragments.count_lines("", "", "")
+    assert count == 0
 
 
 def test_count_single_line_from_file_with_threshold(tmpdir):
@@ -502,16 +548,69 @@ def test_count_single_line_from_file_with_threshold(tmpdir):
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
-    exceeds_threshold, actual_count = fragments.specified_source_greater_than_count(
-        1, hello_file, directory, ""
-    )
+    (
+        exceeds_threshold,
+        actual_count,
+    ), _ = fragments.specified_source_greater_than_count(1, hello_file, directory, "")
     assert actual_count == 1
-    assert exceeds_threshold is True
-    exceeds_threshold, actual_count = fragments.specified_source_greater_than_count(
-        100, hello_file, directory, ""
-    )
+    assert exceeds_threshold[0] is True
+    (
+        exceeds_threshold,
+        actual_count,
+    ), _ = fragments.specified_source_greater_than_count(100, hello_file, directory, "")
     assert actual_count == 1
-    assert exceeds_threshold is False
+    assert exceeds_threshold[0] is False
+
+
+def test_count_single_line_from_file_with_threshold_and_wildcards(tmpdir):
+    """Check that counting lines in a file with threshold works correctly."""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
+    hello_file.write("/* hello world */")
+    assert hello_file.read() == "/* hello world */"
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
+    hello_file = "*.java"
+    (
+        exceeds_threshold,
+        actual_count,
+    ), _ = fragments.specified_source_greater_than_count(1, hello_file, directory, "")
+    assert actual_count == 1
+    assert exceeds_threshold[0] is True
+    (
+        exceeds_threshold,
+        actual_count,
+    ), _ = fragments.specified_source_greater_than_count(100, hello_file, directory, "")
+    assert actual_count == 1
+    assert exceeds_threshold[0] is False
+    hello_file = "*.*"
+    (
+        exceeds_threshold,
+        actual_count,
+    ), _ = fragments.specified_source_greater_than_count(1, hello_file, directory, "")
+    assert actual_count == 1
+    assert exceeds_threshold[0] is True
+    (
+        exceeds_threshold,
+        actual_count,
+    ), _ = fragments.specified_source_greater_than_count(100, hello_file, directory, "")
+    assert actual_count == 1
+    assert exceeds_threshold[0] is False
+
+
+def test_count_no_line_from_incorrect_file(tmpdir):
+    """Ensure that counting lines in a garbage file works correctly."""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
+    hello_file.write("/* hello world */")
+    assert hello_file.read() == "/* hello world */"
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
+    hello_file = "#$#@ll*.java&&@@@"
+    (
+        exceeds_threshold,
+        actual_count,
+    ), _ = fragments.specified_source_greater_than_count(1, hello_file, directory, "")
+    assert actual_count == 0
+    assert exceeds_threshold[0] is False
 
 
 def test_count_multiple_lines_from_file(tmpdir):
@@ -523,7 +622,7 @@ def test_count_multiple_lines_from_file(tmpdir):
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
-    count = fragments.count_lines(hello_file, directory, "")
+    count, _ = fragments.count_lines(hello_file, directory, "")
     assert count == 3
 
 
@@ -536,21 +635,24 @@ def test_count_multiple_lines_from_file_with_threshold(tmpdir):
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
-    exceeds_threshold, actual_count = fragments.specified_source_greater_than_count(
-        2, hello_file, directory, ""
-    )
+    (
+        exceeds_threshold,
+        actual_count,
+    ), _ = fragments.specified_source_greater_than_count(2, hello_file, directory, "")
     assert actual_count == 3
-    assert exceeds_threshold is True
-    exceeds_threshold, actual_count = fragments.specified_source_greater_than_count(
-        3, hello_file, directory, ""
-    )
+    assert exceeds_threshold[0] is True
+    (
+        exceeds_threshold,
+        actual_count,
+    ), _ = fragments.specified_source_greater_than_count(3, hello_file, directory, "")
     assert actual_count == 3
-    assert exceeds_threshold is True
-    exceeds_threshold, actual_count = fragments.specified_source_greater_than_count(
-        100, hello_file, directory, ""
-    )
+    assert exceeds_threshold[0] is True
+    (
+        exceeds_threshold,
+        actual_count,
+    ), _ = fragments.specified_source_greater_than_count(100, hello_file, directory, "")
     assert actual_count == 3
-    assert exceeds_threshold is False
+    assert exceeds_threshold[0] is False
 
 
 def test_count_multiple_lines_from_contents():
@@ -558,7 +660,7 @@ def test_count_multiple_lines_from_contents():
     hello_contents = (
         '/* hello world */\nString s = new String("hello");\n\n//this is a comment'
     )
-    count = fragments.count_lines("", "", hello_contents)
+    count, _ = fragments.count_lines("", "", hello_contents)
     assert count == 3
 
 
@@ -567,7 +669,7 @@ def test_count_multiple_lines_from_contents_single_blank():
     hello_contents = (
         '/* hello world */\nString s = new String("hello");\n//this is a comment'
     )
-    count = fragments.count_lines("", "", hello_contents)
+    count, _ = fragments.count_lines("", "", hello_contents)
     assert count == 3
 
 
@@ -576,7 +678,7 @@ def test_count_multiple_lines_from_contents_multiple_blanks():
     hello_contents = (
         '/* hello world */\n\nString s = new String("hello");\n//this is a comment\n\n'
     )
-    count = fragments.count_lines("", "", hello_contents)
+    count, _ = fragments.count_lines("", "", hello_contents)
     assert count == 3
 
 
@@ -585,21 +687,24 @@ def test_count_multiple_lines_from_contents_with_threshold():
     hello_contents = (
         '/* hello world */\nString s = new String("hello");\n//this is a comment'
     )
-    exceeds_threshold, actual_count = fragments.specified_source_greater_than_count(
-        2, "", "", hello_contents
-    )
+    (
+        exceeds_threshold,
+        actual_count,
+    ), _ = fragments.specified_source_greater_than_count(2, "", "", hello_contents)
     assert actual_count == 3
-    assert exceeds_threshold is True
-    exceeds_threshold, actual_count = fragments.specified_source_greater_than_count(
-        3, "", "", hello_contents
-    )
+    assert exceeds_threshold[0] is True
+    (
+        exceeds_threshold,
+        actual_count,
+    ), _ = fragments.specified_source_greater_than_count(3, "", "", hello_contents)
     assert actual_count == 3
-    assert exceeds_threshold is True
-    exceeds_threshold, actual_count = fragments.specified_source_greater_than_count(
-        100, "", "", hello_contents
-    )
+    assert exceeds_threshold[0] is True
+    (
+        exceeds_threshold,
+        actual_count,
+    ), _ = fragments.specified_source_greater_than_count(100, "", "", hello_contents)
     assert actual_count == 3
-    assert exceeds_threshold is False
+    assert exceeds_threshold[0] is False
 
 
 @pytest.mark.parametrize(

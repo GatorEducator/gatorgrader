@@ -2,6 +2,9 @@
 
 import json
 import os
+import sys
+
+from unittest.mock import patch
 
 from gator import constants
 from gator import files
@@ -37,16 +40,18 @@ def test_correct_false_symbol():
 
 def test_gatorgrader_home_is_set():
     """Ensure that the GATORGRADER_HOME environment variable is set."""
-    gatorgrader_home = util.get_gatorgrader_home()
-    # If GATORGRADER_HOME is not set, then it will be set
-    # by default to the home directory. These assertions
-    # use Pathlib objects to do the comparison so as to
-    # ensure that they pass across all operating systems
-    current_working_directory = files.create_cwd_path()
-    assert gatorgrader_home is not None
-    assert files.create_path(home=gatorgrader_home) == files.create_path(
-        home=current_working_directory
-    )
+    testargs = [os.getcwd()]
+    with patch.object(sys, "argv", testargs):
+        gatorgrader_home = util.get_gatorgrader_home()
+        # If GATORGRADER_HOME is not set, then it will be set
+        # by default to the home directory. These assertions
+        # use Pathlib objects to do the comparison so as to
+        # ensure that they pass across all operating systems
+        current_working_directory = files.create_program_path()
+        assert gatorgrader_home is not None
+        assert files.create_path(home=gatorgrader_home) == files.create_path(
+            home=current_working_directory
+        )
 
 
 def test_gatorgrader_home_is_set_after_os_dictionary_set(tmpdir):
@@ -275,6 +280,22 @@ def test_word_diagnostic_empty_dictionary():
     assert word_diagnostic == ("", "")
 
 
+def test_sum_dictionary_values():
+    """Check if the maximum value is found in a dictionary deep."""
+    input_file_one = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 43}
+    input_file_two = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 43}
+    input_file_three = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 1}
+    outer_dictionary = {
+        "input_file_one": input_file_one,
+        "input_file_two": input_file_two,
+        "input_file_three": input_file_three,
+    }
+    sum_dictionary = util.sum_dictionary_values(outer_dictionary)
+    assert sum_dictionary["input_file_one"] == (21 + 52 + 12 + 43)
+    assert sum_dictionary["input_file_two"] == (21 + 52 + 12 + 43)
+    assert sum_dictionary["input_file_three"] == (21 + 52 + 12 + 1)
+
+
 def test_find_minimum_in_dictionary_single_max_deep():
     """Check if the maximum value is found in a dictionary deep."""
     input_file_one = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 43}
@@ -288,6 +309,101 @@ def test_find_minimum_in_dictionary_single_max_deep():
     found = util.get_first_maximum_value_deep(outer_dictionary)
     assert found[0] == "input_file_one"
     assert found[1] == ("Mike", 52)
+
+
+def test_find_not_equal_value_deep_all_not_same():
+    """Check if the maximum value is found in a dictionary deep."""
+    input_file_one = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 43}
+    input_file_two = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 43}
+    input_file_three = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 1}
+    outer_dictionary = {
+        "input_file_one": input_file_one,
+        "input_file_two": input_file_two,
+        "input_file_three": input_file_three,
+    }
+    found = util.get_first_not_equal_value_deep(outer_dictionary, 43)
+    assert found[0] == "input_file_one"
+    assert found[1] == ("John", 21)
+
+
+def test_find_not_equal_value_not_deep_all_not_same():
+    """Check if the maximum value is found in a dictionary deep."""
+    input_file_one = {"John": 21, "Mike": 52, "Sarah": 12, "Bob": 43}
+    found = util.get_first_not_equal_value(input_file_one, 43)
+    assert found[0] == "John"
+    assert found[1] == 21
+
+
+def test_find_not_equal_value_deep_all_same():
+    """Check if the maximum value is found in a dictionary deep."""
+    input_file_one = {"John": 21, "Mike": 21, "Sarah": 21, "Bob": 21}
+    input_file_two = {"John": 21, "Mike": 21, "Sarah": 21, "Bob": 21}
+    input_file_three = {"John": 21, "Mike": 21, "Sarah": 21, "Bob": 21}
+    outer_dictionary = {
+        "input_file_one": input_file_one,
+        "input_file_two": input_file_two,
+        "input_file_three": input_file_three,
+    }
+    found = util.get_first_not_equal_value_deep(outer_dictionary, 21)
+    assert found == {}
+
+
+def test_get_file_diagnostic_deep_exact_empty_dictionary():
+    """Check if getting a file diagnostic with an empty dictionary works."""
+    empty_dictionary = {}
+    value = 10
+    found = util.get_file_diagnostic_deep_exact(empty_dictionary, value)
+    assert found == ("in a file", 0)
+
+
+def test_get_file_diagnostic_deep_exact_deep_dictionary_not_equal():
+    """Check if getting a file diagnostic with a non-deep dictionary works."""
+    input_file_one = {"John": 21, "Mike": 21, "Sarah": 21, "Bob": 21}
+    input_file_two = {"John": 21, "Mike": 21, "Sarah": 21, "Bob": 21}
+    input_file_three = {"John": 21, "Mike": 21, "Sarah": 21, "Bob": 22}
+    outer_dictionary = {
+        "input_file_one": input_file_one,
+        "input_file_two": input_file_two,
+        "input_file_three": input_file_three,
+    }
+    found = util.get_file_diagnostic_deep_exact(outer_dictionary, 21)
+    assert found != {}
+
+
+def test_get_file_diagnostic_deep_exact_deep_dictionary_all_equal():
+    """Check if getting a file diagnostic with a non-deep dictionary works."""
+    input_file_one = {"John": 21, "Mike": 21, "Sarah": 21, "Bob": 21}
+    input_file_two = {"John": 21, "Mike": 21, "Sarah": 21, "Bob": 21}
+    input_file_three = {"John": 21, "Mike": 21, "Sarah": 21, "Bob": 21}
+    outer_dictionary = {
+        "input_file_one": input_file_one,
+        "input_file_two": input_file_two,
+        "input_file_three": input_file_three,
+    }
+    found = util.get_file_diagnostic_deep_exact(outer_dictionary, 21)
+    assert found == ("in a file", 0)
+
+
+def test_get_file_diagnostic_deep_not_exact_empty_dictionary():
+    """Check if getting a file diagnostic with an empty dictionary works."""
+    empty_dictionary = {}
+    found = util.get_file_diagnostic_deep_not_exact(empty_dictionary)
+    assert found == ("in a file", 0)
+
+
+def test_get_file_diagnostic_deep_empty_dictionary():
+    """Check if getting a file diagnostic with an empty dictionary works."""
+    empty_dictionary = {}
+    # this is a wrapper function for get_file_diagnostic_deep_not_exact
+    found = util.get_file_diagnostic_deep(empty_dictionary)
+    assert found == ("in a file", 0)
+
+
+def test_find_not_equal_value_not_deep():
+    """Check if the maximum value is found in a dictionary deep."""
+    input_file_one = {"John": 21, "Mike": 21, "Sarah": 21, "Bob": 21}
+    found = util.get_first_not_equal_value(input_file_one, 21)
+    assert found == (0, 0)
 
 
 def test_find_minimum_in_dictionary_single_max_deep_words():
@@ -315,7 +431,26 @@ def test_find_minimum_in_dictionary_single_max_deep_words_diagnostic():
         "input_file_two": input_file_two,
         "input_file_three": input_file_three,
     }
-    util.get_word_diagnostic(outer_dictionary)
+    diagnostic = util.get_word_diagnostic(outer_dictionary)
+    assert diagnostic is not None
+    assert diagnostic[0] == "in the third"
+    assert diagnostic[1] == "input_file_three"
+
+
+def test_find_minimum_in_dictionary_single_max_deep_words_diagnostic_all_same():
+    """Check to see if diagnostic is produced with a single minimum value."""
+    input_file_one = {1: 10, 2: 10, 3: 10}
+    input_file_two = {1: 10, 2: 10, 3: 10}
+    input_file_three = {1: 10, 2: 10, 3: 10}
+    outer_dictionary = {
+        "input_file_one": input_file_one,
+        "input_file_two": input_file_two,
+        "input_file_three": input_file_three,
+    }
+    diagnostic = util.get_word_diagnostic(outer_dictionary, 10)
+    assert diagnostic is not None
+    assert diagnostic[0] == ""
+    assert diagnostic[1] == ""
 
 
 def test_find_minimum_in_dictionary_single_max_deep_words_diagnostic_realistic():
