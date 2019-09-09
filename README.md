@@ -235,46 +235,35 @@ https://github.com/GatorEducator/gatorgrader
 
 ✔ Find the available checks that match an optional pattern
 
-usage: ConfirmFileExists [-h] --file FILE --directory DIR
+ConfirmFileExists
 
-usage: CountCommandOutput [-h] --command COMMAND --count COUNT [--exact]
+CountCommandOutput
 
-usage: CountCommits [-h] --count COUNT [--exact]
+CountCommits
 
-usage: CountFileLines [-h] --file FILE --directory DIR --count COUNT [--exact]
+CountFileLines
 
-usage: CountFileParagraphs [-h] --file FILE --directory DIR --count COUNT
-                           [--exact]
+CountFileParagraphs
 
-usage: CountFileWords [-h] --file FILE --directory DIR --count COUNT [--exact]
+CountFileWords
 
+CountMarkdownTags
 
-usage: CountMarkdownTags [-h] --tag TAG --file FILE --directory DIR --count
-                         COUNT [--exact]
+CountMultipleLineComments
 
-usage: CountMultipleLineComments [-h] --file FILE --directory DIR --count
-                                 COUNT [--language LANG] [--exact]
+CountParagraphWords
 
-usage: CountParagraphWords [-h] --file FILE --directory DIR --count COUNT
-                           [--exact]
+CountSingleLineComments
 
-usage: CountSingleLineComments [-h] --file FILE --directory DIR --count COUNT
-                               [--language {Java,Python}] [--exact]
+ExecuteCommand
 
-usage: ExecuteCommand [-h] --command COMMAND
+MatchCommandFragment
 
-usage: MatchCommandFragment [-h] --command CMD --fragment FRAG --count COUNT
-                            [--exact]
+MatchCommandRegex
 
-usage: MatchCommandRegex [-h] --command CMD --regex REGEX --count COUNT
-                         [--exact]
+MatchFileFragment
 
-usage: MatchFileFragment [-h] --file FILE --directory DIR --fragment FRAG
-                         --count COUNT [--exact]
-
-usage: MatchFileRegex [-h] --file FILE --directory DIR --regex REGEX --count
-                      COUNT [--exact]
-
+MatchFileRegex
 
 ## Running GatorGrader
 
