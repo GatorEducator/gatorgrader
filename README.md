@@ -230,40 +230,40 @@ pipenv run lint --check
 
 ### Linting Checks
 
-✔ GatorGrader: Automatically Check the Files of Programmers and Writers
-https://github.com/GatorEducator/gatorgrader
+Want to learn about our linting checks? Check us out on our website at
+[GatorGrader](https://deploy-preview-1--gatorgrader.netlify.com)! We have detailed
+descriptions of our linting checks and more! An idea of the linting checks we
+offer, here is a quick list:
 
-✔ Find the available checks that match an optional pattern
+1. ConfirmFileExists
 
-ConfirmFileExists
+2. CountCommandOutput
 
-CountCommandOutput
+3. CountCommits
 
-CountCommits
+4. CountFileLines
 
-CountFileLines
+5. CountFileParagraphs
 
-CountFileParagraphs
+6. CountFileWords
 
-CountFileWords
+7. CountMarkdownTags
 
-CountMarkdownTags
+8. CountMultipleLineComments
 
-CountMultipleLineComments
+9. CountParagraphWords
 
-CountParagraphWords
+10. CountSingleLineComments
 
-CountSingleLineComments
+11. ExecuteCommand
 
-ExecuteCommand
+12. MatchCommandFragment
 
-MatchCommandFragment
+13. MatchCommandRegex
 
-MatchCommandRegex
+14. MatchFileFragment
 
-MatchFileFragment
-
-MatchFileRegex
+15. MatchFileRegex
 
 ## Running GatorGrader
 
