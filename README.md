@@ -267,7 +267,7 @@ offer, here is a quick list:
 
 Something you should know when working with our linting checks is that all of
 them come with optional arguments. These optional arguments are: `-h, --help`.
-The help message will be outputted and then exited. If help is needed further,
+The help message will be displayed and then exited. If further assistance is needed,
 please contact us on GitHub.
 
 ## Running GatorGrader
