@@ -230,12 +230,12 @@ pipenv run lint --check
 
 ### Linting Checks
 
-Want to learn about our linting checks? Check us out on our website at
+Want to learn about our linting checks? Check us out on our website,
 [GatorGrader](https://deploy-preview-1--gatorgrader.netlify.com)! We have detailed
-descriptions of our linting checks and more! An idea of the linting checks we
+descriptions of our linting checks and more! To get an idea of the linting checks we
 offer, here is a quick list:
 
-1. ConfirmFileExists
+1. ConfirmFileExists          
 
 2. CountCommandOutput
 
@@ -266,9 +266,9 @@ offer, here is a quick list:
 15. MatchFileRegex
 
 Something you should know when working with our linting checks is that all of
-them come with optional arguments. These option arguments are: -h, --help.
+them come with optional arguments. These optional arguments are: `-h, --help`.
 The help message will be outputted and then exited. If help is needed further,
-please contact us through GitHub. 
+please contact us on GitHub.
 
 ## Running GatorGrader
 
