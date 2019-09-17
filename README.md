@@ -265,6 +265,11 @@ offer, here is a quick list:
 
 15. MatchFileRegex
 
+Something you should know when working with our linting checks is that all of
+them come with optional arguments. These option arguments are: -h, --help.
+The help message will be outputted and then exited. If help is needed further,
+please contact us through GitHub. 
+
 ## Running GatorGrader
 
 Students and instructors normally use GatorGrader through its [Gradle
