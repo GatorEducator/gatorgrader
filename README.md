@@ -91,34 +91,6 @@ submission, instead integrating with existing tools and systems like
 [Gradle](https://gradle.org/), [GitHub](https://github.com/), and [GitHub
 Classroom](https://classroom.github.com/) to effectively handle those tasks.
 
-## What Do People Think about GatorGrader?
-
-GatorGrader addresses many of the challenges that an instructor faces when
-designing automated checks for the source code or technical writing that a
-student submits through an assignment on [GitHub
-Classroom](https://classroom.github.com/). Feedback from the teaching assistants
-and students who use GatorGrader has been positive. Here is what people think
-about GatorGrader!
-
-> GitHub Classroom, Travis CI, and GatorGrader made it easier for me to
-> effectively deliver programming labs in and introductory computer science
-> course. **Janyl Jumadinova**, instructor
-
-<!-- -->
-> This tool suite made it easier for me to talk with students about technical
-> requirements. It helped me to make complex assignments more accessible to
-> students. **Maria Kim**, teaching assistant
-
-<!-- -->
-> GatorGrader encouraged me to add better code comments and try out language
-> constructs that I would not have otherwise investigated. The tool was a big
-> help this semester! **Samatha Darris**, student
-
-<!-- -->
-> GatorGrader is like having a constant coach! I liked receiving feedback on the
-> quality of my source code and writing before turning in the final version of
-> my lab. **Anna Yeager**, student
-
 ## Installing GatorGrader
 
 Installing GatorGrader is not necessary if you intend to use it through its
