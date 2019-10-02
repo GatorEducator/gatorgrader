@@ -91,34 +91,6 @@ submission, instead integrating with existing tools and systems like
 [Gradle](https://gradle.org/), [GitHub](https://github.com/), and [GitHub
 Classroom](https://classroom.github.com/) to effectively handle those tasks.
 
-## What Do People Think about GatorGrader?
-
-GatorGrader addresses many of the challenges that an instructor faces when
-designing automated checks for the source code or technical writing that a
-student submits through an assignment on [GitHub
-Classroom](https://classroom.github.com/). Feedback from the teaching assistants
-and students who use GatorGrader has been positive. Here is what people think
-about GatorGrader!
-
-> GitHub Classroom, Travis CI, and GatorGrader made it easier for me to
-> effectively deliver programming labs in and introductory computer science
-> course. **Janyl Jumadinova**, instructor
-
-<!-- -->
-> This tool suite made it easier for me to talk with students about technical
-> requirements. It helped me to make complex assignments more accessible to
-> students. **Maria Kim**, teaching assistant
-
-<!-- -->
-> GatorGrader encouraged me to add better code comments and try out language
-> constructs that I would not have otherwise investigated. The tool was a big
-> help this semester! **Samatha Darris**, student
-
-<!-- -->
-> GatorGrader is like having a constant coach! I liked receiving feedback on the
-> quality of my source code and writing before turning in the final version of
-> my lab. **Anna Yeager**, student
-
 ## Installing GatorGrader
 
 Installing GatorGrader is not necessary if you intend to use it through its
@@ -227,6 +199,48 @@ this command in a terminal window.
 ```bash
 pipenv run lint --check
 ```
+
+### Linting Checks
+
+Want to learn about our linting checks? Check us out on our website,
+[GatorGrader](https://deploy-preview-1--gatorgrader.netlify.com)! We have detailed
+descriptions of our linting checks and more! To get an idea of the linting checks we
+offer, here is a quick list:
+
+1. ConfirmFileExists          
+
+2. CountCommandOutput
+
+3. CountCommits
+
+4. CountFileLines
+
+5. CountFileParagraphs
+
+6. CountFileWords
+
+7. CountMarkdownTags
+
+8. CountMultipleLineComments
+
+9. CountParagraphWords
+
+10. CountSingleLineComments
+
+11. ExecuteCommand
+
+12. MatchCommandFragment
+
+13. MatchCommandRegex
+
+14. MatchFileFragment
+
+15. MatchFileRegex
+
+Something you should know when working with our linting checks is that all of
+them come with optional arguments. These optional arguments are: `-h, --help`.
+The help message will be displayed and then exited. If further assistance is needed,
+please contact us on GitHub.
 
 ## Running GatorGrader
 
