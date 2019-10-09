@@ -32,10 +32,10 @@ def invoke_commits_check(student_repository, expected_count, exact=False):
     if not exact:
         # create a message for an "at least" because it is not exact
         # the "at least" check is the default, you must opt-in to an exact check
-        message = "Repository has at least " + str(expected_count) + " commit(s)"
+        message = "The repository has at least " + str(expected_count) + " commit(s)"
     else:
         # create a message for an exact check
-        message = "Repository has exactly " + str(expected_count) + " commit(s)"
+        message = "The repository has exactly " + str(expected_count) + " commit(s)"
     # diagnostic is created when repository does not have sufficient commits
     # call report_result to update report for this check
     diagnostic = "Found " + str(actual_count) + " commit(s) in the Git repository"
