@@ -200,47 +200,25 @@ this command in a terminal window.
 pipenv run lint --check
 ```
 
-### Linting Checks
+### Automated Checks
 
-Want to learn about our linting checks? Check us out on our website,
-[GatorGrader](https://deploy-preview-1--gatorgrader.netlify.com)! We have detailed
-descriptions of our linting checks and more! To get an idea of the linting checks we
-offer, here is a quick list:
+Want to learn about our automated checks? Check them out on our website,
+[gatorgrader.org](https://gatorgrader2.netlify.com/)! We have detailed
+descriptions of our automated checks and more!
 
-1. ConfirmFileExists          
+Something you should know when working with our checks is that all of
+them come with some **optional arguments**. Optional arguments that you are likely
+to encounter:
+* `-h`
+* `--help`
+* `--exact`
+* `--advanced`
+If `--help` is tagged along with a check then a help message will be displayed and
+then exited. If further assistance is needed, please contact us on GitHub. 
 
-2. CountCommandOutput
-
-3. CountCommits
-
-4. CountFileLines
-
-5. CountFileParagraphs
-
-6. CountFileWords
-
-7. CountMarkdownTags
-
-8. CountMultipleLineComments
-
-9. CountParagraphWords
-
-10. CountSingleLineComments
-
-11. ExecuteCommand
-
-12. MatchCommandFragment
-
-13. MatchCommandRegex
-
-14. MatchFileFragment
-
-15. MatchFileRegex
-
-Something you should know when working with our linting checks is that all of
-them come with optional arguments. These optional arguments are: `-h, --help`.
-The help message will be displayed and then exited. If further assistance is needed,
-please contact us on GitHub.
+Another feature with our automated checks is the **plug-in based approach**. This allows
+users to implement their own check if our initial 15 do not fulfill a check that
+you find necessary.  
 
 ## Running GatorGrader
 
