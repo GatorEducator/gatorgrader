@@ -265,8 +265,18 @@ This will be a command line and therefore, you can type
 `pipenv run python gatorgrader.py ListChecks` into your terminal. This allows for
 all of the checks to be printed out as output. This output will have the necessary
 name labeled with the required and optional arguments. If this output does not give enough content,
-we warmly invite you to navigate to our website, where we go into more detail about our Automated Checks. 
+we warmly invite you to navigate to our website, where we go into more detail about our Automated Checks.
 
+## Using Docker
+A vital part of our process for GatorGrader is to implement and use new techniques to further our tool to grow. This is why we chose to use Docker! Docker is a container platform and therefore, allows students using GatorGrader to just open a container and have easy access to run all commands that would allow them to build, run, and grade their labs and practicals. Docker is an industry standard and therefore, gives us an advantage. To open a container that will allow for the use of GatorGrader, run the following command in your terminal window:
+```
+docker run -it --rm --name dockagator \
+  -v "$(pwd)":/project \
+  -v "$HOME/.dockagator":/root/.local/share \
+  gatoreducator/dockagator /bin/bash
+```
+From here, you are set! Test it out by building, running, or grading your lab/practical!
+If you would like to learn more about Docker, please follow this [link](https://www.docker.com).
 
 ## Comparison to Other Tools
 
