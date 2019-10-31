@@ -259,6 +259,15 @@ set by the [Proselint tool](http://proselint.com/). Since GatorGrader can run an
 arbitrary command and check its error code, it is also possible to integrate it
 with a wide variety of other linters, code formatters, and testing tools.
 
+Instructors may at times need to see a full list of checks to have a better understanding
+and therefore, we feel that it is important to know that there is an easy way to do this.
+This will be a command line and therefore, you can type
+`pipenv run python gatorgrader.py ListChecks` into your terminal. This allows for
+all of the checks to be printed out as output. This output will have the necessary
+name labeled with the required and optional arguments. If this output does not give enough content,
+we warmly invite you to navigate to our website, where we go into more detail about our Automated Checks. 
+
+
 ## Comparison to Other Tools
 
 Other automated grading tools include:
