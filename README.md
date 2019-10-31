@@ -29,21 +29,32 @@ speed!
 * [Contributors](#contributors)
 
 ## Quickstart Guide
-
-Want to quickly get up and running with GatorGrader? If you have an existing
-assignment and you want to automatically check its source code or technical
-writing, then you can use GatorGrader's [Gradle
-plugin](https://github.com/GatorEducator/gatorgradle). The following starter
-repositories provide examples of how to configure GatorGrader to check programs
-and documentation for different languages:
-[Java](https://github.com/GatorEducator/java-starter),
-[LaTeX](https://github.com/GatorEducator/latex-assignment-starter), and [HTML
-with CSS](https://github.com/GatorEducator/html-css-assignment-starter). These
+* Starter Repositories
+An easy way to get started with GatorGrader is to check out our sample starter repositories.
+The following starter repositories provide examples of how to configure GatorGrader
+to check programs and documentation for different languages:
+[Java](https://github.com/GatorEducator/java-assignment-starter-100-01),
+[Python](https://github.com/GatorEducator/python-assignment-starter-203-05), and [HTML with CSS](https://github.com/GatorEducator/html-assignment-starter-302-03). These
 examples also show how to integrate GatorGrader with [GitHub
 Classroom](https://classroom.github.com/) and [Travis
 CI](https://travis-ci.com/). When you follow these examples, the Gradle plugin
 for GatorGrader will install it automatically when you run `gradle grade` in a
-terminal window.
+terminal window. Please be aware that these repositories are meant to have a majority
+of red checks. This is only suppose to be a “starter” and give an insight into what must be accomplished within the lab.
+* Solution Repositories
+The next step to get involved with GatorGrader is to checkout our sample solution
+repositories. The following solution repositories provide examples of how to configure
+GatorGrader to check programs and documentation for different languages:
+[Java](https://github.com/GatorEducator/java-assignment-solution-100-01),
+[Python](https://github.com/GatorEducator/python-assignment-solution-203-05)  , and [HTML with CSS](https://github.com/GatorEducator/html-assignment-solution-302-03). These examples
+also show how to integrate GatorGrader with  [GitHub
+Classroom](https://classroom.github.com/) and [Travis
+CI](https://travis-ci.com/).  When you follow these examples, the Gradle plugin
+for GatorGrader will install it automatically when you run `gradle grade` in a
+terminal window. Please be aware that these repositories are meant to have a majority
+of green checks. This is suppose to show what must be accomplished within a lab/practical
+and what it looks like when those tasks are completed.
+
 
 ## Key Features
 
@@ -214,7 +225,7 @@ to encounter:
 * `--exact`
 * `--advanced`
 If `--help` is tagged along with a check then a help message will be displayed and
-then exited. If further assistance is needed, please contact us on GitHub. 
+then exited. If further assistance is needed, please contact us on GitHub.
 
 Another feature with our automated checks is the **plug-in based approach**. This allows
 users to implement their own check if our initial 15 do not fulfill a check that
