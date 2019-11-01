@@ -93,6 +93,7 @@ markers = create_constants(
     Unknown_File="unknown",
     Xmark="✘",
     Yes="Yes",
+    Circle="●"
 )
 
 # define the metavars
