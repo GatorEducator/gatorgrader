@@ -23,6 +23,7 @@ speed!
   + [Testing with Multiple Python Versions](#testing-with-multiple-python-versions)
   + [Code Linting](#code-linting)
 * [Running GatorGrader](#running-gatorgrader)
+* [Using Docker](#using-docker)
 * [Comparison to Other Tools](#comparison-to-other-tools)
 * [Presentations](#presentations)
 * [Contributing](#contributing)
@@ -214,7 +215,7 @@ pipenv run lint --check
 ### Automated Checks
 
 Want to learn about our automated checks? Check them out on our website,
-[gatorgrader.org](https://gatorgrader2.netlify.com/)! We have detailed
+[gatorgrader.org](gatograder.org)! We have detailed
 descriptions of our automated checks and more!
 
 Something you should know when working with our checks is that all of
@@ -268,7 +269,13 @@ name labeled with the required and optional arguments. If this output does not g
 we warmly invite you to navigate to our website, where we go into more detail about our Automated Checks.
 
 ## Using Docker
-A vital part of our process for GatorGrader is to implement and use new techniques to further our tool to grow. This is why we chose to use Docker! Docker is a container platform and therefore, allows students using GatorGrader to just open a container and have easy access to run all commands that would allow them to build, run, and grade their labs and practicals. Docker is an industry standard and therefore, gives us an advantage. To open a container that will allow for the use of GatorGrader, run the following command in your terminal window:
+A vital part of our process for GatorGrader is to implement and use new techniques
+to further our tool to grow. This is why we chose to use Docker! Docker is a container
+platform and therefore, allows students using GatorGrader to just open a container
+and have easy access to run all commands that would allow them to build, run, and
+grade their labs and practicals. Docker is an industry standard and therefore,
+gives us an advantage. To open a container that will allow for the use of GatorGrader,
+run the following command in your terminal window:
 ```
 docker run -it --rm --name dockagator \
   -v "$(pwd)":/project \
