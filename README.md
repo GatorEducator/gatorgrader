@@ -224,7 +224,7 @@ to encounter:
 * `-h`
 * `--help`
 * `--exact`
-* `--advanced`
+* `--advanced` <br>
 If `--help` is tagged along with a check then a help message will be displayed and
 then exited. If further assistance is needed, please contact us on GitHub.
 
