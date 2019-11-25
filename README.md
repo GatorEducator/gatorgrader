@@ -215,7 +215,7 @@ pipenv run lint --check
 ### Automated Checks
 
 Want to learn about our automated checks? Check them out on our website,
-[gatorgrader.org](gatograder.org)! We have detailed
+[gatorgrader.org](www.gatograder.org)! We have detailed
 descriptions of our automated checks and more!
 
 Something you should know when working with our checks is that all of
