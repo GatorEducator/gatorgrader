@@ -123,7 +123,7 @@ def test_garbage_glob_ext_returns_no_matching_paths(tmpdir):
 
 
 def test_garbage_glob_file_returns_no_matching_paths_more_garbage_markdown_names(
-    tmpdir
+    tmpdir,
 ):
     """Ensure that creating a garbage globbed path returns no matches."""
     hello_file_one = tmpdir.join("hello1.txt")
