@@ -207,7 +207,7 @@ Want to learn about our linting checks? Check us out on our website,
 descriptions of our linting checks and more! To get an idea of the linting checks we
 offer, here is a quick list:
 
-1. ConfirmFileExists          
+1. ConfirmFileExists
 
 2. CountCommandOutput
 
