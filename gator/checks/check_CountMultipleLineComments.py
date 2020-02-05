@@ -70,13 +70,15 @@ def get_parser():
         default=False,
         action="store_true",
     )
+
+    # None required for this checker
     # REACH: allows for a students to have a reach goal in their lab/practical
     # REQUIRED? No
     optional_group.add_argument(
-        "--advanced",
+        "--reach",
         help="creates a higher goal for students to potentially reach",
-        default = False,
-        action = "store_true",
+        default=False,
+        action="store_true",
     )
 
     # }}}
