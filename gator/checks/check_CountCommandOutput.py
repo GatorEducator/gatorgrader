@@ -55,8 +55,8 @@ def get_parser():
     optional_group.add_argument(
         "--reach",
         help="creates a higher goal for students to potentially reach",
-        default = False,
-        action = "store_true",
+        default=False,
+        action="store_true",
     )
 
     # }}}
