@@ -92,4 +92,4 @@ def act(main_parsed_arguments, check_remaining_arguments):
     directory = check_parsed_arguments.directory
     exact = check_parsed_arguments.exact
     reach = check_parsed_arguments.reach
-    return [invoke.invoke_all_paragraph_checks(file, directory, count, exact, reach)]
+    return [invoke.invoke_all_paragraph_checks(file, directory, count, exact)]

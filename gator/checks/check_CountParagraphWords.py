@@ -106,6 +106,5 @@ def act(main_parsed_arguments, check_remaining_arguments):
             fragments.count_minimum_words,
             constants.words.Minimum,
             exact,
-            reach,
         )
     ]
