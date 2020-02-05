@@ -101,6 +101,7 @@ def act(main_parsed_arguments, check_remaining_arguments):
     file = check_parsed_arguments.file
     directory = check_parsed_arguments.directory
     exact = check_parsed_arguments.exact
+    reach = check_parsed_arguments.reach
     return [
         invoke.invoke_all_regex_checks(
             regex, count, file, directory, constants.markers.Nothing, exact, reach
