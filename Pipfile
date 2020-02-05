@@ -9,6 +9,7 @@ requests = ">=2.20.0"
 commonmark = "*"
 num2words = "*"
 pluginbase = "*"
+black = "*"
 
 [dev-packages]
 pylint = "*"
