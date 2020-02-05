@@ -40,6 +40,8 @@ def get_parser():
 
     # Optional Named Checker Arguments {{{
 
+    optional_group = parser.add_argument_group("optional check arguments")
+
     # None required for this checker
     # REACH: allows for a students to have a reach goal in their lab/practical
     # REQUIRED? No
