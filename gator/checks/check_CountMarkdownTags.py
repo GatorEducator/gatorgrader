@@ -66,6 +66,16 @@ def get_parser():
         action="store_true",
     )
 
+    # None required for this checker
+    # REACH: allows for a students to have a reach goal in their lab/practical
+    # REQUIRED? No
+    optional_group.add_argument(
+        "--reach",
+        help="creates a higher goal for students to potentially reach",
+        default=False,
+        action="store_true",
+    )
+
     # }}}
 
     # add an epilog to list some of the available tags
@@ -102,4 +112,4 @@ def act(main_parsed_arguments, check_remaining_arguments):
     file = check_parsed_arguments.file
     directory = check_parsed_arguments.directory
     exact = check_parsed_arguments.exact
-    return [invoke.invoke_all_markdown_checks(tag, count, file, directory, exact)]
+    return [invoke.invoke_all_markdown_checks(tag, count, file, directory, exact, reach)]
