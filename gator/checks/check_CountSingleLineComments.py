@@ -105,7 +105,7 @@ def act(main_parsed_arguments, check_remaining_arguments):
     directory = check_parsed_arguments.directory
     language = check_parsed_arguments.language
     exact = check_parsed_arguments.exact
-    reach = check_parsed_arguments.reach
+    # reach = check_parsed_arguments.reach
     return [
         invoke.invoke_all_comment_checks(
             file, directory, count, constants.comments.Single_Line, language, exact
