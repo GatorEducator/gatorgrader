@@ -56,6 +56,13 @@ def get_parser():
         action="store_true",
     )
 
+    optional_group.add_argument(
+        "--reach",
+        help="creates a higher goal for students to potentially reach",
+        default=False,
+        action="store_true",
+    )
+
     # }}}
     return parser
 
@@ -81,4 +88,4 @@ def act(main_parsed_arguments, check_remaining_arguments):
     regex = check_parsed_arguments.regex
     count = check_parsed_arguments.count
     exact = check_parsed_arguments.exact
-    return [invoke.invoke_all_command_regex_checks(command, regex, count, exact)]
+    return [invoke.invoke_all_command_regex_checks(command, regex, count, exact, reach)]
