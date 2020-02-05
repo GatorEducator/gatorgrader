@@ -67,6 +67,13 @@ def get_parser():
         action="store_true",
     )
 
+    optional_group.add_argument(
+        "--reach",
+        help="creates a higher goal for students to potentially reach",
+        default=False,
+        action="store_true",
+    )
+
     # }}}
     return parser
 
@@ -96,6 +103,6 @@ def act(main_parsed_arguments, check_remaining_arguments):
     exact = check_parsed_arguments.exact
     return [
         invoke.invoke_all_regex_checks(
-            regex, count, file, directory, constants.markers.Nothing, exact
+            regex, count, file, directory, constants.markers.Nothing, exact, reach
         )
     ]
