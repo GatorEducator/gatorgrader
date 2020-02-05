@@ -62,6 +62,16 @@ def get_parser():
         action="store_true",
     )
 
+    # None required for this checker
+    # REACH: allows for a students to have a reach goal in their lab/practical
+    # REQUIRED? No
+    optional_group.add_argument(
+        "--reach",
+        help="creates a higher goal for students to potentially reach",
+        default=False,
+        action="store_true",
+    )
+
     # }}}
     return parser
 
@@ -95,5 +105,6 @@ def act(main_parsed_arguments, check_remaining_arguments):
             fragments.count_minimum_words,
             constants.words.Minimum,
             exact,
+            reach,
         )
     ]
