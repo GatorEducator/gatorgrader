@@ -214,6 +214,21 @@ pipenv run lint --check
 
 ### Automated Checks
 
+Want to learn about our linting checks? Check us out on our website,
+[GatorGrader](https://deploy-preview-1--gatorgrader.netlify.com)! We have detailed
+descriptions of our linting checks and more! To get an idea of the linting checks we
+offer, here is a quick list:
+
+1. ConfirmFileExists
+
+2. CountCommandOutput
+
+3. CountCommits
+
+4. CountFileLines
+
+5. CountFileParagraphs
+
 Want to learn about our automated checks? Check them out on our website,
 [gatorgrader.org](http://www.gatorgrader.org)! We have detailed
 descriptions of our automated checks and more!

@@ -278,7 +278,7 @@ def test_check_extraction_from_commandline_arguments_has_help_single_checker():
 
 
 def test_check_extraction_from_commandline_arguments_has_help_two_checkers_one_invalid(
-    tmpdir
+    tmpdir,
 ):
     """Ensure that checker finding and help extraction works for a provided checker."""
     testargs = [os.getcwd()]
