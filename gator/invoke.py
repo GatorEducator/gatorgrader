@@ -43,7 +43,7 @@ def invoke_commits_check(student_repository, expected_count, exact=False):
     return did_check_pass
 
 
-def invoke_file_in_directory_check(filecheck, directory):
+def invoke_file_in_directory_check(filecheck, directory, reach):
     """Check to see if the file is in the directory."""
     # get the project home, which contains the content subject to checking
     gatorgrader_home = util.get_project_home()
