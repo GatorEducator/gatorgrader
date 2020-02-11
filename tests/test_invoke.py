@@ -46,8 +46,7 @@ def test_file_exists_in_directory_check(reset_results_dictionary, tmpdir):
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     hello_file = "hello.txt"
-    reach = "5 more commits"
-    invoke.invoke_file_in_directory_check(hello_file, directory, reach)
+    invoke.invoke_file_in_directory_check(hello_file, directory)
     details = report.get_result()
     # file is found in the specified directory
     assert details is not None
@@ -64,8 +63,7 @@ def test_file_exists_in_directory_check_test_file(reset_results_dictionary):
     with patch.object(sys, "argv", testargs):
         directory = "tests"
         test_file = "test_invoke.py"
-        reach = "5 more commits"
-        invoke.invoke_file_in_directory_check(test_file, directory, reach)
+        invoke.invoke_file_in_directory_check(test_file, directory)
         details = report.get_result()
         # file is found in the specified directory
         assert details is not None
@@ -561,8 +559,7 @@ def test_comment_counts_check_single_java(reset_results_dictionary, tmpdir):
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
-    reach = "5 more commits"
-    invoke.invoke_file_in_directory_check(hello_file, directory, reach)
+    invoke.invoke_file_in_directory_check(hello_file, directory)
     details = report.get_result()
     assert details is not None
     report.reset()
@@ -581,8 +578,7 @@ def test_comment_counts_check_single_java_exact(reset_results_dictionary, tmpdir
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
-    reach = "5 more commits"
-    invoke.invoke_file_in_directory_check(hello_file, directory, reach)
+    invoke.invoke_file_in_directory_check(hello_file, directory)
     details = report.get_result()
     assert details is not None
     report.reset()
@@ -603,8 +599,7 @@ def test_comment_counts_check_single_python(reset_results_dictionary, tmpdir):
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.py"
-    reach = "5 more commits"
-    invoke.invoke_file_in_directory_check(hello_file, directory, reach)
+    invoke.invoke_file_in_directory_check(hello_file, directory)
     details = report.get_result()
     assert details is not None
     report.reset()
@@ -623,8 +618,7 @@ def test_comment_counts_check_multiple_java(reset_results_dictionary, tmpdir):
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
-    reach = "5 more commits"
-    invoke.invoke_file_in_directory_check(hello_file, directory, reach)
+    invoke.invoke_file_in_directory_check(hello_file, directory)
     details = report.get_result()
     assert details is not None
     report.reset()
@@ -645,8 +639,7 @@ def test_comment_counts_check_multiple_java_invalid_check(
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
-    reach = "5 more commits"
-    invoke.invoke_file_in_directory_check(hello_file, directory, reach)
+    invoke.invoke_file_in_directory_check(hello_file, directory)
     details = report.get_result()
     assert details is not None
     report.reset()
@@ -670,8 +663,7 @@ def test_comment_counts_check_multiple_java_not_enough(
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
-    reach = "5 more commits"
-    invoke.invoke_file_in_directory_check(hello_file, directory, reach)
+    invoke.invoke_file_in_directory_check(hello_file, directory)
     details = report.get_result()
     assert details is not None
     report.reset()
@@ -693,8 +685,7 @@ def test_comment_counts_check_multiple_python(reset_results_dictionary, tmpdir):
     # directory = tmpdir.dirname + '"""' + tmpdir.basename + '"""' + "subdirectory"
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.py"
-    reach = "5 more commits"
-    invoke.invoke_file_in_directory_check(hello_file, directory, reach)
+    invoke.invoke_file_in_directory_check(hello_file, directory)
     details = report.get_result()
     assert details is not None
     report.reset()
@@ -719,8 +710,7 @@ def test_comment_counts_check_multiple_python_not_enough(
     # directory = tmpdir.dirname + '"""' + tmpdir.basename + '"""' + "subdirectory"
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.py"
-    reach = "5 more commits"
-    invoke.invoke_file_in_directory_check(hello_file, directory, reach)
+    invoke.invoke_file_in_directory_check(hello_file, directory)
     details = report.get_result()
     assert details is not None
     report.reset()

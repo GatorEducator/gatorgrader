@@ -43,7 +43,7 @@ def invoke_commits_check(student_repository, expected_count, exact=False):
     return did_check_pass
 
 
-def invoke_file_in_directory_check(filecheck, directory, reach):
+def invoke_file_in_directory_check(filecheck, directory):
     """Check to see if the file is in the directory."""
     # get the project home, which contains the content subject to checking
     gatorgrader_home = util.get_project_home()
@@ -51,6 +51,7 @@ def invoke_file_in_directory_check(filecheck, directory, reach):
     directory_path = files.create_path(home=directory)
     # the directory is absolute, meaning that it does not need to be
     # rooted in the context of the project directory
+    # reach = " "
     if directory_path.is_absolute():
         was_file_found = files.check_file_in_directory(file=filecheck, home=directory)
     # the directory is not absolute, meaning that it should be rooted
