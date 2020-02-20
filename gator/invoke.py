@@ -22,7 +22,7 @@ def report_result(status, message, diagnostic):
         report.set_result(message, status, diagnostic)
 
 
-def invoke_commits_check(student_repository, expected_count, exact=False):
+def invoke_commits_check(student_repository, expected_count, exact=False, reach=False):
     """Check to see if the repository has more than specified commits."""
     # inspect the Git repository internals for the commits
     did_check_pass, actual_count = repository.commits_greater_than_count(
