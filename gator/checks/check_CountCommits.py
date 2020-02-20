@@ -74,5 +74,7 @@ def act(main_parsed_arguments, check_remaining_arguments):
     exact = check_parsed_arguments.exact
     reach = check_parsed_arguments.reach
     return [
-        invoke.invoke_commits_check(constants.paths.Current_Directory, count, exact, reach)
+        invoke.invoke_commits_check(
+            constants.paths.Current_Directory, count, exact, reach
+        )
     ]

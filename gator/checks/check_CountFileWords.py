@@ -104,6 +104,6 @@ def act(main_parsed_arguments, check_remaining_arguments):
             fragments.count_total_words,
             constants.words.Total,
             exact,
-            reach
+            reach,
         )
     ]

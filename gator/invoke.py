@@ -84,7 +84,13 @@ def invoke_file_in_directory_check(filecheck, directory, reach=False):
 
 # pylint: disable=bad-continuation
 def invoke_all_comment_checks(
-    filecheck, directory, expected_count, comment_type, language, exact=False, reach=False
+    filecheck,
+    directory,
+    expected_count,
+    comment_type,
+    language,
+    exact=False,
+    reach=False,
 ):
     """Perform the comment check and return the results."""
     met_or_exceeded_count = 0
@@ -227,7 +233,9 @@ def invoke_all_comment_checks(
     return met_or_exceeded_count
 
 
-def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=False, reach=False):
+def invoke_all_paragraph_checks(
+    filecheck, directory, expected_count, exact=False, reach=False
+):
     """Perform the paragraph check and return the results."""
     met_or_exceeded_count = 0
     (
@@ -283,7 +291,13 @@ def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=Fals
 
 
 def invoke_all_minimum_word_count_checks(
-    filecheck, directory, expected_count, count_function, conclusion, exact=False, reach=False
+    filecheck,
+    directory,
+    expected_count,
+    count_function,
+    conclusion,
+    exact=False,
+    reach=False,
 ):
     """Perform the word count check and return the results."""
     met_or_exceeded_count = 0
@@ -367,7 +381,13 @@ def invoke_all_minimum_word_count_checks(
 
 
 def invoke_all_total_word_count_checks(
-    filecheck, directory, expected_count, count_function, conclusion, exact=False, reach=False
+    filecheck,
+    directory,
+    expected_count,
+    count_function,
+    conclusion,
+    exact=False,
+    reach=False,
 ):
     """Perform the word count check and return the results."""
     met_or_exceeded_count = False
@@ -457,7 +477,7 @@ def invoke_all_fragment_checks(
     directory=constants.markers.Nothing,
     contents=constants.markers.Nothing,
     exact=False,
-    reach=False
+    reach=False,
 ):
     """Perform the check for a fragment existence in file or contents and return the results."""
     met_or_exceeded_count = 0
@@ -557,7 +577,7 @@ def invoke_all_regex_checks(
     directory=constants.markers.Nothing,
     contents=constants.markers.Nothing,
     exact=False,
-    reach=False
+    reach=False,
 ):
     """Perform the check for a regex existence in file or contents and return the results."""
     met_or_exceeded_count = 0
@@ -674,7 +694,7 @@ def invoke_all_command_fragment_checks(
         constants.markers.Nothing,
         command_output,
         exact,
-        reach
+        reach,
     )
 
 
@@ -699,7 +719,7 @@ def invoke_all_command_regex_checks(
         constants.markers.Nothing,
         command_output,
         exact,
-        reach
+        reach,
     )
 
 
@@ -796,7 +816,7 @@ def invoke_all_count_checks(
     directory=constants.markers.Nothing,
     contents=constants.markers.Nothing,
     exact=False,
-    reach=False
+    reach=False,
 ):
     """Perform the check for the count of lines in file or contents and return the results."""
     print("This is a reach variable")
@@ -878,5 +898,5 @@ def invoke_all_command_count_checks(command, expected_count, exact=False, reach=
         constants.markers.Nothing,
         command_output,
         exact,
-        reach
+        reach,
     )

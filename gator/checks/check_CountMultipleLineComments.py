@@ -111,6 +111,12 @@ def act(main_parsed_arguments, check_remaining_arguments):
     reach = check_parsed_arguments.reach
     return [
         invoke.invoke_all_comment_checks(
-            file, directory, count, constants.comments.Multiple_Line, language, exact, reach
+            file,
+            directory,
+            count,
+            constants.comments.Multiple_Line,
+            language,
+            exact,
+            reach,
         )
     ]

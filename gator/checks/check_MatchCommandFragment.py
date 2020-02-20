@@ -90,4 +90,8 @@ def act(main_parsed_arguments, check_remaining_arguments):
     count = check_parsed_arguments.count
     exact = check_parsed_arguments.exact
     reach = check_parsed_arguments.reach
-    return [invoke.invoke_all_command_fragment_checks(command, fragment, count, exact, reach)]
+    return [
+        invoke.invoke_all_command_fragment_checks(
+            command, fragment, count, exact, reach
+        )
+    ]
