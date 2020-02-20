@@ -792,8 +792,11 @@ def invoke_all_count_checks(
     directory=constants.markers.Nothing,
     contents=constants.markers.Nothing,
     exact=False,
+    reach=False
 ):
     """Perform the check for the count of lines in file or contents and return the results."""
+    print("This is a reach variable")
+    print(reach)
     met_or_exceeded_count = 0
     (
         (met_or_exceeded_count, actual_count,),
@@ -862,7 +865,7 @@ def invoke_all_count_checks(
     return extracted_result
 
 
-def invoke_all_command_count_checks(command, expected_count, exact=False):
+def invoke_all_command_count_checks(command, expected_count, exact=False, reach=False):
     """Perform the check for number of lines in the output of a command."""
     command_output = run.specified_command_get_output(command)
     return invoke_all_count_checks(
@@ -871,4 +874,5 @@ def invoke_all_command_count_checks(command, expected_count, exact=False):
         constants.markers.Nothing,
         command_output,
         exact,
+        reach
     )
