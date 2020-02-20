@@ -283,7 +283,7 @@ def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=Fals
 
 
 def invoke_all_minimum_word_count_checks(
-    filecheck, directory, expected_count, count_function, conclusion, exact=False
+    filecheck, directory, expected_count, count_function, conclusion, exact=False, reach=False
 ):
     """Perform the word count check and return the results."""
     met_or_exceeded_count = 0
