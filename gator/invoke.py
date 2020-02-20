@@ -653,7 +653,7 @@ def invoke_all_regex_checks(
 
 # pylint: disable=bad-continuation
 def invoke_all_command_fragment_checks(
-    command, expected_fragment, expected_count, exact=False
+    command, expected_fragment, expected_count, exact=False, reach=False
 ):
     """Perform the check for a fragment existence in the output of a command."""
     command_output = run.specified_command_get_output(command)
