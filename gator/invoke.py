@@ -84,7 +84,7 @@ def invoke_file_in_directory_check(filecheck, directory):
 
 # pylint: disable=bad-continuation
 def invoke_all_comment_checks(
-    filecheck, directory, expected_count, comment_type, language, exact=False
+    filecheck, directory, expected_count, comment_type, language, exact=False, reach=False
 ):
     """Perform the comment check and return the results."""
     met_or_exceeded_count = 0
