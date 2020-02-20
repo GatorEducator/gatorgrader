@@ -227,7 +227,7 @@ def invoke_all_comment_checks(
     return met_or_exceeded_count
 
 
-def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=False):
+def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=False, reach=False):
     """Perform the paragraph check and return the results."""
     met_or_exceeded_count = 0
     (
