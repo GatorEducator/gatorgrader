@@ -367,7 +367,7 @@ def invoke_all_minimum_word_count_checks(
 
 
 def invoke_all_total_word_count_checks(
-    filecheck, directory, expected_count, count_function, conclusion, exact=False
+    filecheck, directory, expected_count, count_function, conclusion, exact=False, reach=False
 ):
     """Perform the word count check and return the results."""
     met_or_exceeded_count = False
