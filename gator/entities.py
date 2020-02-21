@@ -7,7 +7,12 @@ from gator import util
 
 # pylint: disable=bad-continuation
 def entity_greater_than_count_total(
-    given_file, containing_directory, expected_count, checking_function, exact=False
+    given_file,
+    containing_directory,
+    expected_count,
+    checking_function,
+    exact=False,
+    reach=False,
 ):
     """Return a count and determination if entity count is greater than expected."""
     # call the count_entities function in this module
@@ -15,7 +20,7 @@ def entity_greater_than_count_total(
         given_file, containing_directory, checking_function
     )
     count_status_list = util.greater_than_equal_exacted(
-        expected_count, file_entity_count, exact
+        expected_count, file_entity_count, exact, reach
     )
     count_status = count_status_list[0]
     return count_status, file_entity_count, file_entity_count_dictionary
@@ -23,7 +28,12 @@ def entity_greater_than_count_total(
 
 # pylint: disable=bad-continuation
 def entity_greater_than_count(
-    given_file, containing_directory, expected_count, checking_function, exact=False
+    given_file,
+    containing_directory,
+    expected_count,
+    checking_function,
+    exact=False,
+    reach=False,
 ):
     """Return a count and determination if entity count is greater than expected."""
     # call the count_entities function in this module
@@ -31,7 +41,7 @@ def entity_greater_than_count(
         given_file, containing_directory, checking_function
     )
     final_check_result_list = util.greater_than_equal_exacted(
-        file_entity_count, expected_count, exact
+        file_entity_count, expected_count, exact, reach
     )
     final_check_result = final_check_result_list[0]
     return final_check_result, file_entity_count, file_entity_count_dictionary

@@ -189,13 +189,15 @@ def is_json(potential_json):
     return True
 
 
-def greater_than_equal_exacted(first, second, exact=False):
+def greater_than_equal_exacted(first, second, exact=False, reach=False):
     """Return True if first >= second unless exact, then True if ==, otherwise False."""
     if not exact and first >= second:
         return True, first
     if exact and first == second:
         return True, first
     return False, first
+    if reach:
+        print("hello")
 
 
 def get_number_as_words(number, format=constants.words.Ordinal):

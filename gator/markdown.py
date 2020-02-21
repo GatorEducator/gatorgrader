@@ -26,6 +26,7 @@ def specified_tag_greater_than_count(
     given_file,
     containing_directory,
     exact=False,
+    reach=False,
 ):
     """Determine if the tag count is greater than expected in given file(s)."""
     # Use these two variables to keep track of tag counts for multiple files.
@@ -50,6 +51,6 @@ def specified_tag_greater_than_count(
     file_tags_count = minimum_pair[1]
     # check the condition and also return file_tags_count
     return (
-        util.greater_than_equal_exacted(file_tags_count, expected_count, exact),
+        util.greater_than_equal_exacted(file_tags_count, expected_count, exact, reach),
         file_tags_count_dictionary,
     )
