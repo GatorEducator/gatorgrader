@@ -23,7 +23,7 @@ def get_parser():
     # COMMAND: the command to execute
     # REQUIRED? Yes
     required_group.add_argument(
-        "--command", type=str, help="command to execute", required=True
+        "--command", type=str, metavar="CMD", help="command to execute", required=True
     )
 
     # }}}
