@@ -824,8 +824,6 @@ def invoke_all_count_checks(
     reach=False,
 ):
     """Perform the check for the count of lines in file or contents and return the results."""
-    print("This is a reach variable")
-    print(reach)
     met_or_exceeded_count = 0
     (
         (met_or_exceeded_count, actual_count,),
