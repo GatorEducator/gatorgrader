@@ -83,5 +83,4 @@ def act(main_parsed_arguments, check_remaining_arguments):
     count = check_parsed_arguments.count
     exact = check_parsed_arguments.exact
     reach = check_parsed_arguments.reach
-    print(reach)
     return [invoke.invoke_all_command_count_checks(command, count, exact, reach)]
