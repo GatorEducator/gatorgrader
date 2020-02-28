@@ -56,6 +56,7 @@ def test_required_commandline_arguments_cannot_parse(commandline_arguments, caps
         (["--count", "5", "--command", "run_command_second"]),
         (["--command", "run_command_first", "--count", "5"]),
         (["--command", "run_command_first", "--count", "5", "--exact"]),
+        (["--command", "run_command_first", "--count", "5", "--exact", "--reach"]),
     ],
 )
 def test_required_commandline_arguments_can_parse(commandline_arguments, not_raises):
@@ -71,6 +72,7 @@ def test_required_commandline_arguments_can_parse(commandline_arguments, not_rai
         (["--count", "5", "--command", "run_command_second"]),
         (["--command", "run_command_first", "--count", "5"]),
         (["--command", "run_command_first", "--count", "5", "--exact"]),
+        (["--command", "run_command_first", "--count", "5", "--exact", "--reach"]),
     ],
 )
 def test_optional_commandline_arguments_can_parse_created_parser(

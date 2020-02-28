@@ -27,7 +27,12 @@ def test_no_arguments_incorrect_system_exit(capsys):
 
 @pytest.mark.parametrize(
     "commandline_arguments",
-    [(["--countWRONG", "5"]), (["--count", "5", "--exactWRONG"]), (["--exact"])],
+    [
+        (["--countWRONG", "5"]),
+        (["--count", "5", "--exactWRONG"]),
+        (["--exact"]),
+        (["--reach"]),
+    ],
 )
 def test_optional_commandline_arguments_cannot_verify(commandline_arguments, capsys):
     """Check that incorrect optional command-line arguments check correctly."""
@@ -44,7 +49,11 @@ def test_optional_commandline_arguments_cannot_verify(commandline_arguments, cap
 
 
 @pytest.mark.parametrize(
-    "commandline_arguments", [(["--count", "5"]), (["--count", "5", "--exact"])]
+    "commandline_arguments",
+    [
+        (["--count", "5"]),
+        (["--count", "5", "--exact"]),
+    ],
 )
 def test_required_commandline_arguments_can_parse(commandline_arguments, not_raises):
     """Check that correct optional command-line arguments check correctly."""
@@ -53,7 +62,11 @@ def test_required_commandline_arguments_can_parse(commandline_arguments, not_rai
 
 
 @pytest.mark.parametrize(
-    "commandline_arguments", [(["--count", "5"]), (["--count", "5", "--exact"])]
+    "commandline_arguments",
+    [
+        (["--count", "5"]),
+        (["--count", "5", "--exact"]),
+    ],
 )
 def test_optional_commandline_arguments_can_parse_created_parser(
     commandline_arguments, not_raises
@@ -70,6 +83,7 @@ def test_optional_commandline_arguments_can_parse_created_parser(
         (["CountCommits", "--count", "0"], True),
         (["CountCommits", "--count", "5"], True),
         (["CountCommits", "--count", "5", "--exact"], False),
+        (["CountCommits", "--count", "5", "--exact", "--reach"], False),
     ],
 )
 def test_act_produces_output(commandline_arguments, expected_result, load_checker):
