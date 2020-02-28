@@ -49,7 +49,7 @@ def test_optional_commandline_arguments_cannot_verify(commandline_arguments, cap
 
 
 @pytest.mark.parametrize(
-    "commandline_arguments", [(["--count", "5"]), (["--count", "5", "--exact"]),],
+    "commandline_arguments", [(["--count", "5"]), (["--count", "5", "--exact"])]
 )
 def test_required_commandline_arguments_can_parse(commandline_arguments, not_raises):
     """Check that correct optional command-line arguments check correctly."""
@@ -58,7 +58,7 @@ def test_required_commandline_arguments_can_parse(commandline_arguments, not_rai
 
 
 @pytest.mark.parametrize(
-    "commandline_arguments", [(["--count", "5"]), (["--count", "5", "--exact"]),],
+    "commandline_arguments", [(["--count", "5"]), (["--count", "5", "--exact"])]
 )
 def test_optional_commandline_arguments_can_parse_created_parser(
     commandline_arguments, not_raises
