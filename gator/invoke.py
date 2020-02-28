@@ -598,7 +598,7 @@ def invoke_all_regex_checks(
         directory,
         contents,
         exact,
-        reach
+        reach,
     )
     # create a message for a file in directory
     if (
@@ -725,7 +725,7 @@ def invoke_all_command_regex_checks(
         constants.markers.Nothing,
         command_output,
         exact,
-        reach
+        reach,
     )
 
 
