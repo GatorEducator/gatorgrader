@@ -829,7 +829,7 @@ def invoke_all_count_checks(
         (met_or_exceeded_count, actual_count,),
         actual_count_dictionary,
     ) = fragments.specified_source_greater_than_count(
-        expected_count, filecheck, directory, contents, exact
+        expected_count, filecheck, directory, contents, exact, reach
     )
     # create a message for a file in directory
     if (
