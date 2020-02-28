@@ -706,7 +706,7 @@ def invoke_all_command_fragment_checks(
 
 # pylint: disable=bad-continuation
 def invoke_all_command_regex_checks(
-    command, expected_regex, expected_count, exact=False
+    command, expected_regex, expected_count, exact=False, reach=False
 ):
     """Perform the check for a regex existence in the output of a command."""
     # Since the command did not produce any output (i.e., its output is "" or
@@ -725,6 +725,7 @@ def invoke_all_command_regex_checks(
         constants.markers.Nothing,
         command_output,
         exact,
+        reach
     )
 
 
