@@ -59,6 +59,17 @@ def test_required_commandline_arguments_cannot_parse(commandline_arguments, caps
         (["--directory", "directoryname", "--file", "filename", "--count", "5"]),
         (["--count", "5", "--directory", "directoryname", "--file", "filename"]),
         (["--directory", "directoryname", "--count", "5", "--file", "filename"]),
+        (
+            [
+                "--directory",
+                "directoryname",
+                "--count",
+                "5",
+                "--file",
+                "filename",
+                "--reach",
+            ]
+        ),
     ],
 )
 def test_required_commandline_arguments_can_parse(commandline_arguments, not_raises):
@@ -74,6 +85,17 @@ def test_required_commandline_arguments_can_parse(commandline_arguments, not_rai
         (["--directory", "directoryname", "--file", "filename", "--count", "5"]),
         (["--count", "5", "--directory", "directoryname", "--file", "filename"]),
         (["--directory", "directoryname", "--count", "5", "--file", "filename"]),
+        (
+            [
+                "--directory",
+                "directoryname",
+                "--count",
+                "5",
+                "--file",
+                "filename",
+                "--reach",
+            ]
+        ),
     ],
 )
 def test_optional_commandline_arguments_can_parse_created_parser(
