@@ -149,7 +149,7 @@ def test_optional_commandline_arguments_can_parse_created_parser(
                 "--count",
                 "0",
                 "--exact",
-                "--reach"
+                "--reach",
             ],
             True,
         ),
