@@ -270,6 +270,21 @@ set by the [Proselint tool](http://proselint.com/). Since GatorGrader can run an
 arbitrary command and check its error code, it is also possible to integrate it
 with a wide variety of other linters, code formatters, and testing tools.
 
+### Issues
+
+We have seen many cases of the `gradle grade` command unexpectedly
+not working correctly becuase GatorGrader could not be pulled correctly.
+The main reason for this issue is out of date dependency versions not
+lining up with the current release of GatorGrader. However, there
+have beeen some instances of this issue without a clear explaination.
+To address this issue, please locate the `virtualenvs` and `gatorgrader`
+directories through the `.local/share` path. Delete `virtualenvs` and
+`gatorgrader` folders and their contents. After deleting these folders,
+re-build your virtual envirnment to re-generation GatorGrader on your device.
+
+Please document any issue you experince through the GitHub Issue tracker
+so we can best solve them and continuously improve our tool!
+
 ## Comparison to Other Tools
 
 Other automated grading tools include:
