@@ -95,6 +95,30 @@ def test_no_arguments_incorrect_system_exit(capsys):
                 "Python",
             ]
         ),
+        (
+            [
+                "--file",
+                "filename",
+                "--directory",
+                "directory",
+                "--countWRONG",
+                "5",
+                "--reach",
+            ]
+        ),
+        (
+            [
+                "--file",
+                "filename",
+                "--directory",
+                "directory",
+                "--count",
+                "5",
+                "--languageWRONG",
+                "Python",
+                "--reach",
+            ]
+        ),
     ],
 )
 def test_required_commandline_arguments_cannot_parse(commandline_arguments, capsys):
@@ -186,6 +210,19 @@ def test_required_commandline_arguments_cannot_parse(commandline_arguments, caps
                 "Java",
             ]
         ),
+        (
+            [
+                "--directory",
+                "directoryname",
+                "--count",
+                "5",
+                "--file",
+                "filename",
+                "--language",
+                "Java",
+                "--reach",
+            ]
+        ),
     ],
 )
 def test_required_commandline_arguments_can_parse(commandline_arguments, not_raises):
@@ -267,6 +304,19 @@ def test_required_commandline_arguments_can_parse(commandline_arguments, not_rai
                 "filename",
                 "--language",
                 "Java",
+            ]
+        ),
+        (
+            [
+                "--count",
+                "5",
+                "--directory",
+                "directoryname",
+                "--file",
+                "filename",
+                "--language",
+                "Python",
+                "--reach",
             ]
         ),
     ],
@@ -384,6 +434,7 @@ def test_act_produces_output_python(
             provided_count,
             "--language",
             "Python",
+            "--reach",
         ]
         parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
         args_verified = arguments.verify(parsed_arguments)
@@ -506,6 +557,7 @@ def test_act_produces_output_java(
             provided_count,
             "--language",
             "Java",
+            "--reach",
         ]
         parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
         args_verified = arguments.verify(parsed_arguments)
