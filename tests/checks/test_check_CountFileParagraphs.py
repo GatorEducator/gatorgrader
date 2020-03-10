@@ -38,6 +38,17 @@ def test_no_arguments_incorrect_system_exit(capsys):
         (["--file", "filename", "--directoryWRONG", "directory"]),
         (["--file", "filename", "--directory", "directory", "--count"]),
         (["--file", "filename", "--directory", "directory", "--countWRONG", "5"]),
+        (
+            [
+                "--file",
+                "filename",
+                "--directory",
+                "directory",
+                "--countWRONG",
+                "5",
+                "--reach",
+            ]
+        ),
     ],
 )
 def test_required_commandline_arguments_cannot_parse(commandline_arguments, capsys):
@@ -76,6 +87,17 @@ def test_required_commandline_arguments_can_parse(commandline_arguments, not_rai
         (["--directory", "directoryname", "--file", "filename", "--count", "5"]),
         (["--count", "5", "--directory", "directoryname", "--file", "filename"]),
         (["--directory", "directoryname", "--count", "5", "--file", "filename"]),
+        (
+            [
+                "--directory",
+                "directoryname",
+                "--count",
+                "5",
+                "--file",
+                "filename",
+                "--reach",
+            ]
+        ),
     ],
 )
 def test_optional_commandline_arguments_can_parse_created_parser(
