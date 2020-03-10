@@ -44,6 +44,17 @@ def test_no_arguments_incorrect_system_exit(capsys):
                 "--directory",
                 "directory",
                 "--count",
+                "--tag",
+                "--reach",
+            ]
+        ),
+        (
+            [
+                "--file",
+                "filename",
+                "--directory",
+                "directory",
+                "--count",
                 "5",
                 "--tagWRONG",
                 "code",
@@ -114,6 +125,19 @@ def test_required_commandline_arguments_cannot_parse(commandline_arguments, caps
                 "5",
                 "--file",
                 "filename",
+            ]
+        ),
+        (
+            [
+                "--directory",
+                "directoryname",
+                "--tag",
+                "code",
+                "--count",
+                "5",
+                "--file",
+                "filename",
+                "--reach",
             ]
         ),
     ],
