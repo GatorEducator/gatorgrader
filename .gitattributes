@@ -1,2 +1,6 @@
 # Convert line endings to be LF, following the Unix standard
 * text eol=lf
+# Do not convert line endings in the following "binary" file types
+*.png binary
+*.psd binary
+*.svg binary
