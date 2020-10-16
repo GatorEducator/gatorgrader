@@ -37,6 +37,7 @@ def grade_repo(repo):
 
 # should fail
 def grade_starter(repo):
+    """wrapper for starter repository, see grade_repo()"""
     if not grade_repo(repo):
         return None
     else:
@@ -45,6 +46,7 @@ def grade_starter(repo):
 
 # should pass
 def grade_solution(repo):
+    """wrapper for solution repository, see grade_repo()"""
     if grade_repo(repo):
         return None
     else:
@@ -52,12 +54,14 @@ def grade_solution(repo):
 
 
 def cleanup():
+    """removes temporary directory used in testing"""
     global REPOS_DIR
     if os.path.exists(REPOS_DIR):
         shutil.rmtree(REPOS_DIR)
 
 
 def setup():
+    """gets current working directory and sets up temporary directory used in testing"""
     global ORIGINAL_DIR, REPOS_DIR
     ORIGINAL_DIR = os.getcwd()
     os.mkdir(REPOS_DIR)
@@ -65,6 +69,7 @@ def setup():
 
 
 def ensure():
+    """module wrapper; initiates testing"""
     try:
         repos = fetch_repos()
         for starter in repos["starters"]:
