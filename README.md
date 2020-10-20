@@ -277,10 +277,13 @@ not working correctly becuase GatorGrader could not be pulled correctly.
 The main reason for this issue is out of date dependency versions not
 lining up with the current release of GatorGrader. However, there
 have beeen some instances of this issue without a clear explanation.
-To address this issue, please locate the `virtualenvs` and `gatorgrader`
+To address this issue locaclly, locate the `virtualenvs` and `gatorgrader`
 directories through the `.local/share` path. Delete `virtualenvs` and
-`gatorgrader` folders and their contents. After deleting these folders,
-re-build your virtual envirnment to re-generate GatorGrader on your device.
+`gatorgrader` folders and their contents. To address this issue in a container,
+clear the DockaGator cache using the `docker volume rm dockagator` command.
+After deleting these folders,
+re-build your virtual envirnment to re-generate GatorGrader on your device by
+either running `gradle grade` or a Dockagator command.
 
 Please document any issue you experince through the GitHub Issue tracker
 so we can best solve them and continuously improve our tool!
