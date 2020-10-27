@@ -281,9 +281,9 @@ To address this issue locally, locate the `virtualenvs` and `gatorgrader`
 directories through the `.local/share` path. Delete `virtualenvs` and
 `gatorgrader` folders and their contents. To address this issue in a container,
 clear the DockaGator cache using the `docker volume rm dockagator` command.
-After deleting these folders, rebuild your virtual environment on your device by
+After deleting these folders, rebuild the virtual environment on your device by
 either running `gradle grade` or a
-[DockaGator](https://github.com/GatorEducator/dockagator)command.
+[DockaGator](https://github.com/GatorEducator/dockagator) command.
 
 Please document any issue you experince through the GitHub Issue tracker
 so we can best solve them and continuously improve our tool!
