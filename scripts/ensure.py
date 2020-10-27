@@ -99,6 +99,5 @@ def ensure():
 
 # FIXME: how do they want me to handle exceptions on the upper level?
 # FIXME: integrate into CI
-# FIXME: test with gradle (I don't have it on my workstation yet)
 # FIXME: windows/mac support
 # FIXME: async
