@@ -1,4 +1,4 @@
-"""Integration testing to ensure grading consistency.
+"""Test to ensure grading consistency.
 
 To activate this script, ensure() must be called.
 
@@ -50,7 +50,7 @@ def __grade_repo(repo):
 
 # should fail
 def __grade_starter(repo):
-    """Wrapper for starter repository, see __grade_repo()."""
+    """Wrap grading for starter repository, see __grade_repo()."""
     if not __grade_repo(repo):
         return None  # good
     else:
@@ -59,7 +59,7 @@ def __grade_starter(repo):
 
 # should pass
 def __grade_solution(repo):
-    """Wrapper for solution repository, see __grade_repo()."""
+    """Wrap grading for solution repository, see __grade_repo()."""
     if __grade_repo(repo):
         return None  # good
     else:
@@ -67,7 +67,7 @@ def __grade_solution(repo):
 
 
 def __cleanup():
-    """Remove temporary directory used in testing"""
+    """Remove temporary directory used in testing."""
     global REPOS_DIR
     if os.path.exists(REPOS_DIR):
         rmtree(REPOS_DIR)
@@ -85,7 +85,7 @@ def __setup():
 
 
 def ensure():
-    """Module wrapper; initiates testing."""
+    """Wrap module; initiates testing."""
     try:
         __setup()
         repos = __fetch_repos()
