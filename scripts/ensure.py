@@ -26,7 +26,9 @@ ORIGINAL_DIR = ""
 def __fetch_repos():
     """fetches starter/solution repositories from GatorEducator; returns two tuple arrays"""
     global GITHUB_API_URI
-    response = requests.get(GITHUB_API_URI, headers={"Accept": "application/vnd.github.v3+json"})
+    response = requests.get(
+        GITHUB_API_URI, headers={"Accept": "application/vnd.github.v3+json"}
+    )
     repos = response.json()
     repodata = {"starters": [], "solutions": []}
     for repo in repos:
@@ -50,7 +52,7 @@ def __grade_repo(repo):
 def __grade_starter(repo):
     """wrapper for starter repository, see __grade_repo()"""
     if not __grade_repo(repo):
-        return None # good
+        return None  # good
     else:
         raise Exception(f"{repo[0]} passed when it should have failed.")
 
@@ -59,7 +61,7 @@ def __grade_starter(repo):
 def __grade_solution(repo):
     """wrapper for solution repository, see __grade_repo()"""
     if __grade_repo(repo):
-        return None # good
+        return None  # good
     else:
         raise Exception(f"{repo[0]} failed when it should have passed.")
 
