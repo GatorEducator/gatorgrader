@@ -23,7 +23,7 @@ REPOS_DIR = "repos"
 ORIGINAL_DIR = ""
 
 
-def __Fetch_repos():
+def __fetch_repos():
     """Fetch starter/solution repositories from GatorEducator; returns two tuple arrays."""
     global GITHUB_API_URI
     response = requests.get(
@@ -41,7 +41,7 @@ def __Fetch_repos():
 
 def __grade_repo(repo):
     """Clone and grade a repository; return True if it passes, False if it fails."""
-    proc1 = run(["git", "clone", repo[1]], check=True)
+    *proc1 = run(["git", "clone", repo[1]], check=True)
     os.chdir(repo[0])
     proc2 = run(["gradle", "grade"])
     os.chdir(REPOS_DIR)
