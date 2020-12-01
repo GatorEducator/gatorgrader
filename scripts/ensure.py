@@ -11,7 +11,7 @@ To activate this script, ensure() must be called.
 
 
 import requests
-from subprocess import run
+from subprocess import run, check_returncode
 import os
 from shutil import rmtree
 
@@ -41,7 +41,8 @@ def __fetch_repos():
 
 def __grade_repo(repo):
     """Clone and grade a repository; return True if it passes, False if it fails."""
-    *proc1 = run(["git", "clone", repo[1]], check=True)
+    proc1 = run(["git", "clone", repo[1]], check=True)
+    check_returncode(proc1)
     os.chdir(repo[0])
     proc2 = run(["gradle", "grade"])
     os.chdir(REPOS_DIR)
