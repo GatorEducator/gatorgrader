@@ -44,6 +44,17 @@ def test_no_arguments_incorrect_system_exit(capsys):
                 "--directory",
                 "directory",
                 "--count",
+                "--tag",
+                "--reach",
+            ]
+        ),
+        (
+            [
+                "--file",
+                "filename",
+                "--directory",
+                "directory",
+                "--count",
                 "5",
                 "--tagWRONG",
                 "code",
@@ -116,6 +127,32 @@ def test_required_commandline_arguments_cannot_parse(commandline_arguments, caps
                 "filename",
             ]
         ),
+        (
+            [
+                "--directory",
+                "directoryname",
+                "--tag",
+                "code",
+                "--count",
+                "5",
+                "--file",
+                "filename",
+                "--reach",
+            ]
+        ),
+        (
+            [
+                "--tag",
+                "code",
+                "--count",
+                "5",
+                "--directory",
+                "directoryname",
+                "--file",
+                "filename",
+                "--reach",
+            ]
+        ),
     ],
 )
 def test_required_commandline_arguments_can_parse(commandline_arguments, not_raises):
@@ -173,6 +210,19 @@ def test_required_commandline_arguments_can_parse(commandline_arguments, not_rai
                 "5",
                 "--file",
                 "filename",
+            ]
+        ),
+        (
+            [
+                "--directory",
+                "directoryname",
+                "--tag",
+                "code",
+                "--count",
+                "5",
+                "--file",
+                "filename",
+                "--reach",
             ]
         ),
     ],
@@ -312,6 +362,7 @@ of GatorGrader. Depending on your goals, there are several different..."""
             provided_count,
             "--tag",
             "heading",
+            "--reach",
         ]
         parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
         args_verified = arguments.verify(parsed_arguments)
@@ -461,6 +512,7 @@ of GatorGrader. Depending on your goals, there are several different..."""
             "--tag",
             "heading",
             "--exact",
+            "--reach",
         ]
         parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
         args_verified = arguments.verify(parsed_arguments)

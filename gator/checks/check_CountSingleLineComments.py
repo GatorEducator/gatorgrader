@@ -69,6 +69,14 @@ def get_parser():
         default=False,
         action="store_true",
     )
+    # REACH: allows for a students to have a reach goal in their lab/practical
+    # REQUIRED? No
+    optional_group.add_argument(
+        "--reach",
+        help="creates a higher goal for students to potentially reach",
+        default=False,
+        action="store_true",
+    )
 
     # }}}
     return parser
@@ -97,8 +105,15 @@ def act(main_parsed_arguments, check_remaining_arguments):
     directory = check_parsed_arguments.directory
     language = check_parsed_arguments.language
     exact = check_parsed_arguments.exact
+    reach = check_parsed_arguments.reach
     return [
         invoke.invoke_all_comment_checks(
-            file, directory, count, constants.comments.Single_Line, language, exact
+            file,
+            directory,
+            count,
+            constants.comments.Single_Line,
+            language,
+            exact,
+            reach,
         )
     ]

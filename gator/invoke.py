@@ -22,11 +22,11 @@ def report_result(status, message, diagnostic):
         report.set_result(message, status, diagnostic)
 
 
-def invoke_commits_check(student_repository, expected_count, exact=False):
+def invoke_commits_check(student_repository, expected_count, exact=False, reach=False):
     """Check to see if the repository has more than specified commits."""
     # inspect the Git repository internals for the commits
     did_check_pass, actual_count = repository.commits_greater_than_count(
-        student_repository, expected_count, exact
+        student_repository, expected_count, exact, reach
     )
     # create the message and the diagnostic
     if not exact:
@@ -51,6 +51,7 @@ def invoke_file_in_directory_check(filecheck, directory):
     directory_path = files.create_path(home=directory)
     # the directory is absolute, meaning that it does not need to be
     # rooted in the context of the project directory
+    # reach = " "
     if directory_path.is_absolute():
         was_file_found = files.check_file_in_directory(file=filecheck, home=directory)
     # the directory is not absolute, meaning that it should be rooted
@@ -83,7 +84,13 @@ def invoke_file_in_directory_check(filecheck, directory):
 
 # pylint: disable=bad-continuation
 def invoke_all_comment_checks(
-    filecheck, directory, expected_count, comment_type, language, exact=False
+    filecheck,
+    directory,
+    expected_count,
+    comment_type,
+    language,
+    exact=False,
+    reach=False,
 ):
     """Perform the comment check and return the results."""
     met_or_exceeded_count = 0
@@ -103,6 +110,7 @@ def invoke_all_comment_checks(
                 expected_count,
                 comments.count_singleline_java_comment,
                 exact,
+                reach,
             )
         # check comments in Python
         if language == constants.languages.Python:
@@ -116,6 +124,7 @@ def invoke_all_comment_checks(
                 expected_count,
                 comments.count_singleline_python_comment,
                 exact,
+                reach,
             )
     # check multiple-line comments
     elif comment_type == constants.comments.Multiple_Line:
@@ -131,6 +140,7 @@ def invoke_all_comment_checks(
                 expected_count,
                 comments.count_multiline_java_comment,
                 exact,
+                reach,
             )
         # check comments in Python
         if language == constants.languages.Python:
@@ -144,6 +154,7 @@ def invoke_all_comment_checks(
                 expected_count,
                 comments.count_multiline_python_comment,
                 exact,
+                reach,
             )
     # check comments in a not-supported language
     # currently the only valid options are:
@@ -226,7 +237,9 @@ def invoke_all_comment_checks(
     return met_or_exceeded_count
 
 
-def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=False):
+def invoke_all_paragraph_checks(
+    filecheck, directory, expected_count, exact=False, reach=False
+):
     """Perform the paragraph check and return the results."""
     met_or_exceeded_count = 0
     (
@@ -234,7 +247,7 @@ def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=Fals
         actual_count,
         actual_count_dictionary,
     ) = entities.entity_greater_than_count(
-        filecheck, directory, expected_count, fragments.count_paragraphs, exact
+        filecheck, directory, expected_count, fragments.count_paragraphs, exact, reach
     )
     # create the message and the diagnostic
     if not exact:
@@ -282,7 +295,13 @@ def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=Fals
 
 
 def invoke_all_minimum_word_count_checks(
-    filecheck, directory, expected_count, count_function, conclusion, exact=False
+    filecheck,
+    directory,
+    expected_count,
+    count_function,
+    conclusion,
+    exact=False,
+    reach=False,
 ):
     """Perform the word count check and return the results."""
     met_or_exceeded_count = 0
@@ -291,7 +310,7 @@ def invoke_all_minimum_word_count_checks(
         actual_count,
         actual_count_dictionary,
     ) = entities.entity_greater_than_count(
-        filecheck, directory, expected_count, count_function, exact
+        filecheck, directory, expected_count, count_function, exact, reach
     )
     # create the message and the diagnostic
     if not exact:
@@ -366,7 +385,13 @@ def invoke_all_minimum_word_count_checks(
 
 
 def invoke_all_total_word_count_checks(
-    filecheck, directory, expected_count, count_function, conclusion, exact=False
+    filecheck,
+    directory,
+    expected_count,
+    count_function,
+    conclusion,
+    exact=False,
+    reach=False,
 ):
     """Perform the word count check and return the results."""
     met_or_exceeded_count = False
@@ -375,10 +400,10 @@ def invoke_all_total_word_count_checks(
         actual_count,
         actual_count_dictionary,
     ) = entities.entity_greater_than_count_total(
-        filecheck, directory, expected_count, count_function, exact
+        filecheck, directory, expected_count, count_function, exact, reach
     )
     met_or_exceeded_count = util.greater_than_equal_exacted(
-        actual_count, expected_count, exact
+        actual_count, expected_count, exact, reach
     )[0]
     # create the message and the diagnostic
     if not exact:
@@ -456,6 +481,7 @@ def invoke_all_fragment_checks(
     directory=constants.markers.Nothing,
     contents=constants.markers.Nothing,
     exact=False,
+    reach=False,
 ):
     """Perform the check for a fragment existence in file or contents and return the results."""
     met_or_exceeded_count = 0
@@ -471,6 +497,7 @@ def invoke_all_fragment_checks(
         directory,
         contents,
         exact,
+        reach,
     )
     # create a message for a file in directory
     if (
@@ -555,6 +582,7 @@ def invoke_all_regex_checks(
     directory=constants.markers.Nothing,
     contents=constants.markers.Nothing,
     exact=False,
+    reach=False,
 ):
     """Perform the check for a regex existence in file or contents and return the results."""
     met_or_exceeded_count = 0
@@ -570,6 +598,7 @@ def invoke_all_regex_checks(
         directory,
         contents,
         exact,
+        reach,
     )
     # create a message for a file in directory
     if (
@@ -652,7 +681,7 @@ def invoke_all_regex_checks(
 
 # pylint: disable=bad-continuation
 def invoke_all_command_fragment_checks(
-    command, expected_fragment, expected_count, exact=False
+    command, expected_fragment, expected_count, exact=False, reach=False
 ):
     """Perform the check for a fragment existence in the output of a command."""
     command_output = run.specified_command_get_output(command)
@@ -671,12 +700,13 @@ def invoke_all_command_fragment_checks(
         constants.markers.Nothing,
         command_output,
         exact,
+        reach,
     )
 
 
 # pylint: disable=bad-continuation
 def invoke_all_command_regex_checks(
-    command, expected_regex, expected_count, exact=False
+    command, expected_regex, expected_count, exact=False, reach=False
 ):
     """Perform the check for a regex existence in the output of a command."""
     # Since the command did not produce any output (i.e., its output is "" or
@@ -695,6 +725,7 @@ def invoke_all_command_regex_checks(
         constants.markers.Nothing,
         command_output,
         exact,
+        reach,
     )
 
 
@@ -722,7 +753,7 @@ def invoke_all_command_executes_checks(command):
 
 # pylint: disable=bad-continuation
 def invoke_all_markdown_checks(
-    markdown_tag, expected_count, filecheck, directory, exact=False
+    markdown_tag, expected_count, filecheck, directory, exact=False, reach=False
 ):
     """Perform the check for a markdown tag existence in a file and return the results."""
     met_or_exceeded_count = 0
@@ -738,6 +769,7 @@ def invoke_all_markdown_checks(
         filecheck,
         directory,
         exact,
+        reach,
     )
     # create an "at least" message which is the default
     if exact is not True:
@@ -791,6 +823,7 @@ def invoke_all_count_checks(
     directory=constants.markers.Nothing,
     contents=constants.markers.Nothing,
     exact=False,
+    reach=False,
 ):
     """Perform the check for the count of lines in file or contents and return the results."""
     met_or_exceeded_count = 0
@@ -798,7 +831,7 @@ def invoke_all_count_checks(
         (met_or_exceeded_count, actual_count,),
         actual_count_dictionary,
     ) = fragments.specified_source_greater_than_count(
-        expected_count, filecheck, directory, contents, exact
+        expected_count, filecheck, directory, contents, exact, reach
     )
     # create a message for a file in directory
     if (
@@ -861,7 +894,7 @@ def invoke_all_count_checks(
     return extracted_result
 
 
-def invoke_all_command_count_checks(command, expected_count, exact=False):
+def invoke_all_command_count_checks(command, expected_count, exact=False, reach=False):
     """Perform the check for number of lines in the output of a command."""
     command_output = run.specified_command_get_output(command)
     return invoke_all_count_checks(
@@ -870,4 +903,5 @@ def invoke_all_command_count_checks(command, expected_count, exact=False):
         constants.markers.Nothing,
         command_output,
         exact,
+        reach,
     )

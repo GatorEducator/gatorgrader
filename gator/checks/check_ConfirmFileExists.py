@@ -40,7 +40,17 @@ def get_parser():
 
     # Optional Named Checker Arguments {{{
 
+    optional_group = parser.add_argument_group("optional check arguments")
+
     # None required for this checker
+    # REACH: allows for a students to have a reach goal in their lab/practical
+    # REQUIRED? No
+    optional_group.add_argument(
+        "--reach",
+        help="creates a higher goal for students to potentially reach",
+        default=False,
+        action="store_true",
+    )
 
     # }}}
     return parser
@@ -63,4 +73,5 @@ def act(main_parsed_arguments, check_remaining_arguments):
     # point since argparse will exit the program if a command-line argument is not provided
     file = check_parsed_arguments.file
     directory = check_parsed_arguments.directory
+    # reach = check_parsed_arguments.reach
     return [invoke.invoke_file_in_directory_check(file, directory)]

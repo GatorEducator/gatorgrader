@@ -33,6 +33,8 @@ def test_no_arguments_incorrect_system_exit(capsys):
         (["--count", "5", "--fragmentWRONG", "hi", "--exact"]),
         (["--count", "5", "--exactWRONG"]),
         (["--exact"]),
+        (["--count", "5", "--fragmentWRONG", "hi", "--exact", "--reach"]),
+        (["--reach"]),
     ],
 )
 def test_optional_commandline_arguments_cannot_verify(commandline_arguments, capsys):
@@ -62,6 +64,17 @@ def test_optional_commandline_arguments_cannot_verify(commandline_arguments, cap
                 "fragment",
                 "--count",
                 "5",
+                "--reach",
+            ]
+        ),
+        (
+            [
+                "--command",
+                "run_command_first",
+                "--fragment",
+                "fragment",
+                "--count",
+                "5",
                 "--exact",
             ]
         ),
@@ -74,6 +87,18 @@ def test_optional_commandline_arguments_cannot_verify(commandline_arguments, cap
                 "--count",
                 "5",
                 "--exact",
+            ]
+        ),
+        (
+            [
+                "--command",
+                "run_command_second",
+                "--fragment",
+                "fragment",
+                "--count",
+                "5",
+                "--exact",
+                "--reach",
             ]
         ),
     ],
@@ -100,6 +125,17 @@ def test_optional_commandline_arguments_can_parse_created_parser(
                 "fragment",
                 "--count",
                 "5",
+                "--reach",
+            ]
+        ),
+        (
+            [
+                "--command",
+                "run_command_first",
+                "--fragment",
+                "fragment",
+                "--count",
+                "5",
                 "--exact",
             ]
         ),
@@ -112,6 +148,18 @@ def test_optional_commandline_arguments_can_parse_created_parser(
                 "--count",
                 "5",
                 "--exact",
+            ]
+        ),
+        (
+            [
+                "--command",
+                "run_command_second",
+                "--fragment",
+                "fragment",
+                "--count",
+                "5",
+                "--exact",
+                "--reach",
             ]
         ),
     ],

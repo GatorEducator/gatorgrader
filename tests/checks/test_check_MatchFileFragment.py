@@ -49,6 +49,17 @@ def test_no_arguments_incorrect_system_exit(capsys):
                 "fragment",
             ]
         ),
+        (
+            [
+                "--file",
+                "filename",
+                "--directory",
+                "directory",
+                "--count",
+                "--fragment",
+                "--reach",
+            ]
+        ),
     ],
 )
 def test_required_commandline_arguments_cannot_parse(commandline_arguments, capsys):
@@ -116,6 +127,19 @@ def test_required_commandline_arguments_cannot_parse(commandline_arguments, caps
                 "filename",
             ]
         ),
+        (
+            [
+                "--directory",
+                "directoryname",
+                "--fragment",
+                "fragment",
+                "--count",
+                "5",
+                "--file",
+                "filename",
+                "--reach",
+            ]
+        ),
     ],
 )
 def test_required_commandline_arguments_can_parse(commandline_arguments, not_raises):
@@ -173,6 +197,19 @@ def test_required_commandline_arguments_can_parse(commandline_arguments, not_rai
                 "5",
                 "--file",
                 "filename",
+            ]
+        ),
+        (
+            [
+                "--file",
+                "filename",
+                "--directory",
+                "directoryname",
+                "--count",
+                "5",
+                "--fragment",
+                "fragment",
+                "--reach",
             ]
         ),
     ],
@@ -290,6 +327,7 @@ def test_act_produces_output(
             provided_count,
             "--fragment",
             "hello",
+            "--reach",
         ]
         parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
         args_verified = arguments.verify(parsed_arguments)

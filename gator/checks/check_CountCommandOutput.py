@@ -23,7 +23,7 @@ def get_parser():
     # COMMAND: the command to execute
     # REQUIRED? Yes
     required_group.add_argument(
-        "--command", type=str, help="command to execute", required=True
+        "--command", type=str, metavar="CMD", help="command to execute", required=True
     )
 
     # COUNT: the number of lines of output
@@ -46,6 +46,15 @@ def get_parser():
     optional_group.add_argument(
         "--exact",
         help="equals instead of a minimum number",
+        default=False,
+        action="store_true",
+    )
+
+    # REACH: allows for a students to have a reach goal in their lab/practical
+    # REQUIRED? No
+    optional_group.add_argument(
+        "--reach",
+        help="creates a higher goal for students to potentially reach",
         default=False,
         action="store_true",
     )
@@ -73,4 +82,5 @@ def act(main_parsed_arguments, check_remaining_arguments):
     command = check_parsed_arguments.command
     count = check_parsed_arguments.count
     exact = check_parsed_arguments.exact
-    return [invoke.invoke_all_command_count_checks(command, count, exact)]
+    reach = check_parsed_arguments.reach
+    return [invoke.invoke_all_command_count_checks(command, count, exact, reach)]

@@ -61,6 +61,14 @@ def get_parser():
         default=False,
         action="store_true",
     )
+    # REACH: allows for a students to have a reach goal in their lab/practical
+    # REQUIRED? No
+    optional_group.add_argument(
+        "--reach",
+        help="creates a higher goal for students to potentially reach",
+        default=False,
+        action="store_true",
+    )
 
     # }}}
     return parser
@@ -87,6 +95,7 @@ def act(main_parsed_arguments, check_remaining_arguments):
     file = check_parsed_arguments.file
     directory = check_parsed_arguments.directory
     exact = check_parsed_arguments.exact
+    reach = check_parsed_arguments.reach
     return [
         invoke.invoke_all_total_word_count_checks(
             file,
@@ -95,5 +104,6 @@ def act(main_parsed_arguments, check_remaining_arguments):
             fragments.count_total_words,
             constants.words.Total,
             exact,
+            reach,
         )
     ]

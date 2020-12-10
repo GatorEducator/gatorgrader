@@ -23,7 +23,7 @@ def get_parser():
     # COMMAND: the command to execute
     # REQUIRED? Yes
     required_group.add_argument(
-        "--command", type=str, help="command to execute", required=True
+        "--command", type=str, metavar="CMD", help="command to execute", required=True
     )
 
     # }}}
@@ -31,6 +31,16 @@ def get_parser():
     # Optional Named Checker Arguments {{{
 
     # None required for this checker
+    optional_group = parser.add_argument_group("optional check arguments")
+    # None required for this checker
+    # REACH: allows for a students to have a reach goal in their lab/practical
+    # REQUIRED? No
+    optional_group.add_argument(
+        "--reach",
+        help="creates a higher goal for students to potentially reach",
+        default=False,
+        action="store_true",
+    )
 
     # }}}
     return parser
@@ -51,4 +61,5 @@ def act(main_parsed_arguments, check_remaining_arguments):
     # This means that the use of check_ExecuteCommand would have already failed by this
     # point since argparse will exit the program if a command-line argument is not provided
     command = check_parsed_arguments.command
+    # reach = check_parsed_arguments.reach
     return [invoke.invoke_all_command_executes_checks(command)]

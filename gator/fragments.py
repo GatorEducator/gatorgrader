@@ -160,6 +160,7 @@ def specified_entity_greater_than_count(
     containing_directory=constants.markers.Nothing,
     contents=constants.markers.Nothing,
     exact=False,
+    reach=False,
 ):
     """Determine if the entity count is greater than expected."""
     # count the fragments/regex in either a file in a directory or String contents
@@ -168,7 +169,7 @@ def specified_entity_greater_than_count(
     )
     # check the condition and also return file_entity_count
     condition_truth, value = util.greater_than_equal_exacted(
-        file_entity_count, expected_count, exact
+        file_entity_count, expected_count, exact, reach
     )
     # also return an empty dictionary since this function does not
     # need to count details about multiple entities
@@ -226,6 +227,7 @@ def specified_source_greater_than_count(
     containing_directory=constants.markers.Nothing,
     contents=constants.markers.Nothing,
     exact=False,
+    reach=False,
 ):
     """Determine if the line count is greater than expected."""
     # count the fragments in either a file in a directory or str contents,
@@ -238,7 +240,9 @@ def specified_source_greater_than_count(
     # and the dictionary itself so as to support good diagnostics
     return (
         (
-            util.greater_than_equal_exacted(file_lines_count, expected_count, exact),
+            util.greater_than_equal_exacted(
+                file_lines_count, expected_count, exact, reach
+            ),
             file_lines_count,
         ),
         file_contents_count_dictionary,

@@ -559,6 +559,7 @@ def test_comment_counts_check_single_java(reset_results_dictionary, tmpdir):
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
+    # reach = "5 more commits"
     invoke.invoke_file_in_directory_check(hello_file, directory)
     details = report.get_result()
     assert details is not None

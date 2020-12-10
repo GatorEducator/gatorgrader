@@ -36,6 +36,13 @@ def get_parser():
         type=str,
     )
 
+    optional_group.add_argument(
+        "--reach",
+        help="creates a higher goal for students to potentially reach",
+        default=False,
+        action="store_true",
+    )
+
     # }}}
     return parser
 

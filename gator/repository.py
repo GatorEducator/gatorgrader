@@ -48,10 +48,10 @@ def count_commits(commits):
     return len(commits)
 
 
-def commits_greater_than_count(path, expected_count, exact=False):
+def commits_greater_than_count(path, expected_count, exact=False, reach=False):
     """Return count and True if count of commits is greater than limit, else False."""
     # extract the commit log and then count the commits
     commits = get_commits(path)
     number_commits = count_commits(commits)
     # check the condition and also return number_commits
-    return util.greater_than_equal_exacted(number_commits, expected_count, exact)
+    return util.greater_than_equal_exacted(number_commits, expected_count, exact, reach)
