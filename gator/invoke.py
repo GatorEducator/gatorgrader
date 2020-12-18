@@ -8,6 +8,7 @@ from gator import fragments
 from gator import markdown
 from gator import report
 from gator import repository
+from gator import spelling
 from gator import run
 from gator import util
 
@@ -40,6 +41,52 @@ def invoke_commits_check(student_repository, expected_count, exact=False):
     # call report_result to update report for this check
     diagnostic = "Found " + str(actual_count) + " commit(s) in the Git repository"
     report_result(did_check_pass, message, diagnostic)
+    return did_check_pass
+
+
+def invoke_spellcheck(file, directory, ignore_count):
+    """Check to see if technical writing is spelled correctly."""
+    gatorgrader_home = util.get_project_home()
+    directory_path = files.create_path(home=directory)
+    did_check_pass = True
+    
+
+    # Perform the spell checking algorithm on the specified technical writing.
+    spell_check_outcome = spelling.check(file, directory_path)
+    
+    # If no misspelled words are detected
+    if spell_check_outcome - ignore_count <= 0:
+        message = (
+            "The "
+            + "new"
+            + " feature "
+            + "invoke"
+            + " works!"
+        )
+        diagnostic = (
+            "Did not find the specified file in the "
+            + directory
+            + "directory"
+        )
+        did_check_pass = True
+    else: 
+        message = (
+            "The "
+            + "new"
+            + " feature "
+            + "invoke"
+            + " doesn't work!"
+        )
+        diagnostic = (
+            "Did not find the specified file in the "
+            + directory
+            + "directory"
+        )
+        did_check_pass = False
+
+    # Report the results of the spellcheck.
+    report_result(did_check_pass, message, diagnostic)
+    # Return the results of the check.
     return did_check_pass
 
 
