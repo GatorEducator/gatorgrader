@@ -102,5 +102,4 @@ def ensure():
 
 # FIXME: how do they want me to handle exceptions on the upper level?
 # FIXME: integrate into CI
-# FIXME: windows/mac support
-# FIXME: async
+# FIXME: ensure windows/mac support
