@@ -1,52 +1,34 @@
-# This is a basic workflow to help you get started with Actions
+name: Lint and Test
 
-name: CI
+on: [push, pull_request]
 
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  test:
+    name: Test
     runs-on: ${{ matrix.os }}
-    # run builds on MacOS and Ubuntu
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest]
-    # run builds two different Python versions
-        python-version: [3.6, 3.7]
-    # configure all global env variables
-    env:
-      LANG: en_US.UTF-8
-    
+        os: [ubuntu-latest]
+        python-version: [3.6.12, 3.7]
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-      # set up python versions defined in build
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-
-      # run commands to install dependencies (from Pipfile, not Pipfile.lock)
-      - name: install dependencies
-        run: |
-         pip install --upgrade pip
-         pip install --upgrade pipenv
-         pipenv install --dev
-
-      # run pipfile scripts cover and lint
-      - name: testing
-        run: |
-            pipenv run cover
-            pipenv run lint --check
-
+      - name: Install dependecies
+        uses: VaultVulp/action-pipenv@v2.0.1
+        with:
+          command: install --dev --skip-lock --python ${{ matrix.python-version }}
+      - name: Execute tests
+        if: runner.os == 'Linux'
+        uses: VaultVulp/action-pipenv@v2.0.1
+        with:
+          command: run test
+      - name: Execute tests
+        if: runner.os == 'Windows'
+        uses: VaultVulp/action-pipenv@v2.0.1
+        with:
+          command: run test-win
