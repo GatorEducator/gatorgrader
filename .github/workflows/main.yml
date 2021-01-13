@@ -8,27 +8,24 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest]
-        python-version: [3.6.12, 3.7]
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: [3.6, 3.7]
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Setup Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
+        id: setup-python
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Setup Pipenv
+        uses: dschep/install-pipenv-action@v1
       - name: Install dependecies
-        uses: VaultVulp/action-pipenv@v2.0.1
-        with:
-          command: install --dev --skip-lock --python ${{ matrix.python-version }}
+        run: pipenv install --dev --skip-lock --python ${{ steps.setup-python.outputs.python-version }}
       - name: Execute tests
-        if: runner.os == 'Linux'
-        uses: VaultVulp/action-pipenv@v2.0.1
+        uses: knicknic/os-specific-run@v1
         with:
-          command: run test
-      - name: Execute tests
-        if: runner.os == 'Windows'
-        uses: VaultVulp/action-pipenv@v2.0.1
-        with:
-          command: run test-win
+          linux: pipenv run test
+          macos: pipenv run test
+          windows: pipenv run test-win
