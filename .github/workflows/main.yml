@@ -3,6 +3,23 @@ name: Lint and Test
 on: [push, pull_request]
 
 jobs:
+  list:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup Python 3.8
+        uses: actions/setup-python@v2
+        id: setup-python
+        with:
+          python-version: 3.8
+      - name: Setup Pipenv
+        uses: dschep/install-pipenv-action@v1
+      - name: Install dependecies
+        run: pipenv install --dev --skip-lock --python ${{ steps.setup-python.outputs.python-version }}
+      - name: Run linters
+        run: pipenv run lint --check
 
   test:
     name: Test
@@ -43,4 +60,3 @@ jobs:
           files: ./coverage.xml
           env_vars: OS,PYTHON
           fail_ci_if_error: true
-          verbose: true
