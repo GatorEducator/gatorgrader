@@ -1,9 +1,12 @@
+# This GitHub Actions workflow contains two jobs: first, Lint uses the latest Ubuntu image and Python 3.8 to check
+# the code and writing for defects, using the Pipenv linting script and mdl; second, Test uses a strategy matrix to
+# run the Pipenv test scripts for multiple platform configurations, and then uploads test coverage.
 name: Lint and Test
 
 on: [push, pull_request]
 
 jobs:
-  list:
+  lint:
     name: Lint
     runs-on: ubuntu-latest
     steps:
@@ -17,6 +20,7 @@ jobs:
       - name: Setup Pipenv
         uses: dschep/install-pipenv-action@v1
       - name: Install dependecies
+        # --skip-lock is used here to speed up installation -- note, however, that `Pipfile.lock` is ignored!
         run: pipenv install --dev --skip-lock --python ${{ steps.setup-python.outputs.python-version }}
       - name: Lint code
         run: pipenv run lint --check
@@ -24,9 +28,15 @@ jobs:
         uses: actionshub/markdownlint@main
 
   test:
+    # Test uses a strategy matrix to ensure that sufficient platform test coverage is reached. For this configuration,
+    # we run the latest Ubuntu image with Python 3.6 and 3.9, while also including MacOS + Python 3.8 and
+    # Windows  + Python 3.7. With this spread, we acheive testing of four different Python versions and three
+    # operating systems without running the full twelve possible combinations, greatly reducing load and usage.
     name: Test
     runs-on: ${{ matrix.os }}
     strategy:
+      # Turning fail-fast off ensures the entire strategy matrix is allowed to run to completion, allowing detection
+      # of individual platform issues regardless of the status of other platforms.
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
@@ -37,6 +47,7 @@ jobs:
           - os: windows-latest
             python-version: 3.7
     env:
+      # These environment variables are passed to CodeCov to identify each build
       OS: ${{ matrix.os }}
       PYTHON: ${{ matrix.python-version }}
     steps:
@@ -50,14 +61,18 @@ jobs:
       - name: Setup Pipenv
         uses: dschep/install-pipenv-action@v1
       - name: Install dependecies
+        # --skip-lock is used here to speed up installation -- note, however, that `Pipfile.lock` is ignored!
         run: pipenv install --dev --skip-lock --python ${{ steps.setup-python.outputs.python-version }}
       - name: Execute tests
+        # We need to ensure that the cover-win script is run for Windows, so this Action runs different commands
+        # based on the runner's operating system.
         uses: knicknic/os-specific-run@v1
         with:
           linux: pipenv run cover
           macos: pipenv run cover
           windows: pipenv run cover-win
-      - uses: codecov/codecov-action@v1
+      - name: Upload coverage
+        uses: codecov/codecov-action@v1
         with:
           files: ./coverage.xml
           flags: unittests
