@@ -3,14 +3,20 @@ name: Lint and Test
 on: [push, pull_request]
 
 jobs:
+
   test:
     name: Test
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: [3.6, 3.7]
-
+        os: [ubuntu-latest]
+        python-version: [3.6, 3.9]
+        include:
+          - os: macos-latest
+            python-version: 3.8
+          - os: windows-latest
+            python-version: 3.7
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
