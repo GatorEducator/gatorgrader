@@ -18,8 +18,10 @@ jobs:
         uses: dschep/install-pipenv-action@v1
       - name: Install dependecies
         run: pipenv install --dev --skip-lock --python ${{ steps.setup-python.outputs.python-version }}
-      - name: Run linters
+      - name: Lint code
         run: pipenv run lint --check
+      - name: Lint writing
+        uses: actionshub/markdownlint@main
 
   test:
     name: Test
