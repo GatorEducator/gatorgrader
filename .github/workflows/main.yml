@@ -17,6 +17,9 @@ jobs:
             python-version: 3.8
           - os: windows-latest
             python-version: 3.7
+    env:
+      OS: ${{ matrix.os }}
+      PYTHON: ${{ matrix.python-version }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -32,6 +35,12 @@ jobs:
       - name: Execute tests
         uses: knicknic/os-specific-run@v1
         with:
-          linux: pipenv run test
-          macos: pipenv run test
-          windows: pipenv run test-win
+          linux: pipenv run cover
+          macos: pipenv run cover
+          windows: pipenv run cover-win
+      - uses: codecov/codecov-action@v1
+        with:
+          files: ./coverage.xml
+          env_vars: OS,PYTHON
+          fail_ci_if_error: true
+          verbose: true
