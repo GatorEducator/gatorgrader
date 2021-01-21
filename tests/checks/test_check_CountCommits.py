@@ -68,8 +68,8 @@ def test_optional_commandline_arguments_can_parse_created_parser(
     "commandline_arguments, expected_result",
     [
         (["CountCommits", "--count", "0"], True),
-        (["CountCommits", "--count", "5"], True),
-        (["CountCommits", "--count", "5", "--exact"], False),
+        (["CountCommits", "--count", "1"], True),
+        (["CountCommits", "--count", "-1", "--exact"], False),
     ],
 )
 def test_act_produces_output(commandline_arguments, expected_result, load_checker):
