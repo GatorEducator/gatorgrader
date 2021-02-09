@@ -44,52 +44,6 @@ def invoke_commits_check(student_repository, expected_count, exact=False):
     return did_check_pass
 
 
-def invoke_spellcheck(file, directory, ignore_count):
-    """Check to see if technical writing is spelled correctly."""
-    gatorgrader_home = util.get_project_home()
-    directory_path = files.create_path(home=directory)
-    did_check_pass = True
-    
-
-    # Perform the spell checking algorithm on the specified technical writing.
-    spell_check_outcome = spelling.check(file, directory_path)
-    
-    # If no misspelled words are detected
-    if spell_check_outcome - ignore_count <= 0:
-        message = (
-            "The "
-            + "new"
-            + " feature "
-            + "invoke"
-            + " works!"
-        )
-        diagnostic = (
-            "Did not find the specified file in the "
-            + directory
-            + "directory"
-        )
-        did_check_pass = True
-    else: 
-        message = (
-            "The "
-            + "new"
-            + " feature "
-            + "invoke"
-            + " doesn't work!"
-        )
-        diagnostic = (
-            "Did not find the specified file in the "
-            + directory
-            + "directory"
-        )
-        did_check_pass = False
-
-    # Report the results of the spellcheck.
-    report_result(did_check_pass, message, diagnostic)
-    # Return the results of the check.
-    return did_check_pass
-
-
 def invoke_file_in_directory_check(filecheck, directory):
     """Check to see if the file is in the directory."""
     # get the project home, which contains the content subject to checking
@@ -918,3 +872,66 @@ def invoke_all_command_count_checks(command, expected_count, exact=False):
         command_output,
         exact,
     )
+
+
+def invoke_spellcheck(file, file_directory, ignore):
+    """Check to see if technical writing is spelled correctly."""
+    # Define important variables
+    gatorgrader_home = util.get_project_home()
+    directory_path = files.create_path(home=file_directory)
+    did_check_pass = True
+    spell_check_outcome = 0
+
+    # Perform the spell checking on the inputted file.
+    spell_check_outcome, did_check_pass = spelling.check(file, directory_path, ignore)
+
+    # If no misspelled words are detected
+    if did_check_pass:
+        message = (
+            "File "
+            + file
+            + " had "
+            + str(spell_check_outcome)
+            + " spelling mistakes, well done!"
+        )
+        diagnostic = (
+            "File " + file + " contains correct writing at " + file_directory + "directory"
+        )
+        did_check_pass = True
+    else:
+        if spell_check_outcome == 1:
+            message = (
+                "File "
+                + file
+                + " had "
+                + str(spell_check_outcome)
+                + " spelling mistake!"
+            )
+            diagnostic = (
+                "File "
+                + file
+                + " contains incorrect writing at "
+                + file_directory
+                + "directory"
+            )
+        else:
+            message = (
+                "File "
+                + file
+                + " had "
+                + str(spell_check_outcome)
+                + " spelling mistake!"
+            )
+            diagnostic = (
+                "File "
+                + file
+                + " contains incorrect writing at "
+                + file_directory
+                + "directory"
+            )
+        did_check_pass = False
+
+    # Report the results of the spellcheck.
+    report_result(did_check_pass, message, diagnostic)
+    # Output the results of the check as a boolean.
+    return did_check_pass
