@@ -13,14 +13,19 @@ To activate this script, ensure() must be called.
 import requests
 from subprocess import run, check_returncode
 import os
-from shutil import rmtree
+from shutil import rmtree, which
 
 
+# uri for github's api
 GITHUB_API_URI = "https://api.github.com/orgs/GatorEducator/repos"
 # temp dir for the clone repos
 REPOS_DIR = "repos"
 # starting directory (just in case something interrupts, we can still clean up)
 ORIGINAL_DIR = ""
+# path to git executable
+GIT_PATH
+# path to gradle executable
+GRADLE_PATH
 
 
 def __fetch_repos():
@@ -40,13 +45,16 @@ def __fetch_repos():
 
 
 def __grade_repo(repo):
-    """Clone and grade a repository; return True if it passes, False if it fails."""
-    proc1 = run(["git", "clone", repo[1]], check=True)
-    check_returncode(proc1)
-    os.chdir(repo[0])
-    proc2 = run(["gradle", "grade"])
-    os.chdir(REPOS_DIR)
-    return True if proc2.returncode == 0 else False
+    try:
+        """Clone and grade a repository; return True if it passes, False if it fails."""
+        os.execl(GIT_PATH, "clone", repo[1])
+        os.chdir(repo[0])
+        os.execl(GRADLE_PATH, "grade")
+        os.chdir(REPOS_DIR)
+        return True
+    except OSError:
+        # non-zero return code
+        return False
 
 
 # should fail
@@ -55,7 +63,9 @@ def __grade_starter(repo):
     if not __grade_repo(repo):
         return None  # good
     else:
-        raise Exception(f"{repo[0]} passed when it should have failed.")
+        # FIXME: should be red
+        print(f"{repo[0]} passed when it should have failed.")
+        pass
 
 
 # should pass
@@ -64,7 +74,9 @@ def __grade_solution(repo):
     if __grade_repo(repo):
         return None  # good
     else:
-        raise Exception(f"{repo[0]} failed when it should have passed.")
+        # FIXME: should be red
+        print(f"{repo[0]} failed when it should have passed.")
+        pass
 
 
 def __cleanup():
@@ -76,13 +88,15 @@ def __cleanup():
 
 def __setup():
     """Get current working directory and set up temporary directory used in testing."""
-    global ORIGINAL_DIR, REPOS_DIR
+    global ORIGINAL_DIR, REPOS_DIR, GIT_PATH, GRADLE_PATH
     ORIGINAL_DIR = os.getcwd()
     if not os.path.exists(REPOS_DIR):
         os.mkdir(REPOS_DIR)
     os.chdir(REPOS_DIR)
-    # get absolute path
+    # get absolute paths
     REPOS_DIR = os.getcwd()
+    GIT_PATH = which("git")
+    GRADLE_PATH = which("gradle")
 
 
 def ensure():
