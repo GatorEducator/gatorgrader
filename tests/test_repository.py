@@ -10,24 +10,24 @@ from gator import repository
 def test_repository_not_zero_commits():
     """Check to ensure that GatorGrader's repository registers."""
     commits = repository.get_commits(".")
-    assert len(commits) > 1
+    assert len(commits) > 0
 
 
 def test_repository_not_zero_commits_extra_method():
     """Check to ensure that GatorGrader's repository registers."""
     commits = repository.get_commits(".")
-    assert repository.count_commits(commits) > 1
+    assert repository.count_commits(commits) > 0
 
 
 def test_repository_not_zero_commits_greater_than():
     """Check to ensure that commit counts work correctly."""
-    valid, __ = repository.commits_greater_than_count(".", 1)
+    valid, __ = repository.commits_greater_than_count(".", 0)
     assert valid is True
 
 
 def test_repository_not_zero_commits_greater_than_exacted():
     """Check to ensure that commit counts work correctly."""
-    valid, __ = repository.commits_greater_than_count(".", 1, True)
+    valid, __ = repository.commits_greater_than_count(".", -1, True)
     assert valid is False
 
 
