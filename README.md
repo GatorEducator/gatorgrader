@@ -32,7 +32,7 @@ speed!
 ## Quickstart Guide
 * Starter Repositories
 An easy way to get started with GatorGrader is to check out our sample starter repositories.
-The following starter repositories provide examples of how to configure GatorGrader
+The following starter repositories provide examples of how GatorGrader files should be created
 to check programs and documentation for different languages:
 [Java](https://github.com/GatorEducator/java-assignment-starter-100-01),
 [Python](https://github.com/GatorEducator/python-assignment-starter-203-05), [LaTex](https://github.com/GatorEducator/latex-assignment-starter-100-01) and [HTML with CSS](https://github.com/GatorEducator/html-assignment-starter-302-03). These
@@ -41,11 +41,11 @@ Classroom](https://classroom.github.com/) and [Travis
 CI](https://travis-ci.com/). When you follow these examples, the Gradle plugin
 for GatorGrader will install it automatically when you run `gradle grade` in a
 terminal window. Please be aware that these repositories are meant to have a majority
-of red checks. This is only suppose to be a “starter” and give an insight into what must be accomplished within the lab.
+of red checks. This is only meant to be a “starter” and give an insight into what must be accomplished within the lab.
 * Solution Repositories
 The next step to get involved with GatorGrader is to checkout our sample solution
-repositories. The following solution repositories provide examples of how to configure
-GatorGrader to check programs and documentation for different languages:
+repositories. The following solution repositories provide examples of how GatorGrader files should be
+created to check programs and documentation for different languages:
 [Java](https://github.com/GatorEducator/java-assignment-solution-100-01),
 [Python](https://github.com/GatorEducator/python-assignment-solution-203-05), [LaTex](https://github.com/GatorEducator/latex-assignment-solution-100-01) , and [HTML with CSS](https://github.com/GatorEducator/html-assignment-solution-302-03). These examples
 also show how to integrate GatorGrader with  [GitHub
@@ -53,7 +53,7 @@ Classroom](https://classroom.github.com/) and [Travis
 CI](https://travis-ci.com/).  When you follow these examples, the Gradle plugin
 for GatorGrader will install it automatically when you run `gradle grade` in a
 terminal window. Please be aware that these repositories are meant to have a majority
-of green checks. This is suppose to show what must be accomplished within a lab/practical
+of green checks. This is meant to show what must be accomplished within a lab/practical
 and what it looks like when those tasks are completed.
 
 
@@ -277,8 +277,8 @@ arbitrary command and check its error code, it is also possible to integrate it
 with a wide variety of other linters, code formatters, and testing tools.
 
 Instructors may at times need to see a full list of checks to have a better understanding
-and therefore, we feel that it is important to know that there is an easy way to do this.
-This will be a command line and therefore, you can type
+and therefore, we feel that it is important to know that there is an easy way for that to happen.
+This action will be completed through command line and therefore, you can type
 `pipenv run python gatorgrader.py ListChecks` into your terminal. This allows for
 all of the checks to be printed out as output. This output will have the necessary
 name labeled with the required and optional arguments. If this output does not give enough content,
