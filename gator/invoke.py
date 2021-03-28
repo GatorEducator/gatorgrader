@@ -729,7 +729,10 @@ def invoke_all_markdown_checks(
     # perform the count, saving the details in a way that preserves information if the
     # filecheck was given as a wildcard (i.e., "*.py")
     (
-        (met_or_exceeded_count, actual_count,),
+        (
+            met_or_exceeded_count,
+            actual_count,
+        ),
         count_dictionary,
     ) = markdown.specified_tag_greater_than_count(
         markdown_tag,
@@ -795,7 +798,10 @@ def invoke_all_count_checks(
     """Perform the check for the count of lines in file or contents and return the results."""
     met_or_exceeded_count = 0
     (
-        (met_or_exceeded_count, actual_count,),
+        (
+            met_or_exceeded_count,
+            actual_count,
+        ),
         actual_count_dictionary,
     ) = fragments.specified_source_greater_than_count(
         expected_count, filecheck, directory, contents, exact

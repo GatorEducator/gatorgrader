@@ -1,0 +1,89 @@
+# This GitHub Actions workflow contains two jobs:
+# -- First, Lint uses the latest Ubuntu image and Python 3.8 to check the code
+# and writing for defects, using the Pipenv linting script and mdl
+#
+# -- Second, Test uses a strategy matrix to run the Pipenv test scripts for
+# multiple platform configurations, and then uploads test coverage.
+name: Lint and Test
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup Python 3.8
+        uses: actions/setup-python@v2
+        id: setup-python
+        with:
+          python-version: 3.8
+      - name: Setup Pipenv
+        uses: dschep/install-pipenv-action@v1
+      - name: Install dependencies
+        # --skip-lock is used here to speed up installation -- note, however,
+        # that `Pipfile.lock` is ignored!
+        run: pipenv install --dev --skip-lock --python ${{ steps.setup-python.outputs.python-version }}
+      - name: Lint code
+        run: pipenv run lint --check
+      - name: Lint writing
+        uses: actionshub/markdownlint@main
+
+  test:
+    # Test uses a strategy matrix to ensure that sufficient platform test
+    # coverage is reached. For this configuration, we run the latest Ubuntu
+    # image with Python 3.6 and 3.9, while also including MacOS + Python 3.8 and
+    # Windows + Python 3.7. With this spread, we achieve testing of four
+    # different Python versions and three operating systems without running the
+    # full twelve possible combinations, greatly reducing load and usage.
+    name: Test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      # Turning fail-fast off ensures the entire strategy matrix is allowed to
+      # run to completion, allowing detection of individual platform issues
+      # regardless of the status of the other platforms.
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        python-version: [3.6, 3.9]
+        include:
+          - os: macos-latest
+            python-version: 3.8
+          - os: windows-latest
+            python-version: 3.7
+    env:
+      # These environment variables are passed to CodeCov to identify each build
+      OS: ${{ matrix.os }}
+      PYTHON: ${{ matrix.python-version }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        id: setup-python
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Setup Pipenv
+        uses: dschep/install-pipenv-action@v1
+      - name: Install dependencies
+        # --skip-lock is used here to speed up installation -- note, however,
+        # that `Pipfile.lock` is ignored!
+        run: pipenv install --dev --skip-lock --python ${{ steps.setup-python.outputs.python-version }}
+      - name: Execute tests
+        # We need to ensure that the cover-win script is run for Windows, so
+        # this Action runs different commands based on the runner's operating
+        # system.
+        uses: knicknic/os-specific-run@v1
+        with:
+          linux: pipenv run cover
+          macos: pipenv run cover
+          windows: pipenv run cover-win
+      - name: Upload coverage
+        uses: codecov/codecov-action@v1
+        with:
+          files: ./coverage.xml
+          flags: unittests
+          env_vars: OS,PYTHON
+          fail_ci_if_error: true
