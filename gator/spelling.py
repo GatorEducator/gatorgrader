@@ -56,7 +56,6 @@ def check(input_file, file_directory, ignore):
         # If special case characters are detected remove all contents contained in code segment and code blocks.
         if filter_out_characters:
             for i, _ in enumerate(range(0, len(markdown_file_contents[line]) + 1)):
-                print("made it!", markdown_file_contents[line][0:i])
                 if end_block_to_filter_out in markdown_file_contents[line][0:i]:
                     if i <= len(markdown_file_contents[line]):
                         markdown_file_contents[line] = markdown_file_contents[line][i + 1:len(markdown_file_contents[line])]
@@ -75,12 +74,10 @@ def check(input_file, file_directory, ignore):
         if markdown_file_contents[line] != "":
             # Generate spell check suggestions.
             suggestions = spellcheck.lookup(markdown_file_contents[line], Verbosity.CLOSEST, transfer_casing=True)
-            #print("Line: ", markdown_file_contents[line])
             # For each suggestion for the current line if the first suggestion doesn't match the current word record one incorrect word.
             for suggested_correction in suggestions:
                 suggested_correction_list = str(suggested_correction).split(",")
                 # When a word is spelled incorrectly increase the incorrect spell count by one.
-                #print("CORRECTION: ", suggested_correction_list[0])
                 if markdown_file_contents[line] != suggested_correction_list[0]:
                     print("CORRECTION: ", suggested_correction_list[0])
                     incorrect_spell_check_count += 1
@@ -88,7 +85,7 @@ def check(input_file, file_directory, ignore):
                     break
 
 
-    # If the incorrecT_spellcheck count minus the ignore is 0 or greater perform the subtraction.
+    # If the incorrect_spellcheck count minus the ignore is 0 or greater perform the subtraction.
     # Else just return 0.
     if incorrect_spell_check_count - abs(ignore) > 0:
         incorrect_spell_check_count -= ignore
