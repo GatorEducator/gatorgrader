@@ -914,7 +914,7 @@ def invoke_spellcheck(file, file_directory, ignore):
                 + file_directory
                 + "directory"
             )
-        else:
+        elif spell_check_outcome > 1:
             message = (
                 "File "
                 + file
@@ -933,5 +933,6 @@ def invoke_spellcheck(file, file_directory, ignore):
 
     # Report the results of the spellcheck.
     report_result(did_check_pass, message, diagnostic)
+    
     # Output the results of the check as a boolean.
     return did_check_pass

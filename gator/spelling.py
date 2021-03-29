@@ -14,7 +14,7 @@ def check(input_file, file_directory, ignore):
     spell_check_outcome = True
     incorrect_spell_check_count = 0
 
-    # Read in the markdown file, separate words by spaces and save the contents into a list.
+    # Input the markdown file + separate words by spaces and save the contents into a list.
     for file_for_checking in files.create_paths(file=input_file, home=file_directory):
         markdown_file_contents = file_for_checking.read_text().splitlines()
 
@@ -24,44 +24,73 @@ def check(input_file, file_directory, ignore):
         "symspellpy", "frequency_dictionary_en_82_765.txt"
     )
 
-    # term_index is the column of the term and count_index is the
-    # column of the term frequency
+    # term_index is the column of the term and count_index is the column of the term frequency
     spellcheck.load_dictionary(dictionary_path, term_index=0, count_index=1)
 
-    # TODO: For each detected markdown header ignore the rest of the content on that particular line
 
     # NOTE: Things to consider in the future implementation.
-    # 1. How to make sure that you don't spell check inside of code blocks and titles.
-    # 2. DONE: How to detect garbage words. (Test the tool to see how good it is.) (Tested and works well.)
+    # 1. How to make sure that you don't spell check inside of code blocks, segments, and links.
+    # 2. DONE: How to detect garbage words. (Test the tool to see how good it is.) (Tested and works pretty well.)
 
     # For a detected incorrect word make the check fail and increment the incorrect_spell_check_count by 1.
     for line in range(len(markdown_file_contents)):        
         # Remove multiple spaces + symbols + setup suggestion for line.
-        markdown_file_contents[line] = re.sub(r"[,!@\'~?\.$%_:;]", "", markdown_file_contents[line], flags=re.I)
+        markdown_file_contents[line] = re.sub(r"[,!@\'~?*_~\.$%_:;]#", "", markdown_file_contents[line], flags=re.I)
         markdown_file_contents[line] = re.sub(r"\s+", " ", markdown_file_contents[line], flags=re.I)
         
-        print("Line: ", line, " ", markdown_file_contents[line])
+        filter_out_characters = False
+        end_block_to_filter_out = ""
         
-        # If the current line is a title then pass the line.
-        #if '#' in markdown_file_contents[line]:
-            #continue
+     
+        # If a code block is detected iterate through each proceding line until you reach the end of the code block.
+        if '```' in markdown_file_contents[line]:
+            end_block_to_filter_out = "```"
+            filter_out_characters = True
+        if '`' in markdown_file_contents[line] and not filter_out_characters:
+            end_block_to_filter_out = "`"
+            filter_out_characters = True
+        if '(' and ')' and '[' and ']' in markdown_file_contents and not filter_out_characters:
+            end_block_to_filter_out = ')'
+            filter_out_characters = True
 
-        suggestions = spellcheck.lookup(markdown_file_contents[line], Verbosity.CLOSEST, transfer_casing=True)
-        # For each suggestion for the current line if the first suggestion doesn't match the current word record one incorrect word.
-        for suggested_correction in suggestions:
-            suggested_correction_list = str(suggested_correction).split(",")
-            # When a word is spelled incorrectly increase the incorrect spell count by one.
-            print("CORRECTION: ", suggested_correction_list[0])
-            if markdown_file_contents[line] != suggested_correction_list[0]:
-                print("CORRECTION: ", suggested_correction_list[0])
-                incorrect_spell_check_count += 1
-                spell_check_outcome = False
-                break
+        # If special case characters are detected remove all contents contained in code segment and code blocks.
+        if filter_out_characters:
+            for i, _ in enumerate(range(0, len(markdown_file_contents[line]) + 1)):
+                print("made it!", markdown_file_contents[line][0:i])
+                if end_block_to_filter_out in markdown_file_contents[line][0:i]:
+                    if i <= len(markdown_file_contents[line]):
+                        markdown_file_contents[line] = markdown_file_contents[line][i + 1:len(markdown_file_contents[line])]
+                        filter_out_characters = False
+                        break
+                    elif i > len(markdown_file_contents[line]):
+                        markdown_file_contents[line] = ""
+                        filter_out_characters = False
+                        break
+                else:
+                    continue
+
+    
+        print("Perform Spell Checking: ", markdown_file_contents[line])
+        # Perform spell checking if the current line is not empty.
+        if markdown_file_contents[line] != "":
+            # Generate spell check suggestions.
+            suggestions = spellcheck.lookup(markdown_file_contents[line], Verbosity.CLOSEST, transfer_casing=True)
+            #print("Line: ", markdown_file_contents[line])
+            # For each suggestion for the current line if the first suggestion doesn't match the current word record one incorrect word.
+            for suggested_correction in suggestions:
+                suggested_correction_list = str(suggested_correction).split(",")
+                # When a word is spelled incorrectly increase the incorrect spell count by one.
+                #print("CORRECTION: ", suggested_correction_list[0])
+                if markdown_file_contents[line] != suggested_correction_list[0]:
+                    print("CORRECTION: ", suggested_correction_list[0])
+                    incorrect_spell_check_count += 1
+                    spell_check_outcome = False
+                    break
 
 
-    # If the spellcheck count minus the ignore is 0 or greater perform the subtraction.
+    # If the incorrecT_spellcheck count minus the ignore is 0 or greater perform the subtraction.
     # Else just return 0.
-    if incorrect_spell_check_count >= abs(ignore):
+    if incorrect_spell_check_count - abs(ignore) > 0:
         incorrect_spell_check_count -= ignore
     else:
         incorrect_spell_check_count = 0
