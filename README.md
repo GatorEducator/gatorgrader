@@ -23,27 +23,39 @@ speed!
   + [Testing with Multiple Python Versions](#testing-with-multiple-python-versions)
   + [Code Linting](#code-linting)
 * [Running GatorGrader](#running-gatorgrader)
+* [Using Docker](#using-docker)
 * [Comparison to Other Tools](#comparison-to-other-tools)
 * [Presentations](#presentations)
 * [Contributing](#contributing)
 * [Contributors](#contributors)
 
 ## Quickstart Guide
-
-Want to quickly get up and running with GatorGrader? If you have an existing
-assignment and you want to automatically check its source code or technical
-writing, then you can use GatorGrader's [Gradle
-plugin](https://github.com/GatorEducator/gatorgradle). The following starter
-repositories provide examples of how to configure GatorGrader to check programs
-and documentation for different languages:
-[Java](https://github.com/GatorEducator/java-starter),
-[LaTeX](https://github.com/GatorEducator/latex-assignment-starter), and [HTML
-with CSS](https://github.com/GatorEducator/html-css-assignment-starter). These
+* Starter Repositories
+An easy way to get started with GatorGrader is to check out our sample starter repositories.
+The following starter repositories provide examples of how GatorGrader files should be created
+to check programs and documentation for different languages:
+[Java](https://github.com/GatorEducator/java-assignment-starter-100-01),
+[Python](https://github.com/GatorEducator/python-assignment-starter-203-05), [LaTex](https://github.com/GatorEducator/latex-assignment-starter-100-01) and [HTML with CSS](https://github.com/GatorEducator/html-assignment-starter-302-03). These
 examples also show how to integrate GatorGrader with [GitHub
 Classroom](https://classroom.github.com/) and [Travis
 CI](https://travis-ci.com/). When you follow these examples, the Gradle plugin
 for GatorGrader will install it automatically when you run `gradle grade` in a
-terminal window.
+terminal window. Please be aware that these repositories are meant to have a majority
+of red checks. This is only meant to be a “starter” and give an insight into what must be accomplished within the lab.
+* Solution Repositories
+The next step to get involved with GatorGrader is to checkout our sample solution
+repositories. The following solution repositories provide examples of how GatorGrader files should be
+created to check programs and documentation for different languages:
+[Java](https://github.com/GatorEducator/java-assignment-solution-100-01),
+[Python](https://github.com/GatorEducator/python-assignment-solution-203-05), [LaTex](https://github.com/GatorEducator/latex-assignment-solution-100-01) , and [HTML with CSS](https://github.com/GatorEducator/html-assignment-solution-302-03). These examples
+also show how to integrate GatorGrader with  [GitHub
+Classroom](https://classroom.github.com/) and [Travis
+CI](https://travis-ci.com/).  When you follow these examples, the Gradle plugin
+for GatorGrader will install it automatically when you run `gradle grade` in a
+terminal window. Please be aware that these repositories are meant to have a majority
+of green checks. This is meant to show what must be accomplished within a lab/practical
+and what it looks like when those tasks are completed.
+
 
 ## Key Features
 
@@ -200,7 +212,7 @@ this command in a terminal window.
 pipenv run lint --check
 ```
 
-### Linting Checks
+### Automated Checks
 
 Want to learn about our linting checks? Check us out on our website,
 [GatorGrader](https://deploy-preview-1--gatorgrader.netlify.com)! We have detailed
@@ -217,30 +229,24 @@ offer, here is a quick list:
 
 5. CountFileParagraphs
 
-6. CountFileWords
+Want to learn about our automated checks? Check them out on our website,
+[gatorgrader.org](http://www.gatorgrader.org)! We have detailed
+descriptions of our automated checks and more!
 
-7. CountMarkdownTags
+Something you should know when working with our checks is that all of
+them come with some **optional arguments**. Optional arguments that you are likely
+to encounter:
+* `-h`
+* `--help`
+* `--exact`
+* `--advanced`
 
-8. CountMultipleLineComments
+If `--help` is tagged along with a check then a help message will be displayed and
+then exited. If further assistance is needed, please contact us on GitHub.
 
-9. CountParagraphWords
-
-10. CountSingleLineComments
-
-11. ExecuteCommand
-
-12. MatchCommandFragment
-
-13. MatchCommandRegex
-
-14. MatchFileFragment
-
-15. MatchFileRegex
-
-Something you should know when working with our linting checks is that all of
-them come with optional arguments. These optional arguments are: `-h, --help`.
-The help message will be displayed and then exited. If further assistance is needed,
-please contact us on GitHub.
+Another feature with our automated checks is the **plug-in based approach**. This allows
+users to implement their own check if our initial 15 do not fulfill a check that
+you find necessary.  
 
 ## Running GatorGrader
 
@@ -269,6 +275,31 @@ also require that all submitted technical writing must adhere to the standards
 set by the [Proselint tool](http://proselint.com/). Since GatorGrader can run an
 arbitrary command and check its error code, it is also possible to integrate it
 with a wide variety of other linters, code formatters, and testing tools.
+
+Instructors may at times need to see a full list of checks to have a better understanding
+and therefore, we feel that it is important to know that there is an easy way for that to happen.
+This action will be completed through command line and therefore, you can type
+`pipenv run python gatorgrader.py ListChecks` into your terminal. This allows for
+all of the checks to be printed out as output. This output will have the necessary
+name labeled with the required and optional arguments. If this output does not give enough content,
+we warmly invite you to navigate to our website, where we go into more detail about our Automated Checks.
+
+## Using Docker
+A vital part of our process for GatorGrader is to implement and use new techniques
+to further our tool to grow. This is why we chose to use Docker! Docker is a container
+platform and therefore, allows students using GatorGrader to just open a container
+and have easy access to run all commands that would allow them to build, run, and
+grade their labs and practicals. Docker is an industry standard and therefore,
+gives us an advantage. To open a container that will allow for the use of GatorGrader,
+run the following command in your terminal window:
+```
+docker run -it --rm --name dockagator \
+  -v "$(pwd)":/project \
+  -v "$HOME/.dockagator":/root/.local/share \
+  gatoreducator/dockagator /bin/bash
+```
+From here, you are set! Test it out by building, running, or grading your lab/practical!
+If you would like to learn more about Docker, please follow this [link](https://www.docker.com).
 
 ## Comparison to Other Tools
 
