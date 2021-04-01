@@ -63,8 +63,7 @@ def __grade_starter(repo):
     if not __grade_repo(repo):
         return None  # good
     else:
-        # FIXME: should be red
-        print(f"{repo[0]} passed when it should have failed.")
+        print(f"Error: {repo[0]} passed when it should have failed.")
         pass
 
 
@@ -74,8 +73,7 @@ def __grade_solution(repo):
     if __grade_repo(repo):
         return None  # good
     else:
-        # FIXME: should be red
-        print(f"{repo[0]} failed when it should have passed.")
+        print(f"Error: {repo[0]} failed when it should have passed.")
         pass
 
 
