@@ -920,7 +920,7 @@ def invoke_spellcheck(file, file_directory, ignore):
                 + file
                 + " had "
                 + str(spell_check_outcome)
-                + " spelling mistake!"
+                + " spelling mistakes!"
             )
             diagnostic = (
                 "File "
