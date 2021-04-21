@@ -1,36 +1,67 @@
 # How to Get Started Using GatorGrader
 
 ## Table of Contents
-* [Introduction](#introduction)
-* [Outline](#outline)
-* [Things to Include](#things-to-include)
-* [Documentation Progress](#documentation-progress)
+* [Setting Up GatorGrader On Your Machine](#Setting-Up-GatorGrader-On-Your-Machine)
+* [Setting Up A gatorgrader.yml File](#Setting-Up-A-gatorgraderyml-File)
+* [Things to Include in the Repository](#Things-to-Include-in-the-Repository)
 
-## Introduction
+## Setting Up GatorGrader On Your Machine
+- git pull repo
+- setting up github assignment (is that the only way to use gg?)
+- setting up gradle, pipenv, docker? (are these necessary for administrators/instructors trying to use gg for assignments)
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+## Setting Up A gatorgrader.yml File
 
-## Outline
-1. Detailed explanation of installation of GatorGrader (with pictures!)
-2. Reference Starter and Solution repositories
-3. Detailed explanation of how to make a gatorgrader.yml file w walkthrough & pictures of set up(ref issue 207)
-4. Explanation of how to install dependencies for gatorgradle/gatorgrader w pictures (https://github.com/GatorEducator/gatorgradle)
-5. Explanation (w pictures) of how to include gatorgradle in project
-6. Explain and show how to access full list of checks that GatorGrader runs through
-7. Explain/Show integration/how to use with Docker
-8. Show examples of checks being run on programs utilizing all of the different languages it supports (pictures)
+  In order to set up a **gatorgrader.yml** file, you first need to set up a directory in the repository the assignment you want to use GatorGrader with. The purpose of the **gatorgrader.yml** file is to provide GatorGrader with a series of "checks" to run, specific to the assignment/file it is supposed to be run with. In the following sections, the process for setting up a **gatorgrader.yml** file will be detailed and will include picture examples of existing gatorgrader.yml files.
 
-## Things to Include
-*NOTE: These are just some notes for me to include/think about including into the documentation, it won't be an actual section in the final commit.*
+    1. After setting up a directory called "config", open your code editor/text editor/IDE and create and open a file named "gatorgrader.yml".
 
-* Ref [this](https://saejinmh.com/projects/gatorgradle/) & README & official site
-* include what installation will look like for ubuntu/windows/mac os!
+    2. Start off by typing this into the file named "gatorgrader.yml":
+
+    ```
+    ---
+    name:
+    break: true
+    indent: 4
+    ---
+    ```
+
+      - In the section "name", is where you put the naming convention of the assignment/file that you are trying to run through GatorGrader.
+
+    3. Then, create two empty lines after typing the above section. After creating this space, you can begin on specifying the specific checks needed to be run for your file.
+
+    4. First, if there are multiple files in your assignment/file repository that will require checks, it is important to separate the checks for each by the file that they are for. For example, if in your repository you had a folder than contains three different files in it, you would have to specify each file and the checks for each. Here is an example of how you would set up different checks for different files.
+
+    ```
+    papers/draft1_paper1.md:
+      ConfirmFileExists
+      CountFileWords --count 1000 --exact
+      CountMarkdownTags --tag "heading" --count 4 --exact
+      CountMarkdownTags --tag "Works Cited" --count 1 --exact
+      MatchFileFragment --fragment "Add Your Name Here" -- count 0 --exact
+      MatchFileFragment --fragment "TODO" --count 0 --exact
+    ```
+
+    * In this example, the checks are listed after the location of the file you would like to run them with. The file we are checking here is called "draft1_paper1.md", which is located within the folder called "papers". Then each of the lines following that convention are checks to be run for the file in order for it to meet the minimum passing requirements (set by you, of course).
+
+    * Some common checks are:
+      - `ConfirmFileExists`: This checks that the file exists in the repository, given the specific file destination that is given in the gatorgrader.yml file.
+      - `MatchFileFragment`: This checks that the certain fragments, specified by you, are in the file.
+      - `CountFileWords`: This counts the amount of words in a file up to a certain amount that is specified by you in the .yml file.
+      - `ExecuteCommand`: This checks that a command executes correctly (a --command tag must be used in conjunction with this check).
+      - `CountMarkdownTags`: This counts the amount of markdown tags in a file up to a certain amount that is specified by you in the .yml file.
+
+    * Some common tags are:
+      - `--fragment`: used to add specific fragments, needs "" marks surrounding the specific fragment to be used, and is used with the `MatchFileFragment` check.
+      - `--count`: used to specify specific number counts and is used with checks like `CountFileWords` and `CountMarkdownTags`.
+      - `--exact`: used to specify that you want an exact value to be checked, can be used with any of the "count" checks or with the `MatchFileFragment` check.
+      - `--language`:
+      - `--tag`:
+      - `--command`:
+
+    * A full list of checks that GatorGrader supports can be referenced using this [link](https://www.gatorgrader.org/ember).
 
 
-## Documentation Progress
-*NOTE: This is just for my reference to keep track of my progress on the documentation*
-
-* 4/1/2021:
-  - Created a file called **workflow.md**, to address [Issue #202](https://github.com/GatorEducator/gatorgrader/issues/202)
-  - Began an outline for sections/information to include, as well as include some references to get started.
-  - Goal for next meeting: To add more ideas and begin to flesh out the documentation.
+## Things to Include in the Repository
+- gradle stuff
+- any stuff for specific dependencies needed to run certain programs etc.
