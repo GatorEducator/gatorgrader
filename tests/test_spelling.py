@@ -9,6 +9,7 @@ def test_garbage_word_detection():
     """Check that it will correctly mark garbage words as incorrect."""
     test_list = ["Hello", "world"]
 
+
 def test_spellcheck_using_invalid_inputs():
     """Check that it returns the correct number of correctly spelled words."""
 

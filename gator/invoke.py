@@ -895,7 +895,11 @@ def invoke_spellcheck(file, file_directory, ignore):
             + " spelling mistakes, well done!"
         )
         diagnostic = (
-            "File " + file + " contains correct writing at " + file_directory + "directory"
+            "File "
+            + file
+            + " contains correct writing at "
+            + file_directory
+            + "directory"
         )
         did_check_pass = True
     else:
@@ -933,6 +937,6 @@ def invoke_spellcheck(file, file_directory, ignore):
 
     # Report the results of the spellcheck.
     report_result(did_check_pass, message, diagnostic)
-    
+
     # Output the results of the check as a boolean.
     return did_check_pass
