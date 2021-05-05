@@ -34,6 +34,9 @@ def check(input_file, file_directory, ignore):
     # 1. How to make sure that you don't spell check inside of code blocks, segments, and links.
     # 2. DONE: How to detect garbage words. (Test the tool to see how good it is.) (Tested and works pretty well.)
 
+    filtering_code_block = False
+    code_block_counter = 0
+    opening_block_counter = 0
     # For a detected incorrect word make the check fail and increment the incorrect_spell_check_count by 1.
     for line in range(len(file)):
         # Remove multiple spaces + symbols + setup suggestion for line.
@@ -57,55 +60,57 @@ def check(input_file, file_directory, ignore):
         work = True
         i = 0
 
-        filtering_code_block = False
-        if len(filter_types) != 0 and i <= len(filter_types):
-            while work:
-                # CASE: If we're checking for the code segment markdown formatter.
-                if filter_types[i] == "`":
-                    filter_active = False
-                    # NOTE: If there are multiple code segments iterate through the string and intelligently filter out everything inside of them until you reach the end of the line.
-                    if filter_types[i] in file[line]:
-                        for counter, character in enumerate(file[line]):
-                            if character == filter_types[i] and filter_active == False:
-                                filter_active = True
-                                open_character = counter
-                            elif character == filter_types[i] and filter_active == True:
-                                print(open_character)
-                                if open_character == 0:
-                                    file[line] = file[line][counter + 1:len(file[line]) + 1]
-                                elif open_character > 0:
-                                    file[line] = file[line][0:open_character-1] + file[line][counter + 1:len(file[line]) + 1]
-                                filter_active = False
-                                work = False
-                                filter_types[i] == ""
-                        if work == False:
-                            break
-                # CASE: If we're checking for the code block markdown formatter and found the opening characters for a code block.
-                elif filter_types[i] == "```":
-                    if not filtering_code_block:
-                        file[line] == ""
-                        filtering_code_block = True
-                        print("Opening code block")
-                        work = False
-                        filter_types[i] == ""
-                        break
+        #print(line)
+        while work and len(filter_types) != 0:
+            # CASE: If we're checking for the code segment markdown formatter.
+            if filter_types[i] == "`":
+                filter_active = False
+                # NOTE: If there are multiple code segments iterate through the string and intelligently filter out everything inside of them until you reach the end of the line.
+                if filter_types[i] in file[line]:
+                    for counter, character in enumerate(file[line]):
+                        if character == "`" and filter_active == False:
+                            filter_active = True
+                            open_character = counter
+                        elif character == "`" and filter_active == True:
+                            print(character)
+                            if open_character == 0:
+                                file[line] = file[line][counter + 1:len(file[line]) + 1]
+                            elif open_character > 0:
+                                file[line] = file[line][0:open_character-1] + file[line][counter + 1:len(file[line]) + 1]
+                            filter_active = False       
 
-                    # Once we have reached the end of the code block 
-                    if '```' in file[line] and filtering_code_block:
-                        file[line] == ""
-                        filtering_code_block = False
-                        filter_types[i] == ""
-                        print("End of code block.")
+                    filter_types.pop(i)
+                    work = False
 
-                    # If we're still in the code block set the line to empty.
-                    if filtering_code_block:
-                        print("Middle of code block")
-                        filtering_code_block = False
-                        file[line] = ""
-                        filter_types[i] == ""
-                        work = False
-                        break
-                i += 1
+            # CASE: If we're checking for the code block markdown formatter and found the opening characters for a code block.
+            elif filter_types[i] == "```":
+                if not filtering_code_block:
+                    # Completely clear the current line of the markdown file.
+                    file[line] == ""
+                    filtering_code_block = True
+                    opening_block_counter = line
+                    print("Opening code block")
+                    work = False
+                    filter_types.pop(i)
+                    #break
+
+                # Once we have reached the end of the code block 
+                if '```' in file[line] and filtering_code_block and code_block_counter > 0:
+                    # Completely clear the current line of the markdown file.
+                    file[line] == None
+                    filtering_code_block = False
+                    opening_block_counter = 0
+                    filter_types.pop(i)
+                    print("End of code block.")
+                    break
+
+            i += 1
+
+        # If we're still in the code block set the line to empty.
+        if filtering_code_block and opening_block_counter < line:
+            print("Middle of code block")
+            file[line] = ""
+            code_block_counter += 1
 
 
         print("\tRUN: ", file[line])
