@@ -19,45 +19,59 @@ In order to set up a **gatorgrader.yml** file, you first need to set up a direct
 2. Start off by typing this into the file named "gatorgrader.yml":
 
 
-```
----
-name:
-break: true
-indent: 4
----
-```
+    ```
+    ---
+    name:
+    break: true
+    indent: 4
+    ---
+    ```
 
 - In the section "name", is where you put the naming convention of the assignment/file that you are trying to run through GatorGrader.
 
 3. Then, create two empty lines after typing the above section. After creating this space, you can begin on specifying the specific checks needed to be run for your file.
 
-4. First, if there are multiple files in your assignment/file repository that will require checks, it is important to separate the checks for each by the file that they are for. For example, if in your repository you had a folder than contains three different files in it, you would have to specify each file and the checks for each. Here is an example of how you would set up different checks for different files.
+4. First, if you have multiple files that will require checks, it is important to separate the checks for each by the file that they are for. For example, if in your repository you had a folder than contains three different files in it, you would have to specify each file and the checks for each. Here is an example of how you would set up different checks for different files.
 
-```
-papers/draft1_paper1.md:
-ConfirmFileExists
-CountFileWords --count 1000 --exact
-CountMarkdownTags --tag "heading" --count 4 --exact
-CountMarkdownTags --tag "Works Cited" --count 1 --exact
-MatchFileFragment --fragment "Add Your Name Here" -- count 0 --exact
-MatchFileFragment --fragment "TODO" --count 0 --exact
-```
+    ```
+    papers/draft1_paper1.md:
+    ConfirmFileExists
+    CountFileWords --count 1000 --exact
+    CountMarkdownTags --tag "heading" --count 4 --exact
+    CountMarkdownTags --tag "Works Cited" --count 1 --exact
+    MatchFileFragment --fragment "Add Your Name Here" -- count 0 --exact
+    MatchFileFragment --fragment "TODO" --count 0 --exact
+    ```
 
 * In this example, the checks are listed after the location of the file you would like to run them with. The file we are checking here is called "draft1_paper1.md", which is located within the folder called "papers". Then each of the lines following that convention are checks to be run for the file in order for it to meet the minimum passing requirements (set by you, of course).
+
 * Some common checks are:
-- `ConfirmFileExists`: This checks that the file exists in the repository, given the specific file destination that is given in the gatorgrader.yml file.
-- `MatchFileFragment`: This checks that the certain fragments, specified by you, are in the file.
-- `CountFileWords`: This counts the amount of words in a file up to a certain amount that is specified by you in the .yml file.
-- `ExecuteCommand`: This checks that a command executes correctly (a --command tag must be used in conjunction with this check).
-- `CountMarkdownTags`: This counts the amount of markdown tags in a file up to a certain amount that is specified by you in the .yml file.
-- `CountCommits`: This counts the amount of commits committed to a GitHub repository.
+
+    - `ConfirmFileExists`: This checks that the file exists in the repository, given the specific file destination that is given in the gatorgrader.yml file.
+
+   - `MatchFileFragment`: This checks that the certain fragments, specified by you, are in the file.
+
+    - `CountFileWords`: This counts the amount of words in a file up to a certain amount that is specified by you in the .yml file.
+
+    - `ExecuteCommand`: This checks that a command executes correctly (a --command tag must be used in conjunction with this check).
+
+    - `CountMarkdownTags`: This counts the amount of markdown tags in a file up to a certain amount that is specified by you in the .yml file.
+
+    - `CountCommits`: This counts the amount of commits committed to a GitHub repository.
+
 * Some common tags are:
-- `--fragment`: used to add specific fragments, needs "" marks surrounding the specific fragment to be used, and is used with the `MatchFileFragment` check.
-- `--count`: used to specify specific number counts and is used with checks like `CountFileWords` and `CountMarkdownTags`.
-- `--exact`: used to specify that you want an exact value to be checked, can be used with any of the "count" checks or with the `MatchFileFragment` check.
-- `--language`: used to specify a specific coding language, like Java or Python, in order to do things like run commands using the `ExecuteCommand` check.
-- `--tag`:
-- `--command`:
+
+    - `--fragment`: used to add specific fragments, needs "" marks surrounding the specific fragment to be used, and is used with the `MatchFileFragment` check.
+
+    - `--count`: used to specify specific number counts and is used with checks like `CountFileWords` and `CountMarkdownTags`.
+
+    - `--exact`: used to specify that you want an exact value to be checked, can be used with any of the "count" checks or with the `MatchFileFragment` check.
+
+    - `--language`: used to specify a specific coding language, like Java or Python, in order to do things like run commands using the `ExecuteCommand` check.
+
+    - `--tag`: used to specify a certain tag to be used or looked for in a file, used most commonly with checks like `CheckMarkdownTags`.
+
+    - `--command`: used to specify a specific command, like those used in the Command Line/Terminal, and is usually used in conjunction with the `ExecuteCommand` check.
 
 * A full list of checks that GatorGrader supports can be referenced using this [link](https://www.gatorgrader.org/ember).
 
