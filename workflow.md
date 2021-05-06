@@ -2,13 +2,20 @@
 
 ## Table of Contents
 * [Introduction](#Introduction)
-* [Setting Up A gatorgrader.yml File](#Setting-Up-A-gatorgraderyml-File)
 * [Setting Up a GitHub Repository](#Setting-Up-A-GitHub-Repository)
+* [Setting Up A gatorgrader.yml File](#Setting-Up-A-gatorgraderyml-File)
 * [Additional Programs to Install](#Additional-Programs-to-Install)
 * [How to Run GatorGrader](#How-to-Run-GatorGrader)
 * [Things to Include](#Things-to-Include)
 
 ## Introduction
+
+## Setting Up A Github Repository
+
+In order to set up a GitHub Repository, you first need to create an account on [Github](github.com). Once you have created an account, you should be able to see the homepage when you navigate to [Github](github.com), given that you are logged into this account.
+
+The home/main page should look something like this:
+  * ![]()
 
 ## Setting Up A gatorgrader.yml File
 
