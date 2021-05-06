@@ -75,7 +75,56 @@ In order to set up a **gatorgrader.yml** file, you first need to set up a direct
 
 * A full list of checks that GatorGrader supports can be referenced using this [link](https://www.gatorgrader.org/ember).
 
-5.
+5. After adding all the checks you would like to use, for every file included in the assignment you are trying to evaluate, you will have completed your gatorgrader.yml file.
+
+  * Here is an example of a fully-functional gatorgrader.yml file. (The yml file was taken from a practical assignment for Professor Janyl Jumadinova's CMPSC203 Software Engineering Course)
+
+      ```
+      ---
+      name: cmpsc-203-spring-2021-practical2
+      break: true
+      indent: 4
+      ---
+
+      # note that without an "--exact" the check is an "at least"
+      termfrequency:
+          compute_tf_cookbook.py:
+            ConfirmFileExists
+            CountMultipleLineComments --language Python --count 7
+            CountSingleLineComments --language Python --count 14
+            MatchFileFragment --fragment "import string" --count 1 --exact
+            MatchFileFragment --fragment "TODO" --count 0 --exact
+            MatchFileFragment --fragment "with open" --count 1
+            MatchFileFragment --fragment "global data" --count 3
+            MatchFileFragment --fragment "global words" --count 3
+            MatchFileFragment --fragment "as data_file" --count 1
+            MatchFileFragment --fragment "word_freqs" --count 9
+            MatchFileFragment --fragment "data = []" --count 1
+            MatchFileFragment --fragment "words = []" --count 1
+            MatchFileFragment --fragment "word_freqs = []" --count 1
+
+      tests:
+          test_compute_tf_cookbook.py:
+            ConfirmFileExists
+            CountMultipleLineComments --language Python --count 3
+            CountSingleLineComments --language    Python --count 0
+            MatchFileFragment --fragment "test_" --count 3
+            MatchFileFragment --fragment "assert" --count 3
+            MatchFileFragment --fragment "TODO" --count 0 --exact
+
+      # --> check the technical writing
+      writing/reflection.md:
+        ConfirmFileExists
+        CountFileWords --count 400
+        CountMarkdownTags --tag "heading" --count 9 --exact
+        CountMarkdownTags --tag "code_block" --count 1 --exact
+        CountMarkdownTags --tag "list" --count 2 --exact
+        MatchFileFragment --fragment "Add Your Name Here" --count 0 --exact
+        MatchFileFragment --fragment "TODO" --count 0 --exact
+
+      # --> check the number of commits beyond a threshold
+      CountCommits --count 5
+      ```
 
 
 ## Things to Include in the Repository
