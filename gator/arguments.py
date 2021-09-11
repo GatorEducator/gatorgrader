@@ -71,6 +71,15 @@ def parse(args):
         action="store_true",
     )
 
+    # DESCRIPTION: the description to use for the ran check
+    # REQUIRED? No
+    # CORRECT WHEN: it is a string that does not contain double-quotes
+    parser.add_argument(
+        constants.commandlines.Description,
+        help=constants.help.Description,
+        type=str,
+    )
+
     # }}}
 
     # Required Positional Argument {{{
@@ -108,5 +117,12 @@ def verify(args):
         checkerdir_path = files.create_path(file="", home=args.checkerdir)
         # the directory does exist, so this argument is verified
         if checkerdir_path.is_dir():
+            verified_arguments = True
+    # DESCRIPTION: a string to use as the check result's message
+    if args.description is not None:
+        # assume that the description is not valid
+        verified_arguments = False
+        if '"' not in args.description:
+            # the description does not contain double-quotes, so this argument is verified
             verified_arguments = True
     return verified_arguments

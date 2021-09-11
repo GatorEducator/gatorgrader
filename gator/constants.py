@@ -42,6 +42,7 @@ commandlines = create_constants(
     Json="--json",
     List_Checks="--listchecks",
     No_Welcome="--nowelcome",
+    Description="--description",
 )
 
 # define the types of comments
@@ -63,6 +64,7 @@ help = create_constants(
     Json="print the status report in JSON",
     List_Checks="list the internal and user-provided checks",
     No_Welcome="do not display the welcome message",
+    Description="string to use as description of check",
 )
 
 # define the programming languages for comment checks

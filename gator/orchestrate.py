@@ -5,6 +5,7 @@ import sys
 from gator import arguments
 from gator import checkers
 from gator import constants
+from gator import description
 
 from gator import leave
 from gator import report
@@ -120,8 +121,13 @@ def check(system_arguments):
     check_result = check.act(parsed_arguments, remaining_arguments)
     check_results.extend(check_result)
     # *Section: Output the report
-    # Only step: get the report's details, produce the output, and display it
+    # **Step: get the report's details
+    result = report.get_result()
+    # **Step: Override the result's description if a user-provided description exists
+    result = description.transform_result_dictionary(parsed_arguments, result)
+    # **Step: produce the output
     produced_output = report.output(report.get_result(), OUTPUT_TYPE)
+    # **Step: display the output
     display.message(produced_output)
     # Section: Return control back to __main__ in gatorgrader
     # Only step: determine the correct exit code for the checks
