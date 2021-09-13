@@ -20,7 +20,7 @@ def test_no_arguments_incorrect_system_exit(capsys):
     # standard error has two lines from pytest
     assert "usage:" in captured.err
     counted_newlines = captured.err.count("\n")
-    assert counted_newlines == 2
+    assert counted_newlines >= 2
 
 
 def test_no_arguments_incorrect_system_exit_not_verified(capsys):
