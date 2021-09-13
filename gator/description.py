@@ -1,4 +1,4 @@
-"""Utility functions to aid handling user-defined check descriptions"""
+"""Utility functions to aid handling user-defined check descriptions."""
 
 from gator import constants
 
