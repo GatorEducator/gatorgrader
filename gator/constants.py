@@ -137,7 +137,7 @@ program = create_constants("program", Name="gatorgrader.py")
 # capitalized because the JSON report that is transmitted
 # between Python and Java expects that the keys are lowercase
 results = create_constants(
-    "results", Check="check", Outcome="outcome", Diagnostic="diagnostic"
+    "results", Description="check", Outcome="outcome", Diagnostic="diagnostic"
 )
 
 # define the version control repository details

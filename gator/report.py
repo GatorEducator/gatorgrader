@@ -21,10 +21,10 @@ TEXT = "output_text"
 JSON = "output_json"
 
 
-def create_result(check, outcome, diagnostic):
+def create_result(description, outcome, diagnostic):
     """Create a new result dictionary."""
     result_dictionary = {}
-    result_dictionary[constants.results.Check] = check
+    result_dictionary[constants.results.Description] = description
     result_dictionary[constants.results.Outcome] = outcome
     result_dictionary[constants.results.Diagnostic] = diagnostic
     return result_dictionary
@@ -37,11 +37,11 @@ def reset():
     result = None
 
 
-def set_result(check, outcome, diagnostic):
+def set_result(description, outcome, diagnostic):
     """Set the current result dictionary."""
     # pylint: disable=global-statement
     global result
-    result = create_result(check, outcome, diagnostic)
+    result = create_result(description, outcome, diagnostic)
     return result
 
 
@@ -61,7 +61,7 @@ def output(dictionary_result, dictionary_format=TEXT):
 def output_text(dictionary_result) -> str:
     """Produce output in textual format."""
     # extract the details and form a string
-    check = dictionary_result[constants.results.Check]
+    description = dictionary_result[constants.results.Description]
     outcome = dictionary_result[constants.results.Outcome]
     diagnostic = dictionary_result[constants.results.Diagnostic]
     # there is a diagnostic, so include it on the next line
@@ -70,7 +70,7 @@ def output_text(dictionary_result) -> str:
             # display answer with a symbol not a boolean
             util.get_symbol_answer(outcome)
             + constants.markers.Space
-            + check
+            + description
             # SPACE
             + constants.markers.Space
             # NEWLINE
@@ -85,7 +85,9 @@ def output_text(dictionary_result) -> str:
         )
     # there is no diagnostic, so do not include anything else
     else:
-        submitted = util.get_symbol_answer(outcome) + constants.markers.Space + check
+        submitted = (
+            util.get_symbol_answer(outcome) + constants.markers.Space + description
+        )
     return submitted
 
 

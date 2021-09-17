@@ -9,8 +9,8 @@ def get_description_argument(args):
 
 
 def transform_result_dictionary(args, result_dict):
-    """Transform the produced check_result from the provided command-line arguments, if possible."""
+    """Transform the produced result dictionary from the provided command-line arguments, if possible."""
     desc = get_description_argument(args)
     if desc is not None:
-        result_dict[constants.results.Check] = desc
+        result_dict[constants.results.Description] = desc
     return result_dict
