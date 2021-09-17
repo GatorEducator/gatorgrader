@@ -2,6 +2,7 @@
 
 from gator import checkers
 from gator import constants
+from gator import description
 from gator import display
 from gator import files
 
@@ -110,19 +111,16 @@ def verify(args):
     # assume the arguments are valid, then prove otherwise
     verified_arguments = True
     # CHECKERDIR: an external directory of checks was specified
-    # ENSURE: this directory is a valid directory
+    # ENSURE: the directory is a valid directory
     if args.checkerdir is not None:
-        # assume that it is not a valid directory, then prove otherwise
-        verified_arguments = False
+        # if the directory does exist, this argument is verified
         checkerdir_path = files.create_path(file="", home=args.checkerdir)
-        # the directory does exist, so this argument is verified
-        if checkerdir_path.is_dir():
-            verified_arguments = True
+        verified_arguments = verified_arguments and checkerdir_path.is_dir()
     # DESCRIPTION: a string to use as the check result's message
+    # ENSURE: the description is a valid description
     if args.description is not None:
         # assume that the description is not valid
-        verified_arguments = False
-        if '"' not in args.description:
-            # the description does not contain double-quotes, so this argument is verified
-            verified_arguments = True
+        verified_arguments = verified_arguments and description.is_valid_description(
+            args.description
+        )
     return verified_arguments
