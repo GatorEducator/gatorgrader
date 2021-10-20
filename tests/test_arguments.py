@@ -20,7 +20,7 @@ def test_no_arguments_incorrect_system_exit(capsys):
     # standard error has two lines from pytest
     assert "usage:" in captured.err
     counted_newlines = captured.err.count("\n")
-    assert counted_newlines == 2
+    assert counted_newlines >= 2
 
 
 def test_no_arguments_incorrect_system_exit_not_verified(capsys):
@@ -47,6 +47,27 @@ def test_basic_check_correct():
         (["--json", "--nowelcome", "CheckCommits"]),
         (["--nowelcome", "CheckCommits"]),
         (["--checkerdir", "./gator/checks", "CheckCommits"]),
+        (["--description", "Are there 12 commits?", "CheckCommits"]),
+        (
+            [
+                "--checkerdir",
+                "./gator/checks",
+                "--description",
+                "Are there 18 commits?",
+                "CheckCommits",
+            ]
+        ),
+        (
+            [
+                "--json",
+                "--nowelcome",
+                "--checkerdir",
+                "./gator/checks",
+                "--description",
+                "Are there 18 commits?",
+                "CheckCommits",
+            ]
+        ),
     ],
 )
 def test_optional_commandline_arguments_can_verify(commandline_arguments):
@@ -75,6 +96,42 @@ def test_checkerdir_is_not_valid_arguments_verify(tmpdir):
     # this directory does not exist on the file system and verification should not work
     checker_directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "checksWRONG"
     commandline_arguments = ["--checkerdir", checker_directory, "check_FakeMessages"]
+    gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+    args_verified = arguments.verify(gg_arguments)
+    assert args_verified is False
+
+
+def test_description_is_valid_arguments_verify():
+    """Check that command-line argument with valid string verifies."""
+    commandline_arguments = [
+        "--description",
+        "Do you have fake things?",
+        "check_FakeMessages",
+    ]
+    gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+    args_verified = arguments.verify(gg_arguments)
+    assert args_verified is True
+
+
+def test_description_not_specified_is_not_valid_arguments_verify(capsys):
+    """Check that command-line argument without valid string verifies."""
+    commandline_arguments = ["--description", "--json", "check_FakeMessages"]
+    with pytest.raises(SystemExit):
+        gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+        _ = arguments.verify(gg_arguments)
+    captured = capsys.readouterr()
+    assert "--description: expected one argument" in captured.err
+
+
+@pytest.mark.parametrize(
+    "commandline_arguments",
+    [
+        (["--description", "", "CheckCommits"]),
+        (["--description", 'Run the "check" check', "CheckCommits"]),
+    ],
+)
+def test_description_is_not_valid_arguments_verify(commandline_arguments):
+    """Check that command-line argument without valid string verifies."""
     gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
     args_verified = arguments.verify(gg_arguments)
     assert args_verified is False

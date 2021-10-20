@@ -51,7 +51,7 @@ def test_file_exists_in_directory_check(reset_results_dictionary, tmpdir):
     # file is found in the specified directory
     assert details is not None
     assert details[constants.results.Outcome] is True
-    assert "exists in" in details[constants.results.Check]
+    assert "exists in" in details[constants.results.Description]
     assert details[constants.results.Diagnostic] == ""
 
 
@@ -68,7 +68,7 @@ def test_file_exists_in_directory_check_test_file(reset_results_dictionary):
         # file is found in the specified directory
         assert details is not None
         assert details[constants.results.Outcome] is True
-        assert "exists in" in details[constants.results.Check]
+        assert "exists in" in details[constants.results.Description]
         assert details[constants.results.Diagnostic] == ""
 
 
