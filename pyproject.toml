@@ -1,0 +1,44 @@
+[tool.poetry]
+name = "gatorgrader"
+version = "1.1.1"
+description = "Automated Grading Tool that Checks the Work of Writers and Programmers"
+authors = ["Gregory Kapfhammer <gkapfham@allegheny.edu>"]
+license = "GPL-3.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.7,<4.0"
+GitPython = "^3.1.26"
+requests = "^2.27.1"
+commonmark = "^0.9.1"
+num2words = "^0.5.10"
+pluginbase = "^1.0.1"
+
+[tool.poetry.group.dev.dependencies]
+pylint = "^2.12.2"
+black = "^21.12-beta.0"
+pytest = "^6.2.5"
+codecov = "^2.1.12"
+flake8 = "^4.0.1"
+six = "^1.16.0"
+pytest-cov = "^3.0.0"
+pytest-sugar = "^0.9.4"
+neovim = "^0.3.1"
+bandit = "^1.7.1"
+pydocstyle = "^6.1.1"
+radon = "^5.1.0"
+xenon = "^0.8.0"
+snoop = "^0.4.1"
+taskipy = "^1.9.0"
+
+[tool.taskipy.tasks]
+test = "./scripts/test.sh"
+cover = "./scripts/cover.sh"
+lint = "./scripts/lint.sh"
+test-win = 'scripts\\test.bat'
+cover-win = 'scripts\\cover.bat'
+lint-win = 'scripts\\lint.bat'
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
