@@ -14,7 +14,7 @@ for /f "Tokens=* Delims=" %%x in (.xyzfiles) do set FILES=!FILES! %%x
 del .xyzfiles
 
 echo -- Running black
-pipenv run black %CHECK% %FILES%
+poetry run black %CHECK% %FILES%
 if ERRORLEVEL 1 (
     echo -- Failed
     set PASSED=false
@@ -23,7 +23,7 @@ if ERRORLEVEL 1 (
 )
 
 echo -- Running pylint
-pipenv run pylint %FILES%
+poetry run pylint %FILES%
 if ERRORLEVEL 1 (
     echo -- Failed
     set PASSED=false
@@ -32,7 +32,7 @@ if ERRORLEVEL 1 (
 )
 
 echo -- Running flake8
-pipenv run flake8 %FILES%
+poetry run flake8 %FILES%
 if ERRORLEVEL 1 (
     echo -- Failed
     set PASSED=false
@@ -41,7 +41,7 @@ if ERRORLEVEL 1 (
 )
 
 echo -- Running pydocstyle
-pipenv run pydocstyle %FILES%
+poetry run pydocstyle %FILES%
 if ERRORLEVEL 1 (
     echo -- Failed
     set PASSED=false
@@ -50,7 +50,7 @@ if ERRORLEVEL 1 (
 )
 
 echo -- Running radon cc
-pipenv run radon cc %FILES%
+poetry run radon cc %FILES%
 if ERRORLEVEL 1 (
     echo -- Failed
     set PASSED=false
@@ -59,7 +59,7 @@ if ERRORLEVEL 1 (
 )
 
 echo -- Running radon mi
-pipenv run radon cc %FILES%
+poetry run radon cc %FILES%
 if ERRORLEVEL 1 (
     echo -- Failed
     set PASSED=false
@@ -68,7 +68,7 @@ if ERRORLEVEL 1 (
 )
 
 echo -- Running xenon
-pipenv run xenon --max-absolute D --max-modules B --max-average A gator
+poetry run xenon --max-absolute D --max-modules B --max-average A gator
 if ERRORLEVEL 1 (
     echo -- Failed
     set PASSED=false

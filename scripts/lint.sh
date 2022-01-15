@@ -43,7 +43,7 @@ MODULE="gator"
 
 # define all of the linters to iteratively run
 declare -A LINTERS
-LINTERS=( ["black"]="pipenv run black $CHECK $FILES" ["pylint"]="pipenv run pylint $FILES" ["flake8"]="pipenv run flake8 $FILES" ["bandit"]="pipenv run bandit -c bandit.yml $FILES" ["radon-cc"]="pipenv run radon cc $FILES" ["radon-mi"]="pipenv run radon mi $FILES" ["xenon"]="pipenv run xenon --max-absolute D --max-modules B --max-average A $MODULE" ["pydocstyle"]="pipenv run pydocstyle $FILES" )
+LINTERS=( ["black"]="poetry run black $CHECK $FILES" ["pylint"]="poetry run pylint $FILES" ["flake8"]="poetry run flake8 $FILES" ["bandit"]="poetry run bandit -c bandit.yml $FILES" ["radon-cc"]="poetry run radon cc $FILES" ["radon-mi"]="poetry run radon mi $FILES" ["xenon"]="poetry run xenon --max-absolute D --max-modules B --max-average A $MODULE" ["pydocstyle"]="poetry run pydocstyle $FILES" )
 
 # run each of the already configured linters
 for tool in "${!LINTERS[@]}"; do
