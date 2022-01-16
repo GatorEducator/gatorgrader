@@ -14,7 +14,7 @@ def internal_cover(c, cover=True):
         c.run("poetry run task cover")
     # run test suite without coverage analysis
     else:
-        c.run("poetry run test")
+        c.run("poetry run task test")
 
 
 def internal_switch(c, pyenv=DEFAULT_PYENV_VERSION):
