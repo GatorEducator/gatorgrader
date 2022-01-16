@@ -18,15 +18,16 @@ jobs:
       - name: Setup Python 3.8
         uses: actions/setup-python@v2
         with:
-          python-version: 3.8
+          python-version: "3.8"
       - name: Install Poetry
         uses: abatilo/actions-poetry@v2.1.4
         with:
           poetry-version: 1.2.0a2
       - name: Setup Poetry
         run: |
-          poetry env use `which python`
+          poetry config virtualenvs.create true
           poetry config virtualenvs.in-project true
+          poetry env info
       - name: Install dependencies
         run: poetry install --sync --no-interaction --no-ansi
       - name: Lint code
@@ -50,12 +51,12 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        python-version: [3.6, 3.9]
+        python-version: ["3.7", "3.10"]
         include:
           - os: macos-latest
-            python-version: 3.8
+            python-version: "3.9"
           - os: windows-latest
-            python-version: 3.7
+            python-version: "3.8"
     env:
       # These environment variables are passed to CodeCov to identify each build
       OS: ${{ matrix.os }}
@@ -73,10 +74,11 @@ jobs:
           poetry-version: 1.2.0a2
       - name: Setup Poetry
         run: |
-          poetry env use `which python`
+          poetry config virtualenvs.create true
           poetry config virtualenvs.in-project true
+          poetry env info
       - name: Install dependencies
-        run: poetry install --sync --no-interaction --ansi
+        run: poetry install --sync --no-interaction --no-ansi
       - name: Execute tests
         # We need to ensure that the cover-win script is run for Windows, so
         # this Action runs different commands based on the runner's operating
