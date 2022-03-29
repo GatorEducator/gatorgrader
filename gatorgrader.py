@@ -10,13 +10,13 @@ If more control is needed, import the ``gator`` package and use ``gator.grader``
 
 import sys
 
-from gator import *
+from gator import *  # noqa: F403
 
 
 def main():
     """Run GatorGrader."""
     # orchestrate check given by the command line arguments
-    exit_code = grader_cli(sys.argv[1:])
+    exit_code = grader_cli(sys.argv[1:])  # noqa: F405
     # exit the program with the returned code
     sys.exit(exit_code)
 
