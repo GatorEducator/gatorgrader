@@ -28,7 +28,7 @@ REPORT = sys.modules[constants.modules.Report]
 OUTPUT_TYPE = getattr(REPORT, constants.outputs.Text)
 
 
-def main_cli(system_arguments: list[str]) -> int:
+def main_cli(system_arguments: List[str]) -> int:
     """Orchestrate a full execution of the specified check, printing diagnostic information and output to the terminal."""
     passed = False
     try:
