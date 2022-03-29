@@ -362,7 +362,7 @@ def test_act_produces_output_python(
     provided_count,
     expected_result,
     tmpdir,
-    load_checker,
+    load_check,
 ):
     """Check that using the check produces output."""
     testargs = [os.getcwd()]
@@ -388,14 +388,10 @@ def test_act_produces_output_python(
         parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
         args_verified = arguments.verify(parsed_arguments)
         assert args_verified is True
-        check_exists, checker_source, check_file = load_checker(parsed_arguments)
-        assert check_exists is True
-        check = checker_source.load_plugin(check_file)
+        check = load_check(parsed_arguments)
         check_result = check.act(parsed_arguments, remaining_arguments)
         # check the result
-        assert check_result is not None
-        assert len(check_result) == 1
-        # assert check_result[0] is expected_result
+        assert check_result is expected_result
         # check the contents of the report
         assert report.get_result() is not None
         assert len(report.get_result()["check"]) > 1
@@ -488,7 +484,7 @@ def test_act_produces_output_java(
     provided_count,
     expected_result,
     tmpdir,
-    load_checker,
+    load_check,
 ):
     """Check that using the check produces output."""
     testargs = [os.getcwd()]
@@ -514,14 +510,10 @@ def test_act_produces_output_java(
         parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
         args_verified = arguments.verify(parsed_arguments)
         assert args_verified is True
-        check_exists, checker_source, check_file = load_checker(parsed_arguments)
-        assert check_exists is True
-        check = checker_source.load_plugin(check_file)
+        check = load_check(parsed_arguments)
         check_result = check.act(parsed_arguments, remaining_arguments)
         # check the result
-        assert check_result is not None
-        assert len(check_result) == 1
-        # assert check_result[0] is expected_result
+        assert check_result is expected_result
         # check the contents of the report
         assert report.get_result() is not None
         assert len(report.get_result()["check"]) > 1
