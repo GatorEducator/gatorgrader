@@ -6,6 +6,69 @@ from gator import orchestrate
 
 
 @pytest.mark.parametrize(
+    "commandline_arguments",
+    [
+        (
+            [
+                "--description",
+                'invalid description with "quotes"',
+                "CountCommits",
+                "--count",
+                "0",
+            ]
+        ),
+        (
+            [
+                "--checkerdir",
+                "/not/a/real/path",
+                "CountCommits",
+                "--count",
+                "0",
+            ]
+        ),
+    ],
+)
+def test_main_cli_fails_with_incorrect_system_arguments(commandline_arguments, capsys):
+    """Ensure that main_cli fails when given an invalid system configuration."""
+    with pytest.raises(SystemExit):
+        _ = orchestrate.main_cli(commandline_arguments)
+    captured = capsys.readouterr()
+    print(captured.out)
+    counted_newlines = captured.out.count("\n")
+    assert captured.err == ""
+    assert "Incorrect command-line arguments." in captured.out
+    assert counted_newlines == 8
+
+
+@pytest.mark.parametrize(
+    "commandline_arguments",
+    [
+        (
+            [
+                "CheckDoesNotExist",
+                "--command",
+                "WrongCommand",
+                "--fragment",
+                "NoFragment",
+                "--count",
+                "0",
+            ],
+        ),
+    ],
+)
+def test_main_cli_fails_with_nonexistent_check(commandline_arguments, capsys):
+    """Ensure that main_cli fails when given an invalid system configuration."""
+    with pytest.raises(SystemExit):
+        _ = orchestrate.main_cli(commandline_arguments)
+    captured = capsys.readouterr()
+    counted_newlines = captured.out.count("\n")
+    assert captured.err == ""
+    assert "Incorrect command-line arguments." in captured.out
+    assert "is not a valid check." in captured.out
+    assert counted_newlines == 9
+
+
+@pytest.mark.parametrize(
     "commandline_arguments, expected_result",
     [
         (
@@ -118,7 +181,7 @@ def test_check_produces_correct_output(commandline_arguments, expected_result, c
     assert check_exit_code == expected_result
     assert captured.err == ""
     assert captured.out != ""
-    assert counted_newlines > 5
+    assert counted_newlines == 6
     assert "has exactly" in captured.out or "has at least" in captured.out
 
 
@@ -127,25 +190,14 @@ def test_check_produces_correct_output(commandline_arguments, expected_result, c
     [
         (
             [
-                "CheckDoesNotExist",
-                "--command",
-                "WrongCommand",
-                "--fragment",
-                "NoFragment",
-                "--count",
-                "0",
-            ],
-        ),
-        (
-            [
-                "ListCheck",
+                "ListChecks",
                 "--listcheckdoesnothave",
                 "--fragment",
                 "NoFragment",
                 "--count",
                 "0",
                 "--exact",
-            ],
+            ]
         ),
         (
             [
@@ -155,7 +207,7 @@ def test_check_produces_correct_output(commandline_arguments, expected_result, c
                 "--count",
                 "100",
                 "--exact",
-            ],
+            ]
         ),
         (
             [
@@ -165,7 +217,7 @@ def test_check_produces_correct_output(commandline_arguments, expected_result, c
                 "--countdoesnothave",
                 "100",
                 "--exact",
-            ],
+            ]
         ),
         (
             [
@@ -175,12 +227,12 @@ def test_check_produces_correct_output(commandline_arguments, expected_result, c
                 "--countdoesnothave",
                 "100",
                 "--exactnotcorrect",
-            ],
+            ]
         ),
     ],
 )
 def test_check_produces_correct_output_for_incorrect_check_specification(
-    commandline_arguments, capsys
+    capsys, commandline_arguments
 ):
     """Ensure that using the check produces output."""
     with pytest.raises(SystemExit):
@@ -188,8 +240,9 @@ def test_check_produces_correct_output_for_incorrect_check_specification(
     captured = capsys.readouterr()
     counted_newlines = captured.out.count("\n")
     assert captured.err == ""
-    assert "Incorrect command-line arguments." in captured.out
-    assert counted_newlines > 5
+    assert "Incorrect check arguments." in captured.out
+    assert "usage:" in captured.out
+    assert counted_newlines == 11
 
 
 def test_main_cli_produces_welcome_message(capsys):
@@ -225,22 +278,3 @@ def test_main_cli_produces_no_welcome_message(capsys):
     assert counted_newlines == 2
     assert "GatorGrader" not in captured.out
     assert captured.err == ""
-
-
-def test_main_cli_fails_with_incorrect_system_arguments(capsys):
-    """Ensure that main_cli fails when given an invalid system configuration."""
-    with pytest.raises(SystemExit):
-        _ = orchestrate.main_cli(
-            [
-                "--description",
-                'invalid description with "quotes"',
-                "CountCommits",
-                "--count",
-                "0",
-            ],
-        )
-    captured = capsys.readouterr()
-    counted_newlines = captured.out.count("\n")
-    assert captured.err == ""
-    assert "Incorrect command-line arguments." in captured.out
-    assert counted_newlines > 5
