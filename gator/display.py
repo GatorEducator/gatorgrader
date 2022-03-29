@@ -1,5 +1,10 @@
 """Display output for GatorGrader's command-line interface."""
 
+from gator.exceptions import (
+    InvalidCheckError,
+    InvalidSystemArgumentsError,
+)
+
 
 def welcome_message():
     """Display a welcome message."""
@@ -9,16 +14,11 @@ def welcome_message():
     print()
 
 
-def checking_message():
-    """Display the checking message."""
-    print("Valid command-line arguments.")
-    print("Running the specified checks!")
-    print()
-
-
-def incorrect_message():
+def incorrect_system_arguments_message(error: InvalidSystemArgumentsError = None):
     """Display a message for incorrect arguments."""
     print("Incorrect command-line arguments.")
+    if error and isinstance(error, InvalidCheckError):
+        print(error.check_name + " is not a valid check.")
     print()
 
 

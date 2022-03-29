@@ -13,19 +13,9 @@ def test_display_welcome_produce_output_line_count(capsys):
     assert captured.err == ""
 
 
-def test_display_checking_produce_output_line_count(capsys):
-    """Check that the display checking function produces output lines."""
-    display.checking_message()
-    captured = capsys.readouterr()
-    counted_newlines = captured.out.count("\n")
-    assert "Valid" in captured.out
-    assert counted_newlines == 3
-    assert captured.err == ""
-
-
-def test_dislay_invalid_produce_output_line_count(capsys):
+def test_display_invalid_produce_output_line_count(capsys):
     """Check that the invalid arguments function produces output lines."""
-    display.incorrect_message()
+    display.incorrect_system_arguments_message()
     captured = capsys.readouterr()
     counted_newlines = captured.out.count("\n")
     assert "Incorrect" in captured.out
