@@ -11,52 +11,6 @@ from gator import orchestrate
 from gator import report
 
 
-@pytest.fixture
-def reset_results_dictionary():
-    """Reset the state of the results dictionary."""
-    report.reset()
-
-
-@pytest.mark.parametrize(
-    "commandline_arguments",
-    [
-        (["--json", "CHECK"]),
-        (["--json", "--nowelcome", "CHECK"]),
-        (["--nowelcome", "CHECK"]),
-    ],
-)
-def test_verify_arguments(commandline_arguments):
-    """Check if the verification of arguments works from orchestrate."""
-    parsed_arguments, remaining_arguments = orchestrate.parse_arguments(
-        commandline_arguments
-    )
-    verification_status = orchestrate.verify_arguments(parsed_arguments)
-    assert parsed_arguments is not None
-    assert verification_status is True
-
-
-@pytest.mark.parametrize(
-    "commandline_arguments, expected_verification, action_count",
-    [
-        (["check_commits"], True, 1),
-        (["--json", "CHECK"], True, 1),
-        (["--json", "--nowelcome", "CHECK"], True, 0),
-        (["--nowelcome", "CHECK"], True, 0),
-        (["--nowelcome", "--checkerdir", "WRONG", "CHECK"], False, 3),
-    ],
-)
-def test_get_actions(commandline_arguments, expected_verification, action_count):
-    """Check if the generation of preliminary actions works from orchestrate."""
-    parsed_arguments, remaining_arguments = orchestrate.parse_arguments(
-        commandline_arguments
-    )
-    verification_status = orchestrate.verify_arguments(parsed_arguments)
-    assert parsed_arguments is not None
-    assert verification_status is expected_verification
-    needed_actions = orchestrate.get_actions(parsed_arguments, verification_status)
-    assert len(needed_actions) == action_count
-
-
 def test_perform_actions_no_parameters_welcome(capsys):
     """Check to see if perform can invoke welcome action with no parameters."""
     actions = []
@@ -70,7 +24,7 @@ def test_perform_actions_no_parameters_welcome(capsys):
 
 
 def test_perform_actions_no_parameters_incorrect(capsys):
-    """Check to see if perform can invoke welcome action with no parameters."""
+    """Check to see if perform can invoke incorrect action with no parameters."""
     actions = []
     actions.append([orchestrate.DISPLAY, "incorrect_message", []])
     orchestrate.perform_actions(actions)
@@ -81,8 +35,7 @@ def test_perform_actions_no_parameters_incorrect(capsys):
     assert captured.err == ""
 
 
-# pylint: disable=unused-argument
-def test_perform_actions_single_parameter_exit(capsys):
+def test_perform_actions_single_parameter_exit():
     """Check to see if perform can invoke exit actions with a parameter."""
     actions = []
     with pytest.raises(SystemExit) as pytest_wrapped_e:
@@ -199,16 +152,14 @@ def test_perform_actions_single_parameter_exit(capsys):
 )
 def test_check_produces_correct_output(commandline_arguments, expected_result, capsys):
     """Ensure that using the check produces output."""
-    testargs = [os.getcwd()]
-    with patch.object(sys, "argv", testargs):
-        check_exit_code = orchestrate.check(commandline_arguments)
-        captured = capsys.readouterr()
-        counted_newlines = captured.out.count("\n")
-        assert check_exit_code == expected_result
-        assert captured.err == ""
-        assert captured.out != ""
-        assert counted_newlines > 5
-        assert "has exactly" in captured.out or "has at least" in captured.out
+    check_exit_code = orchestrate.main_cli(commandline_arguments)
+    captured = capsys.readouterr()
+    counted_newlines = captured.out.count("\n")
+    assert check_exit_code == expected_result
+    assert captured.err == ""
+    assert captured.out != ""
+    assert counted_newlines > 5
+    assert "has exactly" in captured.out or "has at least" in captured.out
 
 
 @pytest.mark.parametrize(
@@ -273,10 +224,63 @@ def test_check_produces_correct_output_for_incorrect_check_specification(
 ):
     """Ensure that using the check produces output."""
     with pytest.raises(SystemExit):
-        _ = orchestrate.check(commandline_arguments)
+        _ = orchestrate.main_cli(commandline_arguments)
     captured = capsys.readouterr()
     counted_newlines = captured.out.count("\n")
     assert captured.err == ""
-    assert captured.out != ""
+    assert "Incorrect command-line arguments." in captured.out
+    assert counted_newlines > 5
+
+
+def test_main_cli_produces_welcome_message(capsys):
+    """Ensure that a regular check produces a welcome message."""
+    exit_code = orchestrate.main_cli(
+        [
+            "CountCommits",
+            "--count",
+            "0",
+        ],
+    )
+    captured = capsys.readouterr()
+    counted_newlines = captured.out.count("\n")
+    assert exit_code == 0
+    assert counted_newlines == 6
+    assert "GatorGrader" in captured.out
+    assert captured.err == ""
+
+
+def test_main_cli_produces_no_welcome_message(capsys):
+    """Ensure that a regular check produces a no welcome message when requested."""
+    exit_code = orchestrate.main_cli(
+        [
+            "--nowelcome",
+            "CountCommits",
+            "--count",
+            "0",
+        ],
+    )
+    captured = capsys.readouterr()
+    counted_newlines = captured.out.count("\n")
+    assert exit_code == 0
+    assert counted_newlines == 2
+    assert "GatorGrader" not in captured.out
+    assert captured.err == ""
+
+
+def test_main_cli_fails_with_incorrect_system_arguments(capsys):
+    """Ensure that main_cli fails when given an invalid system configuration."""
+    with pytest.raises(SystemExit):
+        _ = orchestrate.main_cli(
+            [
+                "--description",
+                'invalid description with "quotes"',
+                "CountCommits",
+                "--count",
+                "0",
+            ],
+        )
+    captured = capsys.readouterr()
+    counted_newlines = captured.out.count("\n")
+    assert captured.err == ""
     assert "Incorrect command-line arguments." in captured.out
     assert counted_newlines > 5
