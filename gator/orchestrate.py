@@ -46,7 +46,7 @@ def main_cli(system_arguments: List[str]) -> int:
     except InvalidCheckArgumentsError as error:
         # Display the invalid check message
         display.incorrect_check_arguments_message(error)
-        display.help_reminder(error.check_name)
+        display.help_reminder()
         run.run_exit(constants.arguments.Incorrect)
     # Section: Return control back to __main__ in gatorgrader
     # Only step: determine the correct exit code for the checks

@@ -33,9 +33,9 @@ def incorrect_check_arguments_message(error: InvalidCheckArgumentsError = None):
         print()
 
 
-def help_reminder(check=""):
+def help_reminder():
     """Display a message to remind for the use of help."""
-    print(f"Use gatorgrader {check}--help to show details about GatorGrader's use.")
+    print(f"Use gatorgrader --help to show details about GatorGrader's use.")
     print()
 
 
