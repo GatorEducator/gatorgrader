@@ -98,8 +98,6 @@ def act(main_parsed_arguments, check_remaining_arguments):
     directory = check_parsed_arguments.directory
     language = check_parsed_arguments.language
     exact = check_parsed_arguments.exact
-    return [
-        invoke.invoke_all_comment_checks(
-            file, directory, count, constants.comments.Multiple_Line, language, exact
-        )
-    ]
+    return invoke.invoke_all_comment_checks(
+        file, directory, count, constants.comments.Multiple_Line, language, exact
+    )

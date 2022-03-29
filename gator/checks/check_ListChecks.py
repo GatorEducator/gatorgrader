@@ -92,4 +92,4 @@ def act(main_parsed_arguments, check_remaining_arguments):
         did_check_pass = True
     # use invoke to create a report that can be returned as output
     invoke.report_result(did_check_pass, help_messages, diagnostic)
-    return [did_check_pass]
+    return did_check_pass

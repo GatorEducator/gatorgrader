@@ -63,6 +63,4 @@ def act(main_parsed_arguments, check_remaining_arguments):
     # point since argparse will exit the program if the command-line argument is not provided
     count = check_parsed_arguments.count
     exact = check_parsed_arguments.exact
-    return [
-        invoke.invoke_commits_check(constants.paths.Current_Directory, count, exact)
-    ]
+    return invoke.invoke_commits_check(constants.paths.Current_Directory, count, exact)

@@ -63,4 +63,4 @@ def act(main_parsed_arguments, check_remaining_arguments):
     # point since argparse will exit the program if a command-line argument is not provided
     file = check_parsed_arguments.file
     directory = check_parsed_arguments.directory
-    return [invoke.invoke_file_in_directory_check(file, directory)]
+    return invoke.invoke_file_in_directory_check(file, directory)
