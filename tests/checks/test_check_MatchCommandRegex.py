@@ -33,7 +33,7 @@ def test_optional_commandline_arguments_cannot_parse(commandline_arguments, caps
     assert captured.out == ""
     assert excinfo.value.check_name == "MatchCommandRegex"
     assert excinfo.value.usage
-    assert excinfo.value.message
+    assert excinfo.value.error
 
 
 @pytest.mark.parametrize(

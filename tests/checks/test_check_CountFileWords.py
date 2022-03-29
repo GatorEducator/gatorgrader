@@ -36,7 +36,7 @@ def test_required_commandline_arguments_cannot_parse(commandline_arguments, caps
     assert captured.out == ""
     assert excinfo.value.check_name == "CountFileWords"
     assert excinfo.value.usage
-    assert excinfo.value.message
+    assert excinfo.value.error
 
 
 @pytest.mark.parametrize(

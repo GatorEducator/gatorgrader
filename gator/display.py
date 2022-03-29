@@ -28,7 +28,7 @@ def incorrect_check_arguments_message(error: InvalidCheckArgumentsError = None):
     print("Incorrect check arguments.")
     print()
     if error:
-        print(error.message)
+        print(error.error)
         print(error.usage)
         print()
 
