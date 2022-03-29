@@ -29,19 +29,17 @@ def parse(get_parser, args):
     parser = get_parser()
     # call provided parse_args function and return result
     # FIXME: this is a hacky way to redirect argparse's default printing behavior
-    msg = io.StringIO()
-    parser.exit = lambda _status, message=None: msg.write(message)
-    parser.print_help = lambda _file: None
     parser.print_usage = lambda _file: None
-    try:
-        arguments_finished = parser.parse_args(args)
-        if msg.getvalue():
-            raise SystemExit()
-        return arguments_finished
-    except SystemExit:
+
+    # redirect exit reason to msg
+    def exit_raise(_status, message=None):
         raise InvalidCheckArgumentsError(
-            args, parser.format_usage(), msg.getvalue(), parser.prog
+            args, parser.format_usage(), message, parser.prog
         )
+
+    parser.exit = exit_raise
+
+    return parser.parse_args(args)
 
 
 def get_checker_dir(args):
