@@ -11,26 +11,14 @@ from gator import arguments
 
 # from gator import checkers
 from gator import report
+from gator.exceptions import InvalidCheckArgumentsError
 from gator.checks import check_CountFileParagraphs
-
-
-def test_no_arguments_incorrect_system_exit(capsys):
-    """No command-line arguments causes SystemExit crash of argparse with error output."""
-    with pytest.raises(SystemExit):
-        _ = check_CountFileParagraphs.parse([])
-    captured = capsys.readouterr()
-    # there is no standard output
-    counted_newlines = captured.out.count("\n")
-    assert counted_newlines == 0
-    # standard error has two lines from pytest
-    assert "usage:" in captured.err
-    counted_newlines = captured.err.count("\n")
-    assert counted_newlines == 3
 
 
 @pytest.mark.parametrize(
     "commandline_arguments",
     [
+        ([]),
         (["--file"]),
         (["--fileWRONG", "filename"]),
         (["--file", "filename", "--WRONG"]),
@@ -42,16 +30,15 @@ def test_no_arguments_incorrect_system_exit(capsys):
 )
 def test_required_commandline_arguments_cannot_parse(commandline_arguments, capsys):
     """Check that incorrect optional command-line arguments check correctly."""
-    with pytest.raises(SystemExit):
+    with pytest.raises(InvalidCheckArgumentsError) as excinfo:
         _ = check_CountFileParagraphs.parse(commandline_arguments)
     captured = capsys.readouterr()
-    # there is no standard output
-    counted_newlines = captured.out.count("\n")
-    assert counted_newlines == 0
-    # standard error has two lines from pytest
-    assert "usage:" in captured.err
-    counted_newlines = captured.err.count("\n")
-    assert counted_newlines == 3
+    # there is no standard output or error
+    assert captured.err == ""
+    assert captured.out == ""
+    assert excinfo.value.check_name == "CountFileParagraphs"
+    assert excinfo.value.usage
+    assert excinfo.value.message
 
 
 @pytest.mark.parametrize(
@@ -65,26 +52,8 @@ def test_required_commandline_arguments_cannot_parse(commandline_arguments, caps
 )
 def test_required_commandline_arguments_can_parse(commandline_arguments, not_raises):
     """Check that correct optional command-line arguments check correctly."""
-    with not_raises(SystemExit):
+    with not_raises(InvalidCheckArgumentsError):
         _ = check_CountFileParagraphs.parse(commandline_arguments)
-
-
-@pytest.mark.parametrize(
-    "commandline_arguments",
-    [
-        (["--file", "filename", "--directory", "directoryname", "--count", "5"]),
-        (["--directory", "directoryname", "--file", "filename", "--count", "5"]),
-        (["--count", "5", "--directory", "directoryname", "--file", "filename"]),
-        (["--directory", "directoryname", "--count", "5", "--file", "filename"]),
-    ],
-)
-def test_optional_commandline_arguments_can_parse_created_parser(
-    commandline_arguments, not_raises
-):
-    """Check that correct optional command-line arguments check correctly."""
-    with not_raises(SystemExit):
-        parser = check_CountFileParagraphs.get_parser()
-        _ = check_CountFileParagraphs.parse(commandline_arguments, parser)
 
 
 @pytest.mark.parametrize(
