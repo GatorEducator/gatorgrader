@@ -325,7 +325,7 @@ def test_list_checks_returns_all_internal_checks():
     checker_source = checkers.get_source()
     available_checks = checkers.list_checks(checker_source)
     for check_file in check_files:
-        check_name = check_file.removesuffix(".py")
+        check_name = check_file.replace(".py", "")
         assert check_name in available_checks
 
 
