@@ -3,8 +3,11 @@
 import io
 from contextlib import redirect_stdout
 
+import pkgutil
+import importlib
 import os
 
+from gator import checks
 from gator import constants
 from gator import files
 from gator import util
@@ -81,7 +84,7 @@ def verify_check_existence(check, check_source):
     # list each of the checks by name as they are available in the
     # --> internal source that comes with GatorGrader
     # --> the external source specified by user on the command-line
-    check_list = check_source.list_plugins()
+    check_list = list_checks(check_source)
     # if the name of the check is in the list of plugins
     # then we can confirm its existence
     if check in check_list:
@@ -109,6 +112,29 @@ def verify_check_functions(check, functions=DEFAULT_FUNCTIONS):
     return all(verify_status_results)
 
 
+def is_internal_check(check_file):
+    """Determine if the specified check is an internal check."""
+    return check_file in list_checks(None)
+
+
+def list_checks(checker_source):
+    """List the available checks from the source."""
+    all_checks = []
+    for moduleInfo in pkgutil.walk_packages(checks.__path__):
+        all_checks.append(moduleInfo.name)
+    if checker_source:
+        all_checks.extend(checker_source.list_plugins())
+    return all_checks
+
+
+def load_check(checker_source, check_file):
+    """Load the specified check from the source."""
+    if is_internal_check(check_file):
+        return importlib.import_module(checks.__name__ + "." + check_file)
+    else:
+        return checker_source.load_plugin(check_file)
+
+
 def get_source(checker_paths=[]):
     """Load all of the checkers using pluginbase."""
     # define the "package" in which the checks reside
@@ -118,17 +144,6 @@ def get_source(checker_paths=[]):
     # this case occurs when the optional --checkerdir is not provided on command-line
     if constants.markers.Nothing in checker_paths:
         checker_paths.remove(constants.markers.Nothing)
-    # Create the directory where the internal checkers live inside of GatorGrader.
-    # Note that this directory includes the home for GatorGrader, which can be set
-    # by an environment variable and otherwise defaults to the directory from which
-    # GatorGrader was run and then the directory where internal checkers are stored.
-    internal_checker_path = files.create_path(
-        constants.checkers.Internal_Checkers_Dir, home=util.get_gatorgrader_home()
-    )
-    # create the listing of the paths that could contain checkers, including
-    # all of the provided paths for external checkers and the directory that
-    # contains all of the internal checkers provided by GatorGrader
-    all_checker_paths = checker_paths + [str(internal_checker_path)]
     # Create and return a source of checkers using PluginBase.
     # The documentation for this function advices that you
     # give an identifier to the source for the plugins
@@ -140,7 +155,7 @@ def get_source(checker_paths=[]):
     if CHECKER_SOURCE is None:
         CHECKER_SOURCE = checker_base.make_plugin_source(
             identifier=constants.checkers.Plugin_Base_Identifier,
-            searchpath=all_checker_paths,
+            searchpath=checker_paths,
         )
     return CHECKER_SOURCE
 
@@ -183,7 +198,7 @@ def get_checks_help(check_source, namecontains=None, indent=""):
     # assume that no checkers are available and thus there is no help message
     help_message = constants.markers.Nothing
     # extract the list of checkers available from pluginbase
-    check_list = check_source.list_plugins()
+    check_list = list_checks(check_source)
     # a namecontains is provided for the filtering to ensure that each check
     # contains the provided name pattern (i.e., must contain "Comment")
     filtered_check_list = check_list
@@ -192,9 +207,9 @@ def get_checks_help(check_source, namecontains=None, indent=""):
             check_name for check_name in check_list if namecontains in check_name
         ]
     # iterate through the names of the checks, extracting their help messages
-    for check_count, check_name in enumerate(filtered_check_list):
+    for check_count, check_file in enumerate(filtered_check_list):
         # reflectively create a check from its name
-        active_check = check_source.load_plugin(check_name)
+        active_check = load_check(check_source, check_file)
         # if possible, get the complete help message from this check
         active_check_parser_help = get_check_help(active_check, indent)
         # this is the first help message, so directly add it
