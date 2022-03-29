@@ -22,12 +22,11 @@ DEFAULT_FUNCTIONS = [
 ]
 
 
-def parse(get_parser, args, parser=None):
+def parse(get_parser, args):
     """Use the parser on the provided arguments."""
     # this function is called by all checks in gator.checks
-    # there is no parser, so create it first before parsing
-    if parser is None:
-        parser = get_parser()
+    # get the provided parser
+    parser = get_parser()
     # call provided parse_args function and return result
     # FIXME: this is a hacky way to redirect argparse's default printing behavior
     msg = io.StringIO()
