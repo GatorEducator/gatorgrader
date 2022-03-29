@@ -1,7 +1,5 @@
 """Test cases for the report module."""
 
-import pytest
-
 from gator import constants
 from gator import report
 
