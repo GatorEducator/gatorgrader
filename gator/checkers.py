@@ -212,7 +212,9 @@ def get_checks_help(check_source, namecontains=None, indent=""):
     filtered_check_list = check_list
     if namecontains is not None:
         filtered_check_list = [
-            check_name for check_name in check_list if namecontains in check_name
+            check_name
+            for check_name in check_list
+            if namecontains.casefold() in check_name.casefold()
         ]
     # iterate through the names of the checks, extracting their help messages
     for check_count, check_file in enumerate(filtered_check_list):
