@@ -1,6 +1,7 @@
 """Orchestrate the preliminary actions and checks performed on writing and source code."""
 
 import sys
+from typing import List
 
 from gator import arguments
 from gator import checkers
@@ -28,39 +29,41 @@ REPORT = sys.modules[constants.modules.Report]
 OUTPUT_TYPE = getattr(REPORT, constants.outputs.Text)
 
 
-def parse_arguments(system_arguments):
-    """Parse and then return the parsed command-line arguments and those that remain."""
-    parsed_arguments, remaining_arguments = arguments.parse(system_arguments)
-    return parsed_arguments, remaining_arguments
+class InvalidSystemArgumentsError(ValueError):
+    """The system arguments are invalid."""
+
+    def __init__(self, arguments):
+        """Initialize the InvalidSystemArgumentsError."""
+        self.arguments = arguments
 
 
-def verify_arguments(parsed_arguments):
-    """Parse, verify, and then return the parsed command-line arguments."""
-    # verify the command-line arguments
-    did_verify_arguments = arguments.verify(parsed_arguments)
-    return did_verify_arguments
+class InvalidCheckError(InvalidSystemArgumentsError):
+    """The check is invalid."""
+
+    def __init__(self, arguments, check_name) -> None:
+        """Initialize the InvalidCheckError."""
+        super().__init__(arguments)
+        self.check_name = check_name
 
 
-def get_actions(parsed_arguments, verification_status):
-    """Get the actions to perform before running any specified checker."""
-    needed_actions = []
-    # Needed Action: display the welcome message
-    if parsed_arguments.nowelcome is not True:
-        needed_actions.append([DISPLAY, "welcome_message", constants.arguments.Void])
-    # Needed Action: configure to produce JSON output for external interface
-    if parsed_arguments.json is True:
-        # pylint: disable=global-statement
-        global OUTPUT_TYPE
-        OUTPUT_TYPE = getattr(REPORT, constants.outputs.Json)
-    # arguments were not verified, create actions for error message display and an exit
-    if verification_status is False:
-        # Needed Action: display incorrect arguments message
-        needed_actions.append([DISPLAY, "incorrect_message", constants.arguments.Void])
-        # Needed Action: display a message to remind about using help
-        needed_actions.append([DISPLAY, "help_reminder", constants.arguments.Void])
-        # Needed Action: exit the program
-        needed_actions.append([RUN, "run_exit", [constants.arguments.Incorrect]])
-    return needed_actions
+def get_welcome_actions():
+    """Get the actions to perform first when the program is run."""
+    return [
+        # Action: display the welcome message
+        [DISPLAY, "welcome_message", constants.arguments.Void]
+    ]
+
+
+def get_incorrect_arguments_actions():
+    """Get the actions to perform when the arguments are incorrect."""
+    return [
+        # Action: display the incorrect arguments message
+        [DISPLAY, "incorrect_message", constants.arguments.Void],
+        # Action: display a message to remind about using help
+        [DISPLAY, "help_reminder", constants.arguments.Void],
+        # Action: exit the program
+        [RUN, "run_exit", [constants.arguments.Incorrect]],
+    ]
 
 
 def perform_actions(actions):
@@ -79,57 +82,82 @@ def perform_actions(actions):
     return results
 
 
-def check(system_arguments):
-    """Orchestrate a full check of the specified deliverables."""
-    # *Section: Initialize
-    # step_results = []
-    check_results = []
-    # **Step: Parse and then verify the arguments, extract remaining arguments
-    parsed_arguments, remaining_arguments = parse_arguments(system_arguments)
-    verification_status = verify_arguments(parsed_arguments)
-    # **Step: Get the source of all the checkers available from either:
-    # --> the internal directory of checkers (e.g., "./gator/checks")
-    # --> the directory specified on the command-line
+def main_cli(system_arguments):
+    """Orchestrate a full execution of the specified check."""
+    passed = False
+    try:
+        # Execute the pipeline
+        passed = perform_check(*perform_system_configuration(system_arguments))
+        # Produce the output
+        produced_output = report.output(report.get_result(), OUTPUT_TYPE)
+        # Display the output
+        display.message(produced_output)
+    except InvalidSystemArgumentsError:
+        # Display the incorrect arguments message
+        perform_actions(get_incorrect_arguments_actions())
+    # Section: Return control back to __main__ in gatorgrader
+    # Only step: determine the correct exit code for the checks
+    correct_exit_code = leave.get_code(passed)
+    return correct_exit_code
+
+
+def main_api(system_arguments: List[str]):
+    """Execute the specified check.
+
+    Args:
+        system_arguments: The command-line arguments to be used.
+
+    Returns:
+        (description, passed, diagnostic): The description of the check, whether the check passed, and the diagnostic of the check.
+    """
+    perform_check(*perform_system_configuration(system_arguments))
+    return report.decompose_result(report.get_result())
+
+
+def perform_system_configuration(system_arguments):
+    """Parse the specified command-line arguments and perform system configuration, validation, and welcoming."""
+    parsed_arguments, remaining_arguments = arguments.parse(system_arguments)
+    # Display the welcome message if the user did not specify the --nowelcome flag
+    if parsed_arguments.nowelcome is not True:
+        perform_actions(get_welcome_actions())
+    # Report if the system arguments are not valid
+    if arguments.verify(parsed_arguments) is False:
+        raise InvalidSystemArgumentsError(parsed_arguments)
+
+    # Configure the output type to be JSON if the user specified the --json flag
+    if parsed_arguments.json is True:
+        # pylint: disable=global-statement
+        global OUTPUT_TYPE
+        OUTPUT_TYPE = getattr(REPORT, constants.outputs.Json)
+    return parsed_arguments, remaining_arguments
+
+
+def perform_check(parsed_arguments, remaining_arguments):
+    """Perform the check specified in the given parsed arguments."""
+    # Get the source of all the checkers available from either:
+    # - the internal directory of checkers (e.g., "./gator/checks")
+    # - the directory specified on the command-line
     external_checker_directory = checkers.get_checker_dir(parsed_arguments)
     checker_source = checkers.get_source([external_checker_directory])
-    # **Step: Get and perform the preliminary actions before running a checker
-    # if the arguments did not parse or verify correctly, then:
-    # --> argparse will cause the program to crash with an error OR
-    # --> one of the actions will be to display the help message and exit
-    actions = get_actions(parsed_arguments, verification_status)
-    perform_actions(actions)
-    # *Section: Perform the check
-    # **Step: Get and transform the name of the chosen checker and
-    # then prepare for running it by ensuring that it is:
-    # --> available for use (i.e., pluginbase found and loaded it)
+    # Get and transform the name of the chosen checker and
+    # then prepare for running it by ensuring that it is available for use
+    # (i.e., pluginbase found and loaded it)
     check_name = checkers.get_chosen_check(parsed_arguments)
     check_file = checkers.transform_check(check_name)
     check_exists = checkers.verify_check_existence(check_file, checker_source)
-    # **Step: Load the check and verify that it is valid:
+    # Load the check and verify that it is valid:
     check_verified = False
     check = None
     if check_exists:
-        check = checker_source.load_plugin(check_file)
+        check = checkers.load_check(checker_source, check_file)
         check_verified = checkers.verify_check_functions(check)
-    # produce error message and exit because the check is not valid
+    # Report if the check is not valid
     if not check_exists or not check_verified:
-        # do not potentially produce the welcome message again
-        parsed_arguments.nowelcome = True
-        actions = get_actions(parsed_arguments, check_verified)
-        perform_actions(actions)
-    # **Step: Perform the check since it exists and it is verified
-    check_result = check.act(parsed_arguments, remaining_arguments)
-    check_results.extend(check_result)
-    # *Section: Output the report
-    # **Step: get the report's details
-    result = report.get_result()
-    # **Step: Override the result's description if a user-provided description exists
-    result = description.transform_result_dictionary(parsed_arguments, result)
-    # **Step: produce the output
-    produced_output = report.output(report.get_result(), OUTPUT_TYPE)
-    # **Step: display the output
-    display.message(produced_output)
-    # Section: Return control back to __main__ in gatorgrader
-    # Only step: determine the correct exit code for the checks
-    correct_exit_code = leave.get_code(check_results)
-    return correct_exit_code
+        raise InvalidCheckError(parsed_arguments, check_name)
+    # Perform the check
+    passed = check.act(parsed_arguments, remaining_arguments)
+    # parse a list of the check's output to
+    # Override the result's description if needed
+    # TODO: this line uses pass-by-reference, and should be refactored at some point for clarity
+    description.transform_result_dictionary(parsed_arguments, report.get_result())
+    return passed
