@@ -2,16 +2,14 @@
 
 import sys
 
-from gator import orchestrate
+import gator
 
 
 def main():
     """Run GatorGrader."""
-    # orchestrate check(s) of the specified deliverable(s)
-    exit_code = orchestrate.main_cli(sys.argv[1:])
-    # exit the program with the correct code
-    # error code: one aspect of the checks failed
-    # normal code: all aspects of the checks passed
+    # orchestrate check given by the command line arguments
+    exit_code = gator.grader_cli(sys.argv[1:])
+    # exit the program with the returned code
     sys.exit(exit_code)
 
 
