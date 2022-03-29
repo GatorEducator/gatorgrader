@@ -3,6 +3,7 @@
 from gator.exceptions import (
     InvalidCheckError,
     InvalidSystemArgumentsError,
+    InvalidCheckArgumentsError,
 )
 
 
@@ -22,9 +23,19 @@ def incorrect_system_arguments_message(error: InvalidSystemArgumentsError = None
     print()
 
 
-def help_reminder():
+def incorrect_check_arguments_message(error: InvalidCheckArgumentsError = None):
+    """Display a message for invalid check arguments."""
+    print("Incorrect check arguments.")
+    print()
+    if error:
+        print(error.message)
+        print(error.usage)
+        print()
+
+
+def help_reminder(check=""):
     """Display a message to remind for the use of help."""
-    print("Use --help to show details about GatorGrader's use.")
+    print(f"Use gatorgrader {check}--help to show details about GatorGrader's use.")
     print()
 
 
