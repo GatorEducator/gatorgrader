@@ -1,14 +1,22 @@
-"""GatorGrader checks the files of programmers and technical writers."""
+"""
+**GatorGrader** CLI.
+
+Call ``main`` to run the command-line interface.
+The arguments will be retrieved from ``sys.argv``.
+The results of the check will be formatted and printed.
+
+If more control is needed, import the ``gator`` package and use ``gator.grader`` or ``gator.grader_cli``.
+"""
 
 import sys
 
-import gator
+from gator import *
 
 
 def main():
     """Run GatorGrader."""
     # orchestrate check given by the command line arguments
-    exit_code = gator.grader_cli(sys.argv[1:])
+    exit_code = grader_cli(sys.argv[1:])
     # exit the program with the returned code
     sys.exit(exit_code)
 

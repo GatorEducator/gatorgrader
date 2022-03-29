@@ -1,11 +1,12 @@
 """
-Gatorgrader is an automated grading tool that checks the work of writers and programmers.
+**GatorGrader** is an automated grading tool that checks the work of writers and programmers.
 
-The gator package exposes the following functions:
+The ``gator`` package exposes the following functions:
 
-    - grader_cli: Executes GatorGrader's command line interface to perform the requested check.
-    - grader: given a list[str] in the format of GatorGrader command line arguments, performs the requested check and returns data about its success.
+    - ``grader_cli``: Executes GatorGrader's command line interface to perform the requested check.
+    - ``grader``: given a ``list[str]`` in the format of GatorGrader command line arguments, performs the requested check and returns data about its success.
 
+For more information, view each function's docstring.
 """
 
 # expose main_api entry point as "grader" function

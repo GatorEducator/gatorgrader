@@ -29,6 +29,10 @@ speed!
 * [Contributing](#contributing)
 * [Contributors](#contributors)
 
+### PyPI Users
+
+This release (`1.1.0`) of GatorGrader is intended to be a stop-gap solution. It is released from the [`feature/publish-to-pypi` branch](https://github.com/GatorEducator/gatorgrader/tree/feature/publish-to-pypi) on GitHub. In future versions, some changes may be made to the structure and distribution of this package! Additionally, the documentation available below may or may not be fully accurate. Refer to the docstrings available in `gatorgrader.py` and `gator/__init__.py` (or view them in your editor-of-choice with support for a [Python Language Server](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance)). In summary, however, GatorGrader can be interacted with programmatically by importing the `gator` package and calling `gator.grader(["list", "of", "--command", "line", "arguments"])`, the syntax of which matches previous versions of GatorGrader. For additional help or guidance, reach out to any of the core maintainers.
+
 ## Quickstart Guide
 * Starter Repositories
 An easy way to get started with GatorGrader is to check out our sample starter repositories.
@@ -246,7 +250,7 @@ then exited. If further assistance is needed, please contact us on GitHub.
 
 Another feature with our automated checks is the **plug-in based approach**. This allows
 users to implement their own check if our initial 15 do not fulfill a check that
-you find necessary.  
+you find necessary.
 
 ## Running GatorGrader
 
