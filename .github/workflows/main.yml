@@ -22,14 +22,14 @@ jobs:
       - name: Install Poetry
         uses: abatilo/actions-poetry@v2.1.4
         with:
-          poetry-version: 1.2.0a2
+          poetry-version: 1.1.13
       - name: Setup Poetry
         run: |
           poetry config virtualenvs.create true
           poetry config virtualenvs.in-project true
           poetry env info
       - name: Install dependencies
-        run: poetry install --sync --no-interaction --no-ansi
+        run: poetry install --no-interaction --no-ansi
       - name: Lint code
         run: poetry run task lint --check
       - name: Lint writing
@@ -71,14 +71,14 @@ jobs:
       - name: Install Poetry
         uses: abatilo/actions-poetry@v2.1.4
         with:
-          poetry-version: 1.2.0a2
+          poetry-version: 1.1.13
       - name: Setup Poetry
         run: |
           poetry config virtualenvs.create true
           poetry config virtualenvs.in-project true
           poetry env info
       - name: Install dependencies
-        run: poetry install --sync --no-interaction --no-ansi
+        run: poetry install --no-interaction --no-ansi
       - name: Execute tests
         # We need to ensure that the cover-win script is run for Windows, so
         # this Action runs different commands based on the runner's operating
