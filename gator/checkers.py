@@ -9,8 +9,7 @@ import os
 
 from gator import checks
 from gator import constants
-from gator import files
-from gator import util
+from gator.exceptions import InvalidCheckArgumentsError
 
 from pluginbase import PluginBase
 
@@ -30,8 +29,20 @@ def parse(get_parser, args, parser=None):
     if parser is None:
         parser = get_parser()
     # call provided parse_args function and return result
-    arguments_finished = parser.parse_args(args)
-    return arguments_finished
+    # FIXME: this is a hacky way to redirect argparse's default printing behavior
+    msg = io.StringIO()
+    parser.exit = lambda _status, message=None: msg.write(message)
+    parser.print_help = lambda _file: None
+    parser.print_usage = lambda _file: None
+    try:
+        arguments_finished = parser.parse_args(args)
+        if msg.getvalue():
+            raise SystemExit()
+        return arguments_finished
+    except SystemExit:
+        raise InvalidCheckArgumentsError(
+            args, parser.format_usage(), msg.getvalue(), parser.prog
+        )
 
 
 def get_checker_dir(args):
