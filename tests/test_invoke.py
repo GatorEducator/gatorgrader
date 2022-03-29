@@ -12,14 +12,7 @@ from gator import invoke
 from gator import report
 
 
-@pytest.fixture
-def reset_results_dictionary():
-    """Reset the state of the results dictionary."""
-    report.reset()
-
-
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_commit_checks(reset_results_dictionary):
     """Check that invocation of commit check works correctly."""
     invoke.invoke_commits_check(".", sys.maxsize)
@@ -28,7 +21,6 @@ def test_commit_checks(reset_results_dictionary):
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_commit_checks_exact(reset_results_dictionary):
     """Check that invocation of commit check exacted works correctly."""
     invoke.invoke_commits_check(".", sys.maxsize, True)
@@ -37,7 +29,6 @@ def test_commit_checks_exact(reset_results_dictionary):
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check(reset_results_dictionary, tmpdir):
     """Check that invocation of file existence check works correctly."""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
@@ -56,7 +47,6 @@ def test_file_exists_in_directory_check(reset_results_dictionary, tmpdir):
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check_test_file(reset_results_dictionary):
     """Check that invocation of file existence check works correctly."""
     testargs = [os.getcwd()]
@@ -73,7 +63,6 @@ def test_file_exists_in_directory_check_test_file(reset_results_dictionary):
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check_paragraphs(reset_results_dictionary, tmpdir):
     """Check that the checking of paragraphs works correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
@@ -113,7 +102,6 @@ def test_file_exists_in_directory_check_paragraphs_exact(
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check_words(reset_results_dictionary, tmpdir):
     """Check that the checking of words works correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
@@ -149,7 +137,6 @@ def test_file_exists_in_directory_check_words(reset_results_dictionary, tmpdir):
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check_words_no_matching_file(
     reset_results_dictionary, tmpdir
 ):
@@ -187,7 +174,6 @@ def test_file_exists_in_directory_check_words_no_matching_file(
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check_words_exact(reset_results_dictionary, tmpdir):
     """Check that the checking of words works exact correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
@@ -225,7 +211,6 @@ def test_file_exists_in_directory_check_words_exact(reset_results_dictionary, tm
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check_total_words(reset_results_dictionary, tmpdir):
     """Check that the checking of total words works correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
@@ -261,7 +246,6 @@ def test_file_exists_in_directory_check_total_words(reset_results_dictionary, tm
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check_total_words_file_not_exists(
     reset_results_dictionary, tmpdir
 ):
@@ -299,7 +283,6 @@ def test_file_exists_in_directory_check_total_words_file_not_exists(
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check_total_words_exact(
     reset_results_dictionary, tmpdir
 ):
@@ -345,7 +328,6 @@ def test_file_exists_in_directory_check_total_words_exact(
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check_words_wildcards(
     reset_results_dictionary, tmpdir
 ):
@@ -383,7 +365,6 @@ def test_file_exists_in_directory_check_words_wildcards(
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check_fragments(reset_results_dictionary, tmpdir):
     """Check that the checking of fragments in a file works correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
@@ -415,7 +396,6 @@ def test_file_exists_in_directory_check_fragments(reset_results_dictionary, tmpd
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check_fragments_exact(
     reset_results_dictionary, tmpdir
 ):
@@ -437,7 +417,6 @@ def test_file_exists_in_directory_check_fragments_exact(
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check_regex_exact(reset_results_dictionary, tmpdir):
     """Check that the exact checking of fragments in a file works correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
@@ -459,7 +438,6 @@ def test_file_exists_in_directory_check_regex_exact(reset_results_dictionary, tm
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_content_string_check_fragments(reset_results_dictionary):
     """Check that the checking of words works correctly."""
     value = "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
@@ -472,7 +450,6 @@ def test_content_string_check_fragments(reset_results_dictionary):
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_content_string_check_fragments_exact(reset_results_dictionary):
     """Check that the checking of exact fragments works correctly."""
     value = "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
@@ -482,7 +459,6 @@ def test_content_string_check_fragments_exact(reset_results_dictionary):
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_content_string_check_regex_exact(reset_results_dictionary):
     """Check that the checking of exact regex works correctly."""
     value = "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
@@ -492,7 +468,6 @@ def test_content_string_check_regex_exact(reset_results_dictionary):
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check_lines(reset_results_dictionary, tmpdir):
     """Check that the checking of lines in a file works correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
@@ -516,7 +491,6 @@ def test_file_exists_in_directory_check_lines(reset_results_dictionary, tmpdir):
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_file_exists_in_directory_check_lines_exact(reset_results_dictionary, tmpdir):
     """Check that the checking of lines in a file works correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
@@ -537,7 +511,6 @@ def test_file_exists_in_directory_check_lines_exact(reset_results_dictionary, tm
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_content_string_check_fragments_with_threshold(reset_results_dictionary):
     """Check that the checking of words works correctly."""
     value = "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
@@ -549,7 +522,6 @@ def test_content_string_check_fragments_with_threshold(reset_results_dictionary)
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_comment_counts_check_single_java(reset_results_dictionary, tmpdir):
     """Check to that invocation of comment counting check works correctly."""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
@@ -568,7 +540,6 @@ def test_comment_counts_check_single_java(reset_results_dictionary, tmpdir):
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_comment_counts_check_single_java_exact(reset_results_dictionary, tmpdir):
     """Check to that invocation of comment counting check works correctly."""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
@@ -589,7 +560,6 @@ def test_comment_counts_check_single_java_exact(reset_results_dictionary, tmpdir
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_comment_counts_check_single_python(reset_results_dictionary, tmpdir):
     """Check that invocation of comment counting check works correctly."""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.py")
@@ -608,7 +578,6 @@ def test_comment_counts_check_single_python(reset_results_dictionary, tmpdir):
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_comment_counts_check_multiple_java(reset_results_dictionary, tmpdir):
     """Check that invocation of comment counting check works correctly."""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
@@ -627,7 +596,6 @@ def test_comment_counts_check_multiple_java(reset_results_dictionary, tmpdir):
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_comment_counts_check_multiple_java_invalid_check(
     reset_results_dictionary, tmpdir
 ):
@@ -673,7 +641,6 @@ def test_comment_counts_check_multiple_java_not_enough(
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_comment_counts_check_multiple_python(reset_results_dictionary, tmpdir):
     """Check that invocation of comment counting check works correctly."""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.py")
@@ -719,7 +686,6 @@ def test_comment_counts_check_multiple_python_not_enough(
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_run_command_grab_output_as_string(reset_results_dictionary, tmpdir):
     """Check that invocation of command produces correct captured output."""
     tmpdir.mkdir("Hello1")
@@ -745,7 +711,6 @@ def test_run_command_grab_output_as_string(reset_results_dictionary, tmpdir):
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_run_command_grab_output_as_string_count_lines(
     reset_results_dictionary, tmpdir
 ):
@@ -764,7 +729,6 @@ def test_run_command_grab_output_as_string_count_lines(
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_run_command_grab_output_as_string_count_lines_exact(
     reset_results_dictionary, tmpdir
 ):
@@ -805,7 +769,6 @@ def test_command_executes_checks_does_execute_correctly():
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_run_command_does_execute_correctly_would_make_output(
     reset_results_dictionary, tmpdir
 ):
