@@ -28,8 +28,8 @@ REPORT = sys.modules[constants.modules.Report]
 OUTPUT_TYPE = getattr(REPORT, constants.outputs.Text)
 
 
-def main_cli(system_arguments):
-    """Orchestrate a full execution of the specified check."""
+def main_cli(system_arguments: list[str]) -> int:
+    """Orchestrate a full execution of the specified check, printing diagnostic information and output to the terminal."""
     passed = False
     try:
         # Execute the pipeline
