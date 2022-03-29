@@ -7,9 +7,10 @@ from gator import arguments
 from gator import checkers
 from gator import constants
 from gator import description
-
 from gator import leave
 from gator import report
+from gator import display
+from gator import run
 
 from gator.exceptions import (
     InvalidSystemArgumentsError,
@@ -21,49 +22,10 @@ from gator.exceptions import (
 ORCHESTRATE = sys.modules[__name__]
 
 # define the modules that contain invokable functions
-DISPLAY = sys.modules[constants.modules.Display]
-INVOKE = sys.modules[constants.modules.Invoke]
-RUN = sys.modules[constants.modules.Run]
 REPORT = sys.modules[constants.modules.Report]
 
 # define the format for the output of the checks
 OUTPUT_TYPE = getattr(REPORT, constants.outputs.Text)
-
-
-def get_welcome_actions():
-    """Get the actions to perform first when the program is run."""
-    return [
-        # Action: display the welcome message
-        [DISPLAY, "welcome_message", constants.arguments.Void]
-    ]
-
-
-def get_incorrect_arguments_actions():
-    """Get the actions to perform when the arguments are incorrect."""
-    return [
-        # Action: display the incorrect arguments message
-        [DISPLAY, "incorrect_message", constants.arguments.Void],
-        # Action: display a message to remind about using help
-        [DISPLAY, "help_reminder", constants.arguments.Void],
-        # Action: exit the program
-        [RUN, "run_exit", [constants.arguments.Incorrect]],
-    ]
-
-
-def perform_actions(actions):
-    """Perform the specified actions."""
-    results = []
-    # iteratively run all of the actions in the list
-    for module, function, parameters in actions:
-        function_to_invoke = getattr(module, function)
-        # no parameters were specified, do not pass
-        if parameters == []:
-            function_result = function_to_invoke()
-        # parameters were specified, do pass
-        else:
-            function_result = function_to_invoke(*parameters)
-        results.append(function_result)
-    return results
 
 
 def main_cli(system_arguments):
@@ -76,9 +38,12 @@ def main_cli(system_arguments):
         produced_output = report.output(report.get_result(), OUTPUT_TYPE)
         # Display the output
         display.message(produced_output)
-    except InvalidSystemArgumentsError:
+    except InvalidSystemArgumentsError as error:
         # Display the incorrect arguments message
-        perform_actions(get_incorrect_arguments_actions())
+        display.incorrect_system_arguments_message(error)
+        display.help_reminder()
+        run.run_exit(constants.arguments.Incorrect)
+
     # Section: Return control back to __main__ in gatorgrader
     # Only step: determine the correct exit code for the checks
     correct_exit_code = leave.get_code(passed)
@@ -94,7 +59,7 @@ def main_api(system_arguments: List[str]):
     Returns:
         (description, passed, diagnostic): The description of the check, whether the check passed, and the diagnostic of the check.
     """
-    perform_check(*perform_system_configuration(system_arguments))
+    perform_check(*perform_system_configuration(["--nowelcome"] + system_arguments))
     return report.decompose_result(report.get_result())
 
 
@@ -103,7 +68,7 @@ def perform_system_configuration(system_arguments):
     parsed_arguments, remaining_arguments = arguments.parse(system_arguments)
     # Display the welcome message if the user did not specify the --nowelcome flag
     if parsed_arguments.nowelcome is not True:
-        perform_actions(get_welcome_actions())
+        display.welcome_message()
     # Report if the system arguments are not valid
     if arguments.verify(parsed_arguments) is False:
         raise InvalidSystemArgumentsError(parsed_arguments)
