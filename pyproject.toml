@@ -28,6 +28,7 @@ radon = "^5.1.0"
 xenon = "^0.9.0"
 snoop = "^0.4.1"
 taskipy = "^1.10.2"
+toml = "^0.10.2"
 
 [tool.taskipy.tasks]
 test = "./scripts/test.sh"
