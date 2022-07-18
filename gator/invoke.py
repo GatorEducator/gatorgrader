@@ -534,13 +534,16 @@ def invoke_all_fragment_checks(
     )
     diagnostic = (
         "Found "
+        + ("only " if actual_count < expected_count else "")
         + str(actual_count)
         + constants.markers.Space
         + "fragment(s)"
         + constants.markers.Space
         + fragment_diagnostic
         + constants.markers.Space
-        + "or the output"
+        + "or the output while expecting "
+        + ("at least " if not exact else "")
+        + str(expected_count)
     )
     report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
