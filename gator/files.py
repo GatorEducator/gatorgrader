@@ -46,7 +46,6 @@ def create_path(*args, file="", home):
     # Each of these paths will be a path between the home and the
     # specified file. None of these paths need their anchor, though,
     # which is given like "C:\" on Windows and "/" otherwise.
-    # pylint: disable=old-division
     for containing_path in args:
         nested_path = Path(containing_path)
         final_path = final_path / nested_path.relative_to(nested_path.anchor)
