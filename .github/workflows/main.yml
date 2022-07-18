@@ -17,17 +17,21 @@ jobs:
         uses: actions/checkout@v2
       - name: Setup Python 3.8
         uses: actions/setup-python@v2
-        id: setup-python
         with:
-          python-version: 3.8
-      - name: Setup Pipenv
-        uses: dschep/install-pipenv-action@v1
+          python-version: "3.8"
+      - name: Install Poetry
+        uses: abatilo/actions-poetry@v2.1.4
+        with:
+          poetry-version: 1.1.13
+      - name: Setup Poetry
+        run: |
+          poetry config virtualenvs.create true
+          poetry config virtualenvs.in-project true
+          poetry env info
       - name: Install dependencies
-        # --skip-lock is used here to speed up installation -- note, however,
-        # that `Pipfile.lock` is ignored!
-        run: pipenv install --dev --skip-lock --python ${{ steps.setup-python.outputs.python-version }}
+        run: poetry install --no-interaction --no-ansi
       - name: Lint code
-        run: pipenv run lint --check
+        run: poetry run task lint --check
       - name: Lint writing
         uses: actionshub/markdownlint@main
 
@@ -47,12 +51,12 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        python-version: [3.6, 3.9]
+        python-version: ["3.7", "3.10"]
         include:
           - os: macos-latest
-            python-version: 3.8
+            python-version: "3.9"
           - os: windows-latest
-            python-version: 3.7
+            python-version: "3.8"
     env:
       # These environment variables are passed to CodeCov to identify each build
       OS: ${{ matrix.os }}
@@ -62,24 +66,28 @@ jobs:
         uses: actions/checkout@v2
       - name: Setup Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
-        id: setup-python
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Setup Pipenv
-        uses: dschep/install-pipenv-action@v1
+      - name: Install Poetry
+        uses: abatilo/actions-poetry@v2.1.4
+        with:
+          poetry-version: 1.1.13
+      - name: Setup Poetry
+        run: |
+          poetry config virtualenvs.create true
+          poetry config virtualenvs.in-project true
+          poetry env info
       - name: Install dependencies
-        # --skip-lock is used here to speed up installation -- note, however,
-        # that `Pipfile.lock` is ignored!
-        run: pipenv install --dev --skip-lock --python ${{ steps.setup-python.outputs.python-version }}
+        run: poetry install --no-interaction --no-ansi
       - name: Execute tests
         # We need to ensure that the cover-win script is run for Windows, so
         # this Action runs different commands based on the runner's operating
         # system.
         uses: knicknic/os-specific-run@v1
         with:
-          linux: pipenv run cover
-          macos: pipenv run cover
-          windows: pipenv run cover-win
+          linux: poetry run task cover
+          macos: poetry run task cover
+          windows: poetry run task cover-win
       - name: Upload coverage
         uses: codecov/codecov-action@v1
         with:

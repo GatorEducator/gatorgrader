@@ -81,7 +81,6 @@ def invoke_file_in_directory_check(filecheck, directory):
     return was_file_found
 
 
-# pylint: disable=bad-continuation
 def invoke_all_comment_checks(
     filecheck, directory, expected_count, comment_type, language, exact=False
 ):
@@ -448,7 +447,6 @@ def invoke_all_total_word_count_checks(
     return met_or_exceeded_count
 
 
-# pylint: disable=bad-continuation
 def invoke_all_fragment_checks(
     fragment,
     expected_count,
@@ -650,7 +648,6 @@ def invoke_all_regex_checks(
     return met_or_exceeded_count
 
 
-# pylint: disable=bad-continuation
 def invoke_all_command_fragment_checks(
     command, expected_fragment, expected_count, exact=False
 ):
@@ -674,7 +671,6 @@ def invoke_all_command_fragment_checks(
     )
 
 
-# pylint: disable=bad-continuation
 def invoke_all_command_regex_checks(
     command, expected_regex, expected_count, exact=False
 ):
@@ -720,7 +716,6 @@ def invoke_all_command_executes_checks(command):
     return command_passed
 
 
-# pylint: disable=bad-continuation
 def invoke_all_markdown_checks(
     markdown_tag, expected_count, filecheck, directory, exact=False
 ):
@@ -787,7 +782,6 @@ def invoke_all_markdown_checks(
     return met_or_exceeded_count
 
 
-# pylint: disable=bad-continuation
 def invoke_all_count_checks(
     expected_count,
     filecheck=constants.markers.Nothing,

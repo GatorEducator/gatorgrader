@@ -93,7 +93,6 @@ def test_file_exists_in_directory_check_paragraphs(reset_results_dictionary, tmp
 
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
-# pylint: disable=bad-continuation
 def test_file_exists_in_directory_check_paragraphs_exact(
     reset_results_dictionary, tmpdir
 ):
@@ -652,7 +651,6 @@ def test_comment_counts_check_multiple_java_invalid_check(
 
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
-# pylint: disable=bad-continuation
 def test_comment_counts_check_multiple_java_not_enough(
     reset_results_dictionary, tmpdir
 ):
@@ -698,7 +696,6 @@ def test_comment_counts_check_multiple_python(reset_results_dictionary, tmpdir):
 
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
-# pylint: disable=bad-continuation
 def test_comment_counts_check_multiple_python_not_enough(
     reset_results_dictionary, tmpdir
 ):

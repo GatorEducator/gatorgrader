@@ -16,7 +16,6 @@ def verify_gatorgrader_home(current_gatorgrader_home):
     # 1) it exists on the file system
     # 2) is ends in the word "gatorgrader"
     verified_gatorgrader_home = False
-    # pylint: disable=bad-continuation
     if current_gatorgrader_home is not None:
         # the provided input parameter is not empty, so try to
         # create a path for the directory contained in parameter
