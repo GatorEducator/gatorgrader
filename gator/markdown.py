@@ -18,7 +18,6 @@ def count_specified_tag(contents, tag):
     return tag_count
 
 
-# pylint: disable=bad-continuation
 def specified_tag_greater_than_count(
     chosen_tag,
     checking_function,

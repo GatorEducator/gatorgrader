@@ -209,7 +209,7 @@ def test_load_checkers_list_is_not_empty_provided_input(tmpdir):
     """Ensure that checker loading results in non-empty list with provided list."""
     checker_file = tmpdir.mkdir("internal_checkers").join("check_testing.py")
     # this must be valid Python code because it will be loaded by pluginbase
-    checker_file.write('"' 'a checker"' "")
+    checker_file.write('"a checker"')
     checker_directory = (
         tmpdir.dirname + "/" + tmpdir.basename + "/" + "internal_checkers"
     )
@@ -224,7 +224,7 @@ def test_load_checkers_list_is_not_empty_check_exists_with_provided_input(tmpdir
     """Ensure that checker loading results in non-empty list containing check with provided list."""
     checker_file = tmpdir.mkdir("internal_checkers").join("check_testing.py")
     # this must be valid Python code because it will be loaded by pluginbase
-    checker_file.write('"' 'a checker"' "")
+    checker_file.write('"a checker"')
     checker_directory = (
         tmpdir.dirname + "/" + tmpdir.basename + "/" + "internal_checkers"
     )
@@ -285,7 +285,7 @@ def test_check_extraction_from_commandline_arguments_has_help_two_checkers_one_i
     with patch.object(sys, "argv", testargs):
         checker_file = tmpdir.mkdir("internal_checkers").join("check_testing.py")
         # this must be valid Python code because it will be loaded by pluginbase
-        checker_file.write('"' 'a checker"' "")
+        checker_file.write('"a checker"')
         checker_directory = (
             tmpdir.dirname + "/" + tmpdir.basename + "/" + "internal_checkers"
         )

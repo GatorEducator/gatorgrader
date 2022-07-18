@@ -151,7 +151,6 @@ def count_specified_regex(contents, regex):
     return len(matches)
 
 
-# pylint: disable=bad-continuation
 def specified_entity_greater_than_count(
     chosen_fragment,
     checking_function,
@@ -175,7 +174,6 @@ def specified_entity_greater_than_count(
     return condition_truth, value, file_entity_count_dictionary
 
 
-# pylint: disable=bad-continuation
 def count_entities(
     chosen_fragment,
     checking_function,
@@ -219,7 +217,6 @@ def count_entities(
     return file_contents_count, file_contents_count_dictionary
 
 
-# pylint: disable=bad-continuation
 def specified_source_greater_than_count(
     expected_count,
     given_file=constants.markers.Nothing,

@@ -47,8 +47,10 @@ def not_raises():  # noqa: D202
         try:
             yield
         except ExpectedException as error:
-            raise AssertionError(f"Raised exception {error} when it should not!")
+            raise AssertionError(
+                f"Raised exception {error} when it should not!"
+            ) from error
         except Exception as error:
-            raise AssertionError(f"An unexpected exception {error} raised.")
+            raise AssertionError(f"An unexpected exception {error} raised.") from error
 
     return _not_raises
