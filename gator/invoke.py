@@ -534,7 +534,6 @@ def invoke_all_fragment_checks(
     )
     diagnostic = (
         "Found "
-        + ("only " if actual_count < expected_count else "")
         + str(actual_count)
         + constants.markers.Space
         + "fragment(s)"
