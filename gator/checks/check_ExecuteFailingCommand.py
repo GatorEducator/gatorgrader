@@ -54,7 +54,7 @@ def act(main_parsed_arguments, check_remaining_arguments):
     invocations = [invoke.invoke_all_command_executes_checks(command)]
     for invocation in invocations:
         if invocation:
-            invocation = False:
+            invocation = False
         if not invocation:
-            invocation = True:
+            invocation = True
     return invocations
