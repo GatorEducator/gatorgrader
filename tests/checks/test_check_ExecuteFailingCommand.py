@@ -70,8 +70,8 @@ def test_optional_commandline_arguments_can_parse_created_parser(
 @pytest.mark.parametrize(
     "commandline_arguments, expected_result",
     [
-        (["ExecuteFailingCommand", "--command", "WrongCommand"], False),
-        (["ExecuteFailingCommand", "--command", 'echo "CorrectCommand"'], True),
+        (["ExecuteFailingCommand", "--command", "WrongCommand"], True),
+        (["ExecuteFailingCommand", "--command", 'echo "CorrectCommand"'], False),
     ],
 )
 def test_act_produces_output(commandline_arguments, expected_result, load_checker):
