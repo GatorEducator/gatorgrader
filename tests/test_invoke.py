@@ -803,6 +803,21 @@ def test_command_executes_checks_does_execute_correctly():
     status_code = invoke.invoke_all_command_executes_checks("true")
     assert status_code is True
 
+def test_command_executes_checks_not_pass_with_correct_command_in_inverse_mode():
+    """Check to see if a command does run correctly and gets a non-zero return value."""
+    # note that a zero-code means that the command did not work
+    # this is the opposite of what is used for processes
+    # but, all other GatorGrader checks return 0 on failure and 1 on success
+    status_code = invoke.invoke_all_command_executes_checks("true",inverse_check=True)
+    assert status_code is False
+
+def test_command_executes_checks_pass_with_wrong_command_in_inverse_mode():
+    """Check to see if a command does not run correctly and gets a zero return value."""
+    # note that a zero-code means that the command did not work
+    # this is the opposite of what is used for processes
+    # but, all other GatorGrader checks return 0 on failure and 1 on success
+    status_code = invoke.invoke_all_command_executes_checks("willnotwork",inverse_check=True)
+    assert status_code is True
 
 # pylint: disable=unused-argument
 # pylint: disable=redefined-outer-name
