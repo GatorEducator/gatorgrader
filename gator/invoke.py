@@ -694,7 +694,7 @@ def invoke_all_command_regex_checks(
     )
 
 
-def invoke_all_command_executes_checks(command, inverse_check = False):
+def invoke_all_command_executes_checks(command, inverse_check=False):
     """Perform the check for whether or not a command runs without error."""
     # pylint: disable=unused-variable
     # note that the program does not use all of these
