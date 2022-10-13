@@ -52,18 +52,5 @@ def act(main_parsed_arguments, check_remaining_arguments):
     # This means that the use of check_ExecuteCommand would have already failed by this
     # point since argparse will exit the program if a command-line argument is not provided
     command = check_parsed_arguments.command
-
-    # # Run a command and return the output and error code.
-    # process = subprocess.Popen(
-    #     command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
-    # )
-    # # run the command and return the results
-    # output, error = process.communicate()
-    # return_code = process.returncode
-
-    # if process.returncode == 0:
-    #     command = "commandWrong"
-    # else:
-    #     command = 'echo "CorrectCommand"'
     invocations = [invoke.invoke_all_command_executes_checks(command, inverse_check=True)]
     return invocations
