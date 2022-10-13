@@ -5,8 +5,6 @@ import argparse
 from gator import checkers
 from gator import invoke
 
-# import subprocess
-
 
 def get_parser():
     """Get a parser for the arguments provided on the command-line."""
