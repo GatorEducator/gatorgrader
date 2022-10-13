@@ -704,6 +704,7 @@ def invoke_all_command_executes_checks(command, inverse_check = False):
     # this is the opposite of what is used for processes
     # but, all other GatorGrader checks return 0 on failure and 1 on success
     command_passed = False
+    # Assume that command passes when it makes error and return code 1 in inverse check mode
     if inverse_check is False:
         if (
             command_error == constants.markers.Empty

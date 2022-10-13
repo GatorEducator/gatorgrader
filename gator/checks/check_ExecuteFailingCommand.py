@@ -52,5 +52,6 @@ def act(main_parsed_arguments, check_remaining_arguments):
     # This means that the use of check_ExecuteCommand would have already failed by this
     # point since argparse will exit the program if a command-line argument is not provided
     command = check_parsed_arguments.command
+    # Invoke the command with the inverse check so that the command with return code 1 should pass the check
     invocations = [invoke.invoke_all_command_executes_checks(command, inverse_check=True)]
     return invocations
