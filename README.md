@@ -1,6 +1,6 @@
 # GatorGrader
 
-![Image of Logo](.github/gatorgraderlogotitled.png)
+![Image of Logo](https://raw.githubusercontent.com/GatorEducator/gatorgrader/master/.github/gatorgraderlogotitled.png)
 
 <p align="center">
 <b>
