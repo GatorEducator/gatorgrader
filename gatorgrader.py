@@ -1,14 +1,25 @@
-"""GatorGrader checks the files of programmers and technical writers."""
+"""
+**GatorGrader** CLI.
+
+Call ``main`` to run the command-line interface.
+The arguments will be retrieved from ``sys.argv``.
+The results of the check will be formatted and printed.
+
+If more control is needed, import the ``gator`` package and use ``gator.grader`` or ``gator.grader_cli``.
+"""
 
 import sys
 
-from gator import orchestrate
+from gator import *  # noqa: F403
+
+
+def main():
+    """Run GatorGrader."""
+    # orchestrate check given by the command line arguments
+    exit_code = grader_cli(sys.argv[1:])  # noqa: F405
+    # exit the program with the returned code
+    sys.exit(exit_code)
 
 
 if __name__ == "__main__":
-    # orchestrate check(s) of the specified deliverable(s)
-    exit_code = orchestrate.check(sys.argv[1:])
-    # exit the program with the correct code
-    # error code: one aspect of the checks failed
-    # normal code: all aspects of the checks passed
-    sys.exit(exit_code)
+    main()

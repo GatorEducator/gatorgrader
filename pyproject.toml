@@ -1,10 +1,29 @@
 [tool.poetry]
 name = "gatorgrader"
-version = "1.1.0"
+version = "0.0.0"
 description = "Automated Grading Tool that Checks the Work of Writers and Programmers"
 authors = ["Gregory Kapfhammer <gkapfham@allegheny.edu>"]
 license = "GPL-3.0"
 readme = "README.md"
+homepage = "https://github.com/GatorEducator/gatorgrader"
+repository = "https://github.com/GatorEducator/gatorgrader"
+documentation = "https://github.com/GatorEducator/gatorgrader"
+keywords = ["grading", "education", "allegheny"]
+classifiers = [
+  "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+  "Operating System :: OS Independent",
+  "Environment :: Console",
+  "Development Status :: 5 - Production/Stable",
+  "Topic :: Education :: Testing",
+  "Topic :: Utilities",
+]
+packages = [{ include = "gator" }, { include = "gatorgrader.py" }]
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/GatorEducator/gatorgrader/issues"
+
+[tool.poetry.scripts]
+gatorgrader = "gatorgrader:main"
 
 [tool.poetry.dependencies]
 python = ">=3.7.2,<4.0"
