@@ -44,6 +44,7 @@ def test_required_commandline_arguments_can_parse(commandline_arguments, not_rai
     with not_raises(InvalidCheckArgumentsError):
         _ = check_ExecuteFailingCommand.parse(commandline_arguments)
 
+
 @pytest.mark.parametrize(
     "commandline_arguments, expected_result",
     [
