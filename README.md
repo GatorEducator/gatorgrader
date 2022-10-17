@@ -105,7 +105,7 @@ Classroom](https://classroom.github.com/) to effectively handle those tasks.
 
 ## Installing GatorGrader
 
-Installing GatorGrader is not necessary if you intend to use it through [GatorGrade](https://github.com/GatorEducator/gatorgrader).
+Installing GatorGrader is not necessary if you intend to use it through [GatorGrade](https://github.com/GatorEducator/gatorgrade).
 If you want to participate in the development of GatorGrader, the project
 maintainers suggest the use of [Pyenv](https://github.com/pyenv/pyenv) to
 install Python 3.7 or above. In addition to installing [Git](https://git-scm.com/)
@@ -133,8 +133,8 @@ The developers use [Pytest](https://docs.pytest.org/en/latest/) for the testing
 of GatorGrader. Depending on your goals, there are several different
 configurations in which you can run the provided test suite. If you want to run
 the test suite to see if the test cases are passing, then running this command
-in a terminal window will perform testing with the version of Python to which
-Pipenv's virtual environment is currently bound.
+in a terminal window will perform testing with the version of Python with which
+Poetry's virtual environment was initialized.
 
 ```
 poetry run task test
@@ -146,8 +146,8 @@ Along with running the test suite, the developers of GatorGrader use statement
 and branch coverage to enhance their testing activities. To see the coverage of
 the tests while also highlighting the lines that are not currently covered by
 the tests, you can run this command in a terminal window. As with the previous
-command, this will run the tests in the version of Python to which Pipenv's
-virtual environment is currently bound.
+command, this will run the tests in the version of Python with which Poetry's
+virtual environment was initialized.
 
 ```
 poetry run task cover
@@ -165,7 +165,7 @@ commands will install `pipx`, a program that supports the execution of Python
 packages in isolated environments. The second command makes the directory
 `~/.local/bin/` a part of the search path for executable Python programs and the
 third one installs the `invoke` command so that it is available on your
-workstation outside of a virtual environment managed by Pipenv, thereby ensuring
+workstation outside of a virtual environment managed by Poetry, thereby ensuring
 that it is always available to run tasks.
 
 ```
@@ -189,7 +189,7 @@ and 3.7.3, then you can run the following command.
 invoke -c scripts/tasks cover --pyenv 3.6.8 --pyenv 3.7.3
 ```
 
-You can switch the version to which Pipenv is bound by running the following
+You can switch the version with which Poetry is initialized by running the following
 command that adopts, for instance, Python 3.7.3.
 
 ```
