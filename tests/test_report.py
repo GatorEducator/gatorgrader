@@ -1,15 +1,7 @@
 """Test cases for the report module."""
 
-import pytest
-
 from gator import constants
 from gator import report
-
-
-@pytest.fixture
-def reset_results_dictionary():
-    """Reset the state of the results dictionary."""
-    report.reset()
 
 
 def test_create_result():
@@ -21,7 +13,6 @@ def test_create_result():
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_set_result(reset_results_dictionary):
     """Set the result dictionary and check if it keeps the values."""
     report.set_result("Command executes", True, "")
@@ -31,7 +22,6 @@ def test_set_result(reset_results_dictionary):
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_set_result_return(reset_results_dictionary):
     """Set the result dictionary and check if it keeps the values."""
     new_result = report.set_result("Command executes", False, "Missing trailing slash")
@@ -41,7 +31,6 @@ def test_set_result_return(reset_results_dictionary):
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_output_text(reset_results_dictionary):
     """Set the report and check the textual output."""
     report.set_result("Command executes", True, "")
@@ -51,7 +40,6 @@ def test_output_text(reset_results_dictionary):
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_output_text_diagnostic(reset_results_dictionary):
     """Set the report and check the textual output."""
     report.set_result("Command executes", False, "Missing trailing slash")
@@ -62,7 +50,6 @@ def test_output_text_diagnostic(reset_results_dictionary):
 
 
 # pylint: disable=unused-argument
-# pylint: disable=redefined-outer-name
 def test_output_json(reset_results_dictionary):
     """Set the report and check output as JSON-based text."""
     report.set_result("Command executes", True, "")

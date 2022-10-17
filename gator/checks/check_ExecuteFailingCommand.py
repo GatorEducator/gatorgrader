@@ -36,9 +36,9 @@ def get_parser():
     return parser
 
 
-def parse(args, parser=None):
+def parse(args):
     """Use the parser on the provided arguments."""
-    return checkers.parse(get_parser, args, parser)
+    return checkers.parse(get_parser, args)
 
 
 # pylint: disable=unused-argument
@@ -52,7 +52,5 @@ def act(main_parsed_arguments, check_remaining_arguments):
     # point since argparse will exit the program if a command-line argument is not provided
     command = check_parsed_arguments.command
     # Invoke the command with the inverse check so that the command with return code 1 should pass the check
-    invocations = [
-        invoke.invoke_all_command_executes_checks(command, inverse_check=True)
-    ]
+    invocations = invoke.invoke_all_command_executes_checks(command, inverse_check=True)
     return invocations
