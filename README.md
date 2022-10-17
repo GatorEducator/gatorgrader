@@ -9,7 +9,7 @@ speed!
 </b>
 </p>
 
-[![Lint and Test](https://github.com/GatorEducator/gatorgrader/workflows/Lint%20and%20Test/badge.svg?branch=master)](https://github.com/GatorEducator/gatorgrader/actions?query=workflow%3A%22Lint+and+Test%22+branch%3Amaster) [![codecov.io](https://codecov.io/gh/GatorEducator/gatorgrader/branch/master/graph/badge.svg?token=UKBOlE7kG6)](https://codecov.io/gh/GatorEducator/gatorgrader) [![codacy.com](https://api.codacy.com/project/badge/Grade/3dade81be6dc467b8e34cde66eb5cdc6)](https://www.codacy.com/app/GatorEducator/gatorgrader?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=GatorEducator/gatorgrader&amp;utm_campaign=Badge_Grade) [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-orange.svg)](https://github.com/GatorEducator/gatorgrader/graphs/commit-activity) [![GitHub license](https://img.shields.io/github/license/GatorEducator/gatorgrader.svg)](https://github.com/GatorEducator/gatorgrader/blob/master/LICENSE.md) [![All Contributors](https://img.shields.io/badge/all_contributors-33-orange.svg?style=flat-square)](#contributors)
+[![Lint and Test](https://github.com/GatorEducator/gatorgrader/workflows/Lint%20and%20Test/badge.svg?branch=master)](https://github.com/GatorEducator/gatorgrader/actions?query=workflow%3A%22Lint+and+Test%22+branch%3Amaster) [![codecov.io](https://codecov.io/gh/GatorEducator/gatorgrader/branch/master/graph/badge.svg?token=UKBOlE7kG6)](https://codecov.io/gh/GatorEducator/gatorgrader) [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-orange.svg)](https://github.com/GatorEducator/gatorgrader/graphs/commit-activity) [![GitHub license](https://img.shields.io/github/license/GatorEducator/gatorgrader.svg)](https://github.com/GatorEducator/gatorgrader/blob/master/LICENSE.md) [![All Contributors](https://img.shields.io/badge/all_contributors-33-orange.svg?style=flat-square)](#contributors)
 
 ## Table of Contents
 
@@ -30,6 +30,7 @@ speed!
 * [Contributors](#contributors)
 
 ## Quickstart Guide
+
 * Starter Repositories
 An easy way to get started with GatorGrader is to check out our sample starter repositories.
 The following starter repositories provide examples of how GatorGrader files should be created
@@ -56,13 +57,12 @@ terminal window. Please be aware that these repositories are meant to have a maj
 of green checks. This is meant to show what must be accomplished within a lab/practical
 and what it looks like when those tasks are completed.
 
-
 ## Key Features
 
 GatorGrader automatically checks the work of technical writers and programmers.
 It can:
 
-* Use its [Gradle plugin](https://github.com/GatorEducator/gatorgradle) to check
+* Enable [GatorGrade](https://github.com/GatorEducator/gatorgrade) to check
   projects implemented and documented in a wide variety of languages (e.g.,
   Java, Python, LaTeX, Markdown, HTML, and CSS).
 
@@ -105,13 +105,12 @@ Classroom](https://classroom.github.com/) to effectively handle those tasks.
 
 ## Installing GatorGrader
 
-Installing GatorGrader is not necessary if you intend to use it through its
-[Gradle plugin](https://github.com/GatorEducator/gatorgradle). If you want to
-participate in the development of GatorGrader, the project maintainers suggest
-the use of [Pyenv](https://github.com/pyenv/pyenv) to install Python 3.6 or
-above. In addition to installing [Git](https://git-scm.com/) to access the
-project's GitHub repository, you should also install
-[Pipenv](https://github.com/pypa/pipenv) for its support of package and virtual
+Installing GatorGrader is not necessary if you intend to use it through [GatorGrade](https://github.com/GatorEducator/gatorgrader).
+If you want to participate in the development of GatorGrader, the project
+maintainers suggest the use of [Pyenv](https://github.com/pyenv/pyenv) to
+install Python 3.7 or above. In addition to installing [Git](https://git-scm.com/)
+to access the project's GitHub repository, you should also install
+[Poetry](https://python-poetry.org/) for its support of package and virtual
 environment management. After completing the installation of these tools, you
 can type the following command in your terminal window to clone GatorGrader's
 GitHub repository:
@@ -122,11 +121,9 @@ git clone https://github.com/GatorEducator/gatorgrader.git
 
 If you plan to develop new features for GatorGrader or if you want to run the
 tool's test suite in [Pytest](https://github.com/pytest-dev/pytest), then you
-will need to install the developer dependencies by typing ``pipenv install --python="$(pyenv which python)" --dev`` in the directory that contains
-GatorGrader. If you want to use GatorGrader, then you can type ``pipenv install --python="$(pyenv which python)"`` instead. Once these commands complete
-successfully, you have officially installed GatorGrader! Note that running these
-commands will ensure that Pipenv creates a virtual environment for GatorGrader
-that is bound to the version of Python that Pyenv set for use.
+will need to install a virtual environment for development by typing `poetry install`
+in the directory that contains GatorGrader. For help with this process, refer to
+[Poetry's documentation](https://python-poetry.org/docs/).
 
 ## Testing GatorGrader
 
@@ -140,7 +137,7 @@ in a terminal window will perform testing with the version of Python to which
 Pipenv's virtual environment is currently bound.
 
 ```
-pipenv run test
+poetry run task test
 ```
 
 ### Test Coverage
@@ -153,16 +150,16 @@ command, this will run the tests in the version of Python to which Pipenv's
 virtual environment is currently bound.
 
 ```
-pipenv run cover
+poetry run task cover
 ```
 
 ### Testing with Multiple Python Versions
 
 The previous two commands are restricted to running the test suite in the
-version of Python to which Pipenv was bound. If you have installed multiple
-versions of Python with Pyenv and you want to iteratively bind Pipenv to each
+version of Python with which Poetry was initialized. If you have installed multiple
+versions of Python with Pyenv and you want to iteratively initialized Poetry with each
 version and then run the test suite, then you should first run the following
-commands to install [Pipx](https://github.com/pipxproject/pipx) and use Pipx to
+commands to install [Pipx](https://pypa.github.io/pipx/) and use Pipx to
 install [Invoke](https://github.com/pyinvoke/invoke). The first of these three
 commands will install `pipx`, a program that supports the execution of Python
 packages in isolated environments. The second command makes the directory
@@ -205,17 +202,17 @@ The developers of GatorGrader use linting and code formatting tools, such as
 [Pylint](https://github.com/PyCQA/pylint),
 [Pydocstyle](https://github.com/PyCQA/pydocstyle), and
 [Black](https://github.com/python/black). After installing GatorGrader's
-development dependencies with Pipenv, you can run all of the linters by typing
+development dependencies with Poetry, you can run all of the linters by typing
 this command in a terminal window.
 
 ```bash
-pipenv run lint --check
+poetry run task lint --check
 ```
 
 ### Automated Checks
 
 Want to learn about our linting checks? Check us out on our website,
-[GatorGrader](https://deploy-preview-1--gatorgrader.netlify.com)! We have detailed
+[GatorGrader](https://www.gatorgrader.org/)! We have detailed
 descriptions of our linting checks and more! To get an idea of the linting checks we
 offer, here is a quick list:
 
@@ -245,20 +242,17 @@ If `--help` is tagged along with a check then a help message will be displayed a
 then exited. If further assistance is needed, please contact us on GitHub.
 
 Another feature with our automated checks is the **plug-in based approach**. This allows
-users to implement their own check if our initial 15 do not fulfill a check that
-you find necessary.  
+users to implement their own check if our initial checks do not fulfill a check that
+you find necessary.
 
 ## Running GatorGrader
 
-Students and instructors normally use GatorGrader through its [Gradle
-plugin](https://github.com/GatorEducator/gatorgradle), specifying the requested
-checks in a `config/gatorgrader.yml` file. When run through Gradle, GatorGrader
+Students and instructors normally use GatorGrader through [GatorGrade](https://github.com/GatorEducator/gatorgrade),
+specifying the requested checks in a `gatorgrade.yml` file. When run through GatorGrade, GatorGrader
 reports each check that it performed, additionally sharing a diagnostic message
 for each check that did not pass. Individuals who want to run GatorGrader as a
-stand-alone Python application should first install it's application
-dependencies with Pipenv and then learn about the supported checks and their
-defaults by typing `pipenv run python3 gatorgrader.py --help` in a terminal
-window.
+stand-alone Python application can install GatorGrader itself through [Pipx](https://pypa.github.io/pipx/),
+and then run `gatorgrader --help` to get more details on the command-line interface.
 
 Instructors often run GatorGrader in conjunction with other tools that check
 source code and technical writing. For instance, in a Java-based introductory
@@ -279,12 +273,15 @@ with a wide variety of other linters, code formatters, and testing tools.
 Instructors may at times need to see a full list of checks to have a better understanding
 and therefore, we feel that it is important to know that there is an easy way for that to happen.
 This action will be completed through command line and therefore, you can type
-`pipenv run python gatorgrader.py ListChecks` into your terminal. This allows for
-all of the checks to be printed out as output. This output will have the necessary
+`gatorgrader ListChecks` into your terminal, if you've installed GatorGrader as detailed above.
+This allows for all of the checks to be printed out as output. This output will have the necessary
 name labeled with the required and optional arguments. If this output does not give enough content,
 we warmly invite you to navigate to our website, where we go into more detail about our Automated Checks.
 
 ## Using Docker
+
+_Note: Docker supports the older GatorGrader execution tool, [GatorGradle](https://github.com/GatorEducator/gatorgradle). It is not needed for GatorGrade!_
+
 A vital part of our process for GatorGrader is to implement and use new techniques
 to further our tool to grow. This is why we chose to use Docker! Docker is a container
 platform and therefore, allows students using GatorGrader to just open a container
