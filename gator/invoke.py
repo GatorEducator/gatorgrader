@@ -540,7 +540,9 @@ def invoke_all_fragment_checks(
         + constants.markers.Space
         + fragment_diagnostic
         + constants.markers.Space
-        + "or the output"
+        + "or the output while expecting "
+        + ("exactly " if exact else "at least ")
+        + str(expected_count)
     )
     report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
