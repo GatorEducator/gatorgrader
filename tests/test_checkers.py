@@ -57,20 +57,14 @@ def test_check_transformation():
         (["--checkerdir", "./gator/checks", "ListChecks", "--namecontains", "Com"]),
     ],
 )
-def test_check_function_verification_separate(commandline_arguments):
+def test_check_function_verification_separate(commandline_arguments, load_check):
     """Ensure that check verification works for standard functions."""
     testargs = [os.getcwd()]
     with patch.object(sys, "argv", testargs):
         parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
         args_verified = arguments.verify(parsed_arguments)
         assert args_verified is True
-        external_checker_directory = checkers.get_checker_dir(parsed_arguments)
-        checker_source = checkers.get_source([external_checker_directory])
-        check_name = checkers.get_chosen_check(parsed_arguments)
-        check_file = checkers.transform_check(check_name)
-        check_exists = checkers.verify_check_existence(check_file, checker_source)
-        assert check_exists is True
-        check = checker_source.load_plugin(check_file)
+        check = load_check(parsed_arguments)
         assert checkers.verify_check_function(check, "act") is True
         assert checkers.verify_check_function(check, "get_parser") is True
         assert checkers.verify_check_function(check, "parse") is True
@@ -87,21 +81,14 @@ def test_check_function_verification_separate(commandline_arguments):
         (["--checkerdir", "./gator/checks", "ListChecks", "--namecontains", "Exec"]),
     ],
 )
-def test_check_function_verification_list(commandline_arguments):
+def test_check_function_verification_list(commandline_arguments, load_check):
     """Ensure that check verification works for standard functions."""
     testargs = [os.getcwd()]
     with patch.object(sys, "argv", testargs):
         parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
         args_verified = arguments.verify(parsed_arguments)
         assert args_verified is True
-        external_checker_directory = checkers.get_checker_dir(parsed_arguments)
-        checker_source = checkers.get_source([external_checker_directory])
-        check_name = checkers.get_chosen_check(parsed_arguments)
-        check_file = checkers.transform_check(check_name)
-        check_exists = checkers.verify_check_existence(check_file, checker_source)
-        assert check_exists is True
-        # create the check
-        check = checker_source.load_plugin(check_file)
+        check = load_check(parsed_arguments)
         # verify that the check has the functions, specified separately
         assert (
             checkers.verify_check_functions(check, ["act", "get_parser", "parse"])
@@ -185,7 +172,7 @@ def test_load_checkers_list_is_not_empty_default_input():
     # for instance "check_commits"
     # we know that this should be true because all
     # internal GatorGrader plugins adhere to this convention
-    for checker in checker_source.list_plugins():
+    for checker in checkers.list_checks(checker_source):
         assert "check_" in checker
 
 
@@ -201,7 +188,7 @@ def test_load_checkers_list_is_not_empt_blank_input():
     # for instance "check_commits"
     # we know that this should be true because all
     # internal GatorGrader plugins adhere to this convention
-    for checker in checker_source.list_plugins():
+    for checker in checkers.list_checks(checker_source):
         assert "check_" in checker
 
 
@@ -216,8 +203,8 @@ def test_load_checkers_list_is_not_empty_provided_input(tmpdir):
     list_of_checker_directories = [checker_directory]
     checker_source = checkers.get_source(list_of_checker_directories)
     assert checker_source is not None
-    checker_source_list = checker_source.list_plugins()
-    assert len(checker_source_list) >= 1
+    checker_source_list = checkers.list_checks(checker_source)
+    assert "check_testing" in checker_source_list
 
 
 def test_load_checkers_list_is_not_empty_check_exists_with_provided_input(tmpdir):
@@ -231,8 +218,8 @@ def test_load_checkers_list_is_not_empty_check_exists_with_provided_input(tmpdir
     list_of_checker_directories = [checker_directory]
     checker_source = checkers.get_source(list_of_checker_directories)
     assert checker_source is not None
-    checker_source_list = checker_source.list_plugins()
-    assert len(checker_source_list) >= 1
+    checker_source_list = checkers.list_checks(checker_source)
+    assert "check_testing" in checker_source_list
     assert checkers.verify_check_existence("check_testing", checker_source) is True
     assert (
         checkers.verify_check_existence("check_testing_WRONG", checker_source) is False
@@ -330,3 +317,20 @@ def test_check_extraction_from_commandline_arguments_has_help_single_checker_fil
         assert "Exec" in check_helps
         counted_newlines = check_helps.count("\n")
         assert counted_newlines > 0
+
+
+def test_list_checks_returns_all_internal_checks():
+    """Ensure that list_checks returns all internal checks."""
+    check_files = filter(lambda f: f.startswith("check_"), os.listdir("./gator/checks"))
+    checker_source = checkers.get_source()
+    available_checks = checkers.list_checks(checker_source)
+    for check_file in check_files:
+        check_name = check_file.replace(".py", "")
+        assert check_name in available_checks
+
+
+def test_load_check_can_load_internal_check():
+    """Ensure that load_check can load internal checks."""
+    check = checkers.load_check(None, "check_CountCommits")
+    assert check is not None
+    assert hasattr(check, "act")

@@ -29,7 +29,14 @@ speed!
 * [Contributing](#contributing)
 * [Contributors](#contributors)
 
+### Notes for PyPI Users
+
+This release (`1.1.0`) of GatorGrader is intended to be a stop-gap solution. It is released from the [`feature/publish-to-pypi`](https://github.com/GatorEducator/gatorgrader/tree/feature/publish-to-pypi) branch on GitHub. In future versions, some changes may be made to the structure and distribution of this package. Additionally, the documentation available in the rest of this document may or may not be fully accurate. For users who just wish to use GatorGrader on the command line, all that is needed is to install this package and run `gatorgrader`. For help on syntax and available options, see `gatorgrader --help`.
+
+For users who would like to interact with GatorGrader programmatically, refer to the docstrings available in `gatorgrader.py` and `gator/__init__.py` (or view them in your editor-of-choice with support for a [Python Language Server](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance)). In summary, however, GatorGrader can be run by importing the `gator` package and calling `gator.grader(["list", "--of", "command", "--line", "arguments"])`, the syntax of which matches previous versions of GatorGrader. For additional help or guidance, see `gatorgrader --help` or reach out to any of the core maintainers.
+
 ## Quickstart Guide
+
 * Starter Repositories
 An easy way to get started with GatorGrader is to check out our sample starter repositories.
 The following starter repositories provide examples of how GatorGrader files should be created
@@ -55,7 +62,6 @@ for GatorGrader will install it automatically when you run `gradle grade` in a
 terminal window. Please be aware that these repositories are meant to have a majority
 of green checks. This is meant to show what must be accomplished within a lab/practical
 and what it looks like when those tasks are completed.
-
 
 ## Key Features
 
@@ -246,7 +252,7 @@ then exited. If further assistance is needed, please contact us on GitHub.
 
 Another feature with our automated checks is the **plug-in based approach**. This allows
 users to implement their own check if our initial 15 do not fulfill a check that
-you find necessary.  
+you find necessary.
 
 ## Running GatorGrader
 

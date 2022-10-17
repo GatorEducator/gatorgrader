@@ -8,6 +8,7 @@ import pytest
 from contextlib import contextmanager
 
 from gator import checkers
+from gator import report
 
 
 GO_BACK_A_DIRECTORY = "/../"
@@ -16,8 +17,10 @@ GO_BACK_A_DIRECTORY = "/../"
 PREVIOUS_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, PREVIOUS_DIRECTORY + GO_BACK_A_DIRECTORY)
 
-# define two fixtures for use in the test suites
+# define four fixtures for use in the test suites
 # --> load_checker
+# --> load_check
+# --> reset_results_dictionary
 # --> not_raises
 
 
@@ -35,6 +38,28 @@ def load_checker():  # noqa: D202
         return (check_exists, checker_source, check_file)
 
     return _load_checker
+
+
+@pytest.fixture(scope="session")
+def load_check():  # noqa: D202
+    """Load a check using pluginbase."""
+
+    def _load_check(parsed_arguments):
+        """Define internal function to load a check using pluginbase."""
+        external_checker_directory = checkers.get_checker_dir(parsed_arguments)
+        checker_source = checkers.get_source([external_checker_directory])
+        check_name = checkers.get_chosen_check(parsed_arguments)
+        check_file = checkers.transform_check(check_name)
+        assert checkers.verify_check_existence(check_file, checker_source) is True
+        return checkers.load_check(checker_source, check_file)
+
+    return _load_check
+
+
+@pytest.fixture
+def reset_results_dictionary():
+    """Reset the state of the results dictionary."""
+    report.reset()
 
 
 @pytest.fixture(scope="session")

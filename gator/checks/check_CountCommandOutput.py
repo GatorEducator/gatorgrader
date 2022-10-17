@@ -54,9 +54,9 @@ def get_parser():
     return parser
 
 
-def parse(args, parser=None):
+def parse(args):
     """Use the parser on the provided arguments."""
-    return checkers.parse(get_parser, args, parser)
+    return checkers.parse(get_parser, args)
 
 
 # pylint: disable=unused-argument
@@ -73,4 +73,4 @@ def act(main_parsed_arguments, check_remaining_arguments):
     command = check_parsed_arguments.command
     count = check_parsed_arguments.count
     exact = check_parsed_arguments.exact
-    return [invoke.invoke_all_command_count_checks(command, count, exact)]
+    return invoke.invoke_all_command_count_checks(command, count, exact)

@@ -30,6 +30,15 @@ def create_result(description, outcome, diagnostic):
     return result_dictionary
 
 
+def decompose_result(result_dictionary):
+    """Decompose the result dictionary into its parts."""
+    return (
+        result_dictionary[constants.results.Description],
+        result_dictionary[constants.results.Outcome],
+        result_dictionary[constants.results.Diagnostic],
+    )
+
+
 def reset():
     """Reset the global result dictionary."""
     # pylint: disable=global-statement
