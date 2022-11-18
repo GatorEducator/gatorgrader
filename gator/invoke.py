@@ -716,7 +716,7 @@ def invoke_all_command_executes_checks(command, inverse_check=False):
     else:
         if (
             command_error != constants.markers.Empty
-            and command_returncode != constants.codes.Success
+            or command_returncode != constants.codes.Success
         ):
             command_passed = True
     # create the message and diagnostic and report the result
