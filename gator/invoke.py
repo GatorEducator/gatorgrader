@@ -696,7 +696,7 @@ def invoke_all_command_regex_checks(
     )
 
 
-def invoke_all_command_executes_checks(command):
+def invoke_all_command_executes_checks(command, inverse_check=False):
     """Perform the check for whether or not a command runs without error."""
     # pylint: disable=unused-variable
     # note that the program does not use all of these
@@ -706,11 +706,19 @@ def invoke_all_command_executes_checks(command):
     # this is the opposite of what is used for processes
     # but, all other GatorGrader checks return 0 on failure and 1 on success
     command_passed = False
-    if (
-        command_error == constants.markers.Empty
-        and command_returncode == constants.codes.Success
-    ):
-        command_passed = True
+    # Assume that command passes when it makes error and return code 1 in inverse check mode
+    if inverse_check is False:
+        if (
+            command_error == constants.markers.Empty
+            and command_returncode == constants.codes.Success
+        ):
+            command_passed = True
+    else:
+        if (
+            command_error != constants.markers.Empty
+            or command_returncode != constants.codes.Success
+        ):
+            command_passed = True
     # create the message and diagnostic and report the result
     message = "The command '" + str(command) + "'" + " executes correctly"
     diagnostic = "The command returned the error code " + str(command_returncode)

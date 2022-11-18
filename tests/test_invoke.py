@@ -750,7 +750,7 @@ def test_run_command_grab_output_as_string_count_lines_exact(
 
 
 def test_command_executes_checks_does_not_execute_correctly():
-    """Check to see if a command does not run correctly and gets a zero return value."""
+    """Check to see if a command does not run correctly and gets a zero return value and fails to pass."""
     # note that a zero-code means that the command did not work
     # this is the opposite of what is used for processes
     # but, all other GatorGrader checks return 0 on failure and 1 on success
@@ -759,11 +759,31 @@ def test_command_executes_checks_does_not_execute_correctly():
 
 
 def test_command_executes_checks_does_execute_correctly():
-    """Check to see if a command does run correctly and gets a non-zero return value."""
+    """Check to see if a command does run correctly and gets a non-zero return value and succeeds to pass."""
     # note that a zero-code means that the command did not work
     # this is the opposite of what is used for processes
     # but, all other GatorGrader checks return 0 on failure and 1 on success
     status_code = invoke.invoke_all_command_executes_checks("true")
+    assert status_code is True
+
+
+def test_command_executes_checks_not_pass_with_correct_command_in_inverse_mode():
+    """Check to see if a command does run correctly and gets a non-zero return value but not pass."""
+    # note that a zero-code means that the command did not work
+    # this is the opposite of what is used for processes
+    # but, all other GatorGrader checks return 0 on failure and 1 on success
+    status_code = invoke.invoke_all_command_executes_checks("true", inverse_check=True)
+    assert status_code is False
+
+
+def test_command_executes_checks_pass_with_wrong_command_in_inverse_mode():
+    """Check to see if a command does not run correctly and gets a zero return value but pass."""
+    # note that a zero-code means that the command did not work
+    # this is the opposite of what is used for processes
+    # but, all other GatorGrader checks return 0 on failure and 1 on success
+    status_code = invoke.invoke_all_command_executes_checks(
+        "willnotwork", inverse_check=True
+    )
     assert status_code is True
 
 
