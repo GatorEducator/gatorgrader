@@ -10,13 +10,13 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Set up Python 3.7
-        uses: actions/setup-python@v2
+        uses: actions/checkout@v4
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.7'
+          python-version: '3.11'
       - name: Install Poetry
-        uses: Gr1N/setup-poetry@v7
+        uses: Gr1N/setup-poetry@v8
       - name: Publish
         run: |
           poetry version ${GITHUB_REF##*/v}

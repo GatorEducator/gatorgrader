@@ -14,15 +14,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Setup Python 3.8
-        uses: actions/setup-python@v2
+        uses: actions/checkout@v4
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v4
         with:
-          python-version: "3.8"
+          python-version: "3.11"
       - name: Install Poetry
-        uses: abatilo/actions-poetry@v2.1.4
+        uses: abatilo/actions-poetry@v2.3.0
         with:
-          poetry-version: 1.1.13
+          poetry-version: 1.7.1
       - name: Setup Poetry
         run: |
           poetry config virtualenvs.create true
@@ -51,27 +51,27 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        python-version: ["3.7", "3.10"]
+        python-version: ["3.11"]
         include:
           - os: macos-latest
-            python-version: "3.9"
+            python-version: "3.11"
           - os: windows-latest
-            python-version: "3.8"
+            python-version: "3.11"
     env:
       # These environment variables are passed to CodeCov to identify each build
       OS: ${{ matrix.os }}
       PYTHON: ${{ matrix.python-version }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install Poetry
-        uses: abatilo/actions-poetry@v2.1.4
+        uses: abatilo/actions-poetry@v2.3.0
         with:
-          poetry-version: 1.1.13
+          poetry-version: 1.7.1
       - name: Setup Poetry
         run: |
           poetry config virtualenvs.create true
@@ -89,7 +89,7 @@ jobs:
           macos: poetry run task cover
           windows: poetry run task cover-win
       - name: Upload coverage
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v3
         with:
           files: ./coverage.xml
           flags: unittests

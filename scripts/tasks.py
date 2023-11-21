@@ -4,7 +4,7 @@ from invoke import task
 
 
 # the default version of Python for use in invoke tasks
-DEFAULT_PYENV_VERSION = "3.7.3"
+DEFAULT_PYENV_VERSION = "3.11.4"
 
 
 def internal_cover(c, cover=True):
