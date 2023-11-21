@@ -223,7 +223,7 @@ def get_word_diagnostic(word_count_dictionary, equals_count=constants.markers.In
         return paragraph_number_as_word_phrase, filename_for_paragraph_number_details
     # --> Case: the equals_count is not invalid, so look "deeply" for the first value
     # that is not equal to the provided value stored in equals_count
-    elif word_count_dictionary and equals_count is not constants.markers.Invalid:
+    if word_count_dictionary and equals_count is not constants.markers.Invalid:
         paragraph_number_details_list = get_first_not_equal_value_deep(
             word_count_dictionary, equals_count
         )
@@ -298,7 +298,7 @@ def get_file_diagnostic_deep_exact(file_count_dictionary, value):
         if file_details == {}:
             file_details = get_first_not_equal_value(file_count_dictionary, value)
         # there is some type of exact match in the data set, so extract and return it
-        if file_details != {} and file_details != (0, 0):
+        if file_details not in ({}, (0, 0)):
             file_name = file_details[0]
             file_count = file_details[1][1]
             file_name_phrase = (
