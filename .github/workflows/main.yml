@@ -89,7 +89,7 @@ jobs:
           macos: poetry run task cover
           windows: poetry run task cover-win
       - name: Upload coverage
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v3
         with:
           files: ./coverage.xml
           flags: unittests
