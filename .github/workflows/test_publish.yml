@@ -1,0 +1,60 @@
+# Test Publishing workflow
+name: Test Publish
+
+# Use more columns for terminal output
+env:
+  COLUMNS: 120
+  PYTHONIOENCODING: utf8
+  
+# trigger the test publishing of the 
+# gatorgrader package to PyPI
+# with any tag starting with 't'
+on:
+  push:
+    tags:
+      - 't*'
+
+# Create one single job
+# that test publishes the package
+# to PyPI using Poetry
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '^3.11'  # Use the Python version compatible with your project
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Install dependencies
+        run: |
+          poetry install
+
+      - name: Configure Poetry for TestPyPI
+        run: |
+          poetry config repositories.testpypi https://test.pypi.org/legacy/
+          poetry config pypi-token.testpypi ${{ secrets.TEST_PYPI_TOKEN }}
+
+      - name: Publish package to TestPyPI
+        run: |
+          poetry publish --repository testpypi --build
+
+      - name: Check for Successful Publication
+        run: |
+          version=$(poetry version --short)
+          echo "Checking if package gatorgrader version $version is available on TestPyPI..."
+          response=$(curl -s "https://test.pypi.org/pypi/gatorgrader/$version/json")
+          if echo "$response" | grep -q "$version"; then
+            echo "Package gatorgrader version $version is successfully published on TestPyPI."
+          else
+            echo "Package gatorgrader version $version was not found on TestPyPI."
+            exit 1
+          fi
