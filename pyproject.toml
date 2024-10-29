@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "gatorgrader"
-version = "0.0.1"
+version = "0.0.2"
 description = "Automated Grading Tool that Checks the Work of Writers and Programmers"
 authors = ["Gregory Kapfhammer <gkapfham@allegheny.edu>"]
 license = "GPL-3.0"
@@ -32,6 +32,7 @@ requests = "^2.28.1"
 commonmark = "^0.9.1"
 num2words = "^0.5.10"
 pluginbase = "^1.0.1"
+PyYAML = ">=5.4, <6.0"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.14.5"
