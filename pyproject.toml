@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "gatorgrader"
-version = "0.0.4"
+version = "0.0.5"
 description = "Automated Grading Tool that Checks the Work of Writers and Programmers"
 authors = ["Gregory Kapfhammer <gkapfham@allegheny.edu>"]
 license = "GPL-3.0"
