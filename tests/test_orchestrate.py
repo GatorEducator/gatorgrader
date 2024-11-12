@@ -29,7 +29,6 @@ from gator import orchestrate
         ),
     ],
 )
-
 def test_main_cli_fails_with_incorrect_system_arguments(commandline_arguments, capsys):
     """Ensure that main_cli fails when given an invalid system configuration."""
     with pytest.raises(SystemExit):
@@ -46,6 +45,7 @@ def test_main_cli_fails_with_incorrect_system_arguments(commandline_arguments, c
     assert captured.err == ""
     assert "Incorrect command-line arguments." in captured_out
     assert counted_newlines == 8
+
 
 @pytest.mark.parametrize(
     "commandline_arguments",
@@ -285,3 +285,4 @@ def test_main_cli_produces_no_welcome_message(capsys):
     assert counted_newlines == 2
     assert "GatorGrader" not in captured.out
     assert captured.err == ""
+    
