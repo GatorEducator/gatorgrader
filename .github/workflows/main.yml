@@ -81,10 +81,10 @@ jobs:
         run: poetry install --no-interaction --no-ansi
       - name: Run Tests and Generate Coverage
         run: |
-          poetry run pytest -s --cov=gatorgrader --cov-report xml
-          ls -l coverage.xml
+          poetry run pytest -s --cov=gatorgrader --cov-report=xml:coverage.xml
+          ls -l $GITHUB_WORKSPACE/coverage.xml
       - name: Upload coverage
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v3
         with:
           files: coverage.xml
           flags: unittests
