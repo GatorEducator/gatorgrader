@@ -29,6 +29,7 @@ from gator import orchestrate
         ),
     ],
 )
+
 def test_main_cli_fails_with_incorrect_system_arguments(commandline_arguments, capsys):
     """Ensure that main_cli fails when given an invalid system configuration."""
     with pytest.raises(SystemExit):
@@ -36,12 +37,15 @@ def test_main_cli_fails_with_incorrect_system_arguments(commandline_arguments, c
     captured = capsys.readouterr()
     # Check the OS and handle accordingly
     if os.name == 'nt':
-        captured.out = captured.out.replace("\u2714", "v")
-    counted_newlines = captured.out.count("\n")
+        # Replace the problematic character (checkmark) with a safe alternative (e.g., 'v')
+        captured_out = captured.out.replace("\u2714", "v")
+    else:
+        captured_out = captured.out
+    print(captured_out)
+    counted_newlines = captured_out.count("\n")
     assert captured.err == ""
-    assert "Incorrect command-line arguments." in captured.out
+    assert "Incorrect command-line arguments." in captured_out
     assert counted_newlines == 8
-
 
 @pytest.mark.parametrize(
     "commandline_arguments",
