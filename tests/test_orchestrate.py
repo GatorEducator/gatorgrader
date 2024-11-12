@@ -1,5 +1,6 @@
 """Test cases for the orchestrate module."""
 
+import os
 import pytest
 
 from gator import orchestrate
@@ -32,8 +33,10 @@ def test_main_cli_fails_with_incorrect_system_arguments(commandline_arguments, c
     """Ensure that main_cli fails when given an invalid system configuration."""
     with pytest.raises(SystemExit):
         _ = orchestrate.main_cli(commandline_arguments)
-    captured = capsys.readouterr(encoding='utf-8')
-    print(captured.out)
+    captured = capsys.readouterr()
+    # Check the OS and handle accordingly
+    if os.name == 'nt':
+        captured.out = captured.out.replace("\u2714", "v")
     counted_newlines = captured.out.count("\n")
     assert captured.err == ""
     assert "Incorrect command-line arguments." in captured.out
