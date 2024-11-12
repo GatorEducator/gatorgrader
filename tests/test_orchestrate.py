@@ -285,4 +285,3 @@ def test_main_cli_produces_no_welcome_message(capsys):
     assert counted_newlines == 2
     assert "GatorGrader" not in captured.out
     assert captured.err == ""
-    
