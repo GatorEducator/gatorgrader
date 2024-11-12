@@ -22,7 +22,7 @@ jobs:
       - name: Install Poetry
         uses: abatilo/actions-poetry@v2.1.4
         with:
-          poetry-version: 1.1.13
+          poetry-version: 1.5.1
       - name: Setup Poetry
         run: |
           poetry config virtualenvs.create true
@@ -38,8 +38,8 @@ jobs:
   test:
     # Test uses a strategy matrix to ensure that sufficient platform test
     # coverage is reached. For this configuration, we run the latest Ubuntu
-    # image with Python 3.6 and 3.9, while also including MacOS + Python 3.8 and
-    # Windows + Python 3.7. With this spread, we achieve testing of four
+    # image with Python 3.8 and 3.10, while also including MacOS + Python 3.9 and
+    # Windows + Python 3.8. With this spread, we achieve testing of four
     # different Python versions and three operating systems without running the
     # full twelve possible combinations, greatly reducing load and usage.
     name: Test
@@ -51,7 +51,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        python-version: ["3.7", "3.10"]
+        python-version: ["3.8", "3.10"]
         include:
           - os: macos-latest
             python-version: "3.9"
@@ -71,7 +71,7 @@ jobs:
       - name: Install Poetry
         uses: abatilo/actions-poetry@v2.1.4
         with:
-          poetry-version: 1.1.13
+          poetry-version: 1.5.1
       - name: Setup Poetry
         run: |
           poetry config virtualenvs.create true
@@ -79,19 +79,7 @@ jobs:
           poetry env info
       - name: Install dependencies
         run: poetry install --no-interaction --no-ansi
-      - name: Execute tests
-        # We need to ensure that the cover-win script is run for Windows, so
-        # this Action runs different commands based on the runner's operating
-        # system.
-        uses: knicknic/os-specific-run@v1
-        with:
-          linux: poetry run task cover
-          macos: poetry run task cover
-          windows: poetry run task cover-win
-      - name: Upload coverage
-        uses: codecov/codecov-action@v1
-        with:
-          files: ./coverage.xml
-          flags: unittests
-          env_vars: OS,PYTHON
-          fail_ci_if_error: true
+      - name: Run Tests and Generate Coverage
+        run: |
+          poetry run pytest -s --cov=gator --cov-report xml:coverage.xml
+          ls -l coverage.xml

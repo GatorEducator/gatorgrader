@@ -1,5 +1,6 @@
 """Test cases for the orchestrate module."""
 
+import os
 import pytest
 
 from gator import orchestrate
@@ -33,10 +34,16 @@ def test_main_cli_fails_with_incorrect_system_arguments(commandline_arguments, c
     with pytest.raises(SystemExit):
         _ = orchestrate.main_cli(commandline_arguments)
     captured = capsys.readouterr()
-    print(captured.out)
-    counted_newlines = captured.out.count("\n")
+    # Check the OS and handle accordingly
+    if os.name == "nt":
+        # Replace the problematic character (checkmark) with a safe alternative (e.g., 'v')
+        captured_out = captured.out.replace("\u2714", "v")
+    else:
+        captured_out = captured.out
+    print(captured_out)
+    counted_newlines = captured_out.count("\n")
     assert captured.err == ""
-    assert "Incorrect command-line arguments." in captured.out
+    assert "Incorrect command-line arguments." in captured_out
     assert counted_newlines == 8
 
 
@@ -52,7 +59,7 @@ def test_main_cli_fails_with_incorrect_system_arguments(commandline_arguments, c
                 "NoFragment",
                 "--count",
                 "0",
-            ],
+            ]
         ),
     ],
 )
@@ -252,7 +259,7 @@ def test_main_cli_produces_welcome_message(capsys):
             "CountCommits",
             "--count",
             "0",
-        ],
+        ]
     )
     captured = capsys.readouterr()
     counted_newlines = captured.out.count("\n")
@@ -270,7 +277,7 @@ def test_main_cli_produces_no_welcome_message(capsys):
             "CountCommits",
             "--count",
             "0",
-        ],
+        ]
     )
     captured = capsys.readouterr()
     counted_newlines = captured.out.count("\n")
