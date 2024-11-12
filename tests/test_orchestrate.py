@@ -32,7 +32,7 @@ def test_main_cli_fails_with_incorrect_system_arguments(commandline_arguments, c
     """Ensure that main_cli fails when given an invalid system configuration."""
     with pytest.raises(SystemExit):
         _ = orchestrate.main_cli(commandline_arguments)
-    captured = capsys.readouterr()
+    captured = capsys.readouterr(encoding='utf-8')
     print(captured.out)
     counted_newlines = captured.out.count("\n")
     assert captured.err == ""
