@@ -35,7 +35,7 @@ def test_main_cli_fails_with_incorrect_system_arguments(commandline_arguments, c
         _ = orchestrate.main_cli(commandline_arguments)
     captured = capsys.readouterr()
     # Check the OS and handle accordingly
-    if os.name == 'nt':
+    if os.name == "nt":
         # Replace the problematic character (checkmark) with a safe alternative (e.g., 'v')
         captured_out = captured.out.replace("\u2714", "v")
     else:
@@ -59,7 +59,7 @@ def test_main_cli_fails_with_incorrect_system_arguments(commandline_arguments, c
                 "NoFragment",
                 "--count",
                 "0",
-            ],
+            ]
         ),
     ],
 )
@@ -259,7 +259,7 @@ def test_main_cli_produces_welcome_message(capsys):
             "CountCommits",
             "--count",
             "0",
-        ],
+        ]
     )
     captured = capsys.readouterr()
     counted_newlines = captured.out.count("\n")
@@ -277,7 +277,7 @@ def test_main_cli_produces_no_welcome_message(capsys):
             "CountCommits",
             "--count",
             "0",
-        ],
+        ]
     )
     captured = capsys.readouterr()
     counted_newlines = captured.out.count("\n")
