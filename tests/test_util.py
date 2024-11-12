@@ -367,7 +367,7 @@ def test_get_file_diagnostic_deep_exact_deep_dictionary_not_equal():
         "input_file_three": input_file_three,
     }
     found = util.get_file_diagnostic_deep_exact(outer_dictionary, 21)
-    assert found != {}
+    assert found
 
 
 def test_get_file_diagnostic_deep_exact_deep_dictionary_all_equal():
