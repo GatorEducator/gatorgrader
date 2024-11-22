@@ -184,6 +184,7 @@ htmlcov/
 .cache
 nosetests.xml
 coverage.xml
+coverage.json
 *,cover
 .hypothesis/
 *.mo
