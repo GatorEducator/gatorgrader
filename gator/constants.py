@@ -2,6 +2,7 @@
 
 import collections
 import itertools
+from rich.text import Text
 
 
 def create_constants(name, *args, **kwargs):
@@ -76,8 +77,8 @@ markdown = create_constants("markdown", Paragraph="paragraph", Softbreak="softbr
 # define the markers for files and output
 markers = create_constants(
     "markers",
-    Arrow="➔",
-    Checkmark="✔",
+    Arrow=Text("/U0002192"),
+    Checkmark=Text("/U0002714"),
     Command_Error="Command_No_Output",
     Empty=b"",
     File="file",
@@ -93,7 +94,7 @@ markers = create_constants(
     Space=" ",
     Tab="   ",
     Unknown_File="unknown",
-    Xmark="✘",
+    Xmark=Text("/U0002718"),
     Yes="Yes",
 )
 
