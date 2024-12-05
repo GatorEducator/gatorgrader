@@ -57,7 +57,7 @@ def set_result(description, outcome, diagnostic):
 def get_result():
     """Return the result dictionary."""
     # pylint: disable=global-statement
-    # global result
+    global result
     return result
 
 

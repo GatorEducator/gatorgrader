@@ -139,7 +139,8 @@ def load_check(checker_source, check_file):
     """Load the specified check from the source."""
     if is_internal_check(check_file):
         return importlib.import_module(checks.__name__ + "." + check_file)
-    return checker_source.load_plugin(check_file)
+    else:
+        return checker_source.load_plugin(check_file)
 
 
 def get_source(checker_paths=[]):
