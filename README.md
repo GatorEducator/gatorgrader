@@ -9,7 +9,7 @@ speed!
 </b>
 </p>
 
-[![Lint ad Test](https://github.com/GatorEducator/gatorgrader/workflows/Lint%20and%20Test/badge.svg?branch=master)](https://github.com/GatorEducator/gatorgrader/actions?query=workflow%3A%22Lint+and+Test%22+branch%3Amaster) [![codecov.io](https://codecov.io/gh/GatorEducator/gatorgrader/branch/master/graph/badge.svg?token=UKBOlE7kG6)](https://codecov.io/gh/GatorEducator/gatorgrader) [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-orange.svg)](https://github.com/GatorEducator/gatorgrader/graphs/commit-activity) [![GitHub license](https://img.shields.io/github/license/GatorEducator/gatorgrader.svg)](https://github.com/GatorEducator/gatorgrader/blob/master/LICENSE.md) [![All Contributors](https://img.shields.io/badge/all_contributors-33-orange.svg?style=flat-square)](#contributors)
+[![Lint and Test](https://github.com/GatorEducator/gatorgrader/workflows/Lint%20and%20Test/badge.svg?branch=master)](https://github.com/GatorEducator/gatorgrader/actions?query=workflow%3A%22Lint+and+Test%22+branch%3Amaster) [![codecov.io](https://codecov.io/gh/GatorEducator/gatorgrader/branch/master/graph/badge.svg?token=UKBOlE7kG6)](https://codecov.io/gh/GatorEducator/gatorgrader) [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-orange.svg)](https://github.com/GatorEducator/gatorgrader/graphs/commit-activity) [![GitHub license](https://img.shields.io/github/license/GatorEducator/gatorgrader.svg)](https://github.com/GatorEducator/gatorgrader/blob/master/LICENSE.md) [![All Contributors](https://img.shields.io/badge/all_contributors-33-orange.svg?style=flat-square)](#contributors)
 
 ## Table of Contents
 
