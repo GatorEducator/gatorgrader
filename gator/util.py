@@ -298,7 +298,7 @@ def get_file_diagnostic_deep_exact(file_count_dictionary, value):
         if file_details == {}:
             file_details = get_first_not_equal_value(file_count_dictionary, value)
         # there is some type of exact match in the data set, so extract and return it
-        if file_details != {} and file_details != (0, 0):
+        if file_details not in {} and file_details not in (0, 0):
             file_name = file_details[0]
             file_count = file_details[1][1]
             file_name_phrase = (
