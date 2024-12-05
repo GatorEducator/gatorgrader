@@ -22,7 +22,7 @@ jobs:
       - name: Install Poetry
         uses: abatilo/actions-poetry@v2.1.4
         with:
-          poetry-version: 1.1.13
+          poetry-version: 1.7.1
       - name: Setup Poetry
         run: |
           poetry config virtualenvs.create true
