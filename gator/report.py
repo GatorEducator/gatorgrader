@@ -42,7 +42,7 @@ def decompose_result(result_dictionary):
 def reset():
     """Reset the global result dictionary."""
     # pylint: disable=global-statement
-    global result
+    # global result
     result = None
 
 
