@@ -298,6 +298,7 @@ def get_file_diagnostic_deep_exact(file_count_dictionary, value):
         if file_details == {}:
             file_details = get_first_not_equal_value(file_count_dictionary, value)
         # there is some type of exact match in the data set, so extract and return it
+        # when the bellow code is != pylint fails, when it is 'is not' test cases fail
         if file_details is not {} and file_details != (0, 0):
             file_name = file_details[0]
             file_count = file_details[1][1]
