@@ -50,6 +50,11 @@ snoop = "^0.4.1"
 taskipy = "^1.13.0"
 toml = "^0.10.2"
 
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.6.8"
+symbex = "^1.4"
+mypy = "^1.11.2"
+
 [tool.taskipy.variables]
 project = "gatorgrader"
 tests = "tests"
