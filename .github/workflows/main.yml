@@ -22,7 +22,7 @@ jobs:
       - name: Install Poetry
         uses: abatilo/actions-poetry@v2.1.4
         with:
-          poetry-version: 1.8.2
+          poetry-version: 1.8.3
       - name: Setup Poetry
         run: |
           poetry config virtualenvs.create true
@@ -51,12 +51,12 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        python-version: ["3.10", "3.10"]
+        python-version: ["3.12"]
         include:
           - os: macos-latest
-            python-version: "3.10"
+            python-version: "3.12"
           - os: windows-latest
-            python-version: "3.10"
+            python-version: "3.12"
     env:
       # These environment variables are passed to CodeCov to identify each build
       OS: ${{ matrix.os }}
@@ -71,7 +71,7 @@ jobs:
       - name: Install Poetry
         uses: abatilo/actions-poetry@v2.1.4
         with:
-          poetry-version: 1.8.2
+          poetry-version: 1.8.3
       - name: Setup Poetry
         run: |
           poetry config virtualenvs.create true
