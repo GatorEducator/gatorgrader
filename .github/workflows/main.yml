@@ -31,7 +31,7 @@ jobs:
       - name: Install dependencies
         run: poetry install --no-interaction --no-ansi
       - name: Lint code
-        run: poetry run task lint
+        run: poetry run task lint --check
       - name: Lint writing
         uses: actionshub/markdownlint@main
   test:
