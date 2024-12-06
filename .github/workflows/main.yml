@@ -85,9 +85,9 @@ jobs:
         # system.
         uses: knicknic/os-specific-run@v1
         with:
-          linux: poetry run task cover
-          macos: poetry run task cover
-          windows: poetry run task cover-win
+          linux: poetry run task coverage
+          macos: poetry run task coverage
+          windows: poetry run task coverage-win
       - name: Upload coverage
         uses: codecov/codecov-action@v1
         with:
