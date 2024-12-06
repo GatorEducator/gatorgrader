@@ -34,7 +34,6 @@ jobs:
         run: poetry run task lint
       - name: Lint writing
         uses: actionshub/markdownlint@main
-
   test:
     # Test uses a strategy matrix to ensure that sufficient platform test
     # coverage is reached. For this configuration, we run the latest Ubuntu
