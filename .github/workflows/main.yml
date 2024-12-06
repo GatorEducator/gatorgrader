@@ -22,7 +22,7 @@ jobs:
       - name: Install Poetry
         uses: abatilo/actions-poetry@v2.1.4
         with:
-          poetry-version: 1.8.3
+          poetry-version: 1.5.1
       - name: Setup Poetry
         run: |
           poetry config virtualenvs.create true
@@ -58,7 +58,6 @@ jobs:
           - os: windows-latest
             python-version: "3.12"
     env:
-      # These environment variables are passed to CodeCov to identify each build
       OS: ${{ matrix.os }}
       PYTHON: ${{ matrix.python-version }}
     steps:
@@ -69,29 +68,17 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install Poetry
-        uses: abatilo/actions-poetry@v2.1.4
+        uses: Gr1N/setup-poetry@v8
         with:
-          poetry-version: 1.8.3
+          poetry-version: 1.5.1
       - name: Setup Poetry
         run: |
+          poetry --version
           poetry config virtualenvs.create true
           poetry config virtualenvs.in-project true
           poetry env info
       - name: Install dependencies
         run: poetry install --no-interaction --no-ansi
       - name: Execute tests
-        # We need to ensure that the cover-win script is run for Windows, so
-        # this Action runs different commands based on the runner's operating
-        # system.
-        uses: knicknic/os-specific-run@v1
-        with:
-          linux: poetry run task coverage
-          macos: poetry run task coverage
-          windows: poetry run task coverage-win
-      - name: Upload coverage
-        uses: codecov/codecov-action@v1
-        with:
-          files: ./coverage.xml
-          flags: unittests
-          env_vars: OS,PYTHON
-          fail_ci_if_error: true
+        if: matrix.os != 'windows-latest'
+        run: poetry run task test
