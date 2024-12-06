@@ -10,7 +10,7 @@ on: [push, pull_request]
 
 jobs:
   lint:
-    name: Lint Code
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -25,7 +25,6 @@ jobs:
           poetry-version: 1.5.1
       - name: Setup Poetry
         run: |
-          poetry --version
           poetry config virtualenvs.create true
           poetry config virtualenvs.in-project true
           poetry env info
@@ -33,29 +32,8 @@ jobs:
         run: poetry install --no-interaction --no-ansi
       - name: Lint code
         run: poetry run task lint
-  markdown:
-    name: Lint Markdown
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Run markdownlint
-        uses: DavidAnson/markdownlint-cli2-action@v4
-  spelling:
-      name: Check Spelling
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout repository
-          uses: actions/checkout@v2
-          with:
-            fetch-depth: 0
-        - name: Run cspell
-          uses: zwaldowski/cspell-action@v1
-          with:
-            paths: "**/*.md"
-            config: .github/cspell.json
+      - name: Lint writing
+        uses: actionshub/markdownlint@main
 
   test:
     # Test uses a strategy matrix to ensure that sufficient platform test
