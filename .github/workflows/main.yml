@@ -88,10 +88,10 @@ jobs:
           linux: poetry run task cover
           macos: poetry run task cover
           windows: poetry run task cover-win
-      - name: Upload coverage
-        uses: codecov/codecov-action@v1
-        with:
-          files: ./coverage.xml
-          flags: unittests
-          env_vars: OS,PYTHON
-          fail_ci_if_error: true
+      # - name: Upload coverage
+      #   uses: codecov/codecov-action@v1
+      #   with:
+      #     files: ./coverage.xml
+      #     flags: unittests
+      #     env_vars: OS,PYTHON
+      #     fail_ci_if_error: true
