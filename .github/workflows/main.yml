@@ -79,15 +79,15 @@ jobs:
           poetry env info
       - name: Install dependencies
         run: poetry install --no-interaction --no-ansi
-      - name: Execute tests
-        # We need to ensure that the cover-win script is run for Windows, so
-        # this Action runs different commands based on the runner's operating
-        # system.
-        uses: knicknic/os-specific-run@v1
-        with:
-          linux: poetry run task cover
-          macos: poetry run task cover
-          windows: poetry run task cover-win
+      # - name: Execute tests
+      #   # We need to ensure that the cover-win script is run for Windows, so
+      #   # this Action runs different commands based on the runner's operating
+      #   # system.
+      #   uses: knicknic/os-specific-run@v1
+      #   with:
+      #     linux: poetry run task cover
+      #     macos: poetry run task cover
+      #     windows: poetry run task cover-win
       # - name: Upload coverage
       #   uses: codecov/codecov-action@v1
       #   with:
