@@ -26,36 +26,70 @@ packages = [{ include = "gator" }, { include = "gatorgrader.py" }]
 gatorgrader = "gatorgrader:main"
 
 [tool.poetry.dependencies]
-python = ">=3.7.2,<4.0"
+python = "^3.11"
 GitPython = "^3.1.27"
 requests = "^2.28.1"
 commonmark = "^0.9.1"
 num2words = "^0.5.10"
 pluginbase = "^1.0.1"
+pyyaml = ">=6.0.2"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.14.5"
 black = "^22.6.0"
-pytest = "^7.1.2"
-codecov = "^2.1.12"
+pytest = "^8.1.1"
+pytest-json-report = "^1.5.0"
+coverage = "^7.4.3"
 flake8 = "^4.0.1"
-pytest-cov = "^3.0.0"
+pytest-cov = "^4.1.0"
 pytest-sugar = "^0.9.5"
 bandit = "^1.7.4"
 pydocstyle = "^6.1.1"
 radon = "^5.1.0"
 xenon = "^0.9.0"
 snoop = "^0.4.1"
-taskipy = "^1.10.2"
+taskipy = "^1.13.0"
 toml = "^0.10.2"
 
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.6.8"
+symbex = "^1.4"
+mypy = "^1.11.2"
+
+[tool.taskipy.variables]
+project = "gatorgrader"
+tests = "tests"
+test-silent-command = { var = "pytest -x --show-capture=no", recursive = true }
+test-silent-not-randomly-command = { var = "pytest -x --show-capture=no -p no:randomly", recursive = true }
+test-command = { var = "pytest -x -s -vv", recursive = true}
+test-not-fuzz-command = {var = "pytest -x -s -vv -m \"not fuzz\"", recursive = true}
+check-command = { var = "ruff check {project} {tests}", recursive = true }
+coverage-test-command = "pytest -s --cov-context=test --cov-fail-under=90 --cov-config .coveragerc --cov-report term-missing --cov-report json --cov --cov-branch"
+coverage-test-command-silent = "pytest -x --show-capture=no --cov-config .coveragerc --cov-report term-missing --cov-report json --cov --cov-branch"
+developer-test-command = "pytest -x -s"
+developer-test-silent-command = "pytest -x --show-capture=no"
+fixformat-command = { var = "ruff format {project} {tests}", recursive = true }
+format-command = { var = "ruff format --check {project} {tests}", recursive = true }
+symbex-typed-command = {var = "symbex -s --untyped -d {project} --check", recursive = true}
+symbex-documented-command = {var = "symbex -s --undocumented -d {project} --check", recursive = true}
+mypy-command = {var = "mypy {project}", recursive = true}
+
 [tool.taskipy.tasks]
-test = "./scripts/test.sh"
-cover = "./scripts/cover.sh"
-lint = "./scripts/lint.sh"
-test-win = 'scripts\\test.bat'
-cover-win = 'scripts\\cover.bat'
-lint-win = 'scripts\\lint.bat'
+all = "task lint && task test"
+lint = "task format && task check && task mypy && task symbex"
+check = { cmd = "{check-command}", help = "Run the ruff linting checks", use_vars = true }
+coverage = { cmd = "{coverage-test-command}", help = "Run test coverage monitoring", use_vars = true }
+coverage-silent = { cmd = "{coverage-test-command-silent}", help = "Run test coverage monitoring", use_vars = true }
+format = { cmd = "{format-command}", help = "Run the ruff formatter on source code", use_vars = true }
+format-fix = { cmd = "{fixformat-command}", help = "Run the ruff formatter to fix source code", use_vars = true }
+mypy = { cmd = "{mypy-command}", help = "Run the mypy type checker for potential type errors", use_vars = true }
+symbex = "task symbex-typed && task symbex-documented"
+symbex-typed = { cmd = "{symbex-typed-command}", help = "Run symbex for fully typed functions", use_vars = true }
+symbex-documented = { cmd = "{symbex-documented-command}", help = "Run symbex for documentation", use_vars = true }
+test-not-fuzz = { cmd = "{test-not-fuzz-command}", help = "Run the pytest test suite using order randomization and test distribution" }
+test = { cmd = "{test-command}", help = "Run the pytest test suite using order randomization and test distribution", use_vars = true }
+test-silent = { cmd = "{test-silent-command}", help = "Run the pytest test suite without showing output", use_vars = true }
+test-silent-not-randomly = { cmd = "{test-silent-no-command}", help = "Run the pytest test suite without showing output and order randomization", use_vars = true }
 
 [build-system]
 requires = ["poetry-core"]

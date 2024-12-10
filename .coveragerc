@@ -1,3 +1,8 @@
+[coverage:report]
+skip_empty = true
 [run]
-omit=test/*
-include=gator*
+relative_files=true
+source=./gator
+[json]
+show_contexts=True
+pretty_print=True
