@@ -31,10 +31,10 @@ def test_reset_checker_source(load_checker):
         "100",
     ]
     with patch.object(sys, "argv", testargs):
-        parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+        parsed_arguments = arguments.parse(commandline_arguments)
         args_verified = arguments.verify(parsed_arguments)
         assert args_verified is True
-        check_exists, checker_source, check_file = load_checker(parsed_arguments)
+        check_exists = load_checker(parsed_arguments)
         assert check_exists is True
     checkers.reset_source()
     assert checkers.CHECKER_SOURCE is None
@@ -61,7 +61,7 @@ def test_check_function_verification_separate(commandline_arguments, load_check)
     """Ensure that check verification works for standard functions."""
     testargs = [os.getcwd()]
     with patch.object(sys, "argv", testargs):
-        parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+        parsed_arguments = arguments.parse(commandline_arguments)
         args_verified = arguments.verify(parsed_arguments)
         assert args_verified is True
         check = load_check(parsed_arguments)
@@ -85,7 +85,7 @@ def test_check_function_verification_list(commandline_arguments, load_check):
     """Ensure that check verification works for standard functions."""
     testargs = [os.getcwd()]
     with patch.object(sys, "argv", testargs):
-        parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+        parsed_arguments = arguments.parse(commandline_arguments)
         args_verified = arguments.verify(parsed_arguments)
         assert args_verified is True
         check = load_check(parsed_arguments)
@@ -130,7 +130,7 @@ def test_checkerdir_extraction_from_commandline_arguments(tmpdir):
     assert len(tmpdir.listdir()) == 1
     checker_directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "checks"
     commandline_arguments = ["--checkerdir", checker_directory, "check_messages"]
-    gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+    gg_arguments = arguments.parse(commandline_arguments)
     args_verified = arguments.verify(gg_arguments)
     assert args_verified is True
     found_checker_directory = checkers.get_checker_dir(gg_arguments)
@@ -143,7 +143,7 @@ def test_empty_checkerdir_extraction_from_commandline_arguments(tmpdir):
     _ = tmpdir.mkdir("checks").join("check_messages.py")
     assert len(tmpdir.listdir()) == 1
     commandline_arguments = ["check_messages"]
-    gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+    gg_arguments = arguments.parse(commandline_arguments)
     args_verified = arguments.verify(gg_arguments)
     assert args_verified is True
     found_checker_directory = checkers.get_checker_dir(gg_arguments)
@@ -157,7 +157,7 @@ def test_check_extraction_from_commandline_arguments(tmpdir):
     assert len(tmpdir.listdir()) == 1
     checker_directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "checks"
     commandline_arguments = ["--checkerdir", checker_directory, checker]
-    gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+    gg_arguments = arguments.parse(commandline_arguments)
     args_verified = arguments.verify(gg_arguments)
     assert args_verified is True
     found_check = checkers.get_chosen_check(gg_arguments)
@@ -234,7 +234,7 @@ def test_check_extraction_from_commandline_arguments_has_overall_help_when_no_ch
     with patch.object(sys, "argv", testargs):
         checker = "check_CountCommits_Invalid"
         commandline_arguments = [checker]
-        gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+        gg_arguments = arguments.parse(commandline_arguments)
         args_verified = arguments.verify(gg_arguments)
         assert args_verified is True
         found_check = checkers.get_chosen_check(gg_arguments)
@@ -253,7 +253,7 @@ def test_check_extraction_from_commandline_arguments_has_help_single_checker():
     with patch.object(sys, "argv", testargs):
         checker = "check_CountCommits"
         commandline_arguments = [checker]
-        gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+        gg_arguments = arguments.parse(commandline_arguments)
         args_verified = arguments.verify(gg_arguments)
         assert args_verified is True
         found_check = checkers.get_chosen_check(gg_arguments)
@@ -281,7 +281,7 @@ def test_check_extraction_from_commandline_arguments_has_help_two_checkers_one_i
         checker = "check_CountCommits"
         assert len(tmpdir.listdir()) == 1
         commandline_arguments = ["--checkerdir", checker_directory, checker]
-        gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+        gg_arguments = arguments.parse(commandline_arguments)
         args_verified = arguments.verify(gg_arguments)
         assert args_verified is True
         found_check = checkers.get_chosen_check(gg_arguments)
@@ -308,7 +308,7 @@ def test_check_extraction_from_commandline_arguments_has_help_single_checker_fil
             "--namecontains",
             "Exec",
         ]
-        gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+        gg_arguments = arguments.parse(commandline_arguments)
         args_verified = arguments.verify(gg_arguments)
         assert args_verified is True
         found_check = checkers.get_chosen_check(gg_arguments)
