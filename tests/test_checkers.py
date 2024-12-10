@@ -1,19 +1,19 @@
 """Tests for the loading, verification, and use of plugin-based checkers."""
 
 
+import os
+import sys
+from unittest.mock import patch
+
+import pytest
 from gator import arguments
 from gator import checkers
-
-import os
-import pytest
-import sys
-
-from unittest.mock import patch
 
 
 @pytest.fixture(autouse=True)
 def reset_checker_source():
-    """Before running any test in this suite always reset the source of the checkers in pluginbase."""
+    """Before running any test in this suite always 
+    reset the source of the checkers in pluginbase."""
     # note that performing this reset ensures test independence and
     # avoids test flakiness for single-test runs or different test orderings
     checkers.reset_source()
@@ -124,7 +124,8 @@ def test_argument_not_none_verification():
 
 
 def test_checkerdir_extraction_from_commandline_arguments(tmpdir):
-    """Ensure that command-line argument extraction works in checker function if specified checkerdir."""
+    """Ensure that command-line argument extraction works 
+    in checker function if specified checkerdir."""
     _ = tmpdir.mkdir("checks").join("check_messages.py")
     assert len(tmpdir.listdir()) == 1
     checker_directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "checks"
@@ -137,7 +138,8 @@ def test_checkerdir_extraction_from_commandline_arguments(tmpdir):
 
 
 def test_empty_checkerdir_extraction_from_commandline_arguments(tmpdir):
-    """Ensure that command-line argument extraction works in checker function if empty checkerdir."""
+    """Ensure that command-line argument extraction works 
+    in checker function if empty checkerdir."""
     _ = tmpdir.mkdir("checks").join("check_messages.py")
     assert len(tmpdir.listdir()) == 1
     commandline_arguments = ["check_messages"]
