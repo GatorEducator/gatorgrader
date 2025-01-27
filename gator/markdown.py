@@ -41,7 +41,8 @@ def specified_tag_greater_than_count(
         file_tag_count = 0
         # since the specified file must be valid and thus suitable for checking,
         # read the contents of the file and then check for the chosen tag
-        file_contents = file_for_checking.read_text()
+        # file_contents = file_for_checking.read_text()
+        file_contents = file_for_checking.read_text(encoding='utf-8')
         file_tag_count = checking_function(file_contents, chosen_tag)
         file_tags_count_dictionary[file_for_checking.name] = file_tag_count
     # return the minimum value and the entire dictionary of counts
