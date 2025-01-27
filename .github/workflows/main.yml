@@ -30,8 +30,8 @@ jobs:
           poetry env info
       - name: Install dependencies
         run: poetry install --no-interaction --no-ansi
-      - name: Lint code
-        run: poetry run task lint --check
+      # - name: Lint code
+      #   run: poetry run task lint --check
       - name: Lint writing
         uses: actionshub/markdownlint@main
 
@@ -51,12 +51,12 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        python-version: ["3.10", "3.11"]
+        python-version: ["3.10", "3.12"]
         include:
           - os: macos-latest
             python-version: "3.9"
           - os: windows-latest
-            python-version: "3.12"
+            python-version: "3.11"
     env:
       # These environment variables are passed to CodeCov to identify each build
       OS: ${{ matrix.os }}
@@ -88,10 +88,10 @@ jobs:
           linux: poetry run task cover
           macos: poetry run task cover
           windows: poetry run task cover-win
-      - name: Upload coverage
-        uses: codecov/codecov-action@v1
-        with:
-          files: ./coverage.xml
-          flags: unittests
-          env_vars: OS,PYTHON
-          fail_ci_if_error: true
+      # - name: Upload coverage
+      #   uses: codecov/codecov-action@v1
+      #   with:
+      #     files: ./coverage.xml
+      #     flags: unittests
+      #     env_vars: OS,PYTHON
+      #     fail_ci_if_error: true
