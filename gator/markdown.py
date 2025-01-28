@@ -40,8 +40,12 @@ def specified_tag_greater_than_count(
     ):
         file_tag_count = 0
         # since the specified file must be valid and thus suitable for checking,
-        # read the contents of the file and then check for the chosen tag
-        file_contents = file_for_checking.read_text()
+        # read the contents of the file and then check for the chosen tag; note
+        # that this explicitly sets the encoding to be UTF-8 to ensure that
+        # the input of the file will work on operating systems where the
+        # default character encoding is not UTF-8; this commonly happens
+        # on Windows systems where the default encoding is usually CP-1252
+        file_contents = file_for_checking.read_text(encoding='utf-8')
         file_tag_count = checking_function(file_contents, chosen_tag)
         file_tags_count_dictionary[file_for_checking.name] = file_tag_count
     # return the minimum value and the entire dictionary of counts

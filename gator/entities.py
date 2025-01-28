@@ -51,9 +51,13 @@ def count_entities(given_file, containing_directory, checking_function):
         file_contents_count = 0
         # create an empty dictionary of the counts
         file_contents_count_dictionary = {}
-        # a valid file exists and thus it is acceptable to perform the checking
-        # extract the text from the file_for_checking
-        file_contents = file_for_checking.read_text()
+        # a valid file exists and thus it is acceptable to perform the checking;
+        # first extract the text from the file_for_checking; note that this
+        # explicitly sets the encoding to be UTF-8 to ensure that the input of
+        # the file will work on operating systems where the default character
+        # encoding is not UTF-8; this commonly happens on Windows systems where
+        # the default encoding is usually CP-1252
+        file_contents = file_for_checking.read_text(encoding='utf-8')
         # use the provided checking_function to check the contents of the file
         # note this works since Python supports passing a function to a function
         file_contents_count, file_contents_count_dictionary = checking_function(

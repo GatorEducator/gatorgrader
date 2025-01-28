@@ -205,10 +205,14 @@ def count_entities(
     for file_for_checking in files.create_paths(
         file=given_file, home=containing_directory
     ):
-        # an actual file is available and command contents are not provided
-        # the context for this condition is when the function checks file contents
-        # read the text from the file and then check for the chosen fragment
-        file_contents = file_for_checking.read_text()
+        # an actual file is available and command contents are not provided the
+        # context for this condition is when the function checks file contents
+        # read the text from the file and then check for the chosen fragment;
+        # note that this explicitly sets the encoding to be UTF-8 to ensure
+        # that the input of the file will work on operating systems where the
+        # default character encoding is not UTF-8; this commonly happens on
+        # Windows systems where the default encoding is usually CP-1252
+        file_contents = file_for_checking.read_text(encoding='utf-8')
         file_contents_count = checking_function(file_contents, chosen_fragment)
         file_contents_count_dictionary[file_for_checking.name] = file_contents_count
     # return the minimum value and the entire dictionary of counts
@@ -273,10 +277,14 @@ def count_lines(
             file=given_file, home=containing_directory
         ):
             file_contents_count = 0
-            # file is available and the contents are not provided
+            # file is available and the contents are not provided;
             # the context for this condition is when the function checks
-            # the contents of a specified file that exists on the filesystem
-            file_contents = file_for_checking.read_text()
+            # the contents of a specified file that exists on the filesystem;
+            # note that this explicitly sets the encoding to be UTF-8 to ensure
+            # that the input of the file will work on operating systems where the
+            # default character encoding is not UTF-8; this commonly happens on
+            # Windows systems where the default encoding is usually CP-1252
+            file_contents = file_for_checking.read_text(encoding='utf-8')
             line_list = get_line_list(file_contents)
             file_contents_count = len(line_list)
             file_contents_count_dictionary[file_for_checking.name] = file_contents_count
