@@ -37,9 +37,7 @@ jobs:
 
   test:
     # Test uses a strategy matrix to ensure that sufficient platform test
-    # coverage is reached. For this configuration, we run the latest Ubuntu
-    # image with Python 3.6 and 3.9, while also including MacOS + Python 3.8 and
-    # Windows + Python 3.7. With this spread, we achieve testing of four
+    # coverage is reached. With this spread, we achieve testing of four
     # different Python versions and three operating systems without running the
     # full twelve possible combinations, greatly reducing load and usage.
     name: Test
@@ -79,7 +77,9 @@ jobs:
           poetry env info
       - name: Install dependencies
         run: poetry install --no-interaction --no-ansi
-      - name: Execute tests
+      - name: Run the test suite
+        run: poetry run pytest
+      - name: Collect test coverage
         # We need to ensure that the cover-win script is run for Windows, so
         # this Action runs different commands based on the runner's operating
         # system.
