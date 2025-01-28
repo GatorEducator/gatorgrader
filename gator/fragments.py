@@ -285,7 +285,6 @@ def count_lines(
             # default character encoding is not UTF-8; this commonly happens on
             # Windows systems where the default encoding is usually CP-1252
             file_contents = file_for_checking.read_text(encoding='utf-8')
-            # file_contents = file_for_checking.read_text()
             line_list = get_line_list(file_contents)
             file_contents_count = len(line_list)
             file_contents_count_dictionary[file_for_checking.name] = file_contents_count
