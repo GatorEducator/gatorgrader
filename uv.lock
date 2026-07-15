@@ -817,6 +817,33 @@ wheels = [
 ]
 
 [[package]]
+name = "execnet"
+version = "2.0.2"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version < '3.8'",
+]
+sdist = { url = "https://files.pythonhosted.org/packages/e4/c8/d382dc7a1e68a165f4a4ab612a08b20d8534a7d20cc590630b734ca0c54b/execnet-2.0.2.tar.gz", hash = "sha256:cc59bc4423742fd71ad227122eb0dd44db51efb3dc4095b45ac9a08c770096af", size = 161098, upload-time = "2023-07-09T17:14:03.468Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e8/9c/a079946da30fac4924d92dbc617e5367d454954494cf1e71567bcc4e00ee/execnet-2.0.2-py3-none-any.whl", hash = "sha256:88256416ae766bc9e8895c76a87928c0012183da3cc4fc18016e6f050e025f41", size = 37097, upload-time = "2023-07-09T17:14:01.888Z" },
+]
+
+[[package]]
+name = "execnet"
+version = "2.1.2"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version >= '3.11'",
+    "python_full_version == '3.10.*'",
+    "python_full_version == '3.9.*'",
+    "python_full_version == '3.8.*'",
+]
+sdist = { url = "https://files.pythonhosted.org/packages/bf/89/780e11f9588d9e7128a3f87788354c7946a9cbb1401ad38a48c4db9a4f07/execnet-2.1.2.tar.gz", hash = "sha256:63d83bfdd9a23e35b9c6a3261412324f964c2ec8dcd8d3c6916ee9373e0befcd", size = 166622, upload-time = "2025-11-12T09:56:37.75Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ab/84/02fc1827e8cdded4aa65baef11296a9bbe595c474f0d6d758af082d849fd/execnet-2.1.2-py3-none-any.whl", hash = "sha256:67fba928dd5a544b783f6056f449e5e3931a5c378b128bc18501f7ea79e296ec", size = 40708, upload-time = "2025-11-12T09:56:36.333Z" },
+]
+
+[[package]]
 name = "executing"
 version = "2.0.1"
 source = { registry = "https://pypi.org/simple" }
@@ -921,6 +948,9 @@ dev = [
     { name = "pytest" },
     { name = "pytest-cov" },
     { name = "pytest-sugar" },
+    { name = "pytest-xdist", version = "3.5.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.8'" },
+    { name = "pytest-xdist", version = "3.6.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.8.*'" },
+    { name = "pytest-xdist", version = "3.8.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.9'" },
     { name = "radon" },
     { name = "ruff" },
     { name = "snoop" },
@@ -965,6 +995,7 @@ dev = [
     { name = "pytest", specifier = ">=7.1.2,<8.0" },
     { name = "pytest-cov", specifier = ">=3.0.0,<4.0" },
     { name = "pytest-sugar", specifier = ">=0.9.5,<0.10" },
+    { name = "pytest-xdist", specifier = ">=3.5.0" },
     { name = "radon", specifier = ">=5.1.0,<6.0" },
     { name = "ruff", specifier = ">=0.15.21" },
     { name = "snoop", specifier = ">=0.4.1,<0.5" },
@@ -1739,6 +1770,56 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/57/18/fe569040c5796879288544b1cc98888fce1754138d54e8287ed21614491e/pytest-sugar-0.9.7.tar.gz", hash = "sha256:f1e74c1abfa55f7241cf7088032b6e378566f16b938f3f08905e2cf4494edd46", size = 14874, upload-time = "2023-04-10T11:17:32.071Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/c7/b2/8f5d346c86e690c58da3b21b7c14d656b4100606abed8e91a98e8b50f3bf/pytest_sugar-0.9.7-py2.py3-none-any.whl", hash = "sha256:8cb5a4e5f8bbcd834622b0235db9e50432f4cbd71fef55b467fe44e43701e062", size = 10034, upload-time = "2023-04-10T11:17:30.233Z" },
+]
+
+[[package]]
+name = "pytest-xdist"
+version = "3.5.0"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version < '3.8'",
+]
+dependencies = [
+    { name = "execnet", version = "2.0.2", source = { registry = "https://pypi.org/simple" } },
+    { name = "pytest" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/b3/f4/ac9c4ccbc5984ebc3bef6dbdbcdaf553a1aae07c08e63b8b25a6239ecc45/pytest-xdist-3.5.0.tar.gz", hash = "sha256:cbb36f3d67e0c478baa57fa4edc8843887e0f6cfc42d677530a36d7472b32d8a", size = 78977, upload-time = "2023-11-21T15:21:15.305Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/50/37/125fe5ec459321e2d48a0c38672cfc2419ad87d580196fd894e5f25230b0/pytest_xdist-3.5.0-py3-none-any.whl", hash = "sha256:d075629c7e00b611df89f490a5063944bee7a4362a5ff11c7cc7824a03dfce24", size = 42017, upload-time = "2023-11-21T15:21:13.278Z" },
+]
+
+[[package]]
+name = "pytest-xdist"
+version = "3.6.1"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version == '3.8.*'",
+]
+dependencies = [
+    { name = "execnet", version = "2.1.2", source = { registry = "https://pypi.org/simple" } },
+    { name = "pytest" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/41/c4/3c310a19bc1f1e9ef50075582652673ef2bfc8cd62afef9585683821902f/pytest_xdist-3.6.1.tar.gz", hash = "sha256:ead156a4db231eec769737f57668ef58a2084a34b2e55c4a8fa20d861107300d", size = 84060, upload-time = "2024-04-28T19:29:54.414Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/6d/82/1d96bf03ee4c0fdc3c0cbe61470070e659ca78dc0086fb88b66c185e2449/pytest_xdist-3.6.1-py3-none-any.whl", hash = "sha256:9ed4adfb68a016610848639bb7e02c9352d5d9f03d04809919e2dafc3be4cca7", size = 46108, upload-time = "2024-04-28T19:29:52.813Z" },
+]
+
+[[package]]
+name = "pytest-xdist"
+version = "3.8.0"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version >= '3.11'",
+    "python_full_version == '3.10.*'",
+    "python_full_version == '3.9.*'",
+]
+dependencies = [
+    { name = "execnet", version = "2.1.2", source = { registry = "https://pypi.org/simple" } },
+    { name = "pytest" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/78/b4/439b179d1ff526791eb921115fca8e44e596a13efeda518b9d845a619450/pytest_xdist-3.8.0.tar.gz", hash = "sha256:7e578125ec9bc6050861aa93f2d59f1d8d085595d6551c2c90b6f4fad8d3a9f1", size = 88069, upload-time = "2025-07-01T13:30:59.346Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ca/31/d4e37e9e550c2b92a9cbc2e4d0b7420a27224968580b5a447f420847c975/pytest_xdist-3.8.0-py3-none-any.whl", hash = "sha256:202ca578cfeb7370784a8c33d6d05bc6e13b4f25b5053c30a152269fd10f0b88", size = 46396, upload-time = "2025-07-01T13:30:56.632Z" },
 ]
 
 [[package]]
