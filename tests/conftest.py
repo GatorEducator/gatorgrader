@@ -2,14 +2,11 @@
 
 import os
 import sys
+from contextlib import contextmanager
 
 import pytest
 
-from contextlib import contextmanager
-
-from gator import checkers
-from gator import report
-
+from gator import checkers, report
 
 GO_BACK_A_DIRECTORY = "/../"
 
@@ -25,7 +22,7 @@ sys.path.insert(0, PREVIOUS_DIRECTORY + GO_BACK_A_DIRECTORY)
 
 
 @pytest.fixture(scope="session")
-def load_checker():  # noqa: D202
+def load_checker():
     """Load a checker using pluginbase."""
 
     def _load_checker(parsed_arguments):
@@ -34,14 +31,16 @@ def load_checker():  # noqa: D202
         checker_source = checkers.get_source([external_checker_directory])
         check_name = checkers.get_chosen_check(parsed_arguments)
         check_file = checkers.transform_check(check_name)
-        check_exists = checkers.verify_check_existence(check_file, checker_source)
+        check_exists = checkers.verify_check_existence(
+            check_file, checker_source
+        )
         return (check_exists, checker_source, check_file)
 
     return _load_checker
 
 
 @pytest.fixture(scope="session")
-def load_check():  # noqa: D202
+def load_check():
     """Load a check using pluginbase."""
 
     def _load_check(parsed_arguments):
@@ -50,7 +49,9 @@ def load_check():  # noqa: D202
         checker_source = checkers.get_source([external_checker_directory])
         check_name = checkers.get_chosen_check(parsed_arguments)
         check_file = checkers.transform_check(check_name)
-        assert checkers.verify_check_existence(check_file, checker_source) is True
+        assert (
+            checkers.verify_check_existence(check_file, checker_source) is True
+        )
         return checkers.load_check(checker_source, check_file)
 
     return _load_check
@@ -63,7 +64,7 @@ def reset_results_dictionary():
 
 
 @pytest.fixture(scope="session")
-def not_raises():  # noqa: D202
+def not_raises():
     """Delete the check that an exception is not raised during test execution."""
 
     @contextmanager
@@ -76,6 +77,8 @@ def not_raises():  # noqa: D202
                 f"Raised exception {error} when it should not!"
             ) from error
         except Exception as error:
-            raise AssertionError(f"An unexpected exception {error} raised.") from error
+            raise AssertionError(
+                f"An unexpected exception {error} raised."
+            ) from error
 
     return _not_raises
