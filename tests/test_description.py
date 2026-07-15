@@ -2,8 +2,7 @@
 
 import pytest
 
-from gator import constants
-from gator import description
+from gator import constants, description
 
 
 class ArgParseWithDescription:
@@ -44,7 +43,9 @@ def test_transform_result_dictionary_transforms_with_description():
     desc = "A description"
     argparse = ArgParseWithDescription(desc)
     result_dict = {constants.results.Description: "something else"}
-    result_dict = description.transform_result_dictionary(argparse, result_dict)
+    result_dict = description.transform_result_dictionary(
+        argparse, result_dict
+    )
     assert result_dict[constants.results.Description] == desc
 
 
@@ -53,7 +54,9 @@ def test_transform_result_dictionary_transforms_with_no_description():
     argparse = ArgParseWithNoDescription()
     dict_desc = "something else"
     result_dict = {constants.results.Description: dict_desc}
-    result_dict = description.transform_result_dictionary(argparse, result_dict)
+    result_dict = description.transform_result_dictionary(
+        argparse, result_dict
+    )
     assert result_dict[constants.results.Description] == dict_desc
 
 

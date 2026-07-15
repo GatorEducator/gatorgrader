@@ -3,12 +3,9 @@
 import json
 import os
 import sys
-
 from unittest.mock import patch
 
-from gator import constants
-from gator import files
-from gator import util
+from gator import constants, files, util
 
 VERIFIED = True
 NOT_VERIFIED = False
@@ -72,7 +69,9 @@ def test_gatorgrader_home_is_set_after_os_dictionary_set_no_trailing(tmpdir):
     assert "gatorgrader" in gatorgrader_home
 
 
-def test_gatorgrader_home_is_set_after_os_dictionary_set_wrong_directory(tmpdir):
+def test_gatorgrader_home_is_set_after_os_dictionary_set_wrong_directory(
+    tmpdir,
+):
     """Ensure that the GATORGRADER_HOME environment variable is set."""
     os.environ["GATORGRADER_HOME"] = str(tmpdir) + "/" + "INCORRECT"
     gatorgrader_home = util.get_gatorgrader_home()
@@ -97,7 +96,9 @@ def test_gatorgrader_home_verification_working_verified(tmp_path):
     # this must be a valid directory on the filesystem
     home_directory = tmp_path / "gatorgrader"
     home_directory.mkdir()
-    gatorgrader_home_verified = util.verify_gatorgrader_home(str(home_directory))
+    gatorgrader_home_verified = util.verify_gatorgrader_home(
+        str(home_directory)
+    )
     assert gatorgrader_home_verified is VERIFIED
 
 
@@ -106,7 +107,9 @@ def test_gatorgrader_home_verification_working_notverified_wrong(tmp_path):
     # the real directory does not end in "gatorgrader" and thus it is not valid
     home_directory = tmp_path / "gatorgraderNOT"
     home_directory.mkdir()
-    gatorgrader_home_verified = util.verify_gatorgrader_home(str(home_directory))
+    gatorgrader_home_verified = util.verify_gatorgrader_home(
+        str(home_directory)
+    )
     assert gatorgrader_home_verified is NOT_VERIFIED
 
 
@@ -118,7 +121,9 @@ def test_gatorgrader_home_verification_working_notverified_internal(tmp_path):
     home_directory.mkdir()
     home_directory = home_directory / "finaldirectorywrong"
     home_directory.mkdir()
-    gatorgrader_home_verified = util.verify_gatorgrader_home(str(home_directory))
+    gatorgrader_home_verified = util.verify_gatorgrader_home(
+        str(home_directory)
+    )
     assert gatorgrader_home_verified is NOT_VERIFIED
 
 
@@ -167,14 +172,18 @@ def test_relational_operator_exacted_true_not_exacted():
     relation_boolean, relation_value = util.greater_than_equal_exacted(100, 10)
     assert relation_boolean is True
     assert relation_value == 100
-    relation_boolean, relation_value = util.greater_than_equal_exacted(100, 10, False)
+    relation_boolean, relation_value = util.greater_than_equal_exacted(
+        100, 10, False
+    )
     assert relation_boolean is True
     assert relation_value == 100
 
 
 def test_relational_operator_exacted_true_exacted():
     """Check to see if the exacted relational operator returns True."""
-    relation_boolean, relation_value = util.greater_than_equal_exacted(100, 100, True)
+    relation_boolean, relation_value = util.greater_than_equal_exacted(
+        100, 100, True
+    )
     assert relation_boolean is True
     assert relation_value == 100
 
@@ -184,17 +193,23 @@ def test_relational_operator_exacted_false_not_exacted():
     relation_boolean, relation_value = util.greater_than_equal_exacted(10, 100)
     assert relation_boolean is False
     assert relation_value == 10
-    relation_boolean, relation_value = util.greater_than_equal_exacted(10, 100, False)
+    relation_boolean, relation_value = util.greater_than_equal_exacted(
+        10, 100, False
+    )
     assert relation_boolean is False
     assert relation_value == 10
 
 
 def test_relational_operator_exacted_false_exacted():
     """Check to see if the exacted relational operator returns False."""
-    relation_boolean, relation_value = util.greater_than_equal_exacted(10, 100, True)
+    relation_boolean, relation_value = util.greater_than_equal_exacted(
+        10, 100, True
+    )
     assert relation_boolean is False
     assert relation_value == 10
-    relation_boolean, relation_value = util.greater_than_equal_exacted(100, 10, True)
+    relation_boolean, relation_value = util.greater_than_equal_exacted(
+        100, 10, True
+    )
     assert relation_boolean is False
     assert relation_value == 100
 

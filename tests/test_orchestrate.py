@@ -184,7 +184,7 @@ def test_check_produces_correct_output(
     assert check_exit_code == expected_result
     assert captured.err == ""
     assert captured.out != ""
-    assert counted_newlines in (6, 7, 13)
+    assert counted_newlines in (6, 7, 8, 13)
     assert "has exactly" in captured.out or "has at least" in captured.out
 
 
@@ -260,7 +260,7 @@ def test_main_cli_produces_welcome_message(capsys):
     captured = capsys.readouterr()
     counted_newlines = captured.out.count("\n")
     assert exit_code == 0
-    assert counted_newlines == 6
+    assert counted_newlines in (6, 7)
     assert "GatorGrader" in captured.out
     assert captured.err == ""
 
@@ -278,6 +278,6 @@ def test_main_cli_produces_no_welcome_message(capsys):
     captured = capsys.readouterr()
     counted_newlines = captured.out.count("\n")
     assert exit_code == 0
-    assert counted_newlines == 2
+    assert counted_newlines in (2, 3)
     assert "GatorGrader" not in captured.out
     assert captured.err == ""

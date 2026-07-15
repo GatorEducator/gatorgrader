@@ -137,11 +137,15 @@ def test_words_different_min_counts(
     """Check that it can detect different counts of words."""
     # check the summarized value and the size of the dictionary
     # --> implicit use of the min function, which is the default
-    actual_count, actual_count_dictionary = fragments.count_words(writing_string)
+    actual_count, actual_count_dictionary = fragments.count_words(
+        writing_string
+    )
     assert actual_count == expected_count
     assert len(actual_count_dictionary) == expected_paragraph_count
     # --> explicit use of the min function, which is now a parameter
-    actual_count, actual_count_dictionary = fragments.count_words(writing_string, min)
+    actual_count, actual_count_dictionary = fragments.count_words(
+        writing_string, min
+    )
     assert len(actual_count_dictionary) == expected_paragraph_count
     assert actual_count == expected_count
 
@@ -276,7 +280,9 @@ def test_minimum_words_different_min_counts(writing_string, expected_count):
 def test_total_words_different_sum_counts(writing_string, expected_count):
     """Check that it can detect different counts of total words."""
     # only check the sum count
-    actual_count, actual_count_dictionary = fragments.count_total_words(writing_string)
+    actual_count, actual_count_dictionary = fragments.count_total_words(
+        writing_string
+    )
     assert actual_count == expected_count
 
 
@@ -344,7 +350,9 @@ def test_words_different_sum_counts(writing_string, expected_count):
     # only check the sum count
     # does not check size of dictionary as that was
     # checked in a previous parameterized test case
-    actual_count, actual_count_dictionary = fragments.count_words(writing_string, sum)
+    actual_count, actual_count_dictionary = fragments.count_words(
+        writing_string, sum
+    )
     assert actual_count == expected_count
 
 
@@ -358,7 +366,9 @@ def test_words_different_sum_counts(writing_string, expected_count):
         ("System.out.println(new Date())", "new Date", 1),
     ],
 )
-def test_chosen_fragment_zero_or_one(writing_string, chosen_fragment, expected_count):
+def test_chosen_fragment_zero_or_one(
+    writing_string, chosen_fragment, expected_count
+):
     """Check that it can detect one or more of a fragment."""
     assert (
         fragments.count_specified_fragment(writing_string, chosen_fragment)
@@ -369,11 +379,23 @@ def test_chosen_fragment_zero_or_one(writing_string, chosen_fragment, expected_c
 @pytest.mark.parametrize(
     "writing_string,chosen_fragment,expected_count",
     [
-        ("hello world!!%^(@after)writing a lot\n\nnew one writing", "writing", 2),
+        (
+            "hello world!!%^(@after)writing a lot\n\nnew one writing",
+            "writing",
+            2,
+        ),
         ("hello @world!!%^(@after)writing a lot\n\nnew new new one", "new", 3),
-        ("hello @world!!%^(@after)writing a @world lot\n\nnew one", "@world", 2),
+        (
+            "hello @world!!%^(@after)writing a @world lot\n\nnew one",
+            "@world",
+            2,
+        ),
         ("System.out.println(new Date()) \n new Date()", "new Date()", 2),
-        ("System.out.println(new Date() new Date() new Date())", "new Date", 3),
+        (
+            "System.out.println(new Date() new Date() new Date())",
+            "new Date",
+            3,
+        ),
     ],
 )
 def test_chosen_fragment_many(writing_string, chosen_fragment, expected_count):
@@ -391,8 +413,14 @@ def test_chosen_fragment_many(writing_string, chosen_fragment, expected_count):
         ("hello world!!%^(@after)writing a lot\nnew one writing", 2),
         ("hello @world!!%^(@after)writing a @world lot\nnew one", 2),
         ("System.out.println(new Date()) \nnew Date()", 2),
-        ("hello @world!!%^(@after)writing a lot\nnew new new one\nthird one", 3),
-        ("hello @world!!%^(@after)writing a lot\nnew new new one\nthird one\n\n", 3),
+        (
+            "hello @world!!%^(@after)writing a lot\nnew new new one\nthird one",
+            3,
+        ),
+        (
+            "hello @world!!%^(@after)writing a lot\nnew new new one\nthird one\n\n",
+            3,
+        ),
     ],
 )
 def test_extract_line_list(writing_string, expected_count):
@@ -468,13 +496,27 @@ def test_count_entities_from_file_with_threshold(tmpdir):
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
-    exceeds_threshold, actual_count, _ = fragments.specified_entity_greater_than_count(
-        "hello", fragments.count_specified_fragment, 10, hello_file, directory, ""
+    exceeds_threshold, actual_count, _ = (
+        fragments.specified_entity_greater_than_count(
+            "hello",
+            fragments.count_specified_fragment,
+            10,
+            hello_file,
+            directory,
+            "",
+        )
     )
     assert actual_count == 1
     assert exceeds_threshold is False
-    exceeds_threshold, actual_count, _ = fragments.specified_entity_greater_than_count(
-        "hello", fragments.count_specified_fragment, 1, hello_file, directory, ""
+    exceeds_threshold, actual_count, _ = (
+        fragments.specified_entity_greater_than_count(
+            "hello",
+            fragments.count_specified_fragment,
+            1,
+            hello_file,
+            directory,
+            "",
+        )
     )
     assert actual_count == 1
     assert exceeds_threshold is True
@@ -483,13 +525,17 @@ def test_count_entities_from_file_with_threshold(tmpdir):
 def test_count_entities_from_contents_with_threshold():
     """Check that counting fragments with threshold in a string works correctly."""
     value = "/* hello world */"
-    exceeds_threshold, actual_count, _ = fragments.specified_entity_greater_than_count(
-        "hello", fragments.count_specified_fragment, 10, contents=value
+    exceeds_threshold, actual_count, _ = (
+        fragments.specified_entity_greater_than_count(
+            "hello", fragments.count_specified_fragment, 10, contents=value
+        )
     )
     assert actual_count == 1
     assert exceeds_threshold is False
-    exceeds_threshold, actual_count, _ = fragments.specified_entity_greater_than_count(
-        "hello", fragments.count_specified_fragment, 1, contents=value
+    exceeds_threshold, actual_count, _ = (
+        fragments.specified_entity_greater_than_count(
+            "hello", fragments.count_specified_fragment, 1, contents=value
+        )
     )
     assert actual_count == 1
     assert exceeds_threshold is True
@@ -554,7 +600,9 @@ def test_count_single_line_from_file_with_threshold(tmpdir):
             actual_count,
         ),
         _,
-    ) = fragments.specified_source_greater_than_count(1, hello_file, directory, "")
+    ) = fragments.specified_source_greater_than_count(
+        1, hello_file, directory, ""
+    )
     assert actual_count == 1
     assert exceeds_threshold[0] is True
     (
@@ -563,7 +611,9 @@ def test_count_single_line_from_file_with_threshold(tmpdir):
             actual_count,
         ),
         _,
-    ) = fragments.specified_source_greater_than_count(100, hello_file, directory, "")
+    ) = fragments.specified_source_greater_than_count(
+        100, hello_file, directory, ""
+    )
     assert actual_count == 1
     assert exceeds_threshold[0] is False
 
@@ -582,7 +632,9 @@ def test_count_single_line_from_file_with_threshold_and_wildcards(tmpdir):
             actual_count,
         ),
         _,
-    ) = fragments.specified_source_greater_than_count(1, hello_file, directory, "")
+    ) = fragments.specified_source_greater_than_count(
+        1, hello_file, directory, ""
+    )
     assert actual_count == 1
     assert exceeds_threshold[0] is True
     (
@@ -591,7 +643,9 @@ def test_count_single_line_from_file_with_threshold_and_wildcards(tmpdir):
             actual_count,
         ),
         _,
-    ) = fragments.specified_source_greater_than_count(100, hello_file, directory, "")
+    ) = fragments.specified_source_greater_than_count(
+        100, hello_file, directory, ""
+    )
     assert actual_count == 1
     assert exceeds_threshold[0] is False
     hello_file = "*.*"
@@ -601,7 +655,9 @@ def test_count_single_line_from_file_with_threshold_and_wildcards(tmpdir):
             actual_count,
         ),
         _,
-    ) = fragments.specified_source_greater_than_count(1, hello_file, directory, "")
+    ) = fragments.specified_source_greater_than_count(
+        1, hello_file, directory, ""
+    )
     assert actual_count == 1
     assert exceeds_threshold[0] is True
     (
@@ -610,7 +666,9 @@ def test_count_single_line_from_file_with_threshold_and_wildcards(tmpdir):
             actual_count,
         ),
         _,
-    ) = fragments.specified_source_greater_than_count(100, hello_file, directory, "")
+    ) = fragments.specified_source_greater_than_count(
+        100, hello_file, directory, ""
+    )
     assert actual_count == 1
     assert exceeds_threshold[0] is False
 
@@ -629,7 +687,9 @@ def test_count_no_line_from_incorrect_file(tmpdir):
             actual_count,
         ),
         _,
-    ) = fragments.specified_source_greater_than_count(1, hello_file, directory, "")
+    ) = fragments.specified_source_greater_than_count(
+        1, hello_file, directory, ""
+    )
     assert actual_count == 0
     assert exceeds_threshold[0] is False
 
@@ -662,7 +722,9 @@ def test_count_multiple_lines_from_file_with_threshold(tmpdir):
             actual_count,
         ),
         _,
-    ) = fragments.specified_source_greater_than_count(2, hello_file, directory, "")
+    ) = fragments.specified_source_greater_than_count(
+        2, hello_file, directory, ""
+    )
     assert actual_count == 3
     assert exceeds_threshold[0] is True
     (
@@ -671,7 +733,9 @@ def test_count_multiple_lines_from_file_with_threshold(tmpdir):
             actual_count,
         ),
         _,
-    ) = fragments.specified_source_greater_than_count(3, hello_file, directory, "")
+    ) = fragments.specified_source_greater_than_count(
+        3, hello_file, directory, ""
+    )
     assert actual_count == 3
     assert exceeds_threshold[0] is True
     (
@@ -680,50 +744,46 @@ def test_count_multiple_lines_from_file_with_threshold(tmpdir):
             actual_count,
         ),
         _,
-    ) = fragments.specified_source_greater_than_count(100, hello_file, directory, "")
+    ) = fragments.specified_source_greater_than_count(
+        100, hello_file, directory, ""
+    )
     assert actual_count == 3
     assert exceeds_threshold[0] is False
 
 
 def test_count_multiple_lines_from_contents():
     """Check that counting lines in contents works correctly with blanks."""
-    hello_contents = (
-        '/* hello world */\nString s = new String("hello");\n\n//this is a comment'
-    )
+    hello_contents = '/* hello world */\nString s = new String("hello");\n\n//this is a comment'
     count, _ = fragments.count_lines("", "", hello_contents)
     assert count == 3
 
 
 def test_count_multiple_lines_from_contents_single_blank():
     """Check that counting lines in contents works correctly."""
-    hello_contents = (
-        '/* hello world */\nString s = new String("hello");\n//this is a comment'
-    )
+    hello_contents = '/* hello world */\nString s = new String("hello");\n//this is a comment'
     count, _ = fragments.count_lines("", "", hello_contents)
     assert count == 3
 
 
 def test_count_multiple_lines_from_contents_multiple_blanks():
     """Check that counting lines in contents works correctly."""
-    hello_contents = (
-        '/* hello world */\n\nString s = new String("hello");\n//this is a comment\n\n'
-    )
+    hello_contents = '/* hello world */\n\nString s = new String("hello");\n//this is a comment\n\n'
     count, _ = fragments.count_lines("", "", hello_contents)
     assert count == 3
 
 
 def test_count_multiple_lines_from_contents_with_threshold():
     """Check that counting lines in contents works correctly."""
-    hello_contents = (
-        '/* hello world */\nString s = new String("hello");\n//this is a comment'
+    hello_contents = '/* hello world */\nString s = new String("hello");\n//this is a comment'
+    (
+        (
+            exceeds_threshold,
+            actual_count,
+        ),
+        _,
+    ) = fragments.specified_source_greater_than_count(
+        2, "", "", hello_contents
     )
-    (
-        (
-            exceeds_threshold,
-            actual_count,
-        ),
-        _,
-    ) = fragments.specified_source_greater_than_count(2, "", "", hello_contents)
     assert actual_count == 3
     assert exceeds_threshold[0] is True
     (
@@ -732,7 +792,9 @@ def test_count_multiple_lines_from_contents_with_threshold():
             actual_count,
         ),
         _,
-    ) = fragments.specified_source_greater_than_count(3, "", "", hello_contents)
+    ) = fragments.specified_source_greater_than_count(
+        3, "", "", hello_contents
+    )
     assert actual_count == 3
     assert exceeds_threshold[0] is True
     (
@@ -741,7 +803,9 @@ def test_count_multiple_lines_from_contents_with_threshold():
             actual_count,
         ),
         _,
-    ) = fragments.specified_source_greater_than_count(100, "", "", hello_contents)
+    ) = fragments.specified_source_greater_than_count(
+        100, "", "", hello_contents
+    )
     assert actual_count == 3
     assert exceeds_threshold[0] is False
 
@@ -808,7 +872,11 @@ def test_is_valid_regex(regex, expected_status):
             1,
         ),
         ("\\begin{document}the document never ends", r"\\begin(.*?)\\end", 0),
-        ("\\bibliographystyle{abbrv}\n\\bibliography{main}", r"\\begin(.*?)\\end", 0),
+        (
+            "\\bibliographystyle{abbrv}\n\\bibliography{main}",
+            r"\\begin(.*?)\\end",
+            0,
+        ),
         (
             "\\bibliographystyle{abbrv}\n\\bibliography{main}\ninvalid",
             r"\\begin\{.*?\}",
@@ -817,10 +885,13 @@ def test_is_valid_regex(regex, expected_status):
         ("<footer>this nice foot</footer>", r"<footer>(.*?)<\/footer>", 1),
     ],
 )
-def test_chosen_regex_zero_or_one(writing_string, chosen_regex, expected_count):
+def test_chosen_regex_zero_or_one(
+    writing_string, chosen_regex, expected_count
+):
     """Check that it can detect one or more of a regex."""
     assert (
-        fragments.count_specified_regex(writing_string, chosen_regex) == expected_count
+        fragments.count_specified_regex(writing_string, chosen_regex)
+        == expected_count
     )
 
 
@@ -848,13 +919,18 @@ def test_chosen_regex_zero_or_one(writing_string, chosen_regex, expected_count):
             r"<footer>(.*)<\/footer>",
             1,
         ),
-        ("\\begin{thing1} \\begin \\begin{main}invalid", r"\\begin\{itemize\}", 0),
+        (
+            "\\begin{thing1} \\begin \\begin{main}invalid",
+            r"\\begin\{itemize\}",
+            0,
+        ),
     ],
 )
 def test_chosen_regex_many(writing_string, chosen_regex, expected_count):
     """Check that it can detect many of a regex."""
     assert (
-        fragments.count_specified_regex(writing_string, chosen_regex) == expected_count
+        fragments.count_specified_regex(writing_string, chosen_regex)
+        == expected_count
     )
 
 
@@ -867,7 +943,10 @@ def test_count_regex_from_file(tmpdir):
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
     count, _ = fragments.count_entities(
-        r"\\begin(.*?)\\end", fragments.count_specified_regex, hello_file, directory
+        r"\\begin(.*?)\\end",
+        fragments.count_specified_regex,
+        hello_file,
+        directory,
     )
     assert count == 1
     count, _ = fragments.count_entities(
@@ -875,7 +954,11 @@ def test_count_regex_from_file(tmpdir):
     )
     assert count == 0
     count, _ = fragments.count_entities(
-        r"invalid[^]", fragments.count_specified_regex, hello_file, directory, ""
+        r"invalid[^]",
+        fragments.count_specified_regex,
+        hello_file,
+        directory,
+        "",
     )
     assert count == -1
 
@@ -905,18 +988,36 @@ def test_count_regex_from_file_with_threshold(tmpdir):
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
     hello_file = "Hello.java"
-    exceeds_threshold, actual_count, _ = fragments.specified_entity_greater_than_count(
-        r"\\begin(.*?)\\end", fragments.count_specified_regex, 2, hello_file, directory
+    exceeds_threshold, actual_count, _ = (
+        fragments.specified_entity_greater_than_count(
+            r"\\begin(.*?)\\end",
+            fragments.count_specified_regex,
+            2,
+            hello_file,
+            directory,
+        )
     )
     assert actual_count == 1
     assert exceeds_threshold is False
-    exceeds_threshold, actual_count, _ = fragments.specified_entity_greater_than_count(
-        r"\\begin(.*?)\\end", fragments.count_specified_regex, 1, hello_file, directory
+    exceeds_threshold, actual_count, _ = (
+        fragments.specified_entity_greater_than_count(
+            r"\\begin(.*?)\\end",
+            fragments.count_specified_regex,
+            1,
+            hello_file,
+            directory,
+        )
     )
     assert actual_count == 1
     assert exceeds_threshold is True
-    exceeds_threshold, actual_count, _ = fragments.specified_entity_greater_than_count(
-        r"invalid[^]", fragments.count_specified_regex, 0, hello_file, directory
+    exceeds_threshold, actual_count, _ = (
+        fragments.specified_entity_greater_than_count(
+            r"invalid[^]",
+            fragments.count_specified_regex,
+            0,
+            hello_file,
+            directory,
+        )
     )
 
     assert actual_count == -1
@@ -926,18 +1027,30 @@ def test_count_regex_from_file_with_threshold(tmpdir):
 def test_count_regex_from_contents_with_threshold():
     """Check that counting regex with threshold in a string works correctly."""
     value = "\\begin{document} hello! \\end{document}"
-    exceeds_threshold, actual_count, _ = fragments.specified_entity_greater_than_count(
-        r"\\begin(.*?)\\end", fragments.count_specified_regex, 10, contents=value
+    exceeds_threshold, actual_count, _ = (
+        fragments.specified_entity_greater_than_count(
+            r"\\begin(.*?)\\end",
+            fragments.count_specified_regex,
+            10,
+            contents=value,
+        )
     )
     assert actual_count == 1
     assert exceeds_threshold is False
-    exceeds_threshold, actual_count, _ = fragments.specified_entity_greater_than_count(
-        r"\\begin(.*?)\\end", fragments.count_specified_regex, 1, contents=value
+    exceeds_threshold, actual_count, _ = (
+        fragments.specified_entity_greater_than_count(
+            r"\\begin(.*?)\\end",
+            fragments.count_specified_regex,
+            1,
+            contents=value,
+        )
     )
     assert actual_count == 1
     assert exceeds_threshold is True
-    exceeds_threshold, actual_count, _ = fragments.specified_entity_greater_than_count(
-        r"invalid[^]", fragments.count_specified_regex, 0, contents=value
+    exceeds_threshold, actual_count, _ = (
+        fragments.specified_entity_greater_than_count(
+            r"invalid[^]", fragments.count_specified_regex, 0, contents=value
+        )
     )
     assert actual_count == -1
     assert exceeds_threshold is False
