@@ -729,7 +729,7 @@ def invoke_all_command_executes_checks(command):
     # pylint: disable=unused-variable
     # note that the program does not use all of these
     # return values, but we are capturing them if needed for debugging
-    command_output, command_error, command_returncode = run.run_command(
+    _command_output, command_error, command_returncode = run.run_command(
         command
     )
     # note that a zero-code means that the command did not work
