@@ -66,7 +66,7 @@ def main_api(system_arguments: List[str]):
 
     """
     perform_check(
-        *perform_system_configuration(["--nowelcome"] + system_arguments)
+        *perform_system_configuration(["--nowelcome", *system_arguments])
     )
     return report.decompose_result(report.get_result())
 
