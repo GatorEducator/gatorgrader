@@ -1,62 +1,51 @@
-# This GitHub Actions workflow contains two jobs:
-# -- First, Lint uses the latest Ubuntu image and Python 3.8 to check the code
-# and writing for defects, using the Pipenv linting script and mdl
-#
-# -- Second, Test uses a strategy matrix to run the Pipenv test scripts for
-# multiple platform configurations, and then uploads test coverage.
+# This GitHub Actions workflow contains four jobs:
+# -- First, Lint Code runs on Ubuntu with Python 3.10, 3.11, 3.12, 3.13, and 3.14
+# to check the code for formatting and linting defects using the uv lint task.
+# -- Second, Test uses a strategy matrix to test the code with different
+# operating systems (Ubuntu, macOS, Windows) and Python versions (3.10,
+# 3.11, 3.12, 3.13, 3.14), using the uv test task.
+# -- Third, Test Coverage runs on Ubuntu with Python 3.10, 3.11, 3.12, 3.13, and
+# 3.14 to check that test coverage meets the minimum threshold.
+# -- Fourth, Lint Markdown uses the latest Ubuntu image and markdownlint to
+# check markdown files for defects.
+
 name: Lint and Test
 
 on: [push, pull_request]
 
 jobs:
   lint:
-    name: Lint
+    name: Lint Code (Python ${{ matrix.python-version }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Setup Python 3.12
+      - name: Setup Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
-          python-version: "3.12"
+          python-version: ${{ matrix.python-version }}
       - name: Install uv
         uses: astral-sh/setup-uv@v5
         with:
-          version: "0.11.25"
-      - name: Setup uv
-        run: |
-          uv python pin ${{ matrix.python-version }}
-          uv venv
-          uv pip list
+          enable-cache: true
       - name: Install dependencies
         run: uv sync
-      # - name: Lint code
-      #   run: uv run task lint --check
-      - name: Lint writing
-        uses: actionshub/markdownlint@main
+      - name: Lint code
+        run: uv run task lint
 
   test:
-    # Test uses a strategy matrix to ensure that sufficient platform test
-    # coverage is reached. With this spread, we achieve testing of four
-    # different Python versions and three operating systems without running the
-    # full twelve possible combinations, greatly reducing load and usage.
-    name: Test
+    name: Test (${{ matrix.os }}, Python ${{ matrix.python-version }})
     runs-on: ${{ matrix.os }}
     strategy:
-      # Turning fail-fast off ensures the entire strategy matrix is allowed to
-      # run to completion, allowing detection of individual platform issues
-      # regardless of the status of the other platforms.
       fail-fast: false
       matrix:
-        os: [ubuntu-latest]
-        python-version: ["3.10", "3.12"]
-        include:
-          - os: macos-latest
-            python-version: "3.9"
-          - os: windows-latest
-            python-version: "3.11"
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
     env:
-      # These environment variables are passed to CodeCov to identify each build
       OS: ${{ matrix.os }}
       PYTHON: ${{ matrix.python-version }}
     steps:
@@ -69,29 +58,40 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v5
         with:
-          version: "0.11.25"
-      - name: Setup uv
-        run: |
-          uv python pin ${{ matrix.python-version }}
-          uv venv
-          uv pip list
+          enable-cache: true
       - name: Install dependencies
         run: uv sync
-      - name: Run the test suite
-        run: uv run pytest
-      - name: Collect test coverage
-        # We need to ensure that the cover-win script is run for Windows, so
-        # this Action runs different commands based on the runner's operating
-        # system.
-        uses: knicknic/os-specific-run@v1
+      - name: Execute tests
+        run: uv run task test
+
+  coverage:
+    name: Test Coverage (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
         with:
-          linux: uv run task cover
-          macos: uv run task cover
-          windows: uv run task cover-win
-      # - name: Upload coverage
-      #   uses: codecov/codecov-action@v1
-      #   with:
-      #     files: ./coverage.xml
-      #     flags: unittests
-      #     env_vars: OS,PYTHON
-      #     fail_ci_if_error: true
+          python-version: ${{ matrix.python-version }}
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      - name: Install dependencies
+        run: uv sync
+      - name: Collect test coverage
+        run: uv run task cover
+
+  markdownlint:
+    name: Lint Markdown
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Lint writing
+        uses: actionshub/markdownlint@main
