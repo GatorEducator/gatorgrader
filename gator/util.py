@@ -323,8 +323,7 @@ def get_file_diagnostic_deep_exact(file_count_dictionary, value):
                 file_count_dictionary, value
             )
         # there is some type of exact match in the data set, so extract and return it
-        # if file_details != {} and file_details != (0, 0):
-        if file_details not in ({}, {(0, 0)}):
+        if file_details != {} and file_details != (0, 0):  # noqa: PLR1714
             file_name = file_details[0]
             file_count = file_details[1][1]  # type: ignore[index]
             file_name_phrase = (
