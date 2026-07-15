@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # determine whether or not black code formatting
 # will fail if code is not correctly formatted
@@ -43,7 +43,7 @@ MODULE="gator"
 
 # define all of the linters to iteratively run
 declare -A LINTERS
-LINTERS=( ["black"]="poetry run black $CHECK $FILES" ["pylint"]="poetry run pylint $FILES" ["flake8"]="poetry run flake8 $FILES" ["bandit"]="poetry run bandit -c bandit.yml $FILES" ["radon-cc"]="poetry run radon cc $FILES" ["radon-mi"]="poetry run radon mi $FILES" ["xenon"]="poetry run xenon --max-absolute D --max-modules B --max-average A $MODULE" ["pydocstyle"]="poetry run pydocstyle $FILES" )
+LINTERS=( ["black"]="uv run black $CHECK $FILES" ["pylint"]="uv run pylint $FILES" ["flake8"]="uv run flake8 $FILES" ["bandit"]="uv run bandit -c bandit.yml $FILES" ["radon-cc"]="uv run radon cc $FILES" ["radon-mi"]="uv run radon mi $FILES" ["xenon"]="uv run xenon --max-absolute D --max-modules B --max-average A $MODULE" ["pydocstyle"]="uv run pydocstyle $FILES" )
 
 # run each of the already configured linters
 for tool in "${!LINTERS[@]}"; do
