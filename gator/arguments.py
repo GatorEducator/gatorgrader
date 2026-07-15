@@ -1,12 +1,8 @@
 """Handle the top-level command-line arguments provided to GatorGrader."""
 
-from gator import checkers
-from gator import constants
-from gator import description
-from gator import display
-from gator import files
-
 import argparse
+
+from gator import checkers, constants, description, display, files
 
 
 class GatorGraderArgumentParser(argparse.ArgumentParser):
@@ -37,7 +33,8 @@ def parse(args):
     # create the parser with the raw test help formatter
     # that will maintain the newlines and spaces in the epilog
     parser = GatorGraderArgumentParser(
-        prog=constants.program.Name, formatter_class=argparse.RawTextHelpFormatter
+        prog=constants.program.Name,
+        formatter_class=argparse.RawTextHelpFormatter,
     )
 
     # assign a label to indicate that there is only one
@@ -60,7 +57,9 @@ def parse(args):
     # REQUIRED? No
     # CORRECT WHEN: always, only changes report output
     parser.add_argument(
-        constants.commandlines.Json, help=constants.help.Json, action="store_true"
+        constants.commandlines.Json,
+        help=constants.help.Json,
+        action="store_true",
     )
 
     # NOWELCOME: do not display the welcome message?
@@ -120,7 +119,8 @@ def verify(args):
     # ENSURE: the description is a valid description
     if args.description is not None:
         # assume that the description is not valid
-        verified_arguments = verified_arguments and description.is_valid_description(
-            args.description
+        verified_arguments = (
+            verified_arguments
+            and description.is_valid_description(args.description)
         )
     return verified_arguments

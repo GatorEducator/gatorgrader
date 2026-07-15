@@ -26,7 +26,9 @@ def test_display_invalid_system_arguments(capsys):
 
 def test_display_invalid_system_arguments_with_error(capsys):
     """Check that the invalid system arguments function produces output lines."""
-    display.incorrect_system_arguments_message(InvalidCheckError([], "TestCheck"))
+    display.incorrect_system_arguments_message(
+        InvalidCheckError([], "TestCheck")
+    )
     captured = capsys.readouterr()
     counted_newlines = captured.out.count("\n")
     assert "Incorrect command-line" in captured.out

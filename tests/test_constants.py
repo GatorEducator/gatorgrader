@@ -139,10 +139,16 @@ def test_commandlines_constant_defined():
 
 def test_help_constant_defined():
     """Check correctness for the variables in the help constant."""
-    assert constants.help.Checker_Dir == "directory containing user-provided checks"
+    assert (
+        constants.help.Checker_Dir
+        == "directory containing user-provided checks"
+    )
     assert constants.help.No_Welcome == "do not display the welcome message"
     assert constants.help.Json == "print the status report in JSON"
-    assert constants.help.Check == "check to perform on the writing or source code"
+    assert (
+        constants.help.Check
+        == "check to perform on the writing or source code"
+    )
 
 
 def test_metavars_constant_defined():
@@ -237,7 +243,9 @@ def test_checkers_constant_cannot_redefine():
     with pytest.raises(AttributeError):
         constants.checkers.Internal_Checkers_Dir = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):
-        constants.checkers.Plugin_Base_Identifier = CANNOT_SET_CONSTANT_VARIABLE
+        constants.checkers.Plugin_Base_Identifier = (
+            CANNOT_SET_CONSTANT_VARIABLE
+        )
     with pytest.raises(AttributeError):
         constants.checkers.Check_Prefix = CANNOT_SET_CONSTANT_VARIABLE
     with pytest.raises(AttributeError):

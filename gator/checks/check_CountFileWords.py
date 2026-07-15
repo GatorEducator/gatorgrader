@@ -2,10 +2,7 @@
 
 import argparse
 
-from gator import checkers
-from gator import constants
-from gator import fragments
-from gator import invoke
+from gator import checkers, constants, fragments, invoke
 
 
 def get_parser():

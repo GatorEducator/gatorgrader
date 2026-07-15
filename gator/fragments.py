@@ -1,14 +1,16 @@
 """Retrieve and count the contents of a file."""
 
 import re
+
 import commonmark
 
-from gator import constants
-from gator import files
-from gator import util
+from gator import constants, files, util
 
 # define regular expression for blank space matching
 WHITESPACE_RE = r"[!\"#$%&()*+,\./:;\<=\>\?\@\[\]\^`\{\|\}]"
+
+# define a constant for markdown parsing
+CLOSING_PARAGRAPH_INDICATOR = 2
 
 
 def get_paragraphs(contents):
@@ -22,7 +24,11 @@ def get_paragraphs(contents):
     for subnode, enter in ast.walker():
         if mode_looking:
             # check to see if the current subnode is an open paragraph node
-            if counter == 1 and subnode.t == constants.markdown.Paragraph and enter:
+            if (
+                counter == 1
+                and subnode.t == constants.markdown.Paragraph
+                and enter
+            ):
                 # initialize paragraph_content
                 paragraph_content = constants.markers.Nothing
                 # stop search for paragraph nodes, as one has been found
@@ -30,7 +36,11 @@ def get_paragraphs(contents):
                 mode_looking = False
         else:
             # check to see if the current subnode is a closing paragraph node
-            if counter == 2 and subnode.t == constants.markdown.Paragraph and not enter:
+            if (
+                counter == CLOSING_PARAGRAPH_INDICATOR
+                and subnode.t == constants.markdown.Paragraph
+                and not enter
+            ):
                 # add the content of the paragraph to paragraph_list
                 paragraph_list.append(paragraph_content.strip())
                 # stop saving paragraph contents, as the paragraph had ended
@@ -151,7 +161,7 @@ def count_specified_regex(contents, regex):
     return len(matches)
 
 
-def specified_entity_greater_than_count(
+def specified_entity_greater_than_count(  # noqa: PLR0913
     chosen_fragment,
     checking_function,
     expected_count,
@@ -163,7 +173,11 @@ def specified_entity_greater_than_count(
     """Determine if the entity count is greater than expected."""
     # count the fragments/regex in either a file in a directory or String contents
     file_entity_count, file_entity_count_dictionary = count_entities(
-        chosen_fragment, checking_function, given_file, containing_directory, contents
+        chosen_fragment,
+        checking_function,
+        given_file,
+        containing_directory,
+        contents,
     )
     # check the condition and also return file_entity_count
     condition_truth, value = util.greater_than_equal_exacted(
@@ -212,9 +226,11 @@ def count_entities(
         # that the input of the file will work on operating systems where the
         # default character encoding is not UTF-8; this commonly happens on
         # Windows systems where the default encoding is usually CP-1252
-        file_contents = file_for_checking.read_text(encoding='utf-8')
+        file_contents = file_for_checking.read_text(encoding="utf-8")
         file_contents_count = checking_function(file_contents, chosen_fragment)
-        file_contents_count_dictionary[file_for_checking.name] = file_contents_count
+        file_contents_count_dictionary[file_for_checking.name] = (
+            file_contents_count
+        )
     # return the minimum value and the entire dictionary of counts
     minimum_pair = util.get_first_minimum_value(file_contents_count_dictionary)
     file_contents_count = minimum_pair[1]
@@ -239,7 +255,9 @@ def specified_source_greater_than_count(
     # and the dictionary itself so as to support good diagnostics
     return (
         (
-            util.greater_than_equal_exacted(file_lines_count, expected_count, exact),
+            util.greater_than_equal_exacted(
+                file_lines_count, expected_count, exact
+            ),
             file_lines_count,
         ),
         file_contents_count_dictionary,
@@ -284,12 +302,16 @@ def count_lines(
             # that the input of the file will work on operating systems where the
             # default character encoding is not UTF-8; this commonly happens on
             # Windows systems where the default encoding is usually CP-1252
-            file_contents = file_for_checking.read_text(encoding='utf-8')
+            file_contents = file_for_checking.read_text(encoding="utf-8")
             line_list = get_line_list(file_contents)
             file_contents_count = len(line_list)
-            file_contents_count_dictionary[file_for_checking.name] = file_contents_count
+            file_contents_count_dictionary[file_for_checking.name] = (
+                file_contents_count
+            )
         # return the minimum value and the entire dictionary of counts
-        minimum_pair = util.get_first_minimum_value(file_contents_count_dictionary)
+        minimum_pair = util.get_first_minimum_value(
+            file_contents_count_dictionary
+        )
         file_contents_count = minimum_pair[1]
     return file_contents_count, file_contents_count_dictionary
 

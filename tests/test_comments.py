@@ -2,8 +2,7 @@
 
 import pytest
 
-from gator import comments
-from gator import entities
+from gator import comments, entities
 
 
 def test_file_contains_singleline_java_comment_count(tmpdir):
@@ -13,7 +12,9 @@ def test_file_contains_singleline_java_comment_count(tmpdir):
     assert hello_file.read() == "//// hello world"
     assert len(tmpdir.listdir()) == 1
     comment_count, _ = entities.count_entities(
-        hello_file.basename, hello_file.dirname, comments.count_singleline_java_comment
+        hello_file.basename,
+        hello_file.dirname,
+        comments.count_singleline_java_comment,
     )
     assert comment_count == 1
 
@@ -25,7 +26,9 @@ def test_file_contains_multiline_java_comment_count(tmpdir):
     assert hello_file.read() == "/* hello world */"
     assert len(tmpdir.listdir()) == 1
     comment_count, _ = entities.count_entities(
-        hello_file.basename, hello_file.dirname, comments.count_multiline_java_comment
+        hello_file.basename,
+        hello_file.dirname,
+        comments.count_multiline_java_comment,
     )
     assert comment_count == 1
 
@@ -38,7 +41,9 @@ def test_file_contains_multiline_python_comment_count(tmpdir):
     assert hello_file.read() == '"""Hello \n World"""'
     assert len(tmpdir.listdir()) == 1
     comment_count, _ = entities.count_entities(
-        hello_file.basename, hello_file.dirname, comments.count_multiline_python_comment
+        hello_file.basename,
+        hello_file.dirname,
+        comments.count_multiline_python_comment,
     )
     assert comment_count == 1
 
@@ -159,8 +164,8 @@ def test_file_contains_multiline_python_comment_not_greater(tmpdir):
 )
 def test_singleline_java_comments_zero_or_one(code_string, expected_count):
     """Check that it finds zero or one single-line comments."""
-    count_of_singleline_java_comments, _ = comments.count_singleline_java_comment(
-        code_string
+    count_of_singleline_java_comments, _ = (
+        comments.count_singleline_java_comment(code_string)
     )
     assert count_of_singleline_java_comments == expected_count
 
@@ -189,8 +194,8 @@ def test_singleline_java_comments_zero_or_one(code_string, expected_count):
 )
 def test_singleline_python_comments_zero_or_one(code_string, expected_count):
     """Check that it finds zero or one Python comments."""
-    count_of_singleline_python_comments, _ = comments.count_singleline_python_comment(
-        code_string
+    count_of_singleline_python_comments, _ = (
+        comments.count_singleline_python_comment(code_string)
     )
     assert count_of_singleline_python_comments == expected_count
 
@@ -206,7 +211,10 @@ def test_singleline_python_comments_zero_or_one(code_string, expected_count):
         ("// hello world\n //hello", 2),
         ("// hello world && --\n//hello", 2),
         ("// hello world  __ --\n//hello", 2),
-        ('System.out.println("Hello, World!\n"); // prints hello world \n //hello', 2),
+        (
+            'System.out.println("Hello, World!\n"); // prints hello world \n //hello',
+            2,
+        ),
         ('// hello \n System.out.println("Hello, World!\n"); \n //hello', 2),
         ('String url = "http://www.example.com"; \n //hello', 1),
         ("//\\ \n //hi", 2),
@@ -217,8 +225,8 @@ def test_singleline_python_comments_zero_or_one(code_string, expected_count):
 )
 def test_singleline_java_comments_many(code_string, expected_count):
     """Check that it finds many singleline comments."""
-    count_of_singleline_java_comments, _ = comments.count_singleline_java_comment(
-        code_string
+    count_of_singleline_java_comments, _ = (
+        comments.count_singleline_java_comment(code_string)
     )
     assert count_of_singleline_java_comments == expected_count
 
@@ -245,8 +253,8 @@ def test_singleline_java_comments_many(code_string, expected_count):
 )
 def test_singleline_python_comments_many(code_string, expected_count):
     """Check that it finds many Python singleline comments."""
-    count_of_singleline_python_comments, _ = comments.count_singleline_python_comment(
-        code_string
+    count_of_singleline_python_comments, _ = (
+        comments.count_singleline_python_comment(code_string)
     )
     assert count_of_singleline_python_comments == expected_count
 
@@ -262,8 +270,8 @@ def test_singleline_python_comments_many(code_string, expected_count):
 )
 def test_singleline_java_comments_mixed(code_string, expected_count):
     """Check that it can find singleline comments in mixtures."""
-    count_of_singleline_java_comments, _ = comments.count_singleline_java_comment(
-        code_string
+    count_of_singleline_java_comments, _ = (
+        comments.count_singleline_java_comment(code_string)
     )
     assert count_of_singleline_java_comments == expected_count
 
@@ -281,8 +289,8 @@ def test_singleline_java_comments_mixed(code_string, expected_count):
 )
 def test_singleline_python_comments_mixed(code_string, expected_count):
     """Check that it can find singleline Python comments in mixtures."""
-    count_of_singleline_python_comments, _ = comments.count_singleline_python_comment(
-        code_string
+    count_of_singleline_python_comments, _ = (
+        comments.count_singleline_python_comment(code_string)
     )
     assert count_of_singleline_python_comments == expected_count
 
@@ -314,8 +322,8 @@ def test_singleline_python_comments_mixed(code_string, expected_count):
 )
 def test_multiline_java_comments_zero_or_one(code_string, expected_count):
     """Check that it finds zero or one multiline comments."""
-    count_of_multiline_java_comments, _ = comments.count_multiline_java_comment(
-        code_string
+    count_of_multiline_java_comments, _ = (
+        comments.count_multiline_java_comment(code_string)
     )
     assert count_of_multiline_java_comments == expected_count
 
@@ -347,8 +355,8 @@ def test_multiline_java_comments_zero_or_one(code_string, expected_count):
 )
 def test_multiline_python_comments_zero_or_one(code_string, expected_count):
     """Check that it finds zero or one Python multiline comments."""
-    count_of_multiline_python_comments, _ = comments.count_multiline_python_comment(
-        code_string
+    count_of_multiline_python_comments, _ = (
+        comments.count_multiline_python_comment(code_string)
     )
     assert count_of_multiline_python_comments == expected_count
 
@@ -367,8 +375,8 @@ def test_multiline_python_comments_zero_or_one(code_string, expected_count):
 )
 def test_multiline_java_comments_two(code_string, expected_count):
     """Check that it has two or more multiline Java comments."""
-    count_of_multiline_java_comments, _ = comments.count_multiline_java_comment(
-        code_string
+    count_of_multiline_java_comments, _ = (
+        comments.count_multiline_java_comment(code_string)
     )
     assert count_of_multiline_java_comments == expected_count
 
@@ -387,8 +395,8 @@ def test_multiline_java_comments_two(code_string, expected_count):
 )
 def test_multiline_python_comments_two(code_string, expected_count):
     """Check that it has two or more multiline python comments."""
-    count_of_multiline_python_comments, _ = comments.count_multiline_python_comment(
-        code_string
+    count_of_multiline_python_comments, _ = (
+        comments.count_multiline_python_comment(code_string)
     )
     assert count_of_multiline_python_comments == expected_count
 
@@ -405,8 +413,8 @@ def test_multiline_python_comments_two(code_string, expected_count):
 )
 def test_multiline_java_comments_mixed(code_string, expected_count):
     """Check that it can find multiline comments in mixtures."""
-    count_of_multiline_java_comments, _ = comments.count_multiline_java_comment(
-        code_string
+    count_of_multiline_java_comments, _ = (
+        comments.count_multiline_java_comment(code_string)
     )
     assert count_of_multiline_java_comments == expected_count
 
@@ -424,8 +432,8 @@ def test_multiline_java_comments_mixed(code_string, expected_count):
 )
 def test_multiline_python_comments_mixed(code_string, expected_count):
     """Check that it can find multiline Python comments in mixtures."""
-    count_of_multiline_python_comments, _ = comments.count_multiline_python_comment(
-        code_string
+    count_of_multiline_python_comments, _ = (
+        comments.count_multiline_python_comment(code_string)
     )
     assert count_of_multiline_python_comments == expected_count
 
@@ -433,7 +441,10 @@ def test_multiline_python_comments_mixed(code_string, expected_count):
 @pytest.mark.parametrize(
     "code_string,expected_count",
     [
-        ("/** hello \n */\n/* hello \n world */\n/**hello \n world hello*/", 3),
+        (
+            "/** hello \n */\n/* hello \n world */\n/**hello \n world hello*/",
+            3,
+        ),
         (
             "/** hello \n */\n/**hello \n world */\n/*hello \n"
             "world hello */\n/*hello world \n ** hello */",
@@ -443,8 +454,8 @@ def test_multiline_python_comments_mixed(code_string, expected_count):
 )
 def test_multiline_java_comments_many(code_string, expected_count):
     """Check that it finds many multiline Python docstring comments."""
-    count_of_multiline_java_comments, _ = comments.count_multiline_java_comment(
-        code_string
+    count_of_multiline_java_comments, _ = (
+        comments.count_multiline_java_comment(code_string)
     )
     assert count_of_multiline_java_comments == expected_count
 
@@ -452,7 +463,10 @@ def test_multiline_java_comments_many(code_string, expected_count):
 @pytest.mark.parametrize(
     "code_string,expected_count",
     [
-        ('"""hello \n """\n"""hello \n world"""\n"""hello \n world hello"""', 3),
+        (
+            '"""hello \n """\n"""hello \n world"""\n"""hello \n world hello"""',
+            3,
+        ),
         (
             '"""hello \n """\n"""hello \n world"""\n"""hello \n'
             'world hello"""\n"""hello world \n ** hello"""',
@@ -462,7 +476,7 @@ def test_multiline_java_comments_many(code_string, expected_count):
 )
 def test_multiline_python_comments_many(code_string, expected_count):
     """Check that it finds many multiline Python docstring comments."""
-    count_of_multiline_python_comments, _ = comments.count_multiline_python_comment(
-        code_string
+    count_of_multiline_python_comments, _ = (
+        comments.count_multiline_python_comment(code_string)
     )
     assert count_of_multiline_python_comments == expected_count

@@ -54,11 +54,15 @@ def test_create_non_glob_path_with_none_middle(tmpdir):
     hello_file_two.write("content")
     assert len(tmpdir.listdir()) == 2
     created_paths = list(
-        files.create_paths(tmpdir.basename, file="hello1.txt", home=tmpdir.dirname)
+        files.create_paths(
+            tmpdir.basename, file="hello1.txt", home=tmpdir.dirname
+        )
     )
     assert len(created_paths) == 1
     created_paths = list(
-        files.create_paths(tmpdir.basename, file="hello2.txt", home=tmpdir.dirname)
+        files.create_paths(
+            tmpdir.basename, file="hello2.txt", home=tmpdir.dirname
+        )
     )
     assert len(created_paths) == 1
 
@@ -73,13 +77,17 @@ def test_one_glob_case_sensitive_handling(tmpdir):
     if system_name is not WINDOWS:
         assert len(tmpdir.listdir()) == 2
         created_paths = list(
-            files.create_paths(tmpdir.basename, file="*.TXT", home=tmpdir.dirname)
+            files.create_paths(
+                tmpdir.basename, file="*.TXT", home=tmpdir.dirname
+            )
         )
         assert len(created_paths) == 0
     elif system_name is WINDOWS:
         assert len(tmpdir.listdir()) == 2
         created_paths = list(
-            files.create_paths(tmpdir.basename, file="*.TXT", home=tmpdir.dirname)
+            files.create_paths(
+                tmpdir.basename, file="*.TXT", home=tmpdir.dirname
+            )
         )
         assert len(created_paths) == 2
     if system_name is not WINDOWS:
@@ -104,7 +112,9 @@ def test_garbage_glob_file_returns_no_matching_paths(tmpdir):
     hello_file_two.write("content")
     assert len(tmpdir.listdir()) == 2
     created_paths = list(
-        files.create_paths(tmpdir.basename, file="FAKE&&&FDF$$#**", home=tmpdir.dirname)
+        files.create_paths(
+            tmpdir.basename, file="FAKE&&&FDF$$#**", home=tmpdir.dirname
+        )
     )
     assert len(created_paths) == 0
 
@@ -187,7 +197,11 @@ def test_create_one_file_path_with_two_middle(tmpdir):
     assert hello_file.read() == "content"
     assert len(tmpdir.listdir()) == 1
     created_path = files.create_path(
-        tmpdir.basename, "subfirst", "subsecond", file="hello.txt", home=tmpdir.dirname
+        tmpdir.basename,
+        "subfirst",
+        "subsecond",
+        file="hello.txt",
+        home=tmpdir.dirname,
     )
     assert created_path.name == "hello.txt"
     assert created_path.parent.absolute is not None
@@ -208,7 +222,9 @@ def test_one_file_found_in_subdirectory(tmpdir):
     assert was_file_found is True
 
 
-def test_one_file_found_in_subdirectory_case_sensitivity_ext_csfunction(tmpdir):
+def test_one_file_found_in_subdirectory_case_sensitivity_ext_csfunction(
+    tmpdir,
+):
     """Ensure that case-sensitive function can find file name in a subdirectory."""
     hello_file = tmpdir.mkdir("sub").join("hello.txt")
     hello_file.write("content")

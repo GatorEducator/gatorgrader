@@ -11,87 +11,69 @@ speed!
 
 [![Lint and Test](https://github.com/GatorEducator/gatorgrader/workflows/Lint%20and%20Test/badge.svg?branch=master)](https://github.com/GatorEducator/gatorgrader/actions?query=workflow%3A%22Lint+and+Test%22+branch%3Amaster) [![codecov.io](https://codecov.io/gh/GatorEducator/gatorgrader/branch/master/graph/badge.svg?token=UKBOlE7kG6)](https://codecov.io/gh/GatorEducator/gatorgrader) [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-orange.svg)](https://github.com/GatorEducator/gatorgrader/graphs/commit-activity) [![GitHub license](https://img.shields.io/github/license/GatorEducator/gatorgrader.svg)](https://github.com/GatorEducator/gatorgrader/blob/master/LICENSE.md) [![All Contributors](https://img.shields.io/badge/all_contributors-33-orange.svg?style=flat-square)](#contributors)
 
-## Table of Contents
-
-* [Quickstart Guide](#quickstart-guide)
-* [Key Features](#key-features)
-* [What Do People Think about GatorGrader?](#what-do-people-think-about-gatorgrader)
-* [Installing GatorGrader](#installing-gatorgrader)
-* [Testing GatorGrader](#testing-gatorgrader)
-  + [Automated Testing](#automated-testing)
-  + [Test Coverage](#test-coverage)
-  + [Testing with Multiple Python Versions](#testing-with-multiple-python-versions)
-  + [Code Linting](#code-linting)
-* [Running GatorGrader](#running-gatorgrader)
-* [Using Docker](#using-docker)
-* [Comparison to Other Tools](#comparison-to-other-tools)
-* [Presentations](#presentations)
-* [Contributing](#contributing)
-* [Contributors](#contributors)
-
 ## Quickstart Guide
 
-* Starter Repositories
-An easy way to get started with GatorGrader is to check out our sample starter repositories.
-The following starter repositories provide examples of how GatorGrader files should be created
-to check programs and documentation for different languages:
-[Java](https://github.com/GatorEducator/java-assignment-starter-100-01),
-[Python](https://github.com/GatorEducator/python-assignment-starter-203-05), [LaTex](https://github.com/GatorEducator/latex-assignment-starter-100-01) and [HTML with CSS](https://github.com/GatorEducator/html-assignment-starter-302-03). These
-examples also show how to integrate GatorGrader with [GitHub
-Classroom](https://classroom.github.com/) and [Travis
-CI](https://travis-ci.com/). When you follow these examples, the Gradle plugin
-for GatorGrader will install it automatically when you run `gradle grade` in a
-terminal window. Please be aware that these repositories are meant to have a majority
-of red checks. This is only meant to be a “starter” and give an insight into what must be accomplished within the lab.
-* Solution Repositories
-The next step to get involved with GatorGrader is to checkout our sample solution
-repositories. The following solution repositories provide examples of how GatorGrader files should be
-created to check programs and documentation for different languages:
-[Java](https://github.com/GatorEducator/java-assignment-solution-100-01),
-[Python](https://github.com/GatorEducator/python-assignment-solution-203-05), [LaTex](https://github.com/GatorEducator/latex-assignment-solution-100-01) , and [HTML with CSS](https://github.com/GatorEducator/html-assignment-solution-302-03). These examples
-also show how to integrate GatorGrader with  [GitHub
-Classroom](https://classroom.github.com/) and [Travis
-CI](https://travis-ci.com/).  When you follow these examples, the Gradle plugin
-for GatorGrader will install it automatically when you run `gradle grade` in a
-terminal window. Please be aware that these repositories are meant to have a majority
-of green checks. This is meant to show what must be accomplished within a lab/practical
-and what it looks like when those tasks are completed.
+- Starter Repositories
+  An easy way to get started with GatorGrader is to check out our sample starter repositories.
+  The following starter repositories provide examples of how GatorGrader files should be created
+  to check programs and documentation for different languages:
+  [Java](https://github.com/GatorEducator/java-assignment-starter-100-01),
+  [Python](https://github.com/GatorEducator/python-assignment-starter-203-05), [LaTeX](https://github.com/GatorEducator/latex-assignment-starter-100-01) and [HTML with CSS](https://github.com/GatorEducator/html-assignment-starter-302-03). These
+  examples also show how to integrate GatorGrader with [GitHub
+  Classroom](https://classroom.github.com/) and [Travis
+  CI](https://travis-ci.com/). When you follow these examples, the Gradle plugin
+  for GatorGrader will install it automatically when you run `gradle grade` in a
+  terminal window. Please be aware that these repositories are meant to have a majority
+  of red checks. This is only meant to be a “starter” and give an insight into what must be accomplished within the lab.
+- Solution Repositories
+  The next step to get involved with GatorGrader is to checkout our sample solution
+  repositories. The following solution repositories provide examples of how GatorGrader files should be
+  created to check programs and documentation for different languages:
+  [Java](https://github.com/GatorEducator/java-assignment-solution-100-01),
+  [Python](https://github.com/GatorEducator/python-assignment-solution-203-05), [LaTex](https://github.com/GatorEducator/latex-assignment-solution-100-01) , and [HTML with CSS](https://github.com/GatorEducator/html-assignment-solution-302-03). These examples
+  also show how to integrate GatorGrader with [GitHub
+  Classroom](https://classroom.github.com/) and [Travis
+  CI](https://travis-ci.com/). When you follow these examples, the Gradle plugin
+  for GatorGrader will install it automatically when you run `gradle grade` in a
+  terminal window. Please be aware that these repositories are meant to have a majority
+  of green checks. This is meant to show what must be accomplished within a lab/practical
+  and what it looks like when those tasks are completed.
 
 ## Key Features
 
 GatorGrader automatically checks the work of technical writers and programmers.
 It can:
 
-* Enable [GatorGrade](https://github.com/GatorEducator/gatorgrade) to check
+- Enable [GatorGrade](https://github.com/GatorEducator/gatorgrade) to check
   projects implemented and documented in a wide variety of languages (e.g.,
   Java, Python, LaTeX, Markdown, HTML, and CSS).
 
-* Integrate with [GitHub Classroom](https://classroom.github.com/) to check
+- Integrate with [GitHub Classroom](https://classroom.github.com/) to check
   solution and starter repositories created for professors and students,
   respectively.
 
-* Run in a cloud-based environment like [Travis CI](https://travis-ci.com/) or
+- Run in a cloud-based environment like [Travis CI](https://travis-ci.com/) or
   on the command-line of a developer's workstation.
 
-* Operate as a "batteries included" grading tool, supporting automated checks
+- Operate as a "batteries included" grading tool, supporting automated checks
   like the following:
 
-  * Does a file exist in the correct directory with the requested name?
+  - Does a file exist in the correct directory with the requested name?
 
-  * Does technical writing contain the desired number of words and paragraphs?
+  - Does technical writing contain the desired number of words and paragraphs?
 
-  * Does source code contain the designated number of language-specific comments?
+  - Does source code contain the designated number of language-specific comments?
 
-  * Does source code or technical writing contain a required fragment or match
+  - Does source code or technical writing contain a required fragment or match
     a specified regular expression?
 
-  * Does a command execute correctly and produce the expected number of output
+  - Does a command execute correctly and produce the expected number of output
     lines?
 
-  * Does a command execute and produce output containing a fragment or matching
+  - Does a command execute and produce output containing a fragment or matching
     a regular expression?
 
-  * Does a GitHub repository contain the anticipated number of commits?
+  - Does a GitHub repository contain the anticipated number of commits?
 
 Aligning with key recommendations in a recent [National Academies
 report](https://www.nap.edu/catalog/24926/assessing-and-responding-to-the-growth-of-computer-science-undergraduate-enrollments),
@@ -106,14 +88,12 @@ Classroom](https://classroom.github.com/) to effectively handle those tasks.
 ## Installing GatorGrader
 
 Installing GatorGrader is not necessary if you intend to use it through [GatorGrade](https://github.com/GatorEducator/gatorgrade).
-If you want to participate in the development of GatorGrader, the project
-maintainers suggest the use of [Pyenv](https://github.com/pyenv/pyenv) to
-install Python 3.7 or above. In addition to installing [Git](https://git-scm.com/)
-to access the project's GitHub repository, you should also install
-[Poetry](https://python-poetry.org/) for its support of package and virtual
-environment management. After completing the installation of these tools, you
-can type the following command in your terminal window to clone GatorGrader's
-GitHub repository:
+If you want to participate in the development of GatorGrader, you should
+first install [Git](https://git-scm.com/) to access the project's GitHub
+repository and [uv](https://docs.astral.sh/uv/) for its support of fast
+package and virtual environment management. After completing the installation
+of these tools, you can type the following command in your terminal window to
+clone GatorGrader's GitHub repository:
 
 ```bash
 git clone https://github.com/GatorEducator/gatorgrader.git
@@ -121,9 +101,9 @@ git clone https://github.com/GatorEducator/gatorgrader.git
 
 If you plan to develop new features for GatorGrader or if you want to run the
 tool's test suite in [Pytest](https://github.com/pytest-dev/pytest), then you
-will need to install a virtual environment for development by typing `poetry install`
+will need to install a virtual environment for development by typing `uv sync`
 in the directory that contains GatorGrader. For help with this process, refer to
-[Poetry's documentation](https://python-poetry.org/docs/).
+[uv's documentation](https://docs.astral.sh/uv/).
 
 ## Testing GatorGrader
 
@@ -134,10 +114,10 @@ of GatorGrader. Depending on your goals, there are several different
 configurations in which you can run the provided test suite. If you want to run
 the test suite to see if the test cases are passing, then running this command
 in a terminal window will perform testing with the version of Python with which
-Poetry's virtual environment was initialized.
+uv's virtual environment was initialized.
 
 ```
-poetry run task test
+uv run task test
 ```
 
 ### Test Coverage
@@ -146,67 +126,53 @@ Along with running the test suite, the developers of GatorGrader use statement
 and branch coverage to enhance their testing activities. To see the coverage of
 the tests while also highlighting the lines that are not currently covered by
 the tests, you can run this command in a terminal window. As with the previous
-command, this will run the tests in the version of Python with which Poetry's
+command, this will run the tests in the version of Python with which uv's
 virtual environment was initialized.
 
 ```
-poetry run task cover
+uv run task cover
 ```
 
 ### Testing with Multiple Python Versions
 
-The previous two commands are restricted to running the test suite in the
-version of Python with which Poetry was initialized. If you have installed multiple
-versions of Python with Pyenv and you want to iteratively initialized Poetry with each
-version and then run the test suite, then you should first run the following
-commands to install [Pipx](https://pypa.github.io/pipx/) and use Pipx to
-install [Invoke](https://github.com/pyinvoke/invoke). The first of these three
-commands will install `pipx`, a program that supports the execution of Python
-packages in isolated environments. The second command makes the directory
-`~/.local/bin/` a part of the search path for executable Python programs and the
-third one installs the `invoke` command so that it is available on your
-workstation outside of a virtual environment managed by Poetry, thereby ensuring
-that it is always available to run tasks.
+The previous two commands run the test suite in the version of Python with
+which uv was initialized. If you want to run the test suite against a
+different Python version, you can switch uv's Python version before running
+the task:
 
-```
-pip install pipx --user
-python -m userpath append ~/.local/bin/
-pipx install invoke
+```bash
+uv python pin <python-version>
+uv run task test
 ```
 
-Now you can run the test suite in the specified versions of Python with the
-following command. This example command will run the test suite in Python 3.6.8
-and Python 3.7.3.
+For example, to test with Python 3.12:
 
-```
-invoke -c scripts/tasks test --pyenv 3.6.8 --pyenv 3.7.3
-```
-
-If you want to track test coverage while running the tests in both Python 3.6.8
-and 3.7.3, then you can run the following command.
-
-```
-invoke -c scripts/tasks cover --pyenv 3.6.8 --pyenv 3.7.3
-```
-
-You can switch the version with which Poetry is initialized by running the following
-command that adopts, for instance, Python 3.7.3.
-
-```
-invoke -c scripts/tasks switch --pyenv 3.7.3
+```bash
+uv python pin 3.12
+uv run task test
 ```
 
 ### Code Linting
 
-The developers of GatorGrader use linting and code formatting tools, such as
-[Pylint](https://github.com/PyCQA/pylint),
-[Pydocstyle](https://github.com/PyCQA/pydocstyle), and
-[Black](https://github.com/python/black). After installing GatorGrader's
-development dependencies with Poetry, you can run all of the linters by typing
-this command in a terminal window.
+The developers of GatorGrader use [Ruff](https://docs.astral.sh/ruff/) for
+linting and code formatting, along with additional tools like
+[bandit](https://github.com/PyCQA/bandit) for security analysis,
+[radon](https://github.com/rubik/radon) for complexity metrics, and
+[xenon](https://github.com/rubik/xenon) for code quality thresholds.
+After installing GatorGrader's development dependencies with uv, you can
+run all of the linters by typing this command in a terminal window:
 
 ```bash
-poetry run task lint --check
+uv run task lint
+```
+
+You can also run individual linters as needed:
+
+```bash
+uv run task lint-ruff       # ruff linting
+uv run task lint-ruff-format # ruff formatting check
+uv run task lint-bandit     # security analysis
+uv run task lint-xenon      # code quality thresholds
 ```
 
 ### Automated Checks
@@ -218,13 +184,13 @@ offer, here is a quick list:
 
 1. ConfirmFileExists
 
-2. CountCommandOutput
+1. CountCommandOutput
 
-3. CountCommits
+1. CountCommits
 
-4. CountFileLines
+1. CountFileLines
 
-5. CountFileParagraphs
+1. CountFileParagraphs
 
 Want to learn about our automated checks? Check them out on our website,
 [gatorgrader.org](http://www.gatorgrader.org)! We have detailed
@@ -233,10 +199,11 @@ descriptions of our automated checks and more!
 Something you should know when working with our checks is that all of
 them come with some **optional arguments**. Optional arguments that you are likely
 to encounter:
-* `-h`
-* `--help`
-* `--exact`
-* `--advanced`
+
+- `-h`
+- `--help`
+- `--exact`
+- `--advanced`
 
 If `--help` is tagged along with a check then a help message will be displayed and
 then exited. If further assistance is needed, please contact us on GitHub.
@@ -289,12 +256,14 @@ and have easy access to run all commands that would allow them to build, run, an
 grade their labs and practicals. Docker is an industry standard and therefore,
 gives us an advantage. To open a container that will allow for the use of GatorGrader,
 run the following command in your terminal window:
+
 ```
 docker run -it --rm --name dockagator \
   -v "$(pwd)":/project \
   -v "$HOME/.dockagator":/root/.local/share \
   gatoreducator/dockagator /bin/bash
 ```
+
 From here, you are set! Test it out by building, running, or grading your lab/practical!
 If you would like to learn more about Docker, please follow this [link](https://www.docker.com).
 
@@ -351,7 +320,9 @@ you review the project's [code of conduct](CODE_OF_CONDUCT.md) and the
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+
 <!-- prettier-ignore -->
+
 <table>
   <tr>
     <td align="center"><a href="https://www.gregorykapfhammer.com"><img src="https://avatars2.githubusercontent.com/u/926029?v=4" width="64px;" alt="Gregory M. Kapfhammer"/><br /><sub><b>Gregory M. Kapfhammer</b></sub></a><br /><a href="#talk-gkapfham" title="Talks">📢</a> <a href="https://github.com/GatorEducator/gatorgrader/commits?author=gkapfham" title="Code">💻</a> <a href="https://github.com/GatorEducator/gatorgrader/commits?author=gkapfham" title="Documentation">📖</a> <a href="#design-gkapfham" title="Design">🎨</a> <a href="#infra-gkapfham" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/GatorEducator/gatorgrader/commits?author=gkapfham" title="Tests">⚠️</a></td>

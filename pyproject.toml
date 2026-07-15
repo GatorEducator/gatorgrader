@@ -1,62 +1,124 @@
-[tool.poetry]
+[project]
 name = "gatorgrader"
-version = "1.1.2"
+version = "1.1.3"
 description = "Automated Grading Tool that Checks the Work of Writers and Programmers"
-authors = ["Gregory Kapfhammer <gkapfham@allegheny.edu>"]
-license = "GPL-3.0"
-readme = "README.md"
-homepage = "https://github.com/GatorEducator/gatorgrader"
-repository = "https://github.com/GatorEducator/gatorgrader"
-documentation = "https://github.com/GatorEducator/gatorgrader"
-keywords = ["grading", "education", "allegheny"]
-classifiers = [
-  "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
-  "Operating System :: OS Independent",
-  "Environment :: Console",
-  "Development Status :: 5 - Production/Stable",
-  "Topic :: Education :: Testing",
-  "Topic :: Utilities",
+authors = [
+    { name = "Gregory Kapfhammer", email = "gkapfham@allegheny.edu" }
 ]
-packages = [{ include = "gator" }, { include = "gatorgrader.py" }]
+license = { text = "GPL-3.0" }
+readme = "README.md"
+requires-python = ">=3.10,<4.0"
+dependencies = [
+    "GitPython>=3.1.27,<4.0",
+    "requests>=2.28.1,<3.0",
+    "commonmark>=0.9.1,<0.10",
+    "num2words>=0.5.10,<0.6",
+    "pluginbase>=1.0.1,<2.0",
+    "typer>=0.19.1",
+]
 
-[tool.poetry.urls]
-"Bug Tracker" = "https://github.com/GatorEducator/gatorgrader/issues"
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.1.2,<8.0",
+    "pytest-cov>=3.0.0,<4.0",
+    "pytest-sugar>=0.9.5,<0.10",
+    "bandit>=1.7.4,<2.0",
+    "radon>=5.1.0,<6.0",
+    "xenon>=0.9.0,<0.10",
+    "snoop>=0.4.1,<0.5",
+    "taskipy>=1.10.2,<2.0",
+    "toml>=0.10.2,<0.11",
+]
 
-[tool.poetry.scripts]
+[project.scripts]
 gatorgrader = "gatorgrader:main"
 
-[tool.poetry.dependencies]
-python = ">=3.7.2,<4.0"
-GitPython = "^3.1.27"
-requests = "^2.28.1"
-commonmark = "^0.9.1"
-num2words = "^0.5.10"
-pluginbase = "^1.0.1"
+[project.urls]
+Homepage = "https://github.com/GatorEducator/gatorgrader"
+Repository = "https://github.com/GatorEducator/gatorgrader"
+Documentation = "https://github.com/GatorEducator/gatorgrader"
+"Issues" = "https://github.com/GatorEducator/gatorgrader/issues"
 
-[tool.poetry.dev-dependencies]
-pylint = "^2.14.5"
-black = "^22.6.0"
-pytest = "^7.1.2"
-codecov = "^2.1.12"
-flake8 = "^4.0.1"
-pytest-cov = "^3.0.0"
-pytest-sugar = "^0.9.5"
-bandit = "^1.7.4"
-pydocstyle = "^6.1.1"
-radon = "^5.1.0"
-xenon = "^0.9.0"
-snoop = "^0.4.1"
-taskipy = "^1.10.2"
-toml = "^0.10.2"
+[tool.uv]
+default-groups = ["dev"]
+
+[dependency-groups]
+dev = [
+    "pytest>=7.1.2,<8.0",
+    "pytest-sugar>=0.9.5,<0.10",
+    "bandit>=1.7.4,<2.0",
+    "radon>=5.1.0,<6.0",
+    "xenon>=0.9.0,<0.10",
+    "snoop>=0.4.1,<0.5",
+    "taskipy>=1.10.2,<2.0",
+    "toml>=0.10.2,<0.11",
+    "ruff>=0.15.21",
+    "pytest-xdist>=3.5.0",
+    "pytest-cov>=3.0.0",
+]
+
+[tool.taskipy.variables]
+project = "gator"
+files = "gator tests/*.py gatorgrader.py"
+coveragefailunder = "99"
+ruff-check-command = { var = "ruff check {files}", recursive = true }
+ruff-format-command = { var = "ruff format --check {files}", recursive = true }
+ruff-fix-command = { var = "ruff format {files}", recursive = true }
+bandit-command = { var = "bandit -c bandit.yml -r {project}", recursive = true }
+radon-cc-command = { var = "radon cc {files}", recursive = true }
+radon-mi-command = { var = "radon mi {files}", recursive = true }
+xenon-command = { var = "xenon --max-absolute D --max-modules B --max-average A {project}/", recursive = true }
+test-command = "pytest -x"
+coverage-command = { var = "pytest -x --cov={project} --cov-fail-under={coveragefailunder} --cov-report=term-missing tests/", recursive = true }
 
 [tool.taskipy.tasks]
-test = "./scripts/test.sh"
-cover = "./scripts/cover.sh"
-lint = "./scripts/lint.sh"
-test-win = 'scripts\\test.bat'
-cover-win = 'scripts\\cover.bat'
-lint-win = 'scripts\\lint.bat'
+all = "task lint && task test && task cover"
+test = { cmd = "{test-command}", help = "Run the pytest test suite", use_vars = true }
+cover = { cmd = "{coverage-command}", help = "Run the pytest test suite with coverage tracking", use_vars = true }
+lint = "task lint-ruff && task lint-ruff-format && task lint-bandit && task lint-radon-cc && task lint-radon-mi && task lint-xenon"
+lint-ruff = { cmd = "{ruff-check-command}", help = "Check Python code with ruff", use_vars = true }
+lint-ruff-format = { cmd = "{ruff-format-command}", help = "Check Python code formatting with ruff", use_vars = true }
+lint-bandit = { cmd = "{bandit-command}", help = "Check Python security with bandit", use_vars = true }
+lint-radon-cc = { cmd = "{radon-cc-command}", help = "Check cyclomatic complexity with radon", use_vars = true }
+lint-radon-mi = { cmd = "{radon-mi-command}", help = "Check maintainability index with radon", use_vars = true }
+lint-xenon = { cmd = "{xenon-command}", help = "Check code quality thresholds with xenon", use_vars = true }
+test-coverage = { cmd = "{coverage-command}", help = "Run the pytest test suite with coverage tracking", use_vars = true }
+format-check = { cmd = "{ruff-format-command}", help = "Check Python code formatting with ruff", use_vars = true }
+format = { cmd = "{ruff-fix-command}", help = "Auto-fix Python code formatting with ruff", use_vars = true }
+
+[tool.ruff]
+line-length = 79
+lint.ignore = [
+    "D203", # do not check blank lines
+    "D213", # do not check multi-line docstrings
+    "E501", # do not check line length
+]
+lint.select = [
+    "E",    # pycodestyle
+    "D",    # pydocstyle
+    "I",    # isort
+    "F",    # pyflakes
+    "PL",   # pylint
+    "Q",    # flake8-quotes
+    "RUF",  # ruff-specific
+    "W",    # pycodestyle warnings
+    "T201"  # flake8-print
+]
+
+# Magic numbers (PLR2004) are acceptable in test files
+# where they improve readability over named constants
+# - PLR2004: magic numbers are acceptable in tests for readability
+# - RUF059: unused unpacked variables are intentional for clarity in tests
+lint.per-file-ignores = {"tests/*.py" = ["PLR2004", "RUF059"]}
+
+[tool.coverage.run]
+source = ["gator"]
+branch = true
+omit = ["tests/*", "**/__init__.py"]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["gator", "gatorgrader.py"]

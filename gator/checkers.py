@@ -1,17 +1,15 @@
 """Load checkers using a plugin-based approach."""
 
+import importlib
 import io
+import os
+import pkgutil
 from contextlib import redirect_stdout
 
-import pkgutil
-import importlib
-import os
-
-from gator import checks
-from gator import constants
-from gator.exceptions import InvalidCheckArgumentsError
-
 from pluginbase import PluginBase
+
+from gator import checks, constants
+from gator.exceptions import InvalidCheckArgumentsError
 
 CHECKER_SOURCE = None
 
@@ -38,7 +36,6 @@ def parse(get_parser, args):
         )
 
     parser.exit = exit_raise
-
     return parser.parse_args(args)
 
 
@@ -159,7 +156,7 @@ def get_source(checker_paths=[]):
     # Only perform this operation if the checker source is None,
     # meaning that it has not already been initialized.
     # pylint: disable=global-statement
-    global CHECKER_SOURCE
+    global CHECKER_SOURCE  # noqa: PLW0603
     if CHECKER_SOURCE is None:
         CHECKER_SOURCE = checker_base.make_plugin_source(
             identifier=constants.checkers.Plugin_Base_Identifier,
@@ -171,7 +168,7 @@ def get_source(checker_paths=[]):
 def reset_source():
     """Reset the source of the checkers."""
     # pylint: disable=global-statement
-    global CHECKER_SOURCE
+    global CHECKER_SOURCE  # noqa: PLW0603
     # if the checker source was previously created, then
     # cleanup all of the state from that source and then
     # reset it to None to indicate it must be re-created
@@ -196,7 +193,11 @@ def get_check_help(active_check, indent=""):
     # will not contain any content (i.e., it is constants.markers.Nothing)
     # and thus this next line of code will still result in the same Nothing
     active_check_parser_help = os.linesep.join(
-        [indent + line for line in active_check_parser_help.splitlines() if line]
+        [
+            indent + line
+            for line in active_check_parser_help.splitlines()
+            if line
+        ]
     )
     return active_check_parser_help
 
@@ -229,23 +230,26 @@ def get_checks_help(check_source, namecontains=None, indent=""):
                 help_message = active_check_parser_help
             # there are other help messages, so add a blank line to separate
             else:
-                help_message = active_check_parser_help + constants.markers.Newline
+                help_message = (
+                    active_check_parser_help + constants.markers.Newline
+                )
         # there are one or more help messages, so separate and then add this one
         # to the running help message. This would form a full help message like:
         # HELP-MESSAGE-1 BLANK-LINE HELP-MESSAGE-2 BLANK-LINE ... HELP-MESSAGE-n
         # for a total of n HELP-MESSAGES for the n available checkers in pluginbase
+        # this is the last check so do not add the trailing blank line
+        elif check_count == len(filtered_check_list) - 1:
+            help_message = (
+                help_message
+                + constants.markers.Newline
+                + active_check_parser_help
+            )
+        # this is not last check so add the trailing blank line
         else:
-            # this is the last check so do not add the trailing blank line
-            if check_count == len(filtered_check_list) - 1:
-                help_message = (
-                    help_message + constants.markers.Newline + active_check_parser_help
-                )
-            # this is not last check so add the trailing blank line
-            else:
-                help_message = (
-                    help_message
-                    + constants.markers.Newline
-                    + active_check_parser_help
-                    + constants.markers.Newline
-                )
+            help_message = (
+                help_message
+                + constants.markers.Newline
+                + active_check_parser_help
+                + constants.markers.Newline
+            )
     return help_message

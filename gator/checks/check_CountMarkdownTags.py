@@ -1,11 +1,9 @@
 """Check that a Markdown file in a directory contains a specified number of Markdown tags."""
 
 import argparse
-
-from gator import checkers
-from gator import invoke
-
 import os
+
+from gator import checkers, invoke
 
 
 def get_parser():
@@ -26,7 +24,10 @@ def get_parser():
     # REQUIRED? Yes
     # https://github.com/readthedocs/commonmark.py
     required_group.add_argument(
-        "--tag", type=str, help="markdown tag that exists in a file", required=True
+        "--tag",
+        type=str,
+        help="markdown tag that exists in a file",
+        required=True,
     )
 
     # FILE: the file
@@ -48,7 +49,10 @@ def get_parser():
     # COUNT: the number of lines of output
     # REQUIRED? Yes
     required_group.add_argument(
-        "--count", type=int, help="how many tag instances should exist", required=True
+        "--count",
+        type=int,
+        help="how many tag instances should exist",
+        required=True,
     )
 
     # }}}
@@ -102,4 +106,6 @@ def act(main_parsed_arguments, check_remaining_arguments):
     file = check_parsed_arguments.file
     directory = check_parsed_arguments.directory
     exact = check_parsed_arguments.exact
-    return invoke.invoke_all_markdown_checks(tag, count, file, directory, exact)
+    return invoke.invoke_all_markdown_checks(
+        tag, count, file, directory, exact
+    )

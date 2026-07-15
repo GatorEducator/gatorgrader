@@ -36,13 +36,20 @@ from gator import markdown
 )
 def test_chosen_tag_zero_or_one(writing_string, chosen_tag, expected_count):
     """Check that it can detect one or more of a fragment."""
-    assert markdown.count_specified_tag(writing_string, chosen_tag) == expected_count
+    assert (
+        markdown.count_specified_tag(writing_string, chosen_tag)
+        == expected_count
+    )
 
 
 @pytest.mark.parametrize(
     "writing_string,chosen_tag,expected_count",
     [
-        ("hello world!!%^(@after)writing a lot\n\n2nd paragraph", "paragraph", 2),
+        (
+            "hello world!!%^(@after)writing a lot\n\n2nd paragraph",
+            "paragraph",
+            2,
+        ),
         (
             "# Section one\n\nparagraph of\ntext\n\n# Section two\n\nMore text\n",
             "heading",
@@ -65,7 +72,10 @@ def test_chosen_tag_zero_or_one(writing_string, chosen_tag, expected_count):
 )
 def test_chosen_tag_many(writing_string, chosen_tag, expected_count):
     """Check that it can detect many of a fragment."""
-    assert markdown.count_specified_tag(writing_string, chosen_tag) == expected_count
+    assert (
+        markdown.count_specified_tag(writing_string, chosen_tag)
+        == expected_count
+    )
 
 
 def test_count_fragments_from_file(tmpdir):

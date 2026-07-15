@@ -4,7 +4,6 @@ import pytest
 
 from gator import arguments
 
-
 VERIFIED = True
 NOT_VERIFIED = False
 
@@ -83,7 +82,11 @@ def test_checkerdir_is_valid_arguments_verify(tmpdir):
     assert len(tmpdir.listdir()) == 1
     # this directory exists on the file system and verification should work
     checker_directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "checks"
-    commandline_arguments = ["--checkerdir", checker_directory, "check_FakeMessages"]
+    commandline_arguments = [
+        "--checkerdir",
+        checker_directory,
+        "check_FakeMessages",
+    ]
     gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
     args_verified = arguments.verify(gg_arguments)
     assert args_verified is True
@@ -94,8 +97,14 @@ def test_checkerdir_is_not_valid_arguments_verify(tmpdir):
     _ = tmpdir.mkdir("checks").join("check_FakeMessages.py")
     assert len(tmpdir.listdir()) == 1
     # this directory does not exist on the file system and verification should not work
-    checker_directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "checksWRONG"
-    commandline_arguments = ["--checkerdir", checker_directory, "check_FakeMessages"]
+    checker_directory = (
+        tmpdir.dirname + "/" + tmpdir.basename + "/" + "checksWRONG"
+    )
+    commandline_arguments = [
+        "--checkerdir",
+        checker_directory,
+        "check_FakeMessages",
+    ]
     gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
     args_verified = arguments.verify(gg_arguments)
     assert args_verified is False
@@ -117,7 +126,9 @@ def test_description_not_specified_is_not_valid_arguments_verify(capsys):
     """Check that command-line argument without valid string verifies."""
     commandline_arguments = ["--description", "--json", "check_FakeMessages"]
     with pytest.raises(SystemExit):
-        gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+        gg_arguments, remaining_arguments = arguments.parse(
+            commandline_arguments
+        )
         _ = arguments.verify(gg_arguments)
     captured = capsys.readouterr()
     assert "--description: expected one argument" in captured.err

@@ -19,5 +19,7 @@ def transform_result_dictionary(args, result_dict):
 def is_valid_description(description):
     """Check whether the provided description is valid."""
     return (
-        isinstance(description, str) and len(description) > 0 and '"' not in description
+        isinstance(description, str)
+        and len(description) > 0
+        and '"' not in description
     )

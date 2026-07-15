@@ -1,7 +1,6 @@
 """Test cases for the report module."""
 
-from gator import constants
-from gator import report
+from gator import constants, report
 
 
 def test_create_result():
@@ -16,7 +15,10 @@ def test_create_result():
 def test_set_result(reset_results_dictionary):
     """Set the result dictionary and check if it keeps the values."""
     report.set_result("Command executes", True, "")
-    assert report.get_result()[constants.results.Description] == "Command executes"
+    assert (
+        report.get_result()[constants.results.Description]
+        == "Command executes"
+    )
     assert report.get_result()[constants.results.Outcome] is True
     assert report.get_result()[constants.results.Diagnostic] == ""
 
@@ -24,7 +26,9 @@ def test_set_result(reset_results_dictionary):
 # pylint: disable=unused-argument
 def test_set_result_return(reset_results_dictionary):
     """Set the result dictionary and check if it keeps the values."""
-    new_result = report.set_result("Command executes", False, "Missing trailing slash")
+    new_result = report.set_result(
+        "Command executes", False, "Missing trailing slash"
+    )
     assert new_result[constants.results.Description] == "Command executes"
     assert new_result[constants.results.Outcome] is False
     assert new_result[constants.results.Diagnostic] == "Missing trailing slash"

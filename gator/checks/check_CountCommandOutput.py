@@ -2,8 +2,7 @@
 
 import argparse
 
-from gator import checkers
-from gator import invoke
+from gator import checkers, invoke
 
 
 def get_parser():

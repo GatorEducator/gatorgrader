@@ -2,8 +2,7 @@
 
 import argparse
 
-from gator import checkers
-from gator import invoke
+from gator import checkers, invoke
 
 
 def get_parser():
@@ -39,7 +38,10 @@ def get_parser():
     # COUNT: the number of lines of output
     # REQUIRED? Yes
     required_group.add_argument(
-        "--count", type=int, help="how many paragraphs should exist", required=True
+        "--count",
+        type=int,
+        help="how many paragraphs should exist",
+        required=True,
     )
 
     # }}}

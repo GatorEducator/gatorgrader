@@ -2,13 +2,9 @@
 
 import os
 import sys
-
 from unittest.mock import patch
 
-from gator import constants
-from gator import fragments
-from gator import invoke
-from gator import report
+from gator import constants, fragments, invoke, report
 
 
 # pylint: disable=unused-argument
@@ -62,11 +58,15 @@ def test_file_exists_in_directory_check_test_file(reset_results_dictionary):
 
 
 # pylint: disable=unused-argument
-def test_file_exists_in_directory_check_paragraphs(reset_results_dictionary, tmpdir):
+def test_file_exists_in_directory_check_paragraphs(
+    reset_results_dictionary, tmpdir
+):
     """Check that the checking of paragraphs works correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
     reflection_file.write("hello world 44\n\nhi\n\nff!$@name\n\n^^44")
-    assert reflection_file.read() == "hello world 44\n\nhi\n\nff!$@name\n\n^^44"
+    assert (
+        reflection_file.read() == "hello world 44\n\nhi\n\nff!$@name\n\n^^44"
+    )
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     reflection_file = "reflection.md"
@@ -87,7 +87,9 @@ def test_file_exists_in_directory_check_paragraphs_exact(
     """Check that the checking of paragraphs works for exact correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
     reflection_file.write("hello world 44\n\nhi\n\nff!$@name\n\n^^44")
-    assert reflection_file.read() == "hello world 44\n\nhi\n\nff!$@name\n\n^^44"
+    assert (
+        reflection_file.read() == "hello world 44\n\nhi\n\nff!$@name\n\n^^44"
+    )
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     reflection_file = "reflection.md"
@@ -101,7 +103,9 @@ def test_file_exists_in_directory_check_paragraphs_exact(
 
 
 # pylint: disable=unused-argument
-def test_file_exists_in_directory_check_words(reset_results_dictionary, tmpdir):
+def test_file_exists_in_directory_check_words(
+    reset_results_dictionary, tmpdir
+):
     """Check that the checking of words works correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
     reflection_file.write(
@@ -173,7 +177,9 @@ def test_file_exists_in_directory_check_words_no_matching_file(
 
 
 # pylint: disable=unused-argument
-def test_file_exists_in_directory_check_words_exact(reset_results_dictionary, tmpdir):
+def test_file_exists_in_directory_check_words_exact(
+    reset_results_dictionary, tmpdir
+):
     """Check that the checking of words works exact correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
     reflection_file.write(
@@ -210,7 +216,9 @@ def test_file_exists_in_directory_check_words_exact(reset_results_dictionary, tm
 
 
 # pylint: disable=unused-argument
-def test_file_exists_in_directory_check_total_words(reset_results_dictionary, tmpdir):
+def test_file_exists_in_directory_check_total_words(
+    reset_results_dictionary, tmpdir
+):
     """Check that the checking of total words works correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
     reflection_file.write(
@@ -364,7 +372,9 @@ def test_file_exists_in_directory_check_words_wildcards(
 
 
 # pylint: disable=unused-argument
-def test_file_exists_in_directory_check_fragments(reset_results_dictionary, tmpdir):
+def test_file_exists_in_directory_check_fragments(
+    reset_results_dictionary, tmpdir
+):
     """Check that the checking of fragments in a file works correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
     reflection_file.write(
@@ -377,19 +387,27 @@ def test_file_exists_in_directory_check_fragments(reset_results_dictionary, tmpd
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     reflection_file = "reflection.md"
-    invoke.invoke_all_fragment_checks("hello", 1, reflection_file, directory, "")
+    invoke.invoke_all_fragment_checks(
+        "hello", 1, reflection_file, directory, ""
+    )
     details = report.get_result()
     assert details is not None
     report.reset()
-    invoke.invoke_all_fragment_checks("@name", 1, reflection_file, directory, "")
+    invoke.invoke_all_fragment_checks(
+        "@name", 1, reflection_file, directory, ""
+    )
     details = report.get_result()
     assert details is not None
     report.reset()
-    invoke.invoke_all_fragment_checks("again", 2, reflection_file, directory, "")
+    invoke.invoke_all_fragment_checks(
+        "again", 2, reflection_file, directory, ""
+    )
     details = report.get_result()
     assert details is not None
     report.reset()
-    invoke.invoke_all_fragment_checks("planet", 2, reflection_file, directory, "")
+    invoke.invoke_all_fragment_checks(
+        "planet", 2, reflection_file, directory, ""
+    )
     details = report.get_result()
     assert details is not None
 
@@ -410,13 +428,17 @@ def test_file_exists_in_directory_check_fragments_exact(
     assert len(tmpdir.listdir()) == 1
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
     reflection_file = "reflection.md"
-    invoke.invoke_all_fragment_checks("hello", 1, reflection_file, directory, "", True)
+    invoke.invoke_all_fragment_checks(
+        "hello", 1, reflection_file, directory, "", True
+    )
     details = report.get_result()
     assert details is not None
 
 
 # pylint: disable=unused-argument
-def test_file_exists_in_directory_check_regex_exact(reset_results_dictionary, tmpdir):
+def test_file_exists_in_directory_check_regex_exact(
+    reset_results_dictionary, tmpdir
+):
     """Check that the exact checking of fragments in a file works correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
     reflection_file.write(
@@ -467,7 +489,9 @@ def test_content_string_check_regex_exact(reset_results_dictionary):
 
 
 # pylint: disable=unused-argument
-def test_file_exists_in_directory_check_lines(reset_results_dictionary, tmpdir):
+def test_file_exists_in_directory_check_lines(
+    reset_results_dictionary, tmpdir
+):
     """Check that the checking of lines in a file works correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
     reflection_file.write(
@@ -490,7 +514,9 @@ def test_file_exists_in_directory_check_lines(reset_results_dictionary, tmpdir):
 
 
 # pylint: disable=unused-argument
-def test_file_exists_in_directory_check_lines_exact(reset_results_dictionary, tmpdir):
+def test_file_exists_in_directory_check_lines_exact(
+    reset_results_dictionary, tmpdir
+):
     """Check that the checking of lines in a file works correctly."""
     reflection_file = tmpdir.mkdir("sub").join("reflection.md")
     reflection_file.write(
@@ -510,7 +536,9 @@ def test_file_exists_in_directory_check_lines_exact(reset_results_dictionary, tm
 
 
 # pylint: disable=unused-argument
-def test_content_string_check_fragments_with_threshold(reset_results_dictionary):
+def test_content_string_check_fragments_with_threshold(
+    reset_results_dictionary,
+):
     """Check that the checking of words works correctly."""
     value = "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"
     invoke.invoke_all_count_checks(1, contents=value)
@@ -533,13 +561,17 @@ def test_comment_counts_check_single_java(reset_results_dictionary, tmpdir):
     details = report.get_result()
     assert details is not None
     report.reset()
-    invoke.invoke_all_comment_checks(hello_file, directory, 1, "single-line", "Java")
+    invoke.invoke_all_comment_checks(
+        hello_file, directory, 1, "single-line", "Java"
+    )
     details = report.get_result()
     assert details is not None
 
 
 # pylint: disable=unused-argument
-def test_comment_counts_check_single_java_exact(reset_results_dictionary, tmpdir):
+def test_comment_counts_check_single_java_exact(
+    reset_results_dictionary, tmpdir
+):
     """Check to that invocation of comment counting check works correctly."""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
     hello_file.write("//// hello world")
@@ -571,7 +603,9 @@ def test_comment_counts_check_single_python(reset_results_dictionary, tmpdir):
     details = report.get_result()
     assert details is not None
     report.reset()
-    invoke.invoke_all_comment_checks(hello_file, directory, 1, "single-line", "Python")
+    invoke.invoke_all_comment_checks(
+        hello_file, directory, 1, "single-line", "Python"
+    )
     details = report.get_result()
     assert details is not None
 
@@ -589,7 +623,9 @@ def test_comment_counts_check_multiple_java(reset_results_dictionary, tmpdir):
     details = report.get_result()
     assert details is not None
     report.reset()
-    invoke.invoke_all_comment_checks(hello_file, directory, 1, "multiple-line", "Java")
+    invoke.invoke_all_comment_checks(
+        hello_file, directory, 1, "multiple-line", "Java"
+    )
     details = report.get_result()
     assert details is not None
 
@@ -611,7 +647,9 @@ def test_comment_counts_check_multiple_java_invalid_check(
     report.reset()
     # this check cannot pass because of the fact that it asks
     # for "standard-line" comments, which are not supported by this function
-    invoke.invoke_all_comment_checks(hello_file, directory, 1, "standard-line", "Java")
+    invoke.invoke_all_comment_checks(
+        hello_file, directory, 1, "standard-line", "Java"
+    )
     details = report.get_result()
     assert details is not None
 
@@ -640,7 +678,9 @@ def test_comment_counts_check_multiple_java_not_enough(
 
 
 # pylint: disable=unused-argument
-def test_comment_counts_check_multiple_python(reset_results_dictionary, tmpdir):
+def test_comment_counts_check_multiple_python(
+    reset_results_dictionary, tmpdir
+):
     """Check that invocation of comment counting check works correctly."""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.py")
     hello_file.write('""" hello world """')
@@ -719,9 +759,13 @@ def test_run_command_grab_output_as_string_count_lines(
     tmpdir.mkdir("Hello3")
     assert len(tmpdir.listdir()) == 3
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/"
-    met_or_exceeded_count = invoke.invoke_all_command_count_checks("ls " + directory, 1)
+    met_or_exceeded_count = invoke.invoke_all_command_count_checks(
+        "ls " + directory, 1
+    )
     assert met_or_exceeded_count is True
-    met_or_exceeded_count = invoke.invoke_all_command_count_checks("ls " + directory, 4)
+    met_or_exceeded_count = invoke.invoke_all_command_count_checks(
+        "ls " + directory, 4
+    )
     assert met_or_exceeded_count is False
     details = report.get_result()
     assert details is not None

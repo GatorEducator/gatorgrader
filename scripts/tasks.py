@@ -11,10 +11,10 @@ def internal_cover(c, cover=True):
     """Run the test suite, optionally with coverage tracking enabled."""
     # run test suite with coverage analysis
     if cover:
-        c.run("poetry run task cover")
+        c.run("uv run task cover")
     # run test suite without coverage analysis
     else:
-        c.run("poetry run task test")
+        c.run("uv run task test")
 
 
 def internal_switch(c, pyenv=DEFAULT_PYENV_VERSION):
@@ -22,7 +22,7 @@ def internal_switch(c, pyenv=DEFAULT_PYENV_VERSION):
     # select current_pyenv as the version of Python
     c.run("pyenv local " + pyenv)
     # create the virtualenv managed by Pipenv with current_pyenv
-    c.run("poetry env use `pyenv which python`")
+    c.run("uv python pin `pyenv which python`")
     # display diagnostic information about new version of Python
     c.run("python --version")
 

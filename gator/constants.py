@@ -11,7 +11,9 @@ def create_constants(name, *args, **kwargs):
     # for *args with "Constant_Name" or **kwargs with Constant_Name = "AnyConstantName"
     # note that this creates a constant that will
     # throw an AttributeError when attempting to redefine
-    new_constants = collections.namedtuple(name, itertools.chain(args, kwargs.keys()))
+    new_constants = collections.namedtuple(
+        name, itertools.chain(args, kwargs.keys())
+    )
     return new_constants(*itertools.chain(args, kwargs.values()))
 
 
@@ -51,10 +53,14 @@ comments = create_constants(
 )
 
 # define the environment variables for the program
-environmentvariables = create_constants("environmentvariables", Home="GATORGRADER_HOME")
+environmentvariables = create_constants(
+    "environmentvariables", Home="GATORGRADER_HOME"
+)
 
 # define reference function names in the program
-functions = create_constants("functions", Count_Total_Words="count_total_words")
+functions = create_constants(
+    "functions", Count_Total_Words="count_total_words"
+)
 
 # define the help messages for command-line arguments
 help = create_constants(
@@ -71,7 +77,9 @@ help = create_constants(
 languages = create_constants("languages", "Java", "Python")
 
 # define the markdown indicators
-markdown = create_constants("markdown", Paragraph="paragraph", Softbreak="softbreak")
+markdown = create_constants(
+    "markdown", Paragraph="paragraph", Softbreak="softbreak"
+)
 
 # define the markers for files and output
 markers = create_constants(
@@ -124,7 +132,10 @@ packages = create_constants("packages", Checks="gator.checks")
 #     in the current directory
 # --> Home: the name that must exist at the end of the project's home directory
 paths = create_constants(
-    "paths", Current_Directory=".", Current_Directory_Glob="*", Home="gatorgrader"
+    "paths",
+    Current_Directory=".",
+    Current_Directory_Glob="*",
+    Home="gatorgrader",
 )
 
 # define the details about the program:
@@ -141,7 +152,9 @@ results = create_constants(
 )
 
 # define the version control repository details
-versioncontrol = create_constants("versioncontrol", Master="master", No_Commits=[])
+versioncontrol = create_constants(
+    "versioncontrol", Master="master", No_Commits=[]
+)
 
 # define the words diagnostic messages
 words = create_constants(

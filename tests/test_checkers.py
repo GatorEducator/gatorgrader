@@ -1,14 +1,12 @@
 """Tests for the loading, verification, and use of plugin-based checkers."""
 
-
-from gator import arguments
-from gator import checkers
-
 import os
-import pytest
 import sys
-
 from unittest.mock import patch
+
+import pytest
+
+from gator import arguments, checkers
 
 
 @pytest.fixture(autouse=True)
@@ -31,10 +29,14 @@ def test_reset_checker_source(load_checker):
         "100",
     ]
     with patch.object(sys, "argv", testargs):
-        parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+        parsed_arguments, remaining_arguments = arguments.parse(
+            commandline_arguments
+        )
         args_verified = arguments.verify(parsed_arguments)
         assert args_verified is True
-        check_exists, checker_source, check_file = load_checker(parsed_arguments)
+        check_exists, checker_source, check_file = load_checker(
+            parsed_arguments
+        )
         assert check_exists is True
     checkers.reset_source()
     assert checkers.CHECKER_SOURCE is None
@@ -43,7 +45,9 @@ def test_reset_checker_source(load_checker):
 def test_check_transformation():
     """Ensure that check name transformation works correctly."""
     check_name_on_commandline = "CountCommits"
-    transformed_check_name = checkers.transform_check(check_name_on_commandline)
+    transformed_check_name = checkers.transform_check(
+        check_name_on_commandline
+    )
     assert transformed_check_name == "check_CountCommits"
 
 
@@ -54,14 +58,26 @@ def test_check_transformation():
         (["--json", "--nowelcome", "ListChecks"]),
         (["--nowelcome", "ListChecks"]),
         (["--checkerdir", "./gator/checks", "ListChecks"]),
-        (["--checkerdir", "./gator/checks", "ListChecks", "--namecontains", "Com"]),
+        (
+            [
+                "--checkerdir",
+                "./gator/checks",
+                "ListChecks",
+                "--namecontains",
+                "Com",
+            ]
+        ),
     ],
 )
-def test_check_function_verification_separate(commandline_arguments, load_check):
+def test_check_function_verification_separate(
+    commandline_arguments, load_check
+):
     """Ensure that check verification works for standard functions."""
     testargs = [os.getcwd()]
     with patch.object(sys, "argv", testargs):
-        parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+        parsed_arguments, remaining_arguments = arguments.parse(
+            commandline_arguments
+        )
         args_verified = arguments.verify(parsed_arguments)
         assert args_verified is True
         check = load_check(parsed_arguments)
@@ -77,32 +93,56 @@ def test_check_function_verification_separate(commandline_arguments, load_check)
         (["--json", "--nowelcome", "ListChecks"]),
         (["--nowelcome", "ListChecks"]),
         (["--checkerdir", "./gator/checks", "ListChecks"]),
-        (["--checkerdir", "./gator/checks", "ListChecks", "--namecontains", "Com"]),
-        (["--checkerdir", "./gator/checks", "ListChecks", "--namecontains", "Exec"]),
+        (
+            [
+                "--checkerdir",
+                "./gator/checks",
+                "ListChecks",
+                "--namecontains",
+                "Com",
+            ]
+        ),
+        (
+            [
+                "--checkerdir",
+                "./gator/checks",
+                "ListChecks",
+                "--namecontains",
+                "Exec",
+            ]
+        ),
     ],
 )
 def test_check_function_verification_list(commandline_arguments, load_check):
     """Ensure that check verification works for standard functions."""
     testargs = [os.getcwd()]
     with patch.object(sys, "argv", testargs):
-        parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+        parsed_arguments, remaining_arguments = arguments.parse(
+            commandline_arguments
+        )
         args_verified = arguments.verify(parsed_arguments)
         assert args_verified is True
         check = load_check(parsed_arguments)
         # verify that the check has the functions, specified separately
         assert (
-            checkers.verify_check_functions(check, ["act", "get_parser", "parse"])
+            checkers.verify_check_functions(
+                check, ["act", "get_parser", "parse"]
+            )
             is True
         )
         # verify that the check has the functions, specified according to defaults
         assert checkers.verify_check_functions(check) is True
         # verify that the check does not have the provided functions, specified separately
         assert (
-            checkers.verify_check_functions(check, ["actWRONG", "get_parser", "parse"])
+            checkers.verify_check_functions(
+                check, ["actWRONG", "get_parser", "parse"]
+            )
             is False
         )
         assert (
-            checkers.verify_check_functions(check, ["act", "get_parserWRONG", "parse"])
+            checkers.verify_check_functions(
+                check, ["act", "get_parserWRONG", "parse"]
+            )
             is False
         )
         assert (
@@ -115,8 +155,13 @@ def test_check_function_verification_list(commandline_arguments, load_check):
 
 def test_argument_not_none_verification():
     """Ensure that checking of the arguments is not None is working correctly."""
-    assert checkers.verify_arguments_not_none(["act", "get_parser", "parse"]) is True
-    assert checkers.verify_arguments_not_none([5, "get_parser", "parse"]) is True
+    assert (
+        checkers.verify_arguments_not_none(["act", "get_parser", "parse"])
+        is True
+    )
+    assert (
+        checkers.verify_arguments_not_none([5, "get_parser", "parse"]) is True
+    )
     assert checkers.verify_arguments_not_none([5, False, "parse"]) is True
     assert checkers.verify_arguments_not_none([5, None, "parse"]) is False
     assert checkers.verify_arguments_not_none([None]) is False
@@ -128,7 +173,11 @@ def test_checkerdir_extraction_from_commandline_arguments(tmpdir):
     _ = tmpdir.mkdir("checks").join("check_messages.py")
     assert len(tmpdir.listdir()) == 1
     checker_directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "checks"
-    commandline_arguments = ["--checkerdir", checker_directory, "check_messages"]
+    commandline_arguments = [
+        "--checkerdir",
+        checker_directory,
+        "check_messages",
+    ]
     gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
     args_verified = arguments.verify(gg_arguments)
     assert args_verified is True
@@ -207,7 +256,9 @@ def test_load_checkers_list_is_not_empty_provided_input(tmpdir):
     assert "check_testing" in checker_source_list
 
 
-def test_load_checkers_list_is_not_empty_check_exists_with_provided_input(tmpdir):
+def test_load_checkers_list_is_not_empty_check_exists_with_provided_input(
+    tmpdir,
+):
     """Ensure that checker loading results in non-empty list containing check with provided list."""
     checker_file = tmpdir.mkdir("internal_checkers").join("check_testing.py")
     # this must be valid Python code because it will be loaded by pluginbase
@@ -220,9 +271,13 @@ def test_load_checkers_list_is_not_empty_check_exists_with_provided_input(tmpdir
     assert checker_source is not None
     checker_source_list = checkers.list_checks(checker_source)
     assert "check_testing" in checker_source_list
-    assert checkers.verify_check_existence("check_testing", checker_source) is True
     assert (
-        checkers.verify_check_existence("check_testing_WRONG", checker_source) is False
+        checkers.verify_check_existence("check_testing", checker_source)
+        is True
+    )
+    assert (
+        checkers.verify_check_existence("check_testing_WRONG", checker_source)
+        is False
     )
 
 
@@ -232,7 +287,9 @@ def test_check_extraction_from_commandline_arguments_has_overall_help_when_no_ch
     with patch.object(sys, "argv", testargs):
         checker = "check_CountCommits_Invalid"
         commandline_arguments = [checker]
-        gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+        gg_arguments, remaining_arguments = arguments.parse(
+            commandline_arguments
+        )
         args_verified = arguments.verify(gg_arguments)
         assert args_verified is True
         found_check = checkers.get_chosen_check(gg_arguments)
@@ -251,7 +308,9 @@ def test_check_extraction_from_commandline_arguments_has_help_single_checker():
     with patch.object(sys, "argv", testargs):
         checker = "check_CountCommits"
         commandline_arguments = [checker]
-        gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+        gg_arguments, remaining_arguments = arguments.parse(
+            commandline_arguments
+        )
         args_verified = arguments.verify(gg_arguments)
         assert args_verified is True
         found_check = checkers.get_chosen_check(gg_arguments)
@@ -270,7 +329,9 @@ def test_check_extraction_from_commandline_arguments_has_help_two_checkers_one_i
     """Ensure that checker finding and help extraction works for a provided checker."""
     testargs = [os.getcwd()]
     with patch.object(sys, "argv", testargs):
-        checker_file = tmpdir.mkdir("internal_checkers").join("check_testing.py")
+        checker_file = tmpdir.mkdir("internal_checkers").join(
+            "check_testing.py"
+        )
         # this must be valid Python code because it will be loaded by pluginbase
         checker_file.write('"a checker"')
         checker_directory = (
@@ -279,7 +340,9 @@ def test_check_extraction_from_commandline_arguments_has_help_two_checkers_one_i
         checker = "check_CountCommits"
         assert len(tmpdir.listdir()) == 1
         commandline_arguments = ["--checkerdir", checker_directory, checker]
-        gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+        gg_arguments, remaining_arguments = arguments.parse(
+            commandline_arguments
+        )
         args_verified = arguments.verify(gg_arguments)
         assert args_verified is True
         found_check = checkers.get_chosen_check(gg_arguments)
@@ -306,13 +369,17 @@ def test_check_extraction_from_commandline_arguments_has_help_single_checker_fil
             "--namecontains",
             "Exec",
         ]
-        gg_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+        gg_arguments, remaining_arguments = arguments.parse(
+            commandline_arguments
+        )
         args_verified = arguments.verify(gg_arguments)
         assert args_verified is True
         found_check = checkers.get_chosen_check(gg_arguments)
         assert found_check == checker
         checker_source = checkers.get_source()
-        check_helps = checkers.get_checks_help(checker_source, namecontains="Exec")
+        check_helps = checkers.get_checks_help(
+            checker_source, namecontains="Exec"
+        )
         assert check_helps != ""
         assert "Exec" in check_helps
         counted_newlines = check_helps.count("\n")
@@ -321,7 +388,9 @@ def test_check_extraction_from_commandline_arguments_has_help_single_checker_fil
 
 def test_list_checks_returns_all_internal_checks():
     """Ensure that list_checks returns all internal checks."""
-    check_files = filter(lambda f: f.startswith("check_"), os.listdir("./gator/checks"))
+    check_files = filter(
+        lambda f: f.startswith("check_"), os.listdir("./gator/checks")
+    )
     checker_source = checkers.get_source()
     available_checks = checkers.list_checks(checker_source)
     for check_file in check_files:
