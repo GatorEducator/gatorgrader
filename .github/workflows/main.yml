@@ -19,19 +19,19 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: "3.12"
-      - name: Install Poetry
-        uses: abatilo/actions-poetry@v2.1.4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
         with:
-          poetry-version: 1.8.5
-      - name: Setup Poetry
+          version: "0.11.25"
+      - name: Setup uv
         run: |
-          poetry config virtualenvs.create true
-          poetry config virtualenvs.in-project true
-          poetry env info
+          uv python pin ${{ matrix.python-version }}
+          uv venv
+          uv pip list
       - name: Install dependencies
-        run: poetry install --no-interaction --no-ansi
+        run: uv sync
       # - name: Lint code
-      #   run: poetry run task lint --check
+      #   run: uv run task lint --check
       - name: Lint writing
         uses: actionshub/markdownlint@main
 
@@ -66,28 +66,28 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install Poetry
-        uses: abatilo/actions-poetry@v2.1.4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
         with:
-          poetry-version: 1.8.5
-      - name: Setup Poetry
+          version: "0.11.25"
+      - name: Setup uv
         run: |
-          poetry config virtualenvs.create true
-          poetry config virtualenvs.in-project true
-          poetry env info
+          uv python pin ${{ matrix.python-version }}
+          uv venv
+          uv pip list
       - name: Install dependencies
-        run: poetry install --no-interaction --no-ansi
+        run: uv sync
       - name: Run the test suite
-        run: poetry run pytest
+        run: uv run pytest
       - name: Collect test coverage
         # We need to ensure that the cover-win script is run for Windows, so
         # this Action runs different commands based on the runner's operating
         # system.
         uses: knicknic/os-specific-run@v1
         with:
-          linux: poetry run task cover
-          macos: poetry run task cover
-          windows: poetry run task cover-win
+          linux: uv run task cover
+          macos: uv run task cover
+          windows: uv run task cover-win
       # - name: Upload coverage
       #   uses: codecov/codecov-action@v1
       #   with:
