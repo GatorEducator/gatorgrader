@@ -1,4 +1,4 @@
 @echo off
 setlocal EnableDelayedExpansion
 
-poetry run pytest -x -s
+uv run pytest -x -s
