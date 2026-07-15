@@ -72,6 +72,7 @@ test-command = "pytest -x"
 coverage-command = { var = "pytest -x --cov={project} --cov-fail-under={coveragefailunder} --cov-report=term-missing tests/", recursive = true }
 
 [tool.taskipy.tasks]
+all = "task lint && task test && task cover"
 test = { cmd = "{test-command}", help = "Run the pytest test suite", use_vars = true }
 cover = { cmd = "{coverage-command}", help = "Run the pytest test suite with coverage tracking", use_vars = true }
 lint = "task lint-ruff && task lint-ruff-format && task lint-bandit && task lint-radon-cc && task lint-radon-mi && task lint-xenon"
