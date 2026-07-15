@@ -9,6 +9,9 @@ from gator import constants, files, util
 # define regular expression for blank space matching
 WHITESPACE_RE = r"[!\"#$%&()*+,\./:;\<=\>\?\@\[\]\^`\{\|\}]"
 
+# define a constant for markdown parsing
+CLOSING_PARAGRAPH_INDICATOR = 2
+
 
 def get_paragraphs(contents):
     """Retrieve the paragraphs in the writing in the contents parameter."""
@@ -34,7 +37,7 @@ def get_paragraphs(contents):
         else:
             # check to see if the current subnode is a closing paragraph node
             if (
-                counter == 2
+                counter == CLOSING_PARAGRAPH_INDICATOR
                 and subnode.t == constants.markdown.Paragraph
                 and not enter
             ):
@@ -158,7 +161,7 @@ def count_specified_regex(contents, regex):
     return len(matches)
 
 
-def specified_entity_greater_than_count(
+def specified_entity_greater_than_count(  # noqa: PLR0913
     chosen_fragment,
     checking_function,
     expected_count,
