@@ -14,12 +14,12 @@ jobs:
       - name: Set up Python 3.12
         uses: actions/setup-python@v2
         with:
-          python-version: '3.12'
-      - name: Install Poetry
-        uses: Gr1N/setup-poetry@v7
+          python-version: "3.12"
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
       - name: Publish
         run: |
-          poetry version ${GITHUB_REF##*/v}
-          poetry publish --build
-        env:
-          POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
+          uv build
+          uv publish --token ${{ secrets.PYPI_TOKEN }}
