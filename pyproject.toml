@@ -19,15 +19,10 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-    "pylint>=2.14.5,<3.0",
-    "black>=22.6.0,<23.0",
     "pytest>=7.1.2,<8.0",
-    "codecov>=2.1.12,<3.0",
-    "flake8>=4.0.1,<5.0",
     "pytest-cov>=3.0.0,<4.0",
     "pytest-sugar>=0.9.5,<0.10",
     "bandit>=1.7.4,<2.0",
-    "pydocstyle>=6.1.1,<7.0",
     "radon>=5.1.0,<6.0",
     "xenon>=0.9.0,<0.10",
     "snoop>=0.4.1,<0.5",
@@ -52,7 +47,6 @@ dev = [
     "pytest>=7.1.2,<8.0",
     "pytest-sugar>=0.9.5,<0.10",
     "bandit>=1.7.4,<2.0",
-    "pydocstyle>=6.1.1,<7.0",
     "radon>=5.1.0,<6.0",
     "xenon>=0.9.0,<0.10",
     "snoop>=0.4.1,<0.5",
@@ -63,13 +57,22 @@ dev = [
     "pytest-cov>=3.0.0",
 ]
 
+[tool.taskipy.variables]
+project = "gator"
+files = "gator tests/*.py gatorgrader.py"
+coveragefailunder = "99"
+
 [tool.taskipy.tasks]
-test = "./scripts/test.sh"
-cover = "./scripts/cover.sh"
-lint = "./scripts/lint.sh"
-test-win = 'scripts\\test.bat'
-cover-win = 'scripts\\cover.bat'
-lint-win = 'scripts\\lint.bat'
+test = { cmd = "pytest -x", help = "Run the pytest test suite" }
+cover = { cmd = "pytest -x --cov=gator --cov-fail-under={coveragefailunder} --cov-report=term-missing tests/", help = "Run the pytest test suite with coverage tracking", use_vars = true }
+# Linting tasks run all tools sequentially -- taskipy runs deps in order
+lint-ruff = { cmd = "ruff check {files}", help = "Check Python code with ruff", use_vars = true }
+lint-ruff-format = { cmd = "ruff format --check {files}", help = "Check Python code formatting with ruff", use_vars = true }
+lint-bandit = { cmd = "bandit -c bandit.yml -r gator/", help = "Check Python security with bandit" }
+lint-radon-cc = { cmd = "radon cc {files}", help = "Check cyclomatic complexity with radon", use_vars = true }
+lint-radon-mi = { cmd = "radon mi {files}", help = "Check maintainability index with radon", use_vars = true }
+lint-xenon = { cmd = "xenon --max-absolute D --max-modules B --max-average A gator/", help = "Check code quality thresholds with xenon" }
+lint = "uv run task lint-ruff && uv run task lint-ruff-format && uv run task lint-bandit && uv run task lint-radon-cc && uv run task lint-radon-mi && uv run task lint-xenon"
 
 [tool.ruff]
 line-length = 79
@@ -90,6 +93,16 @@ lint.select = [
     "T201"  # flake8-print
 ]
 
+# Magic numbers (PLR2004) are acceptable in test files
+# where they improve readability over named constants
+# - PLR2004: magic numbers are acceptable in tests for readability
+# - RUF059: unused unpacked variables are intentional for clarity in tests
+lint.per-file-ignores = {"tests/*.py" = ["PLR2004", "RUF059"]}
+
+[tool.coverage.run]
+source = ["gator"]
+branch = true
+omit = ["tests/*", "**/__init__.py"]
 
 [build-system]
 requires = ["hatchling"]
