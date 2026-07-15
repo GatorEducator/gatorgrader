@@ -11,24 +11,6 @@ speed!
 
 [![Lint and Test](https://github.com/GatorEducator/gatorgrader/workflows/Lint%20and%20Test/badge.svg?branch=master)](https://github.com/GatorEducator/gatorgrader/actions?query=workflow%3A%22Lint+and+Test%22+branch%3Amaster) [![codecov.io](https://codecov.io/gh/GatorEducator/gatorgrader/branch/master/graph/badge.svg?token=UKBOlE7kG6)](https://codecov.io/gh/GatorEducator/gatorgrader) [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-orange.svg)](https://github.com/GatorEducator/gatorgrader/graphs/commit-activity) [![GitHub license](https://img.shields.io/github/license/GatorEducator/gatorgrader.svg)](https://github.com/GatorEducator/gatorgrader/blob/master/LICENSE.md) [![All Contributors](https://img.shields.io/badge/all_contributors-33-orange.svg?style=flat-square)](#contributors)
 
-## Table of Contents
-
-- [Quickstart Guide](#quickstart-guide)
-- [Key Features](#key-features)
-- [What Do People Think about GatorGrader?](#what-do-people-think-about-gatorgrader)
-- [Installing GatorGrader](#installing-gatorgrader)
-- [Testing GatorGrader](#testing-gatorgrader)
-  - [Automated Testing](#automated-testing)
-  - [Test Coverage](#test-coverage)
-  - [Testing with Multiple Python Versions](#testing-with-multiple-python-versions)
-  - [Code Linting](#code-linting)
-- [Running GatorGrader](#running-gatorgrader)
-- [Using Docker](#using-docker)
-- [Comparison to Other Tools](#comparison-to-other-tools)
-- [Presentations](#presentations)
-- [Contributing](#contributing)
-- [Contributors](#contributors)
-
 ## Quickstart Guide
 
 - Starter Repositories
@@ -106,14 +88,12 @@ Classroom](https://classroom.github.com/) to effectively handle those tasks.
 ## Installing GatorGrader
 
 Installing GatorGrader is not necessary if you intend to use it through [GatorGrade](https://github.com/GatorEducator/gatorgrade).
-If you want to participate in the development of GatorGrader, the project
-maintainers suggest the use of [Pyenv](https://github.com/pyenv/pyenv) to
-install Python 3.7 or above. In addition to installing [Git](https://git-scm.com/)
-to access the project's GitHub repository, you should also install
-[uv](https://docs.astral.sh/uv/) for its support of fast package and virtual
-environment management. After completing the installation of these tools, you
-can type the following command in your terminal window to clone GatorGrader's
-GitHub repository:
+If you want to participate in the development of GatorGrader, you should
+first install [Git](https://git-scm.com/) to access the project's GitHub
+repository and [uv](https://docs.astral.sh/uv/) for its support of fast
+package and virtual environment management. After completing the installation
+of these tools, you can type the following command in your terminal window to
+clone GatorGrader's GitHub repository:
 
 ```bash
 git clone https://github.com/GatorEducator/gatorgrader.git
@@ -155,64 +135,45 @@ uv run task cover
 
 ### Testing with Multiple Python Versions
 
-The previous two commands are restricted to running the test suite in the
-version of Python with which uv was initialized. If you have installed multiple
-versions of Python with Pyenv and you want to iteratively initialized uv with each
-version and then run the test suite, then you should first run the following
-commands to install [Pipx](https://pypa.github.io/pipx/) and use Pipx to
-install [Invoke](https://github.com/pyinvoke/invoke). The first of these three
-commands will install `pipx`, a program that supports the execution of Python
-packages in isolated environments. The second command makes the directory
-`~/.local/bin/` a part of the search path for executable Python programs and the
-third one installs the `invoke` command so that it is available on your
-workstation outside of a virtual environment managed by uv, thereby ensuring
-that it is always available to run tasks.
+The previous two commands run the test suite in the version of Python with
+which uv was initialized. If you want to run the test suite against a
+different Python version, you can switch uv's Python version before running
+the task:
 
-```
-pip install pipx --user
-python -m userpath append ~/.local/bin/
-pipx install invoke
+```bash
+uv python pin <python-version>
+uv run task test
 ```
 
-Now you can run the test suite in the specified versions of Python with the
-following command. This example command will run the test suite in Python 3.6.8
-and Python 3.7.3.
+For example, to test with Python 3.12:
 
-```
-invoke -c scripts/tasks test --pyenv 3.6.8 --pyenv 3.7.3
-```
-
-If you want to track test coverage while running the tests in both Python 3.6.8
-and 3.7.3, then you can run the following command.
-
-```
-invoke -c scripts/tasks cover --pyenv 3.6.8 --pyenv 3.7.3
-```
-
-You can switch the version with which uv is initialized by running the following
-command that adopts, for instance, Python 3.7.3.
-
-```
-invoke -c scripts/tasks switch --pyenv 3.7.3
+```bash
+uv python pin 3.12
+uv run task test
 ```
 
 ### Code Linting
 
-The developers of GatorGrader use linting and code formatting tools, such as
-[Pylint](https://github.com/PyCQA/pylint),
-[Pydocstyle](https://github.com/PyCQA/pydocstyle), and
-[Black](https://github.com/python/black). After installing GatorGrader's
-development dependencies with uv, you can run all of the linters by typing
-this command in a terminal window.
+The developers of GatorGrader use [Ruff](https://docs.astral.sh/ruff/) for
+linting and code formatting, along with additional tools like
+[bandit](https://github.com/PyCQA/bandit) for security analysis,
+[radon](https://github.com/rubik/radon) for complexity metrics, and
+[xenon](https://github.com/rubik/xenon) for code quality thresholds.
+After installing GatorGrader's development dependencies with uv, you can
+run all of the linters by typing this command in a terminal window:
 
 ```bash
-uv run task lint --check
+uv run task lint
 ```
 
-**Note:** Some legacy linter versions (e.g., `black==22.x`, `flake8==4.x`,
-`pylint==2.x`) may crash on Python 3.14+ due to AST and `importlib_metadata`
-API changes. If you encounter crashes, upgrade the affected tools to newer
-versions compatible with your Python version.
+You can also run individual linters as needed:
+
+```bash
+uv run task lint-ruff       # ruff linting
+uv run task lint-ruff-format # ruff formatting check
+uv run task lint-bandit     # security analysis
+uv run task lint-xenon      # code quality thresholds
+```
 
 ### Automated Checks
 
