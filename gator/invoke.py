@@ -91,7 +91,7 @@ def invoke_file_in_directory_check(filecheck, directory):
     return was_file_found
 
 
-def invoke_all_comment_checks(
+def invoke_all_comment_checks(  # noqa: PLR0912, PLR0913
     filecheck, directory, expected_count, comment_type, language, exact=False
 ):
     """Perform the comment check and return the results."""
@@ -201,12 +201,12 @@ def invoke_all_comment_checks(
         else:
             actual_count = 0
         # get the "most minimal" actual_count from the flattened report from previously run check
-        fragment_diagnostic, fragment_count = (
+        fragment_diagnostic, _fragment_count = (
             util.get_file_diagnostic_deep_not_exact(comment_count_details)
         )
     # --> exactness is required, so find the first value that does not match the specified value
     elif exact:
-        fragment_diagnostic, fragment_count = (
+        fragment_diagnostic, _fragment_count = (
             util.get_file_diagnostic_deep_exact(
                 comment_count_details, expected_count
             )
@@ -296,7 +296,7 @@ def invoke_all_paragraph_checks(
     return met_or_exceeded_count
 
 
-def invoke_all_minimum_word_count_checks(
+def invoke_all_minimum_word_count_checks(  # noqa: PLR0913
     filecheck,
     directory,
     expected_count,
@@ -387,7 +387,7 @@ def invoke_all_minimum_word_count_checks(
     return met_or_exceeded_count
 
 
-def invoke_all_total_word_count_checks(
+def invoke_all_total_word_count_checks(  # noqa: PLR0913
     filecheck,
     directory,
     expected_count,
@@ -433,7 +433,7 @@ def invoke_all_total_word_count_checks(
             + conclusion
         )
     # create a diagnostic message and report the result
-    word_diagnostic, filename = util.get_word_diagnostic(
+    _word_diagnostic, filename = util.get_word_diagnostic(
         actual_count_dictionary, expected_count
     )
     # there is no need for a filename diagnostic unless there are multiple results
@@ -475,7 +475,7 @@ def invoke_all_total_word_count_checks(
     return met_or_exceeded_count
 
 
-def invoke_all_fragment_checks(
+def invoke_all_fragment_checks(  # noqa: PLR0913
     fragment,
     expected_count,
     filecheck=constants.markers.Nothing,
@@ -575,7 +575,7 @@ def invoke_all_fragment_checks(
     return met_or_exceeded_count
 
 
-def invoke_all_regex_checks(
+def invoke_all_regex_checks(  # noqa: PLR0913
     regex,
     expected_count,
     filecheck=constants.markers.Nothing,
