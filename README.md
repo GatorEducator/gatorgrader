@@ -18,7 +18,7 @@ speed!
   The following starter repositories provide examples of how GatorGrader files should be created
   to check programs and documentation for different languages:
   [Java](https://github.com/GatorEducator/java-assignment-starter-100-01),
-  [Python](https://github.com/GatorEducator/python-assignment-starter-203-05), [LaTex](https://github.com/GatorEducator/latex-assignment-starter-100-01) and [HTML with CSS](https://github.com/GatorEducator/html-assignment-starter-302-03). These
+  [Python](https://github.com/GatorEducator/python-assignment-starter-203-05), [LaTeX](https://github.com/GatorEducator/latex-assignment-starter-100-01) and [HTML with CSS](https://github.com/GatorEducator/html-assignment-starter-302-03). These
   examples also show how to integrate GatorGrader with [GitHub
   Classroom](https://classroom.github.com/) and [Travis
   CI](https://travis-ci.com/). When you follow these examples, the Gradle plugin
