@@ -17,7 +17,7 @@ def count_specified_tag(contents, tag):
     return tag_count
 
 
-def specified_tag_greater_than_count(
+def specified_tag_greater_than_count(  # noqa: PLR0913
     chosen_tag,
     checking_function,
     expected_count,
