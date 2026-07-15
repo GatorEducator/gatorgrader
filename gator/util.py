@@ -1,12 +1,11 @@
 """Utility functions."""
 
-from gator import constants
-from gator import files
-
 import json
 import os
 
 from num2words import num2words
+
+from gator import constants, files
 
 
 def verify_gatorgrader_home(current_gatorgrader_home):
@@ -19,7 +18,9 @@ def verify_gatorgrader_home(current_gatorgrader_home):
     if current_gatorgrader_home is not None:
         # the provided input parameter is not empty, so try to
         # create a path for the directory contained in parameter
-        possible_gatorgrader_home = files.create_path(home=current_gatorgrader_home)
+        possible_gatorgrader_home = files.create_path(
+            home=current_gatorgrader_home
+        )
         # this directory exists and the final part of the directory is "gatorgrader"
         if (
             possible_gatorgrader_home.exists()
@@ -31,7 +32,9 @@ def verify_gatorgrader_home(current_gatorgrader_home):
 
 def get_gatorgrader_home():
     """Return GATORGRADER_HOME environment variable if it is valid directory."""
-    current_gatorgrader_home = os.environ.get(constants.environmentvariables.Home)
+    current_gatorgrader_home = os.environ.get(
+        constants.environmentvariables.Home
+    )
     # the current_gatorgrader_home is acceptable, so use it
     if verify_gatorgrader_home(current_gatorgrader_home) is not False:
         gatorgrader_home = current_gatorgrader_home
@@ -155,7 +158,8 @@ def get_first_value(input_dictionary, finder=min):
         return (0, 0)
     # the dictionary is not empty, so return the located (key, value)
     return finder(
-        input_dictionary.items(), key=lambda input_dictionary: input_dictionary[1]
+        input_dictionary.items(),
+        key=lambda input_dictionary: input_dictionary[1],
     )
 
 
@@ -202,7 +206,9 @@ def get_number_as_words(number, format=constants.words.Ordinal):
     return num2words(number, to=format)
 
 
-def get_word_diagnostic(word_count_dictionary, equals_count=constants.markers.Invalid):
+def get_word_diagnostic(
+    word_count_dictionary, equals_count=constants.markers.Invalid
+):
     """Create a full diagnostic based on the dictionary of (paragraph, word counts)."""
     # create a diagnostics like "in the third paragraph" based on the dictionary
     # that contains the words counts in each of the paragraphs of a document
@@ -212,18 +218,27 @@ def get_word_diagnostic(word_count_dictionary, equals_count=constants.markers.In
         paragraph_number_details_list = get_first_minimum_value_deep(
             word_count_dictionary
         )
-        filename_for_paragraph_number_details = paragraph_number_details_list[0]
+        filename_for_paragraph_number_details = paragraph_number_details_list[
+            0
+        ]
         paragraph_number_details = paragraph_number_details_list[1]
         paragraph_number = paragraph_number_details[0]
         paragraph_number_as_word = get_number_as_words(paragraph_number)
         paragraph_number_as_word_phrase = (
-            constants.words.In_The + constants.markers.Space + paragraph_number_as_word
+            constants.words.In_The
+            + constants.markers.Space
+            + paragraph_number_as_word
         )
         # since there will always be a minimum value, go ahead and return it
-        return paragraph_number_as_word_phrase, filename_for_paragraph_number_details
+        return (
+            paragraph_number_as_word_phrase,
+            filename_for_paragraph_number_details,
+        )
     # --> Case: the equals_count is not invalid, so look "deeply" for the first value
     # that is not equal to the provided value stored in equals_count
-    elif word_count_dictionary and equals_count is not constants.markers.Invalid:
+    elif (
+        word_count_dictionary and equals_count is not constants.markers.Invalid
+    ):
         paragraph_number_details_list = get_first_not_equal_value_deep(
             word_count_dictionary, equals_count
         )
@@ -232,7 +247,9 @@ def get_word_diagnostic(word_count_dictionary, equals_count=constants.markers.In
         # paragraph_number_details_list is still {}, this means that a not-equal value
         # was not found and thus this case cannot cause the function to return
         if paragraph_number_details_list:
-            filename_for_paragraph_number_details = paragraph_number_details_list[0]
+            filename_for_paragraph_number_details = (
+                paragraph_number_details_list[0]
+            )
             paragraph_number_details = paragraph_number_details_list[1]
             paragraph_number = paragraph_number_details[0]
             paragraph_number_as_word = get_number_as_words(paragraph_number)
@@ -258,7 +275,9 @@ def get_file_diagnostic(file_count_dictionary):
     if file_count_dictionary:
         file_details = get_first_minimum_value(file_count_dictionary)
         file_name = file_details[0]
-        file_name_phrase = constants.words.In_The + constants.markers.Space + file_name
+        file_name_phrase = (
+            constants.words.In_The + constants.markers.Space + file_name
+        )
         return file_name_phrase
     # since there are no file names and no counts of entities because the dictionary
     # is empty, return a diagnostic to indicate that the file is unknown
@@ -277,7 +296,9 @@ def get_file_diagnostic_deep_not_exact(file_count_dictionary):
         file_details = get_first_minimum_value_deep(file_count_dictionary)
         file_name = file_details[0]
         file_count = file_details[1][1]
-        file_name_phrase = constants.words.In_The + constants.markers.Space + file_name
+        file_name_phrase = (
+            constants.words.In_The + constants.markers.Space + file_name
+        )
         return file_name_phrase, file_count
     # since there are no file names and no counts of entities because the dictionary
     # is empty, return the "in a file" string instead of a diagnostic phrase. Also,
@@ -290,13 +311,17 @@ def get_file_diagnostic_deep_exact(file_count_dictionary, value):
     # create a diagnostics like "in the <filename>" based on the dictionary
     # that contains the fragment counts in each of the files with a wildcard
     if file_count_dictionary:
-        file_details = get_first_not_equal_value_deep(file_count_dictionary, value)
+        file_details = get_first_not_equal_value_deep(
+            file_count_dictionary, value
+        )
         # No values were found after a deep non-equality search, which means that either
         # this was a "non-deep" dictionary or there are no matching values. Try a non-deep
         # search which will return (0, 0) when nothing is also found, thereby signalling
         # that, in fact, there are no exact matches in the data set.
         if file_details == {}:
-            file_details = get_first_not_equal_value(file_count_dictionary, value)
+            file_details = get_first_not_equal_value(
+                file_count_dictionary, value
+            )
         # there is some type of exact match in the data set, so extract and return it
         if file_details != {} and file_details != (0, 0):
             file_name = file_details[0]

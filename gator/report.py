@@ -3,8 +3,7 @@
 import json
 import sys
 
-from gator import constants
-from gator import util
+from gator import constants, util
 
 # define the name of this module
 REPORT = sys.modules[__name__]
@@ -42,14 +41,14 @@ def decompose_result(result_dictionary):
 def reset():
     """Reset the global result dictionary."""
     # pylint: disable=global-statement
-    global result
+    global result  # noqa: PLW0603
     result = None
 
 
 def set_result(description, outcome, diagnostic):
     """Set the current result dictionary."""
     # pylint: disable=global-statement
-    global result
+    global result  # noqa: PLW0603
     result = create_result(description, outcome, diagnostic)
     return result
 
@@ -57,7 +56,7 @@ def set_result(description, outcome, diagnostic):
 def get_result():
     """Return the result dictionary."""
     # pylint: disable=global-statement
-    global result
+    global result  # noqa: PLW0602
     return result
 
 
@@ -95,7 +94,9 @@ def output_text(dictionary_result) -> str:
     # there is no diagnostic, so do not include anything else
     else:
         submitted = (
-            util.get_symbol_answer(outcome) + constants.markers.Space + description
+            util.get_symbol_answer(outcome)
+            + constants.markers.Space
+            + description
         )
     return submitted
 

@@ -14,12 +14,16 @@ console = Console()
 def welcome_message():
     """Display a welcome message."""
     console.print()
-    console.print("✔ GatorGrader: Automatically Check the Files of Programmers and Writers")
+    console.print(
+        "✔ GatorGrader: Automatically Check the Files of Programmers and Writers"
+    )
     console.print("https://github.com/GatorEducator/gatorgrader")
     console.print()
 
 
-def incorrect_system_arguments_message(error: InvalidSystemArgumentsError = None):
+def incorrect_system_arguments_message(
+    error: InvalidSystemArgumentsError = None,
+):
     """Display a message for incorrect arguments."""
     console.print("Incorrect command-line arguments.")
     if error and isinstance(error, InvalidCheckError):
@@ -27,7 +31,9 @@ def incorrect_system_arguments_message(error: InvalidSystemArgumentsError = None
     console.print()
 
 
-def incorrect_check_arguments_message(error: InvalidCheckArgumentsError = None):
+def incorrect_check_arguments_message(
+    error: InvalidCheckArgumentsError = None,
+):
     """Display a message for invalid check arguments."""
     console.print("Incorrect check arguments.")
     console.print()
@@ -39,7 +45,9 @@ def incorrect_check_arguments_message(error: InvalidCheckArgumentsError = None):
 
 def help_reminder():
     """Display a message to remind for the use of help."""
-    console.print("Use gatorgrader --help to show details about GatorGrader's use.")
+    console.print(
+        "Use gatorgrader --help to show details about GatorGrader's use."
+    )
     console.print()
 
 

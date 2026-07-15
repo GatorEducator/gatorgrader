@@ -1,15 +1,17 @@
 """Invoke programs on the command-line."""
 
-from gator import comments
-from gator import constants
-from gator import entities
-from gator import files
-from gator import fragments
-from gator import markdown
-from gator import report
-from gator import repository
-from gator import run
-from gator import util
+from gator import (
+    comments,
+    constants,
+    entities,
+    files,
+    fragments,
+    markdown,
+    report,
+    repository,
+    run,
+    util,
+)
 
 
 def report_result(status, message, diagnostic):
@@ -32,13 +34,19 @@ def invoke_commits_check(student_repository, expected_count, exact=False):
     if not exact:
         # create a message for an "at least" because it is not exact
         # the "at least" check is the default, you must opt-in to an exact check
-        message = "The repository has at least " + str(expected_count) + " commit(s)"
+        message = (
+            "The repository has at least " + str(expected_count) + " commit(s)"
+        )
     else:
         # create a message for an exact check
-        message = "The repository has exactly " + str(expected_count) + " commit(s)"
+        message = (
+            "The repository has exactly " + str(expected_count) + " commit(s)"
+        )
     # diagnostic is created when repository does not have sufficient commits
     # call report_result to update report for this check
-    diagnostic = "Found " + str(actual_count) + " commit(s) in the Git repository"
+    diagnostic = (
+        "Found " + str(actual_count) + " commit(s) in the Git repository"
+    )
     report_result(did_check_pass, message, diagnostic)
     return did_check_pass
 
@@ -52,7 +60,9 @@ def invoke_file_in_directory_check(filecheck, directory):
     # the directory is absolute, meaning that it does not need to be
     # rooted in the context of the project directory
     if directory_path.is_absolute():
-        was_file_found = files.check_file_in_directory(file=filecheck, home=directory)
+        was_file_found = files.check_file_in_directory(
+            file=filecheck, home=directory
+        )
     # the directory is not absolute, meaning that it should be rooted
     # in the context of the project directory. Note that this is
     # normally the case when GatorGrader is used through a Gradle configuration
@@ -191,13 +201,15 @@ def invoke_all_comment_checks(
         else:
             actual_count = 0
         # get the "most minimal" actual_count from the flattened report from previously run check
-        fragment_diagnostic, fragment_count = util.get_file_diagnostic_deep_not_exact(
-            comment_count_details
+        fragment_diagnostic, fragment_count = (
+            util.get_file_diagnostic_deep_not_exact(comment_count_details)
         )
     # --> exactness is required, so find the first value that does not match the specified value
     elif exact:
-        fragment_diagnostic, fragment_count = util.get_file_diagnostic_deep_exact(
-            comment_count_details, expected_count
+        fragment_diagnostic, fragment_count = (
+            util.get_file_diagnostic_deep_exact(
+                comment_count_details, expected_count
+            )
         )
         new_actual_count = util.get_first_not_equal_value_deep(
             comment_count_details, expected_count
@@ -225,7 +237,9 @@ def invoke_all_comment_checks(
     return met_or_exceeded_count
 
 
-def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=False):
+def invoke_all_paragraph_checks(
+    filecheck, directory, expected_count, exact=False
+):
     """Perform the paragraph check and return the results."""
     met_or_exceeded_count = 0
     (
@@ -264,7 +278,9 @@ def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=Fals
     flat_actual_count_dictionary = util.flatten_dictionary_values(
         actual_count_dictionary
     )
-    fragment_diagnostic = util.get_file_diagnostic(flat_actual_count_dictionary)
+    fragment_diagnostic = util.get_file_diagnostic(
+        flat_actual_count_dictionary
+    )
     diagnostic = (
         "Found "
         + str(actual_count)
@@ -281,7 +297,12 @@ def invoke_all_paragraph_checks(filecheck, directory, expected_count, exact=Fals
 
 
 def invoke_all_minimum_word_count_checks(
-    filecheck, directory, expected_count, count_function, conclusion, exact=False
+    filecheck,
+    directory,
+    expected_count,
+    count_function,
+    conclusion,
+    exact=False,
 ):
     """Perform the word count check and return the results."""
     met_or_exceeded_count = 0
@@ -337,14 +358,16 @@ def invoke_all_minimum_word_count_checks(
     # since there is a word_diagnostic, this means that there is a need to customize
     # the diagnostic message because the check is not going to pass correctly
     if word_diagnostic:
-        conclusion = conclusion.replace(constants.words.In_Every, word_diagnostic)
+        conclusion = conclusion.replace(
+            constants.words.In_Every, word_diagnostic
+        )
         # the actual_count may vary depending on whether the check is checking for exact
         # equality or if there is a minimum threshold that the inputs must satisfy
         # --> exactness is not required, so find the minimum value across all inputs
         if not exact:
-            actual_count = util.get_first_minimum_value_deep(actual_count_dictionary)[
-                1
-            ][1]
+            actual_count = util.get_first_minimum_value_deep(
+                actual_count_dictionary
+            )[1][1]
         # --> exactness is required, so find the first value that does not match the specified value
         elif exact:
             actual_count = util.get_first_not_equal_value_deep(
@@ -365,7 +388,12 @@ def invoke_all_minimum_word_count_checks(
 
 
 def invoke_all_total_word_count_checks(
-    filecheck, directory, expected_count, count_function, conclusion, exact=False
+    filecheck,
+    directory,
+    expected_count,
+    count_function,
+    conclusion,
+    exact=False,
 ):
     """Perform the word count check and return the results."""
     met_or_exceeded_count = False
@@ -504,27 +532,26 @@ def invoke_all_fragment_checks(
     # create a message for a string
     # this case is run when a program is
     # executed and then produces output
+    # create an "at least" message, which is the default
+    elif exact is not True:
+        message = (
+            "The command output"
+            + " has at least "
+            + str(expected_count)
+            + " of the '"
+            + fragment
+            + "' fragment"
+        )
+    # create an "exact" message, which is an opt-in
     else:
-        # create an "at least" message, which is the default
-        if exact is not True:
-            message = (
-                "The command output"
-                + " has at least "
-                + str(expected_count)
-                + " of the '"
-                + fragment
-                + "' fragment"
-            )
-        # create an "exact" message, which is an opt-in
-        else:
-            message = (
-                "The command output"
-                + " has exactly "
-                + str(expected_count)
-                + " of the '"
-                + fragment
-                + "' fragment"
-            )
+        message = (
+            "The command output"
+            + " has exactly "
+            + str(expected_count)
+            + " of the '"
+            + fragment
+            + "' fragment"
+        )
     # produce the diagnostic and report the result
     fragment_diagnostic = util.get_file_diagnostic(actual_count_dictionary)
     # when the file is "unknown" then this means that the content is from a command
@@ -605,34 +632,35 @@ def invoke_all_regex_checks(
     # create a message for a string
     # this case is run when a program is
     # executed and then produces output
+    # create an "at least" message, which is the default
+    elif exact is not True:
+        message = (
+            "The command output"
+            + " has at least "
+            + str(expected_count)
+            + " match(es) of the '"
+            + regex
+            + "' regular expression"
+        )
+    # create an "exact" message, which is opt-in
     else:
-        # create an "at least" message, which is the default
-        if exact is not True:
-            message = (
-                "The command output"
-                + " has at least "
-                + str(expected_count)
-                + " match(es) of the '"
-                + regex
-                + "' regular expression"
-            )
-        # create an "exact" message, which is opt-in
-        else:
-            message = (
-                "The command output"
-                + " has exactly "
-                + str(expected_count)
-                + " match(es) of the '"
-                + regex
-                + "' regular expression"
-            )
+        message = (
+            "The command output"
+            + " has exactly "
+            + str(expected_count)
+            + " match(es) of the '"
+            + regex
+            + "' regular expression"
+        )
     # only construct a diagnostic for a file if needed
     conclusion = ""
     # use the default name of the file
     violating_file_name = filecheck
     # since a wildcard was specified, pick the file that most violates the check
     if actual_count_dictionary and filecheck is not constants.markers.Nothing:
-        violating_entity_details = util.get_first_value(actual_count_dictionary)
+        violating_entity_details = util.get_first_value(
+            actual_count_dictionary
+        )
         violating_file_name = violating_entity_details[0]
     # create a conclusion to tag onto the diagnostic's ending
     if filecheck is not constants.markers.Nothing:
@@ -701,7 +729,9 @@ def invoke_all_command_executes_checks(command):
     # pylint: disable=unused-variable
     # note that the program does not use all of these
     # return values, but we are capturing them if needed for debugging
-    command_output, command_error, command_returncode = run.run_command(command)
+    command_output, command_error, command_returncode = run.run_command(
+        command
+    )
     # note that a zero-code means that the command did not work
     # this is the opposite of what is used for processes
     # but, all other GatorGrader checks return 0 on failure and 1 on success
@@ -713,7 +743,9 @@ def invoke_all_command_executes_checks(command):
         command_passed = True
     # create the message and diagnostic and report the result
     message = "The command '" + str(command) + "'" + " executes correctly"
-    diagnostic = "The command returned the error code " + str(command_returncode)
+    diagnostic = "The command returned the error code " + str(
+        command_returncode
+    )
     report_result(command_passed, message, diagnostic)
     return command_passed
 
@@ -828,15 +860,20 @@ def invoke_all_count_checks(
                 + " line(s)"
             )
     # create a message for a string (normally from program execution)
+    elif exact is not True:
+        message = (
+            "The command output"
+            + " has at least "
+            + str(expected_count)
+            + " lines"
+        )
     else:
-        if exact is not True:
-            message = (
-                "The command output" + " has at least " + str(expected_count) + " lines"
-            )
-        else:
-            message = (
-                "The command output" + " has exactly " + str(expected_count) + " lines"
-            )
+        message = (
+            "The command output"
+            + " has exactly "
+            + str(expected_count)
+            + " lines"
+        )
     # Produce the diagnostic and report the result.
     # If a wildcard (i.e., "*.py") was given for the filename, then
     # this diagnostic is customized for the file that first breaks the check.

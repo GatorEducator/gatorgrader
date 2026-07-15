@@ -1,9 +1,9 @@
 """Run a specified process."""
 
-from gator import constants
-
 import subprocess
 import sys
+
+from gator import constants
 
 
 def specified_command_get_output(command):

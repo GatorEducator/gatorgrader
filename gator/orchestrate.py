@@ -3,19 +3,20 @@
 import sys
 from typing import List
 
-from gator import arguments
-from gator import checkers
-from gator import constants
-from gator import description
-from gator import leave
-from gator import report
-from gator import display
-from gator import run
-
+from gator import (
+    arguments,
+    checkers,
+    constants,
+    description,
+    display,
+    leave,
+    report,
+    run,
+)
 from gator.exceptions import (
-    InvalidSystemArgumentsError,
     InvalidCheckArgumentsError,
     InvalidCheckError,
+    InvalidSystemArgumentsError,
 )
 
 # define the name of this module
@@ -62,8 +63,11 @@ def main_api(system_arguments: List[str]):
 
     Returns:
         (description, passed, diagnostic): The description of the check, whether the check passed, and the diagnostic of the check.
+
     """
-    perform_check(*perform_system_configuration(["--nowelcome"] + system_arguments))
+    perform_check(
+        *perform_system_configuration(["--nowelcome"] + system_arguments)
+    )
     return report.decompose_result(report.get_result())
 
 
@@ -80,7 +84,7 @@ def perform_system_configuration(system_arguments):
     # Configure the output type to be JSON if the user specified the --json flag
     if parsed_arguments.json is True:
         # pylint: disable=global-statement
-        global OUTPUT_TYPE
+        global OUTPUT_TYPE  # noqa: PLW0603
         OUTPUT_TYPE = getattr(REPORT, constants.outputs.Json)
     return parsed_arguments, remaining_arguments
 
@@ -112,5 +116,7 @@ def perform_check(parsed_arguments, remaining_arguments):
     # parse a list of the check's output to
     # Override the result's description if needed
     # TODO: this line uses pass-by-reference, and should be refactored at some point for clarity
-    description.transform_result_dictionary(parsed_arguments, report.get_result())
+    description.transform_result_dictionary(
+        parsed_arguments, report.get_result()
+    )
     return passed

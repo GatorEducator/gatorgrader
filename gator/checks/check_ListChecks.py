@@ -2,9 +2,7 @@
 
 import argparse
 
-from gator import checkers
-from gator import constants
-from gator import invoke
+from gator import checkers, constants, invoke
 
 
 def get_parser():
@@ -51,7 +49,9 @@ def act(main_parsed_arguments, check_remaining_arguments):
     # get the source of all the checkers available from either:
     # --> the internal directory of checkers (e.g., "./gator/checks")
     # --> the directory specified on the command-line
-    external_checker_directory = checkers.get_checker_dir(main_parsed_arguments)
+    external_checker_directory = checkers.get_checker_dir(
+        main_parsed_arguments
+    )
     checker_source = checkers.get_source([external_checker_directory])
     # must filter the names of checks with check_parsed_arguments.namecontains filter
     # verification of the arguments is necessary because --namecontains is optional

@@ -1,12 +1,14 @@
 """Count entities with provided functions."""
 
-from gator import constants
-from gator import files
-from gator import util
+from gator import constants, files, util
 
 
 def entity_greater_than_count_total(
-    given_file, containing_directory, expected_count, checking_function, exact=False
+    given_file,
+    containing_directory,
+    expected_count,
+    checking_function,
+    exact=False,
 ):
     """Return a count and determination if entity count is greater than expected."""
     # call the count_entities function in this module
@@ -21,7 +23,11 @@ def entity_greater_than_count_total(
 
 
 def entity_greater_than_count(
-    given_file, containing_directory, expected_count, checking_function, exact=False
+    given_file,
+    containing_directory,
+    expected_count,
+    checking_function,
+    exact=False,
 ):
     """Return a count and determination if entity count is greater than expected."""
     # call the count_entities function in this module
@@ -57,28 +63,28 @@ def count_entities(given_file, containing_directory, checking_function):
         # the file will work on operating systems where the default character
         # encoding is not UTF-8; this commonly happens on Windows systems where
         # the default encoding is usually CP-1252
-        file_contents = file_for_checking.read_text(encoding='utf-8')
+        file_contents = file_for_checking.read_text(encoding="utf-8")
         # use the provided checking_function to check the contents of the file
         # note this works since Python supports passing a function to a function
-        file_contents_count, file_contents_count_dictionary = checking_function(
-            file_contents
+        file_contents_count, file_contents_count_dictionary = (
+            checking_function(file_contents)
         )
         # the checking_function returned a dictionary of form {entity: count}
         # so we should store this dictionary insider the containing dictionary
         # this case would occur for checks like number of words in paragraphs
         if file_contents_count_dictionary:
             # associate these file counts with the filename in a dictionary
-            file_counts_dictionary[
-                file_for_checking.name
-            ] = file_contents_count_dictionary
+            file_counts_dictionary[file_for_checking.name] = (
+                file_contents_count_dictionary
+            )
         # the checking_function did not return a dictionary because that was
         # not sensible for the type of check (e.g., counting paragraphs)
         # so we should make a "dummy" dictionary containing the entity count
         else:
             file_contents_count_dictionary = {1: file_contents_count}
-            file_counts_dictionary[
-                file_for_checking.name
-            ] = file_contents_count_dictionary
+            file_counts_dictionary[file_for_checking.name] = (
+                file_contents_count_dictionary
+            )
     # find the minimum count for all paragraphs across all of the files
     # assume that nothing was found and the count is zero and prove otherwise
     file_contents_count_overall = file_contents_count

@@ -1,11 +1,10 @@
 """Utility functions that check the contents of the file system."""
 
-from gator import constants
-
+import sys
 from glob import glob
 from pathlib import Path
 
-import sys
+from gator import constants
 
 
 def create_cwd_path():

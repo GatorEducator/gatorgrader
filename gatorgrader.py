@@ -1,5 +1,4 @@
-"""
-**GatorGrader** CLI.
+"""**GatorGrader** CLI.
 
 Call ``main`` to run the command-line interface.
 The arguments will be retrieved from ``sys.argv``.

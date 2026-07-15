@@ -2,9 +2,7 @@
 
 import argparse
 
-from gator import checkers
-from gator import constants
-from gator import invoke
+from gator import checkers, constants, invoke
 
 
 def get_parser():
@@ -99,5 +97,10 @@ def act(main_parsed_arguments, check_remaining_arguments):
     language = check_parsed_arguments.language
     exact = check_parsed_arguments.exact
     return invoke.invoke_all_comment_checks(
-        file, directory, count, constants.comments.Multiple_Line, language, exact
+        file,
+        directory,
+        count,
+        constants.comments.Multiple_Line,
+        language,
+        exact,
     )

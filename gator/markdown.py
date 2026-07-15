@@ -2,8 +2,7 @@
 
 import commonmark
 
-from gator import files
-from gator import util
+from gator import files, util
 
 
 def count_specified_tag(contents, tag):
@@ -45,7 +44,7 @@ def specified_tag_greater_than_count(
         # the input of the file will work on operating systems where the
         # default character encoding is not UTF-8; this commonly happens
         # on Windows systems where the default encoding is usually CP-1252
-        file_contents = file_for_checking.read_text(encoding='utf-8')
+        file_contents = file_for_checking.read_text(encoding="utf-8")
         file_tag_count = checking_function(file_contents, chosen_tag)
         file_tags_count_dictionary[file_for_checking.name] = file_tag_count
     # return the minimum value and the entire dictionary of counts
@@ -53,6 +52,8 @@ def specified_tag_greater_than_count(
     file_tags_count = minimum_pair[1]
     # check the condition and also return file_tags_count
     return (
-        util.greater_than_equal_exacted(file_tags_count, expected_count, exact),
+        util.greater_than_equal_exacted(
+            file_tags_count, expected_count, exact
+        ),
         file_tags_count_dictionary,
     )

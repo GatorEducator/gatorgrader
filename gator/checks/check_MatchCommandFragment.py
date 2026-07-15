@@ -2,8 +2,7 @@
 
 import argparse
 
-from gator import checkers
-from gator import invoke
+from gator import checkers, invoke
 
 
 def get_parser():
@@ -23,7 +22,11 @@ def get_parser():
     # COMMAND: the command to execute
     # REQUIRED? Yes
     required_group.add_argument(
-        "--command", type=str, metavar="CMD", help="command to execute", required=True
+        "--command",
+        type=str,
+        metavar="CMD",
+        help="command to execute",
+        required=True,
     )
 
     # FRAGMENT: the fragment that should appear in the command's output
@@ -39,7 +42,10 @@ def get_parser():
     # COUNT: the number of lines of output
     # REQUIRED? Yes
     required_group.add_argument(
-        "--count", type=int, help="how many of fragment should exist", required=True
+        "--count",
+        type=int,
+        help="how many of fragment should exist",
+        required=True,
     )
 
     # }}}
@@ -82,4 +88,6 @@ def act(main_parsed_arguments, check_remaining_arguments):
     fragment = check_parsed_arguments.fragment
     count = check_parsed_arguments.count
     exact = check_parsed_arguments.exact
-    return invoke.invoke_all_command_fragment_checks(command, fragment, count, exact)
+    return invoke.invoke_all_command_fragment_checks(
+        command, fragment, count, exact
+    )

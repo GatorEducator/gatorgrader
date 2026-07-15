@@ -2,9 +2,7 @@
 
 import argparse
 
-from gator import checkers
-from gator import constants
-from gator import invoke
+from gator import checkers, constants, invoke
 
 
 def get_parser():
@@ -24,7 +22,10 @@ def get_parser():
     # COUNT: the number of commits
     # REQUIRED? Yes
     required_group.add_argument(
-        "--count", type=int, help="minimum number of git commits", required=True
+        "--count",
+        type=int,
+        help="minimum number of git commits",
+        required=True,
     )
 
     # }}}
@@ -63,4 +64,6 @@ def act(main_parsed_arguments, check_remaining_arguments):
     # point since argparse will exit the program if the command-line argument is not provided
     count = check_parsed_arguments.count
     exact = check_parsed_arguments.exact
-    return invoke.invoke_commits_check(constants.paths.Current_Directory, count, exact)
+    return invoke.invoke_commits_check(
+        constants.paths.Current_Directory, count, exact
+    )
