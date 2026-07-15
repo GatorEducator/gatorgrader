@@ -37,7 +37,7 @@ gatorgrader = "gatorgrader:main"
 Homepage = "https://github.com/GatorEducator/gatorgrader"
 Repository = "https://github.com/GatorEducator/gatorgrader"
 Documentation = "https://github.com/GatorEducator/gatorgrader"
-"Bug Tracker" = "https://github.com/GatorEducator/gatorgrader/issues"
+"Issues" = "https://github.com/GatorEducator/gatorgrader/issues"
 
 [tool.uv]
 default-groups = ["dev"]
