@@ -61,18 +61,29 @@ dev = [
 project = "gator"
 files = "gator tests/*.py gatorgrader.py"
 coveragefailunder = "99"
+ruff-check-command = { var = "ruff check {files}", recursive = true }
+ruff-format-command = { var = "ruff format --check {files}", recursive = true }
+ruff-fix-command = { var = "ruff format {files}", recursive = true }
+bandit-command = { var = "bandit -c bandit.yml -r {project}", recursive = true }
+radon-cc-command = { var = "radon cc {files}", recursive = true }
+radon-mi-command = { var = "radon mi {files}", recursive = true }
+xenon-command = { var = "xenon --max-absolute D --max-modules B --max-average A {project}/", recursive = true }
+test-command = "pytest -x"
+coverage-command = { var = "pytest -x --cov={project} --cov-fail-under={coveragefailunder} --cov-report=term-missing tests/", recursive = true }
 
 [tool.taskipy.tasks]
-test = { cmd = "pytest -x", help = "Run the pytest test suite" }
-cover = { cmd = "pytest -x --cov=gator --cov-fail-under={coveragefailunder} --cov-report=term-missing tests/", help = "Run the pytest test suite with coverage tracking", use_vars = true }
-# Linting tasks run all tools sequentially -- taskipy runs deps in order
-lint-ruff = { cmd = "ruff check {files}", help = "Check Python code with ruff", use_vars = true }
-lint-ruff-format = { cmd = "ruff format --check {files}", help = "Check Python code formatting with ruff", use_vars = true }
-lint-bandit = { cmd = "bandit -c bandit.yml -r gator/", help = "Check Python security with bandit" }
-lint-radon-cc = { cmd = "radon cc {files}", help = "Check cyclomatic complexity with radon", use_vars = true }
-lint-radon-mi = { cmd = "radon mi {files}", help = "Check maintainability index with radon", use_vars = true }
-lint-xenon = { cmd = "xenon --max-absolute D --max-modules B --max-average A gator/", help = "Check code quality thresholds with xenon" }
-lint = "uv run task lint-ruff && uv run task lint-ruff-format && uv run task lint-bandit && uv run task lint-radon-cc && uv run task lint-radon-mi && uv run task lint-xenon"
+test = { cmd = "{test-command}", help = "Run the pytest test suite", use_vars = true }
+cover = { cmd = "{coverage-command}", help = "Run the pytest test suite with coverage tracking", use_vars = true }
+lint = "task lint-ruff && task lint-ruff-format && task lint-bandit && task lint-radon-cc && task lint-radon-mi && task lint-xenon"
+lint-ruff = { cmd = "{ruff-check-command}", help = "Check Python code with ruff", use_vars = true }
+lint-ruff-format = { cmd = "{ruff-format-command}", help = "Check Python code formatting with ruff", use_vars = true }
+lint-bandit = { cmd = "{bandit-command}", help = "Check Python security with bandit", use_vars = true }
+lint-radon-cc = { cmd = "{radon-cc-command}", help = "Check cyclomatic complexity with radon", use_vars = true }
+lint-radon-mi = { cmd = "{radon-mi-command}", help = "Check maintainability index with radon", use_vars = true }
+lint-xenon = { cmd = "{xenon-command}", help = "Check code quality thresholds with xenon", use_vars = true }
+test-coverage = { cmd = "{coverage-command}", help = "Run the pytest test suite with coverage tracking", use_vars = true }
+format-check = { cmd = "{ruff-format-command}", help = "Check Python code formatting with ruff", use_vars = true }
+format = { cmd = "{ruff-fix-command}", help = "Auto-fix Python code formatting with ruff", use_vars = true }
 
 [tool.ruff]
 line-length = 79
