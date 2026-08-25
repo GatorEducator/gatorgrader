@@ -9,10 +9,11 @@ from gator import constants
 def specified_command_get_output(command):
     """Run the command and return the output as a String."""
     # run the command and gather the output and error details
-    output, error, code = run_command(command)
-    # there was no error, so process the output
+    output, _error, code = run_command(command)
+    # process the output whenever the command exits successfully, regardless
+    # of whether it wrote anything (e.g., benign warnings) to stderr
     produced_output = constants.markers.Nothing
-    if error == constants.markers.Empty and code == constants.codes.Success:
+    if code == constants.codes.Success:
         actual_output = get_actual_output(output)
         produced_output = constants.markers.Newline.join(actual_output)
     return produced_output

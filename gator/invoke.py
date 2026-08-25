@@ -729,17 +729,14 @@ def invoke_all_command_executes_checks(command):
     # pylint: disable=unused-variable
     # note that the program does not use all of these
     # return values, but we are capturing them if needed for debugging
-    _command_output, command_error, command_returncode = run.run_command(
+    _command_output, _command_error, command_returncode = run.run_command(
         command
     )
     # note that a zero-code means that the command did not work
     # this is the opposite of what is used for processes
     # but, all other GatorGrader checks return 0 on failure and 1 on success
     command_passed = False
-    if (
-        command_error == constants.markers.Empty
-        and command_returncode == constants.codes.Success
-    ):
+    if command_returncode == constants.codes.Success:
         command_passed = True
     # create the message and diagnostic and report the result
     message = "The command '" + str(command) + "'" + " executes correctly"

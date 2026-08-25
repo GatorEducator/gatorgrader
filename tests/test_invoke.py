@@ -811,6 +811,16 @@ def test_command_executes_checks_does_execute_correctly():
     assert status_code is True
 
 
+def test_command_executes_checks_does_execute_correctly_with_stderr():
+    """Check that a successful command with benign stderr output still passes."""
+    command = (
+        sys.executable
+        + " -c \"import sys; print('answer'); print('warning', file=sys.stderr)\""
+    )
+    status_code = invoke.invoke_all_command_executes_checks(command)
+    assert status_code is True
+
+
 # pylint: disable=unused-argument
 def test_run_command_does_execute_correctly_would_make_output(
     reset_results_dictionary, tmpdir
