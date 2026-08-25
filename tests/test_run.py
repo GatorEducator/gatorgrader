@@ -1,6 +1,7 @@
 """Test cases for the run module."""
 
 import platform
+import sys
 
 from gator import run
 
@@ -58,6 +59,16 @@ def test_run_command_grab_output_as_string_incorrect_command(tmpdir):
     # this means that it should not produce any output
     output = run.specified_command_get_output("gus " + directory)
     assert output == ""
+
+
+def test_run_command_grab_output_as_string_success_with_stderr():
+    """Check that stdout is kept when a successful command also writes to stderr."""
+    command = (
+        sys.executable
+        + " -c \"import sys; print('answer'); print('warning', file=sys.stderr)\""
+    )
+    output = run.specified_command_get_output(command)
+    assert "answer" in output
 
 
 def test_run_invalid_output():
