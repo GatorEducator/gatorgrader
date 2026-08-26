@@ -184,10 +184,16 @@ def get_first_minimum_value_deep(input_dictionary):
 
 
 def is_json(potential_json):
-    """Determine if a string is in JSON format."""
+    """Return True if *potential_json* is a valid JSON string, bytes, or bytearray.
+
+    Non-string inputs (e.g. None, int, list) are not valid JSON and cause
+    ``json.loads`` to raise a ``TypeError``.  This function catches that
+    exception so that callers never receive an unexpected error from a
+    predicate.
+    """
     try:
         json.loads(potential_json)
-    except ValueError:
+    except (ValueError, TypeError):
         return False
     return True
 

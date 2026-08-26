@@ -142,6 +142,46 @@ def test_json_detection_not_found():
     assert is_valid_json is False
 
 
+def test_json_returns_false_for_none():
+    """Ensure is_json returns False for None without raising."""
+    assert util.is_json(None) is False
+
+
+def test_json_returns_false_for_integer():
+    """Ensure is_json returns False for an integer without raising."""
+    assert util.is_json(42) is False
+
+
+def test_json_returns_false_for_list():
+    """Ensure is_json returns False for a list without raising."""
+    assert util.is_json([1, 2, 3]) is False
+
+
+def test_json_returns_false_for_empty_string():
+    """Ensure is_json returns False for an empty string."""
+    assert util.is_json("") is False
+
+
+def test_json_returns_true_for_valid_object():
+    """Ensure is_json returns True for a valid JSON object string."""
+    assert util.is_json('{"key": "value"}') is True
+
+
+def test_json_returns_true_for_valid_array():
+    """Ensure is_json returns True for a valid JSON array string."""
+    assert util.is_json("[1, 2, 3]") is True
+
+
+def test_json_returns_true_for_valid_bytes():
+    """Ensure is_json returns True for valid JSON encoded as bytes."""
+    assert util.is_json(b'{"key": "value"}') is True
+
+
+def test_json_detection_malformed_string():
+    """Check if a malformed JSON string is not detected as JSON."""
+    assert util.is_json("{not json}") is False
+
+
 def test_flatten_dictionary():
     """Check to see if the dictionary is flattened correctly."""
     input_dictionary = {
