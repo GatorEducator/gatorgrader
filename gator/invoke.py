@@ -30,23 +30,22 @@ def invoke_commits_check(student_repository, expected_count, exact=False):
     did_check_pass, actual_count = repository.commits_greater_than_count(
         student_repository, expected_count, exact
     )
-    # create the message and the diagnostic
     if not exact:
-        # create a message for an "at least" because it is not exact
-        # the "at least" check is the default, you must opt-in to an exact check
         message = (
             "The repository has at least " + str(expected_count) + " commit(s)"
         )
     else:
-        # create a message for an exact check
         message = (
             "The repository has exactly " + str(expected_count) + " commit(s)"
         )
-    # diagnostic is created when repository does not have sufficient commits
-    # call report_result to update report for this check
-    diagnostic = (
-        "Found " + str(actual_count) + " commit(s) in the Git repository"
-    )
+    # a missing or unusable repository needs a distinct diagnostic so that
+    # it is not confused with a valid repository that has no commits
+    if repository.is_git_repository(student_repository):
+        diagnostic = (
+            "Found " + str(actual_count) + " commit(s) in the Git repository"
+        )
+    else:
+        diagnostic = "Did not find a Git repository at " + student_repository
     report_result(did_check_pass, message, diagnostic)
     return did_check_pass
 

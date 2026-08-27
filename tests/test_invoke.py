@@ -4,6 +4,8 @@ import os
 import sys
 from unittest.mock import patch
 
+from git import Repo
+
 from gator import constants, fragments, invoke, report
 
 
@@ -21,6 +23,37 @@ def test_commit_checks_exact(reset_results_dictionary):
     invoke.invoke_commits_check(".", sys.maxsize, True)
     details = report.get_result()
     assert details is not None
+
+
+def test_commit_checks_missing_repository_diagnostic(
+    reset_results_dictionary, tmp_path
+):
+    """Check that a missing repository produces a missing-repository diagnostic."""
+    did_check_pass = invoke.invoke_commits_check(str(tmp_path / "missing"), 1)
+    details = report.get_result()
+    assert did_check_pass is False
+    assert details is not None
+    assert details[constants.results.Outcome] is False
+    assert (
+        "Did not find a Git repository at"
+        in details[constants.results.Diagnostic]
+    )
+
+
+def test_commit_checks_empty_repository_diagnostic(
+    reset_results_dictionary, tmp_path
+):
+    """Check that an empty repository produces a zero-commit diagnostic."""
+    _ = Repo.init(str(tmp_path))
+    did_check_pass = invoke.invoke_commits_check(str(tmp_path), 1)
+    details = report.get_result()
+    assert did_check_pass is False
+    assert details is not None
+    assert details[constants.results.Outcome] is False
+    assert (
+        "Found 0 commit(s) in the Git repository"
+        in details[constants.results.Diagnostic]
+    )
 
 
 # pylint: disable=unused-argument

@@ -281,3 +281,21 @@ def test_main_cli_produces_no_welcome_message(capsys):
     assert counted_newlines in (2, 3)
     assert "GatorGrader" not in captured.out
     assert captured.err == ""
+
+
+def test_main_cli_reports_missing_repository(monkeypatch, tmp_path, capsys):
+    """Ensure that CountCommits fails normally in a non-repository directory."""
+    monkeypatch.chdir(tmp_path)
+    exit_code = orchestrate.main_cli(
+        [
+            "--nowelcome",
+            "CountCommits",
+            "--count",
+            "1",
+        ],
+    )
+    captured = capsys.readouterr()
+    assert exit_code == 1
+    assert captured.err == ""
+    assert "Did not find a Git repository at" in captured.out
+    assert "Traceback" not in captured.out
