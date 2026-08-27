@@ -98,3 +98,33 @@ def test_one_commit_in_new_repository(tmpdir):
     # since an empty file was committed, the count should be 1
     commits = repository.get_commits(str(tmpdir))
     assert len(commits) == 1
+
+
+def test_missing_path_is_not_git_repository(tmp_path):
+    """Ensure that a missing path is not reported as a Git repository."""
+    missing_path = tmp_path / "missing"
+    assert repository.is_git_repository(str(missing_path)) is False
+    assert repository.get_commits(str(missing_path)) == []
+
+
+def test_plain_directory_has_no_commits(tmp_path):
+    """Ensure that a non-Git directory yields no commits without crashing."""
+    assert repository.get_commits(str(tmp_path)) == []
+
+
+def test_empty_git_repository_has_no_commits(tmp_path):
+    """Ensure that a valid empty Git repository yields no commits."""
+    _ = Repo.init(str(tmp_path))
+    assert repository.is_git_repository(str(tmp_path)) is True
+    assert repository.get_commits(str(tmp_path)) == []
+
+
+def test_git_repository_with_commit_has_one_commit(tmp_path):
+    """Ensure that a valid Git repository yields its commits."""
+    testing_repository = Repo.init(str(tmp_path))
+    temp_file = tmp_path / "hello.txt"
+    temp_file.write_text("content")
+    testing_repository.index.add([str(temp_file)])
+    testing_repository.index.commit("Add the hello.txt file.")
+    commits = repository.get_commits(str(tmp_path))
+    assert len(commits) == 1

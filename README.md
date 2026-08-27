@@ -245,6 +245,17 @@ This allows for all of the checks to be printed out as output. This output will 
 name labeled with the required and optional arguments. If this output does not give enough content,
 we warmly invite you to navigate to our website, where we go into more detail about our Automated Checks.
 
+### Git Repository Checks
+
+The `CountCommits` check requires that GatorGrader runs inside a Git
+repository. When the current directory is not a usable Git repository (e.g.,
+the directory does not exist, is not accessible, or does not contain a Git
+repository), the check fails with the diagnostic message `Did not find a Git
+repository at <path>`. A valid Git repository that has no commits is still a
+usable repository: the check reports a count of zero commits, and when the
+check fails it includes the diagnostic message `Found 0 commit(s) in the Git
+repository`, distinguishing that situation from a missing repository.
+
 ## Using Docker
 
 _Note: Docker supports the older GatorGrader execution tool, [GatorGradle](https://github.com/GatorEducator/gatorgradle). It is not needed for GatorGrade!_
