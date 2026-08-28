@@ -69,6 +69,15 @@ def get_parser():
         action="store_true",
     )
 
+    # IGNORE-CASE: match fragments without regard for letter case
+    # REQUIRED? No
+    optional_group.add_argument(
+        "--ignore-case",
+        help="match fragments ignoring letter case",
+        default=False,
+        action="store_true",
+    )
+
     # }}}
     return parser
 
@@ -87,6 +96,7 @@ def act(main_parsed_arguments, check_remaining_arguments):
     # --> directory is the name of the directory that should contain the specified file
     # --> count is required to specify the number of fragments to appear in the output
     # --> exact is optional, but will either be True or False and False by default
+    # --> ignore-case is optional, enabling case-insensitive fragment matching
     check_parsed_arguments = parse(check_remaining_arguments)
     # Directly run the check since at least one of the argument's for it is mandatory.
     # This means that the use of check_MatchFileFragment would have already failed by this
@@ -96,6 +106,13 @@ def act(main_parsed_arguments, check_remaining_arguments):
     file = check_parsed_arguments.file
     directory = check_parsed_arguments.directory
     exact = check_parsed_arguments.exact
+    ignore_case = check_parsed_arguments.ignore_case
     return invoke.invoke_all_fragment_checks(
-        fragment, count, file, directory, constants.markers.Nothing, exact
+        fragment,
+        count,
+        file,
+        directory,
+        constants.markers.Nothing,
+        exact,
+        ignore_case,
     )

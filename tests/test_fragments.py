@@ -381,6 +381,31 @@ def test_chosen_fragment_zero_or_one(
     [
         (
             "hello world!!%^(@after)writing a lot\n\nnew one writing",
+            "WRITING",
+            2,
+        ),
+        ("TODO checklist: wash, TODO again", "todo", 2),
+        ("TODO list", "", 10),
+        ("hello Äpfel and äquivalent words", "ä", 2),
+    ],
+)
+def test_chosen_fragment_ignore_case(
+    writing_string, chosen_fragment, expected_count
+):
+    """Check that case-insensitive fragment counting works correctly."""
+    assert (
+        fragments.count_specified_fragment(
+            writing_string, chosen_fragment, ignore_case=True
+        )
+        == expected_count
+    )
+
+
+@pytest.mark.parametrize(
+    "writing_string,chosen_fragment,expected_count",
+    [
+        (
+            "hello world!!%^(@after)writing a lot\n\nnew one writing",
             "writing",
             2,
         ),
