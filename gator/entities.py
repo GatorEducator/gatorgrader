@@ -74,7 +74,7 @@ def count_entities(given_file, containing_directory, checking_function):
         # this case would occur for checks like number of words in paragraphs
         if file_contents_count_dictionary:
             # associate these file counts with the filename in a dictionary
-            file_counts_dictionary[file_for_checking.name] = (
+            file_counts_dictionary[str(file_for_checking.relative_to(containing_directory))] = (
                 file_contents_count_dictionary
             )
         # the checking_function did not return a dictionary because that was
@@ -82,7 +82,7 @@ def count_entities(given_file, containing_directory, checking_function):
         # so we should make a "dummy" dictionary containing the entity count
         else:
             file_contents_count_dictionary = {1: file_contents_count}
-            file_counts_dictionary[file_for_checking.name] = (
+            file_counts_dictionary[str(file_for_checking.relative_to(containing_directory))] = (
                 file_contents_count_dictionary
             )
     # find the minimum count for all paragraphs across all of the files

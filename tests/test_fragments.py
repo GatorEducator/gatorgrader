@@ -1,6 +1,7 @@
 """Test cases for the fragments module."""
 
 import pytest
+from pathlib import Path
 
 from gator import fragments
 
@@ -671,6 +672,22 @@ def test_count_single_line_from_file_with_threshold_and_wildcards(tmpdir):
     )
     assert actual_count == 1
     assert exceeds_threshold[0] is False
+
+
+def test_count_lines_with_duplicate_wildcard_basenames(tmpdir):
+    """Keep distinct relative paths when wildcard matches duplicate names."""
+    src = tmpdir.mkdir("src")
+    tests = tmpdir.mkdir("tests")
+    src.join("main.py").write("one\ntwo\n")
+    tests.join("main.py").write("one\n")
+
+    count, details = fragments.count_lines("*/main.py", str(tmpdir), "")
+
+    assert count == 1
+    assert details == {
+        str(Path("src") / "main.py"): 2,
+        str(Path("tests") / "main.py"): 1,
+    }
 
 
 def test_count_no_line_from_incorrect_file(tmpdir):

@@ -228,7 +228,7 @@ def count_entities(
         # Windows systems where the default encoding is usually CP-1252
         file_contents = file_for_checking.read_text(encoding="utf-8")
         file_contents_count = checking_function(file_contents, chosen_fragment)
-        file_contents_count_dictionary[file_for_checking.name] = (
+        file_contents_count_dictionary[str(file_for_checking.relative_to(containing_directory))] = (
             file_contents_count
         )
     # return the minimum value and the entire dictionary of counts
@@ -305,7 +305,7 @@ def count_lines(
             file_contents = file_for_checking.read_text(encoding="utf-8")
             line_list = get_line_list(file_contents)
             file_contents_count = len(line_list)
-            file_contents_count_dictionary[file_for_checking.name] = (
+            file_contents_count_dictionary[str(file_for_checking.relative_to(containing_directory))] = (
                 file_contents_count
             )
         # return the minimum value and the entire dictionary of counts
