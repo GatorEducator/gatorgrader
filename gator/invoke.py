@@ -482,6 +482,7 @@ def invoke_all_fragment_checks(  # noqa: PLR0913
     directory=constants.markers.Nothing,
     contents=constants.markers.Nothing,
     exact=False,
+    ignore_case=False,
 ):
     """Perform the check for a fragment existence in file or contents and return the results."""
     met_or_exceeded_count = 0
@@ -497,7 +498,10 @@ def invoke_all_fragment_checks(  # noqa: PLR0913
         directory,
         contents,
         exact,
+        ignore_case,
     )
+    # note the effective matching mode in the message when it differs from the default
+    mode_suffix = " (case-insensitive)" if ignore_case else ""
     # create a message for a file in directory
     if (
         filecheck is not constants.markers.Nothing
@@ -515,6 +519,7 @@ def invoke_all_fragment_checks(  # noqa: PLR0913
                 + " of the '"
                 + fragment
                 + "' fragment"
+                + mode_suffix
             )
         # create an "exact" message, which is an opt-in
         else:
@@ -528,6 +533,7 @@ def invoke_all_fragment_checks(  # noqa: PLR0913
                 + " of the '"
                 + fragment
                 + "' fragment"
+                + mode_suffix
             )
     # create a message for a string
     # this case is run when a program is
@@ -541,6 +547,7 @@ def invoke_all_fragment_checks(  # noqa: PLR0913
             + " of the '"
             + fragment
             + "' fragment"
+            + mode_suffix
         )
     # create an "exact" message, which is an opt-in
     else:
@@ -551,6 +558,7 @@ def invoke_all_fragment_checks(  # noqa: PLR0913
             + " of the '"
             + fragment
             + "' fragment"
+            + mode_suffix
         )
     # produce the diagnostic and report the result
     fragment_diagnostic = util.get_file_diagnostic(actual_count_dictionary)
@@ -570,6 +578,7 @@ def invoke_all_fragment_checks(  # noqa: PLR0913
         + "or the output while expecting "
         + ("exactly " if exact else "at least ")
         + str(expected_count)
+        + mode_suffix
     )
     report_result(met_or_exceeded_count, message, diagnostic)
     return met_or_exceeded_count
@@ -679,7 +688,7 @@ def invoke_all_regex_checks(  # noqa: PLR0913
 
 
 def invoke_all_command_fragment_checks(
-    command, expected_fragment, expected_count, exact=False
+    command, expected_fragment, expected_count, exact=False, ignore_case=False
 ):
     """Perform the check for a fragment existence in the output of a command."""
     command_output = run.specified_command_get_output(command)
@@ -698,6 +707,7 @@ def invoke_all_command_fragment_checks(
         constants.markers.Nothing,
         command_output,
         exact,
+        ignore_case,
     )
 
 

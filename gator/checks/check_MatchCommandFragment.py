@@ -63,6 +63,15 @@ def get_parser():
         action="store_true",
     )
 
+    # IGNORE-CASE: match fragments without regard for letter case
+    # REQUIRED? No
+    optional_group.add_argument(
+        "--ignore-case",
+        help="match fragments ignoring letter case",
+        default=False,
+        action="store_true",
+    )
+
     # }}}
     return parser
 
@@ -80,6 +89,7 @@ def act(main_parsed_arguments, check_remaining_arguments):
     # --> fragment is the content that should appear in the command's output
     # --> count is required to specify the number of fragments to appear in the output
     # --> exact is optional, but will either be True or False and False by default
+    # --> ignore-case is optional, enabling case-insensitive fragment matching
     check_parsed_arguments = parse(check_remaining_arguments)
     # Directly run the check since at least one of the argument's for it is mandatory.
     # This means that the use of check_MatchCommandFragment would have already failed by this
@@ -88,6 +98,7 @@ def act(main_parsed_arguments, check_remaining_arguments):
     fragment = check_parsed_arguments.fragment
     count = check_parsed_arguments.count
     exact = check_parsed_arguments.exact
+    ignore_case = check_parsed_arguments.ignore_case
     return invoke.invoke_all_command_fragment_checks(
-        command, fragment, count, exact
+        command, fragment, count, exact, ignore_case
     )

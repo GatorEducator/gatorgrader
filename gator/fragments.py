@@ -145,9 +145,14 @@ def count_total_words(contents):
     return count_words(contents, sum)
 
 
-def count_specified_fragment(contents, fragment):
+def count_specified_fragment(contents, fragment, ignore_case=False):
     """Count the specified string fragment in the string contents."""
-    fragment_count = contents.count(fragment)
+    # case-insensitive counting uses lowercased strings; str.count stays
+    # non-overlapping and Unicode-aware, matching the case-sensitive semantics
+    if ignore_case:
+        fragment_count = contents.lower().count(fragment.lower())
+    else:
+        fragment_count = contents.count(fragment)
     return fragment_count
 
 
@@ -169,6 +174,7 @@ def specified_entity_greater_than_count(  # noqa: PLR0913
     containing_directory=constants.markers.Nothing,
     contents=constants.markers.Nothing,
     exact=False,
+    ignore_case=False,
 ):
     """Determine if the entity count is greater than expected."""
     # count the fragments/regex in either a file in a directory or String contents
@@ -178,6 +184,7 @@ def specified_entity_greater_than_count(  # noqa: PLR0913
         given_file,
         containing_directory,
         contents,
+        ignore_case,
     )
     # check the condition and also return file_entity_count
     condition_truth, value = util.greater_than_equal_exacted(
@@ -188,12 +195,13 @@ def specified_entity_greater_than_count(  # noqa: PLR0913
     return condition_truth, value, file_entity_count_dictionary
 
 
-def count_entities(
+def count_entities(  # noqa: PLR0913
     chosen_fragment,
     checking_function,
     given_file=constants.markers.Nothing,
     containing_directory=constants.markers.Nothing,
     contents=constants.markers.Nothing,
+    ignore_case=False,
 ):
     """Count fragments for the file in the directory (or contents) and a fragment."""
     # Use these two variables to keep track of entity counts for multiple files.
@@ -214,7 +222,12 @@ def count_entities(
         if contents is constants.markers.Command_Error:
             contents = constants.markers.Nothing
         # run the checking_function to look for fragments in the contents
-        file_contents_count = checking_function(contents, chosen_fragment)
+        if ignore_case:
+            file_contents_count = checking_function(
+                contents, chosen_fragment, ignore_case
+            )
+        else:
+            file_contents_count = checking_function(contents, chosen_fragment)
         return file_contents_count, file_contents_count_dictionary
     for file_for_checking in files.create_paths(
         file=given_file, home=containing_directory
@@ -227,7 +240,14 @@ def count_entities(
         # default character encoding is not UTF-8; this commonly happens on
         # Windows systems where the default encoding is usually CP-1252
         file_contents = file_for_checking.read_text(encoding="utf-8")
-        file_contents_count = checking_function(file_contents, chosen_fragment)
+        if ignore_case:
+            file_contents_count = checking_function(
+                file_contents, chosen_fragment, ignore_case
+            )
+        else:
+            file_contents_count = checking_function(
+                file_contents, chosen_fragment
+            )
         file_contents_count_dictionary[file_for_checking.name] = (
             file_contents_count
         )

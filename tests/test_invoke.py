@@ -480,6 +480,43 @@ def test_content_string_check_fragments_exact(reset_results_dictionary):
 
 
 # pylint: disable=unused-argument
+def test_content_string_check_fragments_ignore_case(reset_results_dictionary):
+    """Check that case-insensitive fragment checking works correctly."""
+    value = "HELLO world 44 fine\n\nhi there nice again\n\nff! Is now @NAME again\n\n"
+    invoke.invoke_all_fragment_checks(
+        "hello", 1, contents=value, ignore_case=True
+    )
+    details = report.get_result()
+    assert details is not None
+    assert "(case-insensitive)" in details[constants.results.Description]
+    # case-sensitive checking of the same content should not match
+    invoke.invoke_all_fragment_checks("hello", 1, contents=value)
+    details = report.get_result()
+    assert details is not None
+    assert details[constants.results.Outcome] is False
+
+
+# pylint: disable=unused-argument
+def test_content_string_check_fragments_ignore_case_exact(
+    reset_results_dictionary,
+):
+    """Check that case-insensitive exact fragment checking works correctly."""
+    value = "TODO checklist\nTODO checklist again"
+    invoke.invoke_all_fragment_checks(
+        "todo", 2, contents=value, exact=True, ignore_case=True
+    )
+    details = report.get_result()
+    assert details is not None
+    assert details[constants.results.Outcome] is True
+    assert "(case-insensitive)" in details[constants.results.Description]
+    # exact case-sensitive checking should not match
+    invoke.invoke_all_fragment_checks("todo", 2, contents=value, exact=True)
+    details = report.get_result()
+    assert details is not None
+    assert details[constants.results.Outcome] is False
+
+
+# pylint: disable=unused-argument
 def test_content_string_check_regex_exact(reset_results_dictionary):
     """Check that the checking of exact regex works correctly."""
     value = "hello world 44 fine\n\nhi there nice again\n\nff! Is now $@name again\n\n"

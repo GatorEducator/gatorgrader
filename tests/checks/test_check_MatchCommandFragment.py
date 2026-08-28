@@ -72,6 +72,46 @@ def test_required_commandline_arguments_can_parse(commandline_arguments, not_rai
 
 
 @pytest.mark.parametrize(
+    "commandline_arguments",
+    [
+        (
+            [
+                "--command",
+                "run_command_first",
+                "--fragment",
+                "fragment",
+                "--count",
+                "5",
+                "--ignore-case",
+            ]
+        ),
+    ],
+)
+def test_optional_commandline_arguments_can_parse(
+    commandline_arguments, not_raises
+):
+    """Check that correct optional command-line arguments check correctly."""
+    with not_raises(InvalidCheckArgumentsError):
+        parsed = check_MatchCommandFragment.parse(commandline_arguments)
+        assert parsed.ignore_case is True
+
+
+def test_ignore_case_defaults_to_false(not_raises):
+    """Check that ignore-case defaults to False when not provided."""
+    commandline_arguments = [
+        "--command",
+        "run_command_first",
+        "--fragment",
+        "fragment",
+        "--count",
+        "5",
+    ]
+    with not_raises(InvalidCheckArgumentsError):
+        parsed = check_MatchCommandFragment.parse(commandline_arguments)
+        assert parsed.ignore_case is False
+
+
+@pytest.mark.parametrize(
     "commandline_arguments, expected_result",
     [
         (
@@ -195,3 +235,28 @@ def test_act_produces_output(commandline_arguments, expected_result, load_check)
             assert report.get_result()["diagnostic"] == ""
         else:
             assert report.get_result()["diagnostic"] != ""
+
+
+def test_act_produces_output_ignore_case(load_check):
+    """Check that using the check with --ignore-case matches regardless of case."""
+    testargs = [os.getcwd()]
+    with patch.object(sys, "argv", testargs):
+        commandline_arguments = [
+            "MatchCommandFragment",
+            "--command",
+            'echo "TODO: fix this bug"',
+            "--fragment",
+            "todo",
+            "--count",
+            "1",
+            "--ignore-case",
+        ]
+        parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+        args_verified = arguments.verify(parsed_arguments)
+        assert args_verified is True
+        check = load_check(parsed_arguments)
+        check_result = check.act(parsed_arguments, remaining_arguments)
+        # the check passes when matching "todo" against "TODO" case-insensitively
+        assert check_result is True
+        assert report.get_result() is not None
+        assert report.get_result()["outcome"] is True

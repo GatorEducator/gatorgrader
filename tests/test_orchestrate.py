@@ -172,6 +172,19 @@ def test_main_cli_fails_with_nonexistent_check(commandline_arguments, capsys):
             ],
             1,
         ),
+        (
+            [
+                "MatchCommandFragment",
+                "--command",
+                'echo "TODO: fix this bug"',
+                "--fragment",
+                "todo",
+                "--count",
+                "1",
+                "--ignore-case",
+            ],
+            0,
+        ),
     ],
 )
 def test_check_produces_correct_output(

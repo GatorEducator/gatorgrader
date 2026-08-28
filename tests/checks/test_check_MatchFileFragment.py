@@ -112,6 +112,50 @@ def test_required_commandline_arguments_can_parse(commandline_arguments, not_rai
 
 
 @pytest.mark.parametrize(
+    "commandline_arguments",
+    [
+        (
+            [
+                "--file",
+                "filename",
+                "--directory",
+                "directoryname",
+                "--count",
+                "5",
+                "--fragment",
+                "fragment",
+                "--ignore-case",
+            ]
+        ),
+    ],
+)
+def test_optional_commandline_arguments_can_parse(
+    commandline_arguments, not_raises
+):
+    """Check that correct optional command-line arguments check correctly."""
+    with not_raises(InvalidCheckArgumentsError):
+        parsed = check_MatchFileFragment.parse(commandline_arguments)
+        assert parsed.ignore_case is True
+
+
+def test_ignore_case_defaults_to_false(not_raises):
+    """Check that ignore-case defaults to False when not provided."""
+    commandline_arguments = [
+        "--file",
+        "filename",
+        "--directory",
+        "directoryname",
+        "--count",
+        "5",
+        "--fragment",
+        "fragment",
+    ]
+    with not_raises(InvalidCheckArgumentsError):
+        parsed = check_MatchFileFragment.parse(commandline_arguments)
+        assert parsed.ignore_case is False
+
+
+@pytest.mark.parametrize(
     "commandline_arguments, chosen_file, containing_directory, provided_count, expected_result",
     [
         (
@@ -231,3 +275,41 @@ def test_act_produces_output(
             assert report.get_result()["diagnostic"] == ""
         else:
             assert report.get_result()["diagnostic"] != ""
+
+
+def test_act_produces_output_ignore_case(tmpdir, load_check):
+    """Check that using the check with --ignore-case matches regardless of case."""
+    testargs = [os.getcwd()]
+    with patch.object(sys, "argv", testargs):
+        new_file = tmpdir.mkdir("containing_directory").join("file_to_find")
+        new_file.write("TODO: fix this bug")
+        assert new_file.read() == "TODO: fix this bug"
+        assert len(tmpdir.listdir()) == 1
+        overall_directory = (
+            tmpdir.dirname
+            + "/"
+            + tmpdir.basename
+            + "/"
+            + "containing_directory"
+        )
+        commandline_arguments = [
+            "MatchFileFragment",
+            "--file",
+            "file_to_find",
+            "--directory",
+            overall_directory,
+            "--count",
+            "1",
+            "--fragment",
+            "todo",
+            "--ignore-case",
+        ]
+        parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+        args_verified = arguments.verify(parsed_arguments)
+        assert args_verified is True
+        check = load_check(parsed_arguments)
+        check_result = check.act(parsed_arguments, remaining_arguments)
+        # the check passes when matching "todo" against "TODO" case-insensitively
+        assert check_result is True
+        assert report.get_result() is not None
+        assert report.get_result()["outcome"] is True
