@@ -32,6 +32,16 @@ def test_run_broken_command_returns_nonzero():
     assert code != 0
 
 
+def test_run_command_times_out_and_terminates_child():
+    """Return a failed result when a command exceeds its timeout."""
+    output, error, code = run.run_command(
+        'python -c "import time; time.sleep(60)"', timeout=0.1
+    )
+    assert output == b""
+    assert b"Command timed out after 0.1 seconds" in error
+    assert code == 124
+
+
 def test_run_command_grab_output_as_string_correct_command(tmpdir):
     """Check that invocation of command produces correct captured output."""
     tmpdir.mkdir("Hello1")

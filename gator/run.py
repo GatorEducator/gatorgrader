@@ -2,6 +2,7 @@
 
 import subprocess
 import sys
+import os
 
 from gator import constants
 
@@ -34,14 +35,31 @@ def get_actual_output(output):
     return actual_output
 
 
-def run_command(command):
+def run_command(command, timeout=30):
     """Run a command and return the output and error code."""
     # configure the process that will run the command
     process = subprocess.Popen(
         command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
     )
     # run the command and return the results
-    output, error = process.communicate()
+    try:
+        output, error = process.communicate(timeout=timeout)
+    except subprocess.TimeoutExpired as exception:
+        if os.name == "nt":
+            subprocess.run(
+                ["taskkill", "/F", "/T", "/PID", str(process.pid)],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                check=False,
+            )
+        else:
+            process.kill()
+        output, error = process.communicate()
+        timeout_error = (
+            exception.stderr or b""
+        ) + f"Command timed out after {timeout} seconds: {command}".encode()
+        error += timeout_error
+        process.returncode = 124
     return output, error, process.returncode
 
 
