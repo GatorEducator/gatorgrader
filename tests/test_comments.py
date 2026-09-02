@@ -451,7 +451,7 @@ def test_multiline_java_comments_mixed(code_string, expected_count):
         ("# hello world\n''' hello ''' \n ''' hello '''", 2),
         ("''' hi ''' \n ''' hi again '''", 2),
         ("''' hi ''' \n # whoa \n''' hi again '''", 2),
-        ('# another function\ndef func(int arg):\n\t\'\'\' hi again \'\'\'', 1),
+        ("# another function\ndef func(int arg):\n\t''' hi again '''", 1),
     ],
 )
 def test_multiline_python_comments_mixed(code_string, expected_count):
@@ -518,11 +518,7 @@ def test_multiline_python_comments_many(code_string, expected_count):
             2,
         ),
         (
-            "'''\n"
-            "Line 1\n"
-            "Line 2\n"
-            "Line 3\n"
-            "'''",
+            "'''\nLine 1\nLine 2\nLine 3\n'''",
             1,
         ),
         ("'''He said \\'hello\\'.'''", 1),
@@ -530,7 +526,9 @@ def test_multiline_python_comments_many(code_string, expected_count):
         ("''''''", 1),
     ],
 )
-def test_multiline_python_comments_triple_single_quote(code_string, expected_count):
+def test_multiline_python_comments_triple_single_quote(
+    code_string, expected_count
+):
     """Check that triple single quote docstrings are counted."""
     count_of_multiline_python_comments, _ = (
         comments.count_multiline_python_comment(code_string)
