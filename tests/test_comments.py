@@ -351,6 +351,18 @@ def test_multiline_java_comments_zero_or_one(code_string, expected_count):
         ('"hello world"', 0),
         (" ", 0),
         ("", 0),
+        ("''' hello \n world'''", 1),
+        ("'''hello\n world\n'''", 1),
+        ("'''\nhello world\n'''", 1),
+        ("'''\nhello\n world\n'''", 1),
+        ("'''\nhello world\n", 0),
+        ("''hello world''", 0),
+        ("''' hello world\n'''", 1),
+        ("''''''", 1),
+        ("''' '''", 1),
+        ("''' hello world", 0),
+        ("''hello world''", 0),
+        ("'hello world'", 0),
     ],
 )
 def test_multiline_python_comments_zero_or_one(code_string, expected_count):
@@ -391,6 +403,13 @@ def test_multiline_java_comments_two(code_string, expected_count):
         ('""" hello """ \n world \n """ hello world """', 2),
         ('""" hello @author me """ \n """ hello world """', 2),
         ('""" hello\n@author me """\n world \n """ hello world """', 2),
+        ("''' hello world ''' \n ''' hello world '''", 2),
+        ("''' hello ''' \n world \n ''' hello world '''", 2),
+        ("''' hello ''' \n ''' hello world '''", 2),
+        ("''' hello world ''' \n ''' hello \n world '''", 2),
+        ("''' hello ''' \n world \n ''' hello world '''", 2),
+        ("''' hello @author me ''' \n ''' hello world '''", 2),
+        ("''' hello\n@author me '''\n world \n ''' hello world '''", 2),
     ],
 )
 def test_multiline_python_comments_two(code_string, expected_count):
@@ -428,6 +447,11 @@ def test_multiline_java_comments_mixed(code_string, expected_count):
         ('""" hi """ \n """ hi again """', 2),
         ('""" hi """ \n # whoa \n""" hi again """', 2),
         ('# another function\ndef func(int arg):\n\t""" hi again """', 1),
+        ("# hello world \n''' hello '''", 1),
+        ("# hello world\n''' hello ''' \n ''' hello '''", 2),
+        ("''' hi ''' \n ''' hi again '''", 2),
+        ("''' hi ''' \n # whoa \n''' hi again '''", 2),
+        ("# another function\ndef func(int arg):\n\t''' hi again '''", 1),
     ],
 )
 def test_multiline_python_comments_mixed(code_string, expected_count):
@@ -476,6 +500,36 @@ def test_multiline_java_comments_many(code_string, expected_count):
 )
 def test_multiline_python_comments_many(code_string, expected_count):
     """Check that it finds many multiline Python docstring comments."""
+    count_of_multiline_python_comments, _ = (
+        comments.count_multiline_python_comment(code_string)
+    )
+    assert count_of_multiline_python_comments == expected_count
+
+
+@pytest.mark.parametrize(
+    "code_string,expected_count",
+    [
+        ("'''This is a module docstring.'''", 1),
+        (
+            "'''This is a module docstring.'''\n"
+            "def function():\n"
+            "    '''This is a function docstring.'''\n"
+            "    return 1",
+            2,
+        ),
+        (
+            "'''\nLine 1\nLine 2\nLine 3\n'''",
+            1,
+        ),
+        ("'''He said \\'hello\\'.'''", 1),
+        ("'''unclosed string", 0),
+        ("''''''", 1),
+    ],
+)
+def test_multiline_python_comments_triple_single_quote(
+    code_string, expected_count
+):
+    """Check that triple single quote docstrings are counted."""
     count_of_multiline_python_comments, _ = (
         comments.count_multiline_python_comment(code_string)
     )
