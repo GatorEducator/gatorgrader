@@ -314,3 +314,12 @@ because we appreciate the involvement of new contributors! Before you raise an
 issue or start to make a contribution to GatorGrader's repository, we ask that
 you review the project's [code of conduct](CODE_OF_CONDUCT.md) and the
 [contribution guidelines](CONTRIBUTING.md).
+
+## External Checkers
+
+GatorGrader can load checks from an external directory instead of relying only
+on its built-in checks. See the [contribution
+guidelines](CONTRIBUTING.md#external-checkers) for the three-function contract
+that such a checker must implement, and
+`examples/plugin/check_WordCountExample.py` for a complete example that you can
+copy and run with `--checkerdir`.

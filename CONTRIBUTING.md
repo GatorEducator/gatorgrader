@@ -145,6 +145,38 @@ can add the `@snoop` annotation immediately before the declaration of the
 function. More details about the use of Snoop for debugging are available on
 Snoop's GitHub repository.
 
+## External Checkers
+
+External checkers let contributors extend GatorGrader without changing the
+built-in checks. An external checker is a standalone Python module in a
+directory passed via the `--checkerdir` CLI argument.
+
+Each checker module must provide three functions:
+
+- `get_parser()` returns an `argparse.ArgumentParser` for the check's CLI
+  arguments, with `prog` set to the check name.
+- `parse(args)` parses those arguments, typically by delegating to
+  `gator.checkers.parse(get_parser, args)`.
+- `act(main_parsed_arguments, check_remaining_arguments)` runs the check and
+  returns `True` when it passes, reporting its outcome through
+  `gator.invoke.report_result`.
+
+The check name used on the command line is the module filename without the
+leading `check_` prefix. For example, `check_WordCountExample.py` is invoked
+as `WordCountExample`:
+
+```bash
+gator --checkerdir examples/plugin WordCountExample \
+  --file essay.txt --directory . --count 250
+```
+
+See `gator/plugin.py` for a `typing.Protocol` describing this contract, and
+`examples/plugin/check_WordCountExample.py` for a complete example. A checker
+module needs no framework beyond the standard library and `gator` itself, so
+students can copy the example and run it directly. Note that GatorGrader
+executes checker code during a run, so only load checkers from directories
+that you trust.
+
 ## External Resources
 
 GatorGrader's creators give presentations about the development, use, and

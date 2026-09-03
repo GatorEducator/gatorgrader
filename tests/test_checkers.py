@@ -6,7 +6,7 @@ from unittest.mock import patch
 
 import pytest
 
-from gator import arguments, checkers
+from gator import arguments, checkers, plugin
 
 
 @pytest.fixture(autouse=True)
@@ -403,3 +403,90 @@ def test_load_check_can_load_internal_check():
     check = checkers.load_check(None, "check_CountCommits")
     assert check is not None
     assert hasattr(check, "act")
+
+
+def test_example_external_checker_appears_in_listing():
+    """Ensure that the example external checker is listed via --checkerdir."""
+    example_directory = os.path.join(os.getcwd(), "examples", "plugin")
+    checker_source = checkers.get_source([example_directory])
+    assert "check_WordCountExample" in checkers.list_checks(checker_source)
+    check_helps = checkers.get_checks_help(checker_source)
+    assert "WordCountExample" in check_helps
+
+
+def test_example_external_checker_runs_end_to_end(tmpdir):
+    """Ensure that the example external checker passes and fails correctly."""
+    sample_file = tmpdir.join("essay.txt")
+    sample_file.write("one two three four five six seven")
+    example_directory = os.path.join(os.getcwd(), "examples", "plugin")
+    checker_source = checkers.get_source([example_directory])
+    example_check = checkers.load_check(
+        checker_source, "check_WordCountExample"
+    )
+    passing_args = [
+        "--file",
+        "essay.txt",
+        "--directory",
+        str(tmpdir),
+        "--count",
+        "7",
+    ]
+    failing_args = [
+        "--file",
+        "essay.txt",
+        "--directory",
+        str(tmpdir),
+        "--count",
+        "8",
+    ]
+    assert example_check.act(None, passing_args) is True
+    assert example_check.act(None, failing_args) is False
+
+
+def test_invalid_external_checker_does_not_crash_help(tmpdir):
+    """Ensure that listing checks survives a malformed external checker."""
+    checker_directory = tmpdir.mkdir("external_checkers")
+    checker_file = checker_directory.join("check_testing.py")
+    # this must be valid Python code because it will be loaded by pluginbase
+    checker_file.write('"a checker"')
+    checker_source = checkers.get_source([str(checker_directory)])
+    assert "check_testing" in checkers.list_checks(checker_source)
+    # no get_parser function means no help text, but no crash either
+    assert checkers.get_checks_help(checker_source) != ""
+
+
+def test_plugin_verification_helpers():
+    """Ensure that the documented contract helpers classify modules."""
+
+    class WellFormedChecker:
+        """Checker module with the documented shape."""
+
+        def get_parser():
+            """Return a parser."""
+
+        def parse(args):
+            """Parse the arguments."""
+
+        def act(main_parsed_arguments, check_remaining_arguments) -> bool:
+            """Run the check."""
+
+    class UnannotatedActChecker(WellFormedChecker):
+        """Checker whose act does not declare its bool return."""
+
+        def act(main_parsed_arguments, check_remaining_arguments):
+            """Run the check."""
+
+    class MissingActChecker:
+        """Checker module without the required act function."""
+
+        def get_parser():
+            """Return a parser."""
+
+        def parse(args):
+            """Parse the arguments."""
+
+    assert plugin.verify_check_functions(WellFormedChecker) is True
+    assert plugin.verify_act_returns_bool(WellFormedChecker) is True
+    assert plugin.verify_act_returns_bool(UnannotatedActChecker) is False
+    assert plugin.verify_check_functions(MissingActChecker) is False
+    assert plugin.verify_act_returns_bool(MissingActChecker) is False
