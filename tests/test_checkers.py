@@ -403,3 +403,46 @@ def test_load_check_can_load_internal_check():
     check = checkers.load_check(None, "check_CountCommits")
     assert check is not None
     assert hasattr(check, "act")
+
+
+def test_get_source_does_not_mutate_caller_list():
+    """Ensure that calling get_source does not mutate the caller's list."""
+    paths = [""]
+    original = list(paths)
+    checkers.get_source(paths)
+    assert paths == original
+
+
+def test_get_source_separate_dirs_find_different_plugins(tmpdir):
+    """Ensure repeated get_source calls with different dirs find different plugins."""
+    dir_one = tmpdir.mkdir("checkers_one")
+    dir_two = tmpdir.mkdir("checkers_two")
+    dir_one.join("check_alpha.py").write('"checker alpha"')
+    dir_two.join("check_beta.py").write('"checker beta"')
+    path_one = str(dir_one)
+    path_two = str(dir_two)
+    source_one = checkers.get_source([path_one])
+    checks_one = checkers.list_checks(source_one)
+    assert "check_alpha" in checks_one
+    source_two = checkers.get_source([path_two])
+    checks_two = checkers.list_checks(source_two)
+    assert "check_beta" in checks_two
+    assert "check_alpha" not in checks_two
+
+
+def test_reset_source_clears_cache_and_allows_rebuild(tmpdir):
+    """Ensure reset_source clears the cache so different paths can be loaded."""
+    dir_one = tmpdir.mkdir("checkers_one")
+    dir_one.join("check_alpha.py").write('"checker alpha"')
+    path_one = str(dir_one)
+    source_one = checkers.get_source([path_one])
+    assert "check_alpha" in checkers.list_checks(source_one)
+    checkers.reset_source()
+    assert checkers.CHECKER_SOURCE is None
+    dir_two = tmpdir.mkdir("checkers_two")
+    dir_two.join("check_beta.py").write('"checker beta"')
+    path_two = str(dir_two)
+    source_two = checkers.get_source([path_two])
+    checks_two = checkers.list_checks(source_two)
+    assert "check_beta" in checks_two
+    assert "check_alpha" not in checks_two

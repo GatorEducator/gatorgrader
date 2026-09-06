@@ -13,6 +13,8 @@ from gator.exceptions import InvalidCheckArgumentsError
 
 CHECKER_SOURCE = None
 
+_CHECKER_SOURCES = {}
+
 DEFAULT_FUNCTIONS = [
     constants.checkers.Function_Act,
     constants.checkers.Function_Get_Parser,
@@ -140,28 +142,22 @@ def load_check(checker_source, check_file):
         return checker_source.load_plugin(check_file)
 
 
-def get_source(checker_paths=[]):
+def get_source(checker_paths=None):
     """Load all of the checkers using pluginbase."""
-    # define the "package" in which the checks reside
-    # the term "package" corresponds to "module.sub-module"
     checker_base = PluginBase(package=constants.packages.Checks)
-    # remove any directories from the path listings that are Nothing (i.e., "")
-    # this case occurs when the optional --checkerdir is not provided on command-line
-    if constants.markers.Nothing in checker_paths:
-        checker_paths.remove(constants.markers.Nothing)
-    # Create and return a source of checkers using PluginBase.
-    # The documentation for this function advices that you
-    # give an identifier to the source for the plugins
-    # because this will support saving and transfer, if needed.
-    # Only perform this operation if the checker source is None,
-    # meaning that it has not already been initialized.
+    paths = list(checker_paths) if checker_paths is not None else []
+    if constants.markers.Nothing in paths:
+        paths.remove(constants.markers.Nothing)
+    cache_key = tuple(paths)
+    if cache_key not in _CHECKER_SOURCES:
+        source_id = f"{constants.checkers.Plugin_Base_Identifier}_{hash(cache_key)}"
+        _CHECKER_SOURCES[cache_key] = checker_base.make_plugin_source(
+            identifier=source_id,
+            searchpath=paths,
+        )
     # pylint: disable=global-statement
     global CHECKER_SOURCE  # noqa: PLW0603
-    if CHECKER_SOURCE is None:
-        CHECKER_SOURCE = checker_base.make_plugin_source(
-            identifier=constants.checkers.Plugin_Base_Identifier,
-            searchpath=checker_paths,
-        )
+    CHECKER_SOURCE = _CHECKER_SOURCES[cache_key]
     return CHECKER_SOURCE
 
 
@@ -169,12 +165,10 @@ def reset_source():
     """Reset the source of the checkers."""
     # pylint: disable=global-statement
     global CHECKER_SOURCE  # noqa: PLW0603
-    # if the checker source was previously created, then
-    # cleanup all of the state from that source and then
-    # reset it to None to indicate it must be re-created
-    if CHECKER_SOURCE is not None:
-        CHECKER_SOURCE.cleanup()
-        CHECKER_SOURCE = None
+    for source in _CHECKER_SOURCES.values():
+        source.cleanup()
+    _CHECKER_SOURCES.clear()
+    CHECKER_SOURCE = None
 
 
 def get_check_help(active_check, indent=""):
