@@ -61,10 +61,31 @@ def test_run_command_grab_output_as_string_incorrect_command(tmpdir):
 
 
 def test_run_invalid_output():
-    """Check that invalid unicode bytestrings are handled correctly."""
+    """Check that invalid unicode bytestrings are decoded with replacement."""
     invalid_byte_sequence = b"\x80\x81"
     output = run.get_actual_output(invalid_byte_sequence)
-    assert invalid_byte_sequence in output
+    assert len(output) == 1
+    assert isinstance(output[0], str)
+    assert output[0] == "\ufffd\ufffd"
+
+
+def test_run_nonutf8_output_does_not_crash_join():
+    """Check that specified_command_get_output handles non-UTF-8 output."""
+    output = run.specified_command_get_output(
+        'python -c "import sys; sys.stdout.buffer.write(b\'ok\\xff\\n\')"'
+    )
+    assert isinstance(output, str)
+    assert "ok" in output
+    assert "\ufffd" in output
+
+
+def test_run_mixed_valid_invalid_output():
+    """Check that mixed valid and invalid bytes are handled correctly."""
+    mixed = b"hello\n\xffworld\n"
+    output = run.get_actual_output(mixed)
+    assert len(output) == 2
+    assert output[0] == "hello"
+    assert output[1] == "\ufffdworld"
 
 
 def test_run_invalid_output_str():

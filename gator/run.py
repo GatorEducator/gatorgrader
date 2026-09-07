@@ -19,15 +19,20 @@ def specified_command_get_output(command):
 
 
 def get_actual_output(output):
-    """Return the list of actual lines from the command's output."""
+    """Return the list of actual lines from the command's output.
+
+    Use UTF-8 with errors="replace" so that every line is always a str,
+    even when the subprocess emits illegal UTF-8 bytes.  Replacement
+    characters (U+FFFD) stand in for the undecodable bytes, keeping
+    downstream str.join() safe without losing the rest of the output.
+    """
     actual_output = []
     # break up the output by newlines, discarding newlines
     for line in output.splitlines(keepends=False):
         # decode the line
         try:
-            current_line_decoded = line.decode()
-        # line cannot decode, return the line itself
-        except (ValueError, AttributeError):
+            current_line_decoded = line.decode("utf-8", errors="replace")
+        except AttributeError:
             current_line_decoded = line
         # add this line to the list of actual lines
         actual_output.append(current_line_decoded)
