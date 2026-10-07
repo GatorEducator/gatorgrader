@@ -60,14 +60,14 @@ def test_run_command_grab_output_as_string_incorrect_command(tmpdir):
     assert output == ""
 
 
-def test_run_invalid_output():
-    """Check that invalid unicode bytestrings are handled correctly."""
-    invalid_byte_sequence = b"\x80\x81"
-    output = run.get_actual_output(invalid_byte_sequence)
-    assert invalid_byte_sequence in output
+def test_run_valid_output():
+    """Check that unicode bytestrings are handled and decoded correctly."""
+    byte_sequence = b"\x80\x81"
+    output = run.get_actual_output(byte_sequence)
+    assert "\ufffd\ufffd" in output
 
 
-def test_run_invalid_output_str():
+def test_run_valid_output_str():
     """Check that ouputs that are already strings are handled correctly."""
     randomString = "Hello"
     output = run.get_actual_output(randomString)
