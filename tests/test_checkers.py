@@ -6,7 +6,7 @@ from unittest.mock import patch
 
 import pytest
 
-from gator import arguments, checkers
+from gator import arguments, checkers, constants
 
 
 @pytest.fixture(autouse=True)
@@ -403,3 +403,35 @@ def test_load_check_can_load_internal_check():
     check = checkers.load_check(None, "check_CountCommits")
     assert check is not None
     assert hasattr(check, "act")
+
+
+class DistinctStr(str):
+    """Equal to a str but never the same object."""
+
+    def __add__(self, other):
+        """Preserve a distinct string when help messages are joined."""
+        return DistinctStr(super().__add__(other))
+
+
+def test_help_message_nothing_uses_value_comparison(monkeypatch):
+    """Start help without a separator when prior help equals Nothing."""
+    distinct = DistinctStr("")
+    assert distinct == constants.markers.Nothing
+    assert distinct is not constants.markers.Nothing
+    # Adding a separator leaves an empty but distinct string for the next check.
+    monkeypatch.setattr(
+        constants, "markers", constants.markers._replace(Newline=distinct)
+    )
+    monkeypatch.setattr(
+        checkers, "list_checks", lambda source: ["empty", "full"]
+    )
+    monkeypatch.setattr(checkers, "load_check", lambda source, name: name)
+    monkeypatch.setattr(
+        checkers,
+        "get_check_help",
+        lambda check, indent: distinct if check == "empty" else "Help",
+    )
+    help_message = checkers.get_checks_help(object())
+    assert help_message == "Help"
+    # The first nonempty help is assigned directly, preserving its plain str type.
+    assert type(help_message) is str

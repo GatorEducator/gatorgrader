@@ -73,7 +73,7 @@ def output_text(dictionary_result) -> str:
     outcome = dictionary_result[constants.results.Outcome]
     diagnostic = dictionary_result[constants.results.Diagnostic]
     # there is a diagnostic, so include it on the next line
-    if diagnostic is not constants.markers.Nothing:
+    if diagnostic != constants.markers.Nothing:
         submitted = (
             # display answer with a symbol not a boolean
             util.get_symbol_answer(outcome)

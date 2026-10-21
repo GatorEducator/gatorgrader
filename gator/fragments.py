@@ -85,7 +85,7 @@ def is_blank_line(line):
     """Return True if a line is a blank one and False otherwise."""
     if (
         line is not None
-        and line is not constants.markers.Nothing
+        and line != constants.markers.Nothing
         and not line.isspace()
     ):
         return False
@@ -205,13 +205,13 @@ def count_entities(
     # the context for this condition is when the function checks
     # the output from the execution of a specified command
     if (
-        contents is not constants.markers.Nothing
-        and given_file is constants.markers.Nothing
+        contents != constants.markers.Nothing
+        and given_file == constants.markers.Nothing
     ):
         # The command ran and produced an error, which means that its output
         # is technically "" or Nothing. So, set it to Nothing so that the
         # checking_function can determine that none of the entity exists in it
-        if contents is constants.markers.Command_Error:
+        if contents == constants.markers.Command_Error:
             contents = constants.markers.Nothing
         # run the checking_function to look for fragments in the contents
         file_contents_count = checking_function(contents, chosen_fragment)
@@ -278,16 +278,13 @@ def count_lines(
     # the contents are provided and thus there is no file or directory
     # the context for this condition is when the function checks
     # the output from the execution of a specified command
-    if contents is not constants.markers.Nothing:
+    if contents != constants.markers.Nothing:
         line_list = get_line_list(contents)
         file_contents_count = len(line_list)
     # file is and directory are available and thus there are no contents
     # the context for this condition is when the function checks
     # the number of lines in a specific file in a specific directory
-    elif (
-        given_file is not constants.markers.Nothing
-        and containing_directory is not constants.markers.Nothing
-    ):
+    elif constants.markers.Nothing not in (given_file, containing_directory):
         # Create a Path object to the chosen file in the containing directory, accounting
         # for the fact that a wildcard like "*.md" will create multiple paths. Note that
         # the create_paths function can only return valid paths, regardless of input.
