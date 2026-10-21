@@ -214,7 +214,7 @@ def get_word_diagnostic(
     # that contains the words counts in each of the paragraphs of a document
     # --> Case: the equals_count is invalid, so look "deeply" for the first minimum value
     # to report in the appropriately phrased diagnostic message
-    if word_count_dictionary and equals_count is constants.markers.Invalid:
+    if word_count_dictionary and equals_count == constants.markers.Invalid:
         paragraph_number_details_list = get_first_minimum_value_deep(
             word_count_dictionary
         )
@@ -236,9 +236,7 @@ def get_word_diagnostic(
         )
     # --> Case: the equals_count is not invalid, so look "deeply" for the first value
     # that is not equal to the provided value stored in equals_count
-    elif (
-        word_count_dictionary and equals_count is not constants.markers.Invalid
-    ):
+    elif word_count_dictionary and equals_count != constants.markers.Invalid:
         paragraph_number_details_list = get_first_not_equal_value_deep(
             word_count_dictionary, equals_count
         )
