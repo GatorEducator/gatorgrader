@@ -577,3 +577,15 @@ def test_find_minimum_in_dictionary_single_max_deep_words_diagnostic_realistic()
         },
     }
     util.get_word_diagnostic(outer_dictionary)
+
+
+def test_util_invalid_count_uses_value_comparison():
+    """Find the minimum paragraph for a value equal to Invalid."""
+    distinct = -1.0
+    assert distinct == constants.markers.Invalid
+    assert distinct is not constants.markers.Invalid
+    counts = {"essay.md": {1: 10, 2: 3}}
+    assert util.get_word_diagnostic(counts, equals_count=distinct) == (
+        "in the second",
+        "essay.md",
+    )

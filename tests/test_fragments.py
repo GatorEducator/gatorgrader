@@ -2,7 +2,7 @@
 
 import pytest
 
-from gator import fragments
+from gator import constants, fragments
 
 
 @pytest.mark.parametrize(
@@ -1054,3 +1054,28 @@ def test_count_regex_from_contents_with_threshold():
     )
     assert actual_count == -1
     assert exceeds_threshold is False
+
+
+class DistinctStr(str):
+    """Equal to a str but never the same object."""
+
+
+def test_fragments_command_error_uses_value_comparison():
+    """Treat an equal command error marker as empty output."""
+    distinct = "".join(["Command_No_", "Output"])
+    assert distinct == constants.markers.Command_Error
+    assert distinct is not constants.markers.Command_Error
+    assert fragments.count_entities(
+        "Command", fragments.count_specified_fragment, contents=distinct
+    ) == (0, {})
+
+
+def test_fragments_nothing_uses_value_comparison(tmp_path):
+    """Fall back to the file when contents equal the empty marker."""
+    distinct = DistinctStr("")
+    assert distinct == constants.markers.Nothing
+    assert distinct is not constants.markers.Nothing
+    (tmp_path / "essay.md").write_text("first\nsecond\n", encoding="utf-8")
+    assert fragments.count_lines(
+        "essay.md", str(tmp_path), contents=distinct
+    ) == (2, {"essay.md": 2})
