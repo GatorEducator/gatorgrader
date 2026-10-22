@@ -41,6 +41,19 @@ speed!
 
 ## Key Features
 
+### Count thresholds
+
+Every check with a `--count` argument accepts a non-negative integer (`0` or
+greater). Negative or non-integer thresholds are invalid arguments and are
+rejected before the checker runs. Without `--exact`, the count is a minimum;
+with `--exact`, it must match exactly. Zero remains valid in either mode.
+
+For example, require exactly zero occurrences of `TODO` in an existing file:
+
+```sh
+gatorgrader MatchFileFragment --file answer.py --directory . --fragment TODO --count 0 --exact
+```
+
 GatorGrader automatically checks the work of technical writers and programmers.
 It can:
 

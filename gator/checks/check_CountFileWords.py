@@ -39,8 +39,8 @@ def get_parser():
     # REQUIRED? Yes
     required_group.add_argument(
         "--count",
-        type=int,
-        help="how many total words should exist in the file",
+        type=checkers.non_negative_count,
+        help="how many total words should exist in the file (integer >= 0)",
         required=True,
     )
 

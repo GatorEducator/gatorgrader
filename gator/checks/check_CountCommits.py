@@ -23,8 +23,8 @@ def get_parser():
     # REQUIRED? Yes
     required_group.add_argument(
         "--count",
-        type=int,
-        help="minimum number of git commits",
+        type=checkers.non_negative_count,
+        help="minimum number of git commits (integer >= 0)",
         required=True,
     )
 

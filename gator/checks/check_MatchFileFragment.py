@@ -49,8 +49,8 @@ def get_parser():
     # REQUIRED? Yes
     required_group.add_argument(
         "--count",
-        type=int,
-        help="how many of a fragment should exist",
+        type=checkers.non_negative_count,
+        help="how many of a fragment should exist (integer >= 0)",
         required=True,
     )
 
