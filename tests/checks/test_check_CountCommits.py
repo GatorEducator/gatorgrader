@@ -43,7 +43,7 @@ def test_required_commandline_arguments_can_parse(commandline_arguments, not_rai
     [
         (["CountCommits", "--count", "0"], True),
         (["CountCommits", "--count", "1"], True),
-        (["CountCommits", "--count", "-1", "--exact"], False),
+        (["CountCommits", "--count", "0", "--exact"], False),
     ],
 )
 def test_act_produces_output(commandline_arguments, expected_result, load_check):

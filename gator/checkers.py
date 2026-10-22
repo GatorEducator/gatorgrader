@@ -1,5 +1,6 @@
 """Load checkers using a plugin-based approach."""
 
+import argparse
 import importlib
 import io
 import os
@@ -18,6 +19,18 @@ DEFAULT_FUNCTIONS = [
     constants.checkers.Function_Get_Parser,
     constants.checkers.Function_Parse,
 ]
+
+
+def non_negative_count(value):
+    """Parse a non-negative integer count for a checker argument."""
+    message = "count must be a non-negative integer (>= 0)"
+    try:
+        count = int(value)
+    except ValueError as error:
+        raise argparse.ArgumentTypeError(message) from error
+    if count < 0:
+        raise argparse.ArgumentTypeError(message)
+    return count
 
 
 def parse(get_parser, args):

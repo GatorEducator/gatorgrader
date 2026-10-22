@@ -39,8 +39,8 @@ def get_parser():
     # REQUIRED? Yes
     required_group.add_argument(
         "--count",
-        type=int,
-        help="how many multiple-line comments should exist",
+        type=checkers.non_negative_count,
+        help="how many multiple-line comments should exist (integer >= 0)",
         required=True,
     )
 
