@@ -65,6 +65,13 @@ uv run --project /absolute/path/to/gatorgrader python -c \
   "import gator; print(gator.__file__)"
 ```
 
+When .pre-commit-config.yaml is present, run uv run pre-commit install
+after uv sync to enable the configured pre-commit and commit-msg hooks.
+Use uv run pre-commit run --all-files for a full local hook check. Hooks
+check commit messages, not PR titles, and do not replace the required
+project gate. Linked Git checkouts share hooks; use a dedicated clone if
+their configurations differ.
+
 ## Coding and testing rules
 
 - Follow existing conventions and Ruff: Python line length 79; rules E, D,
