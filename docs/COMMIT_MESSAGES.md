@@ -1,7 +1,8 @@
 # Commit message standards
 
-Use [Conventional Commits 1.0.0][spec] for each commit in a PR, not only its
-title.
+Use [Conventional Commits 1.0.0][spec] for each commit in a PR.
+PR titles do not need a prefix such as `docs:`, `fix:`, or `feat:`; use a
+clear, descriptive title.
 
 ## Format
 
