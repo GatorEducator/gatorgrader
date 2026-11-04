@@ -90,6 +90,9 @@ test-coverage = { cmd = "{coverage-command}", help = "Run the pytest test suite 
 format-check = { cmd = "{ruff-format-command}", help = "Check Python code formatting with ruff", use_vars = true }
 format = { cmd = "{ruff-fix-command}", help = "Auto-fix Python code formatting with ruff", use_vars = true }
 
+[tool.pytest.ini_options]
+addopts = "--strict-markers"
+
 [tool.ruff]
 line-length = 79
 lint.ignore = [
@@ -106,7 +109,10 @@ lint.select = [
     "Q",    # flake8-quotes
     "RUF",  # ruff-specific
     "W",    # pycodestyle warnings
-    "T201"  # flake8-print
+    "T201",  # flake8-print
+    "N802",  # snake_case function names
+    "TID252",  # absolute imports
+    "BLE001",  # specific exception handlers
 ]
 
 # Magic numbers (PLR2004) are acceptable in test files
@@ -114,6 +120,9 @@ lint.select = [
 # - PLR2004: magic numbers are acceptable in tests for readability
 # - RUF059: unused unpacked variables are intentional for clarity in tests
 lint.per-file-ignores = {"tests/*.py" = ["PLR2004", "RUF059"]}
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
 
 [tool.coverage.run]
 source = ["gator"]

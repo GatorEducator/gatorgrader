@@ -175,7 +175,7 @@ GatorGrade, verify which GatorGrader checkout that environment imports too.
   edited files. Use meaningful names, snake_case functions and variables,
   PascalCase classes, and UPPER_SNAKE_CASE module constants where used.
 - Group top-level imports as standard library, third-party, then local
-  imports such as `from gator import checkers`. Avoid wildcard imports.
+  absolute imports such as `from gator import checkers`. Avoid wildcards.
 - Reuse the namedtuple records and create_constants in gator/constants.py
   rather than duplicating existing magic strings.
 - Catch specific exceptions, avoid mutable default arguments, and use
@@ -244,9 +244,13 @@ includes this coverage check; no extra coverage invocation is required.
 
 ### Code Linting
 
+Ruff checks snake_case function names and absolute imports. Pytest rejects
+unregistered markers instead of treating them as warnings.
+
 Ruff checks formatting, imports, docstrings, and other Python conventions.
 Its selected rule families are E, D, I, F, PL, Q, RUF, W, and T201, with
-D203, D213, and E501 ignored. Bandit checks security patterns; Radon reports
+D203, D213, and E501 ignored. Broad exception handlers are rejected by Ruff.
+Bandit checks security patterns; Radon reports
 complexity and maintainability; Xenon enforces complexity thresholds.
 
 ```bash
