@@ -74,13 +74,12 @@ their configurations differ.
 
 ## Coding and testing rules
 
-- Follow existing conventions and Ruff: Python line length 79; rules E, D,
-  I, F, PL, Q, RUF, W, T201, with D203, D213, E501 ignored. Soft-wrap Markdown
-  near 80 columns where practical.
+- Follow existing conventions and the configured Ruff rules; Python line
+  length is 79. Soft-wrap Markdown near 80 columns where practical.
 - Add module and function docstrings; preserve each file's established
   style. Use meaningful names, snake_case functions and variables,
   PascalCase classes, and UPPER_SNAKE_CASE module constants where used.
-- Group top-level imports as standard library, third-party, then local
+- Group absolute top-level imports as standard library, third-party, then local
   `from gator import ...`. Keep imports at module scope; avoid wildcards.
 - Reuse `gator/constants.py` namedtuple records and `create_constants`
   rather than duplicating existing magic strings.
