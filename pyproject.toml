@@ -55,6 +55,7 @@ dev = [
     "ruff>=0.15.21",
     "pytest-xdist>=3.5.0",
     "pytest-cov>=3.0.0",
+    "pre-commit==4.6.0",
 ]
 
 [tool.taskipy.variables]
@@ -72,6 +73,9 @@ test-command = "pytest -x"
 coverage-command = { var = "pytest -x --cov={project} --cov-fail-under={coveragefailunder} --cov-report=term-missing tests/", recursive = true }
 
 [tool.taskipy.tasks]
+hooks-install = "uv run pre-commit install"
+hooks-check = "uv run pre-commit run --all-files"
+test-hooks = "bash scripts/test_hooks.sh"
 all = "task lint && task test && task cover"
 test = { cmd = "{test-command}", help = "Run the pytest test suite", use_vars = true }
 cover = { cmd = "{coverage-command}", help = "Run the pytest test suite with coverage tracking", use_vars = true }

@@ -7,25 +7,27 @@ assignees: ''
 
 ---
 
-**Describe the bug**
+# Bug report
+
+## Describe the bug
 
 A clear and concise description of what the bug is.
 
-**To Reproduce**
+## To Reproduce
 
 Steps to reproduce the behavior:
 1. <!-- Replace this text --!>
 2. <!-- Replace this text --!>
 
-**Expected behavior**
+## Expected behavior
 
 A clear and concise description of what you expected to happen.
 
-**Environment**
+## Environment
 
 A concise description of your environment: GatorGrader version, python version,
 operating system, etc.
 
-**Additional context**
+## Additional context
 
 Add any other context about the problem here.

@@ -16,15 +16,15 @@ configuration, scoring, reports, history, or auto-hints, see the separate
 - [Finding ways to help](#finding-ways-to-help)
 - [Raising an Issue](#raising-an-issue)
 - [Project Standards](#project-standards)
-  - [Development Environment](#development-environment)
-  - [Running the edited checkout](#running-the-edited-checkout)
-  - [Coding and check plugins](#coding-and-check-plugins)
-  - [Automated Testing](#automated-testing)
-  - [Test Coverage](#test-coverage)
-  - [Code Linting](#code-linting)
-  - [Continuous Integration](#continuous-integration)
-  - [Program Debugging](#program-debugging)
-  - [Contributor scripts](#contributor-scripts)
+   - [Development Environment](#development-environment)
+   - [Running the edited checkout](#running-the-edited-checkout)
+   - [Coding and check plugins](#coding-and-check-plugins)
+   - [Automated Testing](#automated-testing)
+   - [Test Coverage](#test-coverage)
+   - [Code Linting](#code-linting)
+   - [Continuous Integration](#continuous-integration)
+   - [Program Debugging](#program-debugging)
+   - [Contributor scripts](#contributor-scripts)
 - [Making a Pull Request](#making-a-pull-request)
 - [Reviewing, merging, and releasing](#reviewing-merging-and-releasing)
 - [External Resources](#external-resources)
@@ -101,6 +101,7 @@ cd gatorgrader
 git remote add upstream https://github.com/GatorEducator/gatorgrader.git
 git switch -c docs/contributor-guide
 uv sync
+uv run task hooks-install
 uv run gatorgrader --help
 ```
 
@@ -113,6 +114,10 @@ Python source edits are available on the next run without reinstalling.
 Run sync again after dependency or package metadata changes, and keep
 dependency and lockfile updates together. GatorGrader has no auto-hint extra;
 that feature belongs to GatorGrade.
+
+Install hooks in every new clone. They check staged changes and commit
+messages; PR titles need no prefix. See [local checks](docs/PRE_COMMIT.md)
+for setup, full checks, and the isolated hook smoke tests.
 
 To select another supported interpreter, run:
 
@@ -164,8 +169,8 @@ GatorGrade, verify which GatorGrader checkout that environment imports too.
 
 - Keep source in gator/ with the CLI entry in gatorgrader.py; mirror the
   source structure in tests/ and place check tests in tests/checks/.
-- Follow Ruff formatting and import ordering, with a Python line length of
-  79. Soft-wrap Markdown near 80 columns where practical.
+- Follow Ruff formatting and import ordering, with a Python line
+  length of 79. Soft-wrap Markdown near 80 columns where practical.
 - Add module and function docstrings and preserve the established style in
   edited files. Use meaningful names, snake_case functions and variables,
   PascalCase classes, and UPPER_SNAKE_CASE module constants where used.

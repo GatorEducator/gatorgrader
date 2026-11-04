@@ -2,14 +2,10 @@
 
 ![Image of Logo](https://raw.githubusercontent.com/GatorEducator/gatorgrader/master/.github/gatorgraderlogotitled.png)
 
-<p align="center">
-<b>
-The only tool you'll need to ensure your student's code and writing is up to
-speed!
-</b>
-</p>
+**The only tool you'll need to ensure your student's code and writing is up
+to speed!**
 
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-orange.svg)](https://github.com/GatorEducator/gatorgrader/graphs/commit-activity) [![GitHub license](https://img.shields.io/github/license/GatorEducator/gatorgrader.svg)](https://github.com/GatorEducator/gatorgrader/blob/master/LICENSE.md) [![All Contributors](https://img.shields.io/badge/all_contributors-33-orange.svg?style=flat-square)](#contributors)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-orange.svg)](https://github.com/GatorEducator/gatorgrader/graphs/commit-activity) [![GitHub license](https://img.shields.io/github/license/GatorEducator/gatorgrader.svg)](https://github.com/GatorEducator/gatorgrader/blob/master/LICENSE.md) [![All Contributors](https://img.shields.io/badge/all_contributors-33-orange.svg?style=flat-square)](https://github.com/GatorEducator/gatorgrader/graphs/contributors)
 
 ## Quickstart Guide
 
@@ -58,22 +54,22 @@ It can:
 - Operate as a "batteries included" grading tool, supporting automated checks
   like the following:
 
-  - Does a file exist in the correct directory with the requested name?
+   - Does a file exist in the correct directory with the requested name?
 
-  - Does technical writing contain the desired number of words and paragraphs?
+   - Does technical writing contain the desired number of words and paragraphs?
 
-  - Does source code contain the designated number of language-specific comments?
+   - Does source code contain the designated number of language-specific comments?
 
-  - Does source code or technical writing contain a required fragment or match
+   - Does source code or technical writing contain a required fragment or match
     a specified regular expression?
 
-  - Does a command execute correctly and produce the expected number of output
+   - Does a command execute correctly and produce the expected number of output
     lines?
 
-  - Does a command execute and produce output containing a fragment or matching
+   - Does a command execute and produce output containing a fragment or matching
     a regular expression?
 
-  - Does a GitHub repository contain the anticipated number of commits?
+   - Does a GitHub repository contain the anticipated number of commits?
 
 Aligning with key recommendations in a recent [National Academies
 report](https://www.nap.edu/catalog/24926/assessing-and-responding-to-the-growth-of-computer-science-undergraduate-enrollments),
@@ -297,9 +293,12 @@ assessment of the tool. Please contact one of the developers if you would like
 to feature a presentation about GatorGrader at your technical conference. The
 following list includes some of our team's recent presentations:
 
-- [A Hands-on Guide to Teaching Programming with GitHub, Travis CI, and Python](https://speakerdeck.com/gkapfham/a-hands-on-guide-to-teaching-programming-with-github-travis-ci-and-python) <br> *at PyOhio 2018*
-- [Using GitHub, Travis CI, and Python to Introduce Collaborative Software Development](https://speakerdeck.com/gkapfham/using-github-travis-ci-and-python-to-introduce-collaborative-software-development) <br> *at PyCon Education Summit 2018*
-- [Using Python, Travis CI, and GitHub to Effectively Teach Programming](https://speakerdeck.com/gkapfham/using-python-travis-ci-and-github-to-effectively-teach-programming) <br> *at PyGotham 2018*
+- [A Hands-on Guide to Teaching Programming with GitHub, Travis CI, and Python](https://speakerdeck.com/gkapfham/a-hands-on-guide-to-teaching-programming-with-github-travis-ci-and-python)
+  *at PyOhio 2018*
+- [Using GitHub, Travis CI, and Python to Introduce Collaborative Software Development](https://speakerdeck.com/gkapfham/using-github-travis-ci-and-python-to-introduce-collaborative-software-development)
+  *at PyCon Education Summit 2018*
+- [Using Python, Travis CI, and GitHub to Effectively Teach Programming](https://speakerdeck.com/gkapfham/using-python-travis-ci-and-github-to-effectively-teach-programming)
+  *at PyGotham 2018*
 
 ## Contributing
 
