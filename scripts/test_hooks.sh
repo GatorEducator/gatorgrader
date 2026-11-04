@@ -37,7 +37,7 @@ commit_fails() {
 commit_fails 'fix typo' 'Conventional commit message'
 commit_passes 'docs: accept a valid header'
 commit_passes 'refactor!: describe a breaking change'
-commit_passes $'refactor: describe a breaking change\n\nBREAKING CHANGE: supply an explicit file.'
+commit_passes $'refactor: change inputs\n\nBREAKING CHANGE: supply a file.'
 echo 'PASS: malformed commit blocked; valid and breaking headers accepted'
 
 printf '\nuv run task nonexistent-hook-test-task\n' >> CONTRIBUTING.md
@@ -53,7 +53,7 @@ mkdir -p docs
 printf '# Hook smoke test\nMissing blank line.\n' > docs/hook-smoke.md
 git add docs/hook-smoke.md
 commit_fails 'docs: test Markdown' 'Markdown'
-printf '# Hook smoke test\n\nA valid documentation change.\n' > docs/hook-smoke.md
+printf '# Hook smoke test\n\nValid Markdown.\n' > docs/hook-smoke.md
 git add docs/hook-smoke.md
 commit_passes 'docs: accept valid Markdown'
 echo 'PASS: malformed Markdown blocked; corrected Markdown accepted'

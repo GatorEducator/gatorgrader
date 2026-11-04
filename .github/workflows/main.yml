@@ -135,7 +135,8 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.cache/pre-commit
-          key: ${{ runner.os }}-hooks-${{ hashFiles('.pre-commit-config.yaml') }}
+          key: >-
+            ${{ runner.os }}-hooks-${{ hashFiles('.pre-commit-config.yaml') }}
       - run: uv sync --locked
       - name: Test real Git commit rejection and recovery
         run: uv run task test-hooks
