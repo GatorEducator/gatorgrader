@@ -50,7 +50,13 @@ def get_parser():
         "--language",
         type=str,
         metavar="LANG",
-        choices=[constants.languages.Java, constants.languages.Python, constants.languages.CPP, constants.languages.C, constants.languages.JavaScript],
+        choices=[
+            constants.languages.Java,
+            constants.languages.Python,
+            constants.languages.CPP,
+            constants.languages.C,
+            constants.languages.JavaScript,
+        ],
         help="language for the multiple-line comments",
     )
 
