@@ -611,6 +611,199 @@ def test_comment_counts_check_single_python(reset_results_dictionary, tmpdir):
 
 
 # pylint: disable=unused-argument
+def test_comment_counts_check_single_c(reset_results_dictionary, tmpdir):
+    """Check that invocation of C single-line comment counting works."""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.c")
+    hello_file.write("// single-line comment")
+    assert hello_file.read() == "// single-line comment"
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
+    hello_file = "Hello.c"
+    invoke.invoke_file_in_directory_check(hello_file, directory)
+    details = report.get_result()
+    assert details is not None
+    report.reset()
+    invoke.invoke_all_comment_checks(
+        "Hello.c", directory, 1, "single-line", "C"
+    )
+    details = report.get_result()
+    assert details is not None
+
+
+# pylint: disable=unused-argument
+def test_comment_counts_check_multiple_c(reset_results_dictionary, tmpdir):
+    """Check that invocation of C multiple-line comment counting works."""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.c")
+    hello_file.write("/* block comment */")
+    assert hello_file.read() == "/* block comment */"
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
+    hello_file = "Hello.c"
+    invoke.invoke_file_in_directory_check(hello_file, directory)
+    details = report.get_result()
+    assert details is not None
+    report.reset()
+    invoke.invoke_all_comment_checks(
+        "Hello.c", directory, 1, "multiple-line", "C"
+    )
+    details = report.get_result()
+    assert details is not None
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
+def test_comment_counts_check_multiple_c_not_enough(
+    reset_results_dictionary, tmpdir
+):
+    """Check that C multiple-line comment count below threshold is reported."""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.c")
+    hello_file.write("/* block comment */")
+    assert hello_file.read() == "/* block comment */"
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
+    hello_file = "Hello.c"
+    invoke.invoke_file_in_directory_check(hello_file, directory)
+    details = report.get_result()
+    assert details is not None
+    report.reset()
+    invoke.invoke_all_comment_checks(
+        hello_file, directory, 100, "multiple-line", "C"
+    )
+    details = report.get_result()
+    assert details is not None
+
+
+# pylint: disable=unused-argument
+def test_comment_counts_check_single_cpp(reset_results_dictionary, tmpdir):
+    """Check that invocation of C++ single-line comment counting works."""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.cpp")
+    hello_file.write("// single-line comment")
+    assert hello_file.read() == "// single-line comment"
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
+    hello_file = "Hello.cpp"
+    invoke.invoke_file_in_directory_check(hello_file, directory)
+    details = report.get_result()
+    assert details is not None
+    report.reset()
+    invoke.invoke_all_comment_checks(
+        "Hello.cpp", directory, 1, "single-line", "CPP"
+    )
+    details = report.get_result()
+    assert details is not None
+
+
+# pylint: disable=unused-argument
+def test_comment_counts_check_multiple_cpp(reset_results_dictionary, tmpdir):
+    """Check that invocation of C++ multiple-line comment counting works."""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.cpp")
+    hello_file.write("/* block comment */")
+    assert hello_file.read() == "/* block comment */"
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
+    hello_file = "Hello.cpp"
+    invoke.invoke_file_in_directory_check(hello_file, directory)
+    details = report.get_result()
+    assert details is not None
+    report.reset()
+    invoke.invoke_all_comment_checks(
+        "Hello.cpp", directory, 1, "multiple-line", "CPP"
+    )
+    details = report.get_result()
+    assert details is not None
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
+def test_comment_counts_check_multiple_cpp_not_enough(
+    reset_results_dictionary, tmpdir
+):
+    """Check that C++ multiple-line comment count below threshold is reported."""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.cpp")
+    hello_file.write("/* block comment */")
+    assert hello_file.read() == "/* block comment */"
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
+    hello_file = "Hello.cpp"
+    invoke.invoke_file_in_directory_check(hello_file, directory)
+    details = report.get_result()
+    assert details is not None
+    report.reset()
+    invoke.invoke_all_comment_checks(
+        hello_file, directory, 100, "multiple-line", "CPP"
+    )
+    details = report.get_result()
+    assert details is not None
+
+
+# pylint: disable=unused-argument
+def test_comment_counts_check_single_javascript(
+    reset_results_dictionary, tmpdir
+):
+    """Check that invocation of JavaScript single-line comment counting works."""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.js")
+    hello_file.write("// single-line comment")
+    assert hello_file.read() == "// single-line comment"
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
+    hello_file = "Hello.js"
+    invoke.invoke_file_in_directory_check(hello_file, directory)
+    details = report.get_result()
+    assert details is not None
+    report.reset()
+    invoke.invoke_all_comment_checks(
+        "Hello.js", directory, 1, "single-line", "JavaScript"
+    )
+    details = report.get_result()
+    assert details is not None
+
+
+# pylint: disable=unused-argument
+def test_comment_counts_check_multiple_javascript(
+    reset_results_dictionary, tmpdir
+):
+    """Check that invocation of JavaScript multiple-line comment counting works."""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.js")
+    hello_file.write("/* block comment */")
+    assert hello_file.read() == "/* block comment */"
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
+    hello_file = "Hello.js"
+    invoke.invoke_file_in_directory_check(hello_file, directory)
+    details = report.get_result()
+    assert details is not None
+    report.reset()
+    invoke.invoke_all_comment_checks(
+        "Hello.js", directory, 1, "multiple-line", "JavaScript"
+    )
+    details = report.get_result()
+    assert details is not None
+
+
+# pylint: disable=unused-argument
+# pylint: disable=redefined-outer-name
+def test_comment_counts_check_multiple_javascript_not_enough(
+    reset_results_dictionary, tmpdir
+):
+    """Check that JavaScript multiple-line count below threshold is reported."""
+    hello_file = tmpdir.mkdir("subdirectory").join("Hello.js")
+    hello_file.write("/* block comment */")
+    assert hello_file.read() == "/* block comment */"
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
+    hello_file = "Hello.js"
+    invoke.invoke_file_in_directory_check(hello_file, directory)
+    details = report.get_result()
+    assert details is not None
+    report.reset()
+    invoke.invoke_all_comment_checks(
+        hello_file, directory, 100, "multiple-line", "JavaScript"
+    )
+    details = report.get_result()
+    assert details is not None
+
+
+# pylint: disable=unused-argument
 def test_comment_counts_check_multiple_java(reset_results_dictionary, tmpdir):
     """Check that invocation of comment counting check works correctly."""
     hello_file = tmpdir.mkdir("subdirectory").join("Hello.java")
