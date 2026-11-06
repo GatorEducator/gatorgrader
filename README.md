@@ -313,3 +313,18 @@ because we appreciate the involvement of new contributors! Before you raise an
 issue or start to make a contribution to GatorGrader's repository, we ask that
 you review the project's [code of conduct](CODE_OF_CONDUCT.md) and the
 [contribution guidelines](CONTRIBUTING.md).
+
+## AI Agent Permissions
+
+Notification commands in [AGENTS.md](AGENTS.md) need permission to execute
+shell commands and access an interactive desktop. Approve individual commands
+where supported. A broad Allow All or full-access mode can remove approval
+prompts, but widens what the agent may run; it is not required or a guarantee
+of notification delivery. Do not broaden permissions automatically. See the
+[Codex security guidance](https://developers.openai.com/codex/security/).
+
+OS notification settings and installed tools also affect delivery. Windows
+setup installs BurntToast only with explicit authorization; the documented
+ExecutionPolicy Bypass applies to that PowerShell process, not agent
+permissions. Zellij notifications are optional session notifications, not a
+replacement for desktop notifications.

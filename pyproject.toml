@@ -60,7 +60,7 @@ dev = [
 
 [tool.taskipy.variables]
 project = "gator"
-files = "gator tests/*.py gatorgrader.py"
+files = "gator tests/*.py gatorgrader.py scripts/contribution_policy.py"
 coveragefailunder = "99"
 ruff-check-command = { var = "ruff check {files}", recursive = true }
 ruff-format-command = { var = "ruff format --check {files}", recursive = true }
@@ -110,9 +110,13 @@ lint.select = [
     "RUF",  # ruff-specific
     "W",    # pycodestyle warnings
     "T201",  # flake8-print
+    "N801",
     "N802",  # snake_case function names
+    "T100",
+    "TID251",
     "TID252",  # absolute imports
     "BLE001",  # specific exception handlers
+    "B006",  # immutable default arguments
 ]
 
 # Magic numbers (PLR2004) are acceptable in test files
@@ -123,6 +127,9 @@ lint.per-file-ignores = {"tests/*.py" = ["PLR2004", "RUF059"]}
 
 [tool.ruff.lint.flake8-tidy-imports]
 ban-relative-imports = "all"
+
+[tool.ruff.lint.flake8-tidy-imports.banned-api]
+"snoop" = { msg = "Remove temporary Snoop tracing before submission." }
 
 [tool.coverage.run]
 source = ["gator"]

@@ -1,29 +1,62 @@
 # Pull request
 
-<!-- A short description can be included here -->
-<!-- Please ensure that reviewers are assigned -->
+## Problem
 
-## What is the current behavior?
+<!-- Explain the current behavior and the problem being addressed. -->
 
-<!-- You can link to an open issue here -->
+## Changes
 
-## What is the new behavior if this PR is merged?
+<!-- Describe the resulting behavior and scope of this change. -->
 
-### Other information
+## Compatibility
 
-#### This PR has:
+<!-- Explain compatibility changes and migration, or say none. -->
 
-- [ ] Commit messages that are correctly formatted
-- [ ] Tests for newly introduced code
-- [ ] Docstrings for newly introduced code
+## Verification
 
-This PR is a <!-- REQUIRED: replace this comment with one of ["small change", "feature", "compatibility breaking update", "non-versioned change"] -->
-that fixes #<!-- replace this comment with an issue number if applicable -->
+<!-- Record exact commands and results, including relevant CI results. -->
+<!-- For manual checks, include inputs, expected/actual output, exit code. -->
 
-<!-- We required the above line statement because GatorGrader uses: -->
-<!-- https://github.com/Michionlion/pr-tag-release -->
-<!-- to automatically generate a tag and a release from a merged PR -->
+## Contributors
 
-### Developers
+<!-- List the GitHub @usernames of all contributors. -->
 
-@<!-- Include your name, and @ any others responsible for these changes -->
+## Linked Issues
+
+<!-- Link each relevant issue, e.g. Refs #123 or Closes #123. -->
+<!-- Use Closes only for fully resolved issues. For minor changes without -->
+<!-- an issue, write Minor-change exception: followed by the scope/reason. -->
+
+## AI Assistance
+
+AI assistance: <!-- choose none or used -->
+
+<!-- If used, complete these lines and disclose it in affected commits too: -->
+<!-- Tool: name and model/version when known -->
+<!-- Contribution: what the tool helped with -->
+<!-- Verification: how you checked that assistance -->
+
+## Documentation Changes
+
+<!-- Identify documentation updates, or explain why none are needed. -->
+<!-- For moved/removed sections, list old and replacement locations. -->
+
+## Limitations
+
+<!-- Record anything not verified, environment limitations, or say none. -->
+<!-- Include OS and Python version when reporting manual verification. -->
+
+## Checklist
+
+- [ ] Announced ownership and teammates in issue comments, if applicable.
+- [ ] Linked issues and added PR backlinks, or explained the minor exception.
+- [ ] Tracked newly discovered problems and kept this PR focused.
+- [ ] Added or updated relevant tests and documentation.
+- [ ] Reported verification accurately and followed the contribution guide.
+
+## Release Classification
+
+This PR is a <!-- choose one: small change, feature,
+compatibility breaking update, or non-versioned change -->
+
+<!-- Preserve this statement for the GatorGrader release workflow. -->
