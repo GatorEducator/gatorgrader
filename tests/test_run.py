@@ -2,6 +2,8 @@
 
 import platform
 
+import pytest
+
 from gator import run
 
 # define the operating systems on which to run processes
@@ -10,18 +12,54 @@ MAC = "Darwin"
 WINDOWS = "Windows"
 
 
+class DistinctStr(str):
+    """Equal to a str but never the same object."""
+
+
+def expected_echo_output(system_name):
+    """Return the output that echo makes on the given operating system."""
+    # running an "echo" will have a trailing newline
+    if system_name in (LINUX, MAC):
+        return b"Hello!\n"
+    # running an "echo" will have a carriage return and then trailing newline
+    if system_name == WINDOWS:
+        return b'"Hello!"\r\n'
+    return None
+
+
 def test_run_working_command_returns_message():
     """Check that a single line is returned from command ."""
     output, error, code = run.run_command('echo "Hello!"')
     assert error == b""
-    system_name = platform.system()
-    # running an "echo" will have a trailing newline
-    if system_name is LINUX or system_name is MAC:
-        assert output == b"Hello!\n"
-    # running an "echo" will have a carriage return and then trailing newline
-    elif system_name is WINDOWS:
-        assert output == b'"Hello!"\r\n'
+    assert output == expected_echo_output(platform.system())
     assert code == 0
+
+
+@pytest.mark.parametrize(
+    ("system_name", "output"),
+    [
+        (LINUX, b"Hello!\n"),
+        (MAC, b"Hello!\n"),
+        (WINDOWS, b'"Hello!"\r\n'),
+    ],
+)
+def test_run_output_assertion_uses_value_comparison(
+    monkeypatch, system_name, output
+):
+    """Check command output for equal but distinct operating system names."""
+    distinct = DistinctStr(system_name)
+    assert distinct == system_name
+    assert distinct is not system_name
+    monkeypatch.setattr(platform, "system", lambda: distinct)
+    monkeypatch.setattr(run, "run_command", lambda command: (output, b"", 0))
+    test_run_working_command_returns_message()
+
+    # Incorrect output must fail rather than skip the operating system check.
+    monkeypatch.setattr(
+        run, "run_command", lambda command: (b"incorrect output", b"", 0)
+    )
+    with pytest.raises(AssertionError):
+        test_run_working_command_returns_message()
 
 
 def test_run_broken_command_returns_nonzero():

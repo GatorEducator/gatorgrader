@@ -4,7 +4,9 @@ import os
 import sys
 from unittest.mock import patch
 
-from gator import constants, fragments, invoke, report
+import pytest
+
+from gator import constants, fragments, invoke, report, run
 
 
 # pylint: disable=unused-argument
@@ -823,3 +825,85 @@ def test_run_command_does_execute_correctly_would_make_output(
     directory = tmpdir.dirname + "/" + tmpdir.basename + "/"
     executed_yes = invoke.invoke_all_command_executes_checks("ls " + directory)
     assert executed_yes is True
+
+
+class DistinctStr(str):
+    """Equal to a str but never the same object."""
+
+
+# pylint: disable=unused-argument
+def test_fragment_check_distinct_nothing_uses_command_output(
+    reset_results_dictionary, monkeypatch
+):
+    """Treat a file and directory equal to Nothing as no file given."""
+    nothing = DistinctStr("")
+    assert nothing == constants.markers.Nothing
+    assert nothing is not constants.markers.Nothing
+    # skip the real counting so that this test only checks invoke.py
+    monkeypatch.setattr(
+        fragments,
+        "specified_entity_greater_than_count",
+        lambda *args, **kwargs: (True, 1, {}),
+    )
+    invoke.invoke_all_fragment_checks(
+        "hello", 1, nothing, nothing, "hello world"
+    )
+    details = report.get_result()
+    assert details[constants.results.Description].startswith(
+        "The command output"
+    )
+
+
+# pylint: disable=unused-argument
+def test_regex_check_distinct_nothing_uses_command_output(
+    reset_results_dictionary, monkeypatch
+):
+    """Treat a file and directory equal to Nothing as no file given."""
+    nothing = DistinctStr("")
+    # skip the real counting so that this test only checks invoke.py
+    monkeypatch.setattr(
+        fragments,
+        "specified_entity_greater_than_count",
+        lambda *args, **kwargs: (True, 1, {}),
+    )
+    invoke.invoke_all_regex_checks("hel+o", 1, nothing, nothing, "hello world")
+    details = report.get_result()
+    assert details[constants.results.Description].startswith(
+        "The command output"
+    )
+
+
+# pylint: disable=unused-argument
+def test_count_check_distinct_nothing_uses_command_output(
+    reset_results_dictionary,
+):
+    """Treat a file and directory equal to Nothing as no file given."""
+    nothing = DistinctStr("")
+    invoke.invoke_all_count_checks(1, nothing, nothing, "hello world")
+    details = report.get_result()
+    assert details[constants.results.Description].startswith(
+        "The command output"
+    )
+
+
+@pytest.mark.parametrize(
+    ("command_check", "inner_check"),
+    [
+        ("invoke_all_command_fragment_checks", "invoke_all_fragment_checks"),
+        ("invoke_all_command_regex_checks", "invoke_all_regex_checks"),
+    ],
+)
+def test_command_check_distinct_empty_output_is_command_error(
+    monkeypatch, command_check, inner_check
+):
+    """Mark equal but distinct empty command output as a command error."""
+    passed_contents = []
+    monkeypatch.setattr(
+        run, "specified_command_get_output", lambda command: DistinctStr("")
+    )
+    # record the contents that get passed on instead of running the check
+    monkeypatch.setattr(
+        invoke, inner_check, lambda *args: passed_contents.append(args[4])
+    )
+    getattr(invoke, command_check)("no-output", "hello", 1)
+    assert passed_contents == [constants.markers.Command_Error]

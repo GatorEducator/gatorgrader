@@ -65,3 +65,18 @@ def test_output_json(reset_results_dictionary):
     assert f'"{constants.results.Description}":' in output
     assert f'"{constants.results.Outcome}":' in output
     assert f'"{constants.results.Diagnostic}":' in output
+
+
+class DistinctStr(str):
+    """Equal to a str but never the same object."""
+
+
+def test_report_diagnostic_nothing_uses_value_comparison():
+    """Suppress diagnostics equal to the empty marker."""
+    distinct = DistinctStr("")
+    assert distinct == constants.markers.Nothing
+    assert distinct is not constants.markers.Nothing
+    result = report.create_result("Command executes", True, distinct)
+    assert report.output_text(result) == report.output_text(
+        report.create_result("Command executes", True, "")
+    )

@@ -224,7 +224,7 @@ def get_checks_help(check_source, namecontains=None, indent=""):
         # if possible, get the complete help message from this check
         active_check_parser_help = get_check_help(active_check, indent)
         # this is the first help message, so directly add it
-        if help_message is constants.markers.Nothing:
+        if help_message == constants.markers.Nothing:
             # this is the only help message, so add it without a blank line
             if check_count == len(filtered_check_list) - 1:
                 help_message = active_check_parser_help

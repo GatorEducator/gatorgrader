@@ -71,7 +71,7 @@ def act(main_parsed_arguments, check_remaining_arguments):
     # --> only the label is display, without any help messages
     # --> the diagnostic should indicate that the search failed
     # --> the check "failed", ensuring that the diagnostic appears
-    if help_messages is constants.markers.Nothing:
+    if help_messages == constants.markers.Nothing:
         help_messages = label
         diagnostic = "Could not find any matching checks"
         did_check_pass = False

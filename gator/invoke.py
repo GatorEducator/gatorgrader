@@ -449,7 +449,7 @@ def invoke_all_total_word_count_checks(  # noqa: PLR0913
             actual_count_dictionary
         )
         filename_count = sum_actual_count_dictionary[filename]
-    if filename_diagnostic is not constants.markers.Nothing:
+    if filename_diagnostic != constants.markers.Nothing:
         diagnostic = (
             "Found "
             + str(filename_count)
@@ -499,10 +499,7 @@ def invoke_all_fragment_checks(  # noqa: PLR0913
         exact,
     )
     # create a message for a file in directory
-    if (
-        filecheck is not constants.markers.Nothing
-        and directory is not constants.markers.Nothing
-    ):
+    if constants.markers.Nothing not in (filecheck, directory):
         # create an "at least" message, which is the default
         if exact is not True:
             message = (
@@ -599,10 +596,7 @@ def invoke_all_regex_checks(  # noqa: PLR0913
         exact,
     )
     # create a message for a file in directory
-    if (
-        filecheck is not constants.markers.Nothing
-        and directory is not constants.markers.Nothing
-    ):
+    if constants.markers.Nothing not in (filecheck, directory):
         # create an "at least" message, which is the default
         if exact is not True:
             message = (
@@ -657,13 +651,13 @@ def invoke_all_regex_checks(  # noqa: PLR0913
     # use the default name of the file
     violating_file_name = filecheck
     # since a wildcard was specified, pick the file that most violates the check
-    if actual_count_dictionary and filecheck is not constants.markers.Nothing:
+    if actual_count_dictionary and filecheck != constants.markers.Nothing:
         violating_entity_details = util.get_first_value(
             actual_count_dictionary
         )
         violating_file_name = violating_entity_details[0]
     # create a conclusion to tag onto the diagnostic's ending
-    if filecheck is not constants.markers.Nothing:
+    if filecheck != constants.markers.Nothing:
         conclusion = "or " + violating_file_name
     # create the diagnostic message and report the result
     diagnostic = (
@@ -689,7 +683,7 @@ def invoke_all_command_fragment_checks(
     # the output to "" (i.e., Nothing) instead of looking for a file in a directory.
     # The tool needs this conditional logic since the checking of fragments is
     # overloaded for files in directories and the output of commands.
-    if command_output is constants.markers.Nothing:
+    if command_output == constants.markers.Nothing:
         command_output = constants.markers.Command_Error
     return invoke_all_fragment_checks(
         expected_fragment,
@@ -712,7 +706,7 @@ def invoke_all_command_regex_checks(
     # The tool needs this conditional logic since the checking of fragments is
     # overloaded for files in directories and the output of commands.
     command_output = run.specified_command_get_output(command)
-    if command_output is constants.markers.Nothing:
+    if command_output == constants.markers.Nothing:
         command_output = constants.markers.Command_Error
     return invoke_all_regex_checks(
         expected_regex,
@@ -835,10 +829,7 @@ def invoke_all_count_checks(
         expected_count, filecheck, directory, contents, exact
     )
     # create a message for a file in directory
-    if (
-        filecheck is not constants.markers.Nothing
-        and directory is not constants.markers.Nothing
-    ):
+    if constants.markers.Nothing not in (filecheck, directory):
         if exact is not True:
             message = (
                 "The "

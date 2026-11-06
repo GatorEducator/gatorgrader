@@ -6,7 +6,7 @@ import sys
 
 from unittest.mock import patch
 
-from gator import arguments
+from gator import arguments, constants
 from gator import report
 from gator.exceptions import InvalidCheckArgumentsError
 from gator.checks import check_ListChecks
@@ -110,3 +110,20 @@ def test_act_produces_output_invalid_check_name(commandline_arguments, load_chec
         assert len(report.get_result()["check"]) > 1
         assert report.get_result()["outcome"] is False
         assert report.get_result()["diagnostic"] != ""
+
+
+class DistinctStr(str):
+    """Equal to a str but never the same object."""
+
+
+def test_help_message_nothing_uses_value_comparison(monkeypatch):
+    """Report failure when check help equals the empty marker."""
+    distinct = DistinctStr("")
+    assert distinct == constants.markers.Nothing
+    assert distinct is not constants.markers.Nothing
+    monkeypatch.setattr(
+        check_ListChecks.checkers, "get_checks_help", lambda *args: distinct
+    )
+    parsed, remaining = arguments.parse(["ListChecks"])
+    assert check_ListChecks.act(parsed, remaining) is False
+    assert report.get_result()["diagnostic"] == "Could not find any matching checks"

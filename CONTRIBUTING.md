@@ -13,6 +13,7 @@ to effectively contribute to the project.
   + [Automated Testing](#automated-testing)
   + [Test Coverage](#test-coverage)
   + [Code Linting](#code-linting)
+  + [Comparing Values](#comparing-values)
   + [Continuous Integration](#continuous-integration)
   + [Program Debugging](#program-debugging)
 * [External Resources](#external-resources)
@@ -118,6 +119,15 @@ this command in a terminal window.
 ```bash
 pipenv run lint --check
 ```
+
+### Comparing Values
+
+Use `==` and `!=` to compare values such as strings, numbers, and the markers
+in `gator/constants.py`. Only use `is` and `is not` to compare with `None`,
+`True`, and `False`. The `is` operator checks if two names point to the same
+object, not if they have the same value. This means that a check like
+`system_name is "Linux"` can be `False` even when `system_name` equals
+`"Linux"`, which makes the code skip a branch without any error.
 
 ### Continuous Integration
 
