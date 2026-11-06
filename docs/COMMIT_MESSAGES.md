@@ -57,10 +57,11 @@ For reverts, prefer revert and reference commit SHAs.
 ## Project rules and verification
 
 For substantial AI assistance, describe the contribution and actual
-verification in the commit body, then add a trailer such as:
+verification in the commit body, then add an `Assisted-by:` trailer.
+Include the model and version when known. For example:
 
 ```text
-AI-Assisted: Codex
+Assisted-by: Codex
 ```
 
 The developer owns commits unless they authorize an agent to commit.
