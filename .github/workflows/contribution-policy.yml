@@ -1,0 +1,26 @@
+name: Contribution Policy
+
+on:
+  pull_request_target:
+    types: [opened, edited, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+
+jobs:
+  contribution-policy:
+    name: Check Pull Request Requirements
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: refs/heads/master
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: astral-sh/setup-uv@v8.3.2
+      - name: Validate pull request metadata
+        run: >-
+          uv run --no-project python scripts/contribution_policy.py
+          --base master --require-release

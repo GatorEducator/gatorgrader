@@ -140,8 +140,10 @@ def load_check(checker_source, check_file):
         return checker_source.load_plugin(check_file)
 
 
-def get_source(checker_paths=[]):
+def get_source(checker_paths=None):
     """Load all of the checkers using pluginbase."""
+    if checker_paths is None:
+        checker_paths = []
     # define the "package" in which the checks reside
     # the term "package" corresponds to "module.sub-module"
     checker_base = PluginBase(package=constants.packages.Checks)

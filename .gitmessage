@@ -1,39 +1,16 @@
 
-
-# Hello GatorGrader contributor, we appreciate your hard work!
+# Follow docs/COMMIT_MESSAGES.md, the authoritative commit-message standard.
+# This template summarizes that guide; it adds no separate restrictions.
 #
-# The maintainers wanted to let you know that we really care about
-# making our Git history clean, maintainable, and easy to access for
-# all of our contributors. Commit messages are very important to us,
-# which is why we have a strict commit message policy in place.
-# Please use this template to format all your commit messages:
+# type(scope)!: description
 #
-#     <type>(<scope>): <subject>
+# Type, colon-space, and description are required; scope and ! are optional.
+# Use fix for fixes, feat for features, or another appropriate noun type.
+# No fixed type list, subject case, terminal period, or length is required.
 #
-# Please note that:
+# Optional body and footers follow, separated by blank lines.
+# Mark breaking changes with !, a BREAKING CHANGE: footer, or both.
+# Explain a breaking change in the header when using ! without a footer.
 #
-#  - The message is a single line of about 72 characters that
-#    contains a succinct description of the change. It contains an
-#    encouraged type, an optional scope, and a required subject.
-#       + <type> describes the kind of change that this commit is
-#                providing. Allowed types are:
-#             * feat (add feature)
-#             * fix (fix defect)
-#             * docs (add or modify user documentation)
-#             * coms (add or modify code documentation)
-#             * style (improve code or doc formatting)
-#             * refactor (improve the code, no new features)
-#             * perf (improve performance, no new features)
-#             * test (add or modify test(s))
-#             * chore (maintenance or infrastructure)
-#       + <scope> can be anything specifying commit change place
-#       + <subject> is a very short description of the change, in
-#                   the following format:
-#             * Imperative, present tense: "change" not
-#               "changed" or "changes"
-#             * Capitalised first letter
-#             * Dot (.) at the end
-#             * No spelling mistakes
-#
-# Thanks for following the GatorGrader commit message template!
-# References: https://backlog.com/blog/git-commit-messages-bold-daring/
+# For substantial AI assistance, describe the contribution and verification
+# in the body and add an Assisted-by: trailer; see the guide for details.

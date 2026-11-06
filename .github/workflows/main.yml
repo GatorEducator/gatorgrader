@@ -1,4 +1,4 @@
-# This GitHub Actions workflow contains four jobs:
+# This GitHub Actions workflow contains six jobs:
 # -- First, Lint Code runs on Ubuntu with Python 3.10, 3.11, 3.12, 3.13, and 3.14
 # to check the code for formatting and linting defects using the uv lint task.
 # -- Second, Test uses a strategy matrix to test the code with different
@@ -8,6 +8,8 @@
 # 3.14 to check that test coverage meets the minimum threshold.
 # -- Fourth, Lint Markdown uses the latest Ubuntu image and markdownlint to
 # check markdown files for defects.
+# -- Fifth, Check Commit Messages validates PR commit-message headers.
+# -- Sixth, Test Installed Hooks checks real commits in a temporary clone.
 
 name: Lint and Test
 
@@ -33,7 +35,7 @@ jobs:
         with:
           enable-cache: true
       - name: Install dependencies
-        run: uv sync
+        run: uv sync --locked
       - name: Lint code
         run: uv run task lint
 
@@ -60,7 +62,7 @@ jobs:
         with:
           enable-cache: true
       - name: Install dependencies
-        run: uv sync
+        run: uv sync --locked
       - name: Execute tests
         run: uv run task test
 
@@ -83,7 +85,7 @@ jobs:
         with:
           enable-cache: true
       - name: Install dependencies
-        run: uv sync
+        run: uv sync --locked
       - name: Collect test coverage
         run: uv run task cover
 
@@ -93,5 +95,48 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Lint writing
-        uses: actionshub/markdownlint@main
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.13"
+      - name: Install uv
+        uses: astral-sh/setup-uv@v8.3.2
+      - name: Install dependencies
+        run: uv sync --locked
+      - name: Lint writing and verify rules are enabled
+        run: uv run pre-commit run markdownlint --all-files
+
+  commits:
+    name: Check Commit Messages
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: wagoid/commitlint-github-action@v6
+        with:
+          configFile: .github/commitlint.config.mjs
+          helpURL: https://www.conventionalcommits.org/en/v1.0.0/
+
+  hooks:
+    name: Test Installed Hooks
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: astral-sh/setup-uv@v8.3.2
+      - name: Cache hook environments
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pre-commit
+          key: >-
+            ${{ runner.os }}-hooks-${{ hashFiles('.pre-commit-config.yaml') }}
+      - run: uv sync --locked
+      - name: Test real Git commit rejection and recovery
+        run: uv run task test-hooks

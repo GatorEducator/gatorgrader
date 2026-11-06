@@ -1,0 +1,47 @@
+minimum_pre_commit_version: "4.6.0"
+default_language_version:
+  node: "24.22.2"
+default_install_hook_types: [pre-commit, commit-msg]
+fail_fast: true
+repos:
+  - repo: local
+    hooks:
+      - id: contribution-guards
+        name: Contributor commands and coverage settings
+        language: system
+        entry: uv run pytest --noconftest tests/test_contribution_rules.py -q
+        pass_filenames: false
+        always_run: true
+        stages: [pre-commit]
+      - id: project-checks
+        name: Existing project lint and tests
+        language: system
+        entry: uv run task all
+        files: '\.(py|toml|yaml|yml|sh)$|^uv\.lock$'
+        pass_filenames: false
+        stages: [pre-commit]
+      - id: commitlint
+        name: Conventional commit message
+        language: node
+        entry: commitlint --config .github/commitlint.config.mjs --edit
+        additional_dependencies:
+          - '@commitlint/cli@19.8.1'
+          - conventional-changelog-conventionalcommits@7.0.2
+        stages: [commit-msg]
+  - repo: https://github.com/markdownlint/markdownlint
+    rev: v0.18.1
+    hooks:
+      - id: markdownlint
+        name: Enabled Markdown rules and documentation
+        exclude: ^LICENSE\.md$
+        entry: >-
+          ruby -ropen3 -e
+          'rules, status = Open3.capture2("mdl", "--list-rules",
+          "--no-show-aliases");
+          abort("No Markdown rules enabled") unless status.success? &&
+          rules.lines.any? { |line| line.match?(/^MD\d{3} /) };
+          exec("mdl", *ARGV)' --
+        args: [README.md]
+        always_run: true
+        language_version: 3.3.10
+        stages: [pre-commit]
