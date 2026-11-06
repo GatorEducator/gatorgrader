@@ -404,11 +404,11 @@ def test_multiline_python_comments_two(code_string, expected_count):
 @pytest.mark.parametrize(
     "code_string,expected_count",
     [
-        ("// hello world /** hello */", 1),
-        ("// hello world /** hello */ \n /** hello */", 2),
+        ("// hello world \n /** hello */", 1),
+        ("// hello world \n /** hello */ \n /** hello */", 2),
         ("// hello world hello ", 0),
         ("/** hi */ \n /** hi again */", 2),
-        ("/** hi */ \n // whoa /** hi again */", 2),
+        ("/** hi */ \n // whoa \n /** hi again */", 2),
     ],
 )
 def test_multiline_java_comments_mixed(code_string, expected_count):
