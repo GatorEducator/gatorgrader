@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 
 import pytest
+import yaml
 
 from scripts import contribution_policy as policy
 
@@ -43,6 +44,57 @@ NEWLINE = "\n"
 FAILURE = 1
 ROOT_INDEX = 1
 SUCCESS = 0
+ROOT = Path(__file__).resolve().parents[ROOT_INDEX]
+POLICY_WORKFLOW = ROOT / ".github" / "workflows" / "contribution-policy.yml"
+TRUSTED_REF = "${{ github.event.pull_request.base.sha }}"
+FENCE_CASES = (
+    ("```", "```"),
+    ("~~~", "~~~"),
+    ("````", "````"),
+    ("~~~~", "~~~~"),
+    ("```markdown", "```"),
+    ("~~~text", "~~~"),
+)
+RELEASE_ERROR = "Keep a valid 'This PR is a ...' release classification."
+EXAMPLE_RELEASE = "This PR is a small change\n"
+WORKFLOW_CHANGES = (
+    ("pull_request_target:", "pull_request:"),
+    (TRUSTED_REF, "${{ github.event.pull_request.head.sha }}"),
+    ("persist-credentials: false", "persist-credentials: true"),
+    ("contents: read", "contents: write"),
+)
+
+
+def assert_policy_workflow_trust(text: str) -> None:
+    """Require base-only metadata execution with read-only credentials."""
+    workflow = yaml.load(text, Loader=yaml.BaseLoader)
+    assert set(workflow["on"]) == {"pull_request_target"}
+    assert workflow["permissions"] == {"contents": "read"}
+    steps = workflow["jobs"]["contribution-policy"]["steps"]
+    checkout = next(
+        step
+        for step in steps
+        if step.get("uses", "").startswith("actions/checkout@")
+    )
+    assert checkout["with"]["ref"] == TRUSTED_REF
+    assert checkout["with"]["persist-credentials"] == "false"
+
+
+def test_policy_workflow_uses_trusted_base() -> None:
+    """Keep pull request changes out of the metadata validator checkout."""
+    assert_policy_workflow_trust(POLICY_WORKFLOW.read_text(encoding=ENCODING))
+
+
+@pytest.mark.parametrize(("old", "new"), WORKFLOW_CHANGES)
+def test_policy_workflow_rejects_untrusted_configuration(
+    old: str, new: str
+) -> None:
+    """Reject weakened trust settings and accept the restored workflow."""
+    original = POLICY_WORKFLOW.read_text(encoding=ENCODING)
+    assert old in original
+    with pytest.raises(AssertionError):
+        assert_policy_workflow_trust(original.replace(old, new))
+    assert_policy_workflow_trust(original)
 
 
 @pytest.mark.parametrize(
@@ -135,6 +187,38 @@ def test_validate_pull_request_rejects_missing_release() -> None:
     """Reject omitted or commented-out required release statements."""
     body = BODY + f"<!-- {RELEASE} -->"
     assert policy.validate_pull_request(body, BASE, BASE, True)
+
+
+@pytest.mark.parametrize(("opening", "closing"), FENCE_CASES)
+def test_validate_pull_request_rejects_fenced_release(
+    opening: str, closing: str
+) -> None:
+    """Reject example-only classifications and accept a real declaration."""
+    body = BODY + opening + NEWLINE + RELEASE + closing + NEWLINE
+    assert policy.validate_pull_request(body, BASE, BASE, True) == [
+        RELEASE_ERROR
+    ]
+    assert policy.validate_pull_request(body + RELEASE, BASE, BASE, True) == []
+    assert policy.validate_pull_request(body, BASE, BASE) == []
+
+
+@pytest.mark.parametrize(("opening", "closing"), FENCE_CASES)
+def test_validate_pull_request_ignores_release_examples(
+    opening: str, closing: str
+) -> None:
+    """Do not treat an example as conflicting with a real classification."""
+    body = BODY + opening + NEWLINE + EXAMPLE_RELEASE + closing + NEWLINE
+    assert policy.validate_pull_request(body + RELEASE, BASE, BASE, True) == []
+
+
+@pytest.mark.parametrize("inner", ("```", "~~~", "```` not a closing fence"))
+def test_validate_pull_request_rejects_false_fence_closers(inner: str) -> None:
+    """Keep shorter, mismatched, and nonterminal fences inside examples."""
+    body = BODY + "````\n" + inner + NEWLINE + RELEASE + "````\n"
+    assert policy.validate_pull_request(body, BASE, BASE, True) == [
+        RELEASE_ERROR
+    ]
+    assert policy.validate_pull_request(body + RELEASE, BASE, BASE, True) == []
 
 
 def test_validate_pull_request_rejects_conflicting_categories() -> None:

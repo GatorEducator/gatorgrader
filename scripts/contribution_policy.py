@@ -40,7 +40,9 @@ RELEASE_PATTERN = re.compile(
 AI_FIELDS = ("Tool", "Contribution", "Verification")
 EMPTY = ""
 NEWLINE = "\n"
-FENCES = ("```", "~~~")
+FENCE_PATTERN = re.compile(r"^\s*(?P<delimiter>`{3,}|~{3,})(?P<suffix>.*)$")
+DELIMITER_GROUP = "delimiter"
+SUFFIX_GROUP = "suffix"
 HEADING_GROUP = 1
 DECLARATION_COUNT = 1
 FIRST_INDEX = 0
@@ -56,19 +58,34 @@ SUCCESS = 0
 FAILURE = 1
 
 
+def prose_lines(body: str) -> list[str]:
+    """Return comment-free prose while excluding fenced examples."""
+    lines = []
+    fence = EMPTY
+    for line in COMMENT_PATTERN.sub(EMPTY, body).splitlines():
+        match = FENCE_PATTERN.fullmatch(line)
+        if fence:
+            if (
+                match
+                and match.group(DELIMITER_GROUP)[FIRST_INDEX]
+                == fence[FIRST_INDEX]
+                and len(match.group(DELIMITER_GROUP)) >= len(fence)
+                and not match.group(SUFFIX_GROUP).strip()
+            ):
+                fence = EMPTY
+        elif match:
+            fence = match.group(DELIMITER_GROUP)
+        else:
+            lines.append(line)
+    return lines
+
+
 def sections(body: str) -> dict[str, str]:
     """Read level-two sections without treating fenced examples as headings."""
     contents: dict[str, list[str]] = {}
     heading = EMPTY
-    fence = EMPTY
-    for line in COMMENT_PATTERN.sub(EMPTY, body).splitlines():
-        stripped = line.strip()
-        if fence:
-            if stripped.startswith(fence):
-                fence = EMPTY
-        elif stripped.startswith(FENCES):
-            fence = stripped[: len(FENCES[FIRST_INDEX])]
-        elif match := HEADING_PATTERN.fullmatch(line):
+    for line in prose_lines(body):
+        if match := HEADING_PATTERN.fullmatch(line):
             heading = match.group(HEADING_GROUP).strip().lower()
             contents.setdefault(heading, [])
             continue
@@ -120,7 +137,7 @@ def validate_pull_request(
             value = re.search(rf"^{field}:\s*(\S.*)$", assistance, re.M)
             if value is None or not has_content(value.group(HEADING_GROUP)):
                 errors.append(f"Explain AI assistance in '{field}:'.")
-    clean_body = COMMENT_PATTERN.sub(EMPTY, body)
+    clean_body = NEWLINE.join(prose_lines(body))
     classifications = RELEASE_PATTERN.findall(clean_body)
     if require_release and len(classifications) != DECLARATION_COUNT:
         errors.append(
