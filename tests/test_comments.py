@@ -480,3 +480,117 @@ def test_multiline_python_comments_many(code_string, expected_count):
         comments.count_multiline_python_comment(code_string)
     )
     assert count_of_multiline_python_comments == expected_count
+
+
+@pytest.mark.parametrize(
+    "code_string,expected_count",
+    [
+        (
+            'const char *url = "http://example.com";',
+            0,
+        ),
+        (
+            '// first\n/* not a single-line comment */\n// second',
+            2,
+        ),
+    ],
+)
+def test_singleline_c_comments(code_string, expected_count):
+    """Check that C single-line comments are counted."""
+    comment_count, _ = comments.count_singleline_c_comment(code_string)
+    assert comment_count == expected_count
+
+
+@pytest.mark.parametrize(
+    "code_string,expected_count",
+    [
+        (
+            'const char *text = "/* not a comment */";\n// not a block comment',
+            0,
+        ),
+        (
+            '/* first */\n// not a block comment\n/* second */',
+            2,
+        ),
+    ],
+)
+def test_multiline_c_comments(code_string, expected_count):
+    """Check that C block comments are counted."""
+    comment_count, _ = comments.count_multiline_c_comment(code_string)
+    assert comment_count == expected_count
+
+
+@pytest.mark.parametrize(
+    "code_string,expected_count",
+    [
+        (
+            'const char *url = "http://example.com";',
+            0,
+        ),
+        (
+            '// first\n/* not a single-line comment */\n// second',
+            2,
+        ),
+    ],
+)
+def test_singleline_cpp_comments(code_string, expected_count):
+    """Check that C++ single-line comments are counted."""
+    comment_count, _ = comments.count_singleline_cpp_comment(code_string)
+    assert comment_count == expected_count
+
+
+@pytest.mark.parametrize(
+    "code_string,expected_count",
+    [
+        (
+            'const char *text = "/* not a comment */";\n// not a block comment',
+            0,
+        ),
+        (
+            '/* first */\n// not a block comment\n/* second */',
+            2,
+        ),
+    ],
+)
+def test_multiline_cpp_comments(code_string, expected_count):
+    """Check that C++ block comments are counted."""
+    comment_count, _ = comments.count_multiline_cpp_comment(code_string)
+    assert comment_count == expected_count
+
+
+@pytest.mark.parametrize(
+    "code_string,expected_count",
+    [
+        (
+            'const url = "http://example.com";',
+            0,
+        ),
+        (
+            '// first\n/* not a single-line comment */\n// second',
+            2,
+        ),
+    ],
+)
+def test_singleline_javascript_comments(code_string, expected_count):
+    """Check that JavaScript single-line comments are counted."""
+    comment_count, _ = comments.count_singleline_javascript_comment(code_string)
+    assert comment_count == expected_count
+
+
+@pytest.mark.parametrize(
+    "code_string,expected_count",
+    [
+        (
+            'const text = "/* not a comment */";\n// not a block comment',
+            0,
+        ),
+        (
+            '/* first */\n// not a block comment\n/* second */',
+            2,
+        ),
+    ],
+)
+def test_multiline_javascript_comments(code_string, expected_count):
+    """Check that JavaScript block comments are counted."""
+    comment_count, _ = comments.count_multiline_javascript_comment(code_string)
+    assert comment_count == expected_count
