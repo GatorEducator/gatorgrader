@@ -1,0 +1,82 @@
+# Commit message standards
+
+Use [Conventional Commits 1.0.0][spec] for each commit in a PR.
+PR titles do not need a prefix such as `docs:`, `fix:`, or `feat:`; use a
+clear, descriptive title.
+
+The root .gitmessage template summarizes this guide without additional rules.
+This guide is authoritative for commit-message requirements.
+
+## Format
+
+```text
+type(scope)!: description
+
+Optional body.
+
+Optional footers.
+```
+
+Type, colon-space, and description are required; scope and ! are optional.
+Types are nouns; scopes name codebase sections. Bodies allow multiple
+paragraphs. Separate header, body, and footers with blank lines.
+
+- `fix`: bug fix; PATCH.
+- `feat`: feature; MINOR.
+- Other types are allowed and imply no version bump without a breaking change.
+
+## Breaking changes
+
+Any type can mark a breaking change using ! immediately before the colon,
+or an uppercase `BREAKING CHANGE: description` footer, or both.
+`BREAKING-CHANGE:` is synonymous. With ! alone, describe the break in the
+header. Breaking changes correspond to MAJOR.
+
+```text
+refactor(checks)!: require explicit file paths
+```
+
+A footer works without !:
+
+```text
+refactor(checks): remove the default file path
+
+BREAKING CHANGE: callers must supply --file explicitly.
+```
+
+## Footers and case
+
+Footer names use hyphens instead of spaces, except BREAKING CHANGE.
+Use colon-space or space-# separators; values may span lines until the next
+footer. Other fields accept any case; breaking-change tokens stay uppercase.
+
+```text
+Refs: #123
+Reviewed-by: contributor
+```
+
+For reverts, prefer revert and reference commit SHAs.
+
+## Project rules and verification
+
+For substantial AI assistance, describe the contribution and actual
+verification in the commit body, then add an `Assisted-by:` trailer.
+Include the model and version when known. For example:
+
+```text
+Assisted-by: Codex
+```
+
+The developer owns commits unless they authorize an agent to commit.
+When the minimal commitlint configuration is present and its commit-msg hook
+is installed, normal commits have their headers checked, including !.
+This agent-guidance branch does not provide that tooling; see companion
+PR #318. The configuration does not require both breaking markers or impose
+type lists, letter case, or length limits. Human review must check body/footer
+formatting, truthful verification, the chosen type, and unmarked breaking
+changes. These commit standards apply even when automation is unavailable.
+
+Release mappings explain the convention; they do not publish a release or
+change package versions automatically. Maintainers handle releases.
+
+[spec]: https://www.conventionalcommits.org/en/v1.0.0/
