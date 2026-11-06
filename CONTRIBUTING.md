@@ -18,6 +18,7 @@ documentation, tests, bug reports, and pull request reviews. Start with the
 - [Finding ways to help](#finding-ways-to-help)
 - [Raising and tracking issues](#raising-and-tracking-issues)
 - [Development setup](#development-setup)
+- [Local checks and hooks](#local-checks-and-hooks)
 - [Coding standards](#coding-standards)
 - [Testing and checks](#testing-and-checks)
 - [Contributor scripts](#contributor-scripts)
@@ -110,7 +111,7 @@ changes with their lockfile updates.
 
 Contributors install hooks in each new clone; agents need explicit developer
 authorization before installing them. They check staged changes and commit
-messages, not PR titles. See [local checks](docs/PRE_COMMIT.md) for setup,
+messages, not PR titles. See [local checks and hooks](#local-checks-and-hooks) for
 full checks, and isolated hook smoke tests.
 
 ### CI environment and optional dependencies
@@ -118,7 +119,7 @@ full checks, and isolated hook smoke tests.
 The base development environment includes the Python tools needed for
 uv run task all. GatorGrader has no auto-hint extra; that feature belongs to
 GatorGrade. Markdown linting uses a separate managed Ruby environment through
-the local hooks; see [local checks](docs/PRE_COMMIT.md) for prerequisites.
+the local hooks; see [local checks and hooks](#local-checks-and-hooks).
 
 To select another supported interpreter, run:
 
@@ -130,6 +131,57 @@ uv run task test
 
 This changes the local Python pin. Review pin-file changes before including
 them in your PR; use the CI matrix to verify the other supported platforms.
+
+### Local checks and hooks
+
+The setup command installs both pre-commit and commit-msg hooks. Installation
+is local to each clone; cloning or syncing alone does not enable them. The
+configured Node and hook tools are installed in isolated environments on
+first use, which needs network access. Runtime dependencies are unchanged.
+
+The Markdown hook manages Ruby 3.3.10 and the existing linter. Its first
+installation can require a compiler and take several minutes; native Windows
+bootstrap support is not verified. It rejects an empty enabled-rule list,
+checks README and selected Markdown, and excludes canonical LICENSE.md.
+
+- Every commit runs documented-task and coverage-setting guards, plus the
+  Markdown hook, which always checks README.
+- Python, TOML, YAML, shell, or lock changes run uv run task all, including
+  executed statement/branch coverage. Documentation-only commits avoid this
+  full Python gate.
+- Commit messages use the same basic Conventional Commits header checks as
+  CI. Custom types and either breaking marker are accepted; PR titles are
+  not checked by the hooks.
+
+A failed hook aborts a normal commit without auto-formatting or editing
+source. Fix the issue, stage the correction, and retry. Code checks run the
+whole project, so unfinished untracked source can affect them too.
+
+Check working files without installing hooks or implicitly stashing changes:
+
+```bash
+uv run pre-commit run --files AGENTS.md CONTRIBUTING.md
+```
+
+Replace the paths with the files to check. For all tracked files, use
+uv run task hooks-check; it selects the full code suite and may temporarily
+stash tracked edits not staged for commit. Agents must use explicit files.
+These commands run pre-commit-stage checks, not the commit-message stage.
+
+Run uv run task test-hooks for isolated rejection/recovery smoke tests of
+commit messages, staged task names, Markdown, branch coverage, and Python.
+The script exports the Git index, not necessarily uncommitted working files;
+do not stage files merely to exercise a patch. It installs hooks and makes
+synthetic commits only in a disposable checkout. CI also runs these tests.
+
+Linked Git checkouts share hooks; use a dedicated clone for differing configs.
+Hooks are opt-in and can be bypassed. They cannot prove truthful AI disclosure,
+appropriate commit types, or compliance with every instruction. CI runs
+independently; maintainers must configure required checks and bypass limits
+for merge blocking. Hook installation does not change repository settings.
+See the [configuration](.pre-commit-config.yaml),
+[commit standards](docs/COMMIT_MESSAGES.md), and
+[pre-commit documentation](https://pre-commit.com/) for details.
 
 ### Running the edited checkout against an assignment
 
