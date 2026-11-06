@@ -46,7 +46,7 @@ ROOT_INDEX = 1
 SUCCESS = 0
 ROOT = Path(__file__).resolve().parents[ROOT_INDEX]
 POLICY_WORKFLOW = ROOT / ".github" / "workflows" / "contribution-policy.yml"
-TRUSTED_REF = "${{ github.event.pull_request.base.sha }}"
+TRUSTED_REF = "refs/heads/master"
 FENCE_CASES = (
     ("```", "```"),
     ("~~~", "~~~"),
@@ -60,13 +60,15 @@ EXAMPLE_RELEASE = "This PR is a small change\n"
 WORKFLOW_CHANGES = (
     ("pull_request_target:", "pull_request:"),
     (TRUSTED_REF, "${{ github.event.pull_request.head.sha }}"),
+    (TRUSTED_REF, "${{ github.event.pull_request.base.sha }}"),
+    (TRUSTED_REF, "refs/heads/unexpected-branch"),
     ("persist-credentials: false", "persist-credentials: true"),
     ("contents: read", "contents: write"),
 )
 
 
 def assert_policy_workflow_trust(text: str) -> None:
-    """Require base-only metadata execution with read-only credentials."""
+    """Require fixed-branch metadata execution with read-only credentials."""
     workflow = yaml.load(text, Loader=yaml.BaseLoader)
     assert set(workflow["on"]) == {"pull_request_target"}
     assert workflow["permissions"] == {"contents": "read"}

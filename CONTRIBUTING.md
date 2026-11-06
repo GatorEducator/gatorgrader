@@ -364,9 +364,11 @@ assistance, choose none or used; if used, identify the tool, its contribution,
 and your verification. Keep the required release-classification statement.
 These declarations cannot prove truth or test quality.
 
-Metadata validation runs trusted base-branch code, not PR code. The workflow
-and validator must first be merged into the target branch; later policy
-changes take effect after merge. Fenced examples do not supply declarations.
+Metadata validation always checks out refs/heads/master, never an
+event-selected branch or PR code. It reads the actual target from the event
+and rejects other targets. The workflow and validator must first land on
+master; policy changes take effect after merge. Fenced examples do not
+supply declarations.
 
 Local hooks can be bypassed; maintainers must configure required CI checks
 and reviews in GitHub for merge-time enforcement.
