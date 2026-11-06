@@ -65,10 +65,13 @@ Assisted-by: Codex
 ```
 
 The developer owns commits unless they authorize an agent to commit.
-Our minimal commitlint configuration validates headers, including !. Human
-review must check body/footer formatting, truthful verification, the chosen
-type, and unmarked breaking changes. It does not require both breaking
-markers or impose type lists, letter case, or length limits.
+When the minimal commitlint configuration is present and its commit-msg hook
+is installed, normal commits have their headers checked, including !.
+This agent-guidance branch does not provide that tooling; see companion
+PR #318. The configuration does not require both breaking markers or impose
+type lists, letter case, or length limits. Human review must check body/footer
+formatting, truthful verification, the chosen type, and unmarked breaking
+changes. These commit standards apply even when automation is unavailable.
 
 Release mappings explain the convention; they do not publish a release or
 change package versions automatically. Maintainers handle releases.
