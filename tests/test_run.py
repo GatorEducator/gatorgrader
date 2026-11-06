@@ -2,6 +2,8 @@
 
 import platform
 
+import pytest
+
 from gator import run
 
 # define the operating systems on which to run processes
@@ -33,14 +35,31 @@ def test_run_working_command_returns_message():
     assert code == 0
 
 
-def test_expected_echo_output_uses_value_comparison():
-    """Match operating system names that are equal but distinct objects."""
-    linux = DistinctStr(LINUX)
-    windows = DistinctStr(WINDOWS)
-    assert linux == LINUX
-    assert linux is not LINUX
-    assert expected_echo_output(linux) == b"Hello!\n"
-    assert expected_echo_output(windows) == b'"Hello!"\r\n'
+@pytest.mark.parametrize(
+    ("system_name", "output"),
+    [
+        (LINUX, b"Hello!\n"),
+        (MAC, b"Hello!\n"),
+        (WINDOWS, b'"Hello!"\r\n'),
+    ],
+)
+def test_run_output_assertion_uses_value_comparison(
+    monkeypatch, system_name, output
+):
+    """Check command output for equal but distinct operating system names."""
+    distinct = DistinctStr(system_name)
+    assert distinct == system_name
+    assert distinct is not system_name
+    monkeypatch.setattr(platform, "system", lambda: distinct)
+    monkeypatch.setattr(run, "run_command", lambda command: (output, b"", 0))
+    test_run_working_command_returns_message()
+
+    # Incorrect output must fail rather than skip the operating system check.
+    monkeypatch.setattr(
+        run, "run_command", lambda command: (b"incorrect output", b"", 0)
+    )
+    with pytest.raises(AssertionError):
+        test_run_working_command_returns_message()
 
 
 def test_run_broken_command_returns_nonzero():

@@ -74,7 +74,7 @@ def test_one_glob_case_sensitive_handling(tmpdir):
     hello_file_two = tmpdir.join("hello2.txt")
     hello_file_two.write("content")
     system_name = platform.system()
-    if system_name is not WINDOWS:
+    if system_name != WINDOWS:
         assert len(tmpdir.listdir()) == 2
         created_paths = list(
             files.create_paths(
@@ -82,7 +82,7 @@ def test_one_glob_case_sensitive_handling(tmpdir):
             )
         )
         assert len(created_paths) == 0
-    elif system_name is WINDOWS:
+    elif system_name == WINDOWS:
         assert len(tmpdir.listdir()) == 2
         created_paths = list(
             files.create_paths(
@@ -90,13 +90,13 @@ def test_one_glob_case_sensitive_handling(tmpdir):
             )
         )
         assert len(created_paths) == 2
-    if system_name is not WINDOWS:
+    if system_name != WINDOWS:
         for created_path in files.create_paths(
             tmpdir.basename, file="HELLO*", home=tmpdir.dirname
         ):
             assert ".txt" in str(created_path)
         assert len(created_paths) == 0
-    elif system_name is WINDOWS:
+    elif system_name == WINDOWS:
         for created_path in files.create_paths(
             tmpdir.basename, file="HELLO*", home=tmpdir.dirname
         ):
