@@ -490,7 +490,7 @@ def test_multiline_python_comments_many(code_string, expected_count):
             0,
         ),
         (
-            '// first\n/* not a single-line comment */\n// second',
+            "// first\n/* not a single-line comment */\n// second",
             2,
         ),
     ],
@@ -509,7 +509,7 @@ def test_singleline_c_comments(code_string, expected_count):
             0,
         ),
         (
-            '/* first */\n// not a block comment\n/* second */',
+            "/* first */\n// not a block comment\n/* second */",
             2,
         ),
     ],
@@ -528,7 +528,7 @@ def test_multiline_c_comments(code_string, expected_count):
             0,
         ),
         (
-            '// first\n/* not a single-line comment */\n// second',
+            "// first\n/* not a single-line comment */\n// second",
             2,
         ),
     ],
@@ -547,7 +547,7 @@ def test_singleline_cpp_comments(code_string, expected_count):
             0,
         ),
         (
-            '/* first */\n// not a block comment\n/* second */',
+            "/* first */\n// not a block comment\n/* second */",
             2,
         ),
     ],
@@ -566,14 +566,16 @@ def test_multiline_cpp_comments(code_string, expected_count):
             0,
         ),
         (
-            '// first\n/* not a single-line comment */\n// second',
+            "// first\n/* not a single-line comment */\n// second",
             2,
         ),
     ],
 )
 def test_singleline_javascript_comments(code_string, expected_count):
     """Check that JavaScript single-line comments are counted."""
-    comment_count, _ = comments.count_singleline_javascript_comment(code_string)
+    comment_count, _ = comments.count_singleline_javascript_comment(
+        code_string
+    )
     assert comment_count == expected_count
 
 
@@ -585,7 +587,7 @@ def test_singleline_javascript_comments(code_string, expected_count):
             0,
         ),
         (
-            '/* first */\n// not a block comment\n/* second */',
+            "/* first */\n// not a block comment\n/* second */",
             2,
         ),
     ],
