@@ -116,7 +116,7 @@ lint.select = [
     "TID251",
     "TID252",  # absolute imports
     "BLE001",  # specific exception handlers
-    "B006",  # immutable default arguments
+    "B006",  # reject mutable default arguments
 ]
 
 # Magic numbers (PLR2004) are acceptable in test files

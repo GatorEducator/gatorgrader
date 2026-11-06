@@ -177,6 +177,15 @@ def test_unregistered_markers_are_rejected(tmp_path: Path) -> None:
         ("TID251", "import snoop\n", False),
         ("TID251", "from snoop import snoop as trace\n", False),
         ("TID251", "import pathlib\n", True),
+        ("B006", "def collect(values=[]): return values\n", False),
+        (
+            "B006",
+            "def collect(values=None):\n"
+            "    if values is None:\n"
+            "        values = []\n"
+            "    return values\n",
+            True,
+        ),
     ],
 )
 def test_contribution_lint_policy(
