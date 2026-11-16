@@ -362,6 +362,8 @@ def test_words_different_sum_counts(writing_string, expected_count):
         ("hello world!!%^(@after)writing a lot\n\nnew one", "writing", 1),
         ("hello @world!!%^(@after)writing a lot\n\nnew one", "@world", 1),
         ("hello world!!%^(@after)writing a lot\n\nnew one", "@world", 0),
+        ("hello world", "", 0),
+        ("hello world", " ", 1),
         ("System.out.println(new Date())", "new Date()", 1),
         ("System.out.println(new Date())", "new Date", 1),
     ],
