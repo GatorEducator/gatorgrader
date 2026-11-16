@@ -7,9 +7,31 @@ import sys
 from unittest.mock import patch
 
 from gator import arguments
+from gator import grader_cli
 from gator import report
 from gator.exceptions import InvalidCheckArgumentsError
 from gator.checks import check_MatchCommandFragment
+
+
+def test_cli_rejects_empty_fragment(capsys):
+    """Check that an empty command fragment is reported as a usage error."""
+    with pytest.raises(SystemExit) as excinfo:
+        grader_cli(
+            [
+                "--nowelcome",
+                "MatchCommandFragment",
+                "--fragment",
+                "",
+                "--command",
+                "echo hello",
+                "--count",
+                "1",
+            ]
+        )
+    assert excinfo.value.code == 2
+    output = capsys.readouterr().out
+    assert "usage: MatchCommandFragment" in output
+    assert "argument --fragment: fragment must not be empty" in output
 
 
 @pytest.mark.parametrize(

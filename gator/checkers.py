@@ -1,5 +1,6 @@
 """Load checkers using a plugin-based approach."""
 
+import argparse
 import importlib
 import io
 import os
@@ -37,6 +38,13 @@ def parse(get_parser, args):
 
     parser.exit = exit_raise
     return parser.parse_args(args)
+
+
+def nonempty_fragment(fragment):
+    """Validate a literal fragment supplied as a checker argument."""
+    if fragment == "":
+        raise argparse.ArgumentTypeError("fragment must not be empty")
+    return fragment
 
 
 def get_checker_dir(args):

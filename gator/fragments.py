@@ -147,8 +147,9 @@ def count_total_words(contents):
 
 def count_specified_fragment(contents, fragment):
     """Count the specified string fragment in the string contents."""
-    fragment_count = contents.count(fragment)
-    return fragment_count
+    if fragment == "":
+        return 0
+    return contents.count(fragment)
 
 
 def count_specified_regex(contents, regex):

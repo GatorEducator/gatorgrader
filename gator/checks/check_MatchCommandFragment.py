@@ -33,7 +33,7 @@ def get_parser():
     # REQUIRED? Yes
     required_group.add_argument(
         "--fragment",
-        type=str,
+        type=checkers.nonempty_fragment,
         metavar="FRAG",
         help="fragment that exists in command output",
         required=True,
