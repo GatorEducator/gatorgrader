@@ -61,11 +61,37 @@ def test_detect_git_repository(tmpdir):
     assert detected_git_repository is True
 
 
+def test_detect_git_repository_missing_path(tmpdir):
+    """Ensure that a path that does not exist is not a Git repository."""
+    # point at a path inside tmpdir that was never created
+    # the check for the existence of a repository should be False
+    detected_git_repository = repository.is_git_repository(
+        str(tmpdir.join("definitely-not-here"))
+    )
+    assert detected_git_repository is False
+
+
+def test_detect_git_repository_file_path(tmpdir):
+    """Ensure that a file is not treated as a Git repository."""
+    # a file can exist without being a directory that holds a repository
+    temp_file = tmpdir.join("hello.txt")
+    temp_file.write("content")
+    detected_git_repository = repository.is_git_repository(str(temp_file))
+    assert detected_git_repository is False
+
+
 def test_nocrash_when_not_repository(tmpdir):
     """Ensure that a get_commits not in a repository does not crash."""
     # since there is, by default, no repository in tmpdir
     # then a call to get_commits will will return an empty list
     commits = repository.get_commits(str(tmpdir))
+    assert len(commits) == 0
+
+
+def test_nocrash_when_repository_path_missing(tmpdir):
+    """Ensure that get_commits on a path that does not exist does not crash."""
+    # the path was never created, so there are no commits to collect
+    commits = repository.get_commits(str(tmpdir.join("definitely-not-here")))
     assert len(commits) == 0
 
 
