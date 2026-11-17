@@ -17,7 +17,9 @@ def is_git_repository(repository_path):
     # it was not possible to create the repository, so it does not exist
     # this means that the function should return False to signal
     # that it is not safe to inspect Git attributes in this non-repo
-    except git.exc.InvalidGitRepositoryError:
+    # NoSuchPathError covers a path that is not on disk at all, which
+    # GitPython reports differently than a path that exists but is not a repo
+    except (git.exc.InvalidGitRepositoryError, git.exc.NoSuchPathError):
         return False
 
 
