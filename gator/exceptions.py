@@ -8,7 +8,7 @@ class InvalidCheckArgumentsError(Exception):
         """Initialize the InvalidCheckArgumentsError."""
         self.arguments = arguments
         self.usage = usage.strip()
-        self.error = error.strip()
+        self.error = error.strip() if error is not None else None
         if check_name:
             self.check_name = check_name.strip()
 

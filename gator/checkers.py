@@ -30,7 +30,12 @@ def parse(get_parser, args):
     parser.print_usage = lambda _file: None
 
     # redirect exit reason to msg
-    def exit_raise(_status, message=None):
+        def exit_raise(_status=0, message=None):
+            # a zero status means that argparse requested help,
+            # so exit cleanly instead of raising an error
+            # a non-zero status is a genuine argument error
+            if _status == 0:
+                raise SystemExit(0)
         raise InvalidCheckArgumentsError(
             args, parser.format_usage(), message, parser.prog
         )
