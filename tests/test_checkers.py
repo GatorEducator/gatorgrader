@@ -429,7 +429,6 @@ def test_parse_count_file_lines_missing_argument_after_separator():
         checkers.parse(check.get_parser, ["--file", "hello.py"])
 
 
-
 def test_parse_count_file_lines_unknown_argument_after_separator():
     """Ensure that an unknown argument after the separator raises."""
     check = checkers.load_check(None, "check_CountFileLines")
