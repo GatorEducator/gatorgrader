@@ -7,6 +7,7 @@ from unittest.mock import patch
 import pytest
 
 from gator import arguments, checkers
+from gator.exceptions import InvalidCheckArgumentsError
 
 
 @pytest.fixture(autouse=True)
@@ -403,3 +404,35 @@ def test_load_check_can_load_internal_check():
     check = checkers.load_check(None, "check_CountCommits")
     assert check is not None
     assert hasattr(check, "act")
+
+
+def test_parse_count_file_lines_help_after_separator():
+    """Ensure that help after the separator exits cleanly."""
+    check = checkers.load_check(None, "check_CountFileLines")
+    with pytest.raises(SystemExit) as exit_error:
+        checkers.parse(check.get_parser, ["--help"])
+    assert exit_error.value.code == 0
+
+
+def test_parse_count_file_lines_short_help_after_separator():
+    """Ensure that short help after the separator exits cleanly."""
+    check = checkers.load_check(None, "check_CountFileLines")
+    with pytest.raises(SystemExit) as exit_error:
+        checkers.parse(check.get_parser, ["-h"])
+    assert exit_error.value.code == 0
+
+
+def test_parse_count_file_lines_missing_argument_after_separator():
+    """Ensure that a missing argument after the separator raises."""
+    check = checkers.load_check(None, "check_CountFileLines")
+    with pytest.raises(InvalidCheckArgumentsError):
+        checkers.parse(check.get_parser, ["--file", "hello.py"])
+
+
+
+def test_parse_count_file_lines_unknown_argument_after_separator():
+    """Ensure that an unknown argument after the separator raises."""
+    check = checkers.load_check(None, "check_CountFileLines")
+    with pytest.raises(InvalidCheckArgumentsError):
+        checkers.parse(check.get_parser, ["--unknown"])
+        
