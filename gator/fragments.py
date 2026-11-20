@@ -153,10 +153,8 @@ def count_specified_fragment(contents, fragment):
 
 def count_specified_regex(contents, regex):
     """Count all the specified regex for a given file."""
-    # not a valid regular expression, so return an valid response
-    if not is_valid_regex(regex):
-        return constants.markers.Invalid
-    # the regular expression was valid, return the number of matches
+    # an invalid regular expression raises re.error instead of returning a
+    # negative count that a caller could mistake for a real observation
     matches = re.findall(regex, contents, re.DOTALL)
     return len(matches)
 

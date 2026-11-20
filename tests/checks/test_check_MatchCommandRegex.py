@@ -248,3 +248,18 @@ def test_act_produces_output(commandline_arguments, expected_result, load_check)
             assert report.get_result()["diagnostic"] == ""
         else:
             assert report.get_result()["diagnostic"] != ""
+
+
+def test_invalid_regex_commandline_arguments_raise():
+    """Check that an invalid regular expression raises and names the pattern."""
+    commandline_arguments = [
+        "--command",
+        "echo hello",
+        "--count",
+        "5",
+        "--regex",
+        "([unclosed",
+    ]
+    with pytest.raises(InvalidCheckArgumentsError) as excinfo:
+        _ = check_MatchCommandRegex.act(None, commandline_arguments)
+    assert "([unclosed" in excinfo.value.error

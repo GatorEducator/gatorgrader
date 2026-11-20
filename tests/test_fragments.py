@@ -1,5 +1,7 @@
 """Test cases for the fragments module."""
 
+import re
+
 import pytest
 
 from gator import fragments
@@ -953,14 +955,14 @@ def test_count_regex_from_file(tmpdir):
         r"planet", fragments.count_specified_regex, hello_file, directory, ""
     )
     assert count == 0
-    count, _ = fragments.count_entities(
-        r"invalid[^]",
-        fragments.count_specified_regex,
-        hello_file,
-        directory,
-        "",
-    )
-    assert count == -1
+    with pytest.raises(re.error):
+        fragments.count_entities(
+            r"invalid[^]",
+            fragments.count_specified_regex,
+            hello_file,
+            directory,
+            "",
+        )
 
 
 def test_count_regex_from_contents():
@@ -974,10 +976,10 @@ def test_count_regex_from_contents():
         r"planet", fragments.count_specified_regex, contents=value
     )
     assert count == 0
-    count, _ = fragments.count_entities(
-        r"invalid[^]", fragments.count_specified_regex, contents=value
-    )
-    assert count == -1
+    with pytest.raises(re.error):
+        fragments.count_entities(
+            r"invalid[^]", fragments.count_specified_regex, contents=value
+        )
 
 
 def test_count_regex_from_file_with_threshold(tmpdir):
@@ -1010,7 +1012,7 @@ def test_count_regex_from_file_with_threshold(tmpdir):
     )
     assert actual_count == 1
     assert exceeds_threshold is True
-    exceeds_threshold, actual_count, _ = (
+    with pytest.raises(re.error):
         fragments.specified_entity_greater_than_count(
             r"invalid[^]",
             fragments.count_specified_regex,
@@ -1018,10 +1020,6 @@ def test_count_regex_from_file_with_threshold(tmpdir):
             hello_file,
             directory,
         )
-    )
-
-    assert actual_count == -1
-    assert exceeds_threshold is False
 
 
 def test_count_regex_from_contents_with_threshold():
@@ -1047,10 +1045,7 @@ def test_count_regex_from_contents_with_threshold():
     )
     assert actual_count == 1
     assert exceeds_threshold is True
-    exceeds_threshold, actual_count, _ = (
+    with pytest.raises(re.error):
         fragments.specified_entity_greater_than_count(
             r"invalid[^]", fragments.count_specified_regex, 0, contents=value
         )
-    )
-    assert actual_count == -1
-    assert exceeds_threshold is False

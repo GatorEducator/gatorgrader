@@ -1,8 +1,10 @@
 """Check that a command's output matches a specified regular expression."""
 
 import argparse
+import re
 
 from gator import checkers, invoke
+from gator.exceptions import InvalidCheckArgumentsError
 
 
 def get_parser():
@@ -86,5 +88,16 @@ def act(main_parsed_arguments, check_remaining_arguments):
     command = check_parsed_arguments.command
     regex = check_parsed_arguments.regex
     count = check_parsed_arguments.count
+    # validate the regular expression so that a mistake in the pattern is
+    # reported as an invalid check argument instead of a count of matches
+    try:
+        re.compile(regex)
+    except re.error as regex_error:
+        raise InvalidCheckArgumentsError(
+            check_remaining_arguments,
+            get_parser().format_usage(),
+            "'" + regex + "' is not a valid regular expression: "
+            + str(regex_error),
+        ) from regex_error
     exact = check_parsed_arguments.exact
     return invoke.invoke_all_command_regex_checks(command, regex, count, exact)

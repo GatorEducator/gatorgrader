@@ -322,3 +322,20 @@ of GatorGrader. Depending on your goals, there are several different..."""
             assert report.get_result()["diagnostic"] == ""
         else:
             assert report.get_result()["diagnostic"] != ""
+
+
+def test_invalid_regex_commandline_arguments_raise():
+    """Check that an invalid regular expression raises and names the pattern."""
+    commandline_arguments = [
+        "--file",
+        "filename",
+        "--directory",
+        "directory",
+        "--count",
+        "5",
+        "--regex",
+        "([unclosed",
+    ]
+    with pytest.raises(InvalidCheckArgumentsError) as excinfo:
+        _ = check_MatchFileRegex.act(None, commandline_arguments)
+    assert "([unclosed" in excinfo.value.error
