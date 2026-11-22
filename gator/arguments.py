@@ -107,20 +107,36 @@ def parse(args):
 
 def verify(args):
     """Check if the arguments are correct."""
-    # assume the arguments are valid, then prove otherwise
-    verified_arguments = True
+    verified_arguments, _ = verify_with_reason(args)
+    return verified_arguments
+
+
+def verify_with_reason(args):
+    """Check if the arguments are correct and explain the first problem found.
+
+    Return a tuple of a boolean verdict and, when the verdict is false, a message
+    that names the rejected argument and the rule that it breaks.
+    """
     # CHECKERDIR: an external directory of checks was specified
     # ENSURE: the directory is a valid directory
     if args.checkerdir is not None:
-        # if the directory does exist, this argument is verified
         checkerdir_path = files.create_path(file="", home=args.checkerdir)
-        verified_arguments = verified_arguments and checkerdir_path.is_dir()
+        if not checkerdir_path.is_dir():
+            return False, "{} must name an existing directory, but '{}' is {}.".format(
+                constants.commandlines.Checker_Dir,
+                args.checkerdir,
+                "a file" if checkerdir_path.is_file() else "not a directory",
+            )
     # DESCRIPTION: a string to use as the check result's message
-    # ENSURE: the description is a valid description
+    # ENSURE: the description is a valid description, a non-empty string
+    # without a double quote in it
     if args.description is not None:
-        # assume that the description is not valid
-        verified_arguments = (
-            verified_arguments
-            and description.is_valid_description(args.description)
-        )
-    return verified_arguments
+        if not description.is_valid_description(args.description):
+            return (
+                False,
+                "{} must be a non-empty string without a double quote in it, "
+                "but '{}' is not.".format(
+                    constants.commandlines.Description, args.description
+                ),
+            )
+    return True, None

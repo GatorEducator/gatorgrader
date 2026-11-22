@@ -78,8 +78,9 @@ def perform_system_configuration(system_arguments):
     if parsed_arguments.nowelcome is not True:
         display.welcome_message()
     # Report if the system arguments are not valid
-    if arguments.verify(parsed_arguments) is False:
-        raise InvalidSystemArgumentsError(parsed_arguments)
+    verified_arguments, reason = arguments.verify_with_reason(parsed_arguments)
+    if verified_arguments is False:
+        raise InvalidSystemArgumentsError(parsed_arguments, reason)
 
     # Configure the output type to be JSON if the user specified the --json flag
     if parsed_arguments.json is True:

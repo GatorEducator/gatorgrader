@@ -16,9 +16,10 @@ class InvalidCheckArgumentsError(Exception):
 class InvalidSystemArgumentsError(Exception):
     """The system arguments are invalid."""
 
-    def __init__(self, arguments):
+    def __init__(self, arguments, reason=None):
         """Initialize the InvalidSystemArgumentsError."""
         self.arguments = arguments
+        self.reason = reason
 
 
 class InvalidCheckError(InvalidSystemArgumentsError):
