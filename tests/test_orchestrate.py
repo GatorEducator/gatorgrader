@@ -38,7 +38,11 @@ def test_main_cli_fails_with_incorrect_system_arguments(
     counted_newlines = captured.out.count("\n")
     assert captured.err == ""
     assert "Incorrect command-line arguments." in captured.out
-    assert counted_newlines == 8
+    # the rejected argument is named on its own line, before the help reminder
+    assert any(
+        argument in captured.out for argument in ("--description", "--checkerdir")
+    )
+    assert counted_newlines == 10
 
 
 @pytest.mark.parametrize(

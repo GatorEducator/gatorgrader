@@ -28,6 +28,8 @@ def incorrect_system_arguments_message(
     console.print("Incorrect command-line arguments.")
     if error and isinstance(error, InvalidCheckError):
         console.print(error.check_name + " is not a valid check.")
+    elif error and error.reason:
+        console.print(error.reason)
     console.print()
 
 

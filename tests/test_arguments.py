@@ -110,6 +110,47 @@ def test_checkerdir_is_not_valid_arguments_verify(tmpdir):
     assert args_verified is False
 
 
+def test_checkerdir_that_is_missing_names_the_option_in_the_reason(tmpdir):
+    """A rejected --checkerdir should say which option and value were rejected."""
+    missing_directory = str(tmpdir.join("does-not-exist"))
+    gg_arguments, _ = arguments.parse(["--checkerdir", missing_directory, "CheckCommits"])
+    args_verified, reason = arguments.verify_with_reason(gg_arguments)
+    assert args_verified == NOT_VERIFIED
+    assert "--checkerdir" in reason
+    assert missing_directory in reason
+    assert "existing directory" in reason
+
+
+def test_checkerdir_that_is_a_file_names_the_option_in_the_reason(tmpdir):
+    """A --checkerdir that names a file should say so instead of staying silent."""
+    file_path = tmpdir.join("checks.md")
+    file_path.write("not a directory")
+    gg_arguments, _ = arguments.parse(["--checkerdir", str(file_path), "CheckCommits"])
+    args_verified, reason = arguments.verify_with_reason(gg_arguments)
+    assert args_verified == NOT_VERIFIED
+    assert "--checkerdir" in reason
+    assert "a file" in reason
+
+
+def test_description_with_a_double_quote_names_the_option_in_the_reason():
+    """A rejected --description should state the rule that it broke."""
+    gg_arguments, _ = arguments.parse(
+        ["--description", 'He said "hi" loudly', "CheckCommits"]
+    )
+    args_verified, reason = arguments.verify_with_reason(gg_arguments)
+    assert args_verified == NOT_VERIFIED
+    assert "--description" in reason
+    assert "double quote" in reason
+
+
+def test_verified_arguments_have_no_reason():
+    """Accepted arguments should not produce a message."""
+    gg_arguments, _ = arguments.parse(["--description", "Are there 12?", "CheckCommits"])
+    args_verified, reason = arguments.verify_with_reason(gg_arguments)
+    assert args_verified == VERIFIED
+    assert reason is None
+
+
 def test_description_is_valid_arguments_verify():
     """Check that command-line argument with valid string verifies."""
     commandline_arguments = [
