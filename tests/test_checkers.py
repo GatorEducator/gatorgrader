@@ -1,5 +1,6 @@
 """Tests for the loading, verification, and use of plugin-based checkers."""
 
+import argparse
 import os
 import sys
 from unittest.mock import patch
@@ -403,3 +404,86 @@ def test_load_check_can_load_internal_check():
     check = checkers.load_check(None, "check_CountCommits")
     assert check is not None
     assert hasattr(check, "act")
+
+
+@pytest.mark.parametrize(
+    "raw_args, expected_args",
+    [
+        (
+            ["--fragment", "--against", "--count", "1"],
+            ["--fragment=--against", "--count", "1"],
+        ),
+        (
+            ["--fragment", "-x", "--count", "1"],
+            ["--fragment=-x", "--count", "1"],
+        ),
+        (
+            ["--fragment", "- value", "--count", "1"],
+            ["--fragment=- value", "--count", "1"],
+        ),
+        (
+            ["--regex", "-{2}max", "--count", "1"],
+            ["--regex=-{2}max", "--count", "1"],
+        ),
+        (
+            ["--description", "--custom-desc", "--count", "1"],
+            ["--description=--custom-desc", "--count", "1"],
+        ),
+        (
+            ["--fragment=-against", "--count", "1"],
+            ["--fragment=-against", "--count", "1"],
+        ),
+        (
+            ["--", "--fragment", "--against"],
+            ["--", "--fragment", "--against"],
+        ),
+        (
+            ["--count", "1", "--fragment"],
+            ["--count", "1", "--fragment"],
+        ),
+    ],
+)
+def test_normalize_value_option_args(raw_args, expected_args):
+    """Ensure value taking option flags are normalized with '='."""
+    assert checkers.normalize_value_option_args(raw_args) == expected_args
+
+
+@pytest.mark.parametrize(
+    "commandline_arguments, expected_fragment, expected_regex, expected_description",
+    [
+        (["--fragment=--against", "--count", "1"], "--against", None, None),
+        (["--fragment", "--against", "--count", "1"], "--against", None, None),
+        (["--fragment=-x", "--count", "1"], "-x", None, None),
+        (["--fragment", "-x", "--count", "1"], "-x", None, None),
+        (["--fragment", "- max", "--count", "1"], "- max", None, None),
+        (["--regex=-{2}max", "--count", "1"], None, "-{2}max", None),
+        (["--regex", "-{2}max", "--count", "1"], None, "-{2}max", None),
+        (
+            ["--description", "--help-flag-check", "--count", "1"],
+            None,
+            None,
+            "--help-flag-check",
+        ),
+    ],
+)
+def test_parse_hyphen_prefixed_option_values(
+    commandline_arguments,
+    expected_fragment,
+    expected_regex,
+    expected_description,
+):
+    """Ensure that checkers.parse accepts option values starting with a hyphen."""
+
+    def get_parser():
+        parser = argparse.ArgumentParser(prog="TestCheck")
+        parser.add_argument("--fragment", type=str)
+        parser.add_argument("--regex", type=str)
+        parser.add_argument("--description", type=str)
+        parser.add_argument("--count", type=int, required=True)
+        return parser
+
+    parsed = checkers.parse(get_parser, commandline_arguments)
+    assert parsed.fragment == expected_fragment
+    assert parsed.regex == expected_regex
+    assert parsed.description == expected_description
+    assert parsed.count == 1

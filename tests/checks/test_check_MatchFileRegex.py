@@ -103,6 +103,41 @@ def test_required_commandline_arguments_cannot_parse(commandline_arguments, caps
                 "filename",
             ]
         ),
+(
+            [
+                "--directory",
+                "directoryname",
+                "--regex",
+                "-{2}max",
+                "--count",
+                "5",
+                "--file",
+                "filename",
+            ]
+        ),
+        (
+            [
+                "--directory",
+                "directoryname",
+                "--regex=-{2}max",
+                "--count",
+                "5",
+                "--file",
+                "filename",
+            ]
+        ),
+        (
+            [
+                "--directory",
+                "directoryname",
+                "--regex",
+                "-x",
+                "--count",
+                "5",
+                "--file",
+                "filename",
+            ]
+        ),
     ],
 )
 def test_required_commandline_arguments_can_parse(commandline_arguments, not_raises):
@@ -322,3 +357,66 @@ of GatorGrader. Depending on your goals, there are several different..."""
             assert report.get_result()["diagnostic"] == ""
         else:
             assert report.get_result()["diagnostic"] != ""
+
+@pytest.mark.parametrize(
+    "regex_args, file_content, expected_result",
+    [
+        (
+            ["--regex", "-{2}max"],
+            "Usage: mytool --max-events 10",
+            True
+        ),
+        (
+            ["--regex=-{2}max"],
+            "Usage: mytool --max-events 10",
+            True
+        ),
+        (
+            ["--regex", "-x"],
+            "Options: -x enable extra mode",
+            True
+        ),
+        (
+            ["--regex", "- [0-9]+"],
+            "Limit: - 10 items",
+            True
+        ),
+        (
+            ["--regex", "-{2}max"],
+            "Usage: mytool --against value",
+            False
+        ),
+    ],
+)
+def test_act_with_hyphen_prefixed_regex(
+    regex_args,
+    file_content,
+    expected_result,
+    tmpdir,
+    load_check,
+):
+    """Check that MatchFileRegex matches regular expressions beginning with a hyphen."""
+    testargs = [os.getcwd()]
+    with patch.object(sys, "argv", testargs):
+        new_file = tmpdir.mkdir("containing_directory").join("file_to_find")
+        new_file.write(file_content)
+        overall_directory = (
+            tmpdir.dirname + "/" + tmpdir.basename + "/containing_directory"
+        )
+        commandline_arguments = [
+            "MatchFileRegex",
+            "--file",
+            "file_to_find",
+            "--directory",
+            overall_directory,
+            "--count",
+            "1",
+            *regex_args,
+        ]
+        parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+        args_verified = arguments.verify(parsed_arguments)
+        assert args_verified is True
+        check = load_check(parsed_arguments)
+        check_result = check.act(parsed_arguments, remaining_arguments)
+        assert check_result is expected_result
+        assert report.get_result()["outcome"] is expected_result
