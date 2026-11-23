@@ -407,6 +407,158 @@ def test_chosen_fragment_many(writing_string, chosen_fragment, expected_count):
 
 
 @pytest.mark.parametrize(
+    "writing_string,chosen_fragment,expected_count",
+    [
+        # the option name wraps across two lines of a terminal table
+        (
+            "| --max-\n| events    <int>   Specify the maximum number "
+            "of events to record.",
+            "max-events",
+            1,
+        ),
+        # the wrap falls in the middle of a word without a hyphen
+        ("| --max-eve\n| nts <int>", "max-events", 1),
+        # the same wrapped option name appears in two table rows
+        (
+            "| --max-\n| events <int>\n| --max-\n| events <int>",
+            "max-events",
+            2,
+        ),
+        # a rich table uses box-drawing characters for its borders
+        (
+            "│ --max-\n│ events    <int>   Specify the maximum number "
+            "of events to record.",
+            "max-events",
+            1,
+        ),
+        # a soft hyphen marks the place where the word may break
+        ("--max-\u00adevents <int>", "max-events", 1),
+        # the renderer used several spaces between the columns
+        ("Specify    the   maximum number", "Specify the maximum", 1),
+    ],
+)
+def test_chosen_fragment_rendered_wrapped(
+    writing_string, chosen_fragment, expected_count
+):
+    """Check that it can detect a fragment wrapped across lines."""
+    assert (
+        fragments.count_specified_fragment(
+            writing_string, chosen_fragment, normalize_rendered=True
+        )
+        == expected_count
+    )
+
+
+@pytest.mark.parametrize(
+    "writing_string,chosen_fragment,expected_count",
+    [
+        # styling splits the option name itself
+        ("\x1b[1m--max-\x1b[0m\x1b[32mevents\x1b[0m <int>", "max-events", 1),
+        # styling wraps the whole option name
+        ("\x1b[1m--max-events\x1b[0m <int>", "max-events", 1),
+        # a hyperlink escape sequence wraps the option name
+        (
+            "\x1b]8;;http://example.com\x1b\\--max-events\x1b]8;;\x1b\\",
+            "max-events",
+            1,
+        ),
+        # styling and wrapping appear together
+        (
+            "\x1b[1m| --max-\x1b[0m\n\x1b[32m| events\x1b[0m <int>",
+            "max-events",
+            1,
+        ),
+        # styling with no wrapping still counts the plain fragment
+        ("\x1b[31mhello\x1b[0m world", "hello", 1),
+    ],
+)
+def test_chosen_fragment_rendered_ansi(
+    writing_string, chosen_fragment, expected_count
+):
+    """Check that ANSI escapes never affect the fragment count."""
+    assert (
+        fragments.count_specified_fragment(
+            writing_string, chosen_fragment, normalize_rendered=True
+        )
+        == expected_count
+    )
+
+
+@pytest.mark.parametrize(
+    "writing_string,chosen_fragment,expected_count",
+    [
+        # the terminal truncated the option name with an ellipsis
+        ("| --max-even\u2026   <int>", "max-events", 1),
+        # the terminal truncated the option name with three periods
+        ("--max-even... <int>", "max-events", 1),
+        # a full match followed by an ellipsis counts only once
+        ("--max-events\u2026", "max-events", 1),
+        # a single visible character is not enough evidence
+        ("m\u2026", "max-events", 0),
+        # the truncated text is a different word entirely
+        ("--max-evening\u2026", "max-events", 0),
+    ],
+)
+def test_chosen_fragment_rendered_truncated(
+    writing_string, chosen_fragment, expected_count
+):
+    """Check that a fragment truncated with an ellipsis is counted."""
+    assert (
+        fragments.count_specified_fragment(
+            writing_string, chosen_fragment, normalize_rendered=True
+        )
+        == expected_count
+    )
+
+
+@pytest.mark.parametrize(
+    "writing_string,chosen_fragment,expected_count",
+    [
+        # a plain single-line match still counts
+        ("--max-events <int>", "max-events", 1),
+        # an empty output contains no fragment
+        ("", "max-events", 0),
+        # a fragment that is not there still counts zero
+        ("--max-events <int>", "planet", 0),
+        # an empty fragment matches the plain substring count
+        ("abc", "", 4),
+    ],
+)
+def test_chosen_fragment_rendered_plain(
+    writing_string, chosen_fragment, expected_count
+):
+    """Check that plain matches still work for rendered text."""
+    assert (
+        fragments.count_specified_fragment(
+            writing_string, chosen_fragment, normalize_rendered=True
+        )
+        == expected_count
+    )
+
+
+def test_chosen_fragment_rendered_file_unaffected(tmpdir):
+    """Check that file-based fragment checks keep the exact count."""
+    # the plain count never normalizes, so a wrapped name counts zero
+    wrapped = "| --max-\n| events    <int>   Specify the maximum number."
+    assert fragments.count_specified_fragment(wrapped, "max-events") == 0
+    # a file holding the same wrapped text also counts zero
+    hello_file = tmpdir.mkdir("subdirectory").join("Help.txt")
+    hello_file.write(wrapped)
+    assert hello_file.read() == wrapped
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "subdirectory"
+    hello_file = "Help.txt"
+    count, _ = fragments.count_entities(
+        "max-events",
+        fragments.count_specified_fragment,
+        hello_file,
+        directory,
+        "",
+    )
+    assert count == 0
+
+
+@pytest.mark.parametrize(
     "writing_string,expected_count",
     [
         ("System.out.println(new Date() new Date() new Date())", 1),
@@ -928,6 +1080,53 @@ def test_chosen_regex_zero_or_one(
 )
 def test_chosen_regex_many(writing_string, chosen_regex, expected_count):
     """Check that it can detect many of a regex."""
+    assert (
+        fragments.count_specified_regex(writing_string, chosen_regex)
+        == expected_count
+    )
+
+
+@pytest.mark.parametrize(
+    "writing_string,chosen_regex,expected_count",
+    [
+        # a match wrapped across two lines of a terminal table
+        (
+            "| --max-\n| events    <int>   Specify the maximum number "
+            "of events to record.",
+            r"max-events",
+            1,
+        ),
+        # styling splits the matched text
+        ("\x1b[1m--max-\x1b[0m\x1b[32mevents\x1b[0m <int>", r"max-events", 1),
+        # a plain single-line match still counts
+        ("--max-events <int>", r"max-events", 1),
+        # an invalid regex still returns the invalid marker
+        ("| --max-\n| events <int>", r"invalid[^]", -1),
+    ],
+)
+def test_chosen_regex_rendered(writing_string, chosen_regex, expected_count):
+    """Check that a regex matches rendered text across wraps and styling."""
+    assert (
+        fragments.count_specified_regex(
+            writing_string, chosen_regex, normalize_rendered=True
+        )
+        == expected_count
+    )
+
+
+@pytest.mark.parametrize(
+    "writing_string,chosen_regex,expected_count",
+    [
+        # without normalization the wrapped text does not match
+        ("| --max-\n| events <int>", r"max-events", 0),
+        # without normalization the styled text does not match
+        ("\x1b[1m--max-\x1b[0m\x1b[32mevents\x1b[0m", r"max-events", 0),
+    ],
+)
+def test_chosen_regex_rendered_plain_unchanged(
+    writing_string, chosen_regex, expected_count
+):
+    """Check that regex counting without normalization is unchanged."""
     assert (
         fragments.count_specified_regex(writing_string, chosen_regex)
         == expected_count
