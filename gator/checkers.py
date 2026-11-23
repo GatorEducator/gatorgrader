@@ -19,6 +19,28 @@ DEFAULT_FUNCTIONS = [
     constants.checkers.Function_Parse,
 ]
 
+VALUE_OPTION_FLAGS = ("--fragment", "--regex", "--description")
+
+
+def normalize_value_option_args(args):
+    """Join value taking option flags with their following argument using '='."""
+    normalized_args = []
+    index = 0
+
+    while index < len(args):
+        current_arg = args[index]
+        if current_arg == "--":
+            normalized_args.extend(args[index:])
+            break
+        if current_arg in VALUE_OPTION_FLAGS and index + 1 < len(args):
+            normalized_args.append(f"{current_arg}={args[index + 1]}")
+            index += 2
+        else:
+            normalized_args.append(current_arg)
+            index += 1
+
+    return normalized_args
+
 
 def parse(get_parser, args):
     """Use the parser on the provided arguments."""
@@ -36,7 +58,8 @@ def parse(get_parser, args):
         )
 
     parser.exit = exit_raise
-    return parser.parse_args(args)
+    normalized_args = normalize_value_option_args(args)
+    return parser.parse_args(normalized_args)
 
 
 def get_checker_dir(args):

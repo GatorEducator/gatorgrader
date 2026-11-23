@@ -63,6 +63,35 @@ def test_optional_commandline_arguments_cannot_parse(commandline_arguments, caps
                 "--exact",
             ]
         ),
+        (
+            [
+                "--command",
+                "mytool --help",
+                "--fragment",
+                "--against",
+                "--count",
+                "1"
+            ]
+        ),
+        (
+            [
+                "--command",
+                "mytool --help",
+                "--fragment=--against",
+                "--count",
+                "1"
+            ]
+        ),
+        (
+            [
+                "--command",
+                "mytool --help",
+                "--fragment",
+                "-x",
+                "--count",
+                "1"
+            ]
+        ),
     ],
 )
 def test_required_commandline_arguments_can_parse(commandline_arguments, not_raises):
@@ -195,3 +224,81 @@ def test_act_produces_output(commandline_arguments, expected_result, load_check)
             assert report.get_result()["diagnostic"] == ""
         else:
             assert report.get_result()["diagnostic"] != ""
+
+@pytest.mark.parametrize(
+    "commandline_arguments, expected_result",
+    [
+        (
+            [
+                "MatchCommandFragment",
+                "--command",
+                'echo "Usage: mytool --against value"',
+                "--fragment",
+                "--against",
+                "--count",
+                "1",
+            ],
+            True,
+        ),
+        (
+            [
+                "MatchCommandFragment",
+                "--command",
+                'echo "Usage: mytool --against value"',
+                "--fragment=--against",
+                "--count",
+                "1",
+            ],
+            True,
+        ),
+        (
+            [
+                "MatchCommandFragment",
+                "--command",
+                'echo "Options: -x enable"',
+                "--fragment",
+                "-x",
+                "--count",
+                "1",
+            ],
+            True,
+        ),
+        (
+            [
+                "MatchCommandFragment",
+                "--command",
+                'echo "Limit: - max items"',
+                "--fragment",
+                "- max",
+                "--count",
+                "1",
+            ],
+            True,
+        ),
+        (
+            [
+                "MatchCommandFragment",
+                "--command",
+                'echo "Usage: mytool --against value"',
+                "--fragment",
+                "--missing",
+                "--count",
+                "1",
+            ],
+            False,
+        ),
+    ],
+)
+def test_act_with_hyphen_prefixed_fragment(
+    commandline_arguments, expected_result, load_check
+):
+    """Ensure that MatchCommandFragment matches fragments beginning with a hyphen."""
+    testargs = [os.getcwd()]
+    with patch.object(sys, "argv", testargs):
+        parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+        args_verified = arguments.verify(parsed_arguments)
+        assert args_verified is True
+        check = load_check(parsed_arguments)
+        check_result = check.act(parsed_arguments, remaining_arguments)
+        assert check_result is expected_result
+        assert report.get_result()["outcome"] is expected_result

@@ -103,6 +103,41 @@ def test_required_commandline_arguments_cannot_parse(commandline_arguments, caps
                 "filename",
             ]
         ),
+        (
+            [
+                "--directory",
+                "directoryname",
+                "--fragment",
+                "--against",
+                "--count",
+                "5",
+                "--file",
+                "filename",
+            ]
+        ),
+        (
+            [
+                "--directory",
+                "directoryname",
+                "--fragment=--against",
+                "--count",
+                "5",
+                "--file",
+                "filename",
+            ]
+        ),
+        (
+            [
+                "--directory",
+                "directoryname",
+                "--fragment",
+                "-x",
+                "--count",
+                "5",
+                "--file",
+                "filename",
+            ]
+        ),
     ],
 )
 def test_required_commandline_arguments_can_parse(commandline_arguments, not_raises):
@@ -231,3 +266,46 @@ def test_act_produces_output(
             assert report.get_result()["diagnostic"] == ""
         else:
             assert report.get_result()["diagnostic"] != ""
+
+@pytest.mark.parametrize(
+    "fragment_args, file_content, expected_result",
+    [
+        (["--fragment", "--against"], "Usage: mytool --against value", True),
+        (["--fragment=--against"], "Usage: mytool --against value", True),
+        (["--fragment", "-x"], "Options: -x enable extra mode", True),
+        (["--fragment", "- max"], "Limit: - max items", True),
+        (["--fragment", "--missing"], "Usage: mytool --against value", False),
+    ],
+)
+def test_act_with_hyphen_prefixed_fragment(
+    fragment_args,
+    file_content,
+    expected_result,
+    tmpdir,
+    load_check,
+):
+    """Check that MatchFileFragment matches fragments beginning with a hyphen."""
+    testargs = [os.getcwd()]
+    with patch.object(sys, "argv", testargs):
+        new_file = tmpdir.mkdir("containing_directory").join("file_to_find")
+        new_file.write(file_content)
+        overall_directory = (
+            tmpdir.dirname + "/" + tmpdir.basename + "/containing_directory"
+        )
+        commandline_arguments = [
+            "MatchFileFragment",
+            "--file",
+            "file_to_find",
+            "--directory",
+            overall_directory,
+            "--count",
+            "1",
+            *fragment_args,
+        ]
+        parsed_arguments, remaining_arguments = arguments.parse(commandline_arguments)
+        args_verified = arguments.verify(parsed_arguments)
+        assert args_verified is True
+        check = load_check(parsed_arguments)
+        check_result = check.act(parsed_arguments, remaining_arguments)
+        assert check_result is expected_result
+        assert report.get_result()["outcome"] is expected_result
