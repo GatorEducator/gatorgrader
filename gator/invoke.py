@@ -1,5 +1,7 @@
 """Invoke programs on the command-line."""
 
+import functools
+
 from gator import (
     comments,
     constants,
@@ -485,13 +487,24 @@ def invoke_all_fragment_checks(  # noqa: PLR0913
 ):
     """Perform the check for a fragment existence in file or contents and return the results."""
     met_or_exceeded_count = 0
+    # command output is rendered text, so a fragment wrapped across
+    # lines or split by terminal styling must still count, while
+    # file-based checks keep the byte-exact count
+    checking_function = fragments.count_specified_fragment
+    if not (
+        filecheck is not constants.markers.Nothing
+        and directory is not constants.markers.Nothing
+    ):
+        checking_function = functools.partial(
+            fragments.count_specified_fragment, normalize_rendered=True
+        )
     (
         met_or_exceeded_count,
         actual_count,
         actual_count_dictionary,
     ) = fragments.specified_entity_greater_than_count(
         fragment,
-        fragments.count_specified_fragment,
+        checking_function,
         expected_count,
         filecheck,
         directory,
@@ -585,13 +598,24 @@ def invoke_all_regex_checks(  # noqa: PLR0913
 ):
     """Perform the check for a regex existence in file or contents and return the results."""
     met_or_exceeded_count = 0
+    # command output is rendered text, so a match wrapped across
+    # lines or split by terminal styling must still count, while
+    # file-based checks keep the byte-exact count
+    checking_function = fragments.count_specified_regex
+    if not (
+        filecheck is not constants.markers.Nothing
+        and directory is not constants.markers.Nothing
+    ):
+        checking_function = functools.partial(
+            fragments.count_specified_regex, normalize_rendered=True
+        )
     (
         met_or_exceeded_count,
         actual_count,
         actual_count_dictionary,
     ) = fragments.specified_entity_greater_than_count(
         regex,
-        fragments.count_specified_regex,
+        checking_function,
         expected_count,
         filecheck,
         directory,

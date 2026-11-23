@@ -489,6 +489,62 @@ def test_content_string_check_regex_exact(reset_results_dictionary):
 
 
 # pylint: disable=unused-argument
+def test_content_string_check_fragments_rendered_wrapped(
+    reset_results_dictionary,
+):
+    """Check that a fragment wrapped in command output is counted."""
+    value = (
+        "| --max-\n| events    <int>   Specify the maximum number "
+        "of events to record."
+    )
+    met_or_exceeded_count = invoke.invoke_all_fragment_checks(
+        "max-events", 1, contents=value
+    )
+    assert met_or_exceeded_count is True
+    details = report.get_result()
+    assert details is not None
+    report.reset()
+    met_or_exceeded_count = invoke.invoke_all_fragment_checks(
+        "max-events", 2, contents=value
+    )
+    assert met_or_exceeded_count is False
+
+
+# pylint: disable=unused-argument
+def test_run_command_check_fragment_rendered_wrapped(
+    reset_results_dictionary,
+):
+    """Check that a wrapped fragment in real command output is counted."""
+    met_or_exceeded_count = invoke.invoke_all_command_fragment_checks(
+        "printf '| --max-\\n| events   <int>\\n'", "max-events", 1
+    )
+    assert met_or_exceeded_count is True
+    details = report.get_result()
+    assert details is not None
+
+
+# pylint: disable=unused-argument
+def test_file_check_fragments_rendered_wrapped_unaffected(
+    reset_results_dictionary, tmpdir
+):
+    """Check that a wrapped fragment in a file is still not counted."""
+    help_file = tmpdir.mkdir("sub").join("help.txt")
+    help_file.write(
+        "| --max-\n| events    <int>   Specify the maximum number "
+        "of events to record."
+    )
+    assert len(tmpdir.listdir()) == 1
+    directory = tmpdir.dirname + "/" + tmpdir.basename + "/" + "sub"
+    help_file = "help.txt"
+    met_or_exceeded_count = invoke.invoke_all_fragment_checks(
+        "max-events", 1, help_file, directory, ""
+    )
+    assert met_or_exceeded_count is False
+    details = report.get_result()
+    assert details is not None
+
+
+# pylint: disable=unused-argument
 def test_file_exists_in_directory_check_lines(
     reset_results_dictionary, tmpdir
 ):

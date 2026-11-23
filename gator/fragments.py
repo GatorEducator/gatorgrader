@@ -12,6 +12,26 @@ WHITESPACE_RE = r"[!\"#$%&()*+,\./:;\<=\>\?\@\[\]\^`\{\|\}]"
 # define a constant for markdown parsing
 CLOSING_PARAGRAPH_INDICATOR = 2
 
+# define a regular expression for matching ANSI escape sequences
+# in text produced by a terminal renderer
+ANSI_ESCAPE_RE = re.compile(
+    r"\x1b\[[0-9;?]*[ -/]*[@-~]"  # CSI sequences, e.g. "\x1b[1m"
+    r"|\x1b\][^\x07\x1b]*(?:\x07|\x1b\\)"  # OSC sequences
+    r"|\x1b\([0-9A-B]"  # character set selection sequences
+    r"|\x1b[@-Z\\-_]"  # other two-byte escape sequences
+)
+
+# characters that may border a cell in a plain-text terminal table
+TABLE_BORDER_CHARACTERS = "|│"
+
+# an ellipsis may be a single character or three periods
+ELLIPSIS_RE = r"(?:\u2026|\.\.\.)"
+
+# the minimum number of visible characters that must precede an
+# ellipsis for a truncated fragment to count as a match; a single
+# visible character is not enough evidence for the truncated word
+MINIMUM_TRUNCATED_PREFIX_LENGTH = 2
+
 
 def get_paragraphs(contents):
     """Retrieve the paragraphs in the writing in the contents parameter."""
@@ -145,18 +165,111 @@ def count_total_words(contents):
     return count_words(contents, sum)
 
 
-def count_specified_fragment(contents, fragment):
-    """Count the specified string fragment in the string contents."""
-    fragment_count = contents.count(fragment)
-    return fragment_count
+def normalize_rendered_text(contents):
+    """Normalize text produced by a terminal renderer for counting.
+
+    Strips ANSI escape sequences, re-joins words that a table wrapped
+    across lines, and collapses runs of whitespace to a single space,
+    so that text a reader can see is counted the same way regardless
+    of the width or styling of the terminal that rendered it. A line
+    break between two word characters is treated as a break inside a
+    word, so a fragment spanning a break between two separate words
+    only matches in its joined form.
+    """
+    # remove terminal styling, which never changes the visible words
+    normalized = ANSI_ESCAPE_RE.sub("", contents)
+    # a soft hyphen only marks a place where a word may break,
+    # so it is invisible in the rendered text
+    normalized = normalized.replace("\u00ad", "")
+    # re-join lines that a narrow table cell wrapped in the
+    # middle of a word, keeping other line breaks as spaces
+    normalized = _rejoin_wrapped_lines(normalized)
+    # collapse runs of whitespace so that the spacing chosen
+    # by the renderer does not change the count
+    normalized = re.sub(r"\s+", " ", normalized).strip()
+    return normalized
 
 
-def count_specified_regex(contents, regex):
+def _rejoin_wrapped_lines(contents):
+    """Re-join lines that a table wrapped in the middle of a word."""
+    # strip the border of each table row and any surrounding space,
+    # since a wrapped cell repeats the border on every visual line
+    lines = [
+        line.strip().strip(TABLE_BORDER_CHARACTERS).strip()
+        for line in contents.splitlines()
+    ]
+    rejoined = ""
+    for line in lines:
+        if not rejoined:
+            rejoined = line
+        elif not line:
+            # a blank line separates blocks of text, so it is a separator
+            rejoined += " "
+        elif _is_word_character(rejoined[-1]) and _is_word_character(line[0]):
+            # the line break falls inside a word, so re-join without a space
+            rejoined += line
+        else:
+            rejoined += " " + line
+    return rejoined
+
+
+def _is_word_character(character):
+    """Return True if the character can appear inside a wrapped word."""
+    return character.isalnum() or character in "-_"
+
+
+def _build_fragment_pattern(fragment):
+    """Build a pattern matching a fragment or its truncated form.
+
+    The pattern matches the full fragment, or any visible prefix of
+    at least MINIMUM_TRUNCATED_PREFIX_LENGTH characters that is
+    followed by an ellipsis, for text that a terminal truncated.
+    Longer alternatives come first so that a full match is never
+    mistaken for a truncated one, and matches never overlap.
+    """
+    alternatives = [re.escape(fragment)]
+    for prefix_length in range(
+        len(fragment) - 1, MINIMUM_TRUNCATED_PREFIX_LENGTH - 1, -1
+    ):
+        prefix = re.escape(fragment[:prefix_length])
+        alternatives.append(prefix + ELLIPSIS_RE)
+    return re.compile("|".join(alternatives))
+
+
+def count_specified_fragment(contents, fragment, normalize_rendered=False):
+    """Count the specified string fragment in the string contents.
+
+    When normalize_rendered is True, the contents are first normalized
+    as text produced by a terminal renderer, so a fragment that was
+    wrapped across lines, truncated with an ellipsis, or split by
+    ANSI styling is still counted. Otherwise the count is a plain,
+    byte-exact substring count, which is the behavior kept for
+    file-based checks.
+    """
+    if not normalize_rendered:
+        fragment_count = contents.count(fragment)
+        return fragment_count
+    normalized_contents = normalize_rendered_text(contents)
+    normalized_fragment = normalize_rendered_text(fragment)
+    if not normalized_fragment:
+        return normalized_contents.count(normalized_fragment)
+    # count full matches and best-effort matches where the rendered
+    # text shows only the start of the fragment followed by an
+    # ellipsis because the terminal truncated the rest of it
+    fragment_pattern = _build_fragment_pattern(normalized_fragment)
+    return len(fragment_pattern.findall(normalized_contents))
+
+
+def count_specified_regex(contents, regex, normalize_rendered=False):
     """Count all the specified regex for a given file."""
     # not a valid regular expression, so return an valid response
     if not is_valid_regex(regex):
         return constants.markers.Invalid
     # the regular expression was valid, return the number of matches
+    # when the contents come from a terminal renderer, normalize them
+    # first so that wrapping and styling do not change the count
+    if normalize_rendered:
+        contents = normalize_rendered_text(contents)
     matches = re.findall(regex, contents, re.DOTALL)
     return len(matches)
 
