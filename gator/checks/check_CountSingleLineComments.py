@@ -49,7 +49,13 @@ def get_parser():
     required_group.add_argument(
         "--language",
         type=str,
-        choices=[constants.languages.Java, constants.languages.Python],
+        choices=[
+            constants.languages.Java,
+            constants.languages.Python,
+            constants.languages.CPP,
+            constants.languages.C,
+            constants.languages.JavaScript,
+        ],
         help="language for the single-line comments",
     )
 

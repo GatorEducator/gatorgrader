@@ -91,69 +91,54 @@ def invoke_file_in_directory_check(filecheck, directory):
     return was_file_found
 
 
-def invoke_all_comment_checks(  # noqa: PLR0912, PLR0913
+def invoke_all_comment_checks(  # noqa: PLR0912, PLR0913, PLR0915
     filecheck, directory, expected_count, comment_type, language, exact=False
 ):
     """Perform the comment check and return the results."""
     met_or_exceeded_count = 0
     actual_count = 0
     comment_count_details = {}
+    func = None
+
     # check single-line comments
     if comment_type == constants.comments.Single_Line:
-        # check comments in Java
-        if language == constants.languages.Java:
-            (
-                met_or_exceeded_count,
-                actual_count,
-                comment_count_details,
-            ) = entities.entity_greater_than_count(
-                filecheck,
-                directory,
-                expected_count,
-                comments.count_singleline_java_comment,
-                exact,
-            )
-        # check comments in Python
-        if language == constants.languages.Python:
-            (
-                met_or_exceeded_count,
-                actual_count,
-                comment_count_details,
-            ) = entities.entity_greater_than_count(
-                filecheck,
-                directory,
-                expected_count,
-                comments.count_singleline_python_comment,
-                exact,
-            )
+        match language:
+            case constants.languages.Java:
+                func = comments.count_singleline_java_comment
+            case constants.languages.Python:
+                func = comments.count_singleline_python_comment
+            case constants.languages.CPP:
+                func = comments.count_singleline_cpp_comment
+            case constants.languages.C:
+                func = comments.count_singleline_c_comment
+            case constants.languages.JavaScript:
+                func = comments.count_singleline_javascript_comment
     # check multiple-line comments
     elif comment_type == constants.comments.Multiple_Line:
-        # check comments in Java
-        if language == constants.languages.Java:
-            (
-                met_or_exceeded_count,
-                actual_count,
-                comment_count_details,
-            ) = entities.entity_greater_than_count(
-                filecheck,
-                directory,
-                expected_count,
-                comments.count_multiline_java_comment,
-                exact,
-            )
-        # check comments in Python
-        if language == constants.languages.Python:
-            (
-                met_or_exceeded_count,
-                actual_count,
-                comment_count_details,
-            ) = entities.entity_greater_than_count(
-                filecheck,
-                directory,
-                expected_count,
-                comments.count_multiline_python_comment,
-                exact,
-            )
+        match language:
+            case constants.languages.Java:
+                func = comments.count_multiline_java_comment
+            case constants.languages.Python:
+                func = comments.count_multiline_python_comment
+            case constants.languages.CPP:
+                func = comments.count_multiline_cpp_comment
+            case constants.languages.C:
+                func = comments.count_multiline_c_comment
+            case constants.languages.JavaScript:
+                func = comments.count_multiline_javascript_comment
+
+    if language in constants.languages and func is not None:
+        (
+            met_or_exceeded_count,
+            actual_count,
+            comment_count_details,
+        ) = entities.entity_greater_than_count(
+            filecheck,
+            directory,
+            expected_count,
+            func,
+            exact,
+        )
     # check comments in a not-supported language
     # currently the only valid options are:
     # --> single-line
