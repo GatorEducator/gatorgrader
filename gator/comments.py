@@ -41,7 +41,9 @@ def count_comments_python(multi, types, node_list, c):
         comment_count = 0
         for node in node_list:
             if node.type == "string":
-                if c[node.start_byte : node.end_byte].startswith('"""'):
+                if c[node.start_byte : node.end_byte].startswith('"""') or c[
+                    node.start_byte : node.end_byte
+                ].startswith("'''"):
                     comment_count += 1
         return comment_count
 
